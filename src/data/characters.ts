@@ -1036,7 +1036,7 @@ export const wrpCharacters: WrpCharacters = {
     sgttyn: [
         { name: 'Jacob Dubois' },
         { name: 'Norris Olson' },
-        { name: 'Sam Winters', factions: ['Law'] },
+        { name: '[Deputy] Sam Winters', factions: ['Law'] },
     ],
     shadowsINsilence: [
         { name: 'Emily Marie Kenward' },
@@ -1086,7 +1086,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     SolidSinn: [
         { name: 'Carl Lawsen' },
-        { name: 'Jed Wicker' },
+        { name: 'Jed Wicker', factions: ['Kettleman Gang'] }, // TODO: Confirm faction
         { name: 'Roger Thyne' },
     ],
     Sonneflower: [
@@ -1358,7 +1358,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Benjamin Gaines', factions: ['Sams Club'], nicknames: ['Ben'], displayName: 3 },
     ],
     ZetarkGG: [
-        { name: 'Cesare DiCenzo' },
+        { name: 'Cesare DiCenzo', factions: ['DiCenzo Famiglia'] },
     ],
     ZeusLair: [
         { name: 'Robbie Gold' },
