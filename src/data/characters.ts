@@ -771,7 +771,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Tantallia Tippins' },
     ],
     LetterJaye: [
-        { name: 'Wisteria Snowdon' },
+        { name: 'Wisteria Snowdon', nicknames: ['Snow'], displayName: 3 },
     ],
     Lithiaris: [
         { name: 'Lark Atwood' },
