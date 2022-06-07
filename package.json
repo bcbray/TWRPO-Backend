@@ -7,6 +7,7 @@
     "license": "MIT",
     "type": "module",
     "scripts": {
+        "build": "tsc",
         "start": "node --trace-deprecation --experimental-specifier-resolution=node dist/index.js",
         "dev": "nodemon --trace-deprecation --experimental-specifier-resolution=node dist/index.js",
         "watch": "tsc -w",
