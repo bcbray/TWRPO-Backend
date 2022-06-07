@@ -463,7 +463,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Saffron Mitchell', factions: ['Law'] },
         { name: 'Crissy Blitz', nicknames: ['Cricket'] },
         { name: 'Holly Frost' },
-        { name: 'Sadhbh O\'Brien' },
+        { name: 'Sadhbh O\'Brien', factions: ['The Humble Bunch'] },
     ],
     EmptyDome: [
         { name: 'Barry Armstrong' },
@@ -1174,8 +1174,8 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TehJamJar: [
         { name: 'Alvin Biggs' },
-        { name: 'Dwight Bridger', displayName: 2 },
-        { name: 'Klaus Pudovkin' },
+        { name: 'Dwight Bridger', displayName: 2, factions: ['The Humble Bunch'] },
+        { name: 'Klaus Pudovkin', factions: ['Kettleman Gang'] }, // TODO: Confirm faction
         { name: 'Luke Colton' },
     ],
     ThatTrollsomeGuy: [
