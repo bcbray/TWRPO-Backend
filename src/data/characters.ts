@@ -94,6 +94,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     XxAshleyxX: [
         { name: 'Rayven Hope' },
+        { name: 'Zola Caiman' },
     ],
     babysiren_: [
         { name: 'Laura Dunn' },
@@ -155,7 +156,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Raul Sanchez' },
     ],
     AngelKnivez: [
-        { name: 'Renni Bradshaw' },
+        { name: 'Renni Bradshaw', nicknames: ['Rimmy'] },
     ],
     AngryPotatoChipz: [
         { name: 'Jamie Marlow' },
@@ -188,6 +189,7 @@ export const wrpCharacters: WrpCharacters = {
     aviceration: [
         { name: 'Ella Mason' },
         { name: 'Vincencia Romeo', nicknames: ['Vinnie'], displayName: 3 },
+        { name: 'Kitty LaRoux' },
     ],
     Avioto_: [
         { name: 'Amadeo Moretti' },
@@ -500,6 +502,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     famousivan: [
         { name: 'Raul Dominguez' },
+        { name: 'Manual Salamanca', displayName: 2 },
     ],
     Farmhouse78: [
         { name: 'Stewart Harington' },
@@ -1177,7 +1180,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TehJamJar: [
         { name: 'Alvin Biggs' },
-        { name: 'Dwight Bridger' },
+        { name: 'Dwight Bridger', displayName: 2 },
         { name: 'Klaus Pudovkin' },
         { name: 'Luke Colton' },
     ],
