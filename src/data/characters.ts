@@ -590,7 +590,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jericho Blackfoot' },
     ],
     grigoriypeppo: [
-        { name: 'Jack Kettleman', factions: ['Kettleman Gang'], displayName: 0 },
+        { name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2 },
         { name: 'Robert Dixon' },
     ],
     gtplays: [
