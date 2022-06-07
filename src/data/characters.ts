@@ -44,7 +44,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Ssaab: [
         { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'] },
-        { name: 'Ali Baba' },
+        { name: 'Ali Baba', displayName: 0 },
     ],
     Lyndi: [
         { name: 'Delilah Deveaux' },
@@ -100,6 +100,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Blaustoise: [
         { name: 'Jesse Flint' },
+    ],
+    Spaceboy: [
+        { name: 'James Randal', nicknames: ['Jim Beef'] },
     ],
     
     '0Reed': [
@@ -221,7 +224,7 @@ export const wrpCharacters: WrpCharacters = {
     BitterRabbit: [
         { name: 'Eliza Kerrigan' },
         { name: 'Grace Shelton' },
-        { name: 'Kate Hearst' },
+        { name: '[Cadet] Kate Hearst', factions: ['Law'] },
         { name: 'Sam Caldwell' },
     ],
     blackhawkgamiing: [
@@ -477,7 +480,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Kora Vane' },
     ],
     EthanSchriver: [
-        { name: 'Leanord Scout' },
+        { name: 'Leanord Scout', displayName: 2 },
     ],
     extralivia: [
         { name: 'Lydia Spade' },
@@ -582,7 +585,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jericho Blackfoot' },
     ],
     grigoriypeppo: [
-        { name: 'Jack Kettleman', factions: ['Kettleman Gang'] },
+        { name: 'Jack Kettleman', factions: ['Kettleman Gang'], displayName: 0 },
         { name: 'Robert Dixon' },
     ],
     gtplays: [
@@ -1245,7 +1248,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Samson Graves' },
     ],
     toodlehausn: [
-        { name: 'Adelae Wright' },
+        { name: 'Adelae Wright', nicknames: ['Ada'], displayName: 3 },
         { name: 'Sadie Stronge' },
     ],
     travpiper: [
