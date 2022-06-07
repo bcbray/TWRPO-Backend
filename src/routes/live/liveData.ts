@@ -68,7 +68,7 @@ const searchNumDefault = 2000;
 const searchNumMax = 5000;
 const updateCacheMs = 1000 * 60;
 
-const toFactionMini = (faction: string) => faction.toLowerCase().replace(' ', '');
+const toFactionMini = (faction: string) => faction.toLowerCase().replaceAll(' ', '');
 
 /*
 
