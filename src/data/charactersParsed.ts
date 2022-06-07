@@ -12,9 +12,9 @@ for (const [keyStr, value] of Object.entries(characters)) {
     let newValue: any = value;
     if (value instanceof RegExp) {
         newValue = value.source;
-    } else if (key === 'npCharacters') {
+    } else if (key === 'wrpCharacters') {
         newValue = mapObj(
-            value as typeof characters.npCharacters,
+            value as typeof characters.wrpCharacters,
             chars => chars.map(char => ({ ...char, ...(char.factions ? { faction: char.factions[0] } : {}) }))
         );
     }

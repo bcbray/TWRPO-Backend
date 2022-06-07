@@ -1,22 +1,21 @@
 import { HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
-import { gotScraping } from 'got-scraping';
 
 import { apiClient } from '../../twitchSetup';
 import {
     log, cloneDeepJson, filterObj, mapObj, parseParam, isObjEmpty, parseLookup,
 } from '../../utils';
 
-import { regNp, regOthers, regNpPublic, regNpInternational, regNpWhitelist } from '../../data/settings';
+import { regOthers, regWrp } from '../../data/settings';
 import settingsParsed from '../../data/settingsParsed';
 import factionsParsed from '../../data/factionsParsed';
-import { NpFactions, npFactions } from '../../data/meta';
-import { npCharacters as npCharactersOld } from '../../data/characters';
-import { isFactionColor, lesserFactions, greaterFactions, npFactionsRegex, npFactionsSubRegex, filterFactionsBase } from '../../data/factions';
+import { WrpFactions, wrpFactions } from '../../data/meta';
+import { wrpCharacters as wrpCharactersOld } from '../../data/characters';
+import { isFactionColor, lesserFactions, greaterFactions, wrpFactionsRegex, wrpFactionsSubRegex, filterFactionsBase } from '../../data/factions';
 
 import type { RecordGen } from '../../utils';
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from '../../data/meta';
-import type { Character as CharacterOld, NpCharacters as NpCharactersOld, AssumeOther, AssumeServer, WlBias } from '../../data/characters';
-import type { NpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } from '../../data/factions';
+import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther, AssumeServer, WlBias } from '../../data/characters';
+import type { WrpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } from '../../data/factions';
 
 const includedData = Object.assign(
     {},
@@ -24,7 +23,7 @@ const includedData = Object.assign(
         .map(key => ({ [key]: (settingsParsed as any)[key] })),
     ...['useColorsDark', 'useColorsLight']
         .map(key => ({ [key]: (factionsParsed as any)[key] })),
-    { npFactions }
+    { wrpFactions }
 );
 
 interface Character extends Omit<CharacterOld, 'factions' | 'displayName' | 'assumeServer' | 'wlBias'> {
@@ -37,20 +36,16 @@ interface Character extends Omit<CharacterOld, 'factions' | 'displayName' | 'ass
     wlBias: WlBias;
 }
 
-type NpCharacter = Character[] & { assumeChar?: Character; assumeServer: AssumeServer; wlBias: WlBias; assumeOther: number; };
+type WrpCharacter = Character[] & { assumeChar?: Character; assumeServer: AssumeServer; wlBias: WlBias; assumeOther: number; };
 
-type NpCharacters = { [key: string]: NpCharacter };
+type WrpCharacters = { [key: string]: WrpCharacter };
 
-const npCharacters = cloneDeepJson<NpCharactersOld, NpCharacters>(npCharactersOld);
+const wrpCharacters = cloneDeepJson<WrpCharactersOld, WrpCharacters>(wrpCharactersOld);
 
 const fullFactionMap: { [key in FactionMini]?: FactionFull } = {}; // Factions with corresponding characters
 
 const displayNameDefault: { [key in FactionMini]?: number } = {
-    police: 2,
-    doj: 2,
-    asrr: 0,
-    mersions: 0,
-    dans: 0,
+    law: 2,
 } as const;
 
 const FSTATES = {
@@ -66,7 +61,7 @@ const ASTATES = {
     neverNp: 2,
 } as const;
 
-const game = '32982' as const;
+const game = '493959' as const;
 const languages: string[] = ['en', 'hi', 'no', 'pt']; // https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 const streamType = HelixStreamType.Live;
 const bigLimit = 100 as const;
@@ -84,9 +79,8 @@ const toFactionMini = (faction: string) => faction.toLowerCase().replace(' ', ''
 *****************************************************************************
 
 */
-const fbStreamers: [string, NpCharacter][] = [];
 
-for (const [streamer, characters] of Object.entries(npCharacters)) {
+for (const [streamer, characters] of Object.entries(wrpCharacters)) {
     const streamerLower = streamer.toLowerCase();
 
     /* if (characters.length > 0) {
@@ -103,7 +97,6 @@ for (const [streamer, characters] of Object.entries(npCharacters)) {
 
     const foundOthers: { [key in AssumeOther]?: boolean } = {};
     let wlBiasIdx: number | undefined;
-    let isFacebook = false;
 
     // eslint-disable-next-line no-loop-func
     characters.forEach((char, charIdx) => {
@@ -116,7 +109,6 @@ for (const [streamer, characters] of Object.entries(npCharacters)) {
         let knownName;
         let currentName = null;
         let displayNameNum = charOld.displayName;
-        if (char.facebook) isFacebook = true;
 
         for (let i = 0; i < names.length; i++) {
             const name = names[i];
@@ -185,7 +177,7 @@ for (const [streamer, characters] of Object.entries(npCharacters)) {
         if (displayNameNum === undefined) displayNameNum = displayNameDefault[primaryFaction] ?? 1;
 
         const displayNameTitle = titles.length ? `《${titles.join(' ')}》` : '';
-        let displayNameChar = '';
+        let displayNameChar = ''; 
         if (knownName !== undefined) {
             displayNameChar = knownName;
             parsedNames.push(RegExp.escape(`${displayNameChar.toLowerCase()}s`));
@@ -202,7 +194,7 @@ for (const [streamer, characters] of Object.entries(npCharacters)) {
 
         nameRegAll.push(`\\b(?:${parsedNames.join('|')})\\b`);
         if (char.factions.includes('development') && streamerLower !== 'dwjft') { // Include regex for dev faction
-            nameRegAll.push(npFactionsRegex.development.source);
+            nameRegAll.push(wrpFactionsRegex.development.source);
         }
         char.nameReg = new RegExp(nameRegAll.join('|'), nameRegAll.length > 1 ? 'ig' : 'g');
 
@@ -213,7 +205,7 @@ for (const [streamer, characters] of Object.entries(npCharacters)) {
         }
 
         if (charOld.assume !== undefined) foundOthers[charOld.assume] = true;
-
+ 
         if (!characters.assumeServer) characters.assumeServer = char.assumeServer || 'whitelist';
         if (!char.assumeServer) char.assumeServer = characters.assumeServer;
         if (char.assumeChar && !characters.assumeChar) characters.assumeChar = char;
@@ -246,16 +238,12 @@ for (const [streamer, characters] of Object.entries(npCharacters)) {
     }
 
     if (streamer !== streamerLower) {
-        npCharacters[streamerLower] = characters;
-        delete npCharacters[streamer];
-    }
-
-    if (isFacebook) {
-        fbStreamers.push([streamer, characters]);
+        wrpCharacters[streamerLower] = characters;
+        delete wrpCharacters[streamer];
     }
 }
 
-const npFactionsRegexEntries = Object.entries(npFactionsRegex) as [NpFactionsRegexMini, RegExp][];
+const wrpFactionsRegexEntries = Object.entries(wrpFactionsRegex) as [WrpFactionsRegexMini, RegExp][];
 
 const knownPfps: { [key: string]: string } = {};
 
@@ -317,78 +305,6 @@ export const getStreams = async (options: GetStreamsOptions, endpoint = '<no-end
     return gtaStreams;
 };
 
-// interface FbStream {
-//     channelName: string;
-//     videoUrl: string;
-//     viewCountStr: string;
-//     viewCount: number;
-//     pfpUrl: string;
-//     thumbnailUrl: string;
-//     characters: NpCharacter[];
-// }
-
-interface FbStreamDetails {
-    userDisplayName: string,
-    videoUrl: string
-    title: string,
-    viewers: number,
-    profileUrlOverride: string,
-    thumbnailUrl: string,
-    facebook: boolean,
-}
-
-type FbStreamsMap = { [key: string]: FbStreamDetails };
-
-const initialStamp = +new Date();
-let fbLastMajorChangePrev = 0;
-let fbLastMajorChange = 0;
-const fbStreamsCache: FbStreamsMap = {};
-// let fbStreamsCacheJson = '';
-// let lastFbStreamsLookup = 0;
-
-export const getFbStreams = async (): Promise<FbStreamDetails[]> => {
-    const fbStreamsRaw = (await Promise.all(fbStreamers
-        .map(async ([streamer, characters]) => {
-            const { body } = await gotScraping.get(`https://mobile.facebook.com/gaming/${streamer}`);
-            const isLive = body.includes('playbackIsLiveStreaming&quot;:true');
-            if (streamer === 'JJLakee' && isLive == false) console.log('NOT LIVE', streamer, body);
-            if (isLive === false) return undefined;
-            return [streamer, body];
-        })))
-        .filter(result => result !== undefined);
-
-    const fbStreams: FbStreamDetails[] = fbStreamsRaw
-        .map((data) => {
-            const [streamer, body] = (data as [string, string]);
-            const videoUrl = (body.match(/&quot;videoURL&quot;:&quot;(.*?)&quot;/) || ['', ''])[1]
-                .replace(/\\/g, '');
-            const viewCountStr = (body.match(/>LIVE<[\s\S]+?<\/i>([\d.K]+)<\/span>/) || [])[1];
-            let viewCount = parseFloat(viewCountStr);
-            if (viewCountStr.includes('K')) viewCount *= 1000;
-            const pfpUrl = (body.match(/[ "]profpic"[\s\S]+?(http.+?)&#039;/) || ['', ''])[1]
-                .replace(/\\(\w\w) /g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
-            const thumbnailUrl = (body.match(/\sdata-store=[\s\S]+?background: url\(&#039;(http.+?)&#039;/) || ['', ''])[1]
-                .replace(/\\(\w\w) /g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
-            // console.log(streamer, viewCountStr, videoUrl);
-
-            return {
-                userDisplayName: streamer,
-                videoUrl,
-                title: `《Facebook Gaming - ${streamer}》`,
-                viewers: viewCount,
-                profileUrlOverride: pfpUrl,
-                thumbnailUrl,
-                facebook: true,
-            };
-        });
-
-    fbStreams.sort((a, b) => b.viewers - a.viewers);
-
-    // const fbStreams: FbStream[] = fbStreamsMaybe.filter(fbStream => fbStream !== undefined);
-
-    return fbStreams;
-};
-
 export interface LiveOptions {
     factionName: FactionMini;
     filterEnabled: boolean;
@@ -423,10 +339,8 @@ interface Stream extends BaseStream {
     noPublicInclude: boolean; // use these props on frontend to determine whether stream should show
     noInternationalInclude: boolean; // use these props on frontend to determine whether stream should show
     wlOverride: boolean;
-    facebook: boolean;
     videoUrl?: string;
     thumbnailUrl?: string;
-    // keepCase: boolean;
 }
 
 type FactionCount = { [key in FactionMini]: number };
@@ -437,32 +351,22 @@ interface Live {
     intervalSeconds: number;
     useColorsDark: RecordGen;
     useColorsLight: RecordGen;
-    npFactions: NpFactions;
+    wrpFactions: WrpFactions;
     factionCount: FactionCount;
     filterFactions: any[];
     streams: Stream[];
-    streamsFb: Stream[];
-    channelsFb: string[];
     baseHtml: string;
-    baseHtmlFb: string;
-    fbDebounce: number;
-    fbMaxLookup: number;
-    fbSleep: number;
-    fbGroupSize: number;
-    fbGroupSleepInc: number;
-    fbRandomRadius: number;
-    fbLastMajorChange: number;
     tick: number;
 }
 
 const cachedResults: { [key: string]: Live | undefined } = {};
-const npStreamsPromise: { [key: string]: Promise<Live> | undefined } = {};
+const wrpStreamsPromise: { [key: string]: Promise<Live> | undefined } = {};
 
-export const getNpLive = async (baseOptions = {}, override = false, endpoint = '<no-endpoint>', useActivePromise = false): Promise<Live> => {
+export const getWrpLive = async (baseOptions = {}, override = false, endpoint = '<no-endpoint>', useActivePromise = false): Promise<Live> => {
     if (!isObjEmpty(baseOptions)) log(`${endpoint}: options -`, JSON.stringify(baseOptions));
 
     const options: LiveOptions = {
-        factionName: 'allnopixel',
+        factionName: 'allwildrp',
         filterEnabled: true,
         allowPublic: true,
         allowInternational: true,
@@ -486,49 +390,19 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
         return cachedResults[optionsStr]!;
     }
 
-    if (npStreamsPromise[optionsStr] === undefined || override) {
-        npStreamsPromise[optionsStr] = new Promise<Live>(async (resolve, reject) => {
+    if (wrpStreamsPromise[optionsStr] === undefined || override) {
+        wrpStreamsPromise[optionsStr] = new Promise<Live>(async (resolve, reject) => {
             try {
                 log(`${endpoint}: Fetching streams data...`);
 
                 const {
-                    factionName, filterEnabled, allowPublic, allowInternational, allowOthers, searchNum, international,
+                    factionName, filterEnabled, allowOthers, searchNum, international,
                 } = options;
                 const allowOthersNow = allowOthers || factionName === 'other';
 
                 const nowTime = +new Date();
-                // if ((nowTime - lastFbStreamsLookup) > 1000 * 60 * 10) {
-                //     lastFbStreamsLookup = nowTime;
-                //     // fbStreamsCache = await getFbStreams();
-                // }
 
-                const fbStreams = Object.values(fbStreamsCache).sort((a, b) => b.viewers - a.viewers);
-                const gtaStreams: (HelixStream | FbStreamDetails)[] = await getStreams({ searchNum, international }, endpoint);
-
-                const numStreamsFb = fbStreams.length;
-                if (numStreamsFb > 0) {
-                    let fbIdx = 0;
-                    let addStream = fbStreams[fbIdx];
-                    for (let i = 0; i < gtaStreams.length; i++) {
-                        const stream = gtaStreams[i];
-                        if (addStream.viewers >= stream.viewers) {
-                            gtaStreams.splice(i, 0, addStream);
-                            fbIdx++;
-                            if (fbIdx < numStreamsFb) {
-                                addStream = fbStreams[fbIdx];
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-                    if (fbIdx < numStreamsFb) {
-                        for (let i = fbIdx; i < numStreamsFb; i++) {
-                            gtaStreams.push(fbStreams[i]);
-                        }
-                    }
-                }
-
-                log(`${endpoint}: fbStreams`, fbStreams.map(fbStream => [fbStream.userDisplayName, fbStream.viewers]));
+                const gtaStreams: (HelixStream)[] = await getStreams({ searchNum, international }, endpoint);
 
                 log(`${endpoint}: Fetched streams! Now processing data...`);
 
@@ -536,15 +410,14 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
 
                 // const useTextColor = '#000';
                 // const useColors = darkMode ? useColorsDark : useColorsLight;
-                const metaFactions: FactionMini[] = ['allnopixel', 'alltwitch'];
+                const metaFactions: FactionMini[] = ['allwildrp', 'alltwitch'];
                 const isMetaFaction = metaFactions.includes(factionName);
                 // const isNpMetaFaction = npMetaFactions.includes(factionName);
                 // const minViewersUse = isNpMetaFaction ? minViewers : 3;
 
                 let nextId = 0;
-                const npStreams: Stream[] = [];
-                const npStreamsFb: Stream[] = [];
-                const factionCount: FactionCount = mapObj(npFactions, () => 0);
+                const wrpStreams: Stream[] = [];
+                const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
                 gtaStreams.forEach((helixStream) => {
                     const { userDisplayName: channelName, title, viewers } = helixStream;
 
@@ -553,10 +426,8 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                         title,
                         // tagIds: helixStream.tagIds,
                         viewers,
-                        profileUrl: (helixStream as FbStreamDetails).profileUrlOverride || knownPfps[(helixStream as HelixStream).userId],
+                        profileUrl: knownPfps[(helixStream as HelixStream).userId],
                     }; // rpServer, characterName, faction, tagText, tagFaction
-
-                    const isFacebook = !!(helixStream as FbStreamDetails).facebook;
 
                     // let noOthersInclude = true; // INV: Still being used?
 
@@ -582,14 +453,14 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                     }
 
                     let onNp = false;
-                    const onNpPos = title.indexOfRegex(regNp);
+                    const onNpPos = title.indexOfRegex(regWrp);
                     if (onNpPos > -1 && (onOther === false || onNpPos < onOtherPos)) {
                         onNp = true;
                         onOther = false;
                         onOtherIncluded = false;
                     }
 
-                    const characters = npCharacters[channelNameLower] as NpCharacter | undefined;
+                    const characters = wrpCharacters[channelNameLower] as WrpCharacter | undefined;
 
                     if (characters && characters.assumeOther === ASTATES.neverNp) {
                         console.log('Excluded', channelName, 'because of "neverNp"');
@@ -621,14 +492,14 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                         } else if (npStreamer && !onMainOther && !onOther) {
                             // If NoPixel streamer that isn't on another server
                             streamState = FSTATES.nopixel;
-                            serverName = 'NP';
+                            serverName = 'WRP';
                         } else {
                             return;
                         }
                     } else if (npStreamer && !onMainOther && !onOther) {
                         // If NoPixel streamer that isn't on another server
                         streamState = FSTATES.nopixel;
-                        serverName = 'NP';
+                        serverName = 'WRP';
                     } else {
                         streamState = FSTATES.other;
                     }
@@ -677,23 +548,12 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                             noPublicInclude: true,
                             noInternationalInclude: true,
                             wlOverride: usuallyWl,
-                            facebook: isFacebook,
                             // keepCase: true,
                         };
 
-                        if (isFacebook) {
-                            helixStream = helixStream as FbStreamDetails;
-                            stream.videoUrl = helixStream.videoUrl;
-                            stream.thumbnailUrl = helixStream.thumbnailUrl;
-                        }
-
                         nextId++;
                         factionCount.other++;
-                        if (!isFacebook) { // || integrated
-                            npStreams.push(stream);
-                        } else {
-                            npStreamsFb.push(stream);
-                        }
+                        wrpStreams.push(stream);
                         return;
                     }
 
@@ -702,21 +562,7 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                     let nowCharacter;
                     let onServer: AssumeServer = assumeServer;
 
-                    const onPublicIndex = title.indexOfRegex(regNpPublic, 0, Infinity);
-                    const onWhitelistIndex = title.indexOfRegex(regNpWhitelist, 0, Infinity);
-                    const onWorldwideIndex = title.indexOfRegex(regNpInternational, 0);
                     let onServerDetected = false;
-
-                    if (onWorldwideIndex !== -1) {
-                        onServer = 'international';
-                        onServerDetected = true;
-                    } else if (onPublicIndex < onWhitelistIndex) {
-                        onServer = 'public';
-                        onServerDetected = true;
-                    } else if (onWhitelistIndex < onPublicIndex) {
-                        onServer = 'whitelist';
-                        onServerDetected = true;
-                    }
 
                     if (hasCharacters) {
                         let lowestPos = Infinity;
@@ -757,7 +603,7 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                     }
                     const factionObjects: FactionObj[] = [];
 
-                    for (const [faction, regex] of npFactionsRegexEntries) {
+                    for (const [faction, regex] of wrpFactionsRegexEntries) {
                         const matchPos = title.indexOfRegex(regex);
                         if (matchPos > -1) {
                             if (nowCharacter) {
@@ -781,7 +627,7 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                         if (factionsInTitle.length > 0) {
                             const charFactionsMap = Object.assign({}, ...nowCharacter.factions.map(faction => ({ [faction]: true })));
                             for (const faction of factionsInTitle) {
-                                if (!charFactionsMap[faction] && !(faction === 'doc' && charFactionsMap.medical)) {
+                                if (!charFactionsMap[faction] && !(charFactionsMap.medical)) {
                                     newCharFactionSpotted = true;
                                     break;
                                 }
@@ -802,22 +648,12 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                         onServer = assumeServer;
                     }
 
-                    const onNpWhitelist = onServer === 'whitelist';
-                    const onNpPublic = onServer === 'public';
-                    const onNpInternational = onServer === 'international';
-
                     // log(nowCharacter);
 
                     let allowStream = isMetaFaction;
                     if (allowStream === false) {
-                        if (factionName === 'othernp') {
+                        if (factionName === 'otherwrp') {
                             allowStream = !nowCharacter && !hasFactions && !hasCharacters;
-                        } else if (factionName === 'whitelistnp') {
-                            allowStream = onNpWhitelist;
-                        } else if (factionName === 'publicnp') {
-                            allowStream = onNpPublic;
-                        } else if (factionName === 'international') {
-                            allowStream = onNpInternational;
                         } else {
                             // eslint-disable-next-line no-lonely-if
                             if (nowCharacter) {
@@ -831,8 +667,8 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                     }
 
                     let hasFactionsTagText;
-                    if (!nowCharacter && hasFactions && factionNames[0] in npFactionsSubRegex) {
-                        for (const [tagText, tagReg] of npFactionsSubRegex[factionNames[0]]!) {
+                    if (!nowCharacter && hasFactions && factionNames[0] in wrpFactionsSubRegex) {
+                        for (const [tagText, tagReg] of wrpFactionsSubRegex[factionNames[0]]!) {
                             if (tagReg.test(title)) {
                                 hasFactionsTagText = tagText;
                                 break;
@@ -852,11 +688,7 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
 
                     // log(allowStream === false, (onNpPublic && factionName !== 'publicnp' && allowPublic == false));
 
-                    if (
-                        allowStream === false
-                            || (onNpPublic && factionName !== 'publicnp' && allowPublic == false)
-                            || (onNpInternational && factionName !== 'international' && allowInternational == false)
-                    ) {
+                    if (allowStream === false) {
                         return;
                     }
 
@@ -883,13 +715,12 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                         tagText = `? ${possibleCharacter.displayName} ?`;
                     } else {
                         // keepCase = true;
-                        activeFactions = ['othernp'];
-                        tagFaction = 'othernp';
+                        activeFactions = ['otherwrp'];
+                        tagFaction = 'otherwrp';
                         tagText = `${serverName}`;
                     }
 
                     if (newCharFactionSpotted) activeFactions.push('guessed');
-                    if (onNpWhitelist) activeFactions.push('whitelistnp');
 
                     const stream: Stream = {
                         id: nextId,
@@ -902,32 +733,16 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                         factionsMap: Object.assign({}, ...activeFactions.map(faction => ({ [faction]: true }))),
                         tagText,
                         tagFaction,
-                        tagFactionSecondary: (onNpPublic && 'publicnp') || (onNpInternational && 'international') || undefined,
                         noOthersInclude: true, // noOthersInclude
-                        noPublicInclude: !onNpPublic,
-                        noInternationalInclude: !onNpInternational,
+                        noPublicInclude: false,
+                        noInternationalInclude: false,
                         wlOverride: usuallyWl,
-                        facebook: isFacebook,
-                        // keepCase,
                     };
-
-                    if (isFacebook) {
-                        helixStream = helixStream as FbStreamDetails;
-                        stream.videoUrl = helixStream.videoUrl;
-                        stream.thumbnailUrl = helixStream.thumbnailUrl;
-                    }
 
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
-                    factionCount.allnopixel++;
-                    if (onNpWhitelist) factionCount.whitelistnp++;
-                    if (onNpPublic) factionCount.publicnp++;
-                    if (onNpInternational) factionCount.international++;
-                    if (!isFacebook) { // || integrated
-                        npStreams.push(stream);
-                    } else {
-                        npStreamsFb.push(stream);
-                    }
+                    factionCount.allwildrp++;
+                    wrpStreams.push(stream);
                 });
 
                 factionCount.alltwitch = gtaStreams.length;
@@ -951,28 +766,13 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
                 // Includes npManual, _ORDER_, _TITLE_, _VIEWERS_, _PFP_, _CHANNEL1_, _CHANNEL2_
                 // eslint-disable-next-line max-len
                 const baseHtml = '<div class="tno-stream" id="tno-stream-_TNOID_" data-target="" style="order: _ORDER_;"><div class="Layout-sc-nxg1ff-0 cUYIUW"><div><div class="Layout-sc-nxg1ff-0"><article data-a-target="card-7" data-a-id="card-_CHANNEL1_" class="Layout-sc-nxg1ff-0 frepDF"><div class="Layout-sc-nxg1ff-0 ggozbG"><div class="Layout-sc-nxg1ff-0 kTkZWx"><div class="ScTextWrapper-sc-14f6evl-1 fejGga"><div class="ScTextMargin-sc-14f6evl-2 biJSak"><div class="Layout-sc-nxg1ff-0 hrCGTZ"><a lines="1" data-a-target="preview-card-title-link" class="ScCoreLink-sc-udwpw5-0 jswAtS ScCoreLink-sc-ybxm10-0 dnhAtW tw-link" href="/_CHANNEL1_"><h3 title="_TITLE_" class="CoreText-sc-cpl358-0 ilJsSZ">_TITLE_</h3></a></div></div><div class="ScTextMargin-sc-14f6evl-2 biJSak"><p class="CoreText-sc-cpl358-0 eyuUlK"><a data-test-selector="ChannelLink" data-a-target="preview-card-channel-link" class="ScCoreLink-sc-udwpw5-0 jswAtS tw-link" href="/_CHANNEL1_/videos">_CHANNEL2_</a></p></div><div class="Layout-sc-nxg1ff-0 dRKpYM"><div class="InjectLayout-sc-588ddc-0 eXNwOD"><div class="InjectLayout-sc-588ddc-0 beXCOC"><button class="ScTag-sc-xzp4i-0 iKNvdP tw-tag" aria-label="English" data-a-target="English"><div class="ScTagContent-sc-xzp4i-1 gONNWj">English</div></button></div></div></div></div><div class="ScImageWrapper-sc-14f6evl-0 jISSAW"><a data-a-target="card-7" data-a-id="card-_CHANNEL1_" data-test-selector="preview-card-avatar" class="ScCoreLink-sc-udwpw5-0 ktfxqP tw-link" href="/_CHANNEL1_/videos"><div class="ScAspectRatio-sc-1sw3lwy-1 eQcihY tw-aspect"><div class="ScAspectSpacer-sc-1sw3lwy-0 dsswUS"></div><figure aria-label="_CHANNEL1_" class="ScAvatar-sc-12nlgut-0 bmqpYD tw-avatar"><img class="InjectLayout-sc-588ddc-0 iDjrEF tw-image tw-image-avatar" alt="_CHANNEL1_" src="_PFP_"></figure></div></a></div><div class="Layout-sc-nxg1ff-0 dJkOSY"><div class="Layout-sc-nxg1ff-0 fUcieP"><div class="InjectLayout-sc-588ddc-0 ktQueN"><div class="Layout-sc-nxg1ff-0 feedback-card"><div data-toggle-balloon-id="8449e4b3-2ebb-4b8b-ad13-cd0cd1f9c3a9" class="Layout-sc-nxg1ff-0 fcPbos"><div data-test-selector="toggle-balloon-wrapper__mouse-enter-detector" style="display: inherit;"><button class="ScCoreButton-sc-1qn4ixc-0 hnikCY ScButtonIcon-sc-o7ndmn-0 bQJLWW" aria-label="Recommendation feedback" data-a-target="rec-feedback-card-button"><div class="ButtonIconFigure-sc-1ttmz5m-0 cmxCiB"><div class="ScIconLayout-sc-1bgeryd-0 cXxJjc"><div class="ScAspectRatio-sc-1sw3lwy-1 kPofwJ tw-aspect"><div class="ScAspectSpacer-sc-1sw3lwy-0 dsswUS"></div><svg width="100%" height="100%" version="1.1" viewBox="0 0 20 20" x="0px" y="0px" class="ScIconSVG-sc-1bgeryd-1 ifdSJl"><g><path d="M10 18a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM8 4a2 2 0 104 0 2 2 0 00-4 0z"></path></g></svg></div></div></div></button></div></div></div></div></div></div></div></div><div class="ScWrapper-sc-uo2e2v-0 IbFZu tw-hover-accent-effect"><div class="ScTransformWrapper-sc-uo2e2v-1 ScCornerTop-sc-uo2e2v-2 lmjSRR gaYszF"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ScCornerBottom-sc-uo2e2v-3 gEIaFB fGRgGA"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ScEdgeLeft-sc-uo2e2v-4 eTyELd eRrHBW"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ScEdgeBottom-sc-uo2e2v-5 kocUMp cWOxay"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ghrhyx"><a data-a-target="preview-card-image-link" class="ScCoreLink-sc-udwpw5-0 ktfxqP tw-link" href="/_CHANNEL1_"><div class="Layout-sc-nxg1ff-0 fjGGXR"><div class="ScAspectRatio-sc-1sw3lwy-1 kPofwJ tw-aspect"><div class="ScAspectSpacer-sc-1sw3lwy-0 kECpQh"></div><img alt="_TITLE_ - _CHANNEL1_" class="tw-image" src="https://static-cdn.jtvnw.net/previews-ttv/live_user__CHANNEL1_-440x248.jpg_TIMEID_"></div><div class="ScPositionCorner-sc-1iiybo2-1 gtpTmt"><div class="ScChannelStatusTextIndicator-sc-1f5ghgf-0 gfqupx tw-channel-status-text-indicator" font-size="font-size-6"><p class="CoreText-sc-cpl358-0 duTViv">LIVE</p></div></div><div class="ScPositionCorner-sc-1iiybo2-1 eHqCXd"><div class="ScMediaCardStatWrapper-sc-1ncw7wk-0 jluyAA tw-media-card-stat">_VIEWERS_ viewers</div></div></div></a></div></div></article></div></div></div></div>';
-                const baseHtmlFb = baseHtml
-                    .replaceAll('https://static-cdn.jtvnw.net/previews-ttv/live_user__CHANNEL1_-440x248.jpg_TIMEID_', '_THUMBNAIL_')
-                    .replaceAll('href="/_CHANNEL1_/videos"', 'href="https://www.facebook.com/_CHANNEL2_"')
-                    .replaceAll('href="/_CHANNEL1_"', 'href="_VIDEOURL_"');
 
                 const result: Live = {
                     ...includedData,
                     factionCount,
                     filterFactions,
-                    streams: npStreams,
-                    streamsFb: npStreamsFb,
-                    // streamsFb: [], // Temporary disable fb until frontend fix
-                    channelsFb: fbStreamers.map(data => data[0]),
+                    streams: wrpStreams,
                     baseHtml,
-                    baseHtmlFb,
-                    fbDebounce: 1000 * 60 * 5.5,
-                    fbMaxLookup: 3,
-                    fbSleep: 2100,
-                    fbGroupSize: 3,
-                    fbGroupSleepInc: 1400,
-                    fbRandomRadius: 1000,
-                    fbLastMajorChange,
                     tick: nowTime,
                 };
 
@@ -987,156 +787,22 @@ export const getNpLive = async (baseOptions = {}, override = false, endpoint = '
             }
         });
     } else {
-        log(`${endpoint}: Waiting for npStreamsPromise...`);
+        log(`${endpoint}: Waiting for wrpStreamsPromise...`);
     }
 
-    await npStreamsPromise[optionsStr]!;
+    await wrpStreamsPromise[optionsStr]!;
 
     log(`${endpoint}: Got data!`);
 
     return cachedResults[optionsStr]!;
 };
 
-const fbStreamSkeleton: FbStreamDetails = {
-    userDisplayName: '',
-    videoUrl: '',
-    title: '',
-    viewers: 0,
-    profileUrlOverride: '',
-    thumbnailUrl: '',
-    facebook: true,
-};
-const fbStreamSkeletonKeys = Object.keys(fbStreamSkeleton);
-
-const checkFbStreamsMap = (fbStreamsMap: any): fbStreamsMap is FbStreamsMap => {
-    if (fbStreamsMap == null || typeof fbStreamsMap !== 'object') return false;
-
-    const fbStreams = Object.values(fbStreamsMap);
-    if (fbStreams.length === 0) return true;
-
-    const fbStream = fbStreams[0];
-    if (fbStream == null || typeof fbStream !== 'object') return false;
-
-    const objKeys = Object.keys(fbStream);
-    const mixedKeys = new Set(fbStreamSkeletonKeys.concat(objKeys));
-    if (mixedKeys.size !== fbStreamSkeletonKeys.length || mixedKeys.size !== objKeys.length) return false;
-
-    return true;
-};
-
-const integrateFb = (live: Live): Stream[] => {
-    const { streams, streamsFb } = live;
-    const streamsAll: Stream[] = [];
-
-    const numStreamsFb = streamsFb.length;
-    if (numStreamsFb === 0) return streams;
-
-    let fbIdx = 0;
-    let addStream: Stream | undefined = streamsFb[fbIdx];
-    for (let i = 0; i < streams.length; i++) {
-        const stream = streams[i];
-        while (addStream && addStream.viewers >= stream.viewers) {
-            streamsAll.push(addStream);
-            fbIdx++;
-            addStream = streamsFb[fbIdx];
-        }
-        streamsAll.push(stream);
-    }
-    if (fbIdx < numStreamsFb) {
-        for (let i = fbIdx; i < numStreamsFb; i++) {
-            streamsAll.push(streamsFb[i]);
-        }
-    }
-
-    return streamsAll;
-};
-
-export const newFbData = async (fbChannels: string[], fbStreamsMap: any, tick: number): Promise<Stream[]> => {
-    console.log(fbChannels, fbStreamsMap);
-
-    if (tick < initialStamp) {
-        log('>>>>> Ignoring data from before initialStamp', initialStamp, tick);
-        return [];
-    }
-
-    if (!checkFbStreamsMap(fbStreamsMap)) {
-        log('>>>>> Bad fbStreamsMap structure!!!');
-        return [];
-    }
-
-    let isMajor = fbLastMajorChange === 0; // Initial POST counts as a major change (full data)
-    for (const channel of fbChannels) {
-        if (!npCharacters[channel.toLowerCase()]) {
-            log('>>>>> Bad entry:', channel);
-            return [];
-        }
-        const stream = fbStreamsMap[channel];
-        if (!stream) {
-            if (fbStreamsCache[channel]) isMajor = true;
-            delete fbStreamsCache[channel];
-        } else {
-            if (!fbStreamsCache[channel]) {
-                isMajor = true;
-            } else {
-                // eslint-disable-next-line no-lonely-if
-                if (!stream.title.startsWith('《FB》') && fbStreamsCache[channel].title.startsWith('《FB》')) {
-                    stream.title = fbStreamsCache[channel].title;
-                    console.log('Keeping old (better) title');
-                }
-            }
-            fbStreamsCache[channel] = stream;
-        }
-    }
-
-    console.log('== CACHE ==', ...Object.keys(fbStreamsCache).map(channel => [channel])); // Better looking logs
-    if (isMajor) { // This data includes a major change
-        fbLastMajorChangePrev = fbLastMajorChange;
-        fbLastMajorChange = +new Date();
-        log('>> UPDATED FB FOR MAJOR CHANGE');
-    }
-    if (tick < fbLastMajorChange) { // The user's data is missing major info
-        const override = isMajor && (fbLastMajorChange - fbLastMajorChangePrev) > updateCacheMs * 2; // Immediately update the cache data
-        log('>> Fetching new streams for next major change | override:', override);
-        const live = await getNpLive({}, override, '/parse_streams', true); // Return the cache data (or override first)
-        const streamsAll = integrateFb(live);
-        return streamsAll;
-    }
-    return [];
-};
-
-// export const newFbDataOld = async (fbStreams: FbStreamDetails[], tick: number): Promise<Stream[]> => {
-//     const fbStreamsJson = JSON.stringify(fbStreams);
-//     if (fbStreamsJson === fbStreamsCacheJson) {
-//         log('>>>>>>>>>> [OLD] GOT FB REQUEST: SAME AS CACHE');
-//         return [];
-//     }
-//     const oldChannels = Object.values(fbStreamsCache).map(data => data.userDisplayName);
-//     fbStreamsCacheJson = fbStreamsJson;
-//     fbStreamsCache = Object.assign({}, ...fbStreams.map(data => ({ [data.userDisplayName]: data })));
-//     log('UPDATED CACHE', fbStreamsCache);
-//     const newChannels = fbStreams.map(data => data.userDisplayName);
-//     if (JSON.stringify(oldChannels) !== JSON.stringify(newChannels)) {
-//         fbLastMajorChangePrev = fbLastMajorChange;
-//         fbLastMajorChange = +new Date();
-//         log('>> [OLD] UPDATED FB FOR MAJOR CHANGE');
-//     }
-//     if (tick < fbLastMajorChange) {
-//         const override = (fbLastMajorChange - fbLastMajorChangePrev) > updateCacheMs * 2;
-//         log('>> [OLD] Fetching new streams for next major change | override:', override);
-//         if (override) {
-//             const live = await getNpLive({}, override, true);
-//             return live.streams;
-//         }
-//     }
-//     return [];
-// };
-
-export const getNpStreams = async (baseOptions = {}, override = false): Promise<Stream[]> => {
-    const live = await getNpLive(baseOptions, override, '/streams');
+export const getWrpStreams = async (baseOptions = {}, override = false): Promise<Stream[]> => {
+    const live = await getWrpLive(baseOptions, override, '/streams');
     return live.streams;
 };
 
-getNpLive();
+getWrpLive();
 
 setInterval(async () => {
     const cachedResultsKeys = Object.keys(cachedResults);
@@ -1145,6 +811,6 @@ setInterval(async () => {
     for (const optionsStr of cachedResultsKeys) {
         log('Refreshing optionStr');
         const optionsObj = JSON.parse(optionsStr);
-        await getNpLive(optionsObj, true);
+        await getWrpLive(optionsObj, true);
     }
 }, updateCacheMs);

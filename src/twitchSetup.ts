@@ -18,6 +18,7 @@ interface AuthData {
 const fetchAuth = async (): Promise<AuthData> => JSON.parse(String(await fs.readFile('./src/auth.json', 'utf-8')));
 
 export const authData = await fetchAuth();
+log('auth data:', authData); 
 const authProvider = new RefreshableAuthProvider(
     new StaticAuthProvider(authData.clientId, authData.accessToken),
     {

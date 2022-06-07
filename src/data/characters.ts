@@ -23,3906 +23,1341 @@ export interface Character {
     facebook?: boolean;
 }
 
-export type NpCharacters = { [key: string]: Character[] };
+export type WrpCharacters = { [key: string]: Character[] };
 
-const reg = (r: RegExp): string => `/${r.source}/`;
+// const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-export const npCharacters: NpCharacters = {
-    '0Reed': [
-        { name: 'Reed Dankleaf', factions: ['Lost MC'] },
-        { name: '[Deputy] Tommy Tribble', factions: ['Police'], displayName: 1 },
-    ],
-    '13Stewartc': [
-        { name: '[Development] Stewart', factions: ['Development'], nicknames: ['Handling', 'Fixes', 'Fixing', 'Tuning', reg(/\bnew\s+\w+\s*stuff/)] },
-    ],
-    '4HEAD': [
-        { name: 'Aubrey "4HEAD" Webster', factions: ['Street Team', 'Chang Gang'] },
-    ],
-    '52chains': [
-        { name: 'Fidel Guevara', nicknames: ['Don', 'Cabron'] },
-        { name: 'Carmine "The Mouse" Costello' },
-    ],
-    '713stew': [
-        { name: 'Junior Diaz', factions: ['Vagos'], displayName: 0 },
-    ],
-    '77_Nights': [
-        { name: 'Damian De Santos', factions: ['Vagos'], displayName: 1 },
-    ],
-    '80bsaget': [
-        { name: 'Tim Lee', displayName: 0 },
-        { name: '[Officer] Bexar McCree', factions: ['Police'] },
-    ],
-    '9baller': [
-        { name: 'D "D Rose" Rose', factions: ['SSB'] },
-    ],
-    Aaoki: [
-        { name: '[Deputy] Maddison Bancroft', factions: ['Police'], displayName: 2 },
-        { name: 'Shazza Wazza', factions: ['Rooster'], nicknames: ['Shazzam'] },
-    ],
-    aaron_rp: [
-        { name: 'Aaron Alexander', factions: ['GSF'], nicknames: ['Double A', reg(/double.?a/)], displayName: 3 },
-    ],
-    AaronOnAir: [
-        { name: '[Officer] Dan Faily', factions: ['Police'], nicknames: ['485'], facebook: true },
-        { name: 'Sal T. Block', factions: ['ASRR'], displayName: 0 },
-    ],
-    abbay: [
-        { name: 'Olivia Harvey', factions: ['Rooster'] },
-    ],
-    abbbz: [
-        { name: 'Sanjay Patel', factions: ['Burger Shot'] },
-    ],
-    AbbottJake: [
-        { name: 'Nip Smith', displayName: 0 },
-        { name: 'Joey Grass', factions: ['Prison'], displayName: 0 },
-        { name: 'Tommy Lee', displayName: 0 },
-    ],
-    abby: [
-        { name: 'Irma Gawd', factions: ['Rooster'], displayName: 0 },
-        { name: 'Big Bertha', displayName: 0 },
-        { name: 'Ivy Wood' },
-    ],
-    abbyduren: [
-        { name: 'Khrystal Vibez' },
-    ],
-    AbdulHD: [
-        { name: 'Abdul AlRahim', nicknames: ['Yellow Flash'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Judge] Ali Habibi', factions: ['DoJ'], nicknames: ['Al'] },
-        { name: '[Officer] Basha Habibi', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Mustafa Habibi' },
-        { name: 'Fahad AlArabi', factions: ['DoC'] },
-    ],
-    Abou_: [
-        { name: 'Modi Janta', factions: ['NBC'] },
-    ],
-    abrvxas: [
-        { name: 'Alexei Pavlovich', factions: ['Royal Mafia'], nicknames: ['Chicken Head'], displayName: 3 },
-    ],
-    Acaibear: [
-        { name: '[Officer] Emily Reinhart', factions: ['Police'] },
-        { name: 'Jolene Mushkin', nicknames: ['Little Red'] },
-    ],
-    AcezProduction: [
-        { name: 'Achez Perez', factions: ['RUST'], nicknames: ['Ace'], displayName: 2 },
-    ],
-    adamsmiley96: [
-        { name: "Sebastian Von Di'Quad", factions: ['Wastelanders'], displayName: 0 },
-    ],
-    adeptthebest: [
-        { name: 'Mari Posa', factions: ['Chang Gang', 'Hydra Gang', 'Chaos'], nicknames: ['Wari', 'Lari'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Trooper] Selena Mendoza', nicknames: [reg(/\bmendoz/)], factions: ['Police'] },
-        { name: 'Hannah Hiltop' },
-        { name: 'Maria Poser', factions: ['Gulag Gang'], displayName: 0, assumeServer: 'public' },
-    ],
-    AdinRoss: [
-        { name: 'David ?' },
-    ],
-    ADKGuy: [
-        { name: '[EMS] Ron Farva', factions: ['Medical'], displayName: 1 },
-    ],
-    adnormaltv: [
-        { name: 'Ivan Gorbahtjov', assume: 'assumeOther' },
-    ],
-    adzno: [
-        { name: 'Aaron Melarky', factions: ['Condemned MC'], displayName: 0 },
-    ],
-    Adzzstarr: [
-        { name: '[Lawyer] Adam Prince', factions: ['DoJ'] },
-        { name: '[Dr.] Valentine', factions: ['Medical'] },
-    ],
-    AFCB78: [
-        { name: 'Dick Dudley', displayName: 2 },
-    ],
-    AfricanSnowball: [
-        { name: '[Officer] Dwayne Carter IV', factions: ['Police'], nicknames: [reg(/good [a*][s*]+ day/)], displayName: 2 },
-        { name: 'Buck Stanton', displayName: 2 },
-        { name: 'Leland "LJ" Jones', factions: ['GSF', 'Pegasus'] },
-        { name: 'Taylor Africansnowball', factions: ['Self Insert'], displayName: 0 },
-    ],
-    Afro: [
-        { name: 'Dexx Martin', factions: ['GSF'], leader: true },
-        { name: 'Jacob Harth', factions: ['Dark Web'], leader: true },
-        { name: 'Chris "CP" Porter' },
-        { name: 'Sayid Mitra', nicknames: ['Sayeet'], displayName: 0 },
-        { name: 'David "The Mime" Wonders', nicknames: ['Concrete', 'Mime'], factions: ['ASRR'] },
-        { name: 'Gordon Parks', nicknames: ['DoorLord'] },
-        { name: 'Jay Afro', factions: ['Self Insert'], displayName: 0 },
-    ],
-    AidenNortha: [
-        { name: '[Deputy] Kevin Keyte', factions: ['Police'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Officer] Melvin Graves', factions: ['Police'], displayName: 0, assumeServer: 'public' },
-        { name: 'Jase Dawson', displayName: 0 },
-    ],
-    aimbotcalvin: [
-        { name: '? ?', factions: ['LARPers', 'Cleanbois'] },
-    ],
-    aintitadam: [
-        { name: 'Scruffy Doodle', factions: ['Burger Shot'] },
-    ],
-    Airborne: [
-        { name: 'Dennis LaBarre', factions: ['DoJ'] },
-        { name: '[Officer] Blaine Miller', factions: ['Police'], nicknames: ['Cow Killer'] },
-        { name: 'Unity', nicknames: ['Cat'] },
-    ],
-    akaMONKEY: [
-        { name: 'Arturo Ortiz', factions: ['Vagos'], nicknames: [reg(/\bar(?:tu|2)/), reg(/\barchu+r/)] },
-        { name: 'CamRon "Peanut" Giles', factions: ['SSB'] },
-        { name: 'Timoteo "TT" Bushnell', nicknames: ['Rasta'] },
-    ],
-    aleks: [
-        { name: 'Vasily "V" Sazkaljovich', factions: ['CBPD', 'Rooster'] },
-        { name: '[Officer] Bob Smith', factions: ['Police'], nicknames: ['Bobby', 'Chief'], displayName: 1 },
-        { name: 'Alex Marshall', factions: ['Frat'], displayName: 0 },
-        { name: '[FIB Agent] Heath Mercer', factions: ['Police'] },
-    ],
-    alexhasg2g: [
-        { name: 'Liz Anya', displayName: 0 },
-    ],
-    alexten0909: [
-        { name: 'Alexander Campbell', factions: ['Angels'], nicknames: ['Alex'], displayName: 3, assumeServer: 'whitelist' },
-        { name: '[Officer] Jeff Boiardi', factions: ['Police'] },
-        { name: '[Officer] Alex Campbell', factions: ['Police'], assumeServer: 'public' },
-    ],
-    Alisha: [
-        { name: 'Alisha Wuornos' },
-    ],
-    AllHailGoon: [
-        { name: 'Father Dinker', factions: ['ASRR'], nicknames: ['god', 'block'], displayName: 0 },
-    ],
-    Alonelyhawk: [
-        { name: '[Deputy] Allison Thomas', factions: ['Police'] },
-        { name: '[Lawyer] Claudia Gartner', factions: ['DoJ'], displayName: 1 },
-    ],
-    alpacagurl92: [
-        { name: 'April Fooze', factions: ['Chang Gang'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Officer] Connie Clark', factions: ['Police'], nicknames: ['cop'], displayName: 2 },
-        { name: '[Officer] Connie Clark', factions: ['Police'], nicknames: ['cop'], displayName: 2, assumeServer: 'public' },
-    ],
-    AlyPlayNinja: [
-        { name: '[Officer] Amelia Frost', factions: ['Police'] },
-    ],
-    ambientsurprise: [
-        { name: 'Terry LaBuff', factions: ['BSK'], displayName: 0 },
-    ],
-    Amouranth: [
-        { name: 'Amy Rain', nicknames: ['Ammy'], displayName: 0 },
-    ],
-    amsyz: [
-        { name: 'Zayn Ahmed', factions: ['BSK'], displayName: 0 },
-    ],
-    AnarchoSyn: [
-        { name: 'Hess Blade', factions: ['CBPD', 'Rooster'] },
-    ],
-    AndyMilonakis: [
-        { name: 'Lil Erf', factions: ['Chang Gang'], displayName: 0 },
-        { name: 'Carmen Amuso' },
-    ],
-    Angrysquirlz: [
-        { name: 'Lizard Block', factions: ['ASRR'] },
-    ],
-    AnimatedJF: [
-        { name: 'Cameron Dupres', factions: ['DoJ'] },
-    ],
-    AnneMunition: [
-        { name: 'Sequoia Springs' },
-    ],
-    Anomaly: [
-        { name: 'Ping Ping Samuelson', nicknames: ['Ping Ping'], displayName: 4 },
-        { name: 'Larry Papidopoulos', nicknames: ['Papi'] },
-    ],
-    AnthonyZ: [
-        { name: 'Tony Corleone', factions: ['Cleanbois', 'Clean Cartel', 'Rooster'], nicknames: ['Tonish'], assumeServer: 'whitelist' },
-        { name: 'Tonish Corleone', assumeServer: 'public' },
-        { name: '[Deputy] Anthony Copleone', factions: ['Police'], nicknames: ['reporting for duty'] },
-    ],
-    Apitoxin11: [
-        { name: 'Trigger Freebird', factions: ['Harmony'] },
-    ],
-    APPLESHAMPOO: [
-        { name: '[Dispatch] Nancy Ree', factions: ['Police'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[EMS] Gioconda "Gio" Coppola', factions: ['Medical'], nicknames: ['T-17'] },
-        { name: 'Apple Schampu', factions: ['Self Insert', 'One Life'], displayName: 0 },
-        { name: '[Officer] Gio Coppola', factions: ['Police'], nicknames: ['466'], displayName: 1, assumeServer: 'public' },
-    ],
-    appyturk: [
-        { name: 'Appie Turk', factions: ['Gulag Gang'], displayName: 2, assumeServer: 'whitelist' },
-        { name: 'Appie Turk', factions: ['Gulag Gang'], displayName: 2, assumeServer: 'public' },
-        { name: 'Appie Turk', displayName: 2, assumeServer: 'international' },
-    ],
-    ArboYT: [
-        { name: 'Jimmy Sprinkle', factions: ['DoC'], displayName: 0 },
-    ],
-    Arcadum: [
-        { name: 'Svelt Tlevs', nicknames: ['Wizard'] },
-    ],
-    ArmandMorte: [
-        { name: 'Lucky Cox', factions: ['Condemned MC'], displayName: 0 },
-    ],
-    Armeeof1: [
-        { name: 'Milton Pointdexter' },
-    ],
-    arnie_v: [
-        { name: 'Vincent Carl', factions: ['Hydra Gang', 'BCG'], nicknames: ['Arnie', reg(/\b(?:vincent|carl)/)], displayName: 3 },
-    ],
-    ArsenaI: [
-        { name: 'James Arsenal', displayName: 0 },
-    ],
-    ash: [
-        { name: 'Ash Ketchup', factions: ['Seaside'], displayName: 1, assumeChar: true },
-    ],
-    Ashaweebaby78: [
-        { name: 'Frankiie Fletcher', factions: ['BSK'], displayName: 0 },
-    ],
-    Ashi: [
-        { name: 'Fiona Stewart', nicknames: ['Fi-ho-na', 'Fifi'], factions: ['LARPers', 'Cleanbois', 'Rooster'] },
-        { name: '[Officer] Annie May', factions: ['Police'], displayName: 2 },
-    ],
-    ashlynn: [
-        { name: 'Cassie Cupcakes', factions: ['Angels'] },
-        { name: '[Officer] Brenda Pancake', factions: ['Police'], displayName: 1, nicknames: ['Pancakes'] },
-    ],
-    Ashurikun: [
-        { name: 'Rose Morrison', factions: ['DoC'], displayName: 0 },
-    ],
-    Asteroba: [
-        { name: '[Deputy] Aaron Byson', factions: ['Police'] },
-        { name: '[Lawyer] Larry Hallow', factions: ['DoJ'] },
-        { name: 'Kermy Fulker', factions: ['HOA'] },
-        { name: '[EMS] Boba Stone', factions: ['Medical'] },
-    ],
-    AuriEllis: [
-        { name: 'Ursula Leichenberg', factions: ['Royal Mafia', 'Burger Shot', 'News'], displayName: 1 },
-        { name: 'Gracie ?' },
-    ],
-    aurvinR: [
-        { name: '[Dispatch] John Doe', factions: ['Police'] },
-    ],
-    Aus24: [
-        { name: '[Officer] Jack Davenport', factions: ['Police'] },
-        { name: 'Jordan Walker', factions: ['Harmony'] },
-        { name: 'Braxton Walker', nicknames: ['Brax'], displayName: 0 },
-    ],
-    Austin_Bean: [
-        { name: '[Deputy] ? Bean', factions: ['Police'], displayName: 2, assumeServer: 'public' },
-    ],
-    AustinCreed: [
-        { name: 'Austin Creed', displayName: 0 },
-    ],
-    Autumn: [
-        { name: 'Autumn Rhodes', factions: ['Chang Gang'], assumeServer: 'whitelist' },
-        { name: '[Officer] May Maple', factions: ['Police'] },
-        { name: '[Ranger] May Maple', factions: ['Police'], assumeServer: 'public' },
-    ],
-    Auxidental: [
-        { name: 'Trey Romano', factions: ['Pegasus', 'Rooster'] },
-    ],
-    AvaGG: [
-        { name: 'Karen Dahmer', factions: ['Chang Gang'], affiliate: true, nicknames: ['Kawen'] },
-    ],
-    awildzust: [
-        { name: 'Ryan Miller', factions: ['BCG'], displayName: 0 },
-    ],
-    awkwardsausesteph: [
-        { name: '[Officer] Rebecka Lovejoy', factions: ['Police'], nicknames: ['Beck', 'Becks', '521'] },
-    ],
-    aXed_U: [
-        { name: 'Hans Snitzel' },
-    ],
-    AyeGavMF: [
-        { name: '[Deputy] Dave Bird', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Nash Mastersin', displayName: 1, assumeServer: 'whitelist' },
-    ],
-    ayubfe: [
-        { name: '[EMS] Ayub Elmi', factions: ['Medical'], displayName: 2 },
-    ],
-    Baabeology: [
-        { name: 'Lola White', factions: ['BBMC'], displayName: 0, assumeServer: 'public' },
-    ],
-    badgerClaws_: [
-        { name: 'Cassidy Clearwater', factions: ['DoC'], displayName: 0 },
-    ],
-    baguettegirI: [
-        { name: 'France Gall', nicknames: ['French', 'French Lady', 'France Girl', 'French Girl'], displayName: 0 },
-        { name: 'Ange VanLaeken', factions: ['Prison'], nicknames: ['French', 'French Girl'] },
-    ],
-    Baki961: [
-        { name: 'Yoshimoto Nakanishi', assumeServer: 'whitelist' },
-        { name: '[Officer] Fernando Diego Pablo Juan Esteban Luis Cortez Bonanza II', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    BamiePlays: [
-        { name: '[Officer] Ryan Kolinsky', factions: ['Police'], nicknames: ['591'], displayName: 2 },
-    ],
-    bananabrea: [
-        { name: 'Claire Seducer', factions: ['Angels', 'Tuner Shop'], assumeServer: 'whitelist' },
-        { name: '[Officer] Tyme Reducer', factions: ['Police'], assumeServer: 'whitelist' },
-        { name: '[Officer] Claire Seducer', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: 'Becky Hopper', displayName: 0 },
-        { name: 'Joann Banana', factions: ['Self Insert'], displayName: 0 },
-        { name: 'Juanita Carlita Hernandez', nicknames: ['Flippa'] },
-    ],
-    BananaDuck: [
-        { name: 'Billy Sprinkle', factions: ['GSF'], displayName: 0 },
-        { name: 'Jimmy Limbs', displayName: 0 },
-        { name: 'Al Connelly', displayName: 0 },
-        { name: 'Stealie Yasuffi', displayName: 1 },
-        { name: 'Dick Fillet', displayName: 0 },
-        { name: 'Ravi Ravson', displayName: 0 },
-    ],
-    Bananalover115: [
-        { name: 'Mamaita "Mama" Jehmimi', factions: ['Britney Gang'] },
-    ],
-    banditobrown1: [
-        { name: "Shankeal O'Neal", factions: ['Roadmen', 'Mandem'], nicknames: ['Shank', 'Shankyou'] },
-    ],
-    barryscottlive: [
-        { name: 'Barry Scott' },
-    ],
-    Basyk: [
-        { name: '[Deputy] Marcellus Mikaelson', factions: ['Police'], displayName: 1 },
-        { name: 'Sai Carter', displayName: 0 },
-    ],
-    BazzaGazza: [
-        { name: 'Barry Benson', factions: ['BBMC'], displayName: 0 },
-    ],
-    bbyruthless: [
-        { name: 'Saint Gomez', factions: ['Hydra Gang'] },
-    ],
-    BCBeastly: [
-        { name: 'Herbert The Pervert' },
-    ],
-    BeardedGuysGaming: [
-        { name: 'Jose Pincha' },
-    ],
-    Beast_: [
-        { name: '[Deputy] Ruger Daniels', factions: ['Police'] },
-    ],
-    Beerman155: [
-        { name: 'Abner Vaca', factions: ['Stable'] },
-    ],
-    beetricetv: [
-        { name: 'Benny Davis', factions: ['SSB'], displayName: 0 },
-    ],
-    BelowTheWaves: [
-        { name: '[Dispatch] L Lovesick', factions: ['Police'], displayName: 2 },
-    ],
-    Benni: [
-        { name: 'Santiago "Santi" Madrid', factions: ['Vagos'], nicknames: [reg(/\bSanti/)] },
-        { name: 'Antonio Reyes', nicknames: [reg(/\bAntonio/)] },
-        { name: 'Pablo Madrid', factions: ['Vagos'], nicknames: ['Diablo'] },
-    ],
-    BerryyBoo: [
-        { name: '[Officer] Vivienne Grey', factions: ['Police'] },
-    ],
-    BFLY: [
-        { name: '[Dr.] Torah Andrews', factions: ['Medical'] },
-    ],
-    Bgrafix: [
-        { name: 'Billy "Bloodbath" Senora', factions: ['ASRR'], nicknames: ['Bloodbath'], assumeServer: 'whitelist' },
-    ],
-    biggieferreira: [
-        { name: 'Shevy Santanna', factions: ['Vagos'], assumeServer: 'whitelist' },
-        { name: '[Officer] Jamal Ferreira', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Dominic "Lil D" Chester', nicknames: ['Sabado de Sol'] },
-    ],
-    BigRichardRP: [
-        { name: "Richard O'Conner", factions: ['Gulag Gang'], nicknames: ['Richie'], displayName: 0 },
-    ],
-    BigSkenger: [
-        { name: 'Zaceed Skengerton', displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Officer] Zacood Skengerson', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    BikeMan: [
-        { name: 'Chet Summerset', assume: 'assumeNpNoOther' },
-    ],
-    binoversion: [
-        { name: '? "O Dogg" ?', factions: ['SSB'] },
-    ],
-    Biotoxz_: [
-        { name: 'Lars "Bjorn" Haverford', factions: ['LARPers', 'Cleanbois', 'Clean Cartel', 'Rooster'], nicknames: ['Barbarian'], assumeServer: 'whitelist' },
-        { name: 'Lars "Bjorn" Haverford', factions: ['Police', 'LARPers'], nicknames: ['Barbarian'], assumeServer: 'public' },
-    ],
-    BJPofficial: [
-        { name: '[Lawyer] Buford J. Preston', factions: ['DoJ'] },
-    ],
-    Blaustoise: [
-        { name: 'Mickey S', factions: ['Cleanbois', 'Clean Cartel'], nicknames: ['Michael', 'Downbad', 'Downrat'], assumeServer: 'whitelist' },
-        { name: '[Deputy] Klay Kona', factions: ['Police'], displayName: 2 },
-        { name: 'Michael S.', factions: ['Gulag Gang'], assumeServer: 'public' },
-    ],
-    bldrs: [
-        { name: 'Kaleb "Kleb" Rush', factions: ['HOA', 'Frat'] },
-        { name: '[Officer] Ryan Wright', factions: ['Police'] },
-    ],
-    BLooD_MoNeY_: [
-        { name: '[Lawyer] Griz ?', factions: ['DoJ'], displayName: 1 },
-    ],
-    BloomOnline: [
-        { name: 'Dillon Dubbs', factions: ['News'], displayName: 0 },
-    ],
-    Blown: [
-        { name: 'Taylor "Spaceman" Briggs', factions: ['Seaside'] },
-    ],
-    bLuE622: [
-        { name: 'Boe Jangles', factions: ['Chang Gang'], affiliate: true },
-    ],
-    blunt_20202020: [
-        { name: 'Dub Blunt', factions: ['Tuner Shop'], displayName: 0 },
-    ],
-    bmcloughlin22: [
-        { name: '[Lawyer] Lachlan Pike', factions: ['DoJ'] },
-    ],
-    Bomaah: [
-        { name: 'Viper Rodriguez', assume: 'assumeOther' },
-    ],
-    BoogieTD: [
-        { name: 'Xavier Valentine', factions: ['Stable', 'Clean Cartel'] },
-    ],
-    BoschMerchant: [
-        { name: 'Anto Murphy', factions: ['Chang Gang'] },
-    ],
-    boxbox: [
-        { name: 'Bo Xbox', factions: ['Rooster'] },
-    ],
-    Braders: [
-        { name: 'Jeff Arnold' },
-    ],
-    Braenstus: [
-        { name: '[Lawyer] Adam Nielsen', factions: ['DoJ', 'Rooster'], displayName: 1 },
-    ],
-    Brakketts: [
-        { name: '[Dispatch] Tommy Horver', factions: ['Police'] },
-    ],
-    breakyx: [
-        { name: 'Dris Peters', factions: ['SSB'] },
-    ],
-    Breehzee: [
-        { name: 'Wullie Mcdonnel', factions: ['DoC'], displayName: 0 },
-        { name: 'Pedro Frank', displayName: 0 },
-    ],
-    BrettGambit: [
-        { name: 'Leo Hayes', factions: ['Burger Shot'], nicknames: ['DJ Leo'], displayName: 3 },
-        { name: 'Skele Tor', nicknames: ['Skeletor'], displayName: 3 },
-    ],
-    BRIT: [
-        { name: 'Tori Corleone', factions: ['Britney Gang', 'Rooster'], nicknames: ['Bologna'] },
-    ],
-    British_Bulldog: [
-        { name: 'Jayden Cooper', factions: ['GSF'], displayName: 0 },
-    ],
-    BrodyCurtis_: [
-        { name: 'Max Power', displayName: 0, assumeServer: 'whitelist' },
-        { name: '[Deputy] Sean Duncan', factions: ['Police'], assumeServer: 'public' },
-    ],
-    Brofain: [
-        { name: 'Kodak Bodega' },
-    ],
-    BronzeRP: [
-        { name: 'Gary Adams', factions: ['Lost MC'] },
-    ],
-    BrookeAB: [
-        { name: 'Abby Brooks', factions: ['Angels'], displayName: 0 },
-    ],
-    broxh_: [
-        { name: 'Broxh Kava', displayName: 1 },
-    ],
-    buddha: [
-        { name: 'Lang Buddha', factions: ['Cleanbois', 'Clean Cartel', 'Rooster'], leader: true, nicknames: ['Circle Andy', 'Timelord'], assumeChar: true, assumeServer: 'whitelist' },
-        { name: '[Officer] LeBron James', factions: ['Police'], nicknames: ['623'] },
-        { name: '[Ranger] Lang Buddha', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: 'Esteban Julio-Ricardo-Montoya-De-La-Rosa Ramirez', factions: ['Police'] },
-        { name: '[Deputy] Kevin Kona', factions: ['Police'] },
-    ],
-    BucketSt: [
-        { name: 'Gheto Kaiba', factions: ['RUST'], displayName: 2 },
-    ],
-    Bundie: [
-        { name: 'Tane Mahuta', factions: ['RUST'], nicknames: ['Kiwi'], displayName: 3 },
-        { name: 'Charles Hendrix', nicknames: ['Charlie'], displayName: 0 },
-    ],
-    bunicular: [
-        { name: 'Layla Lockhart', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    BurgSZN: [
-        { name: 'Tyler Heisanburg', factions: ['Royal Mafia'], nicknames: ['Burg'], displayName: 3 },
-    ],
-    Burn: [
-        { name: '[Deputy] Brocky Potage', factions: ['Police'], displayName: 2 },
-        { name: 'Johnny Silverhand', displayName: 0 },
-        { name: 'Asmon Bronze', displayName: 0, nicknames: ['AsmonBronze', 'Transmog'] },
-        { name: 'Norman "Norm" Yoder' },
-        { name: 'Moe Nopoli', displayName: 0 },
-        { name: 'Michael Myers', displayName: 0 },
-        { name: 'Mentle Block', factions: ['ASRR'] },
-        { name: 'Sasuke Johnson' },
-        { name: 'Jack Napiere', nicknames: ['"Kyle Pred"', 'Sheriff', 'Pred'], displayName: 3 },
-        { name: 'Bojack Horseman', displayName: 0 },
-        { name: 'Bob Penta', displayName: 0 },
-        { name: 'Blau Jobs', displayName: 1 },
-        { name: '? "TTS" ?' },
-        { name: 'Sanic Speedrun' },
-        { name: 'Burn Burnington', nicknames: [reg(/self\W*insert/), 'me', 'myself'], displayName: 1 },
-        { name: '? "BSauce" Sauce', nicknames: ['VSauce'] },
-        { name: 'Chi "Chi-ku" Ku' },
-        { name: 'Plankton ?' },
-        { name: 'Devan Almighty', nicknames: ['Bruce', 'Evan'], displayName: 0 },
-        { name: 'Bruce "The Dank Knight" Strayne' },
-        { name: 'Gordo Ramsay', nicknames: ['Gorden', 'Gordon'], displayName: 0 },
-    ],
-    ButterRoyaleTV: [
-        { name: 'Deejay Bartello' },
-    ],
-    Buzterwow: [
-        { name: '? "Brother Mehof" ?' },
-    ],
-    bythybeard: [
-        { name: '[Officer] Sexton Hardcastle', factions: ['Police'], displayName: 2 },
-        { name: 'Wade Willson', factions: ['Lost MC'] },
-    ],
-    CallMeGrub: [
-        { name: '[Deputy] Isaac Richardson', factions: ['Police'] },
-    ],
-    CallMeKevin: [
-        { name: 'Grognak The Destroyer', assume: 'assumeNpNoOther' },
-    ],
-    CanadianYETI_: [
-        { name: 'Tee ?', factions: ['SSB'], assumeServer: 'public' },
-    ],
-    CappedRP: [
-        { name: 'Capped Tarranova', factions: ['Street Team', 'Chang Gang'], nicknames: ['Pigeon', 'Terranova', 'Nova'], displayName: 0 },
-    ],
-    capsure: [
-        { name: 'Dimitri Nekola', factions: ['Pegasus'] },
-    ],
-    CaptainBarb: [
-        { name: 'Mattias Nilson', factions: ['Condemned MC'], displayName: 0 },
-    ],
-    Carbonoid: [
-        { name: 'Han Machiavelli', factions: ['BSK'], displayName: 0 },
-    ],
-    Carmen: [
-        { name: 'Carmella Corset', factions: ['Rooster'] },
-    ],
-    Carter: [
-        { name: 'Spencer Smith', nicknames: ['Mormon'] },
-    ],
-    CasadyOG: [
-        { name: '[Deputy] Zach Casady', factions: ['Police'], displayName: 2 },
-    ],
-    Cascadian_: [
-        { name: '[Deputy] Michael Pike', factions: ['Police'], nicknames: ['313'], displayName: 2 },
-    ],
-    casek_: [
-        { name: 'Cesar Conchas', factions: ['Vagos'], displayName: 0 },
-    ],
-    CathFawr: [
-        { name: '[Officer] Lydia Vale', factions: ['Police'] },
-        { name: 'Summer Mersion', factions: ['GSF', 'Mersions'], displayName: 0 },
-        { name: 'Natya Block', factions: ['ASRR'], displayName: 0 },
-        { name: 'Catrin Fawr', factions: ['Self Insert', 'One Life'], displayName: 0 },
-        { name: "[Lawyer] Shannon O'Banion", factions: ['DoJ'], displayName: 0 },
-    ],
-    Cathie: [
-        { name: '[Deputy] Anita May', factions: ['Police'], displayName: 1 },
-        { name: 'Ninacska Mihkala', factions: ['Russians'], nicknames: ['Nina'], displayName: 3 },
-        { name: 'Kaelyn "Kae" East', factions: ['SSB'] },
-    ],
-    CaussiePreacher: [
-        { name: '[EMS] Jack Preacher', factions: ['Medical'] },
-    ],
-    CazeyTV: [
-        { name: 'Sam Simmons', factions: ['NBC'], displayName: 0 },
-    ],
-    CFirst93: [
-        { name: 'Mac Jones', factions: ['GSF'], nicknames: ['MJ'], displayName: 0 },
-    ],
-    Chalupa_Pants: [
-        { name: 'Julio Thomas', factions: ['HOA'] },
-        { name: '[Deputy] Marco Holliday', factions: ['Police'], nicknames: ['683', 'Holiday'] },
-    ],
-    Chap: [
-        { name: 'Bryan Chapman', nicknames: ['Chap', 'Orange'], displayName: 0, assumeChar: true },
-    ],
-    charlieblossom: [
-        { name: 'Georgina "Windsong" Williams' },
-    ],
-    charlieteevee: [
-        { name: '[Officer] Charlie Cox', factions: ['Police'], assumeServer: 'public' },
-    ],
-    Chatterbox: [
-        { name: 'Jagger "Chatterbox" Gerardy' },
-    ],
-    Chief: [
-        { name: 'Baada Ka', factions: ['GSF'], nicknames: ['Chief'], displayName: 3, assume: 'assumeNpNoOther' },
-    ],
-    Chitman: [
-        { name: 'Jax Fury', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    ChloeLock: [
-        { name: 'Chloe Blanc', factions: ['Hydra Gang'], nicknames: ['Chloé'], displayName: 0 },
-    ],
-    Choi: [
-        { name: '[Dr.] Choi Zhangsun', factions: ['Medical'], assume: 'assumeOther' },
-    ],
-    ChrisTombstone: [
-        { name: '[Deputy] Flop Dugong', factions: ['Police'], displayName: 1, assumeServer: 'whitelist' },
-    ],
-    chairhandler: [
-        { name: 'Carl Crimes' },
-    ],
-    Chanpu: [
-        { name: 'Justin "Victor" Bridges', factions: ['Angels'] },
-    ],
-    Chaseman7GG: [
-        { name: 'Miguel Guerrero', factions: ['Vagos'] },
-    ],
-    Cheever7: [
-        { name: 'River Cheever', nicknames: ['River'], factions: ['ASRR'], assumeServer: 'whitelist' },
-    ],
-    cheezrp: [
-        { name: 'Terry Linkston', factions: ['Seaside'] },
-    ],
-    ChelbM: [
-        { name: 'Alan Kyles', factions: ['NBC'], displayName: 0 },
-    ],
-    ChelbMyster: [
-        { name: 'Alan Kyles', factions: ['NBC'], displayName: 0, facebook: true },
-    ],
-    CHUDOCKEN: [
-        { name: 'Orpheus Dawson', factions: ['Burger Shot'], displayName: 1 },
-    ],
-    CinnamonToastKen: [
-        { name: 'Chuck Colton' },
-        { name: 'Buck Colton', factions: ['BBMC'], nicknames: ['Book', 'Bucky', 'Cultan'] },
-    ],
-    Citizen_Cannon: [
-        { name: 'Marco Richter', factions: ['Prison'], displayName: 0 },
-    ],
-    Clammy: [
-        { name: '[Deputy] Derek Monroe', factions: ['Police'], displayName: 2 },
-        { name: 'AK', factions: ['SSB'], assumeServer: 'whitelist' },
-        { name: '[Officer] Derek Monroe', factions: ['Police'], assumeServer: 'public' },
-    ],
-    ClassyPax: [
-        { name: 'Madam Ming', displayName: 0 },
-        { name: '[Dr.] Ethan Maw', factions: ['Medical'], displayName: 2 },
-    ],
-    cleaneu: [
-        { name: 'Michael Robinson', factions: ['DoC'], displayName: 0 },
-        { name: 'Pete Bourke', factions: ['Prison'], displayName: 0 },
-    ],
-    cleanstrikes: [
-        { name: 'Alex Fibbler', factions: ['BSK'], displayName: 0 },
-    ],
-    Client: [
-        { name: 'Daquan "Peanut" Dumas', factions: ['NBC'] },
-        { name: '[Officer] Alejandro Picadillo', factions: ['Police'], nicknames: ['World Wide', 'Worldwide'] },
-    ],
-    CloudyDL: [
-        { name: 'Scotty Dixon', factions: ['Italian Mafia'], displayName: 0 },
-    ],
-    CoconutB: [
-        { name: '? ?' },
-    ],
-    CodeMiko: [
-        { name: 'Code Psyko', nicknames: ['CodePsyko'], displayName: 0 },
-    ],
-    ConfigVAL: [
-        { name: '? ?', assume: 'neverNp' },
-    ],
-    ConfusedDevil: [
-        { name: '[Deputy] Travis Tribble', factions: ['Police'] },
-    ],
-    ConnorCronus: [
-        { name: 'Roman Sionis', nicknames: ['Mask', 'Black Mask'], displayName: 0 },
-        { name: '[Dr.] Isaac Smith', factions: ['Medical'] },
-    ],
-    Coolio: [
-        { name: 'Dequarius "Big D" Johnson', factions: ['Chang Gang'] },
-        { name: '[Deputy] Adam Hopping', factions: ['Police'] },
-    ],
-    Cosmic: [
-        { name: '[Officer] Alex Casterman', factions: ['Police'], nicknames: [reg(/as+terman\b/)] },
-        { name: 'Finlay' },
-    ],
-    CowsMooingNSuch: [
-        { name: '[Clerk] Sophia McMoo', factions: ['DoJ'], displayName: 1 },
-    ],
-    CptCheeto: [
-        { name: '[Officer] Scott Ridley', factions: ['Police'] },
-    ],
-    CraigySmith: [
-        { name: 'Frank Junior-Smith', factions: ['Vagos'], nicknames: ['Frank Jr Smith', 'Franky', 'Scottish'], displayName: 3 },
-    ],
-    CrayonPonyfish: [
-        { name: '[Officer] Wynona Fontaine', factions: ['Police'], displayName: 2 },
-        { name: 'Sadie Thistle' },
-        { name: 'Wilhelmina Copperpot', displayName: 2 },
-    ],
-    crimsonswordsman: [
-        { name: 'Raphael Kristof', factions: ['HOA'] },
-    ],
-    Crix: [
-        { name: '[Deputy] Nick Obrien', factions: ['Police'], nicknames: ['557'] },
-    ],
-    Crunchy: [
-        { name: '[Dr.] Agnes Ranbough', factions: ['Medical'] },
-        { name: 'Grimoire "Gremlin" Hauttogs' },
-    ],
-    CrystalMushroom: [
-        { name: 'Regina Bunny' },
-    ],
-    Crystalst: [
-        { name: '[Deputy] Crystal Clear', factions: ['Police', 'RUST'], nicknames: ['370'], displayName: 1 },
-        { name: 'Four "4T" Tee', factions: ['ASRR'], displayName: 0 },
-        { name: 'Swan DeLeur', displayName: 0 },
-        { name: 'Amie Rush' },
-    ],
-    CurtisRyan: [
-        { name: 'Curtis Swoleroid', nicknames: ['"Demon" of Lean Street', 'Curt', 'Citrus'], factions: ['Chang Gang', 'Chaos'], assumeServer: 'whitelist' },
-        { name: 'Curtis Swoleroid', nicknames: ['"Demon" of Lean Street', 'Curt', 'Citrus'], factions: ['Gulag Gang'], assumeServer: 'public' },
-        { name: '[Officer] Stephen McClane', factions: ['Police'] },
-        { name: 'Cornelius "Cornbread" Scott', factions: ['GSF'] },
-    ],
-    curvyelephant: [
-        { name: '[Deputy] Matt Rhodes', factions: ['Police'], nicknames: ['petty'] },
-        { name: 'Brad ?', factions: ['Frat'], nicknames: ['B-Rad'], displayName: 3 },
-        { name: 'Ryan Parker', factions: ['Lost MC'] },
-        { name: '[Lawyer] Kevin Shaw', factions: ['DoJ'] },
-    ],
-    Curvyllama: [
-        { name: '[Deputy] Lorenzo Lezar', factions: ['Police'], displayName: 1 },
-        { name: 'Freya Manning' },
-    ],
-    CydRose: [
-        { name: 'Cydney Lune', factions: ['RUST'], nicknames: ['Cyd'], displayName: 1 },
-    ],
-    cyr: [
-        { name: 'Joe Caine', displayName: 0 },
-        { name: "Khan Di'Sendo", displayName: 0 },
-        { name: 'Uchiha Jones', factions: ['Chang Gang'] },
-        { name: 'Fred Hurst', nicknames: [reg(/Lim.\s?Bizkif/)] },
-    ],
-    cyter: [
-        { name: 'Demetrius "Draco" Jones', factions: ['SSB'], leader: true, nicknames: ['DJ'] },
-    ],
-    D4N1ELLE: [
-        { name: 'Quimbley Hayabusa', factions: ['CBPD', 'Rooster'], nicknames: ['Q'], displayName: 3 },
-    ],
-    DadDoesDrag: [
-        { name: 'Kray-Tor Skullfondler', factions: ['HOA'], facebook: true },
-    ],
-    Dadulio: [
-        { name: '[Deputy] Franky Dulio', factions: ['Police'] },
-    ],
-    dafran: [
-        { name: 'Thor Bjorn', factions: ['Gulag Gang'], displayName: 0, assumeServer: 'public', wlBias: 1 },
-    ],
-    daisykiss: [
-        { name: 'Molly Rollin', displayName: 0, assume: 'assumeNpNoOther' },
-    ],
-    DanGheesling: [
-        { name: 'Tanner Buttermaker', displayName: 1 },
-    ],
-    DanHawk1ns: [
-        { name: 'Benny Gomez', factions: ['Burger Shot'] },
-    ],
-    Dark0verseer: [
-        { name: '[Development] Dark0', factions: ['Development'], nicknames: ['3D', 'manor'] },
-        { name: 'Alfred D. Arko' },
-    ],
-    DarkestRoast_: [
-        { name: '? Scotts', factions: ['DoC'], displayName: 2 },
-    ],
-    Darthbobo77: [
-        { name: 'Rudi Rinsen', factions: ['Lost MC'], leader: true },
-    ],
-    dasMEHDI: [
-        { name: '[Officer] Brian Knight', factions: ['Police'], nicknames: ['495'], facebook: true },
-        { name: 'Nino Chavez', factions: ['Cleanbois', 'Pegasus', 'Rooster'] },
-        { name: 'Ryan Kindle', factions: ['HOA'] },
-        { name: 'Reema', nicknames: ['The "Whorelord"'] },
-    ],
-    DavidB_NP: [
-        { name: 'Vladimir "Vlad" Ivanov', factions: ['Russians'] },
-    ],
-    Daxxtr: [
-        { name: '[Officer] Vincent Cannoli', factions: ['Police'], nicknames: ['V'], assumeServer: 'public' },
-        { name: '[Deputy] Vincent Cannoli', factions: ['Police'], nicknames: ['V'], assumeServer: 'whitelist' },
-    ],
-    DDPeter: [
-        { name: '[Officer] Benjamin Peppers', factions: ['Police'], assumeServer: 'public' },
-    ],
-    Deansocool: [
-        { name: 'Dean Quincy', factions: ['Mandem'], displayName: 0, assume: 'assumeNpNoOther', assumeServer: 'whitelist' },
-        { name: '[Deputy] Den Shiesty', factions: ['Police'], displayName: 1 },
-        { name: 'Dean Shiesty', factions: ['SSB'], displayName: 0, assumeServer: 'public' },
-    ],
-    Deejayus: [
-        { name: 'Albert Intelligence', factions: ['CBPD', 'Rooster'], nicknames: ['A.I.'] },
-    ],
-    DEFAC3D: [
-        { name: 'Denzel Wallace', factions: ['BSK'], displayName: 0 },
-    ],
-    Dehxter: [
-        { name: 'Mark Jango', factions: ['Clean Cartel'], displayName: 0 },
-    ],
-    DeLucaRP: [
-        { name: 'James DeLuca', factions: ['Tuner Shop'], displayName: 0 },
-    ],
-    Denior13: [
-        { name: 'Keith "Bulldog" Dooger', factions: ['Lost MC'] },
-    ],
-    Denis3D: [
-        { name: '[Development] Denis3D', factions: ['Development'], nicknames: ['3D'] },
-        { name: 'Bob "Bob the Builder" Carter', factions: ['Seaside'], nicknames: ['The Builder'] },
-    ],
-    deputydangerdan: [
-        { name: "D'Brickashaw King", factions: ['GSF', 'CBPD'], nicknames: ['Brick'], displayName: 3 },
-        { name: "Robert O'Shay", nicknames: ['Rob'], displayName: 0 },
-    ],
-    DerpFront: [
-        { name: '[EMS] Rivington Rivera', factions: ['Medical'], nicknames: ['Riv', 'E-78'], displayName: 3 },
-    ],
-    Despooo_: [
-        { name: 'Alex Datum', displayName: 0 },
-    ],
-    devolore: [
-        { name: '[Officer] Cassius Kennedy', factions: ['Police'], nicknames: ['Cash'] },
-    ],
-    dew_ski: [
-        { name: 'Alem Barghouthi', factions: ['NBC'], displayName: 0 },
-    ],
-    DexGod: [
-        { name: 'JJ Bradley', factions: ['BCG'], nicknames: ['Dex'], displayName: 0 },
-    ],
-    dibitybopty: [
-        { name: '[Officer] Gus Gorman', factions: ['Police'] },
-    ],
-    DiewithLivv: [
-        { name: 'Cindy Tipton', factions: ['Burger Shot'], nicknames: ['Girlboss'] },
-    ],
-    DigbyTathamWarter: [
-        { name: 'Nigel Edwardson', factions: ['News'], displayName: 0 },
-    ],
-    DigiiTsuna: [
-        { name: '[Dr.] Kai King', factions: ['Medical'], displayName: 2 },
-        { name: 'Maxy Mersion', factions: ['Mersions'], displayName: 0 },
-    ],
-    DisbeArex: [
-        { name: 'Oki Doki', factions: ['CBPD', 'Burger Shot'], displayName: 0 },
-    ],
-    DisguisedToast: [
-        { name: 'Amon Gus', displayName: 0 },
-        { name: '[Officer] Al Rashio', factions: ['Police'], displayName: 2 },
-    ],
-    DivaJilly: [
-        { name: '[Judge] Siobhan Fitzpatrick', factions: ['DoJ'], displayName: 1 },
-    ],
-    DKane: [
-        { name: 'Cletus McCoy' },
-    ],
-    DocWizard: [
-        { name: '[Judge] John Bailey', factions: ['DoJ'] },
-        { name: 'Terrance "TJ" Walker', factions: ['BBMC'] },
-        { name: 'Preston Landor' },
-    ],
-    Dogbert: [
-        { name: '[Deputy] Rocko Colombo', factions: ['Police'], nicknames: [reg(/\bcol.mb./)] },
-        { name: 'Luther Caine', factions: ['HOA'] },
-        { name: 'Wyatt Mersion', factions: ['Limelight', 'Mersions'] },
-    ],
-    DoluTattoo: [
-        { name: '[Development] Dolu', factions: ['Development'] },
-    ],
-    DongerDayz: [
-        { name: 'Kelly Camellia', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    Donut3venTryMe: [
-        { name: 'Joey Pepperoni', factions: ['Tuner Shop'], displayName: 0 },
-    ],
-    Dorken: [
-        { name: 'Valentina Hops', factions: ['Burger Shot'] },
-        { name: 'Debby Doodle' },
-        { name: 'Nicholine Quinn', displayName: 0 },
-    ],
-    DotoDoya: [
-        { name: 'Landon Campbell', displayName: 0, assume: 'assumeNpNoOther' },
-    ],
-    Doug: [
-        { name: 'Gazpacho Prince', nicknames: ['Pachi', 'Spachi'] },
-        { name: 'William "W" Told', nicknames: ['Lil Pump'] },
-    ],
-    DougisRaw: [
-        { name: 'Jason Sharpe', displayName: 0 },
-    ],
-    Dr_Knope: [
-        { name: 'Patrit "Mete" Metemahaan', factions: ['HOA'] },
-    ],
-    Dragecia: [
-        { name: 'Bunnie Bunsworth', factions: ['HOA'] },
-    ],
-    DROwSeph420: [
-        { name: 'John "Geno" Collins', factions: ['GSF'] },
-    ],
-    DTalmer: [
-        { name: 'Jackson Wilson', factions: ['Harmony'], nicknames: ['Blacksteel'], displayName: 0 },
-    ],
-    Dunrunnin12: [
-        { name: 'Thomas Dwayne', factions: ['Stable'], nicknames: ['The Narrator'], displayName: 0 },
-        { name: '[Ride Along] Talgar Blootonn', factions: ['Police'], displayName: 1 },
-        { name: 'Talgar Goldtooth', displayName: 0 },
-        { name: 'Nay "Delamain" Rater' },
-    ],
-    Duroode: [
-        { name: '[Officer] James McTavish', factions: ['Police'], displayName: 2 },
-    ],
-    durptastic: [
-        { name: 'Otis Goody', factions: ['Burger Shot'] },
-    ],
-    dustbinflowers: [
-        { name: 'Cara Lynn', factions: ['Burger Shot'], displayName: 0 },
-    ],
-    dwjft: [
-        { name: 'Dean Watson', factions: ['Limelight', 'Cleanbois', 'Development'], nicknames: ['El Deano', 'El Deano (Dean)', 'Dev stuff'], displayName: 1 },
-        { name: '[Senator] D.W.', factions: ['DoJ'], leader: true, nicknames: ['DW', 'Senate'], displayName: 3 },
-        { name: '[Watch Party] dwjft', factions: ['Watch Party'] },
-        { name: 'Terminator ?' },
-        { name: 'Batman ?' },
-        { name: 'Lucious Francer', nicknames: ['bwo'], displayName: 0 },
-        { name: '[Trooper] Derby West Bromwich', factions: ['Police'], displayName: 1 },
-        { name: '[Development] DW', factions: ['Development'], nicknames: ['tinkering'] },
-    ],
-    Dyoti: [
-        { name: '[Deputy] Winston Walker', factions: ['Police'], assumeServer: 'whitelist' },
-        { name: '[Deputy] Wyatt Cole', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Dawson Whitehead', factions: ['HOA'], assumeServer: 'public' },
-    ],
-    Dyrus: [
-        { name: 'Louis Hill', displayName: 0 },
-    ],
-    DzarekK: [
-        { name: 'Lulu ?', displayName: 1 },
-    ],
-    EagleAye: [
-        { name: 'Eve Summers', factions: ['LARPers', 'Rooster'] },
-    ],
-    eaJParkOfficial: [
-        { name: 'Park Parker', factions: ['Rooster'], nicknames: ['Santa'], displayName: 0, assumeChar: true },
-    ],
-    edisonparklive: [
-        { name: 'Michael Hawkins', factions: ['Royal Mafia'], displayName: 0 },
-    ],
-    eebern: [
-        { name: 'Huck Guthrie', factions: ['HOA'], nicknames: ['Huckleberry'] },
-    ],
-    eHulzy: [
-        { name: 'Carmine Mosca', factions: ['Italian Mafia'], displayName: 0 },
-    ],
-    either: [
-        { name: 'Jaden Christopher' },
-    ],
-    EliotJuun: [
-        { name: '[Officer] Douglas Fir', factions: ['Police'], displayName: 1 },
-    ],
-    ellegrenn: [
-        { name: 'Sofia Castellano', displayName: 1 },
-    ],
-    Elochai: [
-        { name: 'Tao Chen', factions: ['Rooster'], assumeServer: 'whitelist' },
-        { name: '[Development] Elochai', factions: ['Development'], nicknames: ['finishing', 'working on', reg(/\b(?:cloth\w+|shirt|outfit|pants|helmet|hat)s?\b/)] },
-        { name: 'Leyin Jhail', assumeServer: 'public' },
-        { name: 'Damien Grey', factions: ['Condemned MC'], displayName: 0 },
-    ],
-    ElvisRP: [
-        { name: '[Deputy] John Dorian', factions: ['Police'] },
-    ],
-    EmmyWithLove: [
-        { name: 'Peaches Hayabusa', factions: ['NBC', 'Burger Shot'] },
-    ],
-    erickeK: [
-        { name: 'Frederick Dutton', factions: ['Lost MC'], displayName: 1 },
-    ],
-    EsfandTV: [
-        { name: '[Deputy] Cletus Cornwood', factions: ['Police'] },
-        { name: 'Ali Farmand', displayName: 0 },
-    ],
-    Evee: [
-        { name: '[Officer] Demi Black', factions: ['Police'], nicknames: ['492'] },
-        { name: 'Antigone Weston', factions: ['DoJ'], assumeServer: 'whitelist' },
-        { name: '[Officer] Antigone Weston', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Whitney Crawford', factions: ['DoJ'] },
-        { name: 'Adrienne West' },
-        { name: 'Meggie "Megan" Right' },
-        { name: 'Bree Matthews' },
-    ],
-    EvilShatner: [
-        { name: '[Lawyer] Anna Swallows', factions: ['DoJ', 'ASRR'], nicknames: ['Law'], displayName: 1, assumeChar: true },
-    ],
-    ExNinja_: [
-        { name: '[Deputy] Paul String', factions: ['Police'], assumeServer: 'public' },
-    ],
-    explodicy: [
-        { name: 'Ted Kindly' },
-    ],
-    extralivia: [
-        { name: 'Jessica Bays', factions: ['SSB'] },
-        { name: 'Maia Berkeley' },
-    ],
-    F3ARzZ: [
-        { name: 'Ranjit Raventish' },
-    ],
-    f3nrirsgaming: [
-        { name: 'Francis Angel Luis', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    Fairlight_Excalibur: [
-        { name: 'Raja Bahadur', factions: ['QuickFix'], leader: true },
-        { name: '[Officer] Alexander "Fox" Fawkes', factions: ['Police'] },
-    ],
-    Fairzz91: [
-        { name: 'Huxley Johnson', factions: ['DoC'], assumeServer: 'whitelist' },
-        { name: '[Deputy] Huxley Johnson', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Paddy Patrickson', factions: ['Lost MC'] },
-    ],
-    fakejdn: [
-        { name: '[Deputy] Jaden Bane', factions: ['Police'], displayName: 2 },
-    ],
-    FalconryGal: [
-        { name: 'Jenna Tuttle', displayName: 2 },
-    ],
-    FalloftheSeason: [
-        { name: 'Ophelia Quinn', nicknames: ['Ophie'] },
-        { name: 'Odiment Sparrow', factions: ['DoC'] },
-        { name: '[EMS] Orianna "Ori" Frost', factions: ['Medical'], nicknames: ['Olive'] },
-    ],
-    Familybanter: [
-        { name: '[Dr.] Jayce Petra', factions: ['Medical'], displayName: 0 },
-        { name: 'Taran Raid', factions: ['Lost MC'], displayName: 0 },
-    ],
-    Farmhouse78: [
-        { name: 'Jane Farmer' },
-        { name: 'Steven Hayes', factions: ['Burger Shot'], displayName: 0 },
-    ],
-    FeliciaDay: [
-        { name: 'Cherryclarie Dinwittie', nicknames: ['CherryClaire'], displayName: 3 },
-    ],
-    FelixLeLoup: [
-        { name: 'Felix Volk', factions: ['Tuner Shop'] },
-    ],
-    FerretRP: [
-        { name: 'Alberto Weaselton', factions: ['Lost MC'], nicknames: ['Al', reg(/\balb/)] },
-    ],
-    Ferst711: [
-        { name: 'Tom Ryan', factions: ['Wastelanders'], displayName: 0 },
-        { name: '[Lawyer] Ferst Temple', factions: ['DoJ'] },
-    ],
-    Fiendota: [
-        { name: '[Officer] Booga "Booba" Ooga', factions: ['Police', 'Burger Shot'], nicknames: ['651'], displayName: 1 },
-        { name: 'Jonathan "Magnum" Humes', nicknames: [reg(/\bP\.?\s*I\b/)] },
-        { name: 'Boobingle Dan', factions: ['Dans'] },
-    ],
-    Five0AnthO: [
-        { name: '[Trooper Chief] Tony Andrews', factions: ['Police'], highCommand: true, leader: true },
-        { name: 'Rhode Block', factions: ['ASRR'], displayName: 0 },
-    ],
-    fleureo: [
-        { name: 'Quinn Naiper', factions: ['DoC'], displayName: 0 },
-    ],
-    Flocko1400: [
-        { name: 'Aaron Flocko', displayName: 0 },
-    ],
-    FloMcNasty_TV: [
-        { name: 'Richard Chiclets', factions: ['Stable', 'Burger Shot'], nicknames: ['Dick Chiclets'], displayName: 3, assumeServer: 'whitelist' },
-        { name: 'Lilith Sponge', nicknames: ['Lil Sponge'], displayName: 3 },
-        { name: '[Officer] William Clubb', factions: ['Police'], nicknames: ['Billy'], displayName: 2 },
-        { name: 'Doc Chocolates', displayName: 0, assumeServer: 'public' },
-    ],
-    Flynno: [
-        { name: '[Officer] Mickey Reynolds', factions: ['Police'], displayName: 2, assume: 'assumeNpNoOther' },
-    ],
-    Foolish_Gamers: [
-        { name: 'Morty Karlson', displayName: 0 },
-    ],
-    Forlorn79: [
-        { name: '[EMS] Amoris Pax', factions: ['Medical'] },
-    ],
-    forsen: [
-        { name: 'Sven Snusberg', factions: ['Cleanbois'] },
-        { name: 'Mason Foorhees' },
-    ],
-    FortyOne: [
-        { name: 'Lucas Ortiz', factions: ['Tuner Shop'] },
-        { name: '[Deputy] John Archer', factions: ['Police'] },
-        { name: 'Jose Martin Perez', nicknames: ['JMP'] },
-        { name: 'Don Russo', displayName: 0 },
-        { name: 'Jacob "Funny Man" Storm' },
-        { name: 'Arious "Breezy" Campbell' },
-    ],
-    FourMilli: [
-        { name: 'Brad Bett', factions: ['NBC'] },
-        { name: '[Deputy] Preston Hale', factions: ['Police'] },
-    ],
-    FragZone: [
-        { name: 'Derek Bogart', factions: ['Condemned MC'], displayName: 0 },
-    ],
-    frightval: [
-        { name: 'Berry ?', displayName: 1, assumeServer: 'public' },
-    ],
-    Frobotic: [
-        { name: 'Dizzy Bluffins', factions: ['SSB'], displayName: 1 },
-    ],
-    frogbound: [
-        { name: 'Edward Nygma' },
-        { name: 'Alexander Egorov' },
-    ],
-    Frshnesss: [
-        { name: 'Tyrell Fresh', factions: ['SSB'], leader: true, displayName: 0 },
-    ],
-    Frynaut: [
-        { name: 'Kratos Of Sparta', factions: ['Gulag Gang', 'Rooster'], nicknames: ['God of War', 'God'] },
-    ],
-    fuslie: [
-        { name: 'April Fooze', factions: ['Chang Gang'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Officer] Connie Clark', factions: ['Police'], nicknames: ['cop'], displayName: 2 },
-        { name: '[Officer] Connie Clark', factions: ['Police'], nicknames: ['cop'], displayName: 2, assumeServer: 'public' },
-    ],
-    Fyzicul: [
-        { name: 'Keith "Lando" Wanderlust', factions: ['LARPers', 'Cleanbois', 'Rooster'], nicknames: ['Stormborn', 'Shaman', 'Mountain Kingdom'], displayName: 0 },
-        { name: 'Fyz', factions: ['Self Insert'], displayName: 1 },
-    ],
-    Gabz: [
-        { name: '[Development] Gabz', factions: ['Development'], nicknames: ['3D'] },
-    ],
-    Galackxyz: [
-        { name: 'Annie Quigley', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    GalacticDPN: [
-        { name: 'Roman Shacks', nicknames: ['Professor Galactic', 'The Doctor', 'Professor'], displayName: 0 },
-    ],
-    GameDemented: [
-        { name: '[Deputy] Peter Johnson', factions: ['Police'] },
-    ],
-    gangsters_paradise: [
-        { name: 'Maz Razi', factions: ['Italian Mafia'], nicknames: ['Uncle Tony', 'Uncle T'], displayName: 3 },
-    ],
-    Garek: [
-        { name: 'Burt "Gloryon" Beans', factions: ['LARPers', 'Cleanbois', 'Rooster'], nicknames: ['Cleric'] },
-        { name: 'Garek', factions: ['Self Insert'], displayName: 1 },
-    ],
-    GattisTV: [
-        { name: 'Carlos Guzman', factions: ['Vagos'], displayName: 0 },
-    ],
-    Gavbin_: [
-        { name: 'Gavin Holliday', factions: ['DoJ'] },
-    ],
-    geenelly: [
-        { name: 'Misty Bloom', displayName: 0 },
-    ],
-    gekgemu: [
-        { name: 'Serena Riven', factions: ['Rooster'] },
-    ],
-    GeneralEmu: [
-        { name: '[Commissioner] Lance Malton', factions: ['Police'] },
-    ],
-    ggqf: [
-        { name: 'Stanly "Stag" Lessfield', factions: ['LARPers', 'Cleanbois', 'Rooster'], nicknames: ['Stagdancer', 'Gea', 'Paladin'] },
-        { name: 'Garth Gregory Quincy Fafnir', nicknames: ['vlog'], displayName: 1 },
-        { name: 'Daniel Hopper', displayName: 0 },
-        { name: '[Officer] Bennett Calhoun', factions: ['Police'] },
-    ],
-    gibbs_gg: [
-        { name: 'Walter Franks', factions: ['Condemned MC'], displayName: 0 },
-    ],
-    Gilthflo: [
-        { name: 'Percy Perkins', factions: ['Burger Shot'], displayName: 0 },
-    ],
-    gingersnap___: [
-        { name: 'Sophie Sanders', displayName: 0 },
-    ],
-    Gnomey_au: [
-        { name: 'Max Moody', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    goldelena: [
-        { name: 'August Vakarian' },
-        { name: '[Deputy] Manuela Santos', factions: ['Police'] },
-    ],
-    Golden_Laurel: [
-        { name: 'Gillea Taylor', factions: ['HOA'] },
-    ],
-    GoldGlove: [
-        { name: 'Marvin King', nicknames: ['Marv'], displayName: 3 },
-    ],
-    goodnightjackalope: [
-        { name: 'Stevie McQueen', factions: ['BBMC'], displayName: 0 },
-    ],
-    goose_thegreat: [
-        { name: 'Thad Owens', factions: ['HOA'], displayName: 0 },
-    ],
-    GrandPOObear: [
-        { name: 'Mick Jhonson', factions: ['Stable'], displayName: 1 },
-    ],
-    Greekgodx: [
-        { name: '"Tay Tay" Tyrone', nicknames: ['TayTay'], assumeServer: 'public' },
-        { name: 'Tea Tea', factions: ['Police'], displayName: 0 },
-    ],
-    GreenishMonkey: [
-        { name: 'Bobby Brown', factions: ['Chang Gang'] },
-        { name: '[Officer] James Brown', factions: ['Police'], displayName: 2 },
-    ],
-    GTAWiseGuy: [
-        { name: 'Eddie Marshall', factions: ['Tuner Shop'] },
-        { name: '[Deputy] Jim Underwood', factions: ['Police'], nicknames: ['337', reg(/\w+wood\b/)] },
-        {
-            name: '[Development] GTAWiseGuy',
-            factions: ['Development', 'Tuner Shop'],
-            nicknames: ['Handling', 'Fixes', 'Fixing', 'Tuning', reg(/\btuners?(?:\s*\w*)*leaks/), reg(/\bnew\s+\w+\s*stuff/)],
-        },
-        { name: 'Igor Skovacic' },
-        { name: 'Robin Williams', factions: ['Self Insert', 'One Life'], displayName: 0 },
-        { name: 'Terminator T777', displayName: 0 },
-        { name: 'Big M', displayName: 0 },
-        { name: 'Earl ?', displayName: 1 },
-        { name: 'Daequan "Double D" DeMarco', factions: ['SSB'] },
-        { name: 'RayRay' },
-        { name: 'Maury Mersion', factions: ['Mersions'] },
-    ],
-    GumbyMMA: [
-        { name: 'Gumbus McGoo', factions: ['HOA'], nicknames: [reg(/\bgumb/)] },
-    ],
-    GutturalSteve: [
-        { name: 'Tomathy Steampipe', factions: ['Burger Shot'] },
-    ],
-    HAchubby: [
-        { name: 'Ha Chu', displayName: 0 },
-    ],
-    hannerb_naner: [
-        { name: '[EMS] Jenny Schildt', factions: ['Medical'] },
-    ],
-    HannibalSeca: [
-        { name: 'Willy Wong', factions: ['Tuner Shop'], displayName: 0 },
-    ],
-    HalifamousNS: [
-        { name: 'Devon Davidson', factions: ['BSK'], nicknames: ['DD'], displayName: 0 },
-    ],
-    hansgaming08: [
-        { name: '[Chief of Police] M Hans', factions: ['Police'], assumeServer: 'international' },
-    ],
-    Harbinger2183: [
-        { name: '[Deputy] Ethan Maxwell', factions: ['Police'], nicknames: ['505'], displayName: 2 },
-    ],
-    HARMSwahy: [
-        { name: 'Blaine Burke', factions: ['Angels'] },
-        { name: '[Officer] Wilson Burke', factions: ['Police'] },
-    ],
-    Harry: [
-        { name: 'Harry Brown', factions: ['Cleanbois', 'Limelight', 'Pegasus', 'Rooster'] },
-        { name: '[Deputy] Kevin Little', factions: ['Police'], nicknames: ['Lil Kev', 'Kev'], displayName: 2 },
-    ],
-    HasanAbi: [
-        { name: 'Humberto Antonio Donato Pecorino', factions: ['Cleanbois', 'Rooster'], nicknames: ['Don', 'Donnie', reg(/\bOva[h']? here\b/)], displayName: 5 },
-    ],
-    Hedisaurus: [
-        { name: '[Ranger] Ramona Celeste', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: '[EMS] Hedi Saurus', factions: ['Medical'], assume: 'assumeNpNoOther', assumeServer: 'whitelist' },
-        { name: '[Deputy] Ramona Celeste', factions: ['Police'], displayName: 1, assumeServer: 'whitelist' },
-    ],
-    heyimzed: [
-        { name: 'Edbert Ropeburn', factions: ['BBMC'] },
-    ],
-    HeyOrbz: [
-        { name: '[Officer] Casey Valentine', factions: ['Police'] },
-        { name: 'Richie Mersion', factions: ['Mersions'], displayName: 0 },
-    ],
-    HiredGunRP: [
-        { name: '[Deputy] Colt Shepherd', factions: ['Police'] },
-    ],
-    Hirona: [
-        { name: '[Trooper] Olivia Copper', factions: ['Police'] },
-        { name: 'Emily Maw', factions: ['Harmony'] },
-        { name: 'Jenny Hawk', displayName: 0 },
-        { name: 'Onya Block', factions: ['ASRR'], displayName: 0 },
-        { name: 'Debbie Hopper', displayName: 0 },
-        { name: 'Kristen Rules', factions: ['Self Insert'], displayName: 0 },
-        { name: 'Griselda "Zelda" Harth', factions: ['HOA'] },
-        { name: 'Olga Sazkaljovich', factions: ['Pegasus'], nicknames: ['Olgaa', 'Olgaaa', 'Olgaaaa'] },
-    ],
-    hobbittrash: [
-        { name: '[Officer] Tracy Martell', factions: ['Police'], nicknames: ['Cop', 'Captain', reg(/\b\w+tell/)] },
-        { name: '[Judge] Katya Zamalodchikova', factions: ['DoJ'], displayName: 1 },
-        { name: 'Jane Obama', nicknames: ['jesus', 'christ'], displayName: 0 },
-        { name: 'Aja Monet', displayName: 0 },
-        { name: 'Jane Souls', displayName: 0 },
-        { name: 'Rounda Block', factions: ['ASRR'], displayName: 0 },
-        { name: "Kayden Dell'Anno" },
-    ],
-    hobosrust: [
-        { name: 'Hei Zeus', factions: ['Lost MC'], displayName: 0, assumeServer: 'public' },
-    ],
-    HonathanTV: [
-        { name: '[Deputy] Honathan Yolo', factions: ['Police'] },
-    ],
-    Hoss: [
-        { name: 'Chip Wheeler', factions: ['BBMC', 'Tuner Shop'], displayName: 0, assumeServer: 'whitelist' },
-        { name: 'Rocky Balboner', displayName: 0, assumeServer: 'public' },
-    ],
-    Hotted89: [
-        { name: '[Deputy] Matthew Espinoz', factions: ['Police'], nicknames: ['Airspinoz', 'Air 1 Andy'] },
-        { name: 'Joaquin "JJ" Jimenes', factions: ['Seaside'] },
-        { name: 'Allen Widemann', factions: ['Chang Gang', 'Tuner Shop'] },
-    ],
-    HPD007: [
-        { name: 'Joe Flatley', factions: ['BSK'], nicknames: ['Fat Joe'], displayName: 3 },
-    ],
-    huddy_nz: [
-        { name: 'Ash Huddy Hudson', factions: ['Lunatix'] },
-    ],
-    Huntag: [
-        { name: 'Freddy Fastfingers', factions: ['HOA'], displayName: 0 },
-    ],
-    Hurnani: [
-        { name: 'Bruno Brown', factions: ['Italian Mafia'], displayName: 0 },
-        { name: 'Borat ?' },
-        { name: 'James-Kamea Brown', factions: ['Vagos'] },
-    ],
-    HutchMF: [
-        { name: 'Hutch Hutcherson', factions: ['Chang Gang'], nicknames: [reg(/\bkilled a man/), 'racing', 'business', 'paintball', 'h&o', reg(/\bwar/)] },
-        { name: '[Deputy] Jaryd Peak', factions: ['Police'] },
-        { name: 'Drew "Dead Eye Drew"', nicknames: ['DeadEye'] },
-        { name: 'Hutch Hendrickson' },
-    ],
-    HydraPlz: [
-        { name: 'Gandalf "Stankyleg" Butters', factions: ['ASRR'] },
-        { name: '[Deputy] John Hydra', factions: ['Police'], displayName: 2 },
-    ],
-    iamnxera: [
-        { name: '[Officer] Tommy Tinker', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: 'Tommy Tinker', displayName: 1, assumeServer: 'whitelist' },
-    ],
-    IAmSoul_RP: [
-        { name: 'Johnathen Riker' },
-    ],
-    IanDavis: [
-        { name: 'Reginald Watson', factions: ['Royal Mafia'], nicknames: ['Sir'], displayName: 0 },
-    ],
-    iballzach: [
-        { name: '[EMS] Zachary Kellogg', factions: ['Medical'] },
-    ],
-    IbbyRed: [
-        { name: 'Jose "Fat Joe" Santini', factions: ['Vagos'] },
-    ],
-    IcyMindRacer: [
-        { name: '[Dispatch] Iris Nivira', factions: ['Police'], displayName: 1 },
-    ],
-    iddqd: [
-        { name: 'Jesse Reed', factions: ['BBMC'], nicknames: ['Cree'] },
-    ],
-    idksean: [
-        { name: '[Dept. Mayor] Sean Deane', factions: ['DoJ'], displayName: 0 },
-    ],
-    IG_Raptor: [
-        { name: '[Ranger] Matt Cordell', factions: ['Police'], assumeServer: 'international' },
-    ],
-    iGumdrop: [
-        { name: 'Emi Drop' },
-    ],
-    IHeartGaming: [
-        { name: 'Markuz Jackelson', factions: ['GSF'], nicknames: ['Meatball', 'Meat', 'Meatwad'] },
-    ],
-    iiMancini: [
-        { name: 'John Mancini', factions: ['NBC'], displayName: 0 },
-    ],
-    IJuanAWin: [
-        { name: 'Machete Cortez', factions: ['Marabunta'] },
-    ],
-    ikittyyyy: [
-        { name: 'Kitty Dream', factions: ['Britney Gang', 'Burger Shot', 'Rooster'] },
-    ],
-    ilenol: [
-        { name: 'Max Larson', factions: ['CBPD', 'Rooster'], displayName: 0 },
-    ],
-    illwac: [
-        { name: 'Bob Moss', factions: ['Burger Shot'], displayName: 0 },
-    ],
-    ImFluffinJiggly: [
-        { name: '[Deputy] ? Wilkons', factions: ['Police'], assumeServer: 'public' },
-    ],
-    indur: [
-        { name: '[Deputy] Dea Bane', factions: ['Police'], assumeServer: 'public' },
-    ],
-    INFLUXPictures: [
-        { name: 'Tony Venucci', displayName: 0 },
-    ],
-    inix: [
-        { name: 'Mortimer Scottsfold', nicknames: ['Yung Fierro'], displayName: 3 },
-    ],
-    Intelleqt: [
-        { name: 'Donovan "DK" King', factions: ['GSF'] },
-    ],
-    ironmonkeytv: [
-        { name: 'Winston Bolt', factions: ['Pegasus'] },
-        { name: 'Dragon' },
-    ],
-    itmeJP: [
-        { name: 'Wilbur Higgins' },
-    ],
-    ItsHighsky: [
-        { name: 'Sky Parks', factions: ['Royal Mafia'], displayName: 0 },
-    ],
-    itsjustasummerjob: [
-        { name: '[Mayor] Sabith "Bunny" Cohen', factions: ['DoJ', 'Stable'] },
-    ],
-    ItsJustJosh: [
-        { name: 'Levi Dawson', factions: ['SSB'] },
-    ],
-    ItsLeslie: [
-        { name: 'KyrinChan "Leyla" WeuhBou', factions: ['LARPers', 'Cleanbois', 'Britney Gang', 'Rooster'], nicknames: ['Nightingale', 'Wizard', 'Embervale', reg(/\bley+l+a/)] },
-    ],
-    ItsLSG: [
-        { name: '[Officer] Jack Miller', factions: ['Police'] },
-    ],
-    itsmejjroleplay: [
-        { name: 'Johnny Jacksun', factions: ['BSK'], nicknames: ['JJ'], displayName: 0 },
-    ],
-    ItsNowas: [
-        { name: 'Trequan Jenkins', factions: ['Street Team', 'Chang Gang'], nicknames: ['Ashtray'], displayName: 3 },
-        { name: '[Deputy] Eli Hawkins', factions: ['Police'] },
-    ],
-    ItsSammyP: [
-        { name: 'Mando Thompson', factions: ['Vagos'], nicknames: ['Mango'] },
-        { name: 'Tyrone "Big T" Thompson', factions: ['SSB'] },
-    ],
-    itsSANDR: [
-        { name: 'Asher Brown' },
-        { name: 'Lucas Shadow', factions: ['DoC'], displayName: 0 },
-    ],
-    ItsSlikeR: [
-        { name: 'Chris Turtle', nicknames: ['Lil Sneach', 'Sneach'], displayName: 0 },
-        { name: 'Hershall Turtle', nicknames: ['Hershal'] },
-        { name: 'Abe Makaveli', displayName: 0, assumeServer: 'whitelist' },
-        { name: 'Abe Moe', displayName: 0, assumeServer: 'public' },
-        { name: 'Abraham Mohammed' },
-    ],
-    izzidizzy: [
-        { name: '[Deputy] Ruby Hope', factions: ['Police'], displayName: 2 },
-    ],
-    JaboodyShow: [
-        { name: 'Jerry Curl', displayName: 0 },
-        { name: 'Derrick Derpman' },
-        { name: 'Vincent' },
-    ],
-    Jack: [
-        { name: 'Jack Cortair', factions: ['Gulag Gang'], nicknames: ['Cookie', 'Galleta'], assumeServer: 'whitelist' },
-        { name: 'Jack Cortair', nicknames: ['Cookie'], assumeServer: 'international' },
-        { name: '[Deputy] Dez Wright', factions: ['Police'], nicknames: ['Doofy', reg(/\bdez/)], displayName: 2 },
-    ],
-    Jackhuddo: [
-        { name: 'Shane Powers', nicknames: ['ShaneO', 'ShanO'] },
-        { name: 'Hubbo Samson' },
-    ],
-    Jadez: [
-        { name: '? "Mother Midnight" ?' },
-    ],
-    jakenbakeLIVE: [
-        { name: 'Ryu Tenga' },
-    ],
-    JarJarBloo: [
-        { name: '[Officer] Marcus Miller', factions: ['Police'], assumeServer: 'public' },
-    ],
-    jason_plays_games: [
-        { name: '[Judge] Norman Adams', factions: ['DoJ', 'Rooster'], displayName: 2 },
-    ],
-    jastatank: [
-        { name: 'Larry Jonson', factions: ['Italian Mafia'], displayName: 0 },
-    ],
-    Javaaaa: [
-        { name: 'Joseph Yorinobu', nicknames: ['Majima', 'Goro'], displayName: 3 },
-        { name: 'Lillia Claurel' },
-    ],
-    JavaShorty: [
-        { name: '[Deputy] Shelby Lane', factions: ['Police'], nicknames: ['588'], displayName: 1 },
-    ],
-    jay4871: [
-        { name: 'Dave Perry', displayName: 0 },
-    ],
-    JayAitch: [
-        { name: 'Alex "Lil Cap" Söderberg', factions: ['BBMC'], nicknames: ['Soderberg', 'Cap'], displayName: 0, assumeServer: 'whitelist' },
-        { name: '[Deputy] Roger S', factions: ['Police'], nicknames: ['546'], displayName: 1 },
-        { name: 'Lil Strap', displayName: 0, assumeServer: 'public' },
-    ],
-    Jayce: [
-        { name: 'Lil Loco', factions: ['Vagos'], displayName: 0 },
-        { name: 'Riley Johnson' },
-        { name: 'Pepe Roni', displayName: 0 },
-        { name: 'Molly Minaj', displayName: 0 },
-        { name: 'Robert "Mr. Rodgers" Rodgers' },
-    ],
-    jdot: [
-        { name: 'Andrew "Drew" Jackson', factions: ['GSF'] },
-        { name: 'Miles Landon', factions: ['Pegasus'], assumeServer: 'whitelist' },
-        { name: 'Miles Landon', nicknames: ['451'], assumeServer: 'public' },
-        { name: 'Jake LaMotta', displayName: 0 },
-    ],
-    jeimiru: [
-        { name: 'David Jackson', factions: ['RUST', 'Harmony'], nicknames: ['Benz'], displayName: 3 },
-    ],
-    Jellypeanut: [
-        { name: 'Rai "Juuls" Cumberwoood' },
-        { name: '[Prince] Habib Khalid' },
-    ],
-    Jennybeartv: [
-        { name: '[Deputy] Peach Chee', factions: ['Police'], displayName: 1 },
-        { name: 'Peachingle Dan', factions: ['Dans'] },
-    ],
-    jennylouise1997: [
-        { name: '[Deputy] Louise Campbell', factions: ['Police'] },
-        { name: 'Jenny Smith', displayName: 0 },
-    ],
-    jess_tation: [
-        { name: 'CJ Parker' },
-    ],
-    jessbleck: [
-        { name: '[Deputy] Jessie Dallas', factions: ['Police'], assumeServer: 'public' },
-    ],
-    jessimiyaseo: [
-        { name: 'Jessi Adler', factions: ['ASRR'], displayName: 0 },
-    ],
-    jettskiiee: [
-        { name: 'Xavier "Xay" Sin', factions: ['CBPD', 'Rooster'] },
-    ],
-    Jfourmess: [
-        { name: 'Vince Watson', factions: ['Mandem'], displayName: 0 },
-    ],
-    jimmytulip: [
-        { name: 'Wayne Biggaz', factions: ['Chang Gang'], nicknames: [reg(/\bwe+y+n/), reg(/\bwayne/)] },
-    ],
-    JJFried: [
-        { name: '[Deputy] Jace Barter', factions: ['Police'] },
-        { name: 'Ace Carter', factions: ['BCG'] },
-    ],
-    JJLakee: [
-        { name: 'Jay Jarvis', factions: ['Hydra Gang', 'Harmony', 'Pegasus'], nicknames: ['JJ'], displayName: 0, facebook: true },
-    ],
-    JoblessGarrett: [
-        { name: 'Garrett Jobless', factions: ['Chang Gang'], facebook: true },
-        { name: '[Officer] Garry Berry', factions: ['Police'] },
-    ],
-    Joeeigel: [
-        { name: '[Judge] Arthur MacNee', factions: ['DoJ', 'Rooster'], displayName: 1 },
-    ],
-    JoeSmitty123: [
-        { name: '[Officer] Michael Murphy', factions: ['Police'] },
-    ],
-    Jogiiee: [
-        { name: 'Emma Gaine', factions: ['Medical'], displayName: 1 },
-        { name: '[Officer] Piper Paisley', factions: ['Police'] },
-        { name: 'Jessie Jugg' },
-        { name: '[Dispatch] Penny Schildt', factions: ['Police'] },
-        { name: 'Eva Wall' },
-        { name: '[Lawyer] Maggie Kayden', factions: ['DoJ'] },
-    ],
-    JonnyRotten: [
-        { name: 'Billy Phresh', factions: ['Street Team', 'Chang Gang'], displayName: 0 },
-    ],
-    Jonthebroski: [
-        { name: 'Denzel Williams', factions: ['Cleanbois', 'Limelight', 'Pegasus', 'Rooster'], nicknames: ['The "Cleaner"', 'Presidente'] },
-        { name: '[Deputy] Johnny Divine', factions: ['Police'], displayName: 0 },
-        { name: 'Broskingle Dan', factions: ['Dans'] },
-        { name: '[Senator] Sean Davis', factions: ['DoJ'], leader: true, nicknames: ['Senate'] },
-        { name: 'Dio Ivanov', factions: ['Russians'] },
-        { name: 'Holden D. Block', factions: ['ASRR'], displayName: 0 },
-    ],
-    JoshOG: [
-        { name: 'Mario Le-Pipe', factions: ['Chang Gang'], affiliate: true, displayName: 0 },
-    ],
-    JostQQ: [
-        { name: 'Jost Zueger', factions: ['Rooster', 'Tuner Shop'], displayName: 0 },
-    ],
-    JOVIAN: [
-        { name: '[Deputy] Billiam Williams', factions: ['Police'], displayName: 1 },
-    ],
-    JPeavy: [
-        { name: 'Dante Thomas', factions: ['HOA'], displayName: 0 },
-    ],
-    JPF_14: [
-        { name: 'Jay Martin', factions: ['Roadmen', 'Mandem'], displayName: 0 },
-    ],
-    JPKMoto: [
-        { name: '[Clerk] Odessa Pearson', factions: ['DoJ'], displayName: 1 },
-        { name: 'Nora Dupres' },
-        { name: 'Zee Nanakaze Mathers' },
-    ],
-    JR__H: [
-        { name: '[Lawyer] Lou Pohl', factions: ['DoJ'], displayName: 1 },
-    ],
-    JRandyDL: [
-        { name: 'Wyatt Jones', factions: ['BBMC'], displayName: 0 },
-    ],
-    Jubby: [
-        { name: '[Deputy] Ricardo Perez', factions: ['Police', 'Burger Shot'], displayName: 1 },
-    ],
-    Judd: [
-        { name: '[Judge] Coyote Russell', factions: ['DoJ'], displayName: 1, assumeServer: 'whitelist' },
-        { name: 'Judd Lincoln' },
-        { name: '[Officer] Judd Lincoln', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: 'Reverend I.M. Voland', factions: ['Dark Web'] },
-    ],
-    juelzzz: [
-        { name: 'Maria Estrella Duarte', factions: ['Vagos'], nicknames: [reg(/\be+s+t+r+e+l/)], displayName: 2 },
-    ],
-    Juggs: [
-        { name: 'Sidwig Crawshank', factions: ['Royal Mafia'], nicknames: [reg(/\bsidwig/)], displayName: 1, leader: true },
-        { name: 'Lenny Large', nicknames: [reg(/\blenny/)], displayName: 0 },
-        { name: 'Traevon Williams', nicknames: ['The Barber'], displayName: 3 },
-    ],
-    JukeBoxEM: [
-        { name: 'Tony Foster' },
-        { name: 'Shane Jones', factions: ['DoC'] },
-    ],
-    Julian: [
-        { name: 'Julian Santorno', factions: ['Seaside'], assumeServer: 'whitelist' },
-        { name: 'Julian Santorno', factions: ['Gulag Gang'], assumeServer: 'public' },
-        { name: '[Officer] Jules Scarpetta', factions: ['Police'], nicknames: [reg(/\bscar/)], displayName: 1, assumeServer: 'public' },
-    ],
-    JustaMinx: [
-        { name: 'Mercy Peggers' },
-    ],
-    JustDurant: [
-        { name: 'Toni Balbani', factions: ['Italian Mafia'], displayName: 0 },
-    ],
-    JustenTymes: [
-        { name: 'Blanden Haster', factions: ['HOA'], displayName: 1 },
-    ],
-    justFritz: [
-        { name: 'Fritz Ericson', factions: ['Condemned MC'] },
-    ],
-    JustJambaa: [
-        { name: 'La Flare Davis', factions: ['RUST'], nicknames: ['La Flare'], displayName: 4 },
-    ],
-    JustJamie: [
-        { name: '[Officer] George Lawson', factions: ['Police'], nicknames: ['592'] },
-        { name: 'Tommy Cruizer', factions: ['Roadmen', 'Tuner Shop'] },
-        { name: 'Jamie Bee', factions: ['Self Insert'], displayName: 0 },
-    ],
-    JustPenchi: [
-        { name: 'Casper Clock', factions: ['Prison'], nicknames: ['Plague Doctor'], displayName: 3 },
-    ],
-    K3NJ1N: [
-        { name: '[Deputy] Kenji Hatake', factions: ['Police'], displayName: 2, assumeServer: 'public' },
-    ],
-    Kaceytron: [
-        { name: 'Bobbi Jo', displayName: 0 },
-    ],
-    Kainalo: [
-        { name: 'Risto Suolamies' },
-    ],
-    Kangaro0: [
-        { name: '[Officer] Jimmy Frost', factions: ['Police'] },
-    ],
-    KaoruHare: [
-        { name: '[Therapist] Kizzy Neveah', factions: ['Medical'] },
-    ],
-    KaoticaXD: [
-        { name: 'Victoria "Vivi" Veine', factions: ['HOA'] },
-    ],
-    kappatalmoose: [
-        { name: 'Rick Tames', factions: ['GSF'], nicknames: ['Microphone'], displayName: 0 },
-    ],
-    Kari: [
-        { name: 'Karina Dawn', factions: ['Harmony'], nicknames: ['crim', 'criminal', 'robbing', reg(/\bkarina/)] },
-        { name: '[Deputy] Mina Price', factions: ['Police'] },
-        { name: '[EMS] Khloe Brooks', factions: ['Medical'] },
-    ],
-    karlnetwork: [
-        { name: 'Jacob Karlson', displayName: 0 },
-    ],
-    Karma: [
-        { name: 'Bobby Johnson', displayName: 0 },
-    ],
-    karnt1: [
-        { name: 'Arush', factions: ['GSF'] },
-    ],
-    KatAudeo: [
-        { name: '[Dr.] Lucy Janis', factions: ['Medical'] },
-        { name: 'Charlotte Thomas', nicknames: ['Lottie'], displayName: 3 },
-    ],
-    Kate: [
-        { name: 'Nancy Drew', factions: ['Britney Gang'] },
-        { name: '[Officer] Veronica Mars', factions: ['Police'], nicknames: ['593'] },
-        { name: 'Muriel Gallstaff', displayName: 1 },
-    ],
-    KatFires: [
-        { name: 'Novah Walker', factions: ['Chang Gang'] },
-        { name: '[Deputy] Ensley Alton', factions: ['Police'], nicknames: ['521'], displayName: 1 },
-    ],
-    KatieBunny94: [
-        { name: '[Dr.] Luna Rivera', factions: ['Medical'], displayName: 1 },
-        { name: 'Bree McNab', displayName: 0 },
-    ],
-    KattValkyrie: [
-        { name: '[EMS] Valkyrie Sunshot', factions: ['Medical'] },
-        { name: 'Katt Vincent' },
-    ],
-    kaylynstagram: [
-        { name: 'Eleanor West', factions: ['RUST'], displayName: 1 },
-    ],
-    Keeno: [
-        { name: 'Kyle Brovloski', displayName: 0, assume: 'assumeOther' },
-    ],
-    kels_corner: [
-        { name: 'Victor Blaze', factions: ['SSB'], displayName: 0, assumeServer: 'public' },
-    ],
-    KelsKatz: [
-        { name: 'Lilian "Lily" Mackenzie', factions: ['GSF'] },
-    ],
-    Kemony: [
-        { name: 'Susie Carmichael', factions: ['Hydra Gang'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Ride Along] Alice Watson', factions: ['Police'], displayName: 2 },
-        { name: '[Officer] Susie Carmichael', factions: ['Police'], nicknames: ['Copmichael'], assumeServer: 'public' },
-    ],
-    Kennasofly: [
-        { name: 'Jupiter Adams', factions: ['Tuner Shop'], displayName: 0 },
-    ],
-    KezieEve: [
-        { name: 'Ghost Storm', factions: ['GSF'] },
-    ],
-    KguGaming: [
-        { name: 'Pablo Loco', factions: ['Vagos'], displayName: 0 },
-        { name: 'Mr. Ratchet', factions: ['Gulag Gang'], displayName: 0 },
-        { name: 'Ruckus ?', factions: ['SSB'], nicknames: ['Uncle Ruckus'], displayName: 3 },
-    ],
-    KhaosAdam: [
-        { name: 'Adam Ababwa', factions: ['Mandem'], assume: 'assumeOther', displayName: 0 },
-    ],
-    KiingJoee: [
-        { name: '? ?', assume: 'neverNp' },
-    ],
-    KillrBeauty: [
-        { name: 'Catherine Scratch', factions: ['Lost MC'], nicknames: ['Cat'], displayName: 3 },
-        { name: '[Deputy] Ada Grille', factions: ['Police'], nicknames: ['Gril', 'Grill'] },
-    ],
-    KiloAU: [
-        { name: '[Deputy] Robert Anderson', factions: ['Police'] },
-        { name: '[Lawyer] Jason Ledson', factions: ['DoJ'] },
-    ],
-    kioShiMa_ff: [
-        { name: 'Kio Shima', factions: ['Hydra Gang'] },
-    ],
-    Kimchi: [
-        { name: 'Sun Moon', nicknames: [reg(/\bsun/), 'Korean Gang'], displayName: 0 },
-    ],
-    Kimmykix: [
-        { name: 'April Thompson', factions: ['Pegasus'] },
-    ],
-    Kinamazing: [
-        { name: '[Officer] Emma Dupont', factions: ['Police'], nicknames: ['Dupog'], assumeChar: true },
-    ],
-    kindagloomy: [
-        { name: 'Vera Tea', factions: ['Vagos'] },
-    ],
-    King_1455: [
-        { name: 'Cooch Cassidy', factions: ['Lost MC'] },
-    ],
-    Kingothestone: [
-        { name: 'Steven Stone III', displayName: 2 },
-    ],
-    KinkyHobo: [
-        { name: '[Lawyer] Gill Schultz', factions: ['DoJ'], displayName: 1 },
-        { name: '[Officer] Max Muller', factions: ['Police'], displayName: 2 },
-    ],
-    KinslayerxX: [
-        { name: '[Dispatch] Youjimaru Takimura', factions: ['Police'], displayName: 2 },
-    ],
-    Kitboga: [
-        { name: 'Edna Moose' },
-        { name: '[Deputy] Claire Annette Reed', factions: ['Police'] },
-    ],
-    Kite61: [
-        { name: 'Rusty Johnson' },
-    ],
-    Kiva: [
-        { name: 'Andi Jones', factions: ['HOA'], nicknames: ['Ant'], displayName: 3 },
-        { name: 'Natalie ?', nicknames: ['not andi', 'not ant'], displayName: 1 },
-        { name: 'Navi Gates' },
-    ],
-    Kiwo: [
-        { name: '[Agent] Lauren Forcer', factions: ['Police'], assumeServer: 'whitelist' },
-        { name: '[Officer] Maisy Graves', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Mia Mersion', factions: ['Pegasus'] },
-        { name: 'Trish Baggs', displayName: 1 },
-        { name: 'Nah Vee', displayName: 0 },
-        { name: 'Evita "Mother" Nimm', factions: ['Dark Web'] },
-        { name: 'Ava Ridge', nicknames: ['Silence', reg(/darkness/)] },
-        { name: 'Marta Volkov' },
-    ],
-    KL33Si: [
-        { name: '[Dr.] Emily Ducksworth', factions: ['Medical'], displayName: 0 },
-    ],
-    Klutch: [
-        { name: 'Eli Porter', factions: ['Mandem'], nicknames: ['Elz'], displayName: 0 },
-    ],
-    Knight_Xero: [
-        { name: 'Kai B. Knight', factions: ['DoC'], displayName: 0 },
-    ],
-    Knotty: [
-        { name: 'Guy Jones', factions: ['NBC'], displayName: 0, leader: true },
-    ],
-    KnuckleheadGaming: [
-        { name: 'Marty Holiday', factions: ['Prison'], displayName: 0 },
-    ],
-    Knut: [
-        { name: 'Bjorn Eiriksson' },
-    ],
-    koil: [
-        { name: 'Otto Delmar', nicknames: ['race', 'racing'] },
-        { name: 'Francis Francer', factions: ['Chang Gang'], nicknames: ['franic', 'franer', 'bwo', reg(/\bfr.n.{1,2}s|\bfran/)], displayName: 0 },
-        { name: '[Trooper Chief] Kael Soze', factions: ['Police'], highCommand: true, leader: true, nicknames: ['are illegal'] },
-        { name: '[Senator] Steven Barosi', factions: ['DoJ'], leader: true, nicknames: ['Senate', 'Steve'], displayName: 1 },
-        { name: '[Development] Koil', factions: ['Development'], nicknames: ['Code'] },
-        { name: 'Saint Jospeh', nicknames: ['Jesus', 'Joseph', 'XUJIA', 'EMC'], displayName: 0 },
-        { name: 'Ray Ray', factions: ['ASRR'], displayName: 0 },
-    ],
-    kojoXD: [
-        { name: 'Kojo ?', factions: ['Gulag Gang'], assumeServer: 'public', assumeChar: true },
-    ],
-    Kongfue: [
-        { name: 'Karl "KJ" Johnny Black', factions: ['Seaside'] },
-    ],
-    KriptedAUS: [
-        { name: 'Antonio Rodrigues', factions: ['BBMC'], displayName: 0 },
-    ],
-    KristoferYee: [
-        { name: 'Jay Que', factions: ['Rooster'], displayName: 0 },
-        { name: '[Deputy] Ka Chao', factions: ['Police'], displayName: 2 },
-        { name: 'Kristofer Yee', factions: ['Self Insert'], displayName: 0 },
-    ],
-    KrisTWOfer: [
-        { name: 'Jay Que', factions: ['Rooster'], displayName: 0 },
-        { name: '[Deputy] Ka Chao', factions: ['Police'], displayName: 2 },
-    ],
-    kritacul: [
-        { name: 'Devon "Dev" Jones', factions: ['GSF'] },
-    ],
-    KrizFrost: [
-        { name: 'Kriz Khaoz', factions: ['DoC'] },
-    ],
-    Kunaives: [
-        { name: 'Wally Veloce', factions: ['BSK'] },
-    ],
-    KuroKunoichi13: [
-        { name: 'Natalia Omar' },
-    ],
-    Kydos___: [
-        { name: "Baby O'Conner", factions: ['Wastelanders'], displayName: 0 },
-    ],
-    Kyle: [
-        { name: '[Sheriff of PBSO] Kyle Pred', factions: ['Police'], leader: true, assumeServer: 'whitelist' },
-        { name: '[Officer] James Hanna', factions: ['Police'] },
-        { name: '[Officer] Kyle Pred', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Dominic Toretti', displayName: 0 },
-        { name: 'Jaguar Toretti', displayName: 0 },
-        { name: 'Alabaster Slim', nicknames: ['Pimp'], displayName: 2 },
-        { name: 'Kegal Dan', factions: ['Dans'] },
-        { name: 'Brett Biggledoinks' },
-        { name: 'Notta Local', factions: ['SSB'], nicknames: ['Balla Gang'], displayName: 3 },
-        { name: 'Marty Oldmen', displayName: 0 },
-        { name: 'Lee Harvey Tinker', displayName: 0 },
-        { name: 'Cop Killa', displayName: 0 },
-        { name: 'Kyle Kyle', factions: ['Self Insert', 'One Life'], displayName: 1 },
-        { name: 'Sigfried Porsche', nicknames: ['porshe'], displayName: 0 },
-        { name: 'Hampton Brandon', nicknames: ['TTD', 'Ten Toes Down'] },
-        { name: 'Tame "The Mandalorian" Saxon', nicknames: ['Mandolorian'] },
-        { name: 'Hat Carl', nicknames: ['The Matador'], displayName: 0 },
-        { name: "[Lawyer] Rory O'Banion", factions: ['DoJ'], displayName: 0 },
-        { name: 'Wyatt Derp', factions: ['Lost MC'] },
-        { name: 'Pal Gore' },
-    ],
-    KylendOnTwitch: [
-        { name: 'Kylend LaCroix', factions: ['GSF'], assumeServer: 'public' },
-    ],
-    kyliebitkin: [
-        { name: '[Deputy] Brittany Angel', factions: ['Police'], nicknames: ['Angle', 'Captain'] },
-        { name: '[Dept. Mayor] Mary Mushkin', factions: ['DoJ', 'Tuner Shop'], nicknames: ['Red Devil', 'R3d Devil'], displayName: 1 },
-        { name: 'Kylie Bitcoin', factions: ['Self Insert'], displayName: 0 },
-    ],
-    KYR_SP33DY: [
-        { name: 'Moe Litman', displayName: 0, assume: 'assumeOther' },
-    ],
-    kytolee: [
-        { name: 'Juan Cuervo', factions: ['Vagos'], displayName: 0 },
-    ],
-    LadyHope: [
-        { name: '[Officer] Lily Pond', factions: ['Police'] },
-        { name: 'Isabella "Izzy" Carrington', factions: ['Harmony'] },
-    ],
-    LadyLynxx: [
-        { name: '[Officer] Saphira Sinclair', factions: ['Police'], nicknames: ['Saph', '597'] },
-        { name: 'Jaed Smith' },
-    ],
-    LAGTVMaximusBlack: [
-        { name: 'Outto-Tune "OTT" Tyrone', factions: ['BSK'], nicknames: [reg(/\b[O0]\S?TT/)], leader: true, assumeServer: 'whitelist' },
-        { name: '[Deputy] Max Prime', factions: ['Police'], nicknames: ['Twija'], displayName: 2 },
-        { name: 'Outto-Tune "OTT" Tyrone', factions: ['Gulag Gang'], nicknames: [reg(/\b[O0]\S?TT/)], assumeServer: 'public' },
-        { name: '[Officer] Twija Prime', factions: ['Police'], assumeServer: 'public' },
-    ],
-    Lairdo_: [
-        { name: 'Henry King', factions: ['Rooster'] },
-    ],
-    LargeSalt: [
-        { name: 'Ivan Samarsky', factions: ['Seaside'], displayName: 0 },
-    ],
-    LarryX7: [
-        { name: 'Jose "Cousin" Luis Santana', factions: ['Vagos'] },
-    ],
-    LaS_: [
-        { name: 'Jesse "Baby Joker" Morales', assume: 'assumeOther' },
-    ],
-    Lastbrokenoath: [
-        { name: '[Dr.] Alexander Blake', factions: ['Medical'], displayName: 2 },
-        { name: '[Dispatch] L Tailor', factions: ['Police'], nicknames: ['D-21'], displayName: 2 },
-    ],
-    LetterJaye: [
-        { name: 'Posy Florian', factions: ['Burger Shot'], nicknames: ['P O S Y'] },
-        { name: '[Dr.] Dahlia Fey', factions: ['Medical'] },
-    ],
-    LeWolfy: [
-        { name: '[Officer] Dante Wolf', factions: ['Police', 'Stable'] },
-    ],
-    LiftedGN: [
-        { name: 'Walter Melon', factions: ['GSF', 'Burger Shot'], displayName: 0 },
-    ],
-    Likochka71: [
-        { name: '[Lawyer] Juno Lemieux', factions: ['DoJ'], displayName: 2 },
-    ],
-    LillyTenshine: [
-        { name: '[Officer] Lilly Wills', factions: ['Police'], displayName: 2 },
-    ],
-    lilypichu: [
-        { name: 'Tulip Peach' },
-    ],
-    LINK_EZ: [
-        { name: 'Linkle Jones', displayName: 1 },
-    ],
-    LIRIK: [
-        { name: 'Clayvon Barksdale', factions: ['Cleanbois', 'Rooster'] },
-        { name: '[Officer] Bayvon Barksdale', factions: ['Police'], nicknames: ['555'], displayName: 2 },
-        { name: 'Abe Vaughn', displayName: 0 },
-        { name: 'Avon Barksdale', factions: ['Cleanbois'], leader: true },
-    ],
-    LisaMunchy: [
-        { name: '[Officer] Lisa Adkins', factions: ['Police'] },
-        { name: '[Therapist] Thalia Hayes', factions: ['Medical'] },
-        { name: '[Lawyer] Lees Grey', factions: ['DoJ'] },
-    ],
-    Lisilsanya: [
-        { name: '[EMS] Lei Sanya', factions: ['Medical'], nicknames: ['Lasagna'], displayName: 0 },
-    ],
-    LJHUNCHO: [
-        { name: 'Leon Johnson', factions: ['Roadmen', 'Mandem'], nicknames: ['LJ'], displayName: 0 },
-    ],
-    Llikthead: [
-        { name: 'Garion Noble', factions: ['BBMC', 'CBPD', 'Rooster'], displayName: 1 },
-    ],
-    lolJukebox: [
-        { name: '[Officer] Shane Jones', factions: ['Police'], displayName: 2 },
-    ],
-    Loorara: [
-        { name: 'Olivia Garcia', nicknames: ['Liv', 'Livvy', 'Olives'], displayName: 0 },
-    ],
-    Loqrin: [
-        { name: '[Development] Loqrin', factions: ['Development'] },
-    ],
-    LordJasta: [
-        { name: 'Chris McGrawl' },
-    ],
-    LordKebun: [
-        { name: 'Mr. K', factions: ['Chang Gang'], leader: true, displayName: 0, nicknames: ['Chang', 'The "Dragon"'], facebook: true },
-        { name: '[Deputy] Richard Richardson', factions: ['Police'], nicknames: ['585'] },
-    ],
-    LordNetloc: [
-        { name: 'Carter Banx', factions: ['GSF'], displayName: 0 },
-    ],
-    LordSnowRP: [
-        { name: 'PillBot XP', factions: ['Medical', 'Burger Shot'], displayName: 1 },
-    ],
-    Loserfruit: [
-        { name: '[EMS] Lizzie Bien', factions: ['Medical'], assume: 'assumeOther' },
-    ],
-    loveANG3L: [
-        { name: 'Kendra Davis', factions: ['Vagos'] },
-    ],
-    Lovinurstyle: [
-        { name: '[Officer] Leah Strong', factions: ['Police'], nicknames: ['531'], assumeServer: 'whitelist' },
-        { name: 'Rose Edwards' },
-        { name: 'Darlene ?', factions: ['DoC'], displayName: 1 },
-        { name: '[Officer] Leah Strong', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    lozdog: [
-        { name: 'Lilith Ailhart', factions: ['HOA'] },
-    ],
-    lstrictlylogicl: [
-        { name: '[Deputy] John Spartan', factions: ['Police'], displayName: 2 },
-    ],
-    Lt_Custard: [
-        { name: 'Collin McKinley', factions: ['BBMC'], displayName: 0 },
-        { name: '[Officer] Jerry Sweets', factions: ['Police'], nicknames: ['561'], displayName: 2 },
-        { name: 'Cougar Dolly', displayName: 0 },
-    ],
-    Lt_Raven: [
-        { name: '[Deputy] Vladimir Raven', factions: ['Police'], highCommand: true },
-        { name: 'Hellfire Holden', factions: ['Lost MC'], nicknames: ['biker', reg(/hell\W*fire/)] },
-    ],
-    LtSerge: [
-        { name: '[Judge] Serge Cross', factions: ['DoJ'], displayName: 2 },
-    ],
-    Lucky_RP: [
-        { name: 'Marlo Stanfield', nicknames: [reg(/ma?rlo/)] },
-    ],
-    LuckyPaddy: [
-        { name: '[Deputy] Paddy Luke', factions: ['Police'], displayName: 1 },
-    ],
-    LuckyxMoon: [
-        { name: '[Deputy] Blair Sutton', factions: ['Police'] },
-        { name: '[Lawyer] Elizabeth Devereaux', factions: ['DoJ'] },
-        { name: 'Jessica Wesker', factions: ['DoJ'] },
-    ],
-    ludwig: [
-        { name: 'Klevin Ballsworth' },
-    ],
-    luka_aus: [
-        { name: '[Officer] Luka Kozlov', factions: ['Police'] },
-        { name: 'DeAndre Flocko', factions: ['GSF'], displayName: 0 },
-        { name: 'Gazza Maloo', factions: ['Lost MC'] },
-    ],
-    Lullichiiqa: [
-        { name: 'Liv Lassen' },
-    ],
-    LukeDimond: [
-        { name: 'Jackson Creed', nicknames: ['Wheelchair', 'Legs'], displayName: 0 },
-    ],
-    luminariarayne: [
-        { name: 'Ekaterina Alekseyevna', nicknames: ['Trina'], displayName: 1 },
-        { name: 'Barbie Chan' },
-    ],
-    LunaOni: [
-        { name: '[Officer] Claire Everly', displayName: 1, factions: ['Police'] },
-        { name: 'Mayumi Himura', factions: ['HOA', 'Tuner Shop'], nicknames: ['May'] },
-        { name: 'Paige Luna', factions: ['Self Insert'], displayName: 0 },
-    ],
-    Lyndi: [
-        { name: 'Violet Van Housen', factions: ['Angels'], assumeServer: 'whitelist' },
-        { name: '[Officer] Willow Wolfhart', factions: ['Police'], displayName: 1 },
-        { name: '[Officer] Violet Van Housen', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    Lysium: [
-        { name: 'Benji Ramos', factions: ['Seaside'], nicknames: ['B'] },
-        { name: '[Deputy] Dean Duncan', factions: ['Police'] },
-        { name: 'Maxim Pochinki' },
-    ],
-    M0Dmr: [
-        { name: 'David Rusky', factions: ['SSB'] },
-    ],
-    Macaiyla: [
-        { name: 'Jolene Grace', nicknames: ['Savannah'] },
-    ],
-    MaceyMclovin: [
-        { name: 'Floki Bartram', factions: ['Lost MC'] },
-    ],
-    MacL0ven: [
-        { name: 'Negan Graham', factions: ['Lost MC'] },
-    ],
-    MadameGandalf: [
-        { name: 'Stephanie "Sooty" Gamwich', factions: ['Burger Shot'] },
-    ],
-    madbush: [
-        { name: '[Lawyer] James Haze', factions: ['DoJ'], nicknames: ['Jim'], displayName: 2 },
-    ],
-    Madmoiselle: [
-        { name: '[Therapist] Pixie Plum', factions: ['Medical'] },
-    ],
-    Madoreline: [
-        { name: '[Officer] Elizabeth Reed', factions: ['Police'] },
-    ],
-    MaestroPD: [
-        { name: 'Muten "Roshi" Roushi', factions: ['Burger Shot', 'Clean Cartel'] },
-    ],
-    MagentaTM: [
-        { name: 'Russel Harrington', factions: ['Clean Cartel'], displayName: 0 },
-    ],
-    Maggna: [
-        { name: '[EMS] Mari Jones', factions: ['Medical'], nicknames: ['MJ'], displayName: 3 },
-    ],
-    MalevolentReisu: [
-        { name: 'Trey Walker', factions: ['Condemned MC'], displayName: 0 },
-    ],
-    MaliciousRP: [
-        { name: 'Jericho Black', factions: ['DoC'] },
-    ],
-    malikouthere: [
-        { name: 'Tito Conchas', factions: ['Vagos'] },
-    ],
-    ManteegoTV: [
-        { name: 'Dougie Mane', factions: ['NBC'], displayName: 0 },
-    ],
-    Mantis: [
-        { name: '[Sheriff of SDSO] Domenic Toretti', factions: ['Police'], leader: true },
-        { name: 'Jackson Caldwell', factions: ['Frat'], displayName: 0 },
-        { name: 'Ike Block', factions: ['ASRR'], displayName: 0 },
-        { name: '[Lawyer] Jerry Callow', factions: ['DoJ'], displayName: 1 },
-        { name: 'Pepe Silvia' },
-    ],
-    mAnYw: [
-        { name: '[Deputy] Jonathan Hale', factions: ['Police'] },
-    ],
-    Markiplier: [
-        { name: 'Stan Wheeler' },
-    ],
-    markuu: [
-        { name: '[EMS] Leonardo Sand', factions: ['Medical'], nicknames: ['Leo'], displayName: 3 },
-    ],
-    Marsziipan: [
-        { name: '[Deputy] Misa Price', factions: ['Police'] },
-    ],
-    MartinCreek: [
-        { name: 'Bertha Clark' },
-    ],
-    MasterMisuri: [
-        { name: 'Jesus Antonio Lopez Contreras', factions: ['HOA', 'Tuner Shop'] },
-    ],
-    MatchaSmash: [
-        { name: '[EMS] Rowan Hunter', factions: ['Medical'] },
-    ],
-    MattEU___: [
-        { name: 'Matthew Antov', factions: ['Roadmen', 'Mandem'], nicknames: ['Matt'], displayName: 0 },
-    ],
-    Mattie: [
-        { name: '[Dr.] Mikhail Keehl', factions: ['DoC', 'Medical'], displayName: 2 },
-        { name: 'Titus Tsukasa', factions: ['BSK'], displayName: 0 },
-    ],
-    MattRP: [
-        { name: '[Trooper] Jack Ripley', factions: ['Police'] },
-    ],
-    McconnellRet: [
-        { name: '[Agent] Rhett "Bench Guy" McConnell', factions: ['Police'], nicknames: [reg(/\bbench/)] },
-    ],
-    Meatwrist: [
-        { name: 'Chad "Chodie" Brodie', factions: ['Chang Gang'] },
-        { name: '[Deputy] Marshall Gustavsen', factions: ['Police'], nicknames: ['Gustav', '503', 'Chodie Cop'], displayName: 2 },
-    ],
-    meeka_a: [
-        { name: '[EMS] William "Middy" Haze', factions: ['Medical'] },
-    ],
-    MegaTruong: [
-        { name: '[Deputy] Roy Armstrong', factions: ['Police'], displayName: 1 },
+export const wrpCharacters: WrpCharacters = {
+    ksinz: [
+	    { name: '[Deputy] Syles MacKenna', factions: ['Law'] },
+        { name: 'Cucamonga Kid' },
+        { name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3 },
     ],
     MEKABEAR: [
-        { name: '[Deputy] Amber Gold', factions: ['Police'] },
-        { name: 'Erin Cox', nicknames: ['c:', 'E R I N', 'C O X'], displayName: 1 },
-        { name: 'Ari Tistu', displayName: 0 },
-        { name: 'Amber ?', factions: ['Self Insert'], displayName: 1 },
+        { name: '[Detective] Audrey Dusk', factions: ['Law'] },
+        { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
     ],
-    Melly_Mae: [
-        { name: '[Dispatch] Jessica Easton', factions: ['Police'] },
+    AnthonyZ: [
+        { name: 'Antonio Corleone', nicknames: ['Tony'], displayName: 3 },
     ],
-    MeMayoi: [
-        { name: 'Yoi Tsukita', assume: 'assumeOther' },
+    Ssaab: [
+        { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'] },
+        { name: 'Ali Baba' },
     ],
-    Meraldje: [
-        { name: 'Jaylen Carter', factions: ['Street Team', 'Chang Gang'], nicknames: ['LampPost', 'Lamp Post'], displayName: 1, leader: true },
+    Lyndi: [
+        { name: 'Delilah Deveaux' },
     ],
-    Merrcy: [
-        { name: 'Cody Palmer', factions: ['CBPD', 'Rooster'], displayName: 0 },
+    Daveybe: [
+        { name: 'Pip Delahan', factions: ['Kettleman Gang'] },
+        { name: 'Edge Lamburg' },
     ],
-    Mervin: [
-        { name: 'Mervin Potts' },
+    DrXeroLive: [
+        { name: 'Jack Thompson' },
     ],
-    Mexi: [
-        { name: '[Deputy] Clarence Williams', factions: ['Police'], displayName: 1 },
+    GrammTheGibbon: [
+        { name: 'Little Jimothy' },  
+        { name: 'Clayton Orwell' },
     ],
-    MiamiPepe: [
-        { name: '[Dispatch] Drake Wax', factions: ['Police'], displayName: 1 },
+    DustMonkeyGames: [
+        { name: '[Cadet] Charles Slaughter', factions: ['Law'] },
+        { name: 'Solomon Walker' },
     ],
-    michaelreeves: [
-        { name: 'NoPixel ?' },
+    FhaeLin: [
+        { name: '[Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 },
+        { name: 'Amber Sage' },
+    ],
+    BurtLington: [
+        { name: '[Sheriff] Marty Malone', factions: ['Law'] },
+    ],
+    GameBaked: [
+        { name: 'Mato Tahoma', factions: ['Medical'] },
+        { name: 'Adriaan' },
+    ],
+    SomethingBees: [
+        { name: '[Ranger] Isla White', factions: ['Rangers'] },
+        { name: 'Berdie Lloyd' },
+        { name: 'Cait McAlister' },
+    ],
+    TheGeneralSmokey: [
+        { name: 'Edwin Braithwaite' }  
+    ],
+    ewanruss: [
+        { name: 'Alfonso Bonucci', factions: ['DiCenzo Famiglia'], nicknames: ['Coach Al', 'Al'] }  
+    ],
+    HappyYouniverse: [
+        { name: 'Danny Ford' },  
+    ],
+    Buddha: [
+        { name: 'Wu Buddha' },
+    ],
+    XxAshleyxX: [
+        { name: 'Rayven Hope' },
+    ],
+    babysiren_: [
+        { name: 'Laura Dunn' },
+    ],
+    Blaustoise: [
+        { name: 'Jesse Flint' },
+    ],
+    
+    '0Reed': [
+        { name: 'Creedence McPoyle' },
+    ],
+    '1018tersk': [
+        { name: 'Erling Haraldson' },
+        { name: 'Stefano Salvaturi' },
+    ],
+    '2hands2thumbs': [
+        { name: 'Ernest Dooly' },
+        { name: 'Maverik Stone' },
+    ],
+    abbbz: [
+        { name: 'Francesca Romano', factions: ['Law'] },
+        { name: 'Sanjay Patel' },
+    ],
+    AChanceOfCosplay: [
+        { name: 'Bart Bancroft' },
+        { name: 'Jason Forsworn' },
+    ],
+    aDarkFilly: [
+        { name: 'Magnolia' },
+    ],
+    Aestannar: [
+        { name: 'Arthur Jones' },
+    ],
+    aJimmy: [
+        { name: 'James Kelly' },
+    ],
+    Altrah: [
+        { name: 'Victor Morteza' },
+    ],
+    alyssajeanaf: [
+        { name: 'Dahlia Malone' },
+    ],
+    AM_Raid: [
+        { name: 'Cain Lockhart' },
+        { name: 'Clifford Buck' },
+        { name: 'Giorgio Santorelli', factions: ['Law'] },
+        { name: 'Raul Sanchez' },
+    ],
+    AngelKnivez: [
+        { name: 'Renni Bradshaw' },
+    ],
+    AngryPotatoChipz: [
+        { name: 'Jamie Marlow' },
+    ],
+    APPLESHAMPOO: [
+        { name: 'Kenny Kidman' },
+    ],
+    Arc_Of_Fire: [
+        { name: 'Nathan Terriers' },
+    ],
+    ArmoredAndy: [
+        { name: 'Buzz Buxton' },
+        { name: 'Adolf Hofcooperstedder', nicknames: ['Dolfie'], displayName: 3 },
+        { name: 'Moose' },
+    ],
+    AtomosCLU: [
+        { name: 'George Anderson' },
+    ],
+    AtopDerekMountain: [
+        { name: 'Dante Valentino' },
+        { name: 'Devoghn Brown' },
+        { name: 'Red Stag' },
+        { name: 'Walter Cross' },
+        { name: 'Wechugue Wechugue' },
+        { name: 'Zhang Wei' },
+    ],
+    AustiinTV: [
+        { name: 'Mickey Toolin' },
+    ],
+    aviceration: [
+        { name: 'Ella Mason' },
+        { name: 'Vincencia Romeo', nicknames: ['Vinnie'], displayName: 3 },
+    ],
+    Avioto_: [
+        { name: 'Amadeo Moretti' },
+    ],
+    AwaBeats: [
+        { name: 'Ali Mason' },
+        { name: 'Nokosi Ahanu' },
+    ],
+    ayekayy47_: [
+        { name: 'Misty Shaw' },
+        { name: 'Rayne Beaux' },
+    ],
+    AzzTazz: [
+        { name: 'Eric Butter' },
+        { name: 'Solomon Kray' },
+        { name: 'Thomas Ethan', nicknames: ['The Kid'] },
+    ],
+    bananabrea: [
+        { name: 'Josephine Gold' },
+    ],
+    BASHZOR: [
+        { name: 'Wade Kilian' },
+    ],
+    Beanblanket: [
+        { name: 'Clifford Dawes' },
+    ],
+    BeardofOz: [
+        { name: 'Euclid Vane' },
+        { name: 'Ivan Smith' },
+        { name: 'Liam Baker' },
+        { name: 'Shep Ross' },
+    ],
+    beesneez: [
+        { name: 'Georgie Meadows' },
+        { name: 'Nora Boyle' },
+    ],
+    BernieIsLive: [
+        { name: 'Noah Little' },
+    ],
+    Bionic_Toothpick: [
+        { name: 'Elia Marekson' },
+    ],
+    BitterRabbit: [
+        { name: 'Eliza Kerrigan' },
+        { name: 'Grace Shelton' },
+        { name: 'Kate Hearst' },
+        { name: 'Sam Caldwell' },
+    ],
+    blackhawkgamiing: [
+        { name: 'Chris Edwoods' },
+    ],
+    bldrs: [
+        { name: 'Casey Rigsby' },
+    ],
+    BlitzyNation: [
+        { name: 'Charlie Walker' },
+        { name: 'Craig the Wizard' },
+        { name: 'Howi Bennet' },
+        { name: 'James Wayne Twin' },
+        { name: 'Juan Diego Moralez' },
+        { name: 'Tommy Bennett' },
+    ],
+    blkcat: [
+        { name: 'Johnny Walker' },
+    ],
+    BoosterGreg: [
+        { name: 'Roy Whitmore' },
+    ],
+    Boxeryedig: [
+        { name: 'Timothy Johnson' },
+    ],
+    BradWOTO: [
+        { name: 'Rufus Lorde' },
+        { name: 'Tar Sullivan' },
+    ],
+    BrutalBri: [
+        { name: 'Cooter O\'Doole' },
+        { name: 'Dakota Rush' },
+        { name: 'Robin Fischer' },
+    ],
+    bryanprograms: [
+        { name: 'Blue Vanderweit' },
+        { name: 'Butch Fairway' },
+        { name: 'Johnny Quick' },
+    ],
+    buddyandy88: [
+        { name: 'Carla Johanson' },
+    ],
+    Buffalo995: [
+        { name: 'Clayton Woods' },
+    ],
+    BumbBard: [
+        { name: 'Fewis Oxhandler' },
+    ],
+    BunglingNormal2: [
+        { name: 'Henry Gearhardt' },
+    ],
+    Caffine5: [
+        { name: 'Billy Falco' },
+    ],
+    calibriggs: [
+        { name: 'Henry Baptiste' },
+        { name: 'Joseph Parrish', factions: ['Law'] },
+    ],
+    CallieCakez: [
+        { name: 'Amelie Ashton' },
+    ],
+    CapitalOGttv: [
+        { name: 'Franklin Costella' },
+        { name: 'James Black', nicknames: ['Jimi'], displayName: 3 },
+    ],
+    CaptainMeef: [
+        { name: 'Casey Jones' },
+    ],
+    CaptRubble: [
+        { name: 'Joseph Stone' },
+        { name: 'Percy Peanut' },
+    ],
+    CarbonitePlays: [
+        { name: 'Evan Madeley', factions: ['Law'] },
+        { name: 'Karl North' },
+        { name: 'Lance Irwin' },
+        { name: 'Mervyn Castor' },
+        { name: 'Miguel Sanchez' },
+    ],
+    Carlos_Spicyw3iner: [
+        { name: 'Larry Brown' },
+    ],
+    CaseFace5: [
+        { name: 'Willie Walker', nicknames: ['Gramps'] },
+    ],
+    charlieblossom: [
+        { name: 'Katarina Lovette' },
+    ],
+    Cheever7: [
+        { name: 'Aurora Rayne' },
+    ],
+    Chief: [
+        { name: 'Caesar Coal' },
+        { name: 'Tuuyship Áama' },
+    ],
+    CHUDOCKEN: [
+        { name: 'Qeljayiden' },
+    ],
+    ClassicSteeve: [
+        { name: 'Melvin Brown' },
+    ],
+    ClassyPax: [
+        { name: 'Eugene Calloway' },
+        { name: 'Father Hickey' },
+    ],
+    CloakingHawk: [
+        { name: 'Danni Jackson' },
+        { name: 'Roo' },
+        { name: 'Tilly-May Edwards' },
+    ],
+    CloeeBee: [
+        { name: 'Alice Bennett' },
+    ],
+    ConnorCronus: [
+        { name: '[Deputy] Rip Riley', factions: ['Law'] },
+        { name: 'Isaac Smith' },
+        { name: 'Karlias Drex' },
+        { name: 'Richard Sionis' },
+    ],
+    Coolidge: [
+        { name: 'Frank Murdock' },
+    ],
+    Crom: [
+        { name: 'Elias McDurn' },
+    ],
+    Daftmedic: [
+        { name: 'Tristan Shipman' },
+    ],
+    Dam_O: [
+        { name: 'Grover Carlson' },
+    ],
+    DangitLacie: [
+        { name: 'Doreen Pavus', factions: ['Law'] },
+        { name: 'Judith Amerine' },
+        { name: 'Kid Kelley' },
+    ],
+    DaniOregon: [
+        { name: 'Wesley Daniels' },
+    ],
+    dannyfloriduh: [
+        { name: 'Cliff Westwood' },
+    ],
+    danscribe: [
+        { name: 'Brett Jordan' },
+        { name: 'Wolverine Payton' },
+    ],
+    Darthbobo77: [
+        { name: 'Cooter Jonason' },
+        { name: 'Walter Rinsen' },
+    ],
+    Dastardly_Dog: [
+        { name: 'Barry Smith' },
+        { name: 'Cassel bottom' },
+    ],
+    DatVoiceGuy: [
+        { name: 'Alejandro Ariez' },
+    ],
+    DEANSUMMERWIND: [
+        { name: 'Doug Darrell Dan' },
+        { name: 'Ham Royce' },
+    ],
+    Deputy_Games: [
+        { name: 'Sam Rosco' },
+    ],
+    DetectiveDoorag: [
+        { name: '[Deputy] Kramer', factions: ['Law'] },
+        { name: 'Beau Wilder' },
+        { name: 'Colt Clifford' },
+    ],
+    Dimoak: [
+        { name: 'Fiddleford Mackit', nicknames: ['Phil'], displayName: 3 },
+        { name: 'Kaz Brekker' },
+        { name: 'Tommy Townsand' },
+    ],
+    Dirty_Fisherman: [
+        { name: 'Archibald Trout' },
+    ],
+    DisbeArex: [
+        { name: 'Timmy Took' },
+        { name: 'Dolly Dixon' },
+    ],
+    DjinnJee: [
+        { name: 'Jack Burton' },
+    ],
+    docrimbo: [
+        { name: 'Butch Nickle' },
+        { name: 'Fondue Framboise' },
+        { name: 'Princess Biscuits' },
+        { name: 'Jonah Harper' },
+    ],
+    DongerDayz: [
+        { name: 'Blue Brows' },
+        { name: 'Hubert Timbol' },
+    ],
+    DonnGaston: [
+        { name: 'Miguel Hidalgo' },
+    ],
+    DreadfullyDespized: [
+        { name: 'Byong Ho' },
+    ],
+    drendebt: [
+        { name: 'Danny Kerrigan' },
+        { name: 'Duncan Ladle' },
+        { name: 'Duncan Weller' },
+    ],
+    DrulkTV: [
+        { name: 'Lawrence Noll' },
+        { name: 'Wayne Colt' },
+    ],
+    DubEkostep: [
+        { name: 'Pancho Zapata', nicknames: ['El Cucuy'] },
+    ],
+    DukeOfFlukes: [
+        { name: 'Alexander Poe' },
+    ],
+    dynadivine: [
+        { name: 'Lucille Davis' },
+        { name: 'Lucille Walker' },
+    ],
+    Eatindatcereal: [
+        { name: '[Deputy] Jax Sanctum', factions: ['Law'] },
+        { name: 'Al Lombardo' },
+    ],
+    Ellethwen_: [
+        { name: 'Adaleigh Winters' },
+        { name: 'Anna Mayfield' },
+        { name: 'Magnolia Williams' },
+        { name: 'Nascha Onawa' },
+        { name: 'Della Sterling' },
+    ],
+    embernocte: [
+        { name: '[Deputy] Saffron Mitchell', factions: ['Law'] },
+        { name: 'Crissy Blitz', nicknames: ['Cricket'] },
+        { name: 'Holly Frost' },
+        { name: 'Sadhbh O\'Brien' },
+    ],
+    EmptyDome: [
+        { name: 'Barry Armstrong' },
+    ],
+    endangeredfinley: [
+        { name: 'Amelia Riddle' },
+        { name: 'Bonnie Gray' },
+        { name: 'Kit' },
+        { name: 'Paul Güttman' },
+    ],
+    entspeak: [
+        { name: 'Faolain McDiarmid' },
+    ],
+    EquinoxRP: [
+        { name: 'Brendyn Cormac' },
+    ],
+    eternalangelgames: [
+        { name: 'Kora Vane' },
+    ],
+    EthanSchriver: [
+        { name: 'Leanord Scout' },
+    ],
+    extralivia: [
+        { name: 'Lydia Spade' },
+    ],
+    Eyebyte: [
+        { name: 'Amarillo Marnen' },
+        { name: 'Edbert Trunk' },
+    ],
+    famousivan: [
+        { name: 'Raul Dominguez' },
+    ],
+    Farmhouse78: [
+        { name: 'Stewart Harington' },
+    ],
+    fayebles: [
+        { name: 'Clementine Fisher' },
+    ],
+    FireLordRevan: [
+        { name: 'Hannah Belles' },
+    ],
+    FistofTheWalrus: [
+        { name: 'Gabriel Thompson' },
+        { name: 'Karl Casterbane' },
+        { name: 'Richard Flemington' },
+        { name: 'Theodore Timers' },
+    ],
+    Flickerclad: [
+        { name: 'Evangeline Thorne' },
+        { name: 'Frankie Czepanski' },
+        { name: 'Rabbit Windward', factions: ['Law'] },
+    ],
+    ForeheadSkin: [
+        { name: 'Edmund Reddington' },
+        { name: 'Henry Huff' },
+        { name: 'Joseph Walters' },
+    ],
+    FrankTheTank5494: [
+        { name: 'Matthew Isaiah' },
+    ],
+    Freumont: [
+        { name: 'Edward Shaw' },
+    ],
+    friendly_chick: [
+        { name: 'Angelica Ward', nicknames: ['Angel'] },
+        { name: 'Charlotte Davis', nicknames: ['Lottie'] },
+        { name: 'Haven Rivers' },
+        { name: 'Lillian Frost' },
+    ],
+    FrostFromFire: [
+        { name: 'Bianca Mackenna' },
+    ],
+    FunnyMatters: [
+        { name: 'Clint Brimshaw' },
+    ],
+    Gallethril: [
+        { name: 'Annabel Barnes' },
+    ],
+    GameishTV: [
+        { name: 'Doug Chipper' },
+        { name: 'Mike McCoy' },
+    ],
+    GauchoEscobar: [
+        { name: 'Gaucho Escobar' },
+    ],
+    GeDWiCK79: [
+        { name: 'Kennway Mallory' },
+    ],
+    GeneralEmu: [
+        { name: 'Lance Divine' },
+    ],
+    GeorgiaBanks: [
+        { name: 'Georgia Banks' },
+    ],
+    GlitchedHelix: [
+        { name: 'Ada Standish' },
+        { name: 'Mya Ennis' },
+        { name: 'Rubella Davies' },
+    ],
+    glitchy: [
+        { name: 'James Faraday' },
+        { name: 'Raymond Willis', nicknames: ['Rayray'] },
+    ],
+    GmanRBI: [
+        { name: 'Max Brady' },
+    ],
+    GnarIyDavidson: [
+        { name: 'Lluka Darkwood' },
+    ],
+    goose_thegreat: [
+        { name: 'Thaddeus Owens' },
+    ],
+    GooseyOfficial: [
+        { name: 'Jaimie Quinn' },
+        { name: 'MaN Sauers' },
+        { name: 'Speedy McGillagully' },
+    ],
+    GraveGamerTV: [
+        { name: 'Paulson Greer' },
+        { name: 'Peter Gray' },
+    ],
+    GreenEnigma: [
+        { name: 'Jericho Blackfoot' },
+    ],
+    grigoriypeppo: [
+        { name: 'Jack Kettleman', factions: ['Kettleman Gang'] },
+        { name: 'Robert Dixon' },
+    ],
+    gtplays: [
+        { name: 'Gene Tiffin' },
+        { name: 'Granville Turner' },
+    ],
+    GunterOfficial: [
+        { name: 'Austin Scott' },
+        { name: 'James Connor' },
+    ],
+    HaCha_art: [
+        { name: 'Ava Jimenes', nicknames: ['La Nina'] },
+    ],
+    HanyClaps: [
+        { name: 'Levi Sawyer' },
+        { name: 'Stumpy McBride' },
+        { name: 'Virgil Sterling' },
+    ],
+    HeroMexii: [
+        { name: 'George Shaffer' },
+    ],
+    Hibblejaybob: [
+        { name: 'Astrid Aleksdóttir' },
+    ],
+    hidaruma: [
+        { name: 'Rico Kanto' },
+    ],
+    highkingfrazzal: [
+        { name: 'James Delany' },
+    ],
+    Hoop: [
+        { name: 'Barry Bjornson' },
+        { name: 'Clyde Davis' },
+        { name: 'Jonathan Redding' },
+        { name: 'Miles Gyles', factions: ['Law'] },
+    ],
+    IanMMori: [
+        { name: 'Enrique Vespucci', factions: ['Law'] },
+        { name: 'Ewan Byrne' },
+        { name: 'Nate Coiner' },
+    ],
+    IboonI: [
+        { name: 'Elias Boon' },
+    ],
+    illwac: [
+        { name: 'Ira Smith' },
+    ],
+    Im_HexeD: [
+        { name: 'Ronnie Tate' },
+        { name: 'Theodore Ellis' },
+    ],
+    ImFromTheFuture: [
+        { name: 'Roscoe Montana', factions: ['Sams Club'] },
+    ],
+    iruASH: [
+        { name: 'Kayce Smith' },
+    ],
+    ItsAsaii: [
+        { name: 'Buck Montana', factions: ['Law'] },
+        { name: 'Calvin Oakes' },
+        { name: 'Eli Ryckman' },
+        { name: 'Shaine Calhoun' },
+        { name: 'Wayne Kavanaugh' },
+    ],
+    Iwhuttt: [
+        { name: 'Houston Gray' },
+    ],
+    J0J0: [
+        { name: 'Delilah Kane' },
+        { name: 'Effie Parker' },
+        { name: 'Katherine Dunn' },
+    ],
+    jackiejackpot: [
+        { name: 'Tilly Demeter' },
+    ],
+    jakeyp0o: [
+        { name: 'Danner Wynn' },
+        { name: 'Jim Chatfield' },
+    ],
+    JamesWob: [
+        { name: 'Benjamin Jameson' },
+    ],
+    JarlOfGoats: [
+        { name: 'Gabriel Lenihan' },
+    ],
+    JayBritton: [
+        { name: 'Heath Marker-Brown' },
+        { name: 'Lucius Alabaster' },
+        { name: 'Obidiah Colt', factions: ['Law'] },
+        { name: 'Scooter Brown' },
+    ],
+    Jennybeartv: [
+        { name: 'Gemma Middleton' },
+    ],
+    JesterTheRyda: [
+        { name: 'Jordin Bradley' },
+        { name: 'Joseph Silvers', nicknames: ['Hobo Joe'] },
+        { name: 'Margrett Anderson' },
+    ],
+    johnnyblamz: [
+        { name: 'Gavin Summers' },
+        { name: 'Jody Quinn' },
+        { name: 'Logan Miller' },
+    ],
+    Jonthebroski: [
+        { name: 'Jonathan Divine' },
+    ],
+    JunkieEzek: [
+        { name: 'Jeremiah Harth' },
+    ],
+    JustSam42: [
+        { name: 'Nathan Thompson' },
+    ],
+    JustxJodi: [
+        { name: 'Minnie Mines' },
+    ],
+    kadxon: [
+        { name: 'Vivian Lashea' },
+    ],
+    Kanny1887: [
+        { name: 'Enrico Rodriguez' },
+        { name: 'Jonathan Schütz' },
+        { name: 'Julio Rodriguez' },
+    ],
+    KateMadison: [
+        { name: 'Ellie Whitmoore' },
+        { name: 'Scarlett' },
+    ],
+    Kelsenpai: [
+        { name: 'Edward Bolton' },
+    ],
+    Khandur_: [
+        { name: 'Tommy Cooper' },
+    ],
+    KillrBeauty: [
+        { name: 'Deborah VanBurton', nicknames: ['Deb'], displayName: 3 },
+    ],
+    KinkyHobo: [
+        { name: 'Emmett Edwards' },
+    ],
+    KittyLeigh: [
+        { name: 'Delilah' },
+    ],
+    Kiva: [
+        { name: 'Harper Madison' },
+    ],
+    Kouts3: [
+        { name: 'Felix Colt' },
+    ],
+    Kyle: [
+        { name: 'Ren Solo' },
+    ],
+    Kyltrex: [
+        { name: 'Louis Lancaster', nicknames: ['Louie'], displayName: 3 },
+    ],
+    KyQuinn: [
+        { name: 'Carmen Beckett' },
+        { name: 'Jackson Riggs' },
+        { name: 'Miss Mystery' },
+        { name: 'Olive Wallace' },
+        { name: 'Portia Hartley' },
+        { name: 'Quinton Ivy' },
+        { name: 'Trixie Davenport' },
+    ],
+    LakunaRP: [
+        { name: 'Tavish Black' },
+    ],
+    LEAH: [
+        { name: 'Francesca Bright', nicknames: ['Checkers'] },
+    ],
+    Lendermations: [
+        { name: 'Inessa Bornlof', nicknames: ['Miss Match'] },
+        { name: 'Riley Rivens' },
+        { name: 'Tantallia Tippins' },
+    ],
+    LetterJaye: [
+        { name: 'Wisteria Snowdon' },
+    ],
+    Lithiaris: [
+        { name: 'Lark Atwood' },
+        { name: 'Sylvie Chevalier' },
+    ],
+    ll_Marziano_ll: [
+        { name: 'James Lawson' },
+        { name: 'Lawrence Kelley' },
+        { name: 'Nitokaayi “Lone Bison” Nawakwa' },
+    ],
+    LLumiya: [
+        { name: 'Elizabeth Black' },
+    ],
+    Lovebot44: [
+        { name: 'Annie Applebee' },
+        { name: 'Charlotte Blackwood' },
+        { name: 'Eustice Dixon' },
+        { name: 'Lillian Church' },
+    ],
+    Luckcue: [
+        { name: 'Alex Mystic' },
+    ],
+    MaceyMclovin: [
+        { name: 'Jackson Slater' },
+    ],
+    mackaelroni: [
+        { name: 'Bobby-Sue Fredrickson' },
+        { name: 'Everett Bondurant' },
+        { name: 'Jarvis Jones' },
+        { name: 'Mack Fredrickson' },
+        { name: 'William White' },
+    ],
+    MackieLTD: [
+        { name: 'Jack Cameron', factions: ['Law'] },
+        { name: 'Scott Samuel' },
+    ],
+    Madmoiselle: [
+        { name: 'Lily Landry' },
+        { name: 'Oola Lafayette' },
+    ],
+    MartyO248: [
+        { name: 'Bobby Brampton' },
+        { name: 'Dmitri Crenshaw' },
+        { name: 'Marty Hanes' },
+    ],
+    MaverickHavoc: [
+        { name: 'Cornellius Orvid' },
+    ],
+    Mhaple_: [
+        { name: 'Morgan Lee' },
     ],
     Mick: [
         { name: 'Gladys Berry' },
-        { name: '[Deputy] Sheldon Jones', factions: ['Police'], nicknames: ['572'], displayName: 1 },
     ],
-    Middleditch: [
-        { name: 'Stanley Tuttles' },
+    MinksOfMars: [
+        { name: 'Irene Corvis', factions: ['Sams Club'], nicknames: ['Peaches'], displayName: 3 },
+        { name: 'Ana Stravinski' },
     ],
-    Miggitymaan: [
-        { name: '[Officer] Miguel Maan', factions: ['Police'], displayName: 1 },
-        { name: 'Jayce Wyatt' },
-        { name: '[Officer] Damien Alexander', factions: ['Police'] },
-        { name: '[Deputy] Kurt Leonard', factions: ['Police'], assume: 'assumeNpNoOther' },
+    mishkaxoxo: [
+        { name: 'Mishka Agapova' },
     ],
-    Mikeemod: [
-        { name: '[Development] Mikeemod', factions: ['Development'] },
-        { name: 'Ratlord', nicknames: ['Raccoon', 'Racoon', 'Rat Lord'] },
+    MrArkay: [
+        { name: 'Casper Hems' },
     ],
-    MikeTheBard: [
-        { name: 'Hubcap Jones', factions: ['Burger Shot'], displayName: 0, assumeServer: 'whitelist' },
-        { name: 'Jack Nova', displayName: 0 },
-        { name: '[Ranger] Manny Multchbottom', factions: ['Police'], displayName: 0, assumeServer: 'public' },
+    MrFreak_TV: [
+        { name: 'Arliss Hagen' },
+        { name: 'Colt Youngblood' },
+        { name: 'Fergus McDuffy' },
+        { name: 'Mal Tompkins' },
+        { name: 'Orland Boggs' },
     ],
-    MikeTheMarksman: [
-        { name: '? ?', assume: 'neverNp' },
-    ],
-    mikezout14: [
-        { name: '[Deputy] Michael Rodgers', factions: ['Police'], assume: 'assumeNpNoOther' },
-    ],
-    MikkisaurusRex: [
-        { name: 'Jessica Hilton', factions: ['Medical'] },
-    ],
-    Milsera: [
-        { name: 'Mono Block', factions: ['ASRR'] },
-    ],
-    MiltonTPike1: [
-        { name: 'Kiki Chanel', assumeServer: 'whitelist' },
-        { name: '[Officer] Kiki Chanel', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: 'Dob Darker', nicknames: ['Dice is Right', 'Right Dice'], displayName: 0 },
-        { name: 'Giovanni Atello', displayName: 1 },
-        { name: 'Hazel Nutte' },
-        { name: 'G.G. Nolan', displayName: 0 },
-        { name: 'Maybelle Ippi' },
-        { name: 'Merlin Edmondstoune' },
-        { name: 'William "Bill Ding" Ding', nicknames: ['Bill'] },
-    ],
-    Minakorocket: [
-        { name: 'Mina Rocket', factions: ['Rooster'], displayName: 0 },
-    ],
-    MinervaMaat: [
-        { name: '[Deputy] Minerva Maat', factions: ['Police'], displayName: 1 },
-    ],
-    Ming: [
-        { name: 'Ming Jingtai', factions: ['Gulag Gang'], leader: true, assume: 'assumeNp', assumeServer: 'public' },
-        { name: 'Boon Bundy', displayName: 0, assumeServer: 'public' },
-        { name: '[Officer] Jing Mingtai', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: 'Ming Jingtai', assumeServer: 'international' },
-    ],
-    miniminter: [
-        { name: 'Peter Shufflebottom', displayName: 0, assume: 'assumeOther' },
-    ],
-    MinusFive: [
-        { name: '[Officer] Jason Bidwell', factions: ['Police'] },
-    ],
-    MIQQA: [
-        { name: '[EMS] Janus Lee', factions: ['Medical'] },
-    ],
-    MissBombastic: [
-        { name: '[Deputy] Ruby York', factions: ['Police'] },
-    ],
-    MistorThio: [
-        { name: 'Kirk Jerkems', factions: ['Stable', 'Rooster'], displayName: 0 },
-    ],
-    Moboking: [
-        { name: '[Officer] Ellis Pinzon', factions: ['Police'], nicknames: ['Ronaldo'], assumeServer: 'whitelist' },
-        { name: 'Aleksander Bogorov', factions: ['Hydra Gang'], nicknames: ['Aleks', 'Bogo'], displayName: 3, assumeServer: 'whitelist' },
-        { name: '[Trooper] Aleks Sazkaljovich', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: 'Elijiah "Middle E" Parks', factions: ['SSB'] },
-    ],
-    Moesabai: [
-        { name: 'Mami Ko', factions: ['ASRR'], nicknames: ['Blue Storm'] },
-    ],
-    moistcr1tikal: [
-        { name: 'Charles White', displayName: 0 },
-    ],
-    mollyruu: [
-        { name: 'Elizabeth "Lizzie" Byrne', factions: ['BBMC', 'Clean Cartel'], assumeServer: 'whitelist', wlBias: -1 },
-        { name: '[Deputy] Scarlett Royal', factions: ['Police'], displayName: 2 },
-        { name: '[Deputy] Elizabeth Byrne', factions: ['Police'], nicknames: ['Lizzie'], displayName: 3, assumeServer: 'public' },
-        { name: 'Aishi Ayano', nicknames: ['Yandere'], displayName: 0 },
-    ],
-    MOONMOON: [
-        { name: '[Officer] Lenny Hawk', factions: ['Police'], nicknames: ['Renegade'], displayName: 1, assume: 'assumeNp' },
-        { name: 'Bernice "Shadowlord" Caldershot', factions: ['LARPers'] },
-        { name: 'Ro Block', factions: ['ASRR'], displayName: 0 },
-        { name: 'Mitch Moonmoon', factions: ['Self Insert'], nicknames: [reg(/\witch\.tv\/moonmoon\b/)], displayName: 0 },
-        { name: 'Maximilian "Yung Dab" Thoroughbred', nicknames: ['The "Gnome"', 'Yung', 'Dab', 'Max'], displayName: 0 },
-    ],
-    Moose_Taffy: [
-        { name: 'Patar Bellosh', factions: ['Mandem'] },
-        { name: '[Ride Along] Mantar Mellosh', factions: ['Police'] },
-    ],
-    Moosebrother: [
-        { name: '[Deputy] Louis Bloom', factions: ['Police'] },
-        { name: 'Laura Gapes', factions: ['ASRR'], nicknames: ['Hooker Block', 'Hooker', 'Block'], displayName: 3 },
-    ],
-    morgeu: [
-        { name: 'Morgan Jay', factions: ['BBMC'], nicknames: ['Blade'], displayName: 0 },
-    ],
-    moxier4wr: [
-        { name: 'Mercury Frost', factions: ['Street Team'], displayName: 1 },
-    ],
-    mr_grimreaper_: [
-        { name: '[Officer] Joe Fish', factions: ['Police'], assumeServer: 'public' },
-    ],
-    mrborealislive: [
-        { name: 'Rudolph ?', factions: ['Burger Shot'] },
-    ],
-    MrFestX: [
-        { name: 'Dow Jones', factions: ['BSK'] },
+    MrGoonBones: [
+        { name: 'Goon Bones', nicknames: ['Goom-Boobie'] },
     ],
     MrMoonsHouse: [
-        { name: '[Officer] Freddy Price', factions: ['Police', 'Burger Shot'], displayName: 2 },
+        { name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4 },
     ],
-    MrMouton: [
-        { name: 'Chuck Mouton', displayName: 0 },
-        { name: 'Han Pandler' },
+    MrPandaaBear: [
+        { name: 'Cathal McCarthy' },
     ],
-    mrtimeee: [
-        { name: 'Lennon "Bane" Lee', factions: ['Prison'] },
+    muhzzy: [
+        { name: 'Dr Cloth' },
+        { name: 'Grim' },
+        { name: 'Herman Wilbur' },
+        { name: 'Leon Taylor' },
     ],
-    mrwobblestwitch: [
-        { name: 'Sly Lion', displayName: 0 },
-        { name: 'Axel Simpleton' },
-        { name: 'Garth Crooks', displayName: 0 },
+    mums_live: [
+        { name: 'Edward Moore' },
     ],
-    ms_star: [
-        { name: 'Cora Star', factions: ['Seaside'], displayName: 0 },
-        { name: '[Deputy] Skye Faye', factions: ['Police'], wlBias: -1 },
-    ],
-    MsTeamKK: [
-        { name: 'Riley Carter', factions: ['CBPD', 'Britney Gang', 'Rooster'] },
-        { name: '[Officer] Sunny Brooks', factions: ['Police'], nicknames: ['509'] },
-    ],
-    MurderCrumpet: [
-        { name: 'Cindy Lou' },
-    ],
-    MurphyBraun: [
-        { name: '[Judge] Judge Holden', factions: ['DoJ'] },
-        { name: 'Marvin Peanut', nicknames: ['Marv'] },
-        { name: '[Lawyer] Murphy Braun', factions: ['Chang Gang', 'DoJ'], displayName: 1 },
-    ],
-    mwat_: [
-        { name: 'Storm Creed', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    mycahpittman: [
-        { name: 'Mycah Pittman', factions: ['Pink Gang'], displayName: 0 },
-    ],
-    Myladyballs: [
-        { name: 'Veronica Garcia', factions: ['Vagos'] },
-    ],
-    Myles_Away: [
-        { name: 'Whitley Booth', factions: ['Burger Shot', 'Rooster'], nicknames: ['Pirate'] },
-        { name: '[Deputy] Connor Stubble', factions: ['Police'], nicknames: ['514'], displayName: 2 },
-        { name: 'Jim Littleman', displayName: 0 },
-    ],
-    Myth: [
-        { name: 'Kyle Clements', nicknames: ['Clem', 'Clemens'], displayName: 0 },
-        { name: 'Damea ?', displayName: 1 },
-        { name: 'Johny Burroh', nicknames: ['Burrow', 'Burrohs'], displayName: 0 },
+    Myre: [
+        { name: 'Benoit Baratie' },
+        { name: 'Crispin Cantabile' },
+        { name: 'Dallas Wolf' },
+        { name: 'Phineas Fentworth' },
+        { name: 'Saul South' },
     ],
     Mythematic: [
-        { name: 'Mike Rosoftsam', affiliate: true },
+        { name: 'Ben Bealz' },
+        { name: 'Chauncy Charles', nicknames: ['The Barman'] },
+        { name: 'Cooper Garret' },
+        { name: 'Jack Woulfe' },
+        { name: 'Pikup Dropov' },
     ],
     Nakkida: [
-        { name: '[Ranger] Tessa Lamb', factions: ['Police'], displayName: 1, assumeServer: 'whitelist' },
-        { name: 'Tessa Lamb', factions: ['Gulag Gang'], assumeServer: 'public' },
-        { name: 'Taylor "Onyx" White', factions: ['Police'] },
-        { name: 'Rachel Parker' },
-        { name: 'Stacy Myers', displayName: 0 },
+        { name: 'Lyra Woods' },
     ],
-    Natettvrp: [
-        { name: 'Carlos "Carlitos" Loco', factions: ['Vagos'] },
-    ],
-    nathankb_: [
-        { name: '[Chief Judge] Alan Crane', factions: ['DoJ'], displayName: 2 },
-        { name: '[Deputy] Wesley Arnold', factions: ['Police'], displayName: 2 },
-        { name: 'Jov Diavol', displayName: 0 },
-    ],
-    nattfasa_: [
-        { name: 'Max Wazowski', factions: ['Gulag Gang'], nicknames: ['Maxwell'], displayName: 0 },
-    ],
-    Natsumiii: [
-        { name: 'Natalie Sumi', factions: ['Rooster'] },
-    ],
-    Navajo: [
-        { name: 'Clarence Carter' },
-    ],
-    NebelNiek: [
-        { name: 'Konrad Kraut Dogenschmirz', factions: ['RUST'] },
-    ],
-    neeko: [
-        { name: 'Cherry ?' },
-    ],
-    NefariousCharm: [
-        { name: '[EMS] Maya Jane', factions: ['Medical'] },
-    ],
-    Neloc_: [
-        { name: 'Moses Khan', factions: ['Mandem'], displayName: 1 },
-    ],
-    Nerdandi: [
-        { name: '[AA] Philomena Hawthorne', factions: ['Police'], nicknames: ['Luna'] },
-        { name: 'Petunia Susan Brookshire', factions: ['Rooster'] },
-    ],
-    Nescoh: [
-        { name: '[Dispatch] Tristan C', factions: ['Police'], displayName: 1 },
-        { name: 'Deshawn King', factions: ['SSB'], displayName: 0 },
-    ],
-    neskRP: [
-        { name: 'Oliver Crawford', displayName: 0 },
-    ],
-    netsirk: [
-        { name: '[EMS] Nettie Machete', factions: ['Medical'] },
-    ],
-    neutreN: [
-        { name: 'Octavio "Goofy" Stenberg', factions: ['Tuner Shop'], nicknames: ['Hypergoof', 'Octane'] },
-    ],
-    NeveRossa: [
-        { name: 'Dawn Hearte', factions: ['Lost MC', 'Medical'] },
-        { name: '[Deputy] Brandy Kaas', factions: ['Police'] },
-    ],
-    NewFaceSuper: [
-        { name: 'Davey Doherty' },
-    ],
-    Nexa9: [
-        { name: 'Meelo Graves', factions: ['Rooster', 'Tuner Shop', 'Mandem'], nicknames: ['Nex'], displayName: 3 },
-    ],
-    Niccorazi: [
-        { name: 'Douglas James', factions: ['Gulag Gang'], nicknames: ['Dougie', 'Fresh', 'Dougie Fresh', 'Bobcat'], displayName: 5 },
-        { name: 'Eyam Job', displayName: 0 },
+    NiaDrools: [
+        { name: 'Madeline Maddox', nicknames: ['Moxy'], displayName: 3 },
+        { name: 'Edith Gretchen', nicknames: ['Ed'], displayName: 3 },
+        { name: 'Snow' },
     ],
     Nidas: [
-        { name: 'Leslie Lingberg', factions: ['Limelight', 'Cleanbois'], leader: true, nicknames: ['Ling', 'Cerberus'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Deputy] Ingevar Falk', factions: ['Police'], displayName: 1 },
-        { name: 'Rat Boy', nicknames: ['Ratboy'], displayName: 3 },
-        { name: 'Robin ?', nicknames: ['Boy Wonder'] },
-        { name: 'Steve "Stiv" Adamescu', assumeServer: 'public' },
+        { name: 'Eustace Goodwin' },
     ],
-    Nikez: [
-        { name: '[Development] Nikez', factions: ['Development', 'Seaside'] },
-        { name: '[Deputy] Cody Sharp', factions: ['Police'], nicknames: [reg(/\bpolice\s*m.n/)] },
-        { name: 'Nicholas Simone', factions: ['Seaside'], nicknames: ['Nick', 'Nico', 'Simon'], displayName: 0 },
+    Nopheros: [
+        { name: 'Robert Fisher' },
     ],
-    NikkisARiot: [
-        { name: '[Deputy] Jenny Hall', factions: ['Police'], nicknames: [reg(/\bje\S{1,3}y/)], displayName: 1 },
+    NOTmackfrew: [
+        { name: 'Seymour Humphries' },
     ],
-    Nmplol: [
-        { name: 'Buddy Black' },
+    NouieMan: [
+        { name: 'James Henderson' },
+        { name: 'Jim Fandango' },
+        { name: 'John Tatum' },
+        { name: 'Leviticus Starr' },
+        { name: 'Louis Darling' },
+        { name: 'William Martinez' },
     ],
-    nnsLUL: [
-        { name: '[Development] nns', factions: ['Development'], assumeChar: true },
+    Novatic: [
+        { name: 'Doug Heartland' },
     ],
-    NoElusionz: [
-        { name: 'Bobby Schmiguel', factions: ['GSF'], nicknames: ['Bobby Beats'], displayName: 3 },
+    Novatorium: [
+        { name: 'Minnie Bean' },
+        { name: 'Trix' },
     ],
-    noKingu: [
-        { name: '[Deputy] Henri King', factions: ['Police'] },
-        { name: 'DaMarcus Lewis', factions: ['Tuner Shop'] },
-        { name: 'Big K', factions: ['Self Insert'], displayName: 0 },
+    nziech: [
+        { name: 'Kuniklo' },
     ],
-    notmerrick: [
-        { name: 'Levi Rotti', factions: ['Gulag Gang'], displayName: 1 },
+    og_cush00: [
+        { name: 'Walter Bridges' },
     ],
-    NotoriousNorman: [
-        { name: 'Chips Ahoy', factions: ['Rooster'] },
+    ohheyliam: [
+        { name: 'Oliver Quil', nicknames: ['Ollie'], displayName: 3 },
     ],
-    Nottics: [
-        { name: 'Raymundo Ortiz', factions: ['Vagos', 'Tuner Shop'], nicknames: [reg(/\br+ay/), reg(/\bmundo/)] },
-        { name: 'Raul Rodriguez', nicknames: [reg(/\br+au+l/)] },
+    ohnopojo: [
+        { name: 'Billy Kim' },
     ],
-    NovalokHD: [
-        { name: '[Officer] Ben Casanova', factions: ['Police'] },
+    Orcish: [
+        { name: '[Deputy] Allistair McGregor', factions: ['Law'] },
+        { name: 'Billy Beetur' },
+        { name: 'Otis Potts' },
+        { name: 'Richard Westlake' },
+        { name: 'Tripp Riggs' },
     ],
-    NRG_Hamlinz: [
-        { name: 'Darnell Simmons', displayName: 0 },
+    peachycoaster: [
+        { name: 'Chrissy Snow' },
     ],
-    Ntviiper: [
-        { name: 'Kian Mercer', factions: ['HOA'] },
+    Pers: [
+        { name: 'Dr. Carrie Williams' },
+        { name: 'Mischa Crane' },
     ],
-    NuFahrenheit: [
-        { name: 'Boris Karishnikov', factions: ['Italian Mafia'], displayName: 0 },
-    ],
-    NunnYaBiznezz: [
-        { name: '[Deputy] Hingle McCringleberry', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    NurEinDarki: [
-        { name: 'Nolan Nicholson', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    nxsiah: [
-        { name: 'Zelaya Fernando', factions: ['Prison'], nicknames: ['Z', 'Laya'] },
-    ],
-    NymN: [
-        { name: 'Frank Fritugo', assume: 'assumeOther' },
-    ],
-    o_Oakleyz_o: [
-        { name: '[Deputy] Samuel Holtz', factions: ['Police'] },
-    ],
-    OccamsSabre: [
-        { name: '[Officer] Jeffrey Bundy', factions: ['Police'], nicknames: ['451'] },
-        { name: '[Lawyer] Benjamin Crane', factions: ['DoJ'], displayName: 0 },
-        { name: '[Judge] Ray Montag', factions: ['DoJ'] },
-        { name: 'Busta Block', factions: ['ASRR'], displayName: 0 },
-    ],
-    Octopimp: [
-        { name: 'Chut McMillan', factions: ['LARPers', 'Rooster'], nicknames: ['Chut The Magnificent', 'Sorcerer'] },
-    ],
-    Odablock: [
-        { name: 'Lil Baldy', displayName: 0, assume: 'assumeOther' },
-        { name: 'Big O', displayName: 0 },
-    ],
-    OfficialTaco: [
-        { name: 'Charles "Taco" Prince', factions: ['Chang Gang'], assumeServer: 'whitelist', facebook: true },
-        { name: 'Charles "Taco" Prince', factions: ['Gulag Gang'], assumeServer: 'public' },
-    ],
-    OG_Tyger: [
-        { name: '[Officer] Peter Frost', factions: ['Police'] },
-    ],
-    ogk3nz: [
-        { name: 'Marko Russetto', factions: ['BSK'], displayName: 0 },
-    ],
-    OhMadOne: [
-        { name: '[Lawyer] Ginzu Okada', factions: ['DoJ'] },
-    ],
-    OllyPop: [
-        { name: 'Ivy Poppins' },
-        { name: 'Evee Poppins' },
-    ],
-    omie: [
-        { name: 'Marty Banks', factions: ['Gulag Gang'], leader: true, assumeServer: 'whitelist' },
-        { name: 'Marty Shanks', factions: ['Gulag Gang', 'Burger Shot'], nicknames: [reg(/\bburger/)], assumeServer: 'public' },
-        { name: 'Marty Banks', assumeServer: 'international' },
-        { name: '[Officer] Sharty Manks', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    onebaw: [
-        { name: 'Arthur Morgan', factions: ['Condemned MC'], displayName: 0 },
-    ],
-    OneProtectiveFox: [
-        { name: 'Hanna Baker', factions: ['DoC'], displayName: 0 },
-        { name: 'Cassie Hoyt', displayName: 0 },
-    ],
-    OneSmolBumble: [
-        { name: '[Deputy] Brielle Snowmin', factions: ['Police'], nicknames: ['594'], displayName: 1 },
-        { name: '[EMS] Emery Ore', factions: ['Medical'], nicknames: ['E-55'], displayName: 1 },
-        { name: 'Clover Bloom', displayName: 0 },
-        { name: '[EMS] Rory Borealis', factions: ['Medical'], displayName: 1 },
-    ],
-    OneTapBingus: [
-        { name: 'Bodhi Mack', factions: ['Seaside'] },
-    ],
-    Osakanoodles: [
-        { name: '[Officer] Antoine Sigel', factions: ['Police'] },
-    ],
-    OwenSeven: [
-        { name: '[Deputy] Owen Svensen', factions: ['Police'] },
-        { name: 'Tyler Dabrowski', factions: ['Frat'], nicknames: ['Bro', 'Brow', 'Brah', 'Broski', 'Browski', 'Brahski'], displayName: 0 },
-    ],
-    PacifistV: [
-        { name: 'Merry Achi', factions: ['Rooster'], displayName: 0 },
-    ],
-    panpawn1: [
-        { name: '[Officer] Adam Swanson', factions: ['Police'], assumeServer: 'public' },
-    ],
-    PapaChip: [
-        { name: 'Channing "Chain" Turner', factions: ['BBMC'] },
-    ],
-    PapaDrgnz: [
-        { name: 'Thur Teen', factions: ['Prison'], displayName: 0 },
-    ],
-    Pasty: [
-        { name: '[Officer] Ernest Kaminski', factions: ['Police'], displayName: 2 },
-    ],
-    Pengwin: [
-        { name: '[Deputy] Jerry Perkins', factions: ['Police'] },
-        { name: 'Stanley Wilkinson', factions: ['HOA'], nicknames: ['Stan', 'White Devil'] },
-        { name: 'Dustin "Dark Shadow" Manson' },
-        { name: 'Kenneth "Ken-sama" Foreman', factions: ['Burger Shot'] },
-    ],
-    PENTA: [
-        { name: '[Deputy] Randy Wrangler', factions: ['Police'], nicknames: [reg(/\bwrang/), 'Court'] },
-        { name: '[Deputy] John Copperton', factions: ['Police'], nicknames: ['John Cop'], displayName: 2 },
-        { name: 'Jordan Steele', displayName: 0, nicknames: ['"Parking" God', 'Phoenix Messiah'] },
-        { name: 'Ricky Robins' },
-        { name: 'Bully Maguire', displayName: 0 },
-        { name: 'Jimmy "El Gambino" Yougman', nicknames: ['Gamba', 'Gambling', 'Turbo', 'Spins', 'Snowball', 'Magic Hands', 'Jackie Snow', 'Jimmy Bricks', 'Plough Man'] },
-        { name: 'Bob Smith', factions: ['Vagos'], nicknames: ['B0b Smith', 'B0b'], displayName: 3 },
-        { name: 'Mike Block', factions: ['ASRR'], leader: true, displayName: 0 },
-        { name: 'Chase Clouter', displayName: 0 },
-        { name: 'Karen Karenly' },
-        { name: 'Robert Penta', factions: ['Self Insert'], displayName: 0 },
-        { name: 'Jane Obama', displayName: 0 },
-    ],
-    peruze: [
-        { name: 'Ronald "Scuffed Tony" Legarski', factions: ['ASRR'], nicknames: ['Tony', 'Ron', 'Block'] },
-        { name: '[Ride Along] Anthony Beans', factions: ['Police'], displayName: 2 },
-        { name: 'John Hobo', displayName: 0 },
-    ],
-    peterparkTV: [
-        { name: 'Peener Pogue', factions: ['Rooster'] },
-    ],
-    Pezz: [
-        { name: 'Pez Speedwagon', factions: ['BBMC'], displayName: 1 },
-        { name: 'Pezzy Pee' },
-    ],
-    phantomzz_ow: [
-        { name: 'Connell MacGregor', factions: ['RUST'], displayName: 2 },
-    ],
-    Philderbeast: [
-        { name: '[Dispatch] Owen Fitz-Gibbon', factions: ['Police'], displayName: 2 },
+    PibbJont: [
+        { name: 'Thatcher Mantell' },
     ],
     pinkchyu: [
-        { name: 'Selena Martinez', factions: ['Gulag Gang'], displayName: 1 },
-        { name: 'Tiffany Smith', nicknames: [reg(/\btiff/)], displayName: 0 },
-        { name: 'Sakura Haruwho', displayName: 1 },
-        { name: 'Ash Scuffem', displayName: 0 },
-        { name: 'Ashley Pinktrilobite', factions: ['Self Insert'], displayName: 0 },
+        { name: 'Caroline Kroll' },
+        { name: 'Kelly Crockett' },
     ],
-    Plashir: [
-        { name: 'Thom Yung', factions: ['Stable'], displayName: 0 },
+    Pinkfie: [
+        { name: 'Abigail Burke' },
     ],
-    PlasticLittle: [
-        { name: 'Parson "Frosty" Brown', factions: ['Lost MC'] },
+    Point1985: [
+        { name: 'Joe Jackson' },
     ],
-    PMoney: [
-        { name: 'P Money', factions: ['Chang Gang', 'Chaos'], displayName: 0 },
+    privyLore: [
+        { name: 'Wren Lebow' },
     ],
-    PmsProxy: [
-        { name: '[Officer] Kira Light', factions: ['Police'] },
-        { name: 'Ella Stone' },
+    ProJB: [
+        { name: 'Odin Borr' },
     ],
-    pochesVides: [
-        { name: 'Bruno LeMons', factions: ['Rooster'] },
+    Psikage: [
+        { name: 'Oscar Caraballo' },
     ],
-    pokelawls: [
-        { name: 'Bogg Dann' },
-        { name: 'Bart Batchest', displayName: 0 },
-        { name: 'Lacari Anemay' },
+    PukingFerrets: [
+        { name: 'Alice Quinn' },
     ],
-    pokimane: [
-        { name: 'Jolie Paul', displayName: 0 },
-        { name: 'Celine LaCroix' },
+    Pumpkinberry: [
+        { name: 'Honey Sparks' },
+        { name: 'Nora Boone' },
     ],
-    Polaflex: [
-        { name: 'Lewis Marsden', factions: ['Tuner Shop'], displayName: 0 },
+    Question_Box: [
+        { name: '[Sheriff] Lydia Lewis', factions: ['Law'] },
     ],
-    Polen: [
-        { name: 'Adam "AP" Peterson', factions: ['Tuner Shop'], displayName: 0 },
-        { name: '[Deputy] Adrian Pearce', factions: ['Police'], displayName: 2 },
-        { name: 'Martin Polen', factions: ['Self Insert'], displayName: 0 },
+    Quip_TV: [
+        { name: 'Dove Hopkins', factions: ['Law'] },
+        { name: 'Sally Higgins', nicknames: ['Shotgun'] },
     ],
-    Ponnhub: [
-        { name: '[Therapist] Rexford Yeung', factions: ['Medical'], nicknames: ['Rex'], displayName: 3 },
-    ],
-    Pons: [
-        { name: 'Harry Martinez', displayName: 0 },
-        { name: '[Deputy] Otis Tucker', factions: ['Police'] },
-        { name: '[Officer] Chet Manley', factions: ['Police'], displayName: 1, assume: 'assumeOther' },
-        { name: '[Officer] Bodean Tucker', factions: ['Police'], nicknames: ['Bo'] },
-    ],
-    PotterTV: [
-        { name: 'Ali Ababwa', factions: ['Mandem'], displayName: 0 },
-    ],
-    PriddyFresh: [
-        { name: 'Tupac Shakur' },
-    ],
-    Primal: [
-        { name: '[Officer] Kareem Lyon', factions: ['Police'], displayName: 1 },
-    ],
-    Protay10: [
-        { name: 'James Thompson', factions: ['Hydra Gang', 'Harmony'], nicknames: ['James "Phantom" Thompson', 'Phantom'], displayName: 4 },
-        { name: '[Deputy] Jacob Specter', factions: ['Police'] },
-    ],
-    PsiSyn: [
-        { name: '[Officer] Lucio Panini', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    Pssychotic: [
-        { name: 'Jason Paul', factions: ['Lost MC'], nicknames: ['JP'] },
-        { name: 'Hades', nicknames: ['Dog'] },
-    ],
-    PuckNatorGaming: [
-        { name: 'Jack Higgins', factions: ['DoC'], displayName: 0, assume: 'assumeOther' },
-        { name: 'Tate Urchips', factions: ['Prison'], displayName: 0 },
-    ],
-    puddledux: [
-        { name: 'Jake Rake', factions: ['Prison'], displayName: 0 },
-    ],
-    PureToTheSport: [
-        { name: 'Scooter McQueeny', factions: ['Street Team', 'Chang Gang', 'Tuner Shop'], nicknames: ['Sport'], displayName: 3 },
-    ],
-    Purge9090: [
-        { name: 'Jack Frent', factions: ['DoC'], displayName: 0 },
-    ],
-    Purpose2: [
-        { name: '[Officer] Percy Weaver', factions: ['Police'] },
-    ],
-    Pydrex: [
-        { name: '[Officer] James Doakes', factions: ['Police'], displayName: 2 },
-    ],
-    qMARIOx: [
-        { name: 'Fernando "Mario" Reyes', factions: ['Hydra Gang', 'Chang Gang', 'Chaos'], nicknames: ['"Mario" from the Barrio'] },
-        { name: '[Officer] Rob Uncle', factions: ['Police'], nicknames: ['Robert'], displayName: 2 },
-    ],
-    Quru: [
-        { name: '[Officer] Vladimir Reznik', factions: ['Police'] },
-        { name: 'Pepe Ramos', factions: ['Seaside'], displayName: 0 },
-    ],
-    Ragonath: [
-        { name: '[Officer] Leif Norgaard', factions: ['Police'], displayName: 2 },
-        { name: 'Maxwell Devitt', displayName: 0 },
-        { name: 'Ezekiel "Zeke" Stahl', factions: ['Prison'], displayName: 0 },
-    ],
-    Raided: [
-        { name: '[Officer] Gage Draider', factions: ['Police'] },
-        { name: 'Wren Draider', factions: ['RUST'], displayName: 0 },
-        { name: '[Development] Raided', factions: ['Development'] },
-    ],
-    raine: [
-        { name: 'Penny Farthing', factions: ['Britney Gang', 'Rooster'] },
-    ],
-    RALLY728: [
-        { name: 'Armando Hernandez', factions: ['Tuner Shop'] },
-    ],
-    Ramee: [
-        { name: 'Ramee El-Rahman', factions: ['Chang Gang', 'BCG', 'Tuner Shop'], nicknames: ['The "Warlord"', 'The "Vulture"', 'SBS Patient-0'], facebook: true },
-        { name: '[Ranger] Conan Clarkson', factions: ['Police'] },
-    ],
-    Randolph: [
-        { name: 'Don Dolph', displayName: 0 },
-    ],
-    Rasta: [
-        { name: 'Dunn Robinson', assume: 'assumeOther', assumeServer: 'whitelist' },
-        { name: '[Deputy] Dean Dimes III', factions: ['Police'], displayName: 2, assumeServer: 'public' },
-        { name: 'Mary Livingston', displayName: 0 },
-    ],
-    RatedEpicz: [
-        { name: 'Randy Bullet', factions: ['Chang Gang'], nicknames: ['Lazy-Eye', 'Shankz'], assumeServer: 'whitelist', facebook: true },
-        { name: 'Roundy Buffet', factions: ['Gulag Gang'], nicknames: ['Randy', 'Bullet'], assumeServer: 'public' },
-        { name: '[Trooper] AJ Hunter', factions: ['Police'], nicknames: ['207'] },
-    ],
-    Ray__C: [
-        { name: 'Raymond "Ray" Romanov', factions: ['Cleanbois', 'RUST', 'Clean Cartel', 'Rooster'], nicknames: ['Ray', reg(/\brussia/)], assumeChar: true, assumeServer: 'whitelist' },
-        { name: '[Officer] Raycardo Flick', factions: ['Police'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Officer] Raycardo Flick', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    Ray308win: [
-        { name: '[Officer] Craig Barrett', factions: ['Police'] },
-        { name: '[FIB Agent] Lyonel Winchester', factions: ['Police'] },
-    ],
-    RayvenEyed: [
-        { name: 'Milo King', factions: ['Rooster'], displayName: 0 },
-    ],
-    Realzman: [
-        { name: '[EMS] Connor', factions: ['Medical'] },
-        { name: 'Malakai' },
-    ],
-    RedPotatoPlays: [
-        { name: '[Officer] Rudy Romano', factions: ['Police'], assumeServer: 'public' },
-    ],
-    Reedy: [
-        { name: 'Raul Luis-Blanco', factions: ['Hydra Gang'], displayName: 0 },
-    ],
-    ReelSalty: [
-        { name: '[Deputy] Frank Giuliani', factions: ['Police'], assumeServer: 'public' },
-    ],
-    Reina: [
-        { name: 'Mona Sanchez', factions: ['SSB'], assume: 'assumeNpNoOther' },
-    ],
-    Reklez: [
-        { name: 'Chico Guzman', factions: ['Seaside'] },
-        { name: 'AJ', factions: ['SSB'] },
-    ],
-    RemdogG: [
-        { name: '[Officer] Alex Suarez', factions: ['Police'], nicknames: ['549'] },
-    ],
-    RemiTheSiren: [
-        { name: '[Dr.] Lily Harte', factions: ['Medical'], displayName: 2 },
-        { name: 'Wednesday Mushkin', factions: ['HOA'] },
-    ],
-    Renegade93TV: [
-        { name: 'Draxon Payne', factions: ['Wastelanders'], displayName: 1 },
-    ],
-    reno_raines: [
-        { name: 'Manny McDaniels', factions: ['HOA'] },
-    ],
-    rerolldota: [
-        { name: '[Deputy] Lea Nova', factions: ['Police'], nicknames: ['Enforcer'] },
-    ],
-    Resurrex: [
-        { name: '[Officer] Ace Crow', factions: ['Police'] },
-    ],
-    ReverendCatino: [
-        { name: 'Rocky Topps', factions: ['Stable'], displayName: 1 },
-    ],
-    RevRoach: [
-        { name: "Happy D'Klown" },
-    ],
-    Rexsair: [
-        { name: 'Rexarius Bracchimus', factions: ['Independent', 'Seaside'], nicknames: ['Rex'], displayName: 3 },
-    ],
-    RhiTexxy: [
-        { name: 'Brook Lexi', factions: ['Lost MC'] },
+    REKKRPRO: [
+        { name: 'Rekks Tanner' },
     ],
     RickMongoLIVE: [
-        { name: '[D.A.] Rick Mongo', factions: ['DoJ'], assume: 'assumeOther' },
+        { name: 'Cole Dalton' },
+        { name: 'Furio Bonanno' },
     ],
-    RileyRP: [
-        { name: 'Bubbles Smith', factions: ['Royal Mafia'] },
+    rosco: [
+        { name: 'Awkward Johnson', displayName: 0 },
+        { name: 'Frank Church' },
+        { name: 'John Hell' },
     ],
-    ripoozi: [
-        { name: 'Larry Knox', factions: ['Gulag Gang'], displayName: 0 },
+    rossthehsauce: [
+        { name: 'Forest Fish' },
     ],
-    Riseblap: [
-        { name: 'Saleem Shakib', factions: ['RUST'] },
-    ],
-    RiZRP: [
-        { name: 'Nikita Reznikov', factions: ['Pegasus'] },
-    ],
-    rlly: [
-        { name: '[Officer] Shelly Targaryen Smith', factions: ['Police', 'Burger Shot'], nicknames: ['Shelleh', 'Queen', '523'], displayName: 1 },
-        { name: 'Kelly Smith' },
-    ],
-    Robbeaxe: [
-        { name: '[Deputy] Sally Avvocata', factions: ['Police'], displayName: 2 },
-    ],
-    RobotNinjaPants: [
-        { name: '[Deputy] Hunter Cross', factions: ['Police'] },
-        { name: 'Jacob Slate', factions: ['DoJ'], displayName: 0 },
-    ],
-    roflgator: [
-        { name: 'Robert Spowylamywanowski', factions: ['Burger Shot'], nicknames: ['Rob', 'Polish', 'Night Manager'], displayName: 3 },
-    ],
-    RookTM: [
-        { name: '[Deputy] Deacon Frye', factions: ['Police'], nicknames: ['564'] },
-    ],
-    Rose: [
-        { name: '[Deputy] Perrie Lane', factions: ['Police'] },
-        { name: '[Deputy] Maggie Dean', factions: ['Police'] },
-    ],
-    Roxmiral: [
-        { name: 'Sherry Paie', displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Ranger] Sherry Paie', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: 'Ruby Morris' },
-        { name: 'Nikki Drewel', factions: ['DoC'], nicknames: ['Drools'], displayName: 0 },
-        { name: 'Sherry Lee' },
-    ],
-    royalbluesmile: [
-        { name: 'Ell LeFant', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    RudeNoodleNPC: [
-        { name: 'Tee Veeman', factions: ['Burger Shot'] },
-    ],
-    Runyon11: [
-        { name: 'Luk Zwiebel', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    RyanRV: [
-        { name: 'Jay Jones', factions: ['Rooster'], nicknames: ['JJ'], displayName: 0 },
-    ],
-    RyuRPG: [
-        { name: 'Rafael "Raffa" Sanchez', factions: ['Marabunta'] },
-    ],
-    S_Palms: [
-        { name: 'Kimmy Youngirl', displayName: 1 },
-        { name: 'Mina Kwon', displayName: 0 },
+    RY4N: [
+        { name: 'Christine Thomas', nicknames: ['Momma'], displayName: 3 },
+        { name: 'Joe Burns', nicknames: ['Moonshine Joe'] },
+        { name: 'Randy Randy' },
+        { name: 'Thomas Church' },
     ],
     s0upes: [
-        { name: '[Deputy] Silas Grimmer', factions: ['Police'] },
-        { name: 'James "Apples" Apeller' },
-        { name: 'Chadley ?' },
-        { name: 'Ryder S. Block', factions: ['ASRR'], displayName: 0 },
-        { name: 'Ezekiel "Zero" Rogaine' },
+        { name: 'Ace Grimmer' },
     ],
-    Saiiren: [
-        { name: 'Ai "Egg" Musori', nicknames: ['Bitch'], factions: ['LARPers', 'Cleanbois', 'Rooster'], displayName: 0 },
-        { name: '[Deputy] Yuu Gondai', factions: ['Police'], nicknames: ['Yu', 'Yoo', 'Gon Die'] },
+    s5ashadow01: [
+        { name: 'Adam Skye' },
+        { name: 'Froiland Jackson' },
     ],
-    SAkiller: [
-        { name: 'Pablo Wealth', factions: ['Chang Gang'], displayName: 0 },
+    saffyra: [
+        { name: 'Birdy Hawke' },
+        { name: 'Poppy Pascal' },
     ],
-    Sal_Rosenberg: [
-        { name: 'Sal Rosenberg' },
-        { name: 'Debo Davis', factions: ['GSF'] },
+    SalsaRage: [
+        { name: 'Norman McCain' },
+        { name: 'Bitt McGee' },
     ],
-    Sams: [
-        { name: 'Dimitri Barkov' },
+    Sammyyyyyyy: [
+        { name: 'Lizzie Clarke' },
     ],
-    samtbull23: [
-        { name: 'Sammy B', factions: ['Harmony'], displayName: 0 },
+    sarahpeathatsme: [
+        { name: 'Ruby Raines' },
     ],
-    saNhje: [
-        { name: '[Development] saNhje', factions: ['Development'], nicknames: ['MLO'] },
+    satyr_queen: [
+        { name: 'Cornelius Tias' },
+        { name: 'Curtis Cunningham' },
+        { name: 'Daisy Shields' },
+        { name: 'Jolene Quinn' },
+        { name: 'Josiah Matthews' },
+        { name: 'Sam Bridges' },
     ],
-    Sannmann_: [
-        { name: 'Finley Milton', factions: ['BBMC'], displayName: 0 },
+    ScarletRosePlays: [
+        { name: 'Allison Chase' },
+        { name: 'Bella Baker' },
+        { name: 'Zoe Winters' },
     ],
-    Sarah_Digitally: [
-        { name: 'Anna Jørgensen', factions: ['Harmony'], nicknames: ['Lilac', 'Illac', 'Jorgensen'], displayName: 3 },
+    Scriffboy: [
+        { name: 'Tane' },
     ],
-    Sareff: [
-        { name: 'Paige Green' },
-        { name: 'Ophelia Dawson', factions: ['BBMC'], nicknames: ['Fey'], displayName: 3 },
-        { name: 'Jocelyn Wayne' },
-        { name: 'Violet Noreguarde', factions: ['Vagos'], assumeServer: 'whitelist' },
-        { name: '[Deputy] Paige Green', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Chasity Dawes' },
+    seakeon: [
+        { name: 'Eoghan Quinn' },
+        { name: 'Pat Campbell' },
+        { name: 'William Stone' },
     ],
-    SAVx: [
-        { name: 'Johnny Cassle' },
+    section9_Browncoat: [
+        { name: 'Ned Fuller' },
+        { name: 'Nick Carver' },
     ],
-    sashagrey: [
-        { name: 'Enza Zissou' },
+    sgttyn: [
+        { name: 'Jacob Dubois' },
+        { name: 'Norris Olson' },
+        { name: 'Sam Winters', factions: ['Law'] },
     ],
-    saturneighteen: [
-        { name: 'Cleo Shaw', nicknames: ['Coleslaw'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Officer] Cleo Shaw', factions: ['Police'], nicknames: ['Coleslaw'], displayName: 1, assumeServer: 'public' },
+    shadowsINsilence: [
+        { name: 'Emily Marie Kenward' },
     ],
-    Sax850: [
-        { name: 'Motya Satovksy', factions: ['Russians'] },
-        { name: '[Officer] Olof Gunnarsson', factions: ['Police'] },
+    Shake4L: [
+        { name: 'Buzz Bleu' },
     ],
-    SayeedBlack: [
-        { name: 'Arush Patel "Speedy" Santana', factions: ['Vagos', 'Cleanbois'], leader: true, nicknames: ['El Jefe'] },
-        { name: '[Deputy] Sayeed White', factions: ['Police'], nicknames: ['Mr. White'], displayName: 2 },
+    Sidkriken: [
+        { name: 'Dane Swan', factions: ['Law'] },
+        { name: 'Gator Weaver' },
+        { name: 'Odysseus Kain' },
     ],
-    Sciencegun: [
-        { name: 'John "Turbo" Miller' },
-    ],
-    scotism: [
-        { name: 'Mike Baldwin', factions: ['Tuner Shop'], displayName: 0 },
-    ],
-    ScytheX: [
-        { name: 'Frankie Lorenzo', factions: ['GSF'], displayName: 0 },
-    ],
-    SeaNanners: [
-        { name: 'Ronjulio Escjulio' },
-    ],
-    Selvek: [
-        { name: '[Officer] Jeffrey Price', factions: ['Police', 'Burger Shot'], displayName: 1 },
-        { name: '[Officer] Jack Sawyer', factions: ['Police'] },
-    ],
-    Sgt_Apollo: [
-        { name: 'Salem Barghouthi', factions: ['NBC'], facebook: true },
-        { name: '[Officer] Aziz Sultan', factions: ['Police'], nicknames: ['Za Nose'], displayName: 1 },
-    ],
-    SgtApollo: [
-        { name: 'Salem Barghouthi', factions: ['NBC'] },
-        { name: '[Officer] Aziz Sultan', factions: ['Police'], nicknames: ['Za Nose'], displayName: 1 },
-    ],
-    shadiko: [
-        { name: 'Alex Domino', factions: ['LARPers', 'Rooster'], displayName: 0 },
-    ],
-    shadowedkayla: [
-        { name: 'Kayla Rose', factions: ['Royal Mafia'], displayName: 1 },
-    ],
-    shadowgam3rx: [
-        { name: 'Jenny Ondamic', factions: ['BSK'], nicknames: ['BSQueen'], displayName: 0 },
-    ],
-    shaggy_steve: [
-        { name: '[Deputy] Jimmy Gordon', factions: ['Police'] },
-    ],
-    Sharaadrick: [
-        { name: '[Deputy] Marcel King', factions: ['Police'], displayName: 1, assumeServer: 'whitelist' },
-        { name: "W'Kabi Aku", displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Officer] Marcel King', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    ShawW0w: [
-        { name: 'Garry Roche', factions: ['Burger Shot'], displayName: 0 },
-    ],
-    Shayeno: [
-        { name: 'Ryder James Flint', factions: ['Royal Mafia'], nicknames: ['RJ'], displayName: 4 },
-    ],
-    SheepDog59: [
-        { name: '[Officer] Mason Kennedy', factions: ['Police'], nicknames: ['545'], displayName: 2 },
-    ],
-    Shiki: [
-        { name: 'Vivian Vale', factions: ['Gulag Gang', 'CBPD', 'Clean Cartel'], displayName: 0 },
-    ],
-    Shindur: [
-        { name: '[Deputy] Joey Keys', factions: ['Police'] },
-    ],
-    shiny: [
-        { name: '[Officer] Honey Buns', factions: ['Police'], nicknames: ['D-21'] },
-        { name: 'Pebbles ?', nicknames: ['Dog', reg(/\b(?:wee+\s*woo+)+\b/)] },
-        { name: 'Clyde "Meowfurryon" Eastside', factions: ['LARPers', 'Cleanbois', 'Rooster'], nicknames: ['Druid', 'Archdruid', 'Malfurryon'] },
-    ],
-    shodtwo: [
-        { name: 'Kishawn Baker', factions: ['Street Team', 'Chang Gang'], nicknames: ['Lil Blicky'], displayName: 3 },
-    ],
-    Shortyyguy: [
-        { name: 'Eddie Delish' },
-    ],
-    Shotz: [
-        { name: 'Vinny Pistone', factions: ['Chang Gang', 'Chaos', 'Tuner Shop'], assumeServer: 'whitelist' },
-        // { name: 'Vinny Pistone', factions: ['Gulag Gang'], assumeServer: 'public' },
-        { name: '[Ranger] John Mineo', factions: ['Police'], nicknames: ['Corporal'] },
-        { name: 'Mr J', factions: ['Chang Gang'], displayName: 0 },
-    ],
-    Shrimp_: [
-        { name: 'Bradley Kickass', factions: ['Burger Shot'], displayName: 0 },
-        { name: 'Jimmy Bending', displayName: 0 },
-        { name: '[Mr.] Watt Son', displayName: 0 },
-    ],
-    shroud: [
-        { name: 'Richard Hard' },
-    ],
-    ShrykeLP: [
-        { name: 'Patrick Shryke', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    ShutupWave: [
-        { name: 'Richard Tips', factions: ['Burger Shot'], displayName: 0 },
-    ],
-    Sidefxmayinclde: [
-        { name: 'Kerm Henson', factions: ['Burger Shot', 'Rooster'], displayName: 0 },
-    ],
-    sierraxmyst: [
-        { name: 'Lukas Myst', factions: ['DoC'], displayName: 0 },
-    ],
-    SiirToast: [
-        { name: 'Anton Belov', factions: ['Russians'] },
-    ],
-    Silent: [
-        {
-            name: 'Juan Carlos "Flippy" Hernandez',
-            factions: ['Hydra Gang', 'Chang Gang', 'Chaos'],
-            nicknames: [reg(/\bflip/), reg(/\bcrim\w*\b(?!.+\bcop)/), 'not cop', 'trying out crim', reg(/\bclaire'?s?\s*(?:boy|husb)/)],
-            leader: true,
-        },
-        { name: '[Officer] Joel Garcia', factions: ['Police'], nicknames: [reg(/\bcop\b(?!.+\bcrim)/), reg(/\bcop\b(?:.+\bnerf)/), 'trying out cop'] },
+    Silbullet: [
+        { name: '[Deputy] Shawn Maple', factions: ['Law'] },
+        { name: 'Stefano Amendo' },
     ],
     SilentSentry: [
-        { name: 'Ron Otterman', factions: ['News'], nicknames: [reg(/🎥/)], displayName: 0 },
-        { name: 'Michael Michaels Jr.', nicknames: ['MMJR'], displayName: 0 },
-        { name: 'Iroquois "Snake" Plisken', displayName: 0 },
-        { name: 'Ziggy Flint', nicknames: [reg(/🌿/)], displayName: 0 },
+        { name: 'Emmet Wagner' },
     ],
-    silky_rp: [
-        { name: 'Darnell "Baby D" Davis', factions: ['SSB'] },
-        { name: 'Spooky Conchas', factions: ['Marabunta'] },
-        { name: 'Po ?', nicknames: ['Uncle Po'], displayName: 3 },
+    SinnixTv: [
+        { name: 'Frank Brower' },
     ],
-    Simo: [
-        { name: '[Judge] Reggie Might', factions: ['Seaside', 'DoJ'], displayName: 1, assumeServer: 'whitelist' },
-        { name: '[Lawyer] Blake Specter', factions: ['DoJ'] },
-        { name: '[Officer] Reggie Might', factions: ['Police'], assumeServer: 'public' },
+    SirisLuv: [
+        { name: 'Denise Neve' },
     ],
-    Simplyje2ns: [
-        { name: 'Jean Steele', displayName: 0 },
+    Skids_N_Cones: [
+        { name: '"Old Greg" Boone', nicknames: ['Old Greg'], displayName: 3 },
+        { name: 'Bear' },
+        { name: 'Henry "West"' },
     ],
-    sips_: [
-        { name: 'Tito Higgins' },
+    SkoogFFS: [
+        { name: 'Billy Joe Barber', nicknames: ['BJB'] },
     ],
-    SirPink: [
-        { name: 'Reginald "Reggie" Bigglesby', factions: ['Burger Shot', 'Rooster'] },
+    SLiMt: [
+        { name: 'Jimmy Slimper', nicknames: ['Slim Jim'] },
     ],
-    sirryman: [
-        { name: 'Levi Colton', factions: ['Clean Cartel'], displayName: 0 },
+    sneakyShadower: [
+        { name: 'Abigail Jones', factions: ['Law'] },
+        { name: 'Azula Brooks' },
+        { name: 'Isabella Vautour' },
+        { name: 'Jackie Lockwood', factions: ['Law'] },
+        { name: 'Raven Bennett' },
     ],
-    Skannerz_: [
-        { name: 'Wayne Kerr', factions: ['Tuner Shop'], displayName: 0 },
-        { name: '[Deputy] Pual Greenway', factions: ['Police'], displayName: 2 },
+    Sock22: [
+        { name: 'Daniel Moss' },
     ],
-    Skelasoldier: [
-        { name: 'Raymond "Xray" Delprince', factions: ['SSB'], displayName: 0 },
+    SolidSinn: [
+        { name: 'Carl Lawsen' },
+        { name: 'Jed Wicker' },
+        { name: 'Roger Thyne' },
     ],
-    Skiliyo: [
-        { name: 'Derek Thomson', factions: ['RUST', 'CBPD', 'Rooster'], displayName: 1 },
+    Sonneflower: [
+        { name: 'Eliana Diaz' },
+        { name: 'Jean Rivers' },
     ],
-    SkiMask0n: [
-        { name: 'Von Westbrook', factions: ['SSB'], nicknames: ['Vonn'], displayName: 0 },
-    ],
-    SkipGently: [
-        { name: '[Officer] John Riggs', factions: ['Police'] },
-    ],
-    skippypoppin: [
-        { name: 'Kevin Whipaloo', factions: ['Burger Shot'], displayName: 0 },
-    ],
-    Skitx0: [
-        { name: 'Smino "Hitta" Brown', factions: ['GSF'], assume: 'assumeNpNoOther' },
-    ],
-    Skud_Oftr: [
-        { name: 'Skud Oftr', factions: ['Seaside'], displayName: 1 },
-    ],
-    Skushyy: [
-        { name: 'Luka Malarkey', factions: ['Italian Mafia'], displayName: 0 },
-    ],
-    skxd07: [
-        { name: '[Officer] Joshi Drake', factions: ['Police'], assumeServer: 'international' },
-    ],
-    Slasher2099: [
-        { name: '[Officer] Darrel McCormik', factions: ['Police'] },
-        { name: '[K9 Trooper] Fenton', factions: ['Police'], nicknames: ['Fentons'] },
-    ],
-    SlixGamingTV: [
-        { name: 'Nico August', factions: ['GSF'] },
-    ],
-    SlummpyJ: [
-        { name: 'Javier Diaz', factions: ['Seaside'], nicknames: ['Javi'] },
-    ],
-    Smaczny: [
-        { name: 'Conrad Gross', assume: 'assumeOther' },
-    ],
-    SmithyFPS: [
-        { name: 'Craig Munson', nicknames: ['Crackhead Craig'], displayName: 3, assume: 'assumeNpNoOther' },
-    ],
-    SmithyPlaysUK: [
-        { name: 'Reginald Parker', factions: ['DoC'] },
-        { name: 'Duke Wiggles', displayName: 0 },
-    ],
-    smo_och: [
-        { name: 'Mike Smoore', displayName: 0 },
-    ],
-    SmokySloth: [
-        { name: 'Bovice Wilkinson', factions: ['Prison'] },
-        { name: 'Tayvadius "Chef" Jamarcus Livingston III', factions: ['GSF'] },
-    ],
-    SnekoGebiko: [
-        { name: '[Deputy] Perry Willis', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    so_sneaky: [
-        { name: 'Jessie Dagger', factions: ['Wastelanders'], displayName: 0 },
-    ],
-    SoapFPS: [
-        { name: 'Soap ?', factions: ['Royal Mafia'] },
-    ],
-    sock22: [
-        { name: '[Deputy] Richard Dark', factions: ['Police'] },
-        { name: 'Napolean Dankleaf', nicknames: ['Napoleon'], displayName: 0 },
-    ],
-    SodaKite: [
-        { name: 'Ellie Dono', factions: ['Cleanbois', 'Rooster'] },
-        { name: 'Chell Phish', displayName: 0 },
-    ],
-    sodapoppin: [
-        { name: 'Kevin Whipaloo', factions: ['Burger Shot'], leader: true, displayName: 0 },
-        { name: 'Tappy "Cat" Nippers', nicknames: ['Cat'], displayName: 0 },
-    ],
-    soleKEFS: [
-        { name: 'Junior Meats', factions: ['BBMC'], displayName: 0 },
-    ],
-    SoMuchOregano: [
-        { name: 'Vincent Genovese', factions: ['Rooster'], displayName: 0 },
-    ],
-    SonKnuck: [
-        { name: 'Patrick Desseault', factions: ['Rooster'], displayName: 0 },
-    ],
-    Sp00nerism: [
-        { name: 'Harry Phartz', displayName: 0 },
-    ],
-    Spaceboy: [
-        { name: 'Melbert "Mel" Rickenbacker' },
-        { name: 'Joseph "Self Insert" Bobkylecyrmitch', displayName: 0 },
-        { name: 'James Randal', displayName: 0 },
-        { name: 'Adrian Block', factions: ['ASRR'], displayName: 0 },
-        { name: '[Deputy] Patrick Downing', factions: ['Police'], nicknames: ['Pat'] },
-        { name: 'Casey Boyd', nicknames: ['Caseboy', 'L8PD'], displayName: 0 },
-    ],
-    SparkyKNE: [
-        { name: 'Sparky Kane', factions: ['Roadmen', 'Mandem'], displayName: 1 },
-    ],
-    SpekCypher: [
-        { name: 'Luis Fernandez', factions: ['HOA'], displayName: 0 },
-    ],
-    Spekel: [
-        { name: 'Sonya Summers', nicknames: ['Black Betty'] },
-        { name: 'Chloe Lesterol' },
-        { name: '[Officer] Scarlett Winters', factions: ['Police'] },
+    SpaceAndromeda: [
+        { name: 'Aoife McCarthy', factions: ['Law'] },
+        { name: 'Clarabelle Manson' },
+        { name: 'Cora Crow' },
     ],
     spicybackpain: [
-        { name: 'Kray-Tor Skullfondler', factions: ['HOA'], facebook: true },
+        { name: 'Pepper Jackson' },
+        { name: 'Tormund Kray' },
     ],
-    SpiderPigEthan: [
-        { name: 'Marvin Chunder', factions: ['HOA'], nicknames: ['Hades'], displayName: 3 },
+    sporkerific: [
+        { name: 'Rosamaria Sandoval' },
     ],
-    SpitfireQG: [
-        { name: 'Billy Walker', factions: ['Wastelanders'], displayName: 0 },
+    SprayNprayErik: [
+        { name: 'Butch Marlow' },
     ],
-    Sput: [
-        { name: 'Garry Smod', factions: ['DoC'], displayName: 0 },
+    spriteleah: [
+        { name: 'Francesca Bright', nicknames: ['Frankie'], displayName: 3 },
+        { name: 'Harriet Hawkins', nicknames: ['Hawk'], displayName: 3 },
     ],
-    Ssaab: [
-        { name: '[Chief of Police] Sam Baas', factions: ['Police'], nicknames: ['Samir', 'Baasem'], displayName: 2, leader: true },
-        { name: 'Al Saab', factions: ['Cleanbois'], displayName: 2 },
-        { name: 'Ray Singha', displayName: 0 },
+    squareiz: [
+        { name: 'Ed Doyle' },
     ],
-    StalwartNightmare: [
-        { name: '[Deputy] Alex Night', factions: ['Police'], nicknames: ['Speedster'], assumeServer: 'public' },
-        { name: '[Dispatch] Alex Night', factions: ['Police'], nicknames: ['Delta-39T', 'D-39T'], displayName: 2, assumeServer: 'whitelist' },
+    stardaze: [
+        { name: 'Edie Barlowe' },
     ],
-    StankXO: [
-        { name: 'Raccoon ?', factions: ['BCG'], displayName: 1 },
+    SteelRain27: [
+        { name: 'Moses Maddox' },
     ],
-    stanwilis: [
-        { name: 'Trina Bergström', factions: ['Rooster'], nicknames: ['Bergstrom'], displayName: 0 },
+    Stichboy: [
+        { name: 'Jeremiah Smoak' },
     ],
-    Stavy2hotty: [
-        { name: 'Chip Green', factions: ['BCG'], nicknames: ['Tails'], displayName: 3 },
+    suddenly_pandas: [
+        { name: 'Flamboise Chambord' },
+        { name: 'Harry Chapman' },
+        { name: 'Hudson Hart', factions: ['Law'] },
+        { name: 'Kevin Higgins' },
+        { name: 'Mackenzie Kale' },
+        { name: 'Boyd Banks' },
     ],
-    steamcharlie: [
-        { name: '[Deputy] Sydney Bearmont', factions: ['Police'], displayName: 1 },
+    Sugarsockzgg: [
+        { name: 'Mason Memphis' },
     ],
-    Stephanerys: [
-        { name: '[Officer] Patricia Mayonnaise', factions: ['Police'], nicknames: ['Patty'], displayName: 1 },
+    sweetcraw: [
+        { name: 'Joey Crawford' },
     ],
-    ster: [
-        { name: 'Guy Dance' },
-        { name: 'Gerald Wagner', displayName: 0 },
+    Sylasism: [
+        { name: 'Atty Windward' },
+        { name: 'Franklin Czepanski' },
+        { name: 'Bartleby Sinclair' },
     ],
-    Sterling_live: [
-        { name: '[Officer] Sterling Silver', factions: ['Police'], assumeServer: 'public' },
+    TalkingRecklessPodcast: [
+        { name: 'Jeremiah Rent' },
     ],
-    StevetheEmo: [
-        { name: 'Eddie Baker', factions: ['Prison'], displayName: 0 },
+    TankGirl: [
+        { name: 'Effie Mae Braithwaite' },
+        { name: 'Gloria Bonanno' },
     ],
-    StinkusKrys: [
-        { name: 'Dean Gullberry', factions: ['Italian Mafia'], displayName: 0 },
+    tanklovesyou: [
+        { name: 'Ethan Cross' },
+        { name: 'Eugene Goodman' },
+        { name: 'Jean-Pierre Lefrancois', factions: ['Law'] },
+        { name: 'Julius Bradshaw', nicknames: ['Jade King'] },
+        { name: 'Rico Ortega', factions: ['Law'] },
     ],
-    StinneKay: [
-        { name: 'Sassa Raven', factions: ['Lost MC'], displayName: 0 },
-    ],
-    stitchybird: [
-        { name: 'Daphne Tillamuck Valentino', factions: ['Lunatix'] },
-        { name: 'Abigail "Abi" Sharp' },
-    ],
-    Stoner_Minded: [
-        { name: '[Chief of Police] Frank Williams', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-        { name: '[Officer] Frank Williams', factions: ['Police'], displayName: 1, assumeServer: 'whitelist' },
-        { name: 'Frankie Eastwood', displayName: 0, assumeServer: 'public' },
-    ],
-    Stoneyee: [
-        { name: 'Stone Malone', factions: ['BCG'], displayName: 1 },
-    ],
-    Stork1e: [
-        { name: '[Officer] Luis Montoya', factions: ['Police'], displayName: 2 },
-    ],
-    Striking_Fast: [
-        { name: 'Gerard "Dewey" Hawthorne', nicknames: ['Dewie'], factions: ['Rooster'] },
-    ],
-    StrikingContact: [
-        { name: 'Seano "The Chemist" Blackthorne', factions: ['RUST'], nicknames: ['Chemist'] },
-    ],
-    Stuply: [
-        { name: 'Salvatore "Big Pussy" Tamburlini' },
-        { name: '[Deputy] Willy Glory', factions: ['Police'] },
-    ],
-    SullyRP: [
-        { name: 'Jack "Sully" Sullivan' },
-    ],
-    summit1g: [
-        { name: 'Charles "Chawa" Johnson', factions: ['Chang Gang', 'Tuner Shop'] },
-        { name: '[Deputy] John Charleston', factions: ['Police'], assumeServer: 'whitelist' },
-        { name: '[Trooper] Charles Johnson', factions: ['Police'], nicknames: ['Chawa'], assumeServer: 'public' },
-    ],
-    Sunni: [
-        { name: 'Hilda Bulking', factions: ['Tuner Shop'] },
-    ],
-    SuperBunneh: [
-        { name: '[EMS] Mila Smoak', factions: ['Medical'] },
-        { name: 'Madison "Maddy" Fox', factions: ['GSF'] },
-        { name: '[Officer] Lexus Lane', factions: ['Police'], displayName: 1 },
-    ],
-    Sur_Lee: [
-        { name: 'Mitch "Dumbass" Bader' },
-    ],
-    Surefour: [
-        { name: 'Fred "Necrolord" Fredrick', factions: ['LARPers', 'Cleanbois', 'Rooster'], nicknames: ['Necrolord', 'Ranger'] },
-        { name: 'Chute D. Block', factions: ['ASRR'] },
-        { name: '[Officer] Kenny Hawk', factions: ['Police'], nicknames: ['Powice'], displayName: 1 },
-    ],
-    Suspect: [
-        { name: 'Marcos Da Silva' },
-    ],
-    suzster: [
-        { name: 'Michael Kowalski', factions: ['BSK'], displayName: 0 },
-    ],
-    suzy_q: [
-        { name: 'Dreah Johnson', factions: ['Britney Gang', 'Rooster'] },
-    ],
-    Svennoss: [
-        { name: 'Barry Svensson', factions: ['LARPers', 'Cleanbois', 'Rooster'] },
-    ],
-    SwaggerSouls: [
-        { name: 'Ace Hull', displayName: 0 },
-    ],
-    Sweatyx420: [
-        { name: 'Darryl Gamin', factions: ['SSB'], displayName: 0 },
-    ],
-    SweeetTails: [
-        { name: 'Sweetie Jones', displayName: 1 },
-    ],
-    Sweet_Anita: [
-        { name: 'Marylin Hilton' },
-    ],
-    Swett: [
-        { name: '[EMS] Keith Harris', factions: ['Medical'], displayName: 0 },
-    ],
-    SwiftRP: [
-        { name: 'Ty Jones', factions: ['SSB'], nicknames: ['xray'], displayName: 0 },
-    ],
-    SwizzMB: [
-        { name: 'Miguel Almerion', factions: ['Hydra Gang', 'Chang Gang'] },
-        { name: '[Officer] Mervin Napoli', factions: ['Police'], nicknames: ['Merv', 'Big Merv', 'Big M', reg(/\bmerv/)], displayName: 1 },
-    ],
-    Sykkuno: [
-        { name: 'Yuno Sykk', factions: ['Cleanbois', 'Clean Cartel', 'Rooster'], displayName: 1, assumeServer: 'whitelist', assumeChar: true },
-        { name: '[Deputy] Uno Reverse', factions: ['Police'], displayName: 1 },
-        { name: '[Ranger] Yuno Sykk', factions: ['Police'], displayName: 1, assumeServer: 'public' },
-    ],
-    Symfuhny: [
-        { name: 'Simon Fuhny', displayName: 0 },
-    ],
-    SyncedGamingTV: [
-        { name: '[Development] Synced', factions: ['Development'] },
-    ],
-    Syndicate: [
-        { name: 'Seven Lighthouse', displayName: 0 },
-        { name: 'Alfie Hunter', displayName: 0 },
-    ],
-    synkuraa: [
-        { name: 'Alfredo ?', factions: ['BBMC'], assumeServer: 'public' },
-    ],
-    SynthHunter: [
-        { name: 'Hunter "Wingman" Skye', factions: ['Rooster'] },
-    ],
-    syph3rau: [
-        { name: 'Lyon Martinez', factions: ['Roadmen', 'Mandem'] },
-    ],
-    Syraphic: [
-        { name: '[Deputy] Kyra Pierce', factions: ['Police'] },
-        { name: 'Elena Marilyn Vega' },
-        { name: 'Emilia Salvatore' },
-    ],
-    t3r0: [
-        { name: '[Dr.] Andrew Ducksworth', factions: ['Medical'], displayName: 2 },
-    ],
-    TakanoriRuki: [
-        { name: 'Allen Jones', factions: ['Prison'], displayName: 0 },
-    ],
-    TaliaMar: [
-        { name: 'Mya ?' },
-    ],
-    tara_: [
-        { name: 'Sarah Ableton' },
+    Taranix: [
+        { name: 'Mattias Temble' },
     ],
     Tasara22: [
-        { name: 'Tuesday Phillips' },
-        { name: 'Milena' },
+        { name: 'Betty Butcher' },
+        { name: 'Jane Ripley', factions: ['Law'] },
+        { name: 'Madame Milena' },
+        { name: 'Monica Peach' },
+        { name: 'Oneida Zonta' },
+        { name: 'Precious Cargo' },
+        { name: 'Gertrude Nelson' },
     ],
-    TashiRP: [
-        { name: 'Zelda Johansson', factions: ['SSB'], displayName: 0 },
+    Tech_Otter: [
+        { name: 'Chester McGuckin' },
+        { name: 'Nathan Riggs' },
     ],
-    TastyMintsNA: [
-        { name: '[Officer] Eric Wong', factions: ['Police'], assumeServer: 'public' },
+    TehJamJar: [
+        { name: 'Alvin Biggs' },
+        { name: 'Dwight Bridger' },
+        { name: 'Klaus Pudovkin' },
+        { name: 'Luke Colton' },
     ],
-    tehbigmadbarbarian: [
-        { name: '[Deputy] ? "JJ" ?', factions: ['Police'], assumeServer: 'public' },
+    ThatTrollsomeGuy: [
+        { name: 'Logan Callaway' },
     ],
-    Tehrani: [
-        { name: 'Boris Ivanov', factions: ['Russians'], leader: true },
-        { name: 'Hector Guzman', factions: ['Vagos'] },
+    The_Devils_Son: [
+        { name: 'Fredrick Smythe' },
     ],
-    tenGreg: [
-        { name: 'Henry Goodman', factions: ['Harmony'], nicknames: ['Dinoco'], displayName: 0 },
-    ],
-    TenguOP: [
-        { name: 'Wally Veloce' },
-    ],
-    TerribleJamie: [
-        { name: 'Lavante "L" Lamano', factions: ['GSF'] },
-        { name: 'Rob Farley', displayName: 0 },
-    ],
-    Test: [
-        { name: 'Test6' },
-    ],
-    Tezibtw: [
-        { name: 'Rocco Smith', factions: ['BCG'], nicknames: ['Fury'], displayName: 3 },
-    ],
-    TezMate: [
-        { name: '[Deputy] Nicholas Riggs', factions: ['Police'] },
-    ],
-    TFNeraZe: [
-        { name: '[Deputy] Michael Dunning', factions: ['Police'] },
-    ],
-    Tfue: [
-        { name: 'Tucker Johnson', factions: ['Chang Gang'] },
-    ],
-    thaCOOP: [
-        { name: '[Officer] Luke Holliday', factions: ['Police'] },
-        { name: 'Coop Holliday', factions: ['DoJ'], displayName: 1 },
-        { name: 'Matthew Payne', displayName: 2 },
-        { name: 'Remee El-Rahman' },
-    ],
-    Thadrius: [
-        { name: '[Deputy] Jonathan Dazzler', factions: ['Police'], nicknames: ['Johnny'], displayName: 2 },
-        { name: 'Slappy McGaffey' },
-    ],
-    Thatblokeryan: [
-        { name: 'Jaxxon Jones', factions: ['CBPD'] },
-    ],
-    ThatEmoPunk: [
-        { name: 'Ezreal Kay-Hoss', factions: ['CBPD', 'Rooster'], nicknames: ['EZ', 'E.Z'] },
-    ],
-    the_halfhand: [
-        { name: 'Jack "Sully" Sullivan', factions: ['Rooster'] },
-        { name: '[Officer] Oscar Fitzpatrick', factions: ['Police'], nicknames: ['Fitz', 'Patrick'] },
+    The_Metro_Man1: [
+        { name: 'Jim Sky' },
     ],
     TheAaronShaq: [
-        { name: 'Ebeneezer Mackaral Botanacus IV', factions: ['Burger Shot'], nicknames: ['Glue Guy'], displayName: 5 },
+        { name: 'Kenneth Randall', nicknames: ['Ricky'] },
     ],
     TheAmelina: [
-        { name: '[Deputy] Alexandra Carlson', factions: ['Police'], nicknames: ['588'], displayName: 2 },
-        { name: '[Dr.] Meredith Jenkins', factions: ['Medical'], displayName: 1 },
+        { name: 'Elisabeth Beauregard', nicknames: ['Ellie'], displayName: 3 },
     ],
-    TheBigMeech: [
-        { name: 'Pilbis Shonly', factions: ['NBC'] },
-        { name: '[Officer] Chris Kross', factions: ['Police'], nicknames: ['Krossy'] },
-        { name: 'Tyler Kwando', displayName: 0 },
+    TheBanditKingUK: [
+        { name: 'Damien Gallagher' },
+        { name: 'Sebastien Woodrow' },
+        { name: 'Tobias Graves' },
+        { name: 'Jonas Steel' },
     ],
-    TheBigXH: [
-        { name: 'Jose Rodriguez', factions: ['Vagos'], nicknames: ['Lil Ese'], displayName: 3 },
+    TheCocacolafreak: [
+        { name: 'Ernst Schneider' },
+        { name: 'Javier Moreno' },
+        { name: 'Thomas Schneider', nicknames: ['Butcher Of Berlin'] },
+        { name: 'W. J. Patterson' },
     ],
-    TheChief1114: [
-        { name: '[Deputy] Fingle Dan', factions: ['Police', 'Dans'], displayName: 1 },
-        { name: 'Chief', factions: ['Self Insert'], displayName: 1 },
+    TheCourtJester: [
+        { name: 'Dr. Nikolai' },
     ],
-    TheDogfather82: [
-        { name: 'Lucas "Wolfy" Frank', factions: ['SSB'] },
+    TheFoodcartGamer: [
+        { name: 'Felix Ellis' },
     ],
-    TheDondi: [
-        { name: 'Arthur Hammond', nicknames: ['The "Doctor"'] },
-        { name: '[Officer] Delaney', factions: ['Police'] },
+    TheGoochTV: [
+        { name: 'Becker Lang' },
     ],
-    TheEazyLife: [
-        { name: 'Brandon Valentino', factions: ['Pegasus'], displayName: 0 },
-    ],
-    theeYAIR: [
-        { name: 'Yair Lamas', factions: ['Seaside'], displayName: 0 },
-    ],
-    TheGeekEntry: [
-        { name: 'Stacey Doyle', displayName: 1 },
-        { name: 'Jenn Bordeaux', nicknames: ['Frenchie', 'French'] },
-    ],
-    TheHexagonist: [
-        { name: '[Deputy] Vincent Glass', factions: ['Police'], displayName: 2 },
-        { name: 'Denis Blatovich', factions: ['CBPD'], nicknames: ['Boris'], displayName: 0 },
-    ],
-    TheKozak_: [
-        { name: '[EMS] Chad Chaddington III', factions: ['Medical'] },
+    TheJasonPhoenix: [
+        { name: 'Fenix Hayston' },
     ],
     theLGX: [
-        { name: 'Bryce Miller', nicknames: ['BDawg'], displayName: 1, assumeServer: 'whitelist' },
-        { name: 'Diego Marquez' },
-        { name: 'Dave Myers', displayName: 0 },
-        { name: 'Roland Nelson', assumeServer: 'whitelist' },
-        { name: '[Deputy] Neil McReal', factions: ['Police'] },
-        { name: '[Officer] Roland Nelson', factions: ['Police'], assumeServer: 'public' },
+        { name: 'Abner Ace' },
     ],
-    TheMLGenies: [
-        { name: 'Shivananand "Shivvy" Sunandrankumar', factions: ['Royal Mafia', 'Burger Shot'] },
-        { name: 'Sinbad Thoor', factions: ['DoC'], displayName: 0 },
+    TheObsidianTravelersCo: [
+        { name: 'Cornileus Moon' },
     ],
-    TheMrKatMar: [
-        { name: '[Ranger] Noah White', factions: ['Police'], displayName: 2, assumeServer: 'international' },
+    ThePatrician69: [
+        { name: 'Nate Casey' },
     ],
-    TheOnlyWendigo: [
-        { name: 'Alexandru Vasquez', factions: ['Rooster'] },
+    TheRandomChick: [
+        { name: 'Bella Trix' },
+        { name: 'Poppet Deveaux' },
     ],
-    TheRonineh: [
-        { name: '[Officer] Ash Anderson', factions: ['Police'], assumeServer: 'international' },
+    TheStreetMagnet: [
+        { name: 'Josiah Shepard' },
     ],
-    TheRudyDuck: [
-        { name: 'Felix Klein', factions: ['Burger Shot'], displayName: 0 },
+    TheZenPunk: [
+        { name: 'William Brown', nicknames: ['Wild Willy'], displayName: 3 },
     ],
-    thicbootyconspiracyshorty: [
-        { name: 'Karli Marx', factions: ['BBMC'], displayName: 0, assumeServer: 'public' },
+    ThrallJo: [
+        { name: 'Corvus Clements' },
     ],
-    Timmac: [
-        { name: '[Deputy] T.J. Mack', factions: ['Police'], assumeServer: 'whitelist' },
-        { name: 'Gomer Colton', nicknames: ['Gomey'], assumeServer: 'whitelist' },
-        { name: 'Shaggy Dankweed', displayName: 0 },
-        { name: '[Trooper] T.J. Mack', factions: ['Police'], assumeServer: 'public' },
+    TiltedSun: [
+        { name: 'Madison Windward' },
     ],
-    timmy: [
-        { name: 'Orlando Jones', factions: ['Seaside'], nicknames: ['OJ'], displayName: 3 },
-        { name: 'Chino G' },
-        { name: 'Cardell "CJ" Jones', factions: ['SSB'] },
+    tmcrane: [
+        { name: 'Lucius Bickmore' },
+        { name: 'Alfred Kidd' },
     ],
-    TinaKitten: [
-        { name: '? ?' },
+    TnFD: [
+        { name: 'Julian Charleston' },
     ],
-    Tinker: [
-        { name: '[Deputy] Theodore Tinker', factions: ['Police'] },
-        { name: 'Sean Tinker', factions: ['Pegasus'], displayName: 0 },
+    Tonixion: [
+        { name: 'Howard Purdnar' },
+        { name: 'Samson Graves' },
     ],
-    TinySpark: [
-        { name: '[Deputy] Daisy Dukakis', factions: ['Police'] },
-        { name: 'Kassandra Kage' },
-    ],
-    TinyStunt: [
-        { name: '[EMS] Bailey Jade', factions: ['Medical'] },
-    ],
-    ToastRP: [
-        { name: 'Paulie' },
-    ],
-    Tobii: [
-        { name: '[Development] Tobii', factions: ['Development'], nicknames: [reg(/\bdev\s*(?:stuff|things|fixing|work)/)] },
-        { name: 'Michael Simone', factions: ['Seaside'], nicknames: ['Architect', 'RP'], displayName: 0 },
-    ],
-    Tommy5oh: [
-        { name: 'Pablo Santiago', factions: ['NBC'], displayName: 0 },
-    ],
-    Tomovids: [
-        { name: 'Toe Moh', nicknames: ['Big Toe'], displayName: 3 },
-    ],
-    Townie: [
-        { name: 'Teddy Booker', factions: ['BBMC', 'Mechanic'], displayName: 1 },
-    ],
-    TPLivewire: [
-        { name: 'Timmy Yougman', factions: ['Seaside'], displayName: 0 },
-    ],
-    Trainwreckstv: [
-        { name: 'Douglas "Doug Buck" Buck', displayName: 0 },
-    ],
-    TranquilKJ: [
-        { name: 'KJ Taylor', factions: ['Pink Gang'], displayName: 0 },
-    ],
-    trashedpotatopie: [
-        { name: '[Officer] Cherri Blossom', factions: ['Police'], nicknames: ['512'], displayName: 2 },
-        { name: 'Marie Ortiz', factions: ['Stable'], displayName: 0 },
-    ],
-    Traumz: [
-        { name: '[Deputy] Edward Thatch', nicknames: ['Captain Moosebeard', 'Moosebeard'], factions: ['Police'], displayName: 2 },
-        { name: 'Tim Littleman', displayName: 0 },
+    toodlehausn: [
+        { name: 'Adelae Wright' },
+        { name: 'Sadie Stronge' },
     ],
     travpiper: [
-        { name: '[Deputy] William Gunner', factions: ['Police'], nicknames: ['Willy'], displayName: 2 },
-        { name: 'Carlos "Cheddar" Sanchez', factions: ['HOA'] },
-        { name: '[Deputy] Jason Hannah', factions: ['Police'], displayName: 1 },
-        { name: 'Warren Wallace' },
-        { name: '[Watch Party] travpiper', factions: ['Watch Party'], nicknames: ['monday night sports'] },
-        { name: 'Charlie Colcord' },
-        { name: 'Hazard' },
+        { name: 'William Gunner', nicknames: ['Bill'], displayName: 3 },
     ],
-    traycee: [
-        { name: 'Lexi Law', factions: ['Angels'] },
-        { name: '[Officer] Aspen Gray', factions: ['Police'], nicknames: [reg(/a[s$]pen\b/)] },
+    TullyCuffs: [
+        { name: 'Hugo Hopper' },
     ],
-    Turkaderk: [
-        { name: 'Benji Carter', factions: ['BSK'], displayName: 0 },
+    Two_Beans_2B: [
+        { name: 'Dieter Krankenkasse' },
+        { name: 'Hawthorne Sapling' },
+        { name: 'Jonathan Badtmann' },
     ],
-    TurtleActually: [
-        { name: 'Jordan Lee', factions: ['BBMC'], displayName: 0 },
+    UberJazer: [
+        { name: 'Nahmala Wolfe', nicknames: ['Wolf'] },
     ],
-    Turtledoves: [
-        { name: 'Hung Jae-Min', factions: ['Rooster'], displayName: 0 },
+    unstoppableLARN: [
+        { name: 'Gertrude Cockburn' },
+        { name: 'Razormouth' },
+        { name: 'Terry Hogan' },
     ],
-    Turtlenumber13: [
-        { name: 'Chance Zero', factions: ['Wastelanders'], displayName: 0 },
+    upfl0w: [
+        { name: 'Roman Blanco' },
+        { name: 'Teddy Graves' },
     ],
-    TwistedBones: [
-        { name: 'Mark White', displayName: 0 },
-        { name: 'Hank Marston', factions: ['Condemned MC'], leader: true, displayName: 0 },
-        { name: 'Marcus Black', factions: ['GSF'], displayName: 0 },
+    valenam: [
+        { name: 'Laura Flores' },
     ],
-    TwistedManifest: [
-        { name: 'Jack Valentino', factions: ['Lunatix'] },
+    ValenVain: [
+        { name: 'Salazar Fisk' },
     ],
-    Tyger: [
-        { name: "Chase O'Dell", factions: ['Street Team', 'Chang Gang'], nicknames: ['Lil Bleach', 'Bleach'], displayName: 3 },
+    valkyrionrp: [
+        { name: 'Jack Volker' },
     ],
-    UberHaxorNova: [
-        { name: 'Siz Fulker', factions: ['HOA'], leader: true, nicknames: ['Zis', 'Ziz', 'uhnSuffer', 'mechanic', reg(/\bloans?\b/), reg(/\bsiz/)] },
-        { name: '[Deputy] Barry Briddle', factions: ['Police'], nicknames: [reg(/\bbriddl/)] },
-        { name: 'Toh Biggles Fitzcharles', displayName: 0, nicknames: ['Yaes'] },
+    VERTiiGOGAMING: [
+        { name: '[Deputy] Boyd Kerrigan', factions: ['Law'] },
+        { name: 'Joey Johns', nicknames: ['Wallaby Kid'] },
+        { name: 'Les Darcy' },
+        { name: 'Bazz Kerrigan' },
     ],
-    uhLuvi: [
-        { name: 'Treyvon Williams', factions: ['GSF'], nicknames: ['Trey'], assume: 'assumeOther' },
+    VTM___: [
+        { name: 'Boone Morales' },
     ],
-    uhSnow: [
-        { name: '[Trooper] Jackie Snow', factions: ['Police'] },
-        { name: 'Mikey Mersion', displayName: 0 },
+    WaistcoatDave: [
+        { name: 'Dr. C.J Matthews' },
     ],
-    Umadbrahlive: [
-        { name: 'Sergio Lopez', factions: ['Marabunta'], leader: true },
-        { name: 'Leonel Martinez', factions: ['Vagos'], nicknames: ['lion'], displayName: 2 },
-        { name: 'Big E', factions: ['SSB'], leader: true, nicknames: ['Big L'], displayName: 0 },
+    WANTED_MANIAC: [
+        { name: 'Brian Wright', factions: ['Law'] },
+        { name: 'Taylor Hicks' },
+        { name: 'William Carver', nicknames: ['Bill'] },
     ],
-    VaderLive: [
-        { name: 'Eugene Zuckerberg', factions: ['Chang Gang'], nicknames: ['Old Man'], facebook: true },
-        { name: 'Nacho Block', factions: ['ASRR'], displayName: 0 },
-        { name: '[Deputy] Rob Banks', factions: ['Police'] },
-        { name: 'Tuong Ru Kim' },
+    Warthog155: [
+        { name: 'Porter ONeill' },
     ],
-    VADIKUS007: [
-        { name: 'Yuri Grozniy', displayName: 0 },
+    WestCoastWayne: [
+        { name: 'Ervin Haywood' },
     ],
-    Vaerinis: [
-        { name: '[Deputy] Thomas Metzger', factions: ['Police'] },
+    weyutv: [
+        { name: 'Alawa Meota', nicknames: ['Ali'], displayName: 3 },
     ],
-    VaguePWNage: [
-        { name: 'Ramsay', factions: ['SSB'] },
+    WingTroker: [
+        { name: 'Bert Silver' },
+        { name: 'Sally Cooper-Borr' },
     ],
-    valkyrion___: [
-        { name: '[Deputy] Lewis Collins', factions: ['Police'] },
+    Wombax: [
+        { name: 'Nash' },
     ],
-    ValorWasTaken: [
-        { name: 'Esteban Julio-Cruz-Perez-Rodriguez', factions: ['Marabunta'] },
-    ],
-    Vedstar: [
-        { name: 'Ved Jiggyjoglue', factions: ['Mandem', 'Roadmen'] },
-    ],
-    Venomfly: [
-        { name: 'Babe Calloway', factions: ['Rooster'], displayName: 0 },
-        { name: 'Carolina Reaper' },
-    ],
-    vanyaa_3D: [
-        { name: '[Development] Vanya', factions: ['Development'], nicknames: ['clothes', 'clothing'], assumeChar: true },
-    ],
-    vee_v: [
-        { name: 'Antonio Chorizo', factions: ['Seaside'], displayName: 0 },
-    ],
-    veriomonen_: [
-        { name: 'Dimitri Azmanov', factions: ['SSB'], displayName: 0 },
-    ],
-    Vigors: [
-        {
-            name: 'Kayn "Yager" Larp',
-            factions: ['LARPers', 'Cleanbois', 'Rooster', 'Tuner Shop'],
-            nicknames: ['Warlock', 'Fighter', 'Yager', 'Demonblood', 'Demon'],
-            displayName: 0,
-        },
-    ],
-    VindiceLIVE: [
-        { name: '[Deputy] Oliver Fury', factions: ['Police'] },
-    ],
-    VinterPhoenix: [
-        { name: 'Raymond Frost', factions: ['Vagos'], displayName: 0 },
-    ],
-    VioletCutie: [
-        { name: 'Maisie Hart', factions: ['Britney Gang', 'Rooster', 'Tuner Shop'], displayName: 0 },
-    ],
-    Viviana: [
-        { name: 'Griselda Ambrose', nicknames: ['Granny'] },
-        { name: 'Lana Valentine', factions: ['Mandem', 'Rooster'] },
-    ],
-    VNDRIZZLE: [
-        { name: 'Basem Shahin' },
-    ],
-    Voladin17: [
-        { name: '[Lawyer] Tidus Schwinghammer', factions: ['DoJ'] },
-        { name: 'Ron DeCloque' },
-        { name: '? "Wolfbiter" ?' },
-    ],
-    Vondill: [
-        { name: 'Samantha Snake', factions: ['BSK'], nicknames: ['Sammy', 'Sammy Snake'], displayName: 4 },
-        { name: 'Otis Campbell', displayName: 0 },
-    ],
-    vsperance: [
-        { name: '[Officer] Rustin Cooper', factions: ['Police'] },
-    ],
-    VTechas: [
-        { name: 'Daryl Dixon', factions: ['HOA'], nicknames: ['DRL', 'GRL'] },
-    ],
-    w00ter: [
-        { name: '[Deputy] Peter Rogers', factions: ['Police'] },
-    ],
-    walnutcast: [
-        { name: '[Deputy] Brick James', factions: ['Police'], displayName: 1 },
-    ],
-    WaterGotHim: [
-        { name: 'Alessio "AJ" Jilani', factions: ['Clean Cartel'] },
-    ],
-    Wayward: [
-        { name: '[Judge] Wayne Ardson', factions: ['DoJ'], assumeServer: 'whitelist' },
-        { name: 'Angelo "Leo Nardo" Nardo', nicknames: ['Leo'] },
-        { name: 'Jack "The Joker" Knaves', nicknames: ['The "Joker"'] },
-        { name: '[Deputy] Michael Colt', factions: ['Police'], assumeServer: 'public' },
-        { name: 'Bowser' },
-    ],
-    WeCameAsBecca: [
-        { name: '[Dr.] Kennedy Adams', factions: ['Medical'], displayName: 0 },
-    ],
-    Wehtuns: [
-        { name: '[Lawyer] Lawrence Splainer', factions: ['DoJ'], displayName: 2 },
-    ],
-    Whippy: [
-        { name: 'Irwin Dundee', factions: ['BBMC'], nicknames: [reg(/\b(?:dundee|irwin)|(?:dundee|irwin)\b/)], displayName: 2, leader: true },
-        { name: '[Officer] Crocodile "Croc" Steve', factions: ['Police'], nicknames: ['Cop', reg(/\bcroc|croc\b/)] },
-        { name: 'James Tinklebottom' },
-    ],
-    whosremz: [
-        { name: 'Remy Brown', factions: ['Mandem'], displayName: 1 },
-    ],
-    Wiked: [
-        { name: 'Dwayne Flores', factions: ['Mandem'], nicknames: ['Golden Boy'], displayName: 0 },
-        { name: 'Kyrus Langley', factions: ['SSB'], displayName: 1 },
-    ],
-    WildJing: [
-        { name: 'Wilmer "Azul" Guzman', factions: ['Marabunta'] },
-    ],
-    WillerZ: [
-        { name: 'Will Earnz', displayName: 0 },
-    ],
-    willneff: [
-        { name: '"James Marco" St. Marco', nicknames: ['marko', 'marcoing', 'markoing'] },
-        { name: "? \"Don's Mother\" ?", nicknames: ['Mama', 'Donna'] },
-    ],
-    WithExtraSauce: [
-        { name: '[Deputy] Budweiser Malarky', factions: ['Police'], nicknames: ['Bud'], displayName: 2 },
-        { name: '[Dept. Mayor] Jeffy Coldiron', factions: ['DoJ'], displayName: 2 },
-    ],
-    withoutSunshine: [
-        { name: '[Dept. Mayor] Lola Sunshine', factions: ['DoJ'], displayName: 1 },
-    ],
-    Wizop: [
-        { name: 'Dreyvon Cartier', factions: ['SSB'], nicknames: ['Drip'], displayName: 3 },
-    ],
-    WLVSx: [
-        { name: 'Wolfe McCreedy', nicknames: ['Wolfie'], displayName: 3 },
-    ],
-    Wolfabelle: [
-        { name: '[Deputy] Candice Defitt', factions: ['Police'], nicknames: ['393'], displayName: 1 },
-        { name: 'Scarlett Skye', factions: ['Hydra Gang'], displayName: 0 },
-        { name: 'Bianca Walters' },
-    ],
-    Wootpiegames: [
-        { name: 'Rick Szhae', displayName: 0 },
+    Wrighty: [
+        { name: 'Jack Reed' },
+        { name: 'Logan Monroe', factions: ['Law'] },
+        { name: 'Roscoe Riggs' },
+        { name: 'Joseph Carter' },
     ],
     WTFGameNation: [
-        { name: '[Dr.] Noah Drake', factions: ['Medical'] },
+        { name: 'Morgan Calloway' },
     ],
-    wtfmoses: [
-        { name: '[Officer] Derek McNulty', factions: ['Police'] },
-        { name: 'Smooth Williams', factions: ['Stable'] },
+    YatoTheMad: [
+        { name: 'Cassius Evans' },
+        { name: 'Charles Campbell' },
     ],
-    WuPingNOTEggRoll: [
-        { name: 'Wu "Egg Roll" Ping' },
+    yeka221: [
+        { name: 'Tibbit' },
     ],
-    wvngie: [
-        { name: 'Le Wang', factions: ['Vagos'], nicknames: [reg(/\bwang/)], displayName: 0 },
+    YouKnowItsJuno: [
+        { name: 'Kima Abrams' },
     ],
-    XenVers: [
-        { name: 'Xen Verse', factions: ['Pink Gang'], displayName: 0 },
+    Yuet: [
+        { name: 'Woodrow Hale' },
     ],
-    xQc: [
-        {
-            name: 'Jean "X" Paul',
-            factions: ['Gulag Gang', 'Cleanbois', 'Burger Shot'],
-            nicknames: ['Ghost Rider', 'Rider', 'Casino'],
-            displayName: 0,
-            assumeServer: 'whitelist',
-            leader: true,
-        },
-        { name: 'Jean "X" Paul', factions: ['Gulag Gang', 'Burger Shot'], nicknames: ['Ghost Rider', 'Rider'], displayName: 0, assumeServer: 'public', leader: true },
-        { name: '[Deputy] Pierre "PP" Paul', factions: ['Police'], displayName: 0, assumeServer: 'whitelist' },
-        { name: 'Jean Pierre', displayName: 0 },
-    ],
-    Xiceman: [
-        { name: '[Deputy] Mike Bayo', factions: ['Police'] },
-        { name: 'Mike Wadum', factions: ['Hydra Gang'], nicknames: ['El Gringo'], displayName: 0 },
-    ],
-    Xiorx: [
-        { name: 'Jimmy "Fiddlesticks" Brown', factions: ['Burger Shot'] },
-    ],
-    XMOTHATRUCKAX: [
-        { name: 'Ronald "Red" Juggler' },
-    ],
-    xNittyGritty: [
-        { name: 'Donny ?', factions: ['Rooster'] },
-    ],
-    xPytu: [
-        { name: 'Mario Hernandez', factions: ['Street Team', 'Chang Gang'], nicknames: ['Hernández', 'PandaHoe'], displayName: 0 },
-    ],
-    XxAshleyxX: [
-        { name: 'Sparkle Lee', factions: ['Burger Shot'] },
-        { name: 'Tiffany Valentine', displayName: 0 },
-        { name: '[Dispatch] Shyrell Larson', factions: ['Police'], nicknames: ['D-17'], displayName: 1 },
-        { name: 'Naomi Kent', factions: ['Burger Shot'] },
-    ],
-    yaboiSavageG: [
-        { name: 'Salvaje "Savage" Mendoza', factions: ['Vagos'] },
-    ],
-    Yawger: [
-        { name: '[Lawyer] Robert Locksley', factions: ['Chang Gang', 'DoJ'], displayName: 2 },
-    ],
-    Yeahitsjodi: [
-        { name: '[Dr.] Lennon McDermitt', factions: ['Medical'], displayName: 1 },
-    ],
-    YeetabixGaming: [
-        { name: 'James Oxley', factions: ['News'], displayName: 0 },
-    ],
-    yickster: [
-        { name: 'Alexandra Yang', factions: ['CBPD', 'Rooster'], nicknames: ['Alex'], displayName: 0 },
-    ],
-    YoinksOG: [
-        { name: '[Development] YoinksOG', factions: ['Development'], nicknames: ['3D', 'Clothes', 'Clothing'] },
-        { name: 'Doug Canada' },
-    ],
-    YoMarty: [
-        { name: 'Lil Marty', factions: ['SSB'], displayName: 0, assumeServer: 'public' },
-    ],
-    yooApollo: [
-        { name: 'Martin Julio-Perez-Cruz-Rodriguez', factions: ['Marabunta'] },
-    ],
-    YourFriendKermit: [
-        { name: 'Leslie Jenkins', factions: ['Gulag Gang'], displayName: 0 },
-    ],
-    yungxaquafina: [
-        { name: 'Antonio Carter Jr', factions: ['SSB'], nicknames: ['AJ'], displayName: 4 },
+    yully89: [
+        { name: 'Jacob Arlington' },
     ],
     yuukidav: [
-        { name: 'Oakley Stallion', factions: ['Angels'], displayName: 0 },
-        { name: '[Officer] Lukas Lavender', factions: ['Police'], displayName: 2 },
+        { name: 'Everett Silver' },
     ],
-    Zaitohro: [
-        { name: '[Deputy] Cameran Shaw', factions: ['Police'], nicknames: ['Cam'], displayName: 2 },
-        { name: 'Damien Tinkerman', factions: ['BBMC'], displayName: 0 },
-        { name: 'Oswald Tinkerman', factions: ['Lost MC'], displayName: 1 },
+    Zarrqq: [
+        { name: 'Benjamin Gaines' },
     ],
-    ZapremeTV: [
-        { name: 'Jacob Pibb', factions: ['Vagos'], displayName: 0 },
+    ZetarkGG: [
+        { name: 'Cesare DiCenzo' },
     ],
-    Zaquelle: [
-        { name: '[Officer] Mackenzie Hayes', factions: ['Police'], assume: 'assumeNp' },
-    ],
-    ZayTyree: [
-        { name: 'Renato Ortiz', factions: ['Vagos'], displayName: 0 },
-    ],
-    Zee_RP: [
-        { name: 'Zee Carbone', factions: ['Royal Mafia'], displayName: 0 },
-    ],
-    Zerkaa: [
-        { name: 'Tommy Tate', factions: ['Mandem'], leader: true, nicknames: ['Tommy T'], displayName: 3 },
-        { name: 'Josh Zerker', factions: ['Self Insert', 'One Life'], displayName: 0 },
-    ],
-    Zettafrag: [
-        { name: 'Kimberly Daniels', factions: ['Condemned MC'], displayName: 0 },
-    ],
-    zhifven: [
-        { name: 'Kai Pond', factions: ['Rooster'], displayName: 0 },
-    ],
-    Zidsy: [
-        { name: 'Zane Jackson', nicknames: ['Rat'], displayName: 3 },
+    ZeusLair: [
+        { name: 'Robbie Gold' },
     ],
     Ziggy: [
-        { name: '[Ranger] Ziggy Buggs', factions: ['Police'], displayName: 1, assumeChar: true },
-        { name: 'Norman Bones', displayName: 0 },
+        { name: 'Marly Clifton' },
+        { name: 'Norman Bones' },
     ],
-    Zimboobwe: [
-        { name: '[Deputy] Jimbo Sutton', factions: ['Police'], displayName: 1, assumeServer: 'public' },
+    ZoltanTheDestroyer: [
+        { name: 'Emmett Fitz' },
     ],
-    zirnrp: [
-        { name: 'Malcador Sigilite', factions: ['DoJ'] },
-        { name: 'Solomon Seerson' },
-    ],
-    Zoil: [
-        { name: 'Skunkz Wallace' },
-    ],
-    Zoomaa: [
-        { name: 'Tomassi Paparatto', factions: ['Royal Mafia'], displayName: 1, assume: 'assumeOther' },
-    ],
-    Zotbot: [
-        { name: '[Physiotherapist] Leon Marks', factions: ['Medical'] },
-    ],
-    ZPapz: [
-        { name: '[Officer] Joseph Oxlong', factions: ['Police'] },
-        { name: 'Liam Law', factions: ['Angels'] },
-    ],
-    zuck: [
-        { name: 'Zuck Cuc', factions: ['Gulag Gang'] },
-    ],
-    Zumapwn: [
-        { name: 'James Laughton', nicknames: ['Fall Guy'], factions: ['Gulag Gang'], displayName: 3, assumeServer: 'public' },
+    Zombiefun: [
+        { name: 'Hal Dreen' },
     ],
 };

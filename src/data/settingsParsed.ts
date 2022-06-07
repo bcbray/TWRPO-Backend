@@ -9,11 +9,6 @@ for (const [key, value] of Object.entries(settings)) {
     let newValue: any = value;
     if (value instanceof RegExp) {
         newValue = value.source;
-    } else if (key === 'regOthers') {
-        newValue = [];
-        for (const obj of (value as typeof settings.regOthers)) {
-            newValue.push({ ...obj, reg: obj.reg.source });
-        }
     }
     (settingsParsed as any)[key] = newValue;
 }

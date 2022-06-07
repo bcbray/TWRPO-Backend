@@ -1,88 +1,37 @@
-export const npFactionsReal = { // map: removed spaces + converted to lower case
-    cleanbois: 'Cleanbois',
-    limelight: 'Limelight',
-    lostmc: 'Lost MC',
-    changgang: 'Chang Gang',
-    hydragang: 'Hydra Gang',
-    chaos: 'Chaos',
-    vagos: 'Vagos',
-    gsf: 'GSF',
-    ssb: 'SSB',
-    pegasus: 'Pegasus',
-    hoa: 'HOA',
-    pinkgang: 'Pink Gang',
-    mandem: 'Mandem',
-    roadmen: 'Roadmen',
-    doj: 'DoJ',
-    streetteam: 'Street Team',
-    bcg: 'BCG',
-    wastelanders: 'Wastelanders',
-    cleancartel: 'Clean Cartel',
-    asrr: 'ASRR',
-    dans: 'Dans',
-    britneygang: 'Britney Gang',
-    angels: 'Angels',
-    nbc: 'NBC',
-    bbmc: 'BBMC',
-    rooster: 'Rooster',
-    burgershot: 'Burger Shot',
-    stable: 'Stable',
+export const wrpFactionsReal = { // map: removed spaces + converted to lower case
+    samsclub: 'Sams Club',
+    kettlemangang: 'Kettleman Gang',
+    rangers: 'Rangers',
+    dicenzofamiglia: 'DiCenzo Famiglia',
     development: 'Development',
-    doc: 'DoC',
-    prison: 'Prison',
-    mechanic: 'Mechanic',
-    tunershop: 'Tuner Shop',
-    harmony: 'Harmony',
-    quickfix: 'QuickFix',
-    larpers: 'LARPers',
-    italianmafia: 'Italian Mafia',
-    police: 'Police',
+    law: 'Law',
     medical: 'Medical',
     independent: 'Independent',
     otherfaction: 'Other Faction',
     other: 'Other',
-    darkweb: 'Dark Web',
-    seaside: 'Seaside',
-    news: 'News',
-    russians: 'Russians',
-    frat: 'Frat',
-    condemnedmc: 'Condemned MC',
-    mersions: 'Mersions',
-    lunatix: 'Lunatix',
-    marabunta: 'Marabunta',
-    bsk: 'BSK',
-    rust: 'RUST',
-    cbpd: 'CBPD',
-    royalmafia: 'Royal Mafia',
-    selfinsert: 'Self Insert',
-    gulaggang: 'Gulag Gang',
     podcast: 'Podcast',
     watchparty: 'Watch Party',
-    onelife: 'One Life',
 } as const;
 
-export const npFactionsMeta = {
-    allnopixel: 'All NoPixel',
+export const wrpFactionsMeta = {
+    allwildrp: 'All WildRP',
     alltwitch: 'All Twitch',
-    othernp: 'Other NP',
-    whitelistnp: 'Whitelist NP',
-    publicnp: 'Public NP',
-    international: 'International NP',
+    otherwrp: 'Other WRP',
     guessed: 'Guessed',
 } as const;
 
-type NpFactionsReal = typeof npFactionsReal;
-type NpFactionsMeta = typeof npFactionsMeta;
+type WrpFactionsReal = typeof wrpFactionsReal;
+type WrpFactionsMeta = typeof wrpFactionsMeta;
 
-export const npFactions: NpFactionsReal & NpFactionsMeta = { ...npFactionsReal, ...npFactionsMeta } as const;
+export const wrpFactions: WrpFactionsReal & WrpFactionsMeta = { ...wrpFactionsReal, ...wrpFactionsMeta } as const;
 
-export type NpFactions = typeof npFactions;
+export type WrpFactions = typeof wrpFactions;
 
-export type FactionRealMini = keyof NpFactionsReal;
-export type FactionRealFull = (NpFactionsReal)[FactionRealMini];
+export type FactionRealMini = keyof WrpFactionsReal;
+export type FactionRealFull = (WrpFactionsReal)[FactionRealMini];
 
-export type FactionMini = keyof NpFactions;
-export type FactionFull = (NpFactions)[FactionMini];
+export type FactionMini = keyof WrpFactions;
+export type FactionFull = (WrpFactions)[FactionMini];
 
-export const npFactionsRealMini: FactionRealMini[] = (Object.keys(npFactionsReal) as FactionRealMini[]);
-export const npFactionsMini: FactionMini[] = (Object.keys(npFactions) as FactionMini[]);
+export const wrpFactionsRealMini: FactionRealMini[] = (Object.keys(wrpFactionsReal) as FactionRealMini[]);
+export const wrpFactionsMini: FactionMini[] = (Object.keys(wrpFactions) as FactionMini[]);

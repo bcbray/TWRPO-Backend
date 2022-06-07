@@ -11,8 +11,8 @@ for (const [key, value] of Object.entries(factions)) {
     let newValue: any = value;
     if (value instanceof RegExp) {
         newValue = value.source;
-    } else if (key === 'npFactionsRegex') {
-        newValue = mapObj(value as typeof factions.npFactionsRegex, (reg => reg.source));
+    } else if (key === 'wrpFactionsRegex') {
+        newValue = mapObj(value as typeof factions.wrpFactionsRegex, (reg => reg.source));
     }
     (parsed as any)[key] = newValue;
 }
