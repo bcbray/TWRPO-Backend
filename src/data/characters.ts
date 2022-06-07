@@ -26,7 +26,7 @@ export const wrpCharacters: WrpCharacters = {
     ksinz: [
 	    { name: '[Deputy] Syles MacKenna', factions: ['Law'] },
         { name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
-        { name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3 },
+        { name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang'] },
     ],
     MEKABEAR: [
         { name: '[Detective] Audrey Dusk', factions: ['Law'] },
@@ -376,8 +376,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Wolverine Payton' },
     ],
     Darthbobo77: [
-        { name: 'Cooter Jonason' },
         { name: 'Walter Rinsen' },
+        { name: 'Cooter Jonason' },
     ],
     Dastardly_Dog: [
         { name: 'Barry Smith' },
@@ -592,6 +592,7 @@ export const wrpCharacters: WrpCharacters = {
     grigoriypeppo: [
         { name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2 },
         { name: 'Robert Dixon' },
+        { name: 'Manuel Diaz', nicknames: ['El Coyote', 'Coyote'], displayName: 3 },
     ],
     gtplays: [
         { name: 'Gene Tiffin' },
@@ -1054,7 +1055,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Stefano Amendo' },
     ],
     SilentSentry: [
-        { name: 'Emmet Wagner' },
+        { name: 'Emmet Wagner', nicknames: ['Stripes'], displayName: 3 },
     ],
     SinnixTv: [
         { name: 'Frank Brower' },
@@ -1258,7 +1259,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Sadie Stronge' },
     ],
     travpiper: [
-        { name: 'William Gunner', nicknames: ['Bill'], displayName: 3 },
+        { name: 'William Gunner', nicknames: ['Bill', 'Carlos Sanchez', 'Carlos'], displayName: 3 },
     ],
     TullyCuffs: [
         { name: 'Hugo Hopper' },
