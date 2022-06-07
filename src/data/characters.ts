@@ -1292,7 +1292,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     VERTiiGOGAMING: [
         { name: '[Deputy] Boyd Kerrigan', factions: ['Law'] },
-        { name: 'Joey Johns', nicknames: ['Wallaby Kid'] },
+        { name: 'Joey Johns', nicknames: ['Wallaby Kid'], factions: ['Dead End Kids'] },
         { name: 'Les Darcy' },
         { name: 'Bazz Kerrigan', factions: ['Kettleman Gang'] },
     ],
