@@ -39,7 +39,9 @@ app.use('/live', routes.liveRouter);
 
 app.use((_req, res) => res.send({ error: 'This is not a valid API endpoint.' }));
 
+const port = process.env.PORT || 5000;
+
 const httpServer = http.createServer(app);
-httpServer.listen(process.env.HTTP_PORT, () => {
-    log(`HTTP server running on port ${process.env.HTTP_PORT}!`);
+httpServer.listen(port, () => {
+    log(`HTTP server running on port ${port}!`);
 });
