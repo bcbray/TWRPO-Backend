@@ -989,6 +989,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     rossthehsauce: [
         { name: 'Forest Fish', factions: ['Guppy Gang'] },
+        { name: 'Dominic Aldizousa', factions: ['DiCenzo Famiglia'] },
     ],
     RY4N: [
         { name: 'Christine Thomas', nicknames: ['Momma'], displayName: 3 },
