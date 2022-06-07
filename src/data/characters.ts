@@ -572,7 +572,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Virgil Sterling' },
     ],
     HappyYouniverse: [
-        { name: 'Danny Ford' },  
+        { name: 'Danny Ford' },
     ],
     HeroMexii: [
         { name: 'George Shaffer' },
@@ -743,6 +743,10 @@ export const wrpCharacters: WrpCharacters = {
     LetterJaye: [
         { name: 'Wisteria Snowdon' },
     ],
+    LiteralBear: [
+        { name: 'Marcus' }, // TODO: Last name?
+        { name: '[Deputy] Negan McAlister', factions: ['Law'], displayName: 1 },
+    ],
     Lithiaris: [
         { name: 'Lark Atwood' },
         { name: 'Sylvie Chevalier' },
@@ -911,6 +915,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     peachycoaster: [
         { name: 'Chrissy Snow' },
+        { name: 'Toosie Loo' },
     ],
     Pengwin: [
         { name: 'Staniel Wilkerson' },
