@@ -20,6 +20,7 @@ const noFormer = (reg: RegExp) => mergeRegex([/(?<!(?:\b|_)(?:vs?|versus|on|agai
 
 export const wrpFactionsRegex = {
     samsclub: noLater(noFormer(/\bsam's\s+club/)),
+    halfwits: noLater(noFormer(/\bhalf\s*wits/)),
     podcast: noLater(noFormer(/\b(?<!!)podcast\b/i)),
     watchparty: noLater(noFormer(/\b(?<!!)watch[\s\-_.]*part/i)),
     development: /\bdevelop|\bdev\b|\bcoding|devathon/i,
@@ -82,6 +83,8 @@ export const useColorsDark = { // #ff77ff #FAA0A0 #FA0B42
     samsclub: '#e74c3c',
     kettlemangang: '#ab5179',
     dicenzofamiglia: '#F6EE6D',
+    halfwits: '#FFECAF',
+    guppygang: '#006422',
     development: '#718093',
     law: '#0abde3',
     rangers: '#0984e3',
@@ -106,6 +109,8 @@ export const useColorsLight: { [key in FactionColorsMini]: string } = {
     samsclub: '#c74c3c',
     kettlemangang: '#ab5179',
     dicenzofamiglia: '#CDC14C',
+    halfwits: '#cfba57',
+    guppygang: '#006422',
     development: '#718093',
     law: '#0a0de3',
     rangers: '#1080d6',

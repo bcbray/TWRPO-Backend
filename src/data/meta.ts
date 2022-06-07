@@ -3,6 +3,8 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     kettlemangang: 'Kettleman Gang',
     rangers: 'Rangers',
     dicenzofamiglia: 'DiCenzo Famiglia',
+    halfwits: 'Half Wits',
+    guppygang: 'Guppy Gang',
     development: 'Development',
     law: 'Law',
     medical: 'Medical',

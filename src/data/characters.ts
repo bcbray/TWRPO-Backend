@@ -32,7 +32,7 @@ export type WrpCharacters = { [key: string]: Character[] };
 export const wrpCharacters: WrpCharacters = {
     ksinz: [
 	    { name: '[Deputy] Syles MacKenna', factions: ['Law'] },
-        { name: 'Cucamonga Kid' },
+        { name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
         { name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3 },
     ],
     MEKABEAR: [
@@ -104,6 +104,15 @@ export const wrpCharacters: WrpCharacters = {
     Spaceboy: [
         { name: 'James Randal', nicknames: ['Jim Beef'] },
     ],
+    UberHaxorNova: [
+        { name: 'Rooporian Roo', factions: ['Independent', 'Guppy Gang'], displayName: 2 },
+    ],
+    Pengwin: [
+        { name: 'Staniel Wilkerson' },
+    ],
+    nathankb_: [
+        { name: 'Dug Dug' },
+    ],
     
     '0Reed': [
         { name: 'Creedence McPoyle' },
@@ -158,7 +167,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Nathan Terriers' },
     ],
     ArmoredAndy: [
-        { name: 'Buzz Buxton' },
+        { name: 'Buzz Buxton', factions: ['Sams Club'] },
         { name: 'Adolf Hofcooperstedder', nicknames: ['Dolfie'], displayName: 3 },
         { name: 'Moose' },
     ],
@@ -231,7 +240,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Chris Edwoods' },
     ],
     bldrs: [
-        { name: 'Casey Rigsby' },
+        { name: 'Casey Rigsby', factions: ['Independent', 'Guppy Gang'] },
     ],
     BlitzyNation: [
         { name: 'Charlie Walker' },
@@ -617,9 +626,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'James Delany' },
     ],
     Hoop: [
-        { name: 'Barry Bjornson' },
+        { name: 'Barry Bjornson', factions: ['Sams Club'] },
         { name: 'Clyde Davis' },
-        { name: 'Jonathan Redding' },
+        { name: 'Jonathan Redding', nicknames: ['Redshirt'], factions: ['Half Wits'] },
         { name: 'Miles Gyles', factions: ['Law'] },
     ],
     IanMMori: [
@@ -691,7 +700,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Logan Miller' },
     ],
     Jonthebroski: [
-        { name: 'Jonathan Divine' },
+        { name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5 },
     ],
     JunkieEzek: [
         { name: 'Jeremiah Harth' },
@@ -973,7 +982,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'John Hell' },
     ],
     rossthehsauce: [
-        { name: 'Forest Fish' },
+        { name: 'Forest Fish', factions: ['Guppy Gang'] },
     ],
     RY4N: [
         { name: 'Christine Thomas', nicknames: ['Momma'], displayName: 3 },
@@ -1062,7 +1071,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Henry "West"' },
     ],
     SkoogFFS: [
-        { name: 'Billy Joe Barber', nicknames: ['BJB'] },
+        { name: 'Billy Joe Barber', nicknames: ['BJB'], displayName: 3 },
     ],
     SLiMt: [
         { name: 'Jimmy Slimper', nicknames: ['Slim Jim'] },
@@ -1345,7 +1354,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Everett Silver' },
     ],
     Zarrqq: [
-        { name: 'Benjamin Gaines' },
+        { name: 'Benjamin Gaines', factions: ['Sams Club'] },
     ],
     ZetarkGG: [
         { name: 'Cesare DiCenzo' },
@@ -1354,8 +1363,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Robbie Gold' },
     ],
     Ziggy: [
-        { name: 'Marly Clifton' },
         { name: 'Norman Bones' },
+        { name: 'Marly Clifton' },
     ],
     ZoltanTheDestroyer: [
         { name: 'Emmett Fitz' },
