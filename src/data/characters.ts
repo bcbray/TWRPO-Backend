@@ -1047,6 +1047,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dane Swan', factions: ['Law'] },
         { name: 'Gator Weaver' },
         { name: 'Odysseus Kain' },
+        { name: 'Mr. White', displayName: 0 }, // Don't know first name
     ],
     Silbullet: [
         { name: '[Deputy] Shawn Maple', factions: ['Law'] },
@@ -1226,7 +1227,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Nate Casey', factions: ['Kettleman Gang'] },
     ],
     TheRandomChick: [
-        { name: 'Bella Trix' },
+        { name: 'Bella Trix', nicknames: ['Bellatrix'], displayName: 3 },
         { name: 'Poppet Deveaux' },
     ],
     TheStreetMagnet: [
