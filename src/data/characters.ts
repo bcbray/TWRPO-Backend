@@ -50,7 +50,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jack Thompson' },
     ],
     GrammTheGibbon: [
-        { name: 'Little Jimothy' },  
+        { name: 'Little Jimothy', nicknames: ['Kid'] },
+        { name: '[Detective] Homer Carnes', factions: ['Law'] },
         { name: 'Clayton Orwell' },
     ],
     DustMonkeyGames: [
@@ -633,6 +634,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ewan Byrne' },
         { name: 'Nate Coiner' },
     ],
+    ianriveras: [
+        { name: 'Hugo' },
+    ],
     IboonI: [
         { name: 'Elias Boon' },
     ],
@@ -874,6 +878,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Nakkida: [
         { name: 'Lyra Woods' },
+    ],
+    Nbodo: [
+        { name: 'Peter Rockwell' },
     ],
     NiaDrools: [
         { name: 'Madeline Maddox', nicknames: ['Moxy'], displayName: 3 },
@@ -1127,7 +1134,7 @@ export const wrpCharacters: WrpCharacters = {
     suddenly_pandas: [
         { name: 'Flamboise Chambord' },
         { name: 'Harry Chapman' },
-        { name: 'Hudson Hart', factions: ['Law'] },
+        { name: '[Sheriff] Hudson Hart', factions: ['Law'] },
         { name: 'Kevin Higgins' },
         { name: 'Mackenzie Kale' },
         { name: 'Boyd Banks' },
