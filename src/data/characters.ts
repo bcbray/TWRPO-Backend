@@ -33,7 +33,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
     ],
     AnthonyZ: [
-        { name: 'Antonio Corleone', nicknames: ['Tony'], displayName: 3 },
+        { name: 'Antonio Corleone', nicknames: ['Tony'] },
     ],
     Ssaab: [
         { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'] },
