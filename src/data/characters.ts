@@ -1071,7 +1071,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Henry "West"' },
     ],
     SkoogFFS: [
-        { name: 'Billy Joe Barber', nicknames: ['BJB'], displayName: 3 },
+        { name: 'Billy Joe Barber', nicknames: ['BJB'], displayName: 4 },
     ],
     SLiMt: [
         { name: 'Jimmy Slimper', nicknames: ['Slim Jim'] },
