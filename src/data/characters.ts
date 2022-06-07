@@ -74,7 +74,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Cait McAlister' },
     ],
     TheGeneralSmokey: [
-        { name: 'Edwin Braithwaite' }  
+        { name: 'Edwin Braithwaite', factions: ['Kettleman Gang'] },
     ],
     ewanruss: [
         { name: 'Alfonso Bonucci', factions: ['DiCenzo Famiglia'], nicknames: ['Coach Al', 'Al'] }  
@@ -1223,7 +1223,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Cornileus Moon' },
     ],
     ThePatrician69: [
-        { name: 'Nate Casey' },
+        { name: 'Nate Casey', factions: ['Kettleman Gang'] },
     ],
     TheRandomChick: [
         { name: 'Bella Trix' },
@@ -1292,7 +1292,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Boyd Kerrigan', factions: ['Law'] },
         { name: 'Joey Johns', nicknames: ['Wallaby Kid'] },
         { name: 'Les Darcy' },
-        { name: 'Bazz Kerrigan' },
+        { name: 'Bazz Kerrigan', factions: ['Kettleman Gang'] },
     ],
     VTM___: [
         { name: 'Boone Morales' },
