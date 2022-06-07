@@ -446,6 +446,9 @@ export const wrpCharacters: WrpCharacters = {
     DukeOfFlukes: [
         { name: 'Alexander Poe' },
     ],
+    Dunrunnin12: [
+        { name: 'Clay' },
+    ],
     dynadivine: [
         { name: 'Lucille Davis' },
         { name: 'Lucille Walker' },
