@@ -624,7 +624,7 @@ export const wrpCharacters: WrpCharacters = {
     Hoop: [
         { name: 'Barry Bjornson', factions: ['Sams Club'] },
         { name: 'Clyde Davis' },
-        { name: 'Jonathan Redding', nicknames: ['Redshirt'], factions: ['Half Wits'] },
+        { name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'] },
         { name: 'Miles Gyles', factions: ['Law'] },
     ],
     IanMMori: [
