@@ -14,7 +14,7 @@ import { isFactionColor, lesserFactions, greaterFactions, wrpFactionsRegex, wrpF
 
 import type { RecordGen } from '../../utils';
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from '../../data/meta';
-import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther, AssumeServer, WlBias } from '../../data/characters';
+import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther } from '../../data/characters';
 import type { WrpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } from '../../data/factions';
 
 const includedData = Object.assign(
@@ -32,11 +32,9 @@ interface Character extends Omit<CharacterOld, 'factions' | 'displayName' | 'ass
     factionUse: FactionColorsRealMini;
     displayName: string;
     nameReg: RegExp;
-    assumeServer: AssumeServer;
-    wlBias: WlBias;
 }
 
-type WrpCharacter = Character[] & { assumeChar?: Character; assumeServer: AssumeServer; wlBias: WlBias; assumeOther: number; };
+type WrpCharacter = Character[] & { assumeChar?: Character; assumeOther: number; };
 
 type WrpCharacters = { [key: string]: WrpCharacter };
 
@@ -96,7 +94,6 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
     } */
 
     const foundOthers: { [key in AssumeOther]?: boolean } = {};
-    let wlBiasIdx: number | undefined;
 
     // eslint-disable-next-line no-loop-func
     characters.forEach((char, charIdx) => {
@@ -206,22 +203,8 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
 
         if (charOld.assume !== undefined) foundOthers[charOld.assume] = true;
  
-        if (!characters.assumeServer) characters.assumeServer = char.assumeServer || 'whitelist';
-        if (!char.assumeServer) char.assumeServer = characters.assumeServer;
         if (char.assumeChar && !characters.assumeChar) characters.assumeChar = char;
-        if (characters.wlBias === undefined) characters.wlBias = 0;
-        if (char.wlBias !== undefined) {
-            characters.wlBias = char.wlBias; // Static across all characters
-            wlBiasIdx = charIdx;
-        }
-        char.wlBias = characters.wlBias;
     });
-
-    if (wlBiasIdx) { // 1 or greater
-        for (let i = 0; i < wlBiasIdx; i++) {
-            characters[i].wlBias = characters.wlBias;
-        }
-    }
 
     if (foundOthers.assumeNp && foundOthers.assumeOther) {
         characters.assumeOther = ASTATES.someOther;
@@ -335,10 +318,6 @@ interface Stream extends BaseStream {
     tagText: string;
     tagFaction: FactionColorsMini;
     tagFactionSecondary?: FactionColorsMini;
-    noOthersInclude: boolean;
-    noPublicInclude: boolean; // use these props on frontend to determine whether stream should show
-    noInternationalInclude: boolean; // use these props on frontend to determine whether stream should show
-    wlOverride: boolean;
     videoUrl?: string;
     thumbnailUrl?: string;
 }
@@ -508,24 +487,6 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
 
                     const hasCharacters = characters && characters.length;
 
-                    let assumeServer: AssumeServer = 'whitelist';
-                    let usualServer: AssumeServer | 'unknown' = 'unknown';
-                    const realAssumes: AssumeServer[] = ['whitelist', 'public', 'international'];
-
-                    if (hasCharacters) {
-                        ({ assumeServer } = characters);
-                        usualServer = assumeServer;
-                    }
-
-                    let usuallyOther = false;
-                    let usuallyWl = false;
-
-                    if (characters) {
-                        const otherStates = [ASTATES.assumeOther, ASTATES.neverNp] as number[];
-                        usuallyOther = otherStates.includes(characters.assumeOther);
-                        usuallyWl = characters.wlBias === 1 || (!usuallyOther && usualServer === 'whitelist' && characters.wlBias === 0);
-                    }
-
                     if (streamState === FSTATES.other) {
                         // Other included RP servers
                         const allowStream = isMetaFaction;
@@ -544,10 +505,6 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                             factionsMap: { other: true },
                             tagText: serverName.length > 0 ? `::${serverName}::` : '::Other Server::',
                             tagFaction: 'other',
-                            noOthersInclude: false,
-                            noPublicInclude: true,
-                            noInternationalInclude: true,
-                            wlOverride: usuallyWl,
                             // keepCase: true,
                         };
 
@@ -560,9 +517,6 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                     // streamState === FSTATES.nopixel
 
                     let nowCharacter;
-                    let onServer: AssumeServer = assumeServer;
-
-                    let onServerDetected = false;
 
                     if (hasCharacters) {
                         let lowestPos = Infinity;
@@ -573,8 +527,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                             const numResults = matchPositions.length;
                             const resSize = numResults > 0 ? matchPositions[0][0].length : -1; // Could use all matches, but more expensive
                             const devFactionWeight = char.factions[0] === 'development' ? 2e4 : 0;
-                            const serverMatchWeight = (onServerDetected && char.assumeServer !== onServer && realAssumes.includes(char.assumeServer)) ? 1e4 : 0;
-                            const lowIndex = numResults ? matchPositions[0].index! + serverMatchWeight + devFactionWeight : -1;
+                            const lowIndex = numResults ? matchPositions[0].index! + devFactionWeight : -1;
                             if (lowIndex > -1 && (
                                 lowIndex < lowestPos
                                 || (lowIndex === lowestPos && numResults > maxResults)
@@ -643,11 +596,6 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
 
                     const hasFactions = factionNames.length;
 
-                    if (nowCharacter && onServerDetected === false) {
-                        ({ assumeServer } = nowCharacter);
-                        onServer = assumeServer;
-                    }
-
                     // log(nowCharacter);
 
                     let allowStream = isMetaFaction;
@@ -682,7 +630,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                             nowCharacter = characters.assumeChar;
                             possibleCharacter = nowCharacter;
                         } else {
-                            possibleCharacter = characters.find((char => char.assumeServer === onServer)) || characters[0];
+                            possibleCharacter = characters[0];
                         }
                     }
 
@@ -733,10 +681,6 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                         factionsMap: Object.assign({}, ...activeFactions.map(faction => ({ [faction]: true }))),
                         tagText,
                         tagFaction,
-                        noOthersInclude: true, // noOthersInclude
-                        noPublicInclude: false,
-                        noInternationalInclude: false,
-                        wlOverride: usuallyWl,
                     };
 
                     nextId++;

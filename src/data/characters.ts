@@ -4,10 +4,6 @@ import { FactionRealFull } from './meta';
 
 export type AssumeOther = 'assumeNpNoOther' | 'assumeNp' | 'assumeOther' | 'someOther' | 'neverNp';
 
-export type AssumeServer = 'whitelist' | 'public' | 'international';
-
-export type WlBias = -1 | 0 | 1;
-
 export interface Character {
     name: string;
     factions?: FactionRealFull[];
@@ -17,10 +13,7 @@ export interface Character {
     highCommand?: boolean;
     affiliate?: boolean;
     assume?: AssumeOther;
-    assumeServer?: AssumeServer;
     assumeChar?: boolean;
-    wlBias?: WlBias;
-    facebook?: boolean;
 }
 
 export type WrpCharacters = { [key: string]: Character[] };
