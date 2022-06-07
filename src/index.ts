@@ -1,9 +1,7 @@
 import 'dotenv/config';
-import fs from 'fs';
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
-import https from 'https';
 
 import { log } from './utils';
 import routes from './routes';
@@ -45,17 +43,3 @@ const httpServer = http.createServer(app);
 httpServer.listen(process.env.HTTP_PORT, () => {
     log(`HTTP server running on port ${process.env.HTTP_PORT}!`);
 });
-
-if (isProd) {
-    const domain = 'vaeb.io';
-    const httpsOptions = {
-        key: fs.readFileSync(`/etc/letsencrypt/live/${domain}/privkey.pem`, 'utf8'),
-        cert: fs.readFileSync(`/etc/letsencrypt/live/${domain}/cert.pem`, 'utf8'),
-        ca: fs.readFileSync(`/etc/letsencrypt/live/${domain}/chain.pem`, 'utf8'),
-    };
-
-    const httpsServer = https.createServer(httpsOptions, app);
-    httpsServer.listen(process.env.HTTPS_PORT, () => {
-        log(`HTTPS server running on port ${process.env.HTTPS_PORT}!`);
-    });
-}
