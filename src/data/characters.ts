@@ -186,7 +186,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Kitty LaRoux' },
     ],
     Avioto_: [
-        { name: 'Amadeo Moretti' },
+        { name: 'Amadeo Moretti', factions: ['DiCenzo Famiglia'] },
     ],
     AwaBeats: [
         { name: 'Ali Mason' },
@@ -342,6 +342,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     CloeeBee: [
         { name: 'Alice Bennett' },
+        { name: 'Rose Pond' },
     ],
     ConnorCronus: [
         { name: '[Deputy] Rip Riley', factions: ['Law'] },
@@ -356,7 +357,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Elias McDurn' },
     ],
     Daftmedic: [
-        { name: 'Tristan Shipman' },
+        { name: '[Doctor] Tristan Shipman', factions: ['Medical'] },
     ],
     Dam_O: [
         { name: 'Grover Carlson' },
@@ -662,6 +663,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Iwhuttt: [
         { name: 'Houston Gray' },
+        { name: 'Archibald' },
     ],
     J0J0: [
         { name: 'Delilah Kane' },
@@ -1076,7 +1078,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Henry "West"' },
     ],
     SkoogFFS: [
-        { name: 'Billy Joe Barber', nicknames: ['BJB'], displayName: 4 },
+        { name: 'Billy Joe Barber', nicknames: ['Billy Joe', 'BJB'], displayName: 4 },
     ],
     SLiMt: [
         { name: 'Jimmy Slimper', nicknames: ['Slim Jim'] },
@@ -1143,7 +1145,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Mason Memphis' },
     ],
     sweetcraw: [
-        { name: 'Joey Crawford' },
+        { name: '[Ranger] Joey Crawford', factions: ['Rangers'] },
     ],
     Sylasism: [
         { name: 'Atty Windward' },
@@ -1196,7 +1198,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jim Sky' },
     ],
     TheAaronShaq: [
-        { name: 'Kenneth Randall', nicknames: ['Ricky'] },
+        { name: 'Kenneth Randall', nicknames: ['Ricky'], displayName: 3 },
     ],
     TheAmelina: [
         { name: 'Elisabeth Beauregard', nicknames: ['Ellie'], displayName: 3 },
