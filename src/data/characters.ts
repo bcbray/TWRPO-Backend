@@ -1047,7 +1047,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dane Swan', factions: ['Law'] },
         { name: 'Gator Weaver' },
         { name: 'Odysseus Kain' },
-        { name: 'Mr. White', displayName: 0 }, // Don't know first name
+        { name: 'Mr. White', displayName: 0 }, // TODO: Don't know first name
     ],
     Silbullet: [
         { name: '[Deputy] Shawn Maple', factions: ['Law'] },
@@ -1337,6 +1337,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     yeka221: [
         { name: 'Tibbit' },
+    ],
+    Yorkoh: [
+        { name: '[Deputy] Kai Ming', factions: ['Law'], displayName: 2 }, // TODO: Unsure of rank
     ],
     YouKnowItsJuno: [
         { name: 'Kima Abrams' },
