@@ -1354,7 +1354,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Everett Silver' },
     ],
     Zarrqq: [
-        { name: 'Benjamin Gaines', factions: ['Sams Club'] },
+        { name: 'Benjamin Gaines', factions: ['Sams Club'], nicknames: ['Ben'], displayName: 3 },
     ],
     ZetarkGG: [
         { name: 'Cesare DiCenzo' },
