@@ -72,7 +72,7 @@ export const wrpCharacters: WrpCharacters = {
     SomethingBees: [
         { name: '[Ranger] Isla White', factions: ['Rangers'] },
         { name: 'Berdie Lloyd' },
-        { name: 'Cait McAlister' },
+        { name: '[Cadet] Cait McAlister', factions: ['Law'] },
     ],
     TheGeneralSmokey: [
         { name: 'Edwin Braithwaite', factions: ['Kettleman Gang'] },
@@ -336,7 +336,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Father Hickey' },
     ],
     CloakingHawk: [
-        { name: 'Danni Jackson' },
+        { name: '[Ranger] Danni Jackson', factions: ['Rangers'] },
         { name: 'Roo' },
         { name: 'Tilly-May Edwards' },
     ],
