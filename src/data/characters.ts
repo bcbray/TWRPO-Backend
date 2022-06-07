@@ -451,6 +451,9 @@ export const wrpCharacters: WrpCharacters = {
     fayebles: [
         { name: 'Clementine Fisher' },
     ],
+    feardeer: [
+        { name: 'Sloan' }, // TODO: Full name (covered by bars on char selection screen)
+    ],
     FhaeLin: [
         { name: '[Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 },
         { name: 'Amber Sage' },
@@ -1191,6 +1194,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ThatTrollsomeGuy: [
         { name: 'Logan Callaway' },
+        { name: '[Deputy] Robertson', factions: ['Law'] }, // TODO: First name?
     ],
     The_Devils_Son: [
         { name: 'Fredrick Smythe' },
