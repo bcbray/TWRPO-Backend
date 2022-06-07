@@ -108,6 +108,7 @@ export const wrpCharacters: WrpCharacters = {
     AwaBeats: [
         { name: 'Ali Mason' },
         { name: 'Nokosi Ahanu' },
+        { name: 'C-Lo' }, // TODO: Real name?
     ],
     ayekayy47_: [
         { name: 'Misty Shaw' },
@@ -732,7 +733,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Miss Mystery' },
         { name: 'Olive Wallace' },
         { name: 'Portia Hartley' },
-        { name: 'Quinton Ivy' },
+        { name: '[Deputy] Quinton Ivy', factions: ['Law'] },
         { name: 'Trixie Davenport' },
     ],
     LakunaRP: [
@@ -788,7 +789,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'William White' },
     ],
     MackieLTD: [
-        { name: 'Jack Cameron', factions: ['Law'] },
+        { name: '[Deputy] Jack Cameron', factions: ['Law'] },
         { name: 'Scott Samuel' },
     ],
     Madmoiselle: [
