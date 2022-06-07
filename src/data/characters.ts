@@ -18,7 +18,7 @@ export interface Character {
 
 export type WrpCharacters = { [key: string]: Character[] };
 
-// const reg = (r: RegExp): string => `/${r.source}/`;
+const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
@@ -88,7 +88,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AtopDerekMountain: [
         { name: 'Dante Valentino' },
-        { name: 'Devoghn Brown' },
+        { name: 'Devoghn Lowery Brown', nicknames: ['D-Lo', reg(/d(?:\-|\s*)lo/)], displayName: 4 },
         { name: 'Red Stag' },
         { name: 'Walter Cross' },
         { name: 'Wechugue Wechugue' },
