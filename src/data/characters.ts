@@ -162,7 +162,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Nathan Terriers' },
     ],
     ArmoredAndy: [
-        { name: 'Buzz Buxton', factions: ['Sams Club'] },
+        { name: 'Buzz Buxton' },
         { name: 'Adolf Hofcooperstedder', nicknames: ['Dolfie'], displayName: 3 },
         { name: 'Moose' },
     ],
@@ -1051,7 +1051,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Emily Marie Kenward' },
     ],
     Shake4L: [
-        { name: 'Buzz Bleu' },
+        { name: 'Buzz Bleu', factions: ['Sams Club'] },
     ],
     Sidkriken: [
         { name: 'Dane Swan', factions: ['Law'] },
