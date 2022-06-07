@@ -1339,7 +1339,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Tibbit' },
     ],
     Yorkoh: [
-        { name: '[Deputy] Kai Ming', factions: ['Law'], displayName: 2 }, // TODO: Unsure of rank
+        { name: '[Deputy] Kai Ming', factions: ['Law'], displayName: 1 }, // TODO: Unsure of rank
     ],
     YouKnowItsJuno: [
         { name: 'Kima Abrams' },
