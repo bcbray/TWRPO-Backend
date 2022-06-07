@@ -574,6 +574,9 @@ export const wrpCharacters: WrpCharacters = {
     HappyYouniverse: [
         { name: 'Danny Ford' },
     ],
+    HerbtheNerd: [
+        { name: 'Charles Kane' },
+    ],
     HeroMexii: [
         { name: 'George Shaffer' },
     ],
