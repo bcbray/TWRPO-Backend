@@ -23,92 +23,6 @@ export type WrpCharacters = { [key: string]: Character[] };
 // Make character map
 
 export const wrpCharacters: WrpCharacters = {
-    ksinz: [
-	    { name: '[Deputy] Syles MacKenna', factions: ['Law'] },
-        { name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
-        { name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang'] },
-    ],
-    MEKABEAR: [
-        { name: '[Detective] Audrey Dusk', factions: ['Law'] },
-        { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
-    ],
-    AnthonyZ: [
-        { name: 'Antonio Corleone', nicknames: ['Tony'] },
-    ],
-    Ssaab: [
-        { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'] },
-        { name: 'Ali Baba', displayName: 0 },
-    ],
-    Lyndi: [
-        { name: 'Delilah Deveaux' },
-    ],
-    Daveybe: [
-        { name: 'Pip Delahan', factions: ['Kettleman Gang'] },
-        { name: 'Edge Lamburg' },
-    ],
-    DrXeroLive: [
-        { name: 'Jack Thompson' },
-    ],
-    GrammTheGibbon: [
-        { name: 'Little Jimothy', nicknames: ['Kid'] },
-        { name: '[Detective] Homer Carnes', factions: ['Law'] },
-        { name: 'Clayton Orwell' },
-    ],
-    DustMonkeyGames: [
-        { name: '[Cadet] Charles Slaughter', factions: ['Law'] },
-        { name: 'Solomon Walker' },
-    ],
-    FhaeLin: [
-        { name: '[Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 },
-        { name: 'Amber Sage' },
-    ],
-    BurtLington: [
-        { name: '[Sheriff] Marty Malone', factions: ['Law'] },
-    ],
-    GameBaked: [
-        { name: 'Mato Tahoma', factions: ['Medical'] },
-        { name: 'Adriaan' },
-    ],
-    SomethingBees: [
-        { name: '[Ranger] Isla White', factions: ['Rangers'] },
-        { name: 'Berdie Lloyd' },
-        { name: '[Cadet] Cait McAlister', factions: ['Law'] },
-    ],
-    TheGeneralSmokey: [
-        { name: 'Edwin Braithwaite', factions: ['Kettleman Gang'] },
-    ],
-    ewanruss: [
-        { name: 'Alfonso Bonucci', factions: ['DiCenzo Famiglia'], nicknames: ['Coach Al', 'Al'] }  
-    ],
-    HappyYouniverse: [
-        { name: 'Danny Ford' },  
-    ],
-    Buddha: [
-        { name: 'Wu Buddha' },
-    ],
-    XxAshleyxX: [
-        { name: 'Rayven Hope' },
-        { name: 'Zola Caiman' },
-    ],
-    babysiren_: [
-        { name: 'Laura Dunn' },
-    ],
-    Blaustoise: [
-        { name: 'Jesse Flint' },
-    ],
-    Spaceboy: [
-        { name: 'James Randal', nicknames: ['Jim Beef'] },
-    ],
-    UberHaxorNova: [
-        { name: 'Rooporian Roo', factions: ['Independent', 'Guppy Gang'], displayName: 2 },
-    ],
-    Pengwin: [
-        { name: 'Staniel Wilkerson' },
-    ],
-    nathankb_: [
-        { name: 'Dug Dug' },
-    ],
-    
     '0Reed': [
         { name: 'Creedence McPoyle' },
     ],
@@ -154,6 +68,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AngryPotatoChipz: [
         { name: 'Jamie Marlow' },
+    ],
+    AnthonyZ: [
+        { name: 'Antonio Corleone', nicknames: ['Tony'] },
     ],
     APPLESHAMPOO: [
         { name: 'Kenny Kidman' },
@@ -201,6 +118,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Solomon Kray' },
         { name: 'Thomas Ethan', nicknames: ['The Kid'] },
     ],
+    babysiren_: [
+        { name: 'Laura Dunn' },
+    ],
     bananabrea: [
         { name: 'Josephine Gold' },
     ],
@@ -234,6 +154,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     blackhawkgamiing: [
         { name: 'Chris Edwoods' },
+    ],
+    Blaustoise: [
+        { name: 'Jesse Flint' },
     ],
     bldrs: [
         { name: 'Casey Rigsby', factions: ['Independent', 'Guppy Gang'] },
@@ -269,6 +192,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Butch Fairway' },
         { name: 'Johnny Quick' },
     ],
+    Buddha: [
+        { name: 'Wu Buddha' },
+    ],
     buddyandy88: [
         { name: 'Carla Johanson' },
     ],
@@ -281,6 +207,9 @@ export const wrpCharacters: WrpCharacters = {
     BunglingNormal2: [
         { name: 'Henry Gearhardt' },
     ],
+    BurtLington: [
+        { name: '[Sheriff] Marty Malone', factions: ['Law'] },
+    ],
     Caffine5: [
         { name: 'Billy Falco' },
     ],
@@ -289,7 +218,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Joseph Parrish', factions: ['Law'] },
     ],
     CallieCakez: [
-        { name: 'Amelie Ashton' },
+        { name: '[Ranger] Amelie Ashton', factions: ['Rangers'] },
     ],
     CapitalOGttv: [
         { name: 'Franklin Costella' },
@@ -388,6 +317,10 @@ export const wrpCharacters: WrpCharacters = {
     DatVoiceGuy: [
         { name: 'Alejandro Ariez' },
     ],
+    Daveybe: [
+        { name: 'Pip Delahan', factions: ['Kettleman Gang'] },
+        { name: 'Edge Lamburg' },
+    ],
     DEANSUMMERWIND: [
         { name: 'Doug Darrell Dan' },
         { name: 'Ham Royce' },
@@ -440,6 +373,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Lawrence Noll' },
         { name: 'Wayne Colt' },
     ],
+    DrXeroLive: [
+        { name: 'Jack Thompson' },
+    ],
     DubEkostep: [
         { name: 'Pancho Zapata', nicknames: ['El Cucuy'] },
     ],
@@ -448,6 +384,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Dunrunnin12: [
         { name: 'Clay' },
+    ],
+    DustMonkeyGames: [
+        { name: '[Cadet] Charles Slaughter', factions: ['Law'] },
+        { name: 'Solomon Walker' },
     ],
     dynadivine: [
         { name: 'Lucille Davis' },
@@ -491,6 +431,9 @@ export const wrpCharacters: WrpCharacters = {
     EthanSchriver: [
         { name: 'Leanord Scout', displayName: 2 },
     ],
+    ewanruss: [
+        { name: 'Alfonso Bonucci', factions: ['DiCenzo Famiglia'], nicknames: ['Coach Al', 'Al'] }  
+    ],
     extralivia: [
         { name: 'Lydia Spade' },
     ],
@@ -507,6 +450,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     fayebles: [
         { name: 'Clementine Fisher' },
+    ],
+    FhaeLin: [
+        { name: '[Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 },
+        { name: 'Amber Sage' },
     ],
     FireLordRevan: [
         { name: 'Hannah Belles' },
@@ -548,6 +495,10 @@ export const wrpCharacters: WrpCharacters = {
     Gallethril: [
         { name: 'Annabel Barnes' },
     ],
+    GameBaked: [
+        { name: 'Mato Tahoma', factions: ['Medical'] },
+        { name: 'Adriaan' },
+    ],
     GameishTV: [
         { name: 'Doug Chipper' },
         { name: 'Mike McCoy' },
@@ -587,6 +538,11 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'MaN Sauers' },
         { name: 'Speedy McGillagully' },
     ],
+    GrammTheGibbon: [
+        { name: 'Little Jimothy', nicknames: ['Kid'] },
+        { name: '[Detective] Homer Carnes', factions: ['Law'] },
+        { name: 'Clayton Orwell' },
+    ],
     GraveGamerTV: [
         { name: 'Paulson Greer' },
         { name: 'Peter Gray' },
@@ -614,6 +570,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Levi Sawyer' },
         { name: 'Stumpy McBride' },
         { name: 'Virgil Sterling' },
+    ],
+    HappyYouniverse: [
+        { name: 'Danny Ford' },  
     ],
     HeroMexii: [
         { name: 'George Shaffer' },
@@ -750,6 +709,11 @@ export const wrpCharacters: WrpCharacters = {
     Kouts3: [
         { name: 'Felix Colt' },
     ],
+    ksinz: [
+        { name: '[Deputy] Syles MacKenna', factions: ['Law'] },
+        { name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
+        { name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang'] },
+    ],
     Kyle: [
         { name: 'Ren Solo' },
     ],
@@ -800,6 +764,9 @@ export const wrpCharacters: WrpCharacters = {
     Luckcue: [
         { name: 'Alex Mystic' },
     ],
+    Lyndi: [
+        { name: 'Delilah Deveaux' },
+    ],
     MaceyMclovin: [
         { name: 'Jackson Slater' },
     ],
@@ -825,6 +792,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MaverickHavoc: [
         { name: 'Cornellius Orvid' },
+    ],
+    MEKABEAR: [
+        { name: '[Detective] Audrey Dusk', factions: ['Law'] },
+        { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
     ],
     Mhaple_: [
         { name: 'Morgan Lee' },
@@ -884,6 +855,9 @@ export const wrpCharacters: WrpCharacters = {
     Nakkida: [
         { name: 'Lyra Woods' },
     ],
+    nathankb_: [
+        { name: 'Dug Dug' },
+    ],
     Nbodo: [
         { name: 'Peter Rockwell' },
     ],
@@ -937,6 +911,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     peachycoaster: [
         { name: 'Chrissy Snow' },
+    ],
+    Pengwin: [
+        { name: 'Staniel Wilkerson' },
     ],
     Pers: [
         { name: 'Dr. Carrie Williams' },
@@ -1102,6 +1079,11 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jed Wicker', factions: ['Kettleman Gang'] }, // TODO: Confirm faction
         { name: 'Roger Thyne' },
     ],
+    SomethingBees: [
+        { name: '[Ranger] Isla White', factions: ['Rangers'] },
+        { name: 'Berdie Lloyd' },
+        { name: '[Cadet] Cait McAlister', factions: ['Law'] },
+    ],
     Sonneflower: [
         { name: 'Eliana Diaz' },
         { name: 'Jean Rivers' },
@@ -1110,6 +1092,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Aoife McCarthy', factions: ['Law'] },
         { name: 'Clarabelle Manson' },
         { name: 'Cora Crow' },
+    ],
+    Spaceboy: [
+        { name: 'James Randal', nicknames: ['Jim Beef'] },
     ],
     spicybackpain: [
         { name: 'Pepper Jackson' },
@@ -1127,6 +1112,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     squareiz: [
         { name: 'Ed Doyle' },
+    ],
+    Ssaab: [
+        { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'] },
+        { name: 'Ali Baba', displayName: 0 },
     ],
     stardaze: [
         { name: 'Edie Barlowe' },
@@ -1225,6 +1214,9 @@ export const wrpCharacters: WrpCharacters = {
     TheFoodcartGamer: [
         { name: 'Felix Ellis' },
     ],
+    TheGeneralSmokey: [
+        { name: 'Edwin Braithwaite', factions: ['Kettleman Gang'] },
+    ],
     TheGoochTV: [
         { name: 'Becker Lang' },
     ],
@@ -1281,6 +1273,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dieter Krankenkasse' },
         { name: 'Hawthorne Sapling' },
         { name: 'Jonathan Badtmann' },
+    ],
+    UberHaxorNova: [
+        { name: 'Rooporian Roo', factions: ['Independent', 'Guppy Gang'], displayName: 2 },
     ],
     UberJazer: [
         { name: 'Nahmala Wolfe', nicknames: ['Wolf'] },
@@ -1344,6 +1339,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     WTFGameNation: [
         { name: 'Morgan Calloway' },
+    ],
+    XxAshleyxX: [
+        { name: 'Rayven Hope' },
+        { name: 'Zola Caiman' },
     ],
     YatoTheMad: [
         { name: 'Cassius Evans' },
