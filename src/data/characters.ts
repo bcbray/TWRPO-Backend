@@ -483,6 +483,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Freumont: [
         { name: 'Edward Shaw' },
+        { name: 'Leonardo E. Fantoni', factions: ['DiCenzo Famiglia'] }, // TODO: Confirm faction
     ],
     friendly_chick: [
         { name: 'Angelica Ward', nicknames: ['Angel'] },
@@ -544,7 +545,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GrammTheGibbon: [
         { name: 'Little Jimothy', nicknames: ['Kid'] },
-        { name: '[Detective] Homer Carnes', factions: ['Law'] },
+        { name: '[Detective] Homer Carnes', factions: ['Law'], nicknames: ['Cop'] },
         { name: 'Clayton Orwell' },
     ],
     GraveGamerTV: [
@@ -937,6 +938,7 @@ export const wrpCharacters: WrpCharacters = {
     pinkchyu: [
         { name: 'Caroline Kroll' },
         { name: 'Kelly Crockett' },
+        { name: 'Dorothy Dean' },
     ],
     Pinkfie: [
         { name: 'Abigail Burke' },
