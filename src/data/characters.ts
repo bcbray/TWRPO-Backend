@@ -1217,6 +1217,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     The_Metro_Man1: [
         { name: 'Jim Sky' },
+        { name: 'Felix Nileson' },
     ],
     TheAaronShaq: [
         { name: 'Kenneth Randall', nicknames: ['Ricky'], displayName: 3 },
