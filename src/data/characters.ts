@@ -684,6 +684,9 @@ export const wrpCharacters: WrpCharacters = {
     JustxJodi: [
         { name: 'Minnie Mines' },
     ],
+    KADOsLIVE: [
+        { name: 'Dan Douglas' },
+    ],
     kadxon: [
         { name: 'Vivian Lashea' },
     ],
@@ -775,6 +778,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Luckcue: [
         { name: 'Alex Mystic' },
+    ],
+    Lunabee: [
+        { name: 'Abigale' }, // TODO: Last name?
     ],
     Lyndi: [
         { name: 'Delilah Deveaux' },
@@ -1158,6 +1164,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Atty Windward' },
         { name: 'Franklin Czepanski' },
         { name: 'Bartleby Sinclair' },
+    ],
+    Syraphic: [
+        { name: 'Emilia "Emi" Song' },
     ],
     TalkingRecklessPodcast: [
         { name: 'Jeremiah Rent' },
