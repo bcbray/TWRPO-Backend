@@ -68,6 +68,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AngryPotatoChipz: [
         { name: 'Jamie Marlow' },
+        { name: 'Isiah Trebuchet' },
     ],
     AnthonyZ: [
         { name: 'Antonio Corleone', nicknames: ['Tony'] },
@@ -429,7 +430,7 @@ export const wrpCharacters: WrpCharacters = {
     EquinoxRP: [
         { name: 'Brendyn Cormac' },
     ],
-    eternalangelgames: [
+    eternalsong: [
         { name: 'Kora Vane' },
     ],
     EthanSchriver: [
@@ -762,7 +763,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Negan McAlister', factions: ['Law'], displayName: 1 },
     ],
     Lithiaris: [
-        { name: 'Lark Atwood' },
+        { name: 'Lark Atwood', factions: ['Medical'] },
         { name: 'Sylvie Chevalier' },
     ],
     ll_Marziano_ll: [
