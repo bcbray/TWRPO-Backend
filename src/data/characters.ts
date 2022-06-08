@@ -208,6 +208,9 @@ export const wrpCharacters: WrpCharacters = {
     BunglingNormal2: [
         { name: 'Henry Gearhardt' },
     ],
+    Burn: [
+        { name: 'Lloyd Chambers' },
+    ],
     BurtLington: [
         { name: '[Sheriff] Marty Malone', factions: ['Law'] },
     ],
