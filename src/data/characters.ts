@@ -471,7 +471,7 @@ export const wrpCharacters: WrpCharacters = {
     Flickerclad: [
         { name: 'Evangeline Thorne' },
         { name: 'Frankie Czepanski' },
-        { name: 'Rabbit Windward', factions: ['Law'] },
+        { name: '[Sheriff] Rabbit Windward', factions: ['Law'] },
     ],
     ForeheadSkin: [
         { name: 'Edmund Reddington' },
@@ -1040,7 +1040,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'William Stone' },
     ],
     section9_Browncoat: [
-        { name: 'Ned Fuller' },
+        { name: '[Cadet] Ned Fuller', factions: ['Law'] },
         { name: 'Nick Carver' },
     ],
     sgttyn: [
@@ -1373,7 +1373,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Charles Campbell' },
     ],
     yeka221: [
-        { name: 'Tibbit' },
+        { name: 'Tabitha "Tibbit" Birch' },
     ],
     Yorkoh: [
         { name: '[Deputy] Kai Ming', factions: ['Law'], displayName: 1 }, // TODO: Unsure of rank
