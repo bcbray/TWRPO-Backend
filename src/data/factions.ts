@@ -21,7 +21,7 @@ const noFormer = (reg: RegExp) => mergeRegex([/(?<!(?:\b|_)(?:vs?|versus|on|agai
 export const wrpFactionsRegex = {
     samsclub: noLater(noFormer(/\bsam's\s+club/)),
     halfwits: noLater(noFormer(/\bhalf\s*wits/)),
-    podcast: noLater(noFormer(/\b(?<!!)podcast\b/i)),
+    podcast: noLater(noFormer(/\b(?:(?<!!)podcast|rp\s+theory)\b/i)),
     watchparty: noLater(noFormer(/\b(?<!!)watch[\s\-_.]*part/i)),
     development: /\bdevelop|\bdev\b|\bcoding|devathon/i,
     law: noLater(noFormer(/\b(?:deputy|cadet|detective|sheriff)\b/i)),
