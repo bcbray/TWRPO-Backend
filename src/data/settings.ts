@@ -15,6 +15,6 @@ export const regOthers = [
 	{ name: 'NewCenturyRP', reg: /\bnewcentury\s*(?:rp\b|roleplay)/i, include: 1 },
 	{ name: 'New Valley RP', reg: /\bnew\s*valley\s*(?:rp\b|roleplay)/i, include: 1 },
 	{ name: 'Haven\'s Crest RP', reg: /\bhaven'?s\s+crest\s+(?:rp\b|roleplay)/i, include: 1 },
-	{ name: 'GTA Online', reg: /\bgta[\s:-]*[5v]?[\s:-]*online/i, include: 0 },
-	{ name: 'GTA Story', reg: /story[\s\-]*mode|\bgta[\s:-]*[5v]?[\s\-]+story/i, include: 0 },
+	{ name: 'Red Dead Online', reg: /\b(?:rdr[\s:-]*[2]?|read\s*dead)[\s:-]*online/i, include: 0 },
+	{ name: 'RDR Story', reg: /story[\s\-]*mode|\brdr[\s:-]*[2]?[\s\-]+story/i, include: 0 },
 ];
