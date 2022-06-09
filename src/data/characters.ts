@@ -481,7 +481,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Sheriff] Rabbit Windward', factions: ['Law'] },
     ],
     ForeheadSkin: [
-        { name: 'Edmund "Eddie" Reddington', factions: ['Sams Club'] },
+        { name: 'Edmund "Eddy" Reddington', factions: ['Sams Club'] },
         { name: 'Henry Huff' },
         { name: 'Joseph Walters' },
     ],
