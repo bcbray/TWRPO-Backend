@@ -47,6 +47,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Aestannar: [
         { name: 'Arthur Jones' },
+        { name: 'Del Parker' },
     ],
     aJimmy: [
         { name: 'James Kelly' },
@@ -339,7 +340,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Colt Clifford' },
     ],
     Dimoak: [
-        { name: 'Fiddleford Mackit', nicknames: ['Phil'], displayName: 3 },
+        { name: 'Fiddleford "Phil" Mackit' },
         { name: 'Kaz Brekker' },
         { name: 'Tommy Townsand' },
     ],
@@ -426,6 +427,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     entspeak: [
         { name: 'Faolain McDiarmid' },
+        { name: 'Bran Speaksy' },
     ],
     EquinoxRP: [
         { name: 'Brendyn Cormac' },
@@ -437,7 +439,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Leanord Scout', displayName: 2 },
     ],
     ewanruss: [
-        { name: 'Alfonso Bonucci', factions: ['DiCenzo Famiglia'], nicknames: ['Coach Al', 'Al'] }  
+        { name: 'Alfonso Bonucci', factions: ['DiCenzo Famiglia'], nicknames: ['Coach Al', 'Al'], displayName: 4 },
     ],
     extralivia: [
         { name: 'Lydia Spade' },
