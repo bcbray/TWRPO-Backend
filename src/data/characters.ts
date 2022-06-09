@@ -458,6 +458,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Farmhouse78: [
         { name: 'Stewart Harington' },
+        { name: 'Steven Hayes' },
     ],
     fayebles: [
         { name: 'Clementine Fisher' },
@@ -991,6 +992,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     RayforRachel: [
         { name: 'Winifred "Dot" Barlow' },
+        { name: 'Shirley Lemons', nicknames: ['Cowgirl'] },
     ],
     REKKRPRO: [
         { name: 'Rekks Tanner' },
