@@ -57,7 +57,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Victor Morteza' },
     ],
     alyssajeanaf: [
-        { name: 'Dahlia Malone' },
+        { name: 'Dahlia Malone', factions: ['Sams Club'] },
     ],
     AM_Raid: [
         { name: 'Cain Lockhart' },
@@ -481,7 +481,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Sheriff] Rabbit Windward', factions: ['Law'] },
     ],
     ForeheadSkin: [
-        { name: 'Edmund Reddington' },
+        { name: 'Edmund "Eddie" Reddington', factions: ['Sams Club'] },
         { name: 'Henry Huff' },
         { name: 'Joseph Walters' },
     ],
@@ -537,7 +537,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Raymond Willis', nicknames: ['Rayray'] },
     ],
     GmanRBI: [
-        { name: 'Max Brady' },
+        { name: 'Max Brady', factions: ['Sams Club'] },
     ],
     GnarIyDavidson: [
         { name: 'Lluka Darkwood' },
