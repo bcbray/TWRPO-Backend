@@ -37,6 +37,7 @@ export const wrpCharacters: WrpCharacters = {
     abbbz: [
         { name: 'Francesca Romano', factions: ['Law'] },
         { name: 'Sanjay Patel' },
+        { name: 'Mrs. Goose', displayName: 0 }, // TODO: First name?
     ],
     AChanceOfCosplay: [
         { name: 'Bart Bancroft' },
