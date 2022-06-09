@@ -816,6 +816,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Lily Landry' },
         { name: 'Oola Lafayette' },
     ],
+    MannersMaketh_: [
+        { name: 'Horatio Hudson' },
+    ],
     MartyO248: [
         { name: 'Bobby Brampton' },
         { name: 'Dmitri Crenshaw' },
