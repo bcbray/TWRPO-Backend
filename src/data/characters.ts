@@ -810,6 +810,7 @@ export const wrpCharacters: WrpCharacters = {
     MackieLTD: [
         { name: '[Deputy] Jack Cameron', factions: ['Law'] },
         { name: 'Scott Samuel' },
+        { name: 'Nathanial', nicknames: ['Smoke'] },
     ],
     Madmoiselle: [
         { name: 'Lily Landry' },
