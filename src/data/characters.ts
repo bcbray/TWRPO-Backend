@@ -496,8 +496,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Leonardo E. Fantoni', factions: ['DiCenzo Famiglia'] }, // TODO: Confirm faction
     ],
     friendly_chick: [
-        { name: 'Angelica Ward', nicknames: ['Angel'] },
-        { name: 'Charlotte Davis', nicknames: ['Lottie'] },
+        { name: 'Angelica "Angel" Ward' },
+        { name: 'Charlotte "Lottie" Davis' },
         { name: 'Haven Rivers' },
         { name: 'Lillian Frost' },
     ],
@@ -988,6 +988,9 @@ export const wrpCharacters: WrpCharacters = {
     Quip_TV: [
         { name: 'Dove Hopkins', factions: ['Law'] },
         { name: 'Sally Higgins', nicknames: ['Shotgun'] },
+    ],
+    RayforRachel: [
+        { name: 'Winifred "Dot" Barlow' },
     ],
     REKKRPRO: [
         { name: 'Rekks Tanner' },
