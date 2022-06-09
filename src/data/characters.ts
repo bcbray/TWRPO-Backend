@@ -292,6 +292,9 @@ export const wrpCharacters: WrpCharacters = {
     Crom: [
         { name: 'Elias McDurn' },
     ],
+    DadnOut: [
+        { name: 'Cletus Clifton' },
+    ],
     Daftmedic: [
         { name: '[Doctor] Tristan Shipman', factions: ['Medical'] },
     ],
@@ -451,7 +454,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     famousivan: [
         { name: 'Raul Dominguez' },
-        { name: 'Manual Salamanca', displayName: 2 },
+        { name: 'Manual Salamanca' },
     ],
     Farmhouse78: [
         { name: 'Stewart Harington' },
@@ -934,6 +937,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Otis Potts' },
         { name: 'Richard Westlake' },
         { name: 'Tripp Riggs' },
+    ],
+    Paracast: [
+        { name: 'Erasmus South' },
     ],
     peachycoaster: [
         { name: 'Chrissy Snow' },
