@@ -558,6 +558,7 @@ export const wrpCharacters: WrpCharacters = {
     GraveGamerTV: [
         { name: 'Paulson Greer' },
         { name: 'Peter Gray' },
+        { name: 'Balter Duncans' },
     ],
     GreenEnigma: [
         { name: 'Jericho Blackfoot' },
@@ -1279,6 +1280,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TiltedSun: [
         { name: 'Madison Windward' },
+        { name: 'Clem Griffiths' },
     ],
     tmcrane: [
         { name: 'Lucius Bickmore' },
@@ -1379,6 +1381,7 @@ export const wrpCharacters: WrpCharacters = {
     YatoTheMad: [
         { name: 'Cassius Evans' },
         { name: 'Charles Campbell' },
+        { name: 'Liam Reilly' },
     ],
     yeka221: [
         { name: 'Tabitha "Tibbit" Birch' },
