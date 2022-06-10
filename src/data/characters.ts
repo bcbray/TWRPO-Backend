@@ -565,7 +565,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Speedy McGillagully' },
     ],
     GrammTheGibbon: [
-        { name: 'Little Jimothy', nicknames: ['Kid'] },
+        { name: 'Little Jimothy', nicknames: ['Kid', 'Young'], displayName: 0 },
         { name: '[Detective] Homer Carnes', factions: ['Law'], nicknames: ['Cop'] },
         { name: 'Clayton Orwell' },
     ],
