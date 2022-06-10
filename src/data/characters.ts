@@ -352,6 +352,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Kaz Brekker' },
         { name: 'Tommy Townsand' },
     ],
+    Dirty_10: [
+        { name: 'Richard Long' },
+    ],
     Dirty_Fisherman: [
         { name: 'Archibald Trout' },
     ],
@@ -1085,6 +1088,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Shake4L: [
         { name: 'Buzz Bleu', factions: ['Sams Club'] },
+    ],
+    ShawW0w: [
+        { name: 'Clarence Crudewater' },
     ],
     Sidkriken: [
         { name: 'Dane Swan', factions: ['Law'] },
