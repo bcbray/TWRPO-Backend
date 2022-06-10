@@ -372,7 +372,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
     }
 
     const fetchID = randomUUID()
-    log(JSON.stringify({traceID: fetchID, event: "start"}));
+    console.log(JSON.stringify({traceID: fetchID, event: "start"}));
 
     if (wrpStreamsPromise[optionsStr] === undefined || override) {
         wrpStreamsPromise[optionsStr] = new Promise<Live>(async (resolve, reject) => {
@@ -388,7 +388,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
 
                 const gtaStreams: (HelixStream)[] = await getStreams({ searchNum, international }, endpoint);
 
-                log(JSON.stringify({traceID: fetchID, event: "fetched"}));
+                console.log(JSON.stringify({traceID: fetchID, event: "fetched"}));
 
                 log(`${endpoint}: Fetched streams! Now processing data...`);
 
@@ -691,7 +691,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                         thumbnailUrl: helixStream.thumbnailUrl
                     };
 
-                    log(JSON.stringify({traceID: fetchID, event: "stream", channel: channelName, stream: stream}));
+                    console.log(JSON.stringify({traceID: fetchID, event: "stream", channel: channelName, stream: stream}));
 
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
@@ -734,10 +734,10 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
 
                 cachedResults[optionsStr] = result;
                 log(`${endpoint}: Done fetching streams data!`);
-                log(JSON.stringify({traceID: fetchID, event: "done"}));
+                console.log(JSON.stringify({traceID: fetchID, event: "done"}));
                 resolve(result);
             } catch (err) {
-                log(JSON.stringify({traceID: fetchID, event: "failed", error: err}));
+                console.log(JSON.stringify({traceID: fetchID, event: "failed", error: err}));
                 log(`${endpoint}: Failed to fetch streams data:`, err);
                 reject(err);
             }
