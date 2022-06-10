@@ -828,7 +828,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Cornellius Orvid' },
     ],
     MEKABEAR: [
-        { name: '[Detective] Audrey Dusk', factions: ['Law'] },
+        { name: '[Deputy] Audrey Dusk', factions: ['Law'] },
         { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
     ],
     Mhaple_: [
