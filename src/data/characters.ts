@@ -943,6 +943,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Richard Westlake' },
         { name: 'Tripp Riggs' },
     ],
+    Ormais: [
+        { name: 'Lloyd Conway' },
+    ],
     Paracast: [
         { name: 'Erasmus South' },
     ],
