@@ -516,6 +516,8 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                             tagText: serverName.length > 0 ? `::${serverName}::` : '::Other Server::',
                             tagFaction: 'other',
                             // keepCase: true,
+                            thumbnailUrl: helixStream.thumbnailUrl,
+                            startDate: helixStream.startDate
                         };
 
                         nextId++;
