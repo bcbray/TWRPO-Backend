@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto'
+
 import { HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
 
 import { apiClient } from '../../twitchSetup';
@@ -369,6 +371,9 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
         return cachedResults[optionsStr]!;
     }
 
+    const fetchID = randomUUID()
+    log(JSON.stringify({traceID: fetchID, event: "start"}));
+
     if (wrpStreamsPromise[optionsStr] === undefined || override) {
         wrpStreamsPromise[optionsStr] = new Promise<Live>(async (resolve, reject) => {
             try {
@@ -382,6 +387,8 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                 const nowTime = +new Date();
 
                 const gtaStreams: (HelixStream)[] = await getStreams({ searchNum, international }, endpoint);
+
+                log(JSON.stringify({traceID: fetchID, event: "fetched"}));
 
                 log(`${endpoint}: Fetched streams! Now processing data...`);
 
@@ -684,6 +691,8 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                         thumbnailUrl: helixStream.thumbnailUrl
                     };
 
+                    log(JSON.stringify({traceID: fetchID, event: "stream", channel: channelName, stream: stream}));
+
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
                     factionCount.allwildrp++;
@@ -725,8 +734,10 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
 
                 cachedResults[optionsStr] = result;
                 log(`${endpoint}: Done fetching streams data!`);
+                log(JSON.stringify({traceID: fetchID, event: "done"}));
                 resolve(result);
             } catch (err) {
+                log(JSON.stringify({traceID: fetchID, event: "failed", error: err}));
                 log(`${endpoint}: Failed to fetch streams data:`, err);
                 reject(err);
             }
