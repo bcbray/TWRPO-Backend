@@ -37,7 +37,11 @@ app.use('/data', routes.dataRouter);
 app.use('/streams', routes.streamsRouter);
 app.use('/live', routes.liveRouter);
 
-app.use((_req, res) => res.send({ error: 'This is not a valid API endpoint.' }));
+app.get('/', (req, res) => {
+    return res.redirect('https://chrome.google.com/webstore/detail/twitch-wildrp-only/jnbgafpjnfoocapahlkjihjecoaaaikd');
+});
+
+app.use((_req, res) => res.status(404).send({ error: 'This is not a valid API endpoint.' }));
 
 const port = process.env.PORT || 5000;
 
