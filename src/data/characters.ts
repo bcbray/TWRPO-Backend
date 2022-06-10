@@ -132,7 +132,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Wade Kilian' },
     ],
     Beanblanket: [
-        { name: 'Clifford Dawes' },
+        { name: '[Cadet] Clifford Dawes', factions: ['Law'] },
     ],
     BeardofOz: [
         { name: 'Euclid Vane' },
@@ -289,6 +289,9 @@ export const wrpCharacters: WrpCharacters = {
     Coolidge: [
         { name: 'Frank Murdock' },
     ],
+    crocc_: [
+        { name: 'Santino DiCenzo', factions: ['DiCenzo Famiglia'] },
+    ],
     Crom: [
         { name: 'Elias McDurn' },
     ],
@@ -367,6 +370,7 @@ export const wrpCharacters: WrpCharacters = {
     DongerDayz: [
         { name: 'Blue Brows' },
         { name: 'Hubert Timbol' },
+        { name: 'Mean Dillard' },
     ],
     DonnGaston: [
         { name: 'Miguel Hidalgo' },
@@ -385,6 +389,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DrXeroLive: [
         { name: 'Jack Thompson' },
+        { name: 'Maurice Dillard' },
     ],
     DubEkostep: [
         { name: 'Pancho Zapata', nicknames: ['El Cucuy'] },
@@ -494,7 +499,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Freumont: [
         { name: 'Edward Shaw' },
-        { name: 'Leonardo E. Fantoni', factions: ['DiCenzo Famiglia'] }, // TODO: Confirm faction
+        { name: 'Leonardo E. Fantoni', factions: ['DiCenzo Famiglia'] },
     ],
     friendly_chick: [
         { name: 'Angelica "Angel" Ward' },
@@ -1292,6 +1297,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheZenPunk: [
         { name: 'William Brown', nicknames: ['Wild Willy'], displayName: 3 },
+    ],
+    ThinkingQuill: [
+        { name: 'Hymnal Smed' },
     ],
     ThrallJo: [
         { name: 'Corvus Clements' },
