@@ -322,6 +322,7 @@ interface Stream extends BaseStream {
     tagFactionSecondary?: FactionColorsMini;
     videoUrl?: string;
     thumbnailUrl?: string;
+    startDate?: Date;
 }
 
 type FactionCount = { [key in FactionMini]: number };
@@ -690,7 +691,8 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                         factionsMap: Object.assign({}, ...activeFactions.map(faction => ({ [faction]: true }))),
                         tagText,
                         tagFaction,
-                        thumbnailUrl: helixStream.thumbnailUrl
+                        thumbnailUrl: helixStream.thumbnailUrl,
+                        startDate: helixStream.startDate
                     };
 
                     console.log(JSON.stringify({traceID: fetchID, event: "stream", channel: channelName, stream: stream}));
