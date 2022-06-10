@@ -858,7 +858,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Goon Bones', nicknames: ['Goom-Boobie'] },
     ],
     MrMoonsHouse: [
-        { name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4 },
+        { name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4, assumeChar: true },
     ],
     MrPandaaBear: [
         { name: 'Cathal McCarthy' },
@@ -1160,7 +1160,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ed Doyle' },
     ],
     Ssaab: [
-        { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'] },
+        { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true },
         { name: 'Ali Baba', displayName: 0 },
     ],
     stardaze: [
