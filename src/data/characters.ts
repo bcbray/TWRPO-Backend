@@ -181,6 +181,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Boxeryedig: [
         { name: 'Timothy Johnson' },
+        { name: 'Daniel McCormic' },
     ],
     BradWOTO: [
         { name: 'Rufus Lorde' },
