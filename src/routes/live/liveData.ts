@@ -681,6 +681,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                         factionsMap: Object.assign({}, ...activeFactions.map(faction => ({ [faction]: true }))),
                         tagText,
                         tagFaction,
+                        thumbnailUrl: helixStream.thumbnailUrl
                     };
 
                     nextId++;
