@@ -372,6 +372,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
     }
 
     const fetchID = randomUUID()
+    const fetchStart = process.hrtime.bigint();
     console.log(JSON.stringify({traceID: fetchID, event: "start"}));
 
     if (wrpStreamsPromise[optionsStr] === undefined || override) {
@@ -388,7 +389,8 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
 
                 const gtaStreams: (HelixStream)[] = await getStreams({ searchNum, international }, endpoint);
 
-                console.log(JSON.stringify({traceID: fetchID, event: "fetched"}));
+                const fetchEnd = process.hrtime.bigint();
+                console.log(JSON.stringify({traceID: fetchID, event: "fetched", fetchTime: Number((fetchEnd-fetchStart) / BigInt(1e+6))}));
 
                 log(`${endpoint}: Fetched streams! Now processing data...`);
 
@@ -734,10 +736,12 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
 
                 cachedResults[optionsStr] = result;
                 log(`${endpoint}: Done fetching streams data!`);
-                console.log(JSON.stringify({traceID: fetchID, event: "done"}));
+                const parseEnd = process.hrtime.bigint();
+                console.log(JSON.stringify({traceID: fetchID, event: "done", parseTime: Number((parseEnd-fetchEnd) / BigInt(1e+6)), totalTime: Number((parseEnd-fetchStart) / BigInt(1e+6))}));
                 resolve(result);
             } catch (err) {
-                console.log(JSON.stringify({traceID: fetchID, event: "failed", error: err}));
+                const parseEnd = process.hrtime.bigint();
+                console.log(JSON.stringify({traceID: fetchID, event: "failed", error: err, totalTime: Number((parseEnd-fetchStart) / BigInt(1e+6))}));
                 log(`${endpoint}: Failed to fetch streams data:`, err);
                 reject(err);
             }
