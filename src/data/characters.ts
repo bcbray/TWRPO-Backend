@@ -497,6 +497,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Edmund "Eddy" Reddington', factions: ['Sams Club'] },
         { name: 'Henry Huff' },
         { name: 'Joseph Walters' },
+        { name: 'Morris Sterling' },
     ],
     FrankTheTank5494: [
         { name: 'Matthew Isaiah' },
