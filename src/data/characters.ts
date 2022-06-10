@@ -396,7 +396,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Clay' },
     ],
     DustMonkeyGames: [
-        { name: '[Cadet] Charles Slaughter', factions: ['Law'] },
+        { name: '[Deputy] Charles Slaughter', factions: ['Law'] },
         { name: 'Solomon Walker' },
     ],
     dynadivine: [
@@ -828,7 +828,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Cornellius Orvid' },
     ],
     MEKABEAR: [
-        { name: '[Detective] Audrey Dusk', factions: ['Law'] },
+        { name: '[Deputy] Audrey Dusk', factions: ['Law'] },
         { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
     ],
     Mhaple_: [
@@ -858,7 +858,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Goon Bones', nicknames: ['Goom-Boobie'] },
     ],
     MrMoonsHouse: [
-        { name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4 },
+        { name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4, assumeChar: true },
     ],
     MrPandaaBear: [
         { name: 'Cathal McCarthy' },
@@ -1160,7 +1160,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ed Doyle' },
     ],
     Ssaab: [
-        { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'] },
+        { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true },
         { name: 'Ali Baba', displayName: 0 },
     ],
     stardaze: [
