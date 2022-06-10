@@ -396,7 +396,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Clay' },
     ],
     DustMonkeyGames: [
-        { name: '[Cadet] Charles Slaughter', factions: ['Law'] },
+        { name: '[Deputy] Charles Slaughter', factions: ['Law'] },
         { name: 'Solomon Walker' },
     ],
     dynadivine: [
