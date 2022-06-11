@@ -675,6 +675,9 @@ export const wrpCharacters: WrpCharacters = {
     JamesWob: [
         { name: 'Benjamin Jameson' },
     ],
+    JaneDizzle: [
+        { name: 'Jane Pebbleswood' },
+    ],
     JarlOfGoats: [
         { name: 'Gabriel Lenihan' },
     ],
