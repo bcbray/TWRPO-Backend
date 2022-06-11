@@ -498,6 +498,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Henry Huff' },
         { name: 'Joseph Walters' },
         { name: 'Morris Sterling' },
+        { name: 'Chester Fox' },
     ],
     FrankTheTank5494: [
         { name: 'Matthew Isaiah' },
@@ -1313,6 +1314,9 @@ export const wrpCharacters: WrpCharacters = {
     TheStreetMagnet: [
         { name: 'Josiah Shepard' },
     ],
+    TheTofuSamurai: [
+        { name: 'Jimothy James' },
+    ],
     TheZenPunk: [
         { name: 'William Brown', nicknames: ['Wild Willy'], displayName: 3 },
     ],
@@ -1325,6 +1329,9 @@ export const wrpCharacters: WrpCharacters = {
     TiltedSun: [
         { name: 'Madison Windward' },
         { name: 'Clem Griffiths' },
+    ],
+    Timmac: [
+        { name: 'Gomer Colton' },
     ],
     tmcrane: [
         { name: 'Lucius Bickmore' },
