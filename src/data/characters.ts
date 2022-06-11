@@ -842,6 +842,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Bobby Brampton' },
         { name: 'Dmitri Crenshaw' },
         { name: 'Marty Hanes' },
+        { name: 'Ernie Crabgrass' },
     ],
     MaverickHavoc: [
         { name: 'Cornellius Orvid' },
