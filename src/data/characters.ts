@@ -213,7 +213,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Henry Gearhardt' },
     ],
     Burn: [
-        { name: 'Lloyd Chambers' },
+        { name: 'Lloyd Chambers', nicknames: ['The Ghost'] },
     ],
     BurtLington: [
         { name: '[Sheriff] Marty Malone', factions: ['Law'] },
@@ -487,6 +487,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Karl Casterbane' },
         { name: 'Richard Flemington' },
         { name: 'Theodore Timers' },
+        { name: 'William Killmore' },
     ],
     Flickerclad: [
         { name: 'Evangeline Thorne' },
