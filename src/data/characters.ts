@@ -742,6 +742,9 @@ export const wrpCharacters: WrpCharacters = {
     Kouts3: [
         { name: 'Felix Colt' },
     ],
+    KristoferYee: [
+        { name: 'Posie Tiv' },
+    ],
     ksinz: [
         { name: '[Deputy] Syles MacKenna', factions: ['Law'] },
         { name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
