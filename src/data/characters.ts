@@ -537,6 +537,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GeneralEmu: [
         { name: 'Lance Divine' },
+        { name: 'Jimmy Avola', nicknames: ['Two Times'] },
     ],
     GeorgiaBanks: [
         { name: 'Georgia Banks' },
@@ -775,6 +776,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Inessa Bornlof', nicknames: ['Miss Match'] },
         { name: 'Riley Rivens' },
         { name: 'Tantallia Tippins' },
+    ],
+    leoDOTmae: [
+        { name: 'Eleanor Cain' },
     ],
     LetterJaye: [
         { name: 'Wisteria Snowdon' },
