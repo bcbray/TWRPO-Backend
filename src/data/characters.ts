@@ -153,7 +153,7 @@ export const wrpCharacters: WrpCharacters = {
     BitterRabbit: [
         { name: 'Eliza Kerrigan' },
         { name: 'Grace Shelton' },
-        { name: '[Cadet] Kate Hearst', factions: ['Law'] },
+        { name: '[Deputy] Kate Hearst', factions: ['Law'] },
         { name: 'Sam Caldwell' },
     ],
     blackhawkgamiing: [
