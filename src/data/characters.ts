@@ -1329,6 +1329,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'William Brown', nicknames: ['Wild Willy'], displayName: 3 },
     ],
     ThinkingQuill: [
+        { name: 'Cian Malloy' },
         { name: 'Hymnal Smed' },
     ],
     ThrallJo: [
@@ -1404,7 +1405,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dr. C.J Matthews' },
     ],
     WANTED_MANIAC: [
-        { name: 'Brian Wright', factions: ['Law'] },
+        { name: '[Deputy] Brian Wright', factions: ['Law'] },
         { name: 'Taylor Hicks' },
         { name: 'William Carver', nicknames: ['Bill'] },
     ],
