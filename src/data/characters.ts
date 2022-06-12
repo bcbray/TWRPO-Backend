@@ -751,6 +751,9 @@ export const wrpCharacters: WrpCharacters = {
     Kouts3: [
         { name: 'Felix Colt' },
     ],
+    KripkeyTV: [
+        { name: 'Sergio Scarpatti', factions: ['DiCenzo Famiglia'] },
+    ],
     KristoferYee: [
         { name: 'Posie Tiv' },
     ],
@@ -1293,6 +1296,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheCourtJester: [
         { name: 'Dr. Nikolai' },
+    ],
+    TheDasTony: [
+        { name: 'Antonio "Tony" Salerno', factions: ['DiCenzo Famiglia'] },
     ],
     TheFoodcartGamer: [
         { name: 'Felix Ellis' },
