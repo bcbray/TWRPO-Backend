@@ -1037,6 +1037,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Cole Dalton' },
         { name: 'Furio Bonanno' },
     ],
+    Roach_tm: [
+        { name: 'Tony Moretti' },
+    ],
     rosco: [
         { name: 'Awkward Johnson', displayName: 0 },
         { name: 'Frank Church' },
