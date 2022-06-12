@@ -240,7 +240,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Percy Peanut' },
     ],
     CarbonitePlays: [
-        { name: 'Evan Madeley', factions: ['Law'] },
+        { name: '[Deputy] Evan Madeley', factions: ['Law'] },
         { name: 'Karl North' },
         { name: 'Lance Irwin' },
         { name: 'Mervyn Castor' },
