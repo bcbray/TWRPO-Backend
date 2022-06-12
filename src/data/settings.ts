@@ -12,7 +12,7 @@ export const regWrp = /(?:wild\s*rp|\bwrp\b)(?![\s\-]*(?:inspired|based|like|ban
 export const regOthers = [
 	{ name: 'Sundance RP', reg: /\bsd\s*rp|sundance\s*(?:rp\b|roleplay)/i, include: 1 },
 	{ name: 'Sundown RP', reg: /\bsundown\s*(?:rp\b|roleplay)/i, include: 1 },
-	{ name: 'NewCenturyRP', reg: /\bnc\s*rp|\bnewcentury\s*(?:rp\b|roleplay)/i, include: 1 },
+	{ name: 'NewCenturyRP', reg: /\bnc\s*rp|\bnew\s*century\s*(?:rp\b|roleplay)/i, include: 1 },
 	{ name: 'New Valley RP', reg: /\bnew\s*valley\s*(?:rp\b|roleplay)/i, include: 1 },
 	{ name: 'Wild West RP', reg: /\bww\s*rp|\bwild\s*west\s*(?:rp\b|roleplay)/i, include: 1 },
 	{ name: 'Haven\'s Crest RP', reg: /\bhaven'?s\s+crest\s+(?:rp\b|roleplay)/i, include: 1 },
