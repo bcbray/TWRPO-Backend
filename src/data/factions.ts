@@ -158,7 +158,7 @@ const filterOrder: { [key in FactionMini]?: number } = Object.assign(
     ...filterOrderAfterNoColor.map((mini, index) => ({ [mini]: 3000 + index + 1 }))
 );
 
-const filterRename: { [key in FactionMini]?: string } = {
+export const filterRename: { [key in FactionMini]?: string } = {
     allwildrp: 'All WildRP (Default)',
     alltwitch: 'All Twitch (No Filtering)',
 	law: 'Law',

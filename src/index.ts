@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
+import path from 'path';
 
 import { log } from './utils';
 import routes from './routes';
@@ -26,7 +27,7 @@ app.use((req, res, next) => {
     }
 });
 
-app.get('/test', (req, res) => {
+app.get('/test', (_, res) => {
     log('/test');
     return res.send('test');
 });
@@ -37,11 +38,15 @@ app.use('/data', routes.dataRouter);
 app.use('/streams', routes.streamsRouter);
 app.use('/live', routes.liveRouter);
 
-app.get('/', (req, res) => {
+app.use('/api/v2/characters', routes.v2CharactersRouter);
+
+app.get('/', (_, res) => {
     return res.redirect('https://chrome.google.com/webstore/detail/twitch-wildrp-only/jnbgafpjnfoocapahlkjihjecoaaaikd');
 });
 
-app.use((_req, res) => res.status(404).send({ error: 'This is not a valid API endpoint.' }));
+app.use(express.static(path.resolve('frontend', 'build')));
+
+app.get('*', (_, res) => res.sendFile(path.resolve('frontend', 'build', 'index.html')));
 
 const port = process.env.PORT || 5000;
 
