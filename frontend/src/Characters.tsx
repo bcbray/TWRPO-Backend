@@ -18,7 +18,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
 
   const filteredCharacters = (() => {
     const characters = data.characters;
-    const filterText = searchParams.get('search') || ''
+    const filterText = searchParams.get('search')?.toLowerCase() || ''
     const filtered = (factionKey === undefined && filterText.length === 0)
       ? characters
       : characters.filter(character =>
