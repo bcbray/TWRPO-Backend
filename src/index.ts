@@ -37,6 +37,8 @@ app.use('/data', routes.dataRouter);
 app.use('/streams', routes.streamsRouter);
 app.use('/live', routes.liveRouter);
 
+app.use('/api/v2/characters', routes.v2CharactersRouter);
+
 app.get('/', (req, res) => {
     return res.redirect('https://chrome.google.com/webstore/detail/twitch-wildrp-only/jnbgafpjnfoocapahlkjihjecoaaaikd');
 });
