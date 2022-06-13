@@ -1161,7 +1161,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Raven Bennett' },
     ],
     Sock22: [
-        { name: 'Daniel Moss' },
+        { name: 'Daniel "Danny" Moss' },
     ],
     SolidSinn: [
         { name: 'Carl Lawsen' },
