@@ -289,6 +289,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Coolidge: [
         { name: 'Frank Murdock' },
+        { name: 'Cash Colton' },
     ],
     crocc_: [
         { name: 'Santino DiCenzo', factions: ['DiCenzo Famiglia'] },
@@ -888,6 +889,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MrMoonsHouse: [
         { name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4, assumeChar: true },
+        { name: 'Kang Colton' },
     ],
     MrPandaaBear: [
         { name: 'Cathal McCarthy' },
