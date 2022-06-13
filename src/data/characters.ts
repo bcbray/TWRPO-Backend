@@ -1101,6 +1101,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Cadet] Ned Fuller', factions: ['Law'] },
         { name: 'Nick Carver' },
     ],
+    Selvek: [
+        { name: 'Clayton Colton' },
+    ],
     SencneS: [
         { name: 'Desmond Potts' },
     ],
