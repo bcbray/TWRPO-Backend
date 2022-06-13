@@ -967,6 +967,9 @@ export const wrpCharacters: WrpCharacters = {
     ohnopojo: [
         { name: 'Billy Kim' },
     ],
+    oldkelvo: [
+        { name: 'Jack Crow' },
+    ],
     Orcish: [
         { name: '[Deputy] Allistair McGregor', factions: ['Law'] },
         { name: 'Billy Beetur' },
