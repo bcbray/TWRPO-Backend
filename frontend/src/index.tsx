@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 import CharactersContainer from './CharactersContainer';
+import NotFound from './NotFound';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ root.render(
           <Route path="/characters" element={<CharactersContainer />}>
             <Route path=":factionKey" element={<CharactersContainer />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
