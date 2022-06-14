@@ -128,6 +128,10 @@ export const wrpCharacters: WrpCharacters = {
     bananabrea: [
         { name: 'Josephine Gold' },
     ],
+    barrybogan: [
+        { name: 'Bernard "Bernie" Bogan' },
+        { name: 'Jack Doolan' },
+    ],
     BASHZOR: [
         { name: 'Wade Kilian' },
     ],
@@ -474,7 +478,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Clementine Fisher' },
     ],
     feardeer: [
-        { name: 'Sloan' }, // TODO: Full name (covered by bars on char selection screen)
+        { name: 'Bryn "Sloan" Keith' },
     ],
     FhaeLin: [
         { name: '[Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 },
@@ -797,7 +801,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Wisteria Snowdon' },
     ],
     LiteralBear: [
-        { name: 'Marcus' }, // TODO: Last name?
+        { name: 'Marcus Danner' },
         { name: '[Deputy] Negan McAlister', factions: ['Law'], displayName: 1 },
     ],
     Lithiaris: [
@@ -822,7 +826,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Alex Mystic' },
     ],
     Lunabee: [
-        { name: 'Abigale' }, // TODO: Last name?
+        { name: 'Abigale Hart' },
     ],
     Lyndi: [
         { name: 'Delilah Deveaux' },
@@ -1288,6 +1292,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jim Sky' },
         { name: 'Felix Nileson' },
     ],
+    The_Mountain_Troll: [
+        { name: 'Basey "Red" Bohannon' },
+    ],
     TheAaronShaq: [
         { name: 'Kenneth Randall', nicknames: ['Ricky'], displayName: 3 },
     ],
@@ -1432,6 +1439,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     WestCoastWayne: [
         { name: 'Ervin Haywood' },
+        { name: 'Charles "Smoke" Dunn' },
     ],
     weyutv: [
         { name: 'Alawa Meota', nicknames: ['Ali'], displayName: 3 },
