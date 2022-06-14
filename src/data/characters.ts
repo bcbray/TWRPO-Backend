@@ -223,7 +223,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     calibriggs: [
         { name: 'Henry Baptiste' },
-        { name: 'Joseph Parrish', factions: ['Law'] },
+        { name: '[Deputy] Joseph Parrish', factions: ['Law'] },
     ],
     CallieCakez: [
         { name: '[Ranger] Amelie Ashton', factions: ['Rangers'] },
@@ -307,7 +307,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Grover Carlson' },
     ],
     DangitLacie: [
-        { name: 'Doreen Pavus', factions: ['Law'] },
+        { name: '[Deputy] Doreen Pavus', factions: ['Law'] },
         { name: 'Judith Amerine' },
         { name: 'Kid Kelley' },
     ],
@@ -572,6 +572,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '"LJ" Little Jimothy', nicknames: ['Kid', 'Young'] },
         { name: '[Detective] Homer Carnes', factions: ['Law'], nicknames: ['Cop'] },
         { name: 'Clayton Orwell' },
+        { name: 'Herbert Parker' },
     ],
     GraveGamerTV: [
         { name: 'Paulson Greer' },
@@ -1333,7 +1334,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Nate Casey', factions: ['Kettleman Gang'] },
     ],
     TheRandomChick: [
-        { name: 'Bella Trix', nicknames: ['Bellatrix'], displayName: 3 },
+        { name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'] },
         { name: 'Poppet Deveaux' },
     ],
     TheStreetMagnet: [
