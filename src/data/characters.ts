@@ -527,7 +527,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Freumont: [
         { name: 'Edward Shaw' },
-        { name: 'Leonardo E. "Leo" Fantoni, factions: ['DiCenzo Famiglia'] },
+        { name: 'Leonardo E. "Leo" Fantoni', factions: ['DiCenzo Famiglia'] },
     ],
     friendly_chick: [
         { name: 'Angelica "Angel" Ward' },
