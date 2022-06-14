@@ -35,7 +35,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Maverik Stone' },
     ],
     abbbz: [
-        { name: 'Francesca Romano', factions: ['Law'] },
+        { name: '[Deputy] Francesca Romano', factions: ['Law'] },
         { name: 'Sanjay Patel' },
         { name: 'Mrs. Goose', displayName: 0 }, // TODO: First name?
     ],
@@ -45,6 +45,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     aDarkFilly: [
         { name: 'Magnolia' },
+    ],
+    Aero_Films: [
+        { name: 'Skeeter Carlisle' },
     ],
     Aestannar: [
         { name: 'Arthur Jones' },
@@ -62,7 +65,7 @@ export const wrpCharacters: WrpCharacters = {
     AM_Raid: [
         { name: 'Cain Lockhart' },
         { name: 'Clifford Buck' },
-        { name: 'Giorgio Santorelli', factions: ['Law'] },
+        { name: '[Deputy] Giorgio Santorelli', factions: ['Law'] },
         { name: 'Raul Sanchez' },
     ],
     AngelKnivez: [
@@ -83,7 +86,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ArmoredAndy: [
         { name: 'Buzz Buxton' },
-        { name: 'Adolf Hofcooperstedder', nicknames: ['Dolfie'], displayName: 3 },
+        { name: 'Adolf "Dolfie" Hofcooperstedder' },
         { name: 'Moose' },
     ],
     AtomosCLU: [
@@ -102,7 +105,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     aviceration: [
         { name: 'Ella Mason' },
-        { name: 'Vincencia Romeo', nicknames: ['Vinnie'], displayName: 3 },
+        { name: 'Vincencia "Vinnie" Romeo' },
         { name: 'Kitty LaRoux' },
     ],
     Avioto_: [
@@ -217,7 +220,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Henry Gearhardt' },
     ],
     Burn: [
-        { name: 'Lloyd Chambers', nicknames: ['The Ghost'] },
+        { name: 'Lloyd "The Ghost" Chambers' },
     ],
     BurtLington: [
         { name: '[Sheriff] Marty Malone', factions: ['Law'] },
@@ -234,7 +237,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     CapitalOGttv: [
         { name: 'Franklin Costella' },
-        { name: 'James Black', nicknames: ['Jimi'], displayName: 3 },
+        { name: 'James "Jimi" Black' },
     ],
     CaptainMeef: [
         { name: 'Casey Jones' },
@@ -254,7 +257,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Larry Brown' },
     ],
     CaseFace5: [
-        { name: 'Willie Walker', nicknames: ['Gramps'] },
+        { name: 'Willie "Gramps" Walker' },
     ],
     charlieblossom: [
         { name: 'Katarina Lovette' },
@@ -301,6 +304,9 @@ export const wrpCharacters: WrpCharacters = {
     Crom: [
         { name: 'Elias McDurn' },
     ],
+    CyboargTV: [
+        { name: 'Porter ONeill' },
+    ],
     DadnOut: [
         { name: 'Cletus Clifton' },
     ],
@@ -335,6 +341,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DatVoiceGuy: [
         { name: 'Alejandro Ariez' },
+        { name: 'Luther Van Dam' },
     ],
     Daveybe: [
         { name: 'Pip Delahan', factions: ['Kettleman Gang'] },
@@ -348,9 +355,12 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Sam Rosco' },
     ],
     DetectiveDoorag: [
-        { name: '[Deputy] Kramer', factions: ['Law'] },
+        { name: '[Deputy] Casey Kramer', factions: ['Law'] },
         { name: 'Beau Wilder' },
         { name: 'Colt Clifford' },
+    ],
+    Dimitri: [
+        { name: 'Clem Colton' },
     ],
     Dimoak: [
         { name: 'Fiddleford "Phil" Mackit' },
@@ -380,6 +390,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Blue Brows' },
         { name: 'Hubert Timbol' },
         { name: 'Mean Dillard' },
+        { name: 'Stranger' },
+        { name: 'Garibaldi' },
     ],
     DonnGaston: [
         { name: 'Miguel Hidalgo' },
@@ -401,7 +413,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Maurice Dillard' },
     ],
     DubEkostep: [
-        { name: 'Pancho Zapata', nicknames: ['El Cucuy'] },
+        { name: 'Pancho "El Cucuy" Zapata' },
     ],
     DukeOfFlukes: [
         { name: 'Alexander Poe' },
@@ -430,7 +442,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     embernocte: [
         { name: '[Deputy] Saffron Mitchell', factions: ['Law'] },
-        { name: 'Crissy Blitz', nicknames: ['Cricket'] },
+        { name: 'Crissy "Cricket" Blitz' },
         { name: 'Holly Frost' },
         { name: 'Sadhbh O\'Brien', factions: ['The Humble Bunch'] },
     ],
@@ -505,13 +517,14 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Joseph Walters' },
         { name: 'Morris Sterling' },
         { name: 'Chester Fox' },
+        { name: 'Edmund Reddington' },
     ],
     FrankTheTank5494: [
         { name: 'Matthew Isaiah' },
     ],
     Freumont: [
         { name: 'Edward Shaw' },
-        { name: 'Leonardo E. Fantoni', factions: ['DiCenzo Famiglia'] },
+        { name: 'Leonardo E. "Leo" Fantoni, factions: ['DiCenzo Famiglia'] },
     ],
     friendly_chick: [
         { name: 'Angelica "Angel" Ward' },
@@ -520,7 +533,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Lillian Frost' },
     ],
     FrostFromFire: [
-        { name: 'Bianca Mackenna' },
+        { name: '[Doctor] Bianca Mackenna', factions: ['Medical'] },
     ],
     FunnyMatters: [
         { name: 'Clint Brimshaw' },
@@ -551,12 +564,12 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GlitchedHelix: [
         { name: 'Ada Standish' },
-        { name: 'Mya Ennis' },
+        { name: '[Doctor] Mya Ennis', factions: ['Medical'] },
         { name: 'Rubella Davies' },
     ],
     glitchy: [
         { name: 'James Faraday' },
-        { name: 'Raymond Willis', nicknames: ['Rayray'] },
+        { name: 'Raymond "Rayray" Willis' },
     ],
     GmanRBI: [
         { name: 'Max Brady', factions: ['Sams Club'] },
@@ -600,7 +613,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'James Connor' },
     ],
     HaCha_art: [
-        { name: 'Ava Jimenes', nicknames: ['La Nina'] },
+        { name: 'Ava "La Nina" Jimenes' },
     ],
     HanyClaps: [
         { name: 'Levi Sawyer' },
@@ -632,15 +645,16 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Barry Bjornson', factions: ['Sams Club'] },
         { name: 'Clyde Davis' },
         { name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'] },
-        { name: 'Miles Gyles', factions: ['Law'] },
+        { name: '[Deputy] Miles Gyles', factions: ['Law'] },
     ],
     IanMMori: [
-        { name: 'Enrique Vespucci', factions: ['Law'] },
+        { name: '[Deputy] Enrique Vespucci', factions: ['Law'] },
         { name: 'Ewan Byrne' },
+        { name: 'Jonathan Coiner' },
         { name: 'Nate Coiner' },
     ],
     ianriveras: [
-        { name: 'Hugo' },
+        { name: 'Hugo Teach' },
     ],
     IboonI: [
         { name: 'Elias Boon' },
@@ -659,15 +673,15 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Kayce Smith' },
     ],
     ItsAsaii: [
-        { name: 'Buck Montana', factions: ['Law'] },
+        { name: '[Deputy] Buck Montana', factions: ['Law'] },
         { name: 'Calvin Oakes' },
         { name: 'Eli Ryckman' },
         { name: 'Shaine Calhoun' },
         { name: 'Wayne Kavanaugh' },
     ],
     Iwhuttt: [
+        { name: 'Archibald Welch' },
         { name: 'Houston Gray' },
-        { name: 'Archibald' },
     ],
     J0J0: [
         { name: 'Delilah Kane' },
@@ -693,7 +707,7 @@ export const wrpCharacters: WrpCharacters = {
     JayBritton: [
         { name: 'Heath Marker-Brown' },
         { name: 'Lucius Alabaster' },
-        { name: 'Obidiah Colt', factions: ['Law'] },
+        { name: '[Deputy] Obidiah Colt', factions: ['Law'] },
         { name: 'Scooter Brown' },
     ],
     Jennybeartv: [
@@ -701,7 +715,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     JesterTheRyda: [
         { name: 'Jordin Bradley' },
-        { name: 'Joseph Silvers', nicknames: ['Hobo Joe'] },
+        { name: 'Joseph "Hobo Joe" Silvers' },
         { name: 'Margrett Anderson' },
     ],
     johnnyblamz: [
@@ -743,7 +757,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Tommy Cooper' },
     ],
     KillrBeauty: [
-        { name: 'Deborah VanBurton', nicknames: ['Deb'], displayName: 3 },
+        { name: 'Deborah "Deb" VanBurton' },
     ],
     KinkyHobo: [
         { name: 'Emmett Edwards' },
@@ -772,7 +786,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ren Solo' },
     ],
     Kyltrex: [
-        { name: 'Louis Lancaster', nicknames: ['Louie'], displayName: 3 },
+        { name: 'Louis "Louie" Lancaster' },
     ],
     KyQuinn: [
         { name: 'Carmen Beckett' },
@@ -787,10 +801,10 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Tavish Black' },
     ],
     LEAH: [
-        { name: 'Francesca Bright', nicknames: ['Checkers'] },
+        { name: 'Francesca "Checkers" Bright' },
     ],
     Lendermations: [
-        { name: 'Inessa Bornlof', nicknames: ['Miss Match'] },
+        { name: 'Inessa "Miss Match" Bornlof' },
         { name: 'Riley Rivens' },
         { name: 'Tantallia Tippins' },
     ],
@@ -805,7 +819,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Negan McAlister', factions: ['Law'], displayName: 1 },
     ],
     Lithiaris: [
-        { name: 'Lark Atwood', factions: ['Medical'] },
+        { name: '[Doctor] Lark Atwood', factions: ['Medical'] },
         { name: 'Sylvie Chevalier' },
     ],
     ll_Marziano_ll: [
@@ -873,7 +887,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Gladys Berry' },
     ],
     MinksOfMars: [
-        { name: 'Irene Corvis', factions: ['Sams Club'], nicknames: ['Peaches'], displayName: 3 },
+        { name: 'Irene "Peaches" Corvis', factions: ['Sams Club'] },
         { name: 'Ana Stravinski' },
     ],
     mishkaxoxo: [
@@ -890,7 +904,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Orland Boggs' },
     ],
     MrGoonBones: [
-        { name: 'Goon Bones', nicknames: ['Goom-Boobie'] },
+        { name: 'Goon "Goom-Boobie" Bones' },
     ],
     MrMoonsHouse: [
         { name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4, assumeChar: true },
@@ -917,7 +931,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Mythematic: [
         { name: 'Ben Bealz' },
-        { name: 'Chauncy Charles', nicknames: ['The Barman'] },
+        { name: 'Chauncy "The Barman" Charles' },
         { name: 'Cooper Garret' },
         { name: 'Jack Woulfe' },
         { name: 'Pikup Dropov' },
@@ -932,8 +946,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Peter Rockwell' },
     ],
     NiaDrools: [
-        { name: 'Madeline Maddox', nicknames: ['Moxy'], displayName: 3 },
-        { name: 'Edith Gretchen', nicknames: ['Ed'], displayName: 3 },
+        { name: 'Madeline "Moxy" Maddox' },
+        { name: 'Edith "Ed" Gretchen' },
         { name: 'Snow' },
     ],
     Nidas: [
@@ -962,12 +976,13 @@ export const wrpCharacters: WrpCharacters = {
     ],
     nziech: [
         { name: 'Kuniklo' },
+        { name: 'Orpheus "Buck" Buck' },
     ],
     og_cush00: [
         { name: 'Walter Bridges' },
     ],
     ohheyliam: [
-        { name: 'Oliver Quil', nicknames: ['Ollie'], displayName: 3 },
+        { name: 'Oliver "Ollie" Quil' },
     ],
     ohnopojo: [
         { name: 'Billy Kim' },
@@ -1033,7 +1048,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Sheriff] Lydia Lewis', factions: ['Law'] },
     ],
     Quip_TV: [
-        { name: 'Dove Hopkins', factions: ['Law'] },
+        { name: '[Deputy] Dove Hopkins', factions: ['Law'] },
         { name: 'Sally Higgins', nicknames: ['Shotgun'] },
     ],
     RayforRachel: [
@@ -1060,8 +1075,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dominic Aldizousa', factions: ['DiCenzo Famiglia'] },
     ],
     RY4N: [
-        { name: 'Christine Thomas', nicknames: ['Momma'], displayName: 3 },
-        { name: 'Joe Burns', nicknames: ['Moonshine Joe'] },
+        { name: 'Christine "Momma" Thomas' },
+        { name: 'Joe "Moonshine Joe" Burns' },
         { name: 'Randy Randy' },
         { name: 'Thomas Church' },
     ],
@@ -1142,7 +1157,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Stefano Amendo' },
     ],
     SilentSentry: [
-        { name: 'Emmet Wagner', nicknames: ['Stripes'], displayName: 3 },
+        { name: 'Emmet "Stripes" Wagner' },
     ],
     SinnixTv: [
         { name: 'Frank Brower' },
@@ -1159,13 +1174,13 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Billy Joe Barber', nicknames: ['Billy Joe', 'BJB'], displayName: 4 },
     ],
     SLiMt: [
-        { name: 'Jimmy Slimper', nicknames: ['Slim Jim'] },
+        { name: 'Jimmy "Slim Jim" Slimper' },
     ],
     sneakyShadower: [
-        { name: 'Abigail Jones', factions: ['Law'] },
+        { name: '[Deputy] Abigail Jones', factions: ['Law'] },
         { name: 'Azula Brooks' },
-        { name: 'Isabella Vautour' },
-        { name: 'Jackie Lockwood', factions: ['Law'] },
+        { name: '[Doctor] Isabella Vautour', factions: ['Medical'] },
+        { name: '[Deputy] Jackie Lockwood', factions: ['Law'] },
         { name: 'Raven Bennett' },
     ],
     Sock22: [
@@ -1186,7 +1201,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jean Rivers' },
     ],
     SpaceAndromeda: [
-        { name: 'Aoife McCarthy', factions: ['Law'] },
+        { name: '[Deputy] Aoife McCarthy', factions: ['Law'] },
         { name: 'Clarabelle Manson' },
         { name: 'Cora Crow' },
     ],
@@ -1204,8 +1219,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Butch Marlow' },
     ],
     spriteleah: [
-        { name: 'Francesca Bright', nicknames: ['Frankie'], displayName: 3 },
-        { name: 'Harriet Hawkins', nicknames: ['Hawk'], displayName: 3 },
+        { name: 'Francesca "Frankie" Bright' },
+        { name: 'Harriet "Hawk" Hawkins' },
     ],
     squareiz: [
         { name: 'Ed Doyle' },
@@ -1255,16 +1270,16 @@ export const wrpCharacters: WrpCharacters = {
     tanklovesyou: [
         { name: 'Ethan Cross' },
         { name: 'Eugene Goodman' },
-        { name: 'Jean-Pierre Lefrancois', factions: ['Law'] },
-        { name: 'Julius Bradshaw', nicknames: ['Jade King'] },
-        { name: 'Rico Ortega', factions: ['Law'] },
+        { name: '[Deputy] Jean-Pierre Lefrancois', factions: ['Law'] },
+        { name: 'Julius "The Jade King" Bradshaw' },
+        { name: '[Mershal] Rico Ortega', factions: ['Law'] },
     ],
     Taranix: [
         { name: 'Mattias Temble' },
     ],
     Tasara22: [
         { name: 'Betty Butcher' },
-        { name: 'Jane Ripley', factions: ['Law'] },
+        { name: '[Deputy] Jane Ripley', factions: ['Law'] },
         { name: 'Madame Milena' },
         { name: 'Monica Peach' },
         { name: 'Oneida Zonta' },
@@ -1296,10 +1311,10 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Basey "Red" Bohannon' },
     ],
     TheAaronShaq: [
-        { name: 'Kenneth Randall', nicknames: ['Ricky'], displayName: 3 },
+        { name: 'Kenneth "Ricky" Randall' },
     ],
     TheAmelina: [
-        { name: 'Elisabeth Beauregard', nicknames: ['Ellie'], displayName: 3 },
+        { name: 'Elisabeth "Ellie" Beauregard' },
     ],
     TheBanditKingUK: [
         { name: 'Damien Gallagher' },
@@ -1351,7 +1366,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jimothy James' },
     ],
     TheZenPunk: [
-        { name: 'William Brown', nicknames: ['Wild Willy'], displayName: 3 },
+        { name: 'William "Wild Willy" Brown' },
     ],
     ThinkingQuill: [
         { name: 'Cian Malloy' },
@@ -1379,11 +1394,11 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Samson Graves' },
     ],
     toodlehausn: [
-        { name: 'Adelae Wright', nicknames: ['Ada'], displayName: 3 },
+        { name: 'Adelae "Ada" Wright' },
         { name: 'Sadie Stronge' },
     ],
     travpiper: [
-        { name: 'William Gunner', nicknames: ['Bill', 'Carlos Sanchez', 'Carlos'], displayName: 3 },
+        { name: 'William "Bill" Gunner', nicknames: ['Bill', 'Carlos Sanchez', 'Carlos'] },
     ],
     TullyCuffs: [
         { name: 'Hugo Hopper' },
@@ -1397,7 +1412,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Rooporian Roo', factions: ['Independent', 'Guppy Gang'], displayName: 2 },
     ],
     UberJazer: [
-        { name: 'Nahmala Wolfe', nicknames: ['Wolf'] },
+        { name: 'Nahmala "Wolf" Wolfe' },
     ],
     unstoppableLARN: [
         { name: 'Gertrude Cockburn' },
@@ -1432,7 +1447,7 @@ export const wrpCharacters: WrpCharacters = {
     WANTED_MANIAC: [
         { name: '[Deputy] Brian Wright', factions: ['Law'] },
         { name: 'Taylor Hicks' },
-        { name: 'William Carver', nicknames: ['Bill'] },
+        { name: 'William "Bill" Carver' },
     ],
     Warthog155: [
         { name: 'Porter ONeill' },
@@ -1442,7 +1457,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Charles "Smoke" Dunn' },
     ],
     weyutv: [
-        { name: 'Alawa Meota', nicknames: ['Ali'], displayName: 3 },
+        { name: 'Alawa "Ali" Meota' },
     ],
     WingTroker: [
         { name: 'Bert Silver' },
