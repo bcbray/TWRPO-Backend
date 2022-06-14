@@ -733,7 +733,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jeremiah Harth' },
     ],
     JustSam42: [
-        { name: 'Nathan Thompson' },
+        { name: '[Ranger] Nathan Thompson', factions: ['Rangers'] },
     ],
     JustxJodi: [
         { name: 'Minnie Mines' },
