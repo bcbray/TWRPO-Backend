@@ -304,6 +304,9 @@ export const wrpCharacters: WrpCharacters = {
     Crom: [
         { name: 'Elias McDurn' },
     ],
+    cruddycheese: [
+        { name: 'Donald McMuffin' },
+    ],
     CyboargTV: [
         { name: 'Porter ONeill' },
     ],
