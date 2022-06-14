@@ -741,7 +741,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                 cachedResults[optionsStr] = result;
                 log(`${endpoint}: Done fetching streams data!`);
                 const parseEnd = process.hrtime.bigint();
-                console.log(JSON.stringify({traceID: fetchID, event: "done", parseTime: Number((parseEnd-fetchEnd) / BigInt(1e+6)), totalTime: Number((parseEnd-fetchStart) / BigInt(1e+6))}));
+                console.log(JSON.stringify({traceID: fetchID, event: "done", factionCount: factionCount, parseTime: Number((parseEnd-fetchEnd) / BigInt(1e+6)), totalTime: Number((parseEnd-fetchStart) / BigInt(1e+6))}));
                 resolve(result);
             } catch (err) {
                 const parseEnd = process.hrtime.bigint();
