@@ -380,6 +380,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Timmy Took' },
         { name: 'Dolly Dixon' },
     ],
+    DJADIP: [
+        { name: 'Juan Pablo' },
+    ],
     DjinnJee: [
         { name: 'Jack Burton' },
     ],
