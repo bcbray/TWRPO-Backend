@@ -6,6 +6,7 @@ import { mapObjKeys } from '../../utils';
 import { getWrpLive } from './liveData';
 
 import type { RecordGen } from '../../utils';
+import { cloneDeepJson, log } from '../../utils'
 
 const router = Router();
 
@@ -19,7 +20,8 @@ router.get('/', async (req, res) => {
         undefined, '/live'
     );
     if (!req.header('TWRPO-Extension-Version')) {
-        console.log("Sending old baseHtml");
+        log("Sending old baseHtml");
+        live = cloneDeepJson(live) as typeof live;
         // If there's no extension version, assume we're <= 1.13.4
         // and send the old baseHtml (as it's slightly less broken
         // than the new baseHtml with the old extension)
