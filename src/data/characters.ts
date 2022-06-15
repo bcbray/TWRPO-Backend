@@ -724,6 +724,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Joseph "Hobo Joe" Silvers' },
         { name: 'Margrett Anderson' },
     ],
+    Jogiiee: [
+        { name: 'Eloise Carter' },
+    ],
     johnnyblamz: [
         { name: 'Gavin Summers' },
         { name: 'Jody Quinn' },
@@ -1027,6 +1030,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Caroline Kroll' },
         { name: 'Kelly Crockett' },
         { name: 'Dorothy Dean' },
+        { name: 'Violet Rockefeller' },
     ],
     Pinkfie: [
         { name: 'Abigail Burke' },
@@ -1119,6 +1123,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Allison Chase' },
         { name: 'Bella Baker' },
         { name: 'Zoe Winters' },
+    ],
+    ScottJitsu: [
+        { name: 'Reno Cash' },
     ],
     Scriffboy: [
         { name: 'Tane' },
@@ -1377,6 +1384,9 @@ export const wrpCharacters: WrpCharacters = {
     ThinkingQuill: [
         { name: 'Cian Malloy' },
         { name: 'Hymnal Smed' },
+    ],
+    thisisgillie: [
+        { name: 'Balwinder Singh' },
     ],
     ThrallJo: [
         { name: 'Corvus Clements' },
