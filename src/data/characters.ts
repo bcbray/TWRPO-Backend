@@ -583,6 +583,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GmanRBI: [
         { name: 'Max Brady', factions: ['Sams Club'] },
+        { name: 'Gianni Peccati' },
     ],
     GnarIyDavidson: [
         { name: 'Lluka Darkwood' },
