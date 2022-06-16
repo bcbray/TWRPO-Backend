@@ -371,7 +371,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Tommy Townsand' },
     ],
     Dirty_10: [
-        { name: 'Richard Long' },
+        { name: 'Richard Long', assume: 'assumeOther' },
     ],
     Dirty_Fisherman: [
         { name: 'Archibald Trout' },
@@ -533,7 +533,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Leonardo E. "Leo" Fantoni', factions: ['DiCenzo Famiglia'] },
     ],
     friendly_chick: [
-        { name: 'Angelica "Angel" Ward' },
+        { name: 'Angelica "Angel" Ward', nicknames: ['Angle'] },
         { name: 'Charlotte "Lottie" Davis' },
         { name: 'Haven Rivers' },
         { name: 'Lillian Frost' },
@@ -563,7 +563,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GeneralEmu: [
         { name: 'Lance Divine' },
-        { name: 'Jimmy Avola', nicknames: ['Two Times'] },
+        { name: '[Cadet] Jimmy Avola', nicknames: ['Two Times', 'Jimmy "Two Times"'], displayName: 4, factions: ['Law'] },
     ],
     GeorgiaBanks: [
         { name: 'Georgia Banks' },
@@ -1015,6 +1015,7 @@ export const wrpCharacters: WrpCharacters = {
     peachycoaster: [
         { name: 'Chrissy Snow' },
         { name: 'Toosie Loo' },
+        { name: 'Kipper O\'Neil' },
     ],
     Pengwin: [
         { name: 'Staniel Wilkerson' },
@@ -1046,6 +1047,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Psikage: [
         { name: 'Oscar Caraballo' },
+    ],
+    PuckNatorGaming: [
+        { name: 'Ernest Thorton' },
     ],
     PukingFerrets: [
         { name: 'Alice Quinn' },
@@ -1350,6 +1354,9 @@ export const wrpCharacters: WrpCharacters = {
     TheFoodcartGamer: [
         { name: 'Felix Ellis' },
     ],
+    TheForerunner: [
+        { name: 'Nico Aventi' },
+    ],
     TheGeneralSmokey: [
         { name: 'Edwin Braithwaite', factions: ['Kettleman Gang'] },
     ],
@@ -1490,6 +1497,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     WTFGameNation: [
         { name: 'Morgan Calloway' },
+    ],
+    xlt588gaming: [
+        { name: 'Adam Garica' },
     ],
     XxAshleyxX: [
         { name: 'Rayven Hope' },
