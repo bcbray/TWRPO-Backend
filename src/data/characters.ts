@@ -1510,6 +1510,7 @@ export const wrpCharacters: WrpCharacters = {
     XxAshleyxX: [
         { name: 'Rayven Hope' },
         { name: 'Zola Caiman' },
+        { name: 'Noel Taylor' },
     ],
     YatoTheMad: [
         { name: 'Cassius Evans' },
