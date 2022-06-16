@@ -153,6 +153,7 @@ export const wrpCharacters: WrpCharacters = {
     beesneez: [
         { name: 'Georgie Meadows' },
         { name: 'Nora Boyle' },
+        { name: 'Avery Eliss' },
     ],
     BernieIsLive: [
         { name: 'Noah Little' },
