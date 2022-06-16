@@ -292,6 +292,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Alice Bennett' },
         { name: 'Rose Pond' },
     ],
+    Cojothebro: [
+        { name: 'Oliver Toscano', nicknames: ['Mad Dog'], factions: ['DiCenzo Famiglia'] },
+    ],
     ConnorCronus: [
         { name: '[Deputy] Rip Riley', factions: ['Law'] },
         { name: 'Isaac Smith' },
