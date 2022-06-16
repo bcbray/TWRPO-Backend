@@ -772,7 +772,25 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                 cachedResults[optionsStr] = result;
                 log(`${endpoint}: Done fetching streams data!`);
                 const parseEnd = process.hrtime.bigint();
-                console.log(JSON.stringify({traceID: fetchID, event: "done", factionCount: factionCount, parseTime: Number((parseEnd-fetchEnd) / BigInt(1e+6)), totalTime: Number((parseEnd-fetchStart) / BigInt(1e+6))}));
+                console.log(JSON.stringify({
+                    traceID: fetchID,
+                    event: 'done',
+                    factionCount: factionCount,
+                    parseTime: Number((parseEnd - fetchEnd) / BigInt(1e+6)),
+                    totalTime: Number((parseEnd - fetchStart) / BigInt(1e+6)),
+                    factionViewerCount: wrpStreams.reduce<Record<string, number>>((viewers, stream) => (
+                        Object.entries(stream.factionsMap).filter(([_, v]) => v).reduce((innerViewers, [faction, _]) => {
+                            innerViewers[faction] = (innerViewers[faction] ?? 0) + stream.viewers;
+                            return innerViewers;
+                        }, viewers)
+                    ), {}),
+                    serverViewerCount: wrpStreams.reduce<Record<string, number>>((viewers, stream) => {
+                        if (stream.rpServer) {
+                            viewers[stream.rpServer] = (viewers[stream.rpServer] ?? 0) + stream.viewers;
+                        }
+                        return viewers;
+                    }, {}),
+                }));
                 resolve(result);
             } catch (err) {
                 const parseEnd = process.hrtime.bigint();
