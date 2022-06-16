@@ -302,7 +302,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Cash Colton', factions: ['Coltons'] },
     ],
     crocc_: [
-        { name: 'Santino DiCenzo', factions: ['DiCenzo Famiglia'] },
+        { name: 'Santino "Sonny" DiCenzo', factions: ['DiCenzo Famiglia'], leader: true },
     ],
     Crom: [
         { name: 'Elias McDurn' },
@@ -829,6 +829,7 @@ export const wrpCharacters: WrpCharacters = {
     LiteralBear: [
         { name: 'Marcus Danner' },
         { name: '[Deputy] Negan McAlister', factions: ['Law'], displayName: 1 },
+        { name: 'Joseph "JoJo" Johanson' },
     ],
     Lithiaris: [
         { name: '[Doctor] Lark Atwood', factions: ['Medical'] },
@@ -1539,7 +1540,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Benjamin Gaines', factions: ['Sams Club'], nicknames: ['Ben'], displayName: 3 },
     ],
     ZetarkGG: [
-        { name: 'Cesare DiCenzo', factions: ['DiCenzo Famiglia'] },
+        { name: 'Cesare DiCenzo', factions: ['DiCenzo Famiglia'], leader: true },
     ],
     ZeusLair: [
         { name: 'Robbie Gold' },
