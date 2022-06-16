@@ -698,6 +698,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Effie Parker' },
         { name: 'Katherine Dunn' },
     ],
+    Jackariah: [
+        { name: 'Bo Whitmore' },
+    ],
     jackiejackpot: [
         { name: 'Tilly Demeter' },
     ],
