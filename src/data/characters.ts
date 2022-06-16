@@ -921,7 +921,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MrMoonsHouse: [
         { name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4, assumeChar: true },
-        { name: 'Kang Colton', factions: ['Coltons']  },
+        { name: 'Kang Colton', factions: ['Coltons'] },
     ],
     MrPandaaBear: [
         { name: 'Cathal McCarthy' },
@@ -1151,7 +1151,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Nick Carver' },
     ],
     Selvek: [
-        { name: 'Clayton Colton', factions: ['Coltons']  },
+        { name: 'Clayton Colton', factions: ['Coltons'] },
     ],
     SencneS: [
         { name: 'Desmond Potts' },
@@ -1318,7 +1318,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Alvin Biggs' },
         { name: 'Dwight Bridger', displayName: 2, factions: ['The Humble Bunch'] },
         { name: 'Klaus Pudovkin', factions: ['Kettleman Gang'] }, // TODO: Confirm faction
-        { name: 'Luke Colton', factions: ['Coltons']  },
+        { name: 'Luke Colton', factions: ['Coltons'] },
     ],
     ThatTrollsomeGuy: [
         { name: 'Logan Callaway' },
@@ -1410,7 +1410,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Clem Griffiths' },
     ],
     Timmac: [
-        { name: 'Gomer Colton', factions: ['Coltons']  },
+        { name: 'Gomer Colton', factions: ['Coltons'] },
     ],
     tmcrane: [
         { name: 'Lucius Bickmore' },
