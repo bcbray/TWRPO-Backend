@@ -100,6 +100,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Wechugue Wechugue' },
         { name: 'Zhang Wei' },
     ],
+    aureliawrites: [
+        { name: 'Lena Phipps' },
+    ],
     AustiinTV: [
         { name: 'Mickey Toolin' },
     ],
@@ -1100,6 +1103,9 @@ export const wrpCharacters: WrpCharacters = {
     s5ashadow01: [
         { name: 'Adam Skye' },
         { name: 'Froiland Jackson' },
+    ],
+    SaffyPie: [
+        { name: 'Cassidy Reynolds' },
     ],
     saffyra: [
         { name: 'Birdy Hawke' },
