@@ -903,6 +903,9 @@ export const wrpCharacters: WrpCharacters = {
     MaverickHavoc: [
         { name: 'Cornellius Orvid' },
     ],
+    McBlairTV: [
+        { name: 'Cyrus McGill' },
+    ],
     MEKABEAR: [
         { name: '[Deputy] Audrey Dusk', factions: ['Law'] },
         { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
