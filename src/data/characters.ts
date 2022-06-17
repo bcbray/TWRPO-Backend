@@ -1276,6 +1276,9 @@ export const wrpCharacters: WrpCharacters = {
     Stichboy: [
         { name: 'Jeremiah Smoak' },
     ],
+    StormBreaker: [
+        { name: 'Jasper Dickens' },
+    ],
     suddenly_pandas: [
         { name: 'Flamboise Chambord' },
         { name: 'Harry Chapman' },
