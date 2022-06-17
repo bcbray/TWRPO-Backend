@@ -555,7 +555,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Doctor] Bianca Mackenna', factions: ['Medical'] },
     ],
     FunnyMatters: [
-        { name: 'Clint Brimshaw' },
+        { name: 'Clint Brimshaw', assumeChar: true },
     ],
     Gallethril: [
         { name: 'Annabel Barnes' },
