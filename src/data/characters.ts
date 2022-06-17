@@ -606,10 +606,10 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Speedy McGillagully' },
     ],
     GrammTheGibbon: [
-        { name: '"LJ" Little Jimothy', nicknames: ['Kid', 'Young'] },
+        { name: 'Herbert Parker', nicknames: ['Herb', 'Cowboy', 'Young'] },
         { name: '[Detective] Homer Carnes', factions: ['Law'], nicknames: ['Cop'] },
+        { name: '"LJ" Little Jimothy', nicknames: ['Kid'] },
         { name: 'Clayton Orwell' },
-        { name: 'Herbert Parker' },
     ],
     GraveGamerTV: [
         { name: 'Paulson Greer' },
@@ -1070,7 +1070,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ernest Thorton' },
     ],
     PukingFerrets: [
-        { name: 'Alice Quinn' },
+        { name: 'Alice Quinn', factions: ['Kettleman Gang'] },
     ],
     Pumpkinberry: [
         { name: 'Honey Sparks' },
