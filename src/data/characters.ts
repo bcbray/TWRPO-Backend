@@ -234,6 +234,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Caffine5: [
         { name: 'Billy Falco' },
+        { name: 'Vincenzo Struzzo' },
     ],
     calibriggs: [
         { name: 'Henry Baptiste' },
@@ -496,6 +497,7 @@ export const wrpCharacters: WrpCharacters = {
     Eyebyte: [
         { name: 'Amarillo Marnen' },
         { name: 'Edbert Trunk' },
+        { name: 'Rutherford Peabody' },
     ],
     famousivan: [
         { name: 'Raul Dominguez' },
@@ -653,7 +655,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'George Shaffer' },
     ],
     Hibblejaybob: [
-        { name: 'Astrid Aleksdóttir' },
+        { name: 'Astrið Aleksdóttir', factions: ['Medical'] },
     ],
     hidaruma: [
         { name: 'Rico Kanto' },
@@ -740,6 +742,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jordin Bradley' },
         { name: 'Joseph "Hobo Joe" Silvers' },
         { name: 'Margrett Anderson' },
+    ],
+    jobyonekanobi: [
+        { name: 'Clint Gunther' },
     ],
     Jogiiee: [
         { name: 'Eloise Carter' },
@@ -1493,6 +1498,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     VTM___: [
         { name: 'Boone Morales' },
+        { name: 'Guy Hyneman' },
     ],
     WaistcoatDave: [
         { name: 'Dr. C.J Matthews' },
