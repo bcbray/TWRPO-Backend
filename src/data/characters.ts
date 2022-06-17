@@ -194,6 +194,7 @@ export const wrpCharacters: WrpCharacters = {
     Boxeryedig: [
         { name: 'Timothy Johnson' },
         { name: 'Daniel McCormic' },
+        { name: 'Bud Pierce' },
     ],
     BradWOTO: [
         { name: 'Rufus Lorde' },
@@ -429,6 +430,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DubEkostep: [
         { name: 'Pancho "El Cucuy" Zapata' },
+    ],
+    duhDonniee: [
+        { name: 'Dirty Dougie', displayName: 0 }, // TODO: Is this their real name?
     ],
     DukeOfFlukes: [
         { name: 'Alexander Poe' },
@@ -1472,6 +1476,9 @@ export const wrpCharacters: WrpCharacters = {
     valkyrionrp: [
         { name: 'Jack Volker' },
     ],
+    VersaLK: [
+        { name: 'Carlo Marciano' },
+    ],
     VERTiiGOGAMING: [
         { name: '[Deputy] Boyd Kerrigan', factions: ['Law'] },
         { name: 'Joey Johns', nicknames: ['Wallaby Kid'], factions: ['Dead End Kids'] },
@@ -1563,6 +1570,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Emmett Fitz' },
     ],
     Zombiefun: [
-        { name: 'Hal Dreen' },
+        { name: '[Ranger] Hal Dreen', factions: ['Rangers'] },
+        { name: 'Alexander McCoy' },
     ],
 };
