@@ -102,6 +102,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     aureliawrites: [
         { name: 'Lena Phipps' },
+        { name: 'Scarlet' }, // TODO: Last name?
     ],
     AustiinTV: [
         { name: 'Mickey Toolin' },
@@ -275,7 +276,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Tuuyship Áama' },
     ],
     CHUDOCKEN: [
-        { name: 'Qeljayiden' },
+        { name: 'Qeljayiden', nicknames: ['Qelajayiden', 'Jaden'] },
     ],
     ClassicSteeve: [
         { name: 'Melvin Brown' },
