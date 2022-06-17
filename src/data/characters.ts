@@ -219,6 +219,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BumbBard: [
         { name: 'Fewis Oxhandler' },
+        { name: 'Fyodor' },
     ],
     BunglingNormal2: [
         { name: 'Henry Gearhardt' },
