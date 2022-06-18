@@ -232,6 +232,9 @@ export const wrpCharacters: WrpCharacters = {
     BurtLington: [
         { name: '[Sheriff] Marty Malone', factions: ['Law'] },
     ],
+    buttrito: [
+        { name: 'Dakota Slim' },
+    ],
     Caffine5: [
         { name: 'Billy Falco' },
         { name: 'Vincenzo Struzzo' },
