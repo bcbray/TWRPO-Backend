@@ -61,7 +61,7 @@ export const displayInfo = (character: Character): DisplayInfo => {
                 knownName = pushName; // had quotes
                 nicknames.unshift(knownName);
             }
-            realNames.push(pushName.replace(/\./g, ''));
+            realNames.push(pushName);
         }
     }
 
