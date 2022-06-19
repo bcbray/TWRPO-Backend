@@ -119,6 +119,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ali Mason' },
         { name: 'Nokosi Ahanu' },
         { name: 'C-Lo' }, // TODO: Real name?
+        { name: 'Yorrik Morales' },
     ],
     ayekayy47_: [
         { name: 'Misty Shaw' },
@@ -227,7 +228,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Henry Gearhardt' },
     ],
     Burn: [
-        { name: 'Lloyd "The Ghost" Chambers' },
+        { name: 'Lloyd "The Ghost" Chambers', nicknames: ['Ghost'] },
     ],
     BurtLington: [
         { name: '[Sheriff] Marty Malone', factions: ['Law'] },
@@ -237,6 +238,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Caffine5: [
         { name: 'Billy Falco' },
+        { name: 'Vincenzo Struzzo' },
         { name: 'Vincenzo Struzzo' },
     ],
     calibriggs: [
@@ -512,6 +514,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     fayebles: [
         { name: 'Clementine Fisher' },
+        { name: 'Nessa Evans' },
     ],
     feardeer: [
         { name: 'Bryn "Sloan" Keith' },
@@ -951,6 +954,9 @@ export const wrpCharacters: WrpCharacters = {
     MrPandaaBear: [
         { name: 'Cathal McCarthy' },
     ],
+    MsVenture: [
+        { name: 'Martina Guzman' },
+    ],
     muhzzy: [
         { name: 'Dr Cloth' },
         { name: 'Grim' },
@@ -987,6 +993,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Madeline "Moxy" Maddox' },
         { name: 'Edith "Ed" Gretchen' },
         { name: 'Snow' },
+        { name: 'Penelope' }, // TODO: Last name?
     ],
     Nidas: [
         { name: 'Eustace Goodwin' },
@@ -1089,6 +1096,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Question_Box: [
         { name: '[Sheriff] Lydia Lewis', factions: ['Law'] },
+        { name: 'Blaire Turner' },
     ],
     Quip_TV: [
         { name: '[Deputy] Dove Hopkins', factions: ['Law'] },
@@ -1270,6 +1278,7 @@ export const wrpCharacters: WrpCharacters = {
     spriteleah: [
         { name: 'Francesca "Frankie" Bright' },
         { name: 'Harriet "Hawk" Hawkins' },
+        { name: 'Brie Haviour' },
     ],
     squareiz: [
         { name: 'Ed Doyle' },
@@ -1347,6 +1356,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dwight Bridger', displayName: 2, factions: ['The Humble Bunch'] },
         { name: 'Klaus Pudovkin', factions: ['Kettleman Gang'] }, // TODO: Confirm faction
         { name: 'Luke Colton', factions: ['Coltons'] },
+    ],
+    Thadrius: [
+        { name: 'Jimmy Frick' },
     ],
     ThatTrollsomeGuy: [
         { name: 'Logan Callaway' },
