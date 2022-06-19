@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 import CharactersContainer from './CharactersContainer';
+import MultistreamContainer from './MultistreamContainer';
 import NotFound from './NotFound';
 
 const root = ReactDOM.createRoot(
@@ -18,6 +19,9 @@ root.render(
         <Routes>
           <Route path="/characters" element={<CharactersContainer />}>
             <Route path=":factionKey" element={<CharactersContainer />} />
+          </Route>
+          <Route path="/multistream" element={<MultistreamContainer />}>
+            <Route path=":factionKey" element={<MultistreamContainer />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
