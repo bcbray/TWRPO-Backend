@@ -4,12 +4,14 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Multistream from './Multistream';
 import { CharactersResponse } from './types';
+import ReloadButton from './ReloadButton';
 
 interface Props {
-  data: CharactersResponse
+  data: CharactersResponse,
+  onReload: () => void,
 };
 
-const MultistreamMain: React.FunctionComponent<Props> = ({ data }) => {
+const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
@@ -50,6 +52,7 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data }) => {
             )}
           </Dropdown.Menu>
         </Dropdown>
+        <ReloadButton onClick={onReload} />
       </Stack>
       <Multistream characters={filteredCharacters} />
     </>

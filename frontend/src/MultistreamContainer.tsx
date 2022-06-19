@@ -6,7 +6,7 @@ import { CharactersResponse } from './types';
 import MultistreamMain from './MultistreamMain';
 
 const MultistreamContainer: React.FunctionComponent<{}> = () => {
-  const [loadingState] = useLoading<CharactersResponse>('/api/v2/characters');
+  const [loadingState, onReload] = useLoading<CharactersResponse>('/api/v2/characters');
   return (
     <>
       <Helmet>
@@ -14,7 +14,7 @@ const MultistreamContainer: React.FunctionComponent<{}> = () => {
       </Helmet>
       <Container className="my-5">
         {isSuccess(loadingState)
-           ? <MultistreamMain data={loadingState.data} />
+           ? <MultistreamMain data={loadingState.data} onReload={onReload} />
            : isFailure(loadingState)
              ? <Row className="justify-content-center">
                  <Col xs="auto"><p>Failed to load data. Please try again later.</p></Col>
