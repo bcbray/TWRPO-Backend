@@ -2,17 +2,17 @@ import React from 'react';
 import { Container, Spinner, Row, Col} from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 import { useLoading, isSuccess, isFailure } from './LoadingState';
-import { CharactersResponse } from './types';
+import { Live } from './types';
 import MultistreamMain from './MultistreamMain';
 
 const MultistreamContainer: React.FunctionComponent<{}> = () => {
-  const [loadingState, onReload] = useLoading<CharactersResponse>('/api/v2/characters');
+  const [loadingState, onReload] = useLoading<Live>('/live');
   return (
     <>
       <Helmet>
         <title>Twitch WildRP Only - Multistream</title>
       </Helmet>
-      <Container className="my-5">
+      <Container className="mt-5">
         {isSuccess(loadingState)
            ? <MultistreamMain data={loadingState.data} onReload={onReload} />
            : isFailure(loadingState)

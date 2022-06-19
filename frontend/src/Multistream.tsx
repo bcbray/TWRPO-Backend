@@ -1,20 +1,21 @@
 import React from 'react';
-import { CharacterInfo } from './types';
+import { Stream, FactionKey, FactionInfo } from './types';
 import TwitchEmbed from './TwitchEmbed';
 import CharacterCard from './CharacterCard';
 
 interface Props {
-  characters: CharacterInfo[];
-  onClickRemove: (character: CharacterInfo) => void;
+  streams: Stream[];
+  factionInfoMap: Record<FactionKey, FactionInfo>;
+  onClickRemove: (stream: Stream) => void;
 }
 
-const Multistream: React.FunctionComponent<Props> = ({ characters, onClickRemove }) => {
-  const [listeningTo, setListeningTo] = React.useState<CharacterInfo | null>(null);
-  const toggleFocus = (character: CharacterInfo) => {
-    if (listeningTo?.channelName === character.channelName) {
+const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, onClickRemove }) => {
+  const [listeningTo, setListeningTo] = React.useState<Stream | null>(null);
+  const toggleFocus = (stream: Stream) => {
+    if (listeningTo?.channelName === stream.channelName) {
       setListeningTo(null);
     } else {
-      setListeningTo(character);
+      setListeningTo(stream);
     }
   };
 
@@ -38,7 +39,7 @@ const Multistream: React.FunctionComponent<Props> = ({ characters, onClickRemove
     return () => window.removeEventListener('resize', listener);
   }, []);
 
-  const count = characters.length;
+  const count = streams.length;
   const gap = 4;
 
   let bestHeight = 0;
@@ -73,23 +74,24 @@ const Multistream: React.FunctionComponent<Props> = ({ characters, onClickRemove
         height: `${dimensions.height}px`,
       }}
     >
-      {characters.map(character =>
+      {streams.map(stream =>
         (
           <CharacterCard
-            key={character.channelName}
-            focused={listeningTo?.channelName === character.channelName}
-            onClickFocus={() => toggleFocus(character)}
-            onClickRemove={() => onClickRemove(character)}
-            character={character}
+            key={stream.channelName}
+            focused={listeningTo?.channelName === stream.channelName}
+            onClickFocus={() => toggleFocus(stream)}
+            onClickRemove={() => onClickRemove(stream)}
+            stream={stream}
+            factionInfo={stream.tagFaction ? factionInfoMap[stream.tagFaction] : undefined}
           >
             <TwitchEmbed
-              key={character.channelName}
-              id={`${character.channelName.toLowerCase()}-twitch-embed`}
-              channel={character.channelName}
+              key={stream.channelName}
+              id={`${stream.channelName.toLowerCase()}-twitch-embed`}
+              channel={stream.channelName}
               width={bestWidth}
               height={bestHeight}
               parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
-              muted={listeningTo?.channelName !== character.channelName}
+              muted={listeningTo?.channelName !== stream.channelName}
             />
           </CharacterCard>
         )

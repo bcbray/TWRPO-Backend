@@ -3,7 +3,8 @@ export interface FactionInfo {
   name: string;
   colorLight: string;
   colorDark: string;
-  liveCount: number;
+  liveCount?: number;
+  isLive?: boolean;
 };
 
 export interface DisplayInfo {
@@ -26,3 +27,38 @@ export interface CharactersResponse {
   factions: FactionInfo[];
   characters: CharacterInfo[];
 };
+
+export type FactionKey = string;
+
+export interface Stream {
+  channelName: string;
+  title: string;
+  viewers: number;
+  profileUrl: string;
+  id: number;
+  rpServer: string | null;
+  characterName: string | null;
+  nicknameLookup: string | null;
+  faction: FactionKey;
+  factions: [FactionKey];
+  factionsMap: Record<FactionKey, boolean>;
+  tagText: string;
+  tagFaction: FactionKey;
+  tagFactionSecondary?: FactionKey;
+  videoUrl?: string;
+  thumbnailUrl?: string;
+  startDate?: Date;
+}
+
+export interface Live {
+    minViewers: number;
+    stopOnMin: boolean;
+    intervalSeconds: number;
+    useColorsDark: Record<FactionKey, string>;
+    useColorsLight: Record<FactionKey, string>;
+    wrpFactions: Record<FactionKey, string>;
+    factionCount: Record<FactionKey, number>;
+    filterFactions: [FactionKey, string, boolean][];
+    streams: Stream[];
+    tick: number;
+}

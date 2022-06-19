@@ -5,11 +5,11 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useUpdateEffect, useCss } from 'react-use';
 import Multistream from './Multistream';
-import { CharactersResponse, CharacterInfo } from './types';
+import { Live, Stream, FactionInfo } from './types';
 import ReloadButton from './ReloadButton';
 
 interface Props {
-  data: CharactersResponse,
+  data: Live,
   onReload: () => void,
 };
 
@@ -19,17 +19,45 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
   const params = useParams();
   const { factionKey } = params;
 
-  const [removedCharacters, setRemovedCharacters] = React.useState<CharacterInfo[]>([]);
+  const [removedStreams, setRemovedStreams] = React.useState<Stream[]>([]);
   useUpdateEffect(() => {
-    setRemovedCharacters([])
+    setRemovedStreams([])
   }, [factionKey])
 
-  const removeCharacter = (character: CharacterInfo) => {
-    setRemovedCharacters([...removedCharacters, character]);
+  const removeStream = (stream: Stream) => {
+    setRemovedStreams([...removedStreams, stream]);
   };
-  const reAddCharacter = (character: CharacterInfo) => {
-    setRemovedCharacters(removedCharacters.filter(c => c.channelName !== character.channelName));
+
+  const reAddStream = (stream: Stream) => {
+    setRemovedStreams(removedStreams.filter(s => s.channelName !== stream.channelName));
   }
+
+  const ignoredFactionKeys = ['other', 'alltwitch', 'allwildrp', 'guessed'];
+
+  const factionInfos: FactionInfo[] = data.filterFactions
+    .filter(([key]) => !ignoredFactionKeys.includes(key))
+    .map(([key, name, isLive]) => {
+      return {
+        key,
+        name,
+        colorLight: data.useColorsLight[key] ?? '#12af7e',
+        colorDark: data.useColorsDark[key] ?? '#32ff7e',
+        liveCount: data.factionCount[key],
+        isLive,
+      }
+    })
+
+  const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
+
+  const filterFactions: FactionInfo[] = data.filterFactions
+    .filter(([_, __, isLive]) => isLive)
+    .flatMap(([key, _, isLive]) => {
+      const info = factionInfoMap[key];
+      if (info === undefined) return [];
+      return [
+        {...info, isLive}
+      ]
+    })
 
   const className = useCss({
     '.btn-independent': {
@@ -40,7 +68,7 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
       color: '#fff',
       backgroundColor: '#12af7e',
     },
-    ...Object.fromEntries(data.factions.flatMap((faction) => {
+    ...Object.fromEntries(factionInfos.flatMap((faction) => {
       return [
         [
           `.btn-${faction.key}`,
@@ -66,25 +94,22 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
     })),
   });
 
-  const filteredCharacters = (() => {
-    const characters = data.characters;
-    const liveCharacters = characters
-      .filter(character => character.liveInfo !== undefined)
-      .filter(character => !removedCharacters.some(c => c.channelName === character.channelName))
+  const filteredStreams = (() => {
+    const streams = data.streams
+      .filter(stream => !removedStreams.some(s => s.channelName === stream.channelName))
+      .filter(stream => !ignoredFactionKeys.includes(stream.tagFaction))
     const filtered = (factionKey === undefined)
-      ? liveCharacters
-      : liveCharacters.filter(character => character.factions.some(f => f.key === factionKey))
-    const sorted = filtered.sort((lhs, rhs) =>
-      (rhs.liveInfo?.viewers ?? 0) - (lhs.liveInfo?.viewers ?? 0)
-    )
+      ? streams
+      : streams.filter(stream => stream.factions.some(f => f === factionKey))
+    const sorted = filtered.sort((lhs, rhs) => rhs.viewers - lhs.viewers)
     return sorted;
   })()
 
   const maxStreams = 12;
 
-  const charactersToShow = filteredCharacters.slice(0, maxStreams);
+  const streamsToShow = filteredStreams.slice(0, maxStreams);
 
-  const selectedFaction = factionKey ? data.factions.find(f => f.key === factionKey) : undefined;
+  const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
 
   return (
     <>
@@ -102,14 +127,13 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
             {selectedFaction?.name ?? 'Select faction'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item eventKey=''>All characters (no filtering)</Dropdown.Item>
-            {data.factions
-              .filter(faction => faction.liveCount > 0)
+            <Dropdown.Item eventKey=''>All WildRP (no filtering)</Dropdown.Item>
+            {filterFactions
               .sort((f1, f2) => {
                 if (f1.liveCount === f2.liveCount) {
                   return f1.name.localeCompare(f2.name);
                 }
-                return f2.liveCount - f1.liveCount
+                return (f2.liveCount ?? 0) - (f1.liveCount ?? 0)
               })
               .map(faction =>
                 <Dropdown.Item
@@ -117,32 +141,36 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
                   className={`faction-${faction.key}`}
                   eventKey={faction.key}
                 >
-                  {faction.name} ({faction.liveCount === 1 ? `1 stream` : `${faction.liveCount} streams`})
+                  {faction.name} {faction.liveCount && <>({faction.liveCount === 1 ? `1 stream` : `${faction.liveCount} streams`})</>}
                 </Dropdown.Item>
               )}
           </Dropdown.Menu>
         </Dropdown>
         <ReloadButton onClick={onReload} />
-        {charactersToShow.length !== filteredCharacters.length && (
+        {streamsToShow.length !== filteredStreams.length && (
           <span title={`Only ${maxStreams} can be shown at once`}>
-            {charactersToShow.length === filteredCharacters.length - 1
+            {streamsToShow.length === filteredStreams.length - 1
               ? '1 stream hidden'
-              : `${filteredCharacters.length - charactersToShow.length} streams hidden`}
+              : `${filteredStreams.length - streamsToShow.length} streams hidden`}
           </span>
         )}
-        {removedCharacters.map(character =>
+        {removedStreams.map(stream =>
           <Button
-            key={character.channelName}
-            className={styles.showCharacter}
+            key={stream.channelName}
+            className={styles.showStream}
             variant="secondary"
             size="sm"
-            onClick={() => reAddCharacter(character)}
+            onClick={() => reAddStream(stream)}
           >
-            {character.name}
+            {stream.tagText}
           </Button>
         )}
       </Stack>
-      <Multistream characters={charactersToShow} onClickRemove={removeCharacter} />
+      <Multistream
+        streams={streamsToShow}
+        factionInfoMap={factionInfoMap}
+        onClickRemove={removeStream}
+      />
     </>
   )
 }

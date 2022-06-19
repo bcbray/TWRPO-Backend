@@ -1,18 +1,19 @@
 import React from 'react';
 import styles from './CharacterCard.module.css';
-import { CharacterInfo } from './types';
+import { Stream, FactionInfo } from './types';
 import { OverlayTrigger, Tooltip} from 'react-bootstrap';
 import { Headphones, XLg, VolumeMuteFill } from 'react-bootstrap-icons';
 
 interface Props {
-  character: CharacterInfo;
+  stream: Stream;
+  factionInfo?: FactionInfo;
   focused?: boolean;
   onClickFocus: () => void;
   onClickRemove: () => void;
   children?: React.ReactNode;
 };
 
-const CharacterCard: React.FC<Props> = ({ character, focused = false, onClickFocus, onClickRemove, children }) => {
+const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, onClickFocus, onClickRemove, children }) => {
     return (
       <div className={[styles.container, focused ? styles.focused : styles.muted].join(' ')}>
         {children}
@@ -20,10 +21,10 @@ const CharacterCard: React.FC<Props> = ({ character, focused = false, onClickFoc
           <div
             className={`${styles.tag} ${styles.nametag}`}
             style={{
-              background: (character.factions.length > 0 && character.factions[0].colorDark) || '#32ff7e',
+              background: factionInfo?.colorDark || '#32ff7e',
             }}
           >
-            <p>{character.displayInfo.displayName}</p>
+            <p>{stream.tagText}</p>
           </div>
           <OverlayTrigger
             placement="bottom"

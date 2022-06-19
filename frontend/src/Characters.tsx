@@ -89,7 +89,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
             {selectedFaction?.name ?? 'Select faction'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item eventKey=''>All characters (No filtering)</Dropdown.Item>
+            <Dropdown.Item eventKey=''>All characters (no filtering)</Dropdown.Item>
             {data.factions.map(faction =>
               <Dropdown.Item
                 key={faction.key}
