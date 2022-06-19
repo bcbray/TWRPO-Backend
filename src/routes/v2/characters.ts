@@ -40,32 +40,7 @@ const router = Router();
 router.get('/', async (_, res) => {
     const liveData = await getWrpLive();
 
-    const characterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) =>
-        characters.map((character) => {
-            const stream = liveData.streams.find(s => s.channelName === streamer && s.characterName === character.name);
-            return {
-                channelName: streamer,
-                name: character.name,
-                displayInfo: displayInfo(character),
-                factions: character.factions?.map((faction) => {
-                    const factionMini = faction.toLowerCase().replaceAll(' ', '');
-                    const colorLightKey = factionMini as keyof typeof useColorsLight;
-                    const colorDarkKey = factionMini as keyof typeof useColorsDark;
-                    const factionRenameKey = factionMini as keyof typeof filterRename;
-
-                    const factionInfo: FactionInfo = {
-                        key: factionMini,
-                        name: filterRename[factionRenameKey] ?? faction,
-                        colorLight: useColorsLight[colorLightKey] ?? '#12af7e',
-                        colorDark: useColorsDark[colorDarkKey] ?? '#32ff7e',
-                        liveCount: liveData.factionCount[factionRenameKey],
-                    };
-                    return factionInfo;
-                }) ?? [],
-                liveInfo: stream && { viewers: stream.viewers },
-            } as CharacterInfo;
-        }));
-    const ignoredFactions: FactionRealFull[] = ['Development', 'Independent', 'Other', 'Other Faction', 'Podcast', 'Watch Party'];
+    const ignoredFactions: FactionRealFull[] = ['Development', 'Other', 'Other Faction', 'Podcast', 'Watch Party'];
     const factionInfos = objectEntries(wrpFactionsReal).filter(([__, faction]) => !ignoredFactions.includes(faction)).map(([mini, faction]) => {
         const colorLightKey = mini as keyof typeof useColorsLight;
         const colorDarkKey = mini as keyof typeof useColorsDark;
@@ -80,6 +55,24 @@ router.get('/', async (_, res) => {
         };
         return factionInfo;
     });
+
+    const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
+    const { independent } = factionMap;
+
+    const characterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) =>
+        characters.map((character) => {
+            const stream = liveData.streams.find(s => s.channelName === streamer && s.characterName === character.name);
+            return {
+                channelName: streamer,
+                name: character.name,
+                displayInfo: displayInfo(character),
+                factions: character.factions?.map((faction) => {
+                    const factionMini = faction.toLowerCase().replaceAll(' ', '');
+                    return factionMap[factionMini];
+                }) ?? [independent],
+                liveInfo: stream && { viewers: stream.viewers },
+            } as CharacterInfo;
+        }));
 
     const response: CharactersResponse = {
         factions: factionInfos,

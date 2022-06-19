@@ -30,37 +30,42 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
         </tr>
       </thead>
       <tbody>
-        {characters.map(character =>
-        <tr key={character.channelName + character.name}>
-          <td className="character-channel-name">
-          <a className="text-dark" style={{ textDecoration: 'none' }} href={`https://twitch.tv/${character.channelName.toLowerCase()}`}>
-            {character.channelName}
-          </a>
-          </td>
-          <td className="character-titles">{character.displayInfo.titles.join(', ')}</td>
-          <td className="character-name">{character.displayInfo.realNames.join(' ')}</td>
-          <td className="character-nicknames">{character.displayInfo.nicknames.join(', ')}</td>
-          <td className="character-factions">
-          {
-            character.factions.map((filter) =>
-            <Link
-              key={filter.key}
-              className="me-1"
-              to={`/characters/${filter.key}${location.search}`}
-            >
-              <Badge
-              pill
-              bg={filter.colorLight ? 'blank' : 'secondary'}
-              style={{ backgroundColor: filter.colorLight }}
-              >
-              {filter.name}
-              </Badge>
-            </Link>
-            )
-          }
-          </td>
-        </tr>
-        )}
+        {characters.map((character) => {
+          const factionsToShow = character.factions.length === 1 && character.factions[0].key === 'independent'
+            ? []
+            : character.factions;
+          return (
+            <tr key={character.channelName + character.name}>
+              <td className="character-channel-name">
+              <a className="text-dark" style={{ textDecoration: 'none' }} href={`https://twitch.tv/${character.channelName.toLowerCase()}`}>
+                {character.channelName}{character.liveInfo && (<> <span>(live, {character.liveInfo.viewers} viewers)</span></>)}
+              </a>
+              </td>
+              <td className="character-titles">{character.displayInfo.titles.join(', ')}</td>
+              <td className="character-name">{character.displayInfo.realNames.join(' ')}</td>
+              <td className="character-nicknames">{character.displayInfo.nicknames.join(', ')}</td>
+              <td className="character-factions">
+              {
+                factionsToShow.map((filter) =>
+                <Link
+                  key={filter.key}
+                  className="me-1"
+                  to={`/characters/${filter.key}${location.search}`}
+                >
+                  <Badge
+                  pill
+                  bg={filter.colorLight ? 'blank' : 'secondary'}
+                  style={{ backgroundColor: filter.colorLight }}
+                  >
+                  {filter.name}
+                  </Badge>
+                </Link>
+                )
+              }
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </Table>
   );
