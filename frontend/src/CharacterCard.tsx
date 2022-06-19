@@ -22,7 +22,7 @@ const CharacterCard: React.FC<Props> = ({ character, children }) => {
           style={{
             position: 'absolute',
             borderRadius: '4px',
-            background: character.factions.length > 0 ? character.factions[0].colorDark : 'green',
+            background: (character.factions.length > 0 && character.factions[0].colorDark) || '#32ff7e',
             textTransform: 'uppercase',
             pointerEvents: 'none',
             margin: '20px',
