@@ -23,4 +23,7 @@ export interface Player {
     getQuality(): string;
     getVideo(): string | undefined;
     isPaused(): boolean;
+
+    addEventListener(event: string, callback: () => void): void;
+    removeEventListener(event: string, callback: () => void): void;
 }

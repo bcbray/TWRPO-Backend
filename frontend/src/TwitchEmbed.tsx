@@ -25,10 +25,24 @@ function addScript(): HTMLScriptElement {
 
 const TwitchEmbed: React.FunctionComponent<Props> = ({ id, channel, width, height, parent, muted }) => {
   const [player, setPlayer] = React.useState<TwitchPlayer | undefined>(undefined);
+  const [isPlayer, setIsPlayerReady] = React.useState(false);
 
   React.useEffect(() => {
-    player?.setMuted(muted ?? false);
-  }, [player, muted]);
+    if (isPlayer) {
+      player?.setMuted(muted ?? false);
+    }
+  }, [player, isPlayer, muted]);
+
+  React.useEffect(() => {
+    function ready() {
+      setIsPlayerReady(true);
+    }
+
+    player?.addReadyListener(ready);
+    return () => {
+      player?.removeReadyListener(ready);
+    }
+  }, [player]);
 
   React.useEffect(() => {
     function createPlayer() {
@@ -56,6 +70,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({ id, channel, width, heigh
         div.innerHTML = '';
       }
       setPlayer(undefined);
+      setIsPlayerReady(false);
       tag?.removeEventListener('load', createPlayer);
       // TODO: Figure out how to remove the script when we no longer need it across any embeds?
     }
