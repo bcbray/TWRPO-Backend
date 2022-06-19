@@ -96,7 +96,7 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
       <Stack direction='horizontal' gap={3} className="mb-4">
         <Dropdown
           className={[className, styles.factionDropdown].join(' ')}
-          onSelect={e => navigate(`/multistream${e && `/${e}`}${location.search}`) }
+          onSelect={e => navigate(`/multistream${e ? `/faction/${e}` : ''}${location.search}`) }
         >
           <Dropdown.Toggle variant={selectedFaction?.key ?? 'independent'}>
             {selectedFaction?.name ?? 'Select faction'}
