@@ -23,7 +23,7 @@ const CharacterCard: React.FC<Props> = ({ character, focused = false, onClickFoc
               background: (character.factions.length > 0 && character.factions[0].colorDark) || '#32ff7e',
             }}
           >
-            <p>{character.name}</p>
+            <p>{character.displayInfo.displayName}</p>
           </div>
           <OverlayTrigger
             placement="bottom"

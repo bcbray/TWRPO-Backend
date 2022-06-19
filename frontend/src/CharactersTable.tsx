@@ -13,7 +13,8 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
     <Table hover className="character-table">
       <thead>
         <tr>
-        <th style={{ width: '25%' }}>Streamer</th>
+        <th style={{ width: '20%' }}>Streamer</th>
+        <th style={{ width: '10%' }}>Titles</th>
         <th style={{ width: '25%' }}>Name</th>
         <th style={{ width: '25%' }}>
           <span
@@ -25,7 +26,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
             Nicknames
           </span>
         </th>
-        <th style={{ width: '25%' }}>Factions</th>
+        <th style={{ width: '20%' }}>Factions</th>
         </tr>
       </thead>
       <tbody>
@@ -36,11 +37,12 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
             {character.channelName}
           </a>
           </td>
-          <td className="character-name">{character.name}</td>
-          <td className="character-nicknames">{character.nicknames.join(', ')}</td>
+          <td className="character-titles">{character.displayInfo.titles.join(', ')}</td>
+          <td className="character-name">{character.displayInfo.realNames.join(' ')}</td>
+          <td className="character-nicknames">{character.displayInfo.nicknames.join(', ')}</td>
           <td className="character-factions">
           {
-            character.factions.map(filter =>
+            character.factions.map((filter) =>
             <Link
               key={filter.key}
               className="me-1"

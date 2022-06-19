@@ -6,11 +6,18 @@ export interface FactionInfo {
   liveCount: number;
 };
 
+export interface DisplayInfo {
+  realNames: string[];
+  nicknames: string[];
+  titles: string[];
+  displayName: string;
+}
+
 export interface CharacterInfo {
   channelName: string;
   name: string;
+  displayInfo: DisplayInfo;
   factions: FactionInfo[];
-  nicknames: string[];
   liveInfo?: { viewers: number };
 }
 

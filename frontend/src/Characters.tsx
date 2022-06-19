@@ -26,7 +26,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
           && ((filterText && (
               character.channelName.toLowerCase().includes(filterText)
               || character.name.toLowerCase().includes(filterText)
-              || character.nicknames.some(n => n.toLowerCase().includes(filterText))
+              || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterText))
               || character.factions.some(f => f.name.toLowerCase().includes(filterText))
             )
           ) || !filterText)
