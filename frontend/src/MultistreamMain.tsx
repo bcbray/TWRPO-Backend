@@ -32,7 +32,8 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
     setRemovedStreams(removedStreams.filter(s => s.channelName !== stream.channelName));
   }
 
-  const ignoredFactionKeys = ['other', 'alltwitch', 'allwildrp', 'guessed'];
+  const ignoredFactionKeys = ['other', 'alltwitch'];
+  const ignoredFactionFilterKeys = ['otherwrp', 'allwildrp', 'guessed', ...ignoredFactionKeys]
 
   const factionInfos: FactionInfo[] = data.filterFactions
     .filter(([key]) => !ignoredFactionKeys.includes(key))
@@ -51,6 +52,7 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
 
   const filterFactions: FactionInfo[] = data.filterFactions
     .filter(([_, __, isLive]) => isLive)
+    .filter(([key]) => !ignoredFactionFilterKeys.includes(key))
     .flatMap(([key, _, isLive]) => {
       const info = factionInfoMap[key];
       if (info === undefined) return [];
@@ -98,9 +100,10 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
     const streams = data.streams
       .filter(stream => !removedStreams.some(s => s.channelName === stream.channelName))
       .filter(stream => !ignoredFactionKeys.includes(stream.tagFaction))
+      .filter(stream => !(stream.tagFactionSecondary && ignoredFactionKeys.includes(stream.tagFactionSecondary)))
     const filtered = (factionKey === undefined)
       ? streams
-      : streams.filter(stream => stream.factions.some(f => f === factionKey))
+      : streams.filter(stream => stream.factionsMap[factionKey] )
     const sorted = filtered.sort((lhs, rhs) => rhs.viewers - lhs.viewers)
     return sorted;
   })()
