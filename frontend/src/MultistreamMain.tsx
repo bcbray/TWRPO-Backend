@@ -3,7 +3,7 @@ import styles from './MultistreamMain.module.css';
 import { Dropdown, Stack, Button } from 'react-bootstrap';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useUpdateEffect } from 'react-use';
+import { useUpdateEffect, useCss } from 'react-use';
 import Multistream from './Multistream';
 import { CharactersResponse, CharacterInfo } from './types';
 import ReloadButton from './ReloadButton';
@@ -31,6 +31,41 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
     setRemovedCharacters(removedCharacters.filter(c => c.channelName !== character.channelName));
   }
 
+  const className = useCss({
+    '.btn-independent': {
+      backgroundColor: '#12af7e',
+      borderColor: '#12af7e',
+    },
+    'a.dropdown-item:active': {
+      color: '#fff',
+      backgroundColor: '#12af7e',
+    },
+    ...Object.fromEntries(data.factions.flatMap((faction) => {
+      return [
+        [
+          `.btn-${faction.key}`,
+          {
+            backgroundColor: faction.colorLight,
+            borderColor: faction.colorLight,
+          }
+        ],
+        [
+          `a.dropdown-item.faction-${faction.key}`,
+          {
+            color: faction.colorLight,
+          },
+        ],
+        [
+          `a.dropdown-item.faction-${faction.key}:active`,
+          {
+            color: '#fff',
+            backgroundColor: faction.colorLight,
+          },
+        ],
+      ]
+    })),
+  });
+
   const filteredCharacters = (() => {
     const characters = data.characters;
     const liveCharacters = characters
@@ -49,7 +84,7 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
 
   const charactersToShow = filteredCharacters.slice(0, maxStreams);
 
-  const selectedFaction = factionKey && data.factions.find(f => f.key === factionKey);
+  const selectedFaction = factionKey ? data.factions.find(f => f.key === factionKey) : undefined;
 
   return (
     <>
@@ -60,10 +95,11 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
       }
       <Stack direction='horizontal' gap={3} className="mb-4">
         <Dropdown
+          className={[className, styles.factionDropdown].join(' ')}
           onSelect={e => navigate(`/multistream${e && `/${e}`}${location.search}`) }
         >
-          <Dropdown.Toggle>
-            {(factionKey && data.factions.find(f => f.key === factionKey)?.name) ?? 'Select faction'}
+          <Dropdown.Toggle variant={selectedFaction?.key ?? 'independent'}>
+            {selectedFaction?.name ?? 'Select faction'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item eventKey=''>All characters (no filtering)</Dropdown.Item>
@@ -76,7 +112,11 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
                 return f2.liveCount - f1.liveCount
               })
               .map(faction =>
-                <Dropdown.Item key={faction.key} eventKey={faction.key}>
+                <Dropdown.Item
+                  key={faction.key}
+                  className={`faction-${faction.key}`}
+                  eventKey={faction.key}
+                >
                   {faction.name} ({faction.liveCount === 1 ? `1 stream` : `${faction.liveCount} streams`})
                 </Dropdown.Item>
               )}

@@ -1,7 +1,9 @@
 import React from 'react';
+import styles from './Characters.module.css';
 import { Form, Dropdown, Stack } from 'react-bootstrap';
 import { useParams, useSearchParams, useNavigate, useLocation } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from 'react-helmet-async';
+import { useCss } from 'react-use';
 import CharactersTable from './CharactersTable';
 import { CharactersResponse } from './types';
 
@@ -15,6 +17,41 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
   const params = useParams();
   const { factionKey } = params;
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const className = useCss({
+    '.btn-independent': {
+      backgroundColor: '#12af7e',
+      borderColor: '#12af7e',
+    },
+    'a.dropdown-item:active': {
+      color: '#fff',
+      backgroundColor: '#12af7e',
+    },
+    ...Object.fromEntries(data.factions.flatMap((faction) => {
+      return [
+        [
+          `.btn-${faction.key}`,
+          {
+            backgroundColor: faction.colorLight,
+            borderColor: faction.colorLight,
+          }
+        ],
+        [
+          `a.dropdown-item.faction-${faction.key}`,
+          {
+            color: faction.colorLight,
+          },
+        ],
+        [
+          `a.dropdown-item.faction-${faction.key}:active`,
+          {
+            color: '#fff',
+            backgroundColor: faction.colorLight,
+          },
+        ],
+      ]
+    })),
+  });
 
   const filteredCharacters = (() => {
     const characters = data.characters;
@@ -34,7 +71,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
       return filtered;
   })()
 
-  const selectedFaction = factionKey && data.factions.find(f => f.key === factionKey);
+  const selectedFaction = factionKey ? data.factions.find(f => f.key === factionKey) : undefined;
 
   return (
     <>
@@ -45,15 +82,22 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
       }
       <Stack direction='horizontal' gap={3} className="mb-4">
         <Dropdown
+          className={[className, styles.factionDropdown].join(' ')}
           onSelect={e => navigate(`/characters${e && `/${e}`}${location.search}`) }
         >
-          <Dropdown.Toggle>
-            {(factionKey && data.factions.find(f => f.key === factionKey)?.name) ?? 'Select faction'}
+          <Dropdown.Toggle variant={selectedFaction?.key ?? 'independent'}>
+            {selectedFaction?.name ?? 'Select faction'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item eventKey=''>All characters (No filtering)</Dropdown.Item>
             {data.factions.map(faction =>
-              <Dropdown.Item key={faction.key} eventKey={faction.key}>{faction.name}</Dropdown.Item>
+              <Dropdown.Item
+                key={faction.key}
+                className={`faction-${faction.key}`}
+                eventKey={faction.key}
+              >
+                {faction.name}
+              </Dropdown.Item>
             )}
           </Dropdown.Menu>
         </Dropdown>

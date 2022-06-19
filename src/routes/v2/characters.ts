@@ -10,8 +10,8 @@ import { displayInfo } from '../../characterUtils';
 interface FactionInfo {
     key: string;
     name: string;
-    colorLight?: string;
-    colorDark?: string;
+    colorLight: string;
+    colorDark: string;
     liveCount: number;
 }
 
@@ -56,8 +56,8 @@ router.get('/', async (_, res) => {
                     const factionInfo: FactionInfo = {
                         key: factionMini,
                         name: filterRename[factionRenameKey] ?? faction,
-                        colorLight: useColorsLight[colorLightKey],
-                        colorDark: useColorsDark[colorDarkKey],
+                        colorLight: useColorsLight[colorLightKey] ?? '#12af7e',
+                        colorDark: useColorsDark[colorDarkKey] ?? '#32ff7e',
                         liveCount: liveData.factionCount[factionRenameKey],
                     };
                     return factionInfo;
@@ -74,8 +74,8 @@ router.get('/', async (_, res) => {
         const factionInfo: FactionInfo = {
             key: mini,
             name: filterRename[factionRenameKey] ?? faction,
-            colorLight: useColorsLight[colorLightKey],
-            colorDark: useColorsDark[colorDarkKey],
+            colorLight: useColorsLight[colorLightKey] ?? '#12af7e',
+            colorDark: useColorsDark[colorDarkKey] ?? '#32ff7e',
             liveCount: liveData.factionCount[factionRenameKey],
         };
         return factionInfo;
