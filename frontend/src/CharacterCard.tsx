@@ -1,42 +1,59 @@
 import React from 'react';
+import styles from './CharacterCard.module.css';
 import { CharacterInfo } from './types';
+import { OverlayTrigger, Tooltip} from 'react-bootstrap';
+import { Headphones, XLg, VolumeMuteFill } from 'react-bootstrap-icons';
 
 interface Props {
-  character: CharacterInfo
-  children?: React.ReactNode
+  character: CharacterInfo;
+  focused?: boolean;
+  onClickFocus: () => void;
+  onClickRemove: () => void;
+  children?: React.ReactNode;
 };
 
-const CharacterCard: React.FC<Props> = ({ character, children }) => {
+const CharacterCard: React.FC<Props> = ({ character, focused = false, onClickFocus, onClickRemove, children }) => {
     return (
-      <div
-        className="character-card"
-        style={{
-          position: 'relative',
-          display: 'flex',
-          overflow: 'hidden'
-        }}
-      >
+      <div className={[styles.container, focused ? styles.focused : styles.muted].join(' ')}>
         {children}
-        <div
-          className="px-2 text-truncate"
-          style={{
-            position: 'absolute',
-            borderRadius: '4px',
-            background: (character.factions.length > 0 && character.factions[0].colorDark) || '#32ff7e',
-            textTransform: 'uppercase',
-            pointerEvents: 'none',
-            margin: '20px',
-            right: '0',
-          }}
-        >
-          <p
-            className="small m-0"
+        <div className={styles.tags}>
+          <div
+            className={`${styles.tag} ${styles.nametag}`}
             style={{
-              fontWeight: '500',
+              background: (character.factions.length > 0 && character.factions[0].colorDark) || '#32ff7e',
             }}
           >
-            {character.name}
-          </p>
+            <p>{character.name}</p>
+          </div>
+          <OverlayTrigger
+            placement="bottom"
+            overlay={
+              <Tooltip id="focus-tooltip" className={styles.tooltip}>
+                {focused ? 'Mute audio' : 'Focus audio'}
+              </Tooltip>
+            }
+          >
+            <div className={[styles.tag, styles.iconTag, styles.focustag].join(' ')} onClick={onClickFocus}>
+              <div className={styles.whenFocused}>
+                <Headphones size={16} style={{ verticalAlign: 'baseline' }} />
+              </div>
+              <div className={styles.whenMuted}>
+                <VolumeMuteFill size={16} style={{ verticalAlign: 'baseline' }} />
+              </div>
+            </div>
+          </OverlayTrigger>
+          <OverlayTrigger
+            placement="bottom"
+            overlay={
+              <Tooltip id="remove-tooltip" className={styles.tooltip}>
+                Remove stream
+              </Tooltip>
+            }
+          >
+            <div className={[styles.tag, styles.iconTag, styles.removetag].join(' ')} onClick={onClickRemove}>
+              <XLg size={16} style={{ verticalAlign: 'baseline' }} />
+            </div>
+          </OverlayTrigger>
         </div>
       </div>
     );
