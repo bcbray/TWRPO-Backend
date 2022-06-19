@@ -369,6 +369,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Doug Darrell Dan' },
         { name: 'Ham Royce' },
     ],
+    DeFrostSC: [
+        { name: 'Thunder' },
+    ],
     Deputy_Games: [
         { name: 'Sam Rosco' },
     ],
@@ -531,6 +534,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Richard Flemington' },
         { name: 'Theodore Timers' },
         { name: 'William Killmore' },
+    ],
+    flaymayweather: [
+        { name: 'Cade Cross' },
     ],
     Flickerclad: [
         { name: 'Evangeline Thorne' },
@@ -957,10 +963,11 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Martina Guzman' },
     ],
     muhzzy: [
-        { name: 'Dr Cloth' },
+        { name: 'Dr. Cloth', displayName: 0 },
         { name: 'Grim' },
         { name: 'Herman Wilbur' },
         { name: 'Leon Taylor' },
+        { name: 'Conny Cage' },
     ],
     mums_live: [
         { name: 'Edward Moore' },
@@ -1437,6 +1444,7 @@ export const wrpCharacters: WrpCharacters = {
     ThinkingQuill: [
         { name: 'Cian Malloy' },
         { name: 'Hymnal Smed' },
+        { name: 'Elliot Teller' },
     ],
     thisisgillie: [
         { name: 'Balwinder Singh' },
