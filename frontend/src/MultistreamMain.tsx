@@ -62,11 +62,19 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
             {(factionKey && data.factions.find(f => f.key === factionKey)?.name) ?? 'Select faction'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {data.factions.filter(faction => faction.liveCount > 0).map(faction =>
-              <Dropdown.Item key={faction.key} eventKey={faction.key}>
+            {data.factions
+              .filter(faction => faction.liveCount > 0)
+              .sort((f1, f2) => {
+                if (f1.liveCount === f2.liveCount) {
+                  return f1.name.localeCompare(f2.name);
+                }
+                return f2.liveCount - f1.liveCount
+              })
+              .map(faction =>
+                <Dropdown.Item key={faction.key} eventKey={faction.key}>
                   {faction.name} ({faction.liveCount === 1 ? `1 stream` : `${faction.liveCount} streams`})
-              </Dropdown.Item>
-            )}
+                </Dropdown.Item>
+              )}
           </Dropdown.Menu>
         </Dropdown>
         <ReloadButton onClick={onReload} />
