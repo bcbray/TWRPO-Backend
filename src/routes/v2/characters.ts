@@ -5,6 +5,7 @@ import { wrpFactionsReal, FactionRealFull } from '../../data/meta';
 import { useColorsLight, useColorsDark, filterRename } from '../../data/factions';
 import { objectEntries } from '../../utils';
 import { getWrpLive } from '../live/liveData';
+import { displayInfo } from '../../characterUtils';
 
 interface FactionInfo {
     key: string;
@@ -14,11 +15,18 @@ interface FactionInfo {
     liveCount: number;
 }
 
+interface DisplayInfo {
+    realNames: string[];
+    nicknames: string[];
+    titles: string[];
+    displayName: string;
+}
+
 interface CharacterInfo {
     channelName: string;
     name: string;
+    displayInfo: DisplayInfo;
     factions: FactionInfo[];
-    nicknames: string[];
     liveInfo?: { viewers: number };
 }
 
@@ -38,6 +46,7 @@ router.get('/', async (_, res) => {
             return {
                 channelName: streamer,
                 name: character.name,
+                displayInfo: displayInfo(character),
                 factions: character.factions?.map((faction) => {
                     const factionMini = faction.toLowerCase().replaceAll(' ', '');
                     const colorLightKey = factionMini as keyof typeof useColorsLight;
@@ -53,7 +62,6 @@ router.get('/', async (_, res) => {
                     };
                     return factionInfo;
                 }) ?? [],
-                nicknames: character.nicknames?.filter(n => !n.startsWith('/')) ?? [],
                 liveInfo: stream && { viewers: stream.viewers },
             } as CharacterInfo;
         }));

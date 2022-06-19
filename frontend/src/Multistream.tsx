@@ -5,9 +5,19 @@ import CharacterCard from './CharacterCard';
 
 interface Props {
   characters: CharacterInfo[];
+  onClickRemove: (character: CharacterInfo) => void;
 }
 
-const Multistream: React.FunctionComponent<Props> = ({ characters }) => {
+const Multistream: React.FunctionComponent<Props> = ({ characters, onClickRemove }) => {
+  const [listeningTo, setListeningTo] = React.useState<CharacterInfo | null>(null);
+  const toggleFocus = (character: CharacterInfo) => {
+    if (listeningTo?.channelName === character.channelName) {
+      setListeningTo(null);
+    } else {
+      setListeningTo(character);
+    }
+  };
+
   // TODO: Consider moving width/height out of the react tree
   const [dimensions, setDimensions] = React.useState({
     height: window.innerHeight,
@@ -67,6 +77,9 @@ const Multistream: React.FunctionComponent<Props> = ({ characters }) => {
         (
           <CharacterCard
             key={character.channelName}
+            focused={listeningTo?.channelName === character.channelName}
+            onClickFocus={() => toggleFocus(character)}
+            onClickRemove={() => onClickRemove(character)}
             character={character}
           >
             <TwitchEmbed
@@ -76,7 +89,7 @@ const Multistream: React.FunctionComponent<Props> = ({ characters }) => {
               width={bestWidth}
               height={bestHeight}
               parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
-              muted={true}
+              muted={listeningTo?.channelName !== character.channelName}
             />
           </CharacterCard>
         )

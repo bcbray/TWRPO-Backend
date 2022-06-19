@@ -1,0 +1,95 @@
+import { Character } from './data/characters';
+import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from './data/meta';
+
+// TODO: Share this code between /api/v2/characters and liveData
+
+interface DisplayInfo {
+    realNames: string[];
+    nicknames: string[];
+    titles: string[];
+    displayName: string;
+}
+
+const toFactionMini = (faction: string) => faction.toLowerCase().replaceAll(' ', '');
+const fullFactionMap: { [key in FactionMini]?: FactionFull } = {}; // Factions with corresponding characters
+const displayNameDefault: { [key in FactionMini]?: number } = {
+    law: 2,
+} as const;
+
+export const displayInfo = (character: Character): DisplayInfo => {
+    const names = character.name.split(/\s+/);
+    const titles: string[] = [];
+    const realNames: string[] = [];
+    const nicknames = [...(character.nicknames?.filter(nck => !nck.startsWith('/')) ?? [])];
+    let knownName;
+    let currentName = null;
+    let displayNameNum = character.displayName;
+
+    for (let i = 0; i < names.length; i++) {
+        const name = names[i];
+        let pushName;
+        if (currentName != null) {
+            currentName.push(name);
+            if (name.includes(']') || name.includes('"')) {
+                pushName = currentName.join(' ');
+                const type1 = pushName.includes('[');
+                pushName = pushName.replace(/[\[\]"]/g, '');
+                if (type1) {
+                    titles.push(pushName); // had square
+                } else {
+                    knownName = pushName; // had quotes
+                    nicknames.unshift(knownName);
+                }
+                currentName = null;
+            }
+        } else if (name.includes('[') || name.includes('"')) {
+            const type1 = name.includes('[');
+            if ((type1 && name.includes(']')) || (!type1 && name.indexOf('"') !== name.lastIndexOf('"'))) {
+                pushName = name.replace(/[\[\]"]/g, '');
+                if (type1) {
+                    titles.push(pushName);
+                } else {
+                    knownName = pushName;
+                    nicknames.unshift(knownName);
+                }
+            } else {
+                currentName = [name];
+            }
+        } else {
+            pushName = name.replace(/"/g, '');
+            if (pushName !== name) {
+                knownName = pushName; // had quotes
+                nicknames.unshift(knownName);
+            }
+            realNames.push(pushName);
+        }
+    }
+
+    const fullFactions: FactionRealFull[] = character.factions?.length ? character.factions : ['Independent'];
+    const factions = fullFactions.map((fullFaction) => {
+        const miniFaction = toFactionMini(fullFaction) as FactionRealMini;
+        if (!fullFactionMap[miniFaction]) fullFactionMap[miniFaction] = fullFaction;
+        return miniFaction;
+    });
+
+    const primaryFaction = factions[0];
+    if (displayNameNum === undefined) displayNameNum = displayNameDefault[primaryFaction] ?? 1;
+
+    const displayNameTitle = titles.length ? `《${titles.join(' ')}》` : '';
+    let displayNameChar = '';
+    if (knownName !== undefined) {
+        displayNameChar = knownName;
+    } else if (displayNameNum === 0) {
+        displayNameChar = realNames.join(' ');
+    } else {
+        displayNameChar = realNames[displayNameNum - 1] || realNames[0];
+    }
+    const displayName = `${character.leader ? `♛${displayNameTitle ? '' : ' '}` : ''}${displayNameTitle}${displayNameChar}`.trim();
+
+    return {
+        realNames,
+        nicknames,
+        titles,
+        displayName,
+    };
+};
