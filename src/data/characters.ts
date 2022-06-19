@@ -239,7 +239,6 @@ export const wrpCharacters: WrpCharacters = {
     Caffine5: [
         { name: 'Billy Falco' },
         { name: 'Vincenzo Struzzo' },
-        { name: 'Vincenzo Struzzo' },
     ],
     calibriggs: [
         { name: 'Henry Baptiste' },
