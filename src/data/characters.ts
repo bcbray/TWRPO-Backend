@@ -1179,7 +1179,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'William Stone' },
     ],
     section9_Browncoat: [
-        { name: '[Cadet] Ned Fuller', factions: ['Law'] },
+        { name: '[Deputy] Ned Fuller', factions: ['Law'] },
         { name: 'Nick Carver' },
     ],
     Selvek: [
@@ -1250,7 +1250,7 @@ export const wrpCharacters: WrpCharacters = {
     SomethingBees: [
         { name: '[Ranger] Isla White', factions: ['Rangers'] },
         { name: 'Berdie Lloyd' },
-        { name: '[Cadet] Cait McAlister', factions: ['Law'] },
+        { name: '[Deputy] Cait McAlister', factions: ['Law'] },
     ],
     Sonneflower: [
         { name: 'Eliana Diaz' },
