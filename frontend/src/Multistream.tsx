@@ -75,7 +75,7 @@ const Multistream: React.FunctionComponent<Props> = ({ characters }) => {
               channel={character.channelName}
               width={bestWidth}
               height={bestHeight}
-              parent={['twrponly.tv', 'localhost']}
+              parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
               muted={true}
             />
           </CharacterCard>

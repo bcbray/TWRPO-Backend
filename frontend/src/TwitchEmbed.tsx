@@ -6,7 +6,7 @@ interface Props{
     channel: string;
     width: number;
     height: number;
-    parent: string[];
+    parent: string;
     muted?: boolean;
 }
 
@@ -34,7 +34,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({ id, channel, width, heigh
     function createPlayer() {
       const player = TwitchPlayer.FromOptions(id, {
         channel,
-        parent,
+        parent: [parent],
         width: '100%',
         height: '100%',
         muted: muted ?? false,
@@ -59,7 +59,9 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({ id, channel, width, heigh
       tag?.removeEventListener('load', createPlayer);
       // TODO: Figure out how to remove the script when we no longer need it across any embeds?
     }
-  }, [channel, id, ...parent]); // explicitly ignore "muted" as it's handled in another hook
+// explicitly ignore "muted" as it's handled in another hook
+// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [channel, id, parent]);
 
   return (
     <div id={id} style={{width: `${width}px`, height: `${height}px`}} />
