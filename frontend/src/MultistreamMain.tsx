@@ -33,17 +33,21 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
 
   const filteredCharacters = (() => {
     const characters = data.characters;
+    const liveCharacters = characters
+      .filter(character => character.liveInfo !== undefined)
+      .filter(character => !removedCharacters.some(c => c.channelName === character.channelName))
     const filtered = (factionKey === undefined)
-      ? []
-      : characters
-        .filter(character => character.liveInfo !== undefined)
-        .filter(character => character.factions.some(f => f.key === factionKey))
-        .filter(character => !removedCharacters.some(c => c.channelName === character.channelName))
+      ? liveCharacters
+      : liveCharacters.filter(character => character.factions.some(f => f.key === factionKey))
     const sorted = filtered.sort((lhs, rhs) =>
       (rhs.liveInfo?.viewers ?? 0) - (lhs.liveInfo?.viewers ?? 0)
     )
     return sorted;
   })()
+
+  const maxStreams = 12;
+
+  const charactersToShow = filteredCharacters.slice(0, maxStreams);
 
   const selectedFaction = factionKey && data.factions.find(f => f.key === factionKey);
 
@@ -62,6 +66,7 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
             {(factionKey && data.factions.find(f => f.key === factionKey)?.name) ?? 'Select faction'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
+            <Dropdown.Item eventKey=''>All characters (no filtering)</Dropdown.Item>
             {data.factions
               .filter(faction => faction.liveCount > 0)
               .sort((f1, f2) => {
@@ -78,6 +83,13 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
           </Dropdown.Menu>
         </Dropdown>
         <ReloadButton onClick={onReload} />
+        {charactersToShow.length !== filteredCharacters.length && (
+          <span title={`Only ${maxStreams} can be shown at once`}>
+            {charactersToShow.length === filteredCharacters.length - 1
+              ? '1 stream hidden'
+              : `${filteredCharacters.length - charactersToShow.length} streams hidden`}
+          </span>
+        )}
         {removedCharacters.map(character =>
           <Button
             key={character.channelName}
@@ -90,7 +102,7 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
           </Button>
         )}
       </Stack>
-      <Multistream characters={filteredCharacters} onClickRemove={removeCharacter} />
+      <Multistream characters={charactersToShow} onClickRemove={removeCharacter} />
     </>
   )
 }
