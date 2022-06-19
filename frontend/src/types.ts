@@ -3,6 +3,7 @@ export interface FactionInfo {
   name: string;
   colorLight: string;
   colorDark: string;
+  liveCount: number;
 };
 
 export interface CharacterInfo {
@@ -10,7 +11,8 @@ export interface CharacterInfo {
   name: string;
   factions: FactionInfo[];
   nicknames: string[];
-};
+  liveInfo?: { viewers: number };
+}
 
 
 export interface CharactersResponse {

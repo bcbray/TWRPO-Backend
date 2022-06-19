@@ -37,11 +37,12 @@ export const isSuccess = <T,E>(state: LoadingState<T, E>): state is Success_<T> 
 export const isFailure = <T,E>(state: LoadingState<T, E>): state is Failure_<E> =>
   state.type === 'Failure';
 
-export const useLoading = <T>(input: RequestInfo, init?: RequestInit) => {
+export function useLoading<T>(input: RequestInfo): [LoadingState<T, Error>, () => void] {
   const [state, setState] = useState<LoadingState<T, any>>(Idle);
+  const [loadCount, setLoadCount] = useState(0);
   useEffect(() => {
     async function fetchAndCheck(): Promise<T> {
-      const response = await fetch(input, init);
+      const response = await fetch(input);
       if (!response.ok) {
         throw Error(response.statusText);
       }
@@ -55,11 +56,13 @@ export const useLoading = <T>(input: RequestInfo, init?: RequestInit) => {
         setState(Failure(error));
       }
     }
-    setState(Loading);
+    if (loadCount === 0) {
+      setState(Loading);
+    }
     performFetch();
-  }, [input, init]);
+  }, [input, loadCount]);
 
-  return [state];
+  return [state, () => setLoadCount(loadCount + 1)];
 }
 
 export default LoadingState;

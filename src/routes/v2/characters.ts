@@ -4,35 +4,41 @@ import { wrpCharacters } from '../../data/characters';
 import { wrpFactionsReal, FactionRealFull } from '../../data/meta';
 import { useColorsLight, useColorsDark, filterRename } from '../../data/factions';
 import { objectEntries } from '../../utils';
+import { getWrpLive } from '../live/liveData';
 
 interface FactionInfo {
     key: string;
     name: string;
     colorLight?: string;
     colorDark?: string;
-};
+    liveCount: number;
+}
 
 interface CharacterInfo {
     channelName: string;
     name: string;
     factions: FactionInfo[];
     nicknames: string[];
-};
+    liveInfo?: { viewers: number };
+}
 
 interface CharactersResponse {
     factions: FactionInfo[];
     characters: CharacterInfo[];
-};
+}
 
 const router = Router();
 
-router.get('/', (_, res) => {
-    const characterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) => {
-        return characters.map(character => {
-            const characterInfo: CharacterInfo = {
+router.get('/', async (_, res) => {
+    const liveData = await getWrpLive();
+
+    const characterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) =>
+        characters.map((character) => {
+            const stream = liveData.streams.find(s => s.channelName === streamer && s.characterName === character.name);
+            return {
                 channelName: streamer,
                 name: character.name,
-                factions: character.factions?.map(faction => {
+                factions: character.factions?.map((faction) => {
                     const factionMini = faction.toLowerCase().replaceAll(' ', '');
                     const colorLightKey = factionMini as keyof typeof useColorsLight;
                     const colorDarkKey = factionMini as keyof typeof useColorsDark;
@@ -42,19 +48,17 @@ router.get('/', (_, res) => {
                         key: factionMini,
                         name: filterRename[factionRenameKey] ?? faction,
                         colorLight: useColorsLight[colorLightKey],
-                        colorDark:  useColorsDark[colorDarkKey]
-                    }
+                        colorDark: useColorsDark[colorDarkKey],
+                        liveCount: liveData.factionCount[factionRenameKey],
+                    };
                     return factionInfo;
                 }) ?? [],
                 nicknames: character.nicknames?.filter(n => !n.startsWith('/')) ?? [],
-            }
-            return characterInfo;
-        });
-    });
-    const ignoredFactions: FactionRealFull[] = ['Development', 'Independent', 'Other', 'Other Faction', 'Podcast', 'Watch Party']
-    const factionInfos = objectEntries(wrpFactionsReal).filter(([_, faction]) => {
-        return !ignoredFactions.includes(faction);
-    }).map(([mini, faction]) => {
+                liveInfo: stream && { viewers: stream.viewers },
+            } as CharacterInfo;
+        }));
+    const ignoredFactions: FactionRealFull[] = ['Development', 'Independent', 'Other', 'Other Faction', 'Podcast', 'Watch Party'];
+    const factionInfos = objectEntries(wrpFactionsReal).filter(([__, faction]) => !ignoredFactions.includes(faction)).map(([mini, faction]) => {
         const colorLightKey = mini as keyof typeof useColorsLight;
         const colorDarkKey = mini as keyof typeof useColorsDark;
         const factionRenameKey = mini as keyof typeof filterRename;
@@ -63,15 +67,16 @@ router.get('/', (_, res) => {
             key: mini,
             name: filterRename[factionRenameKey] ?? faction,
             colorLight: useColorsLight[colorLightKey],
-            colorDark:  useColorsDark[colorDarkKey]
-        }
+            colorDark: useColorsDark[colorDarkKey],
+            liveCount: liveData.factionCount[factionRenameKey],
+        };
         return factionInfo;
     });
 
-    const response: CharactersResponse  = {
+    const response: CharactersResponse = {
         factions: factionInfos,
-        characters: characterInfos
-    }
+        characters: characterInfos,
+    };
     return res.send(response);
 });
 
