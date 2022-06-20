@@ -1,15 +1,17 @@
 import React from 'react';
 import styles from './MultistreamMain.module.css';
-import { Dropdown, Stack, Button } from 'react-bootstrap';
+import { Stack, Button } from 'react-bootstrap';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useUpdateEffect, useCss } from 'react-use';
+import { useUpdateEffect } from 'react-use';
 import Multistream from './Multistream';
-import { Live, Stream, FactionInfo } from './types';
+import { LiveResponse, Stream, FactionInfo } from './types';
 import ReloadButton from './ReloadButton';
+import FactionDropdown from './FactionDropdown';
+import { factionsFromLive, ignoredFactions, ignoredFilterFactions } from './utils'
 
 interface Props {
-  data: Live,
+  data: LiveResponse,
   onReload: () => void,
 };
 
@@ -32,27 +34,12 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
     setRemovedStreams(removedStreams.filter(s => s.channelName !== stream.channelName));
   }
 
-  const ignoredFactionKeys = ['other', 'alltwitch'];
-  const ignoredFactionFilterKeys = ['otherwrp', 'allwildrp', 'guessed', ...ignoredFactionKeys]
-
-  const factionInfos: FactionInfo[] = data.filterFactions
-    .filter(([key]) => !ignoredFactionKeys.includes(key))
-    .map(([key, name, isLive]) => {
-      return {
-        key,
-        name,
-        colorLight: data.useColorsLight[key] ?? '#12af7e',
-        colorDark: data.useColorsDark[key] ?? '#32ff7e',
-        liveCount: data.factionCount[key],
-        isLive,
-      }
-    })
-
+  const factionInfos = factionsFromLive(data,)
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
 
   const filterFactions: FactionInfo[] = data.filterFactions
     .filter(([_, __, isLive]) => isLive)
-    .filter(([key]) => !ignoredFactionFilterKeys.includes(key))
+    .filter(([key]) => !ignoredFilterFactions.includes(key))
     .flatMap(([key, _, isLive]) => {
       const info = factionInfoMap[key];
       if (info === undefined) return [];
@@ -60,47 +47,18 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
         {...info, isLive}
       ]
     })
-
-  const className = useCss({
-    '.btn-independent': {
-      backgroundColor: '#12af7e',
-      borderColor: '#12af7e',
-    },
-    'a.dropdown-item:active': {
-      color: '#fff',
-      backgroundColor: '#12af7e',
-    },
-    ...Object.fromEntries(factionInfos.flatMap((faction) => {
-      return [
-        [
-          `.btn-${faction.key}`,
-          {
-            backgroundColor: faction.colorLight,
-            borderColor: faction.colorLight,
-          }
-        ],
-        [
-          `a.dropdown-item.faction-${faction.key}`,
-          {
-            color: faction.colorLight,
-          },
-        ],
-        [
-          `a.dropdown-item.faction-${faction.key}:active`,
-          {
-            color: '#fff',
-            backgroundColor: faction.colorLight,
-          },
-        ],
-      ]
-    })),
-  });
+    .sort((f1, f2) => {
+      if (f1.liveCount === f2.liveCount) {
+        return f1.name.localeCompare(f2.name);
+      }
+      return (f2.liveCount ?? 0) - (f1.liveCount ?? 0)
+    })
 
   const filteredStreams = (() => {
     const streams = data.streams
       .filter(stream => !removedStreams.some(s => s.channelName === stream.channelName))
-      .filter(stream => !ignoredFactionKeys.includes(stream.tagFaction))
-      .filter(stream => !(stream.tagFactionSecondary && ignoredFactionKeys.includes(stream.tagFactionSecondary)))
+      .filter(stream => !ignoredFactions.includes(stream.tagFaction))
+      .filter(stream => !(stream.tagFactionSecondary && ignoredFactions.includes(stream.tagFactionSecondary)))
     const filtered = (factionKey === undefined)
       ? streams
       : streams.filter(stream => stream.factionsMap[factionKey] )
@@ -122,33 +80,20 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
         </Helmet>
       }
       <Stack direction='horizontal' gap={3} className="mb-4">
-        <Dropdown
-          className={[className, styles.factionDropdown].join(' ')}
-          onSelect={e => navigate(`/multistream${e ? `/faction/${e}` : ''}${location.search}`) }
-        >
-          <Dropdown.Toggle variant={selectedFaction?.key ?? 'independent'}>
-            {selectedFaction?.name ?? 'Select faction'}
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item eventKey=''>All WildRP (no filtering)</Dropdown.Item>
-            {filterFactions
-              .sort((f1, f2) => {
-                if (f1.liveCount === f2.liveCount) {
-                  return f1.name.localeCompare(f2.name);
-                }
-                return (f2.liveCount ?? 0) - (f1.liveCount ?? 0)
-              })
-              .map(faction =>
-                <Dropdown.Item
-                  key={faction.key}
-                  className={`faction-${faction.key}`}
-                  eventKey={faction.key}
-                >
-                  {faction.name} {faction.liveCount && <>({faction.liveCount === 1 ? `1 stream` : `${faction.liveCount} streams`})</>}
-                </Dropdown.Item>
-              )}
-          </Dropdown.Menu>
-        </Dropdown>
+        <FactionDropdown
+          factions={filterFactions}
+          selectedFaction={selectedFaction}
+          onSelect={f => navigate(`/multistream${f ? `/faction/${f.key}` : ''}${location.search}`) }
+          itemContent={faction => (
+            <>
+              {faction.name} {faction.liveCount &&
+                <em className="small">
+                  ({faction.liveCount === 1 ? `1 stream` : `${faction.liveCount} streams`})
+                </em>
+              }
+            </>
+          )}
+        />
         <ReloadButton onClick={onReload} />
         {streamsToShow.length !== filteredStreams.length && (
           <span title={`Only ${maxStreams} can be shown at once`}>

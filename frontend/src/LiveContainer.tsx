@@ -1,20 +1,21 @@
 import React from 'react';
 import { Container, Spinner, Row, Col} from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
+
 import { useLoading, isSuccess, isFailure } from './LoadingState';
 import { LiveResponse } from './types';
-import MultistreamMain from './MultistreamMain';
+import Live from './Live';
 
-const MultistreamContainer: React.FunctionComponent<{}> = () => {
-  const [loadingState, onReload] = useLoading<LiveResponse>('/live');
+const LiveContainer: React.FC = () => {
+  const [loadingState] = useLoading<LiveResponse>('/live');
   return (
     <>
       <Helmet>
-        <title>Twitch WildRP Only - Multistream</title>
+        <title>Twitch WildRP Only</title>
       </Helmet>
       <Container className="mt-5">
         {isSuccess(loadingState)
-           ? <MultistreamMain data={loadingState.data} onReload={onReload} />
+           ? <Live data={loadingState.data} />
            : isFailure(loadingState)
              ? <Row className="justify-content-center">
                  <Col xs="auto"><p>Failed to load data. Please try again later.</p></Col>
@@ -25,7 +26,7 @@ const MultistreamContainer: React.FunctionComponent<{}> = () => {
          }
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default MultistreamContainer;
+export default LiveContainer;

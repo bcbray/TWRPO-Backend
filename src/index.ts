@@ -32,10 +32,11 @@ app.get('/test', (_, res) => {
     return res.send('test');
 });
 
-app.use('/tno_data', routes.tnoDataRouter);
-app.use('/initial_data', routes.tnoDataRouter);
-app.use('/data', routes.dataRouter);
-app.use('/streams', routes.streamsRouter);
+// TODO: Old extension's routes, should remove completely
+// app.use('/tno_data', routes.tnoDataRouter);
+// app.use('/initial_data', routes.tnoDataRouter);
+// app.use('/data', routes.dataRouter);
+// app.use('/streams', routes.streamsRouter);
 app.use('/live', routes.liveRouter);
 
 app.use('/api/v2/characters', routes.v2CharactersRouter);
