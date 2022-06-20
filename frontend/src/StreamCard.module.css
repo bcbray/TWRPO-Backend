@@ -1,0 +1,81 @@
+.card {
+
+}
+
+.thumbnail {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.thumbnail img {
+  width: 100%;
+  display: block;
+}
+
+.tag {
+  position: absolute;
+  border-radius: 4px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875em;
+  height: 1.5em;
+  margin: 0.5rem;
+}
+
+.tag.name {
+  font-weight: 500;
+  background-color: #32ff7e;
+  top: 0;
+  left: 0;
+}
+
+.tag.viewers {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  bottom: 0;
+  left: 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pfp {
+  margin-right: 0.25rem;
+}
+
+.pfp img {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25em;
+  min-width: 0;
+}
+
+.title p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.channel p {
+  margin: 0;
+}
+
+.channel a {
+  text-decoration: none;
+}
