@@ -44,7 +44,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jason Forsworn' },
     ],
     aDarkFilly: [
-        { name: 'Magnolia' },
+        { name: 'Magnolia', factions: ['The Nameless'] },
     ],
     Aero_Films: [
         { name: 'Skeeter Carlisle' },
@@ -1234,7 +1234,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Henry "West"' },
     ],
     SkoogFFS: [
-        { name: 'Billy Joe Barber', nicknames: ['Billy Joe', 'BJB'], displayName: 4 },
+        { name: 'Billy Joe Barber', nicknames: ['Billy Joe', 'BJB'], displayName: 4, factions: ['The Nameless'] },
     ],
     SLiMt: [
         { name: 'Jimmy "Slim Jim" Slimper' },
