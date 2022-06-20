@@ -549,7 +549,6 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Joseph Walters' },
         { name: 'Morris Sterling' },
         { name: 'Chester Fox' },
-        { name: 'Edmund Reddington' },
     ],
     FrankTheTank5494: [
         { name: 'Matthew Isaiah' },
@@ -628,6 +627,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Paulson Greer' },
         { name: 'Peter Gray' },
         { name: 'Balter Duncans' },
+        { name: 'Paz Ferrer' },
     ],
     GreenEnigma: [
         { name: 'Jericho Blackfoot' },
@@ -922,6 +922,9 @@ export const wrpCharacters: WrpCharacters = {
     McBlairTV: [
         { name: 'Cyrus McGill' },
     ],
+    MDMums: [
+        { name: 'Edward Moore' },
+    ],
     MEKABEAR: [
         { name: '[Deputy] Audrey Dusk', factions: ['Law'] },
         { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
@@ -1040,6 +1043,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     oldkelvo: [
         { name: 'Jack Crow' },
+        { name: 'Beth Gout' },
     ],
     Orcish: [
         { name: '[Deputy] Allistair McGregor', factions: ['Law'] },
@@ -1129,7 +1133,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     rossthehsauce: [
         { name: 'Forest Fish', factions: ['Guppy Gang'] },
-        { name: 'Dominic Aldizousa', factions: ['DiCenzo Famiglia'] },
+        { name: 'Dominic Disouza', factions: ['DiCenzo Famiglia'] },
     ],
     RY4N: [
         { name: 'Christine "Momma" Thomas' },
@@ -1562,7 +1566,7 @@ export const wrpCharacters: WrpCharacters = {
     XxAshleyxX: [
         { name: 'Rayven Hope' },
         { name: 'Zola Caiman' },
-        { name: 'Noel Taylor' },
+        { name: 'Noel "Leon" Taylor' },
     ],
     YatoTheMad: [
         { name: 'Cassius Evans' },
