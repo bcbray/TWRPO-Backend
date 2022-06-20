@@ -30,3 +30,21 @@ export function factionsFromLive(
       }
     })
 }
+
+export const formatViewers = (viewers: number) => {
+  if (viewers === 1) {
+    return '1 viewer';
+  }
+
+  let maximumFractionDigits = 0;
+  let suffix = '';
+  let denominator = 1;
+  if (viewers >= 1000) {
+    maximumFractionDigits = (viewers < 100000) ? 1 : 0;
+    suffix = 'K'
+    denominator = 1000;
+  }
+  const formatted = (viewers/denominator).toLocaleString(undefined, { maximumFractionDigits: maximumFractionDigits });
+
+  return `${formatted}${suffix} viewers`;
+}

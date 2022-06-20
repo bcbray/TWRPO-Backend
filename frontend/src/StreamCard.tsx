@@ -2,6 +2,7 @@ import React from 'react';
 
 import styles from './StreamCard.module.css';
 import { Stream } from './types';
+import { formatViewers } from './utils';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   stream: Stream;
@@ -30,7 +31,7 @@ const StreamCard: React.FC<Props> = ({
           <p>{stream.tagText}</p>
         </div>
         <div className={[styles.tag, styles.viewers].join(' ')}>
-          <p>{stream.viewers === 1 ? '1 viewer' : `${stream.viewers} viewers`}</p>
+          <p>{formatViewers(stream.viewers)}</p>
         </div>
       </div>
       <div className={styles.info}>
