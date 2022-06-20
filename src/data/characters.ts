@@ -54,7 +54,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Del Parker' },
     ],
     aJimmy: [
-        { name: 'James Kelly' },
+        { name: 'James Kelly', factions: ['Summers Gang'] },
     ],
     Altrah: [
         { name: 'Victor Morteza' },
@@ -768,7 +768,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Eloise Carter' },
     ],
     johnnyblamz: [
-        { name: 'Gavin Summers' },
+        { name: 'Gavin Summers', factions: ['Summers Gang'], leader: true },
         { name: 'Jody Quinn' },
         { name: 'Logan Miller' },
     ],
@@ -850,7 +850,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Tavish Black' },
     ],
     LEAH: [
-        { name: 'Francesca "Checkers" Bright' },
+        { name: 'Francesca "Checkers" Bright', factions: ['Summers Gang'] },
     ],
     Lendermations: [
         { name: 'Inessa "Miss Match" Bornlof' },
@@ -1297,7 +1297,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     spriteleah: [
         { name: 'Francesca "Frankie" Bright' },
-        { name: 'Harriet "Hawk" Hawkins' },
+        { name: 'Harriet "Hawk" Hawkins', factions: ['Summers Gang'] },
         { name: 'Brie Haviour' },
     ],
     squareiz: [
