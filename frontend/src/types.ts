@@ -50,7 +50,7 @@ export interface Stream {
   startDate?: Date;
 }
 
-export interface Live {
+export interface LiveResponse {
     minViewers: number;
     stopOnMin: boolean;
     intervalSeconds: number;

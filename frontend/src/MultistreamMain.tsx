@@ -5,11 +5,12 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useUpdateEffect, useCss } from 'react-use';
 import Multistream from './Multistream';
-import { Live, Stream, FactionInfo } from './types';
+import { LiveResponse, Stream, FactionInfo } from './types';
 import ReloadButton from './ReloadButton';
+import FactionDropdown from './FactionDropdown';
 
 interface Props {
-  data: Live,
+  data: LiveResponse,
   onReload: () => void,
 };
 
@@ -60,41 +61,12 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
         {...info, isLive}
       ]
     })
-
-  const className = useCss({
-    '.btn-independent': {
-      backgroundColor: '#12af7e',
-      borderColor: '#12af7e',
-    },
-    'a.dropdown-item:active': {
-      color: '#fff',
-      backgroundColor: '#12af7e',
-    },
-    ...Object.fromEntries(factionInfos.flatMap((faction) => {
-      return [
-        [
-          `.btn-${faction.key}`,
-          {
-            backgroundColor: faction.colorLight,
-            borderColor: faction.colorLight,
-          }
-        ],
-        [
-          `a.dropdown-item.faction-${faction.key}`,
-          {
-            color: faction.colorLight,
-          },
-        ],
-        [
-          `a.dropdown-item.faction-${faction.key}:active`,
-          {
-            color: '#fff',
-            backgroundColor: faction.colorLight,
-          },
-        ],
-      ]
-    })),
-  });
+    .sort((f1, f2) => {
+      if (f1.liveCount === f2.liveCount) {
+        return f1.name.localeCompare(f2.name);
+      }
+      return (f2.liveCount ?? 0) - (f1.liveCount ?? 0)
+    })
 
   const filteredStreams = (() => {
     const streams = data.streams
@@ -122,33 +94,20 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
         </Helmet>
       }
       <Stack direction='horizontal' gap={3} className="mb-4">
-        <Dropdown
-          className={[className, styles.factionDropdown].join(' ')}
-          onSelect={e => navigate(`/multistream${e ? `/faction/${e}` : ''}${location.search}`) }
-        >
-          <Dropdown.Toggle variant={selectedFaction?.key ?? 'independent'}>
-            {selectedFaction?.name ?? 'Select faction'}
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item eventKey=''>All WildRP (no filtering)</Dropdown.Item>
-            {filterFactions
-              .sort((f1, f2) => {
-                if (f1.liveCount === f2.liveCount) {
-                  return f1.name.localeCompare(f2.name);
-                }
-                return (f2.liveCount ?? 0) - (f1.liveCount ?? 0)
-              })
-              .map(faction =>
-                <Dropdown.Item
-                  key={faction.key}
-                  className={`faction-${faction.key}`}
-                  eventKey={faction.key}
-                >
-                  {faction.name} {faction.liveCount && <>({faction.liveCount === 1 ? `1 stream` : `${faction.liveCount} streams`})</>}
-                </Dropdown.Item>
-              )}
-          </Dropdown.Menu>
-        </Dropdown>
+        <FactionDropdown
+          factions={filterFactions}
+          selectedFaction={selectedFaction}
+          onSelect={f => navigate(`/multistream${f ? `/faction/${f.key}` : ''}${location.search}`) }
+          itemContent={faction => (
+            <>
+              {faction.name} {faction.liveCount &&
+                <em className="small">
+                  ({faction.liveCount === 1 ? `1 stream` : `${faction.liveCount} streams`})
+                </em>
+              }
+            </>
+          )}
+        />
         <ReloadButton onClick={onReload} />
         {streamsToShow.length !== filteredStreams.length && (
           <span title={`Only ${maxStreams} can be shown at once`}>

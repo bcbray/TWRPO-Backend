@@ -2,11 +2,11 @@ import React from 'react';
 import { Container, Spinner, Row, Col} from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 import { useLoading, isSuccess, isFailure } from './LoadingState';
-import { Live } from './types';
+import { LiveResponse } from './types';
 import MultistreamMain from './MultistreamMain';
 
 const MultistreamContainer: React.FunctionComponent<{}> = () => {
-  const [loadingState, onReload] = useLoading<Live>('/live');
+  const [loadingState, onReload] = useLoading<LiveResponse>('/live');
   return (
     <>
       <Helmet>
