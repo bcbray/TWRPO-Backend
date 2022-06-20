@@ -284,6 +284,9 @@ export const wrpCharacters: WrpCharacters = {
     CHUDOCKEN: [
         { name: 'Qeljayiden', nicknames: ['Qelajayiden', 'Jaden'] },
     ],
+    ChrisTombstone: [
+        { name: 'Joffery Wilkins' },
+    ],
     ClassicSteeve: [
         { name: 'Melvin Brown' },
     ],
@@ -292,13 +295,16 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Father Hickey' },
     ],
     CloakingHawk: [
-        { name: '[Ranger] Danni Jackson', factions: ['Rangers'] },
+        { name: '[Cadet] Danni Jackson', factions: ['Law'] },
         { name: 'Roo' },
         { name: 'Tilly-May Edwards' },
     ],
     CloeeBee: [
         { name: 'Alice Bennett' },
         { name: 'Rose Pond' },
+    ],
+    Coda19us: [
+        { name: 'Cecil Prichard' },
     ],
     Cojothebro: [
         { name: 'Oliver Toscano', nicknames: ['Mad Dog'], factions: ['DiCenzo Famiglia'] },
@@ -327,6 +333,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DadnOut: [
         { name: 'Cletus Clifton' },
+        { name: 'Dusty Wilder' },
     ],
     Daftmedic: [
         { name: '[Doctor] Tristan Shipman', factions: ['Medical'] },
@@ -1112,6 +1119,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Dove Hopkins', factions: ['Law'] },
         { name: 'Sally Higgins', nicknames: ['Shotgun'] },
     ],
+    Rayormy: [
+        { name: 'Adelaide Henry' },
+    ],
     RayforRachel: [
         { name: 'Winifred "Dot" Barlow' },
         { name: 'Shirley Lemons', nicknames: ['Cowgirl'] },
@@ -1364,7 +1374,7 @@ export const wrpCharacters: WrpCharacters = {
     TehJamJar: [
         { name: 'Alvin Biggs' },
         { name: 'Dwight Bridger', displayName: 2, factions: ['The Humble Bunch'] },
-        { name: 'Klaus Pudovkin', factions: ['Kettleman Gang'] }, // TODO: Confirm faction
+        { name: 'Klaus Pudovkin' },
         { name: 'Luke Colton', factions: ['Coltons'] },
     ],
     Thadrius: [
@@ -1422,6 +1432,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheJasonPhoenix: [
         { name: 'Fenix Hayston' },
+        { name: '[Deputy] John Claymore', factions: ['Law'] },
     ],
     theLGX: [
         { name: 'Abner Ace' },
