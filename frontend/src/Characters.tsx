@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './Characters.module.css';
-import { Form, Dropdown, Stack } from 'react-bootstrap';
+import { Form, Dropdown, Stack, Button } from 'react-bootstrap';
 import { useParams, useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 import { useCss } from 'react-use';
 import CharactersTable from './CharactersTable';
 import { CharactersResponse } from './types';
+import FeedbackModal from './FeedbackModal';
 
 interface Props {
   data: CharactersResponse
@@ -17,6 +18,9 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
   const params = useParams();
   const { factionKey } = params;
   const [searchParams, setSearchParams] = useSearchParams();
+  const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
+  const handleCloseFeedback = () => setShowingFeedbackModal(false);
+  const handleShowFeedback = () => setShowingFeedbackModal(true);
 
   const className = useCss({
     '.btn-independent': {
@@ -80,6 +84,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
           <title>Twitch WildRP Only - {selectedFaction.name} Characters</title>
         </Helmet>
       }
+      <FeedbackModal show={showingFeedbackModal} onHide={handleCloseFeedback} />
       <Stack direction='horizontal' gap={3} className="mb-4">
         <Dropdown
           className={[className, styles.factionDropdown].join(' ')}
@@ -101,12 +106,20 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
             )}
           </Dropdown.Menu>
         </Dropdown>
-          <Form.Control
-            type="text"
-            placeholder="Search for character name / nickname / stream..."
-            value={searchParams.get('search') || ''}
-            onChange={ e => e.target.value ? setSearchParams({ search: e.target.value }) : setSearchParams({}) }
-          />
+        <Form.Control
+          className={styles.search}
+          type="text"
+          placeholder="Search for character name / nickname / stream..."
+          value={searchParams.get('search') || ''}
+          onChange={ e => e.target.value ? setSearchParams({ search: e.target.value }) : setSearchParams({}) }
+        />
+        <Button
+          className={styles.feedbackButton}
+          variant="secondary"
+          onClick={handleShowFeedback}
+        >
+          Suggest changes
+        </Button>
       </Stack>
       <CharactersTable characters={filteredCharacters} />
     </>

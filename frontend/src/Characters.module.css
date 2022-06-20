@@ -1,4 +1,18 @@
+.factionDropdown {
+  flex-shrink: 0;
+}
+
 .factionDropdown :global .btn {
   color: #fff;
   font-weight: 400;
+}
+
+.search {
+  flex-shrink: 1;
+  flex-grow: 1;
+  width: auto;
+}
+
+.feedbackButton {
+  flex-shrink: 0;
 }
