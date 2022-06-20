@@ -15,6 +15,12 @@
   margin-bottom: 2rem;
 }
 
-.configure {
-  /* margin-bottom: 2rem; */
+.info {
+  margin-bottom: 1rem;
+}
+
+.info h4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

@@ -51,18 +51,18 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
   };
   return (
     <Col xs={12} sm={6} md={4} lg={3} className={styles.card}>
-      <div>
-        <h4>{faction.name}</h4>
-        <p>
+      <div className={styles.info}>
+        <h4 title={faction.name}>{faction.name}</h4>
+        <div>
           <ColorCell dark color={faction.colorLight} />
           <ColorCell invert dark color={faction.colorLight} />
           (light)
-        </p>
-        <p>
+        </div>
+        <div>
           <ColorCell color={faction.colorDark} />
           <ColorCell invert color={faction.colorDark} />
           (dark)
-        </p>
+        </div>
       </div>
       <div>
         <div>
@@ -112,7 +112,7 @@ const ColorHelper: React.FC<Props> = ({ data }) => {
 
   return (
     <>
-      <Row className={styles.configure}>
+      <Row>
         <FactionCard faction={previewFaction} />
         <Col xs={12} sm={6} md={4} lg={3} className={styles.picker}>
           <p>Light:</p>
