@@ -59,7 +59,7 @@ const FactionDropdown: React.FC<Props> = ({
       onSelect={e => onSelect(factions.find(f => f.key === e) || null)}
     >
       <Dropdown.Toggle variant={selectedFaction?.key ?? 'independent'}>
-        {selectedFaction?.name ?? 'Select faction'}
+        {selectedFaction?.name ?? 'All WildRP'}
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item eventKey=''>All WildRP (no filtering)</Dropdown.Item>

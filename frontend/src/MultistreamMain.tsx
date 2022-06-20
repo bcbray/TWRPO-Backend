@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './MultistreamMain.module.css';
-import { Dropdown, Stack, Button } from 'react-bootstrap';
+import { Stack, Button } from 'react-bootstrap';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useUpdateEffect, useCss } from 'react-use';
+import { useUpdateEffect } from 'react-use';
 import Multistream from './Multistream';
 import { LiveResponse, Stream, FactionInfo } from './types';
 import ReloadButton from './ReloadButton';
 import FactionDropdown from './FactionDropdown';
+import { factionsFromLive, ignoredFactions, ignoredFilterFactions } from './utils'
 
 interface Props {
   data: LiveResponse,
@@ -33,27 +34,12 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
     setRemovedStreams(removedStreams.filter(s => s.channelName !== stream.channelName));
   }
 
-  const ignoredFactionKeys = ['other', 'alltwitch'];
-  const ignoredFactionFilterKeys = ['otherwrp', 'allwildrp', 'guessed', ...ignoredFactionKeys]
-
-  const factionInfos: FactionInfo[] = data.filterFactions
-    .filter(([key]) => !ignoredFactionKeys.includes(key))
-    .map(([key, name, isLive]) => {
-      return {
-        key,
-        name,
-        colorLight: data.useColorsLight[key] ?? '#12af7e',
-        colorDark: data.useColorsDark[key] ?? '#32ff7e',
-        liveCount: data.factionCount[key],
-        isLive,
-      }
-    })
-
+  const factionInfos = factionsFromLive(data,)
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
 
   const filterFactions: FactionInfo[] = data.filterFactions
     .filter(([_, __, isLive]) => isLive)
-    .filter(([key]) => !ignoredFactionFilterKeys.includes(key))
+    .filter(([key]) => !ignoredFilterFactions.includes(key))
     .flatMap(([key, _, isLive]) => {
       const info = factionInfoMap[key];
       if (info === undefined) return [];
@@ -71,8 +57,8 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
   const filteredStreams = (() => {
     const streams = data.streams
       .filter(stream => !removedStreams.some(s => s.channelName === stream.channelName))
-      .filter(stream => !ignoredFactionKeys.includes(stream.tagFaction))
-      .filter(stream => !(stream.tagFactionSecondary && ignoredFactionKeys.includes(stream.tagFactionSecondary)))
+      .filter(stream => !ignoredFactions.includes(stream.tagFaction))
+      .filter(stream => !(stream.tagFactionSecondary && ignoredFactions.includes(stream.tagFactionSecondary)))
     const filtered = (factionKey === undefined)
       ? streams
       : streams.filter(stream => stream.factionsMap[factionKey] )
