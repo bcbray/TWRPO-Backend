@@ -337,6 +337,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Daftmedic: [
         { name: '[Doctor] Tristan Shipman', factions: ['Medical'] },
+        { name: 'Archibald Shaw' },
     ],
     Dam_O: [
         { name: 'Grover Carlson' },
@@ -458,6 +459,7 @@ export const wrpCharacters: WrpCharacters = {
     DustMonkeyGames: [
         { name: '[Deputy] Charles Slaughter', factions: ['Law'] },
         { name: 'Solomon Walker' },
+        { name: 'Lawrence "The Major" Stirling' },
     ],
     dynadivine: [
         { name: 'Lucille Davis' },
@@ -752,6 +754,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Lucius Alabaster' },
         { name: '[Deputy] Obidiah Colt', factions: ['Law'] },
         { name: 'Scooter Brown' },
+    ],
+    jdot: [
+        { name: 'James McAfee' },
     ],
     Jennybeartv: [
         { name: 'Gemma Middleton' },
