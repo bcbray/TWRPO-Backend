@@ -1,7 +1,11 @@
 import React from 'react';
 import { Table, Badge } from 'react-bootstrap';
 import { Link, useLocation } from "react-router-dom";
+
+import styles from './CharactersTable.module.css';
 import { CharacterInfo } from './types';
+import Tag from './Tag';
+import { formatViewers } from './utils';
 
 interface Props {
   characters: CharacterInfo[];
@@ -38,7 +42,9 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
             <tr key={character.channelName + character.name}>
               <td className="character-channel-name">
               <a className="text-dark" style={{ textDecoration: 'none' }} href={`https://twitch.tv/${character.channelName.toLowerCase()}`}>
-                {character.channelName}{character.liveInfo && (<> <span>(live, {character.liveInfo.viewers} viewers)</span></>)}
+                {character.channelName}
+                {character.liveInfo &&
+                  <Tag as='span' className={styles.liveTag} title={formatViewers(character.liveInfo.viewers)}>Live</Tag>}
               </a>
               </td>
               <td className="character-titles">{character.displayInfo.titles.join(', ')}</td>
