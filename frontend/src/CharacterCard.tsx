@@ -1,8 +1,10 @@
 import React from 'react';
-import styles from './CharacterCard.module.css';
-import { Stream, FactionInfo } from './types';
 import { OverlayTrigger, Tooltip} from 'react-bootstrap';
 import { Headphones, XLg, VolumeMuteFill } from 'react-bootstrap-icons';
+
+import styles from './CharacterCard.module.css';
+import { Stream, FactionInfo } from './types';
+import Tag from './Tag';
 
 interface Props {
   stream: Stream;
@@ -23,14 +25,14 @@ const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, 
       ].join(' ')}>
         {children}
         <div className={styles.tags}>
-          <div
+          <Tag
             className={`${styles.tag} ${styles.nametag}`}
             style={{
               background: factionInfo?.colorDark || '#32ff7e',
             }}
           >
             <p>{stream.tagText}</p>
-          </div>
+          </Tag>
           <OverlayTrigger
             placement="bottom"
             overlay={
@@ -39,14 +41,14 @@ const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, 
               </Tooltip>
             }
           >
-            <div className={[styles.tag, styles.iconTag, styles.focustag].join(' ')} onClick={onClickFocus}>
+            <Tag className={[styles.tag, styles.iconTag, styles.focustag].join(' ')} onClick={onClickFocus}>
               <div className={styles.whenFocused}>
                 <Headphones size={16} style={{ verticalAlign: 'baseline' }} />
               </div>
               <div className={styles.whenMuted}>
                 <VolumeMuteFill size={16} style={{ verticalAlign: 'baseline' }} />
               </div>
-            </div>
+            </Tag>
           </OverlayTrigger>
           <OverlayTrigger
             placement="bottom"
@@ -56,9 +58,9 @@ const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, 
               </Tooltip>
             }
           >
-            <div className={[styles.tag, styles.iconTag, styles.removetag].join(' ')} onClick={onClickRemove}>
+            <Tag className={[styles.tag, styles.iconTag, styles.removetag].join(' ')} onClick={onClickRemove}>
               <XLg size={16} style={{ verticalAlign: 'baseline' }} />
-            </div>
+            </Tag>
           </OverlayTrigger>
         </div>
       </div>

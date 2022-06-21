@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './StreamCard.module.css';
 import { Stream } from './types';
 import { formatViewers } from './utils';
+import Tag from './Tag';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   stream: Stream;
@@ -31,17 +32,17 @@ const StreamCard: React.FC<Props> = ({
             alt={`${stream.channelName} stream thumbnail`}
           />
         </a>
-        <div
+        <Tag
           className={[styles.tag, styles.name].join(' ')}
           style={{
             background: factionColors[stream.faction]?.dark,
           }}
         >
           <p>{stream.tagText}</p>
-        </div>
-        <div className={[styles.tag, styles.viewers].join(' ')}>
+        </Tag>
+        <Tag className={[styles.tag, styles.viewers].join(' ')}>
           <p>{formatViewers(stream.viewers)}</p>
-        </div>
+        </Tag>
       </div>
       <div className={styles.info}>
         <div className={styles.pfp}>
