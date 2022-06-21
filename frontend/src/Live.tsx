@@ -75,7 +75,7 @@ const Live: React.FC<Props> = ({ data }) => {
         <FilterBar
           factions={filterFactions}
           selectedFaction={selectedFaction}
-          onSelectFaction={f => navigate(`/streams${f ? `/faction/${f.key}` : ''}${location.search}`) }
+          onSelectFaction={f => navigate(`/${f ? `streams/faction/${f.key}` : ''}${location.search}`) }
           searchText={searchParams.get('search') || ''}
           onChangeSearchText={text => text ? setSearchParams({ search: text }) : setSearchParams({}) }
         />
