@@ -2,16 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-
-import CharactersContainer from './CharactersContainer';
-import MultistreamContainer from './MultistreamContainer';
-import LiveContainer from './LiveContainer';
-import ColorHelperContainer from  './ColorHelperContainer';
-import TrackerProvider from './TrackerProvider';
-import PageviewTracker from './PageviewTracker';
-import NotFound from './NotFound';
+import App from './App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,26 +10,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <TrackerProvider>
-      <HelmetProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/characters" element={<CharactersContainer />}>
-              <Route path=":factionKey" element={<CharactersContainer />} />
-            </Route>
-            <Route path="/multistream" element={<MultistreamContainer />} />
-            <Route path="/multistream/faction" element={<Navigate to="/multistream" />} />
-            <Route path="/multistream/faction/:factionKey" element={<MultistreamContainer />} />
-            <Route path="/streams" element={<LiveContainer />} />
-            <Route path="/streams/faction" element={<Navigate to="/streams" />} />
-            <Route path="/streams/faction/:factionKey" element={<LiveContainer />} />
-            <Route path="/utils/colors" element={<ColorHelperContainer />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <PageviewTracker />
-        </BrowserRouter>
-      </HelmetProvider>
-    </TrackerProvider>
+    <App />
   </React.StrictMode>
 );
 
