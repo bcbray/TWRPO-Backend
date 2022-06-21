@@ -18,10 +18,19 @@ const StreamCard: React.FC<Props> = ({
   return (
     <div className={[styles.card, className].join(' ')} {...rest}>
       <div className={styles.thumbnail}>
-        <img
-          src={stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')}
-          alt={`${stream.channelName} stream thumbnail`}
-        />
+        <a
+          target='_blank'
+          rel='noreferrer'
+          href={`https://twitch.tv/${stream.channelName}`}
+          style={{
+            color: factionColors[stream.faction]?.light,
+          }}
+        >
+          <img
+            src={stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')}
+            alt={`${stream.channelName} stream thumbnail`}
+          />
+        </a>
         <div
           className={[styles.tag, styles.name].join(' ')}
           style={{
