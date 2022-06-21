@@ -102,7 +102,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     aureliawrites: [
         { name: 'Lena Phipps' },
-        { name: 'Scarlet' }, // TODO: Last name?
+        { name: 'Scarlet ?' }, // TODO: Last name?
     ],
     AustiinTV: [
         { name: 'Mickey Toolin' },
@@ -898,6 +898,9 @@ export const wrpCharacters: WrpCharacters = {
     Lt_Raven: [
         { name: '[Father] Samuel O\'Keeffe', displayName: 2 },
     ],
+    luka_aus: [
+        { name: '? ?' },
+    ],
     Lunabee: [
         { name: 'Abigale Hart' },
     ],
@@ -1019,7 +1022,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Madeline "Moxy" Maddox' },
         { name: 'Edith "Ed" Gretchen' },
         { name: 'Snow' },
-        { name: 'Penelope' }, // TODO: Last name?
+        { name: 'Penelope ?' }, // TODO: Last name?
     ],
     Nidas: [
         { name: 'Eustace Goodwin' },
@@ -1392,7 +1395,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ThatTrollsomeGuy: [
         { name: 'Logan Callaway' },
-        { name: '[Deputy] Robertson', factions: ['Law'] }, // TODO: First name?
+        { name: '[Deputy] ? Robertson', factions: ['Law'] }, // TODO: First name?
     ],
     The_Devils_Son: [
         { name: 'Fredrick Smythe' },
@@ -1587,7 +1590,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Adam Garica' },
     ],
     XxAshleyxX: [
-        { name: 'Rayven Hope' },
+        { name: 'Rayven Hope', nicknames: ['Rayvn'] },
         { name: 'Zola Caiman' },
         { name: 'Noel "Leon" Taylor' },
     ],
