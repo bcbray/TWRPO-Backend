@@ -1,7 +1,10 @@
 import React from 'react';
+
+import styles from './Multistream.module.css';
 import { Stream, FactionKey, FactionInfo } from './types';
 import TwitchEmbed from './TwitchEmbed';
 import CharacterCard from './CharacterCard';
+import { PlayBtnFill } from 'react-bootstrap-icons';
 
 interface Props {
   streams: Stream[];
@@ -10,6 +13,7 @@ interface Props {
 }
 
 const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, onClickRemove }) => {
+  const [isPlaying, setIsPlaying] = React.useState(false);
   const [listeningTo, setListeningTo] = React.useState<Stream | null>(null);
   const toggleFocus = (stream: Stream) => {
     if (listeningTo?.channelName === stream.channelName) {
@@ -63,14 +67,9 @@ const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, 
   return (
     <div
       id='multistream-primary-container'
+      className={[styles.container, isPlaying ? styles.playing : styles.paused].join(' ')}
       style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
         gap: gap,
-        margin: '0 calc(50% - 50vw)',
         height: `${dimensions.height}px`,
       }}
     >
@@ -78,24 +77,49 @@ const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, 
         (
           <CharacterCard
             key={stream.channelName}
+            className={styles.card}
             focused={listeningTo?.channelName === stream.channelName}
             onClickFocus={() => toggleFocus(stream)}
             onClickRemove={() => onClickRemove(stream)}
             stream={stream}
             factionInfo={stream.tagFaction ? factionInfoMap[stream.tagFaction] : undefined}
           >
-            <TwitchEmbed
-              key={stream.channelName}
-              id={`${stream.channelName.toLowerCase()}-twitch-embed`}
-              channel={stream.channelName}
-              width={bestWidth}
-              height={bestHeight}
-              parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
-              muted={listeningTo?.channelName !== stream.channelName}
-            />
+            <div
+              className={styles.cardContent}
+              style={{
+                width: `${bestWidth}px`,
+                height: `${bestHeight}px`,
+                backgroundImage: `url(${stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')})`,
+              }}
+            >
+              {isPlaying &&
+                <TwitchEmbed
+                  id={`${stream.channelName.toLowerCase()}-twitch-embed`}
+                    className='player'
+                    channel={stream.channelName}
+                    width={bestWidth}
+                    height={bestHeight}
+                    parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
+                    muted={listeningTo?.channelName !== stream.channelName}
+                />
+              }
+            </div>
           </CharacterCard>
         )
       )}
+      {!isPlaying &&
+        <div className={styles.playOverlay}>
+          <div>
+            <PlayBtnFill
+              className={styles.playButton}
+              width={100}
+              height={100}
+              fill='currentColor'
+              onClick={() => setIsPlaying(true)}
+            />
+          </div>
+        </div>
+      }
     </div>
   );
 };

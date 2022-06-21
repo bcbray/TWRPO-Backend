@@ -1,8 +1,9 @@
 import React from 'react';
 import { TwitchPlayer } from './twitch-embed'
 
-interface Props{
+interface Props {
     id: string;
+    className?: string;
     channel: string;
     width: number;
     height: number;
@@ -23,15 +24,15 @@ function addScript(): HTMLScriptElement {
   return scriptElement;
 };
 
-const TwitchEmbed: React.FunctionComponent<Props> = ({ id, channel, width, height, parent, muted }) => {
+const TwitchEmbed: React.FunctionComponent<Props> = ({ id, className, channel, width, height, parent, muted }) => {
   const [player, setPlayer] = React.useState<TwitchPlayer | undefined>(undefined);
-  const [isPlayer, setIsPlayerReady] = React.useState(false);
+  const [isPlayerReady, setIsPlayerReady] = React.useState(false);
 
   React.useEffect(() => {
-    if (isPlayer) {
+    if (isPlayerReady) {
       player?.setMuted(muted ?? false);
     }
-  }, [player, isPlayer, muted]);
+  }, [player, isPlayerReady, muted]);
 
   React.useEffect(() => {
     function ready() {
@@ -79,7 +80,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({ id, channel, width, heigh
   }, [channel, id, parent]);
 
   return (
-    <div id={id} style={{width: `${width}px`, height: `${height}px`}} />
+    <div id={id} className={className} style={{width: `${width}px`, height: `${height}px` }} />
   );
 };
 

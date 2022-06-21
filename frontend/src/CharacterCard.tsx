@@ -10,12 +10,17 @@ interface Props {
   focused?: boolean;
   onClickFocus: () => void;
   onClickRemove: () => void;
+  className?: string;
   children?: React.ReactNode;
 };
 
-const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, onClickFocus, onClickRemove, children }) => {
+const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, onClickFocus, onClickRemove, className, children }) => {
     return (
-      <div className={[styles.container, focused ? styles.focused : styles.muted].join(' ')}>
+      <div className={[
+        styles.container,
+        focused ? styles.focused : styles.muted,
+        ...(className ? [className] : [])
+      ].join(' ')}>
         {children}
         <div className={styles.tags}>
           <div
