@@ -1400,6 +1400,8 @@ export const wrpCharacters: WrpCharacters = {
     The_Metro_Man1: [
         { name: 'Jim Sky' },
         { name: 'Felix Nileson' },
+        { name: 'Henry ColeSlaw' },
+        { name: 'Millard Van Dough' }, // TODO: Confirm last name
     ],
     The_Mountain_Troll: [
         { name: 'Basey "Red" Bohannon' },
