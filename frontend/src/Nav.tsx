@@ -22,7 +22,7 @@ const Nav: React.FC<{}> = () => {
           </Button>
           <BSNav>
             <PrefixLinkContainer to='/' or={{ path: '/streams', prefix: true }}>
-              <BSNav.Link>Streams</BSNav.Link>
+              <BSNav.Link>Live</BSNav.Link>
             </PrefixLinkContainer>
             <PrefixLinkContainer to='/characters' prefix>
               <BSNav.Link>Characters</BSNav.Link>
