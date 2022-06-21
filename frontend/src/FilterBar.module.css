@@ -1,0 +1,9 @@
+.search {
+  flex-shrink: 1;
+  flex-grow: 1;
+  width: auto;
+}
+
+.feedbackButton {
+  flex-shrink: 0;
+}

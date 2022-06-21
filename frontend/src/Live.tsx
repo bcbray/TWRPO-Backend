@@ -1,14 +1,12 @@
 import React from 'react';
-import { Stack, Form } from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
-import styles from './Live.module.css';
 import { LiveResponse } from './types'
 import { factionsFromLive, ignoredFactions, ignoredFilterFactions } from './utils'
 
-import FactionDropdown from './FactionDropdown';
 import StreamList from './StreamList';
+import FilterBar from './FilterBar';
 
 interface Props {
   data: LiveResponse;
@@ -74,20 +72,13 @@ const Live: React.FC<Props> = ({ data }) => {
             <title>Twitch WildRP Only - {selectedFaction.name} Streams</title>
           </Helmet>
         }
-        <Stack direction='horizontal' gap={3} className="mb-4">
-          <FactionDropdown
-            factions={filterFactions}
-            selectedFaction={selectedFaction}
-            onSelect={f => navigate(`/streams${f ? `/faction/${f.key}` : ''}${location.search}`) }
-          />
-          <Form.Control
-            className={styles.search}
-            type="text"
-            placeholder="Search for character name / nickname / stream..."
-            value={searchParams.get('search') || ''}
-            onChange={ e => e.target.value ? setSearchParams({ search: e.target.value }) : setSearchParams({}) }
-          />
-        </Stack>
+        <FilterBar
+          factions={filterFactions}
+          selectedFaction={selectedFaction}
+          onSelectFaction={f => navigate(`/streams${f ? `/faction/${f.key}` : ''}${location.search}`) }
+          searchText={searchParams.get('search') || ''}
+          onChangeSearchText={text => text ? setSearchParams({ search: text }) : setSearchParams({}) }
+        />
         <StreamList
           streams={filteredStreams}
           factionColors={factionColors}
