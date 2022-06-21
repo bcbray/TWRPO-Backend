@@ -4,7 +4,6 @@ import { Container, Spinner, Row, Col } from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 import { useLoading, isSuccess, isFailure } from './LoadingState';
 import { CharactersResponse } from './types';
-import Nav from './Nav';
 
 const CharactersContainer: React.FunctionComponent<{}> = () => {
   const [loadingState] = useLoading<CharactersResponse>('/api/v2/characters');
@@ -13,7 +12,6 @@ const CharactersContainer: React.FunctionComponent<{}> = () => {
       <Helmet>
         <title>Twitch WildRP Only - Characters</title>
       </Helmet>
-      <Nav />
       <Container className="my-5">
         {isSuccess(loadingState)
            ? <Characters data={loadingState.data} />
