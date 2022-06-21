@@ -2,3 +2,5 @@
 User-agent: *
 Disallow: /utils/
 Disallow: /api/
+
+Sitemap: https://twrponly.tv/sitemap.xml
