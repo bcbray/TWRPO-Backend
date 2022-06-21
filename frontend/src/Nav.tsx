@@ -8,7 +8,7 @@ const Nav: React.FC<{}> = () => {
   return (
     <Navbar className={styles.nav} bg="dark" variant="dark" expand="sm">
       <Container>
-        <PrefixLinkContainer to="/streams">
+        <PrefixLinkContainer to='/streams' prefix>
           <Navbar.Brand>Twitch WildRP Only</Navbar.Brand>
         </PrefixLinkContainer>
         <Navbar.Toggle />
@@ -21,13 +21,13 @@ const Nav: React.FC<{}> = () => {
             Get Extension
           </Button>
           <BSNav>
-            <PrefixLinkContainer to="/streams">
+            <PrefixLinkContainer to='/streams' prefix>
               <BSNav.Link>Streams</BSNav.Link>
             </PrefixLinkContainer>
-            <PrefixLinkContainer to="/characters">
+            <PrefixLinkContainer to='/characters' prefix>
               <BSNav.Link>Characters</BSNav.Link>
             </PrefixLinkContainer>
-            <PrefixLinkContainer to="/multistream">
+            <PrefixLinkContainer to='/multistream' prefix>
               <BSNav.Link>Multistream</BSNav.Link>
             </PrefixLinkContainer>
           </BSNav>
