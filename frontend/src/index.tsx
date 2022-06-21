@@ -4,26 +4,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { MatomoProvider, createInstance } from '@jonkoops/matomo-tracker-react';
 
 import CharactersContainer from './CharactersContainer';
 import MultistreamContainer from './MultistreamContainer';
 import LiveContainer from './LiveContainer';
 import ColorHelperContainer from  './ColorHelperContainer';
+import TrackerProvider from './TrackerProvider';
 import PageviewTracker from './PageviewTracker';
 import NotFound from './NotFound';
-
-const instance = createInstance({
-  urlBase: 'https://twrponly.matomo.cloud/',
-  siteId: 1,
-})
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <MatomoProvider value={instance}>
+    <TrackerProvider>
       <HelmetProvider>
         <BrowserRouter>
           <Routes>
@@ -42,7 +38,7 @@ root.render(
           <PageviewTracker />
         </BrowserRouter>
       </HelmetProvider>
-    </MatomoProvider>
+    </TrackerProvider>
   </React.StrictMode>
 );
 
