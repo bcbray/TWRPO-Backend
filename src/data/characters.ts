@@ -897,9 +897,11 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Lt_Raven: [
         { name: '[Father] Samuel O\'Keeffe', displayName: 2 },
+        { name: '? ?' },
     ],
     luka_aus: [
         { name: '? ?' },
+        { name: 'Louis O\'Neil' },
     ],
     Lunabee: [
         { name: 'Abigale Hart' },
