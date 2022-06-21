@@ -3,6 +3,7 @@ import styles from './Characters.module.css';
 import { Form, Stack, Button } from 'react-bootstrap';
 import { useParams, useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
+import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import CharactersTable from './CharactersTable';
 import { CharactersResponse } from './types';
 import FeedbackModal from './FeedbackModal';
@@ -16,11 +17,24 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
+  const { trackEvent } = useMatomo()
   const { factionKey } = params;
   const [searchParams, setSearchParams] = useSearchParams();
   const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
-  const handleCloseFeedback = () => setShowingFeedbackModal(false);
-  const handleShowFeedback = () => setShowingFeedbackModal(true);
+  const handleShowFeedback = () => {
+    trackEvent({
+      category: 'Feedback',
+      action: 'Open Feedback Form',
+    })
+    setShowingFeedbackModal(true);
+  }
+  const handleCloseFeedback = (sent: boolean) => {
+    trackEvent({
+      category: 'Feedback',
+      action: sent ? 'Feedback Sent' : 'Feedback Dismissed',
+    })
+    setShowingFeedbackModal(false);
+  }
 
   const filteredCharacters = (() => {
     const characters = data.characters;

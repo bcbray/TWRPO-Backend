@@ -26,7 +26,6 @@ root.render(
     <MatomoProvider value={instance}>
       <HelmetProvider>
         <BrowserRouter>
-          <PageviewTracker />
           <Routes>
             <Route path="/characters" element={<CharactersContainer />}>
               <Route path=":factionKey" element={<CharactersContainer />} />
@@ -40,6 +39,7 @@ root.render(
             <Route path="/utils/colors" element={<ColorHelperContainer />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <PageviewTracker />
         </BrowserRouter>
       </HelmetProvider>
     </MatomoProvider>

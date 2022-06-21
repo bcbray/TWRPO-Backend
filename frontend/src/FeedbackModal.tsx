@@ -6,7 +6,7 @@ import axios from 'axios';
 
 interface Props {
   show: boolean;
-  onHide: () => void;
+  onHide: (sent: boolean) => void;
 }
 
 const schema = Yup.object({
@@ -35,7 +35,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
             throw Error('Invalid response')
           }
           setHasSubmitted(true);
-          onHide();
+          onHide(true);
         } catch (error) {
           setHasSubmissionError(true);
         }
@@ -53,7 +53,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
       }) =>
         <Modal
           show={show}
-          onHide={onHide}
+          onHide={() => onHide(false)}
           onExited={() => {
             handleReset();
             setHasSubmitted(false);
@@ -124,7 +124,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
               }
               <Button
                 variant="secondary"
-                onClick={onHide}
+                onClick={() => onHide(false)}
                 disabled={isSubmitting || hasSubmitted}
               >
                 Cancel
