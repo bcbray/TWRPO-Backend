@@ -895,6 +895,9 @@ export const wrpCharacters: WrpCharacters = {
     Luckcue: [
         { name: 'Alex Mystic' },
     ],
+    Lt_Raven: [
+        { name: '[Father] Samuel O\'Keeffe', displayName: 2 },
+    ],
     Lunabee: [
         { name: 'Abigale Hart' },
     ],
