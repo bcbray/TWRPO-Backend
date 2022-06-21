@@ -70,6 +70,10 @@ const Live: React.FC<Props> = ({ data }) => {
         {selectedFaction &&
           <Helmet>
             <title>Twitch WildRP Only - {selectedFaction.name} Streams</title>
+            <meta
+              name='description'
+              content={`All live ${selectedFaction.name} WildRP streams.`}
+            />
           </Helmet>
         }
         <FilterBar

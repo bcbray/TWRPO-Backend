@@ -41,6 +41,10 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
       {selectedFaction &&
         <Helmet>
           <title>Twitch WildRP Only - {selectedFaction.name} Characters</title>
+          <meta
+            name='description'
+            content={`Known WildRP ${selectedFaction.name} streamers and their characters`}
+          />
         </Helmet>
       }
       <FilterBar

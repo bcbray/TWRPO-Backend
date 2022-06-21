@@ -11,6 +11,10 @@ const CharactersContainer: React.FunctionComponent<{}> = () => {
     <>
       <Helmet>
         <title>Twitch WildRP Only - Characters</title>
+        <meta
+          name='description'
+          content='Known WildRP streamers and their characters.'
+        />
       </Helmet>
       <Container className="my-5">
         {isSuccess(loadingState)

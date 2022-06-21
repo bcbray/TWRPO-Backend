@@ -12,6 +12,10 @@ const ColorHelperContainer: React.FC<{}> = () => {
     <>
       <Helmet>
         <title>Twitch WildRP Only - Colors</title>
+        <meta
+          name='description'
+          content='Utility for configuring Twitch WildRP Only faction colors.'
+        />
       </Helmet>
       <Container className="my-5">
         {isSuccess(loadingState)

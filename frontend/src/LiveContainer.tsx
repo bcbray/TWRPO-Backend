@@ -12,6 +12,10 @@ const LiveContainer: React.FC = () => {
     <>
       <Helmet>
         <title>Twitch WildRP Only</title>
+        <meta
+          name='description'
+          content='All live WildRP streams. Twitch WildRP Only is a website and browser extension for finding WildRP streams on Twitch.'
+        />
       </Helmet>
       <Container className="mt-5">
         {isSuccess(loadingState)

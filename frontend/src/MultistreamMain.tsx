@@ -77,6 +77,10 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
       {selectedFaction &&
         <Helmet>
           <title>Twitch WildRP Only - {selectedFaction.name} Multistream</title>
+          <meta
+            name='description'
+            content={`Multistream of all ${selectedFaction.name} WildRP Twitch streams.`}
+          />
         </Helmet>
       }
       <Stack direction='horizontal' gap={3} className="mb-4">

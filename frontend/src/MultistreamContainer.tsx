@@ -12,6 +12,10 @@ const MultistreamContainer: React.FunctionComponent<{}> = () => {
     <>
       <Helmet>
         <title>Twitch WildRP Only - Multistream</title>
+        <meta
+          name='description'
+          content='Multistream of all WildRP Twitch streams.'
+        />
       </Helmet>
       <Container className="mt-5">
         {isSuccess(loadingState)
