@@ -771,6 +771,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Jogiiee: [
         { name: 'Eloise Carter' },
+        { name: 'Daisy Cromwell' },
     ],
     johnnyblamz: [
         { name: 'Gavin Summers', factions: ['Summers Gang'], leader: true },
@@ -936,6 +937,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MDMums: [
         { name: 'Edward Moore' },
+        { name: '[Cadet] Matthew McAllister', factions: ['Law'] },
     ],
     MEKABEAR: [
         { name: '[Deputy] Audrey Dusk', factions: ['Law'] },
