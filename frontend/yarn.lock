@@ -1489,6 +1489,18 @@
     "@types/yargs" "^17.0.8"
     chalk "^4.0.0"
 
+"@jonkoops/matomo-tracker-react@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@jonkoops/matomo-tracker-react/-/matomo-tracker-react-0.7.0.tgz#08a337005bd095148f7cad5ec1dff69b8fd64d7b"
+  integrity sha512-3iwG/QM1T6KokU/NZNCkhOccIkhaNnO1+0bTv2JsLbsS7u7hWxpio20gfBjCRd/9N1AMiGidvytG2FK9tu7WFw==
+  dependencies:
+    "@jonkoops/matomo-tracker" "^0.7.0"
+
+"@jonkoops/matomo-tracker@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@jonkoops/matomo-tracker/-/matomo-tracker-0.7.0.tgz#38bd15352cd6a2115eb863a9ba582a1c0f52fc32"
+  integrity sha512-ppCXiDaVytTQOP6hNZIBwjUph5IrGgDoQw4IF5sBoA3PBpMAc5tWtPExbVWTR5pJWpTcp11dv2M83n9pm7LpeQ==
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz#e5d2e450306a9491e3bd77e323e38d7aff315996"
@@ -3773,9 +3785,9 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001349:
   integrity sha512-GUgH8w6YergqPQDGWhJGt8GDRnY0L/iJVQcU3eJ46GYf52R8tk0Wxp0PymuFVZboJYXGiCqwozAYZNRjVj6IcA==
 
 caniuse-lite@^1.0.30001332:
-  version "1.0.30001356"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001356.tgz#cbf5fe7b33f90962bfbca532212ea478d4ec9de8"
-  integrity sha512-/30854bktMLhxtjieIxsrJBfs2gTM1pel6MXKF3K+RdIVJZcsn2A2QdhsuR4/p9+R204fZw0zCBBhktX8xWuyQ==
+  version "1.0.30001357"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001357.tgz#dec7fc4158ef6ad24690d0eec7b91f32b8cb1b5d"
+  integrity sha512-b+KbWHdHePp+ZpNj+RDHFChZmuN+J5EvuQUlee9jOQIUAdhv9uvAZeEtUeLAknXbkiu1uxjQ9NLp1ie894CuWg==
 
 case-sensitive-paths-webpack-plugin@^2.4.0:
   version "2.4.0"
