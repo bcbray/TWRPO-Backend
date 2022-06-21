@@ -22,15 +22,16 @@ const App: React.FC<Props> = () => {
         <BrowserRouter>
           <Structure>
             <Routes>
+              <Route path="/" element={<LiveContainer />} />
+              <Route path="/streams" element={<Navigate to="/" />} />
+              <Route path="/streams/faction" element={<Navigate to="/" />} />
+              <Route path="/streams/faction/:factionKey" element={<LiveContainer />} />
               <Route path="/characters" element={<CharactersContainer />}>
                 <Route path=":factionKey" element={<CharactersContainer />} />
               </Route>
               <Route path="/multistream" element={<MultistreamContainer />} />
               <Route path="/multistream/faction" element={<Navigate to="/multistream" />} />
               <Route path="/multistream/faction/:factionKey" element={<MultistreamContainer />} />
-              <Route path="/streams" element={<LiveContainer />} />
-              <Route path="/streams/faction" element={<Navigate to="/streams" />} />
-              <Route path="/streams/faction/:factionKey" element={<LiveContainer />} />
               <Route path="/utils/colors" element={<ColorHelperContainer />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

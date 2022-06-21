@@ -42,10 +42,6 @@ app.use('/live', routes.liveRouter);
 app.use('/api/v2/characters', routes.v2CharactersRouter);
 app.use('/api/v2/submit-feedback', routes.v2FeedbackRouter);
 
-app.get('/', (_, res) => {
-    return res.redirect('https://chrome.google.com/webstore/detail/twitch-wildrp-only/jnbgafpjnfoocapahlkjihjecoaaaikd');
-});
-
 app.use(express.static(path.resolve('frontend', 'build')));
 
 app.get('*', (_, res) => res.sendFile(path.resolve('frontend', 'build', 'index.html')));
