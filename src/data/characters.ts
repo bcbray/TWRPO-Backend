@@ -922,7 +922,8 @@ export const wrpCharacters: WrpCharacters = {
     MackieLTD: [
         { name: '[Deputy] Jack Cameron', factions: ['Law'] },
         { name: 'Scott Samuel' },
-        { name: 'Nathanial', nicknames: ['Smoke'] },
+        { name: 'Nathanial ?', nicknames: ['Smoke'] },
+        { name: 'Richard Watson' },
     ],
     Madmoiselle: [
         { name: 'Lily Landry' },
@@ -1442,7 +1443,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Nico Aventi' },
     ],
     TheGeneralSmokey: [
-        { name: 'Edwin Braithwaite', factions: ['Kettleman Gang'] },
+        { name: 'Edwin Braithwaite', nicknames: ['Eddie'], factions: ['Kettleman Gang'] },
     ],
     TheGoochTV: [
         { name: 'Becker Lang' },
