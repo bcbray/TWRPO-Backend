@@ -1,0 +1,100 @@
+.card {
+
+}
+
+.thumbnail {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0);
+  transition: ease-in-out .2s;
+  aspect-ratio: 16/9;
+  background-color: var(--bs-gray-300);
+}
+
+.thumbnail a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.thumbnail span {
+  display: block;
+  font-size: 3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--bs-gray-100);
+}
+
+.thumbnail:hover {
+  transform: scale(1.01) translate3d(0px, -1px, 0px);
+  box-shadow: 0 15px 20px rgba(0,0,0,.01), 0 0 5px rgba(0,0,0,.1);
+  cursor: pointer;
+}
+
+.thumbnail:active {
+  transform: scale(1.005);
+  box-shadow: 0 5px 10px rgba(0,0,0,.01), 0 0 2px rgba(0,0,0,.1);
+  cursor: pointer;
+}
+
+.tag {
+  position: absolute;
+  margin: 0.5rem;
+}
+
+.tag.name {
+  font-weight: 500;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  text-transform: uppercase;
+}
+
+.tag.viewers {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  bottom: 0;
+  left: 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pfp {
+  margin-right: 0.25rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: var(--bs-gray-200);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25em;
+  min-width: 0;
+}
+
+.title p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.channel p {
+  margin: 0;
+}
+
+.channel a {
+  text-decoration: none;
+}

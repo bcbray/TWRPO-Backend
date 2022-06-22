@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 
-import { LiveResponse } from './types'
+import { LiveResponse, CharactersResponse } from './types';
 import { factionsFromLive, ignoredFactions } from './utils'
 import { useSingleSearchParam } from './hooks';
 
@@ -10,10 +10,11 @@ import StreamList from './StreamList';
 import FilterBar from './FilterBar';
 
 interface Props {
-  data: LiveResponse;
+  live: LiveResponse;
+  characters: CharactersResponse;
 }
 
-const Live: React.FC<Props> = ({ data }) => {
+const Live: React.FC<Props> = ({ live, characters }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
@@ -21,7 +22,7 @@ const Live: React.FC<Props> = ({ data }) => {
   const [filterText, setFilterText] = useSingleSearchParam('search');
   const filterTextForSearching = filterText.toLowerCase();
 
-  const factionInfos = factionsFromLive(data);
+  const factionInfos = factionsFromLive(live);
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
 
   const filterFactions = factionInfos
@@ -29,7 +30,7 @@ const Live: React.FC<Props> = ({ data }) => {
     .filter(f => f.hideInFilter !== true);
 
   const filteredStreams = (() => {
-      const streams = data.streams
+      const streams = live.streams
         .filter(stream => !ignoredFactions.includes(stream.tagFaction))
         .filter(stream => !(stream.tagFactionSecondary && ignoredFactions.includes(stream.tagFactionSecondary)))
       const filterTextLookup = filterText
@@ -54,6 +55,23 @@ const Live: React.FC<Props> = ({ data }) => {
       return sorted;
     })()
 
+  const liveChannels = new Set(filteredStreams.map(c => c.channelName));
+
+  const offlineCharacters = filterTextForSearching.length === 0
+    ? []
+    : characters
+      .characters
+      .filter(character =>
+        !liveChannels.has(character.channelName)
+        && ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
+        && (
+          character.channelName.toLowerCase().includes(filterTextForSearching)
+          || character.name.toLowerCase().includes(filterTextForSearching)
+          || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterTextForSearching))
+          || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
+        )
+      );
+
   const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
 
   return (
@@ -77,6 +95,7 @@ const Live: React.FC<Props> = ({ data }) => {
         />
         <StreamList
           streams={filteredStreams}
+          offlineCharacters={offlineCharacters}
           factionInfos={factionInfoMap}
         />
       </>
