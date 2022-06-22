@@ -53,7 +53,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
       <FilterBar
         factions={data.factions}
         selectedFaction={selectedFaction}
-        onSelectFaction={f => navigate(`/characters${f ? `/${f.key}` : ''}${location.search}`) }
+        onSelectFaction={f => navigate(`/characters${f ? `/faction/${f.key}` : ''}${location.search}`) }
         searchText={filterText}
         onChangeSearchText={text => setFilterText(text, { replace: true })}
       />

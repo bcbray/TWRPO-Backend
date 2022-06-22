@@ -26,9 +26,9 @@ const App: React.FC<Props> = () => {
               <Route path="/streams" element={<Navigate to="/" />} />
               <Route path="/streams/faction" element={<Navigate to="/" />} />
               <Route path="/streams/faction/:factionKey" element={<LiveContainer />} />
-              <Route path="/characters" element={<CharactersContainer />}>
-                <Route path=":factionKey" element={<CharactersContainer />} />
-              </Route>
+              <Route path="/characters" element={<CharactersContainer />} />
+              <Route path="/characters/faction" element={<Navigate to="/characters" />} />
+              <Route path="/characters/faction/:factionKey" element={<CharactersContainer />} />
               <Route path="/multistream" element={<MultistreamContainer />} />
               <Route path="/multistream/faction" element={<Navigate to="/multistream" />} />
               <Route path="/multistream/faction/:factionKey" element={<MultistreamContainer />} />

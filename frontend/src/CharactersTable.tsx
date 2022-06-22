@@ -57,7 +57,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
                   <Link
                     key={filter.key}
                     className="me-1"
-                    to={`/characters/${filter.key}${location.search}`}
+                    to={`/characters/faction/${filter.key}${location.search}`}
                   >
                     <Badge
                     pill
