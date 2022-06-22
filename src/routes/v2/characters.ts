@@ -4,7 +4,7 @@ import { wrpCharacters } from '../../data/characters';
 import { wrpFactionsReal, FactionRealFull } from '../../data/meta';
 import { useColorsLight, useColorsDark, filterRename } from '../../data/factions';
 import { objectEntries } from '../../utils';
-import { getWrpLive } from '../live/liveData';
+import { getWrpLive, Stream } from '../live/liveData';
 import { displayInfo } from '../../characterUtils';
 
 interface FactionInfo {
@@ -27,7 +27,7 @@ interface CharacterInfo {
     name: string;
     displayInfo: DisplayInfo;
     factions: FactionInfo[];
-    liveInfo?: { viewers: number };
+    liveInfo?: Stream;
 }
 
 interface CharactersResponse {
@@ -70,7 +70,7 @@ router.get('/', async (_, res) => {
                     const factionMini = faction.toLowerCase().replaceAll(' ', '');
                     return factionMap[factionMini];
                 }) ?? [independent],
-                liveInfo: stream && { viewers: stream.viewers },
+                liveInfo: stream,
             } as CharacterInfo;
         }));
 

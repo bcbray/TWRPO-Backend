@@ -309,7 +309,7 @@ interface BaseStream {
     profileUrl: string;
 }
 
-interface Stream extends BaseStream {
+export interface Stream extends BaseStream {
     id: number;
     rpServer: string | null;
     characterName: string | null;

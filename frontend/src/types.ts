@@ -20,7 +20,7 @@ export interface CharacterInfo {
   name: string;
   displayInfo: DisplayInfo;
   factions: FactionInfo[];
-  liveInfo?: { viewers: number };
+  liveInfo?: Stream;
 }
 
 
