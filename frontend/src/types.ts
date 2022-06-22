@@ -21,8 +21,15 @@ export interface CharacterInfo {
   displayInfo: DisplayInfo;
   factions: FactionInfo[];
   liveInfo?: Stream;
+  channelInfo?: ChannelInfo;
 }
 
+interface ChannelInfo {
+  id: string;
+  login: string;
+  displayName: string;
+  profilePictureUrl: string;
+}
 
 export interface CharactersResponse {
   factions: FactionInfo[];

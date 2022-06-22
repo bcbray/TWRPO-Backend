@@ -7,6 +7,8 @@ import {
     log, cloneDeepJson, filterObj, mapObj, parseParam, isObjEmpty, parseLookup,
 } from '../../utils';
 
+import { getKnownTwitchUsers } from '../../pfps';
+
 import { regOthers, regWrp } from '../../data/settings';
 import settingsParsed from '../../data/settingsParsed';
 import factionsParsed from '../../data/factionsParsed';
@@ -242,6 +244,11 @@ export const getStreams = async (options: GetStreamsOptions, endpoint = '<no-end
         international: false,
         ...filterObj(options, v => v !== undefined),
     };
+
+    const knownUsers = await getKnownTwitchUsers();
+    knownUsers.forEach((user) => {
+        knownPfps[user.id] = user.profilePictureUrl.replace('-300x300.', '-50x50.');
+    });
 
     let { searchNum } = optionsParsed;
     searchNum = Math.min(searchNum, searchNumMax);

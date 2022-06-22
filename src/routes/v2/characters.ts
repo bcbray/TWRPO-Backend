@@ -6,6 +6,7 @@ import { useColorsLight, useColorsDark, filterRename } from '../../data/factions
 import { objectEntries } from '../../utils';
 import { getWrpLive, Stream } from '../live/liveData';
 import { displayInfo } from '../../characterUtils';
+import { getKnownTwitchUsers } from '../../pfps';
 
 interface FactionInfo {
     key: string;
@@ -28,6 +29,14 @@ interface CharacterInfo {
     displayInfo: DisplayInfo;
     factions: FactionInfo[];
     liveInfo?: Stream;
+    channelInfo?: ChannelInfo;
+}
+
+interface ChannelInfo {
+    id: string;
+    login: string;
+    displayName: string;
+    profilePictureUrl: string;
 }
 
 interface CharactersResponse {
@@ -38,6 +47,8 @@ interface CharactersResponse {
 const router = Router();
 
 router.get('/', async (_, res) => {
+    const knownUsers = await getKnownTwitchUsers();
+
     const liveData = await getWrpLive();
 
     const ignoredFactions: FactionRealFull[] = ['Development', 'Other', 'Other Faction', 'Podcast', 'Watch Party'];
@@ -59,8 +70,11 @@ router.get('/', async (_, res) => {
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
     const { independent } = factionMap;
 
-    const characterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) =>
-        characters.map((character) => {
+    const characterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) => {
+        const channelInfo = knownUsers.find(u =>
+            u.displayName.toLowerCase() === streamer.toLowerCase()
+            || u.login.toLowerCase() == streamer.toLowerCase());
+        return characters.map((character) => {
             const stream = liveData.streams.find(s => s.channelName === streamer && s.characterName === character.name);
             return {
                 channelName: streamer,
@@ -71,8 +85,10 @@ router.get('/', async (_, res) => {
                     return factionMap[factionMini];
                 }) ?? [independent],
                 liveInfo: stream,
+                channelInfo,
             } as CharacterInfo;
-        }));
+        });
+    });
 
     const response: CharactersResponse = {
         factions: factionInfos,
