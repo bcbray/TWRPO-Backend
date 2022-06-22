@@ -1102,7 +1102,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Mischa Crane' },
     ],
     PibbJont: [
-        { name: 'Thatcher Mantell' },
+        { name: '[Cadet] Thatcher Mantell', factions: ['Law'] },
     ],
     pinkchyu: [
         { name: 'Caroline Kroll' },
