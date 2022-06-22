@@ -638,7 +638,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GraveGamerTV: [
         { name: 'Paulson Greer' },
-        { name: 'Peter Gray' },
+        { name: 'Peter Gray', nicknames: ['Pete'] },
         { name: 'Balter Duncans' },
         { name: 'Paz Ferrer' },
     ],
