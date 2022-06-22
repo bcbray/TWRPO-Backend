@@ -18,7 +18,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
   const params = useParams();
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
-  const filterTextForSearching = filterText.toLowerCase();
+  const filterTextForSearching = filterText.toLowerCase().trim();
 
   const filteredCharacters = (() => {
     const characters = data.characters;

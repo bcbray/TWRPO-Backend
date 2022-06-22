@@ -20,7 +20,7 @@ const Live: React.FC<Props> = ({ live, characters }) => {
   const params = useParams();
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
-  const filterTextForSearching = filterText.toLowerCase();
+  const filterTextForSearching = filterText.toLowerCase().trim();
 
   const factionInfos = factionsFromLive(live);
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
