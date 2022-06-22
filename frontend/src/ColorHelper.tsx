@@ -36,11 +36,11 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
     rpServer: 'WRP',
     characterName: 'Sam Baas',
     nicknameLookup: null,
-    faction: 'fake',
-    factions: ['fake'],
+    faction: faction.key,
+    factions: [faction.key],
     factionsMap: {fake: true},
     tagText: 'Sam',
-    tagFaction: 'fake',
+    tagFaction: faction.key,
     thumbnailUrl: '/images/example-live-thumbnail.jpeg',
   };
   return (
