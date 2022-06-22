@@ -1086,6 +1086,9 @@ export const wrpCharacters: WrpCharacters = {
     Paracast: [
         { name: 'Erasmus South' },
     ],
+    PBandJLee: [
+        { name: 'Elsie Fletcher' }, // TODO: `factions: ['News']` maybe?
+    ],
     peachycoaster: [
         { name: 'Chrissy Snow' },
         { name: 'Toosie Loo' },
