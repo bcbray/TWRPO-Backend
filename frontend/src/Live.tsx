@@ -1,9 +1,10 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
-import { useParams, useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import { LiveResponse } from './types'
 import { factionsFromLive, ignoredFactions } from './utils'
+import { useSingleSearchParam } from './hooks';
 
 import StreamList from './StreamList';
 import FilterBar from './FilterBar';
@@ -17,7 +18,7 @@ const Live: React.FC<Props> = ({ data }) => {
   const navigate = useNavigate();
   const params = useParams();
   const { factionKey } = params;
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [filterText, setFilterText] = useSingleSearchParam('search');
 
   const factionInfos = factionsFromLive(data);
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
@@ -30,7 +31,6 @@ const Live: React.FC<Props> = ({ data }) => {
       const streams = data.streams
         .filter(stream => !ignoredFactions.includes(stream.tagFaction))
         .filter(stream => !(stream.tagFactionSecondary && ignoredFactions.includes(stream.tagFactionSecondary)))
-      const filterText = searchParams.get('search')?.toLowerCase() || ''
       const filterTextLookup = filterText
         .replace(/^\W+|\W+$|[^\w\s]+/g, ' ')
         .replace(/\s+/g, ' ')
@@ -71,8 +71,8 @@ const Live: React.FC<Props> = ({ data }) => {
           factions={filterFactions}
           selectedFaction={selectedFaction}
           onSelectFaction={f => navigate(`/${f ? `streams/faction/${f.key}` : ''}${location.search}`) }
-          searchText={searchParams.get('search') || ''}
-          onChangeSearchText={text => text ? setSearchParams({ search: text }) : setSearchParams({}) }
+          searchText={filterText}
+          onChangeSearchText={text => setFilterText(text, { replace: true })}
         />
         <StreamList
           streams={filteredStreams}

@@ -1,8 +1,11 @@
 import React from 'react';
-import { useParams, useSearchParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
-import CharactersTable from './CharactersTable';
+
 import { CharactersResponse } from './types';
+import { useSingleSearchParam } from './hooks';
+
+import CharactersTable from './CharactersTable';
 import FilterBar from './FilterBar';
 
 interface Props {
@@ -14,11 +17,10 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
   const navigate = useNavigate();
   const params = useParams();
   const { factionKey } = params;
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [filterText, setFilterText] = useSingleSearchParam('search');
 
   const filteredCharacters = (() => {
     const characters = data.characters;
-    const filterText = searchParams.get('search')?.toLowerCase() || ''
     const filtered = (factionKey === undefined && filterText.length === 0)
       ? characters
       : characters.filter(character =>
@@ -51,8 +53,8 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
         factions={data.factions}
         selectedFaction={selectedFaction}
         onSelectFaction={f => navigate(`/characters${f ? `/${f.key}` : ''}${location.search}`) }
-        searchText={searchParams.get('search') || ''}
-        onChangeSearchText={text => text ? setSearchParams({ search: text }) : setSearchParams({}) }
+        searchText={filterText}
+        onChangeSearchText={text => setFilterText(text, { replace: false })}
       />
       <CharactersTable characters={filteredCharacters} />
     </>
