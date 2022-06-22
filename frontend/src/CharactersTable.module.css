@@ -10,3 +10,21 @@
   font-weight: 500;
   font-size: 0.75em !important;
 }
+
+.streamPopover {
+  position: absolute;
+  width: 300;
+  padding-top: 6px;
+}
+
+.streamPopover > div {
+  background: var(--bs-gray-100);
+  border-radius: 6px;
+  box-shadow: 0 15px 20px rgba(0,0,0,.01), 0 0 5px rgba(0,0,0,.1);
+  padding-bottom: 0.5rem;
+}
+
+.streamPopover :global .stream-card-info {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}

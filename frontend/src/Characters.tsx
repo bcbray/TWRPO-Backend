@@ -37,7 +37,9 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
       return filtered;
   })()
 
-  const selectedFaction = factionKey ? data.factions.find(f => f.key === factionKey) : undefined;
+  const factionInfoMap = Object.fromEntries(data.factions.map(info => [info.key, info]));
+
+  const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
 
   return (
     <>
@@ -57,7 +59,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
         searchText={filterText}
         onChangeSearchText={text => setFilterText(text, { replace: true })}
       />
-      <CharactersTable characters={filteredCharacters} />
+      <CharactersTable characters={filteredCharacters} factionInfos={factionInfoMap} />
     </>
   )
 }

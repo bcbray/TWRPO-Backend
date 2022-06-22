@@ -1,17 +1,39 @@
 import React from 'react';
-import { Table, Badge } from 'react-bootstrap';
+import { Table, Badge, OverlayTrigger } from 'react-bootstrap';
 import { Link, useLocation } from "react-router-dom";
 
 import styles from './CharactersTable.module.css';
-import { CharacterInfo } from './types';
+import { CharacterInfo, FactionInfo, Stream } from './types';
 import Tag from './Tag';
-import { formatViewers } from './utils';
+import StreamCard from './StreamCard';
 
 interface Props {
   characters: CharacterInfo[];
+  factionInfos: {[key: string]: FactionInfo};
 };
 
-const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
+const LiveBadge: React.FC<{ stream: Stream, factionInfos: {[key: string]: FactionInfo} }> = ({ stream, factionInfos }) => (
+  <OverlayTrigger
+    placement='bottom-start'
+    delay={{ show: 250, hide: 100 }}
+    overlay={({ placement, arrowProps, show: _show, popper, ...props }) => (
+      <div className={styles.streamPopover} {...props}>
+        <StreamCard
+          id='live-preview-tooltop'
+          style={{
+            width: 300,
+          }}
+          stream={stream}
+          factionInfos={factionInfos}
+        />
+      </div>
+    )}
+  >
+    <Tag as='span' className={styles.liveTag}>Live</Tag>
+  </OverlayTrigger>
+);
+
+const CharactersTable: React.FunctionComponent<Props> = ({ characters, factionInfos }) => {
   const location = useLocation();
   return (
     <div className="table-responsive">
@@ -44,8 +66,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
                 <td className="character-channel-name">
                 <a className="text-dark" style={{ textDecoration: 'none' }} href={`https://twitch.tv/${character.channelName.toLowerCase()}`}>
                   {character.channelName}
-                  {character.liveInfo &&
-                    <Tag as='span' className={styles.liveTag} title={formatViewers(character.liveInfo.viewers)}>Live</Tag>}
+                  {character.liveInfo && <LiveBadge stream={character.liveInfo} factionInfos={factionInfos} />}
                 </a>
                 </td>
                 <td className="character-titles">{character.displayInfo.titles.join(', ')}</td>
