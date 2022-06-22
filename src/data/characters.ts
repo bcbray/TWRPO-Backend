@@ -595,6 +595,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GauchoEscobar: [
         { name: 'Gaucho Escobar' },
+        { name: 'Juana Soto' },
     ],
     GeDWiCK79: [
         { name: 'Kennway Mallory' },
@@ -905,7 +906,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '? ?' },
     ],
     luka_aus: [
-        { name: '? ?' },
+        { name: 'Lukeas Winsmore' },
         { name: 'Louis O\'Neil' },
     ],
     Lunabee: [
