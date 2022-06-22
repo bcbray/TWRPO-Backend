@@ -34,8 +34,9 @@ const FilterBar: React.FC<Props> = ({ factions, selectedFaction, onSelectFaction
   }
   return (
     <>
-      <Stack direction='horizontal' gap={3} className="mb-4">
+      <Stack direction='horizontal' gap={3} className={['mb-4', styles.container].join(' ')}>
         <FactionDropdown
+          className={styles.factionsDropdown}
           factions={factions}
           selectedFaction={selectedFaction}
           onSelect={onSelectFaction}

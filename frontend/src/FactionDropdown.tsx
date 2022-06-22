@@ -10,13 +10,15 @@ interface Props {
   selectedFaction?: FactionInfo | null;
   onSelect: (faction: FactionInfo | null) => void;
   itemContent?: (faction: FactionInfo) => React.ReactNode;
+  className?: string;
 };
 
 const FactionDropdown: React.FC<Props> = ({
   factions,
   selectedFaction = null,
   onSelect,
-  itemContent = f => (f.name)
+  itemContent = f => (f.name),
+  className: outerClassName,
 }) => {
   const className = useCss({
     '.btn-independent': {
@@ -55,7 +57,7 @@ const FactionDropdown: React.FC<Props> = ({
 
   return (
     <Dropdown
-      className={[className, styles.factionDropdown].join(' ')}
+      className={[className, styles.factionDropdown, ...(outerClassName ? [outerClassName] : [])].join(' ')}
       onSelect={e => onSelect(factions.find(f => f.key === e) || null)}
     >
       <Dropdown.Toggle variant={selectedFaction?.key ?? 'independent'}>
