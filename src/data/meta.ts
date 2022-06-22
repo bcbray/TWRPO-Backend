@@ -13,6 +13,7 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     development: 'Development',
     law: 'Law',
     medical: 'Medical',
+    conductors: 'Conductors',
     independent: 'Independent',
     otherfaction: 'Other Faction',
     other: 'Other',
