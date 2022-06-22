@@ -70,6 +70,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AngelKnivez: [
         { name: 'Renni Bradshaw', nicknames: ['Rimmy'] },
+        { name: 'Sissi Marie' },
     ],
     AngryPotatoChipz: [
         { name: 'Jamie Marlow' },
@@ -379,6 +380,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DeFrostSC: [
         { name: 'Thunder' },
+    ],
+    DeneeSays: [
+        { name: 'Brooke "Babs" Burns' },
     ],
     Deputy_Games: [
         { name: 'Sam Rosco' },
@@ -873,6 +877,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Marcus Danner' },
         { name: '[Deputy] Negan McAlister', factions: ['Law'], displayName: 1 },
         { name: 'Joseph "JoJo" Johanson' },
+        { name: 'Diego Marin', factions: ['Conductors'] },
     ],
     Lithiaris: [
         { name: '[Doctor] Lark Atwood', factions: ['Medical'] },
