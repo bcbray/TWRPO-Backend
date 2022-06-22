@@ -54,7 +54,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Del Parker' },
     ],
     aJimmy: [
-        { name: 'James Kelly', factions: ['Summers Gang'] },
+        { name: 'James Kelly', factions: ['Kelly Gang', 'Kettleman Gang'] },
     ],
     Altrah: [
         { name: 'Victor Morteza' },
