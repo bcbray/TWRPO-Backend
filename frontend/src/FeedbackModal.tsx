@@ -3,6 +3,7 @@ import { Modal, Button, Form, Spinner, Alert } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useLocation } from 'react-router';
 
 interface Props {
   show: boolean;
@@ -20,26 +21,32 @@ type FormData = Yup.InferType<typeof schema>;
 const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
   const [hasSubmitted, setHasSubmitted] = React.useState(false);
   const [hasSubmissionError, setHasSubmissionError] = React.useState(false);
+  const location = useLocation();
 
   const initialFields: FormData = { suggestion: '', email: undefined, discord: undefined };
+
+  const submitForm = async (values: FormData) => {
+    setHasSubmissionError(false);
+    try {
+      const reply = await axios.post('/api/v2/submit-feedback', {
+        page: `${location.pathname}${location.search}${location.hash}`,
+        ...values,
+      })
+      if (reply.data.success !== true) {
+        throw Error('Invalid response')
+      }
+      setHasSubmitted(true);
+      onHide(true);
+    } catch (error) {
+      setHasSubmissionError(true);
+    }
+  }
 
   return (
     <Formik
       initialValues={initialFields}
       validationSchema={schema}
-      onSubmit={async (values) => {
-        setHasSubmissionError(false);
-        try {
-          const reply = await axios.post('/api/v2/submit-feedback', values)
-          if (reply.data.success !== true) {
-            throw Error('Invalid response')
-          }
-          setHasSubmitted(true);
-          onHide(true);
-        } catch (error) {
-          setHasSubmissionError(true);
-        }
-      }}
+      onSubmit={submitForm}
     >
       {({
         values,

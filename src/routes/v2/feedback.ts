@@ -9,6 +9,7 @@ interface Feedback {
     suggestion: string;
     email?: string;
     discord?: string;
+    page?: string;
 }
 
 interface WebhookMessage {
@@ -48,9 +49,15 @@ router.post('/', async (req: Request<any, any, Feedback>, res) => {
         return res.status(400).send({ success: false, errors: [{ message: 'Invalid `discord` field' }] });
     }
 
+    if (req.body.page && typeof req.body.page != 'string') {
+        console.error('Invalid type of `page`: ', req.body.page);
+        return res.status(400).send({ success: false, errors: [{ message: 'Invalid `page` field' }] });
+    }
+
     const message = `New feedback:
 **discord:** ${req.body.discord && req.body.discord.length ? req.body.discord : '*(none)*'}
 **email:** ${req.body.email && req.body.email.length ? req.body.email : '*(none)*'}
+**page:** ${req.body.page && req.body.page.length ? `http://twrponly.tv${req.body.page}` : '*(none)*'}
 > ${markdownEscape(req.body.suggestion).split('\n').join('\n> ')}
 `;
 
