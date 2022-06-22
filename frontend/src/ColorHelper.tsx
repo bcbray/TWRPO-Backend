@@ -43,12 +43,6 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
     tagFaction: 'fake',
     thumbnailUrl: '/images/example-live-thumbnail.jpeg',
   };
-  const factionColors = {
-    fake: {
-      dark: faction.colorDark,
-      light: faction.colorLight
-    },
-  };
   return (
     <Col xs={12} sm={6} md={4} lg={3} className={styles.card}>
       <div className={styles.info}>
@@ -66,7 +60,7 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
       </div>
       <div>
         <div>
-          <StreamCard stream={fakeStream} factionColors={factionColors} />
+          <StreamCard stream={fakeStream} factionInfos={{ [faction.key]: faction }} />
         </div>
       </div>
     </Col>

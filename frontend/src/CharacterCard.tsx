@@ -28,7 +28,7 @@ const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, 
           <Tag
             className={`${styles.tag} ${styles.nametag}`}
             style={{
-              background: factionInfo?.colorDark || '#32ff7e',
+              background: factionInfo?.colorDark,
             }}
           >
             <p>{stream.tagText}</p>

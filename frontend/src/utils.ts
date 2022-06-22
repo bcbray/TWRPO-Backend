@@ -7,19 +7,23 @@ export function factionsFromLive(
   live: LiveResponse,
   options: {
     ignoredKeys?: string[],
-    fallbackColorLight?: string
-    fallbackColorDark?: string
+    ignoredFilterKeys?: string[],
+    fallbackColorLight?: string,
+    fallbackColorDark?: string,
   } = {}
 ): FactionInfo[] {
   const {
-    ignoredKeys = ['other', 'alltwitch'],
+    ignoredKeys = ignoredFactions,
+    ignoredFilterKeys = ignoredFilterFactions,
     fallbackColorLight = '#12af7e',
     fallbackColorDark = '#32ff7e',
   } = options;
 
-  return live.filterFactions
+  return Object.entries(live.wrpFactions)
     .filter(([key]) => !ignoredKeys.includes(key))
-    .map(([key, name, isLive]) => {
+    .map(([key, rawName]) => {
+      const filterFaction = live.filterFactions.find(([k]) => k === key);
+      const [name, isLive] = filterFaction ? [filterFaction[1], filterFaction[2]] : [rawName, false];
       return {
         key,
         name,
@@ -27,8 +31,9 @@ export function factionsFromLive(
         colorDark: live.useColorsDark[key] ?? fallbackColorDark,
         liveCount: live.factionCount[key],
         isLive,
-      }
-    })
+        hideInFilter: filterFaction === null || ignoredFilterKeys.includes(key),
+      };
+    });
 }
 
 export const formatViewers = (viewers: number) => {

@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
 import { LiveResponse } from './types'
-import { factionsFromLive, ignoredFactions, ignoredFilterFactions } from './utils'
+import { factionsFromLive, ignoredFactions } from './utils'
 
 import StreamList from './StreamList';
 import FilterBar from './FilterBar';
@@ -23,8 +23,8 @@ const Live: React.FC<Props> = ({ data }) => {
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
 
   const filterFactions = factionInfos
-    .filter(f => !ignoredFilterFactions.includes(f.key))
     .filter(f => f.isLive === true)
+    .filter(f => f.hideInFilter !== true);
 
   const filteredStreams = (() => {
       const streams = data.streams
@@ -53,15 +53,6 @@ const Live: React.FC<Props> = ({ data }) => {
       return sorted;
     })()
 
-  const factionColors = Object.fromEntries(factionInfos.flatMap((info) => {
-    const light = data.useColorsLight[info.key];
-    const dark = data.useColorsDark[info.key];
-    if (dark === undefined || light === undefined) {
-      return [];
-    }
-    return [[info.key, { dark, light }]];
-  }));
-
   const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
 
   return (
@@ -85,7 +76,7 @@ const Live: React.FC<Props> = ({ data }) => {
         />
         <StreamList
           streams={filteredStreams}
-          factionColors={factionColors}
+          factionInfos={factionInfoMap}
         />
       </>
     )

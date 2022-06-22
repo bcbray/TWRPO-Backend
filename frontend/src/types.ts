@@ -5,6 +5,7 @@ export interface FactionInfo {
   colorDark: string;
   liveCount?: number;
   isLive?: boolean;
+  hideInFilter?: boolean;
 };
 
 export interface DisplayInfo {

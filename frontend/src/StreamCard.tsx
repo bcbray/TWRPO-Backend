@@ -1,18 +1,18 @@
 import React from 'react';
 
 import styles from './StreamCard.module.css';
-import { Stream } from './types';
+import { Stream, FactionInfo } from './types';
 import { formatViewers } from './utils';
 import Tag from './Tag';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   stream: Stream;
-  factionColors: {[key: string]: { dark: string, light: string}};
+  factionInfos: {[key: string]: FactionInfo};
 }
 
 const StreamCard: React.FC<Props> = ({
   stream,
-  factionColors,
+  factionInfos,
   className,
   ...rest
 }) => {
@@ -24,7 +24,7 @@ const StreamCard: React.FC<Props> = ({
           rel='noreferrer'
           href={`https://twitch.tv/${stream.channelName}`}
           style={{
-            color: factionColors[stream.faction]?.light,
+            color: factionInfos[stream.faction]?.colorLight,
           }}
         >
           <img
@@ -35,7 +35,7 @@ const StreamCard: React.FC<Props> = ({
         <Tag
           className={[styles.tag, styles.name].join(' ')}
           style={{
-            background: factionColors[stream.faction]?.dark,
+            background: factionInfos[stream.faction]?.colorDark,
           }}
         >
           <p>{stream.tagText}</p>
@@ -62,7 +62,7 @@ const StreamCard: React.FC<Props> = ({
                 rel='noreferrer'
                 href={`https://twitch.tv/${stream.channelName}`}
                 style={{
-                  color: factionColors[stream.faction]?.light,
+                  color: factionInfos[stream.faction]?.colorLight,
                 }}
               >
                 {stream.channelName}

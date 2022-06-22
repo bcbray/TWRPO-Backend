@@ -8,7 +8,7 @@ import Multistream from './Multistream';
 import { LiveResponse, Stream, FactionInfo } from './types';
 import ReloadButton from './ReloadButton';
 import FactionDropdown from './FactionDropdown';
-import { factionsFromLive, ignoredFactions, ignoredFilterFactions } from './utils'
+import { factionsFromLive, ignoredFactions } from './utils'
 
 interface Props {
   data: LiveResponse,
@@ -34,25 +34,18 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
     setRemovedStreams(removedStreams.filter(s => s.channelName !== stream.channelName));
   }
 
-  const factionInfos = factionsFromLive(data,)
+  const factionInfos = factionsFromLive(data);
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
 
-  const filterFactions: FactionInfo[] = data.filterFactions
-    .filter(([_, __, isLive]) => isLive)
-    .filter(([key]) => !ignoredFilterFactions.includes(key))
-    .flatMap(([key, _, isLive]) => {
-      const info = factionInfoMap[key];
-      if (info === undefined) return [];
-      return [
-        {...info, isLive}
-      ]
-    })
+  const filterFactions: FactionInfo[] = factionInfos
+    .filter(info => info.isLive === true)
+    .filter(info => info.hideInFilter !== true)
     .sort((f1, f2) => {
       if (f1.liveCount === f2.liveCount) {
         return f1.name.localeCompare(f2.name);
       }
       return (f2.liveCount ?? 0) - (f1.liveCount ?? 0)
-    })
+    });
 
   const filteredStreams = (() => {
     const streams = data.streams
