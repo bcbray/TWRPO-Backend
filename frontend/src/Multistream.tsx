@@ -26,7 +26,9 @@ const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, 
   // TODO: Consider moving width/height out of the react tree
   const [dimensions, setDimensions] = React.useState({
     height: window.innerHeight,
-    width: window.innerWidth
+    width: window.innerWidth,
+    offsetTop: 0,
+    windowHeight: window.innerHeight,
   });
 
   React.useEffect(() => {
@@ -35,7 +37,9 @@ const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, 
       if (!element) return;
       setDimensions({
         height: window.innerHeight - element.offsetTop,
-        width: element.clientWidth
+        width: element.clientWidth,
+        offsetTop: element.offsetTop,
+        windowHeight: window.innerHeight,
       });
     };
     listener();
@@ -45,23 +49,32 @@ const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, 
 
   const count = streams.length;
   const gap = 4;
+  const smallBreakpoint = 514;
 
   let bestHeight = 0;
   let bestWidth = 0;
+  let totalHeight = dimensions.height;
   let ratio = 16/9;
-  for (var perRow = 1; perRow <= count; perRow++) {
-    let rowCount = Math.ceil(count / perRow);
-    let width = (dimensions.width - gap * (perRow - 1)) / perRow;
-    let height = (dimensions.height -  gap * (rowCount - 1)) / rowCount;
-    if ((width / ratio) < height) {
-      height = width / ratio;
-    } else {
-      width = height * ratio;
+
+  if (dimensions.width > smallBreakpoint) {
+    for (var perRow = 1; perRow <= count; perRow++) {
+      let rowCount = Math.ceil(count / perRow);
+      let width = (dimensions.width - gap * (perRow - 1)) / perRow;
+      let height = (dimensions.height -  gap * (rowCount - 1)) / rowCount;
+      if ((width / ratio) < height) {
+        height = width / ratio;
+      } else {
+        width = height * ratio;
+      }
+      if (width > bestWidth) {
+        bestWidth = width;
+        bestHeight = height;
+      }
     }
-    if (width > bestWidth) {
-      bestWidth = width;
-      bestHeight = height;
-    }
+  } else {
+    bestWidth = dimensions.width;
+    bestHeight = bestWidth / ratio;
+    totalHeight = (bestHeight * count) + (gap * (count - 1));
   }
 
   return (
@@ -69,46 +82,59 @@ const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, 
       id='multistream-primary-container'
       className={[styles.container, isPlaying ? styles.playing : styles.paused].join(' ')}
       style={{
-        gap: gap,
-        height: `${dimensions.height}px`,
+        height: `${totalHeight}px`,
       }}
     >
-      {streams.map(stream =>
-        (
-          <CharacterCard
-            key={stream.channelName}
-            className={styles.card}
-            focused={listeningTo?.channelName === stream.channelName}
-            onClickFocus={() => toggleFocus(stream)}
-            onClickRemove={() => onClickRemove(stream)}
-            stream={stream}
-            factionInfo={stream.tagFaction ? factionInfoMap[stream.tagFaction] : undefined}
-          >
-            <div
-              className={styles.cardContent}
-              style={{
-                width: `${bestWidth}px`,
-                height: `${bestHeight}px`,
-                backgroundImage: `url(${stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')})`,
-              }}
+      <div
+        id='multistream-primary-container'
+        className={styles.streamContainer}
+        style={{
+          gap: gap,
+        }}
+      >
+        {streams.map(stream =>
+          (
+            <CharacterCard
+              key={stream.channelName}
+              className={styles.card}
+              focused={listeningTo?.channelName === stream.channelName}
+              onClickFocus={() => toggleFocus(stream)}
+              onClickRemove={() => onClickRemove(stream)}
+              stream={stream}
+              factionInfo={stream.tagFaction ? factionInfoMap[stream.tagFaction] : undefined}
             >
-              {isPlaying &&
-                <TwitchEmbed
-                  id={`${stream.channelName.toLowerCase()}-twitch-embed`}
-                    className='player'
-                    channel={stream.channelName}
-                    width={bestWidth}
-                    height={bestHeight}
-                    parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
-                    muted={listeningTo?.channelName !== stream.channelName}
-                />
-              }
-            </div>
-          </CharacterCard>
-        )
-      )}
+              <div
+                className={styles.cardContent}
+                style={{
+                  width: `${bestWidth}px`,
+                  height: `${bestHeight}px`,
+                  backgroundImage: `url(${stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')})`,
+                }}
+              >
+                {isPlaying &&
+                  <TwitchEmbed
+                    id={`${stream.channelName.toLowerCase()}-twitch-embed`}
+                      className='player'
+                      channel={stream.channelName}
+                      width={bestWidth}
+                      height={bestHeight}
+                      parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
+                      muted={listeningTo?.channelName !== stream.channelName}
+                  />
+                }
+              </div>
+            </CharacterCard>
+          )
+        )}
+      </div>
       {!isPlaying &&
-        <div className={styles.playOverlay}>
+        <div
+          className={styles.playOverlay}
+          style={{
+            height: `${dimensions.windowHeight - dimensions.offsetTop}px`,
+            top: `${dimensions.offsetTop}px`,
+          }}
+        >
           <div>
             <PlayBtnFill
               className={styles.playButton}
