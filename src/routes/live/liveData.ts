@@ -13,11 +13,13 @@ import factionsParsed from '../../data/factionsParsed';
 import { WrpFactions, wrpFactions } from '../../data/meta';
 import { wrpCharacters as wrpCharactersOld } from '../../data/characters';
 import { isFactionColor, lesserFactions, greaterFactions, wrpFactionsRegex, wrpFactionsSubRegex, filterFactionsBase } from '../../data/factions';
+import { wrpPodcasts } from '../../data/podcasts';
 
 import type { RecordGen } from '../../utils';
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from '../../data/meta';
 import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther } from '../../data/characters';
 import type { WrpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } from '../../data/factions';
+import type { Podcast } from '../../data/podcasts';
 
 const includedData = Object.assign(
     {},
@@ -361,6 +363,25 @@ interface Live {
 const cachedResults: { [key: string]: Live | undefined } = {};
 const wrpStreamsPromise: { [key: string]: Promise<Live> | undefined } = {};
 
+const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podcast) => {
+    const nameAll = [podcast.name];
+    const regAll: string[] = [];
+
+    podcast.nicknames?.forEach((nck) => {
+        if (nck[0] === '/' && nck[nck.length - 1] === '/') {
+            regAll.push(nck.substr(1, nck.length - 1));
+        } else {
+            nameAll.push(RegExp.escape(nck.toLowerCase()));
+        }
+    });
+
+    regAll.push(`\\b(?:${nameAll.join('|')})\\b`);
+
+    const reg = new RegExp(regAll.join('|'), 'ig');
+
+    return { podcast, reg };
+});
+
 export const getWrpLive = async (baseOptions = {}, override = false, endpoint = '<no-endpoint>', useActivePromise = false): Promise<Live> => {
     if (!isObjEmpty(baseOptions)) log(`${endpoint}: options -`, JSON.stringify(baseOptions));
 
@@ -684,7 +705,8 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                         const factionNameFull = fullFactionMap[factionNames[0]] || factionNames[0];
                         tagText = hasFactionsTagText ? `〈${hasFactionsTagText}〉` : `〈${factionNameFull}〉`;
                         if (tagFaction === 'podcast' || tagFaction === 'watchparty') {
-                            tagText = `《${factionNameFull}》${channelName}`;
+                            const podcast = wrpPodcastReg.find(({ reg }) => reg.test(title))?.podcast;
+                            tagText = `《${factionNameFull}》${podcast ? podcast.name : channelName}`;
                         }
                     } else if (possibleCharacter) {
                         activeFactions = [...possibleCharacter.factions, 'guessed'];
