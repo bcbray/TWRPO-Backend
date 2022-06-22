@@ -19,6 +19,7 @@ const Live: React.FC<Props> = ({ data }) => {
   const params = useParams();
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
+  const filterTextForSearching = filterText.toLowerCase();
 
   const factionInfos = factionsFromLive(data);
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
@@ -36,18 +37,18 @@ const Live: React.FC<Props> = ({ data }) => {
         .replace(/\s+/g, ' ')
         .toLowerCase()
         .trim();
-      const filtered = (factionKey === undefined && filterText.length === 0)
+      const filtered = (factionKey === undefined && filterTextForSearching.length === 0)
         ? streams
         : streams.filter(stream =>
           ((factionKey && stream.factionsMap[factionKey]) || !factionKey)
-            && ((filterText && (
-              stream.tagText.toLowerCase().includes(filterText)
-              || (stream.characterName && stream.characterName.toLowerCase().includes(filterText))
+            && ((filterTextForSearching && (
+              stream.tagText.toLowerCase().includes(filterTextForSearching)
+              || (stream.characterName && stream.characterName.toLowerCase().includes(filterTextForSearching))
               || (stream.nicknameLookup && stream.nicknameLookup.includes(filterTextLookup))
-              || stream.channelName.toLowerCase().includes(filterText)
-              || stream.title.toLowerCase().includes(filterText)
+              || stream.channelName.toLowerCase().includes(filterTextForSearching)
+              || stream.title.toLowerCase().includes(filterTextForSearching)
             )
-          ) || !filterText)
+          ) || !filterTextForSearching)
         )
       const sorted = filtered.sort((lhs, rhs) => rhs.viewers - lhs.viewers)
       return sorted;

@@ -18,20 +18,21 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
   const params = useParams();
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
+  const filterTextForSearching = filterText.toLowerCase();
 
   const filteredCharacters = (() => {
     const characters = data.characters;
-    const filtered = (factionKey === undefined && filterText.length === 0)
+    const filtered = (factionKey === undefined && filterTextForSearching.length === 0)
       ? characters
       : characters.filter(character =>
         ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
-          && ((filterText && (
-              character.channelName.toLowerCase().includes(filterText)
-              || character.name.toLowerCase().includes(filterText)
-              || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterText))
-              || character.factions.some(f => f.name.toLowerCase().includes(filterText))
+          && ((filterTextForSearching && (
+              character.channelName.toLowerCase().includes(filterTextForSearching)
+              || character.name.toLowerCase().includes(filterTextForSearching)
+              || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterTextForSearching))
+              || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
             )
-          ) || !filterText)
+          ) || !filterTextForSearching)
         )
       return filtered;
   })()
@@ -54,7 +55,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
         selectedFaction={selectedFaction}
         onSelectFaction={f => navigate(`/characters${f ? `/${f.key}` : ''}${location.search}`) }
         searchText={filterText}
-        onChangeSearchText={text => setFilterText(text, { replace: false })}
+        onChangeSearchText={text => setFilterText(text, { replace: true })}
       />
       <CharactersTable characters={filteredCharacters} />
     </>
