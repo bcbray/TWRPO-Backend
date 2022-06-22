@@ -34,7 +34,13 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
       </Tag>
     </div>
     <div className={[styles.info, 'stream-card-info'].join(' ')}>
-      <div className={styles.pfp}>
+      <div className={[styles.pfp, character.channelInfo ? styles.noPfp : styles.hasPfp].join(' ')}>
+        {character.channelInfo &&
+          <img
+            src={character.channelInfo.profilePictureUrl}
+            alt={character.channelName}
+          />
+        }
       </div>
       <div className={styles.text}>
         <div className={styles.title}>
