@@ -24,9 +24,9 @@ export interface CharacterInfo {
   channelInfo?: ChannelInfo;
 }
 
-interface ChannelInfo {
-  id: string;
-  login: string;
+export interface ChannelInfo {
+  id?: string;
+  login?: string;
   displayName: string;
   profilePictureUrl: string;
 }
@@ -70,3 +70,8 @@ export interface LiveResponse {
     streams: Stream[];
     tick: number;
 }
+
+export const channelInfo = (stream: Stream) => ({
+  displayName: stream.channelName,
+  profilePictureUrl: stream.profileUrl,
+});

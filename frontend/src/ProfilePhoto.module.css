@@ -1,0 +1,15 @@
+.pfp {
+  background-color: var(--bs-gray-200);
+  overflow: hidden;
+  aspect-ratio: 1/1;
+}
+
+.pfp.hasPfp {
+  background-color: unset;
+}
+
+.pfp img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
