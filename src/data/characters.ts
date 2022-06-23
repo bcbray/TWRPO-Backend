@@ -354,12 +354,12 @@ export const wrpCharacters: WrpCharacters = {
     DaniOregon: [
         { name: 'Wesley Daniels' },
     ],
-    dannyfloriduh: [
-        { name: 'Cliff Westwood' },
-    ],
-    danscribe: [
+    DanMysteryHero: [
         { name: 'Brett Jordan' },
         { name: 'Wolverine Payton' },
+    ],
+    dannyfloriduh: [
+        { name: 'Cliff Westwood' },
     ],
     Darthbobo77: [
         { name: 'Walter Rinsen' },
@@ -1004,9 +1004,6 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Leon Taylor' },
         { name: 'Conny Cage' },
     ],
-    mums_live: [
-        { name: 'Edward Moore' },
-    ],
     Myre: [
         { name: 'Benoit Baratie' },
         { name: 'Crispin Cantabile' },
@@ -1483,6 +1480,9 @@ export const wrpCharacters: WrpCharacters = {
     TheTofuSamurai: [
         { name: 'Jimothy James' },
     ],
+    theweyu: [
+        { name: 'Alawa "Ali" Meota' },
+    ],
     TheZenPunk: [
         { name: 'William "Wild Willy" Brown' },
     ],
@@ -1520,7 +1520,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Sadie Stronge' },
     ],
     travpiper: [
-        { name: 'William "Bill" Gunner', nicknames: ['Bill', 'Carlos Sanchez', 'Carlos'] },
+        { name: 'William "Bill" Gunner', nicknames: ['Carlos Sanchez', 'Carlos'] },
     ],
     TullyCuffs: [
         { name: 'Hugo Hopper' },
@@ -1575,15 +1575,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Taylor Hicks' },
         { name: 'William "Bill" Carver' },
     ],
-    Warthog155: [
-        { name: 'Porter ONeill' },
-    ],
     WestCoastWayne: [
         { name: 'Ervin Haywood' },
         { name: 'Charles "Smoke" Dunn' },
-    ],
-    weyutv: [
-        { name: 'Alawa "Ali" Meota' },
     ],
     WingTroker: [
         { name: 'Bert Silver' },
