@@ -6,6 +6,7 @@ import styles from './CharactersTable.module.css';
 import { CharacterInfo, FactionInfo, Stream } from './types';
 import Tag from './Tag';
 import StreamCard from './StreamCard';
+import ProfilePhoto from './ProfilePhoto';
 
 interface Props {
   characters: CharacterInfo[];
@@ -62,17 +63,27 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters, factionIn
               ? []
               : character.factions;
             return (
-              <tr key={character.channelName + character.name}>
-                <td className="character-channel-name">
+              <tr className={styles.characterRow} key={character.channelName + character.name}>
+                <td className={styles.channelName}>
                 <a className="text-dark" style={{ textDecoration: 'none' }} href={`https://twitch.tv/${character.channelName.toLowerCase()}`}>
+                  <ProfilePhoto
+                    className={styles.pfp}
+                    channelInfo={character.channelInfo}
+                    size={24}
+                    style={{
+                      height: '1.5rem',
+                      width: '1.5rem',
+                      borderRadius: '0.75rem',
+                    }}
+                  />
                   {character.channelName}
                   {character.liveInfo && <LiveBadge stream={character.liveInfo} factionInfos={factionInfos} />}
                 </a>
                 </td>
-                <td className="character-titles">{character.displayInfo.titles.join(', ')}</td>
-                <td className="character-name">{character.displayInfo.realNames.join(' ')}</td>
-                <td className="character-nicknames">{character.displayInfo.nicknames.join(', ')}</td>
-                <td className="character-factions">
+                <td className={styles.titles}>{character.displayInfo.titles.join(', ')}</td>
+                <td className={styles.name}>{character.displayInfo.realNames.join(' ')}</td>
+                <td className={styles.nicknames}>{character.displayInfo.nicknames.join(', ')}</td>
+                <td className={styles.factions}>
                 {
                   factionsToShow.map((filter) =>
                   <Link

@@ -1,3 +1,20 @@
+.pfp {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 0.5rem;
+  filter: grayscale(1.0);
+  opacity: 0.6;
+}
+
+.characterRow:hover .pfp {
+  filter: none;
+  opacity: 1.0;
+}
+
+.channelName, .name {
+  white-space: nowrap;
+}
+
 .liveTag {
   background-color: #dc3545;
   color: #fff;
@@ -20,7 +37,7 @@
 .streamPopover > div {
   background: var(--bs-gray-100);
   border-radius: 6px;
-  box-shadow: 0 15px 20px rgba(0,0,0,.01), 0 0 5px rgba(0,0,0,.1);
+  box-shadow: 0 15px 20px rgba(0,0,0,.02), 0 0 5px rgba(0,0,0,.2);
   padding-bottom: 0.5rem;
 }
 
