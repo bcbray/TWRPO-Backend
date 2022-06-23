@@ -412,6 +412,7 @@ export const wrpCharacters: WrpCharacters = {
     DisbeArex: [
         { name: 'Timmy Took' },
         { name: 'Dolly Dixon' },
+        { name: 'Morgana Fay' },
     ],
     DJADIP: [
         { name: 'Juan Pablo' },
@@ -467,6 +468,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Charles Slaughter', factions: ['Law'] },
         { name: 'Solomon Walker' },
         { name: 'Lawrence "The Major" Stirling' },
+        { name: 'Dr. Creed', displayName: 0 },
     ],
     dynadivine: [
         { name: 'Lucille Davis' },
@@ -742,7 +744,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Bo Whitmore' },
     ],
     jackiejackpot: [
-        { name: 'Tilly Demeter' },
+        { name: 'Tilly Demeter', assume: 'assumeOther' },
     ],
     jakeyp0o: [
         { name: 'Danner Wynn' },
@@ -785,6 +787,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Gavin Summers', factions: ['Summers Gang'], leader: true },
         { name: 'Jody Quinn' },
         { name: 'Logan Miller' },
+        { name: 'Avery Woods' },
     ],
     Jonthebroski: [
         { name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5 },
@@ -1578,6 +1581,9 @@ export const wrpCharacters: WrpCharacters = {
     WestCoastWayne: [
         { name: 'Ervin Haywood' },
         { name: 'Charles "Smoke" Dunn' },
+    ],
+    WhiskeyTheRedd: [
+        { name: 'Devyn "Dakota" Dunning' },
     ],
     WingTroker: [
         { name: 'Bert Silver' },
