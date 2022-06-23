@@ -72,19 +72,6 @@
   margin-right: 0.25rem;
 }
 
-.pfp.noPfp {
-  border-radius: 15px;
-  background-color: var(--bs-gray-200);
-  width: 30px;
-  height: 30px;
-}
-
-.pfp img {
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-}
-
 .text {
   display: flex;
   flex-direction: column;

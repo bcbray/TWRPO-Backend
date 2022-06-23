@@ -1,9 +1,10 @@
 import React from 'react';
 
 import styles from './StreamCard.module.css';
-import { Stream, FactionInfo } from './types';
+import { Stream, FactionInfo, channelInfo } from './types';
 import { formatViewers } from './utils';
 import Tag from './Tag';
+import ProfilePhotos from './ProfilePhoto';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   stream: Stream;
@@ -41,12 +42,17 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
       </Tag>
     </div>
     <div className={[styles.info, 'stream-card-info'].join(' ')}>
-      <div className={styles.pfp}>
-        <img
-          src={stream.profileUrl}
-          alt={stream.channelName}
+      <a
+        target='_blank'
+        rel='noreferrer'
+        href={`https://twitch.tv/${stream.channelName}`}
+      >
+        <ProfilePhotos
+          className={styles.pfp}
+          channelInfo={channelInfo(stream)}
+          size='sm'
         />
-      </div>
+      </a>
       <div className={styles.text}>
         <div className={styles.title}>
           <p title={stream.title}>{stream.title}</p>

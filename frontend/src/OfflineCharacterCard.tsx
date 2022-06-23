@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './OfflineCharacterCard.module.css';
 import { CharacterInfo, FactionInfo } from './types';
 import Tag from './Tag';
+import ProfilePhoto from './ProfilePhoto';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   character: CharacterInfo;
@@ -34,14 +35,11 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
       </Tag>
     </div>
     <div className={[styles.info, 'stream-card-info'].join(' ')}>
-      <div className={[styles.pfp, character.channelInfo ? styles.hasPfp : styles.noPfp].join(' ')}>
-        {character.channelInfo &&
-          <img
-            src={character.channelInfo.profilePictureUrl}
-            alt={character.channelName}
-          />
-        }
-      </div>
+      <ProfilePhoto
+        className={styles.pfp}
+        channelInfo={character.channelInfo}
+        size={30}
+      />
       <div className={styles.text}>
         <div className={styles.title}>
           <p title={character.name}>{character.name}</p>
