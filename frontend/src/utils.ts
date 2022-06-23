@@ -53,3 +53,21 @@ export const formatViewers = (viewers: number) => {
 
   return `${formatted}${suffix} viewers`;
 }
+
+type ClassPart = string | false | null | undefined | ClassPart[];
+
+export const classes = (...parts: ClassPart[]): string => {
+  let names: string[] = [];
+  parts.forEach((part) => {
+    if (!part) return;
+    if (typeof part == 'string') {
+      names.push(part);
+    } else if (Array.isArray(part)) {
+      names.concat(classes(part));
+    } else {
+      // At this point, `part` is `never` type, but in case we somehow fall in here
+      console.warn('Unknown class part:', part);
+    }
+  });
+  return names.join(' ');
+}
