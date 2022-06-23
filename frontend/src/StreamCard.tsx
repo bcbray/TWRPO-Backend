@@ -27,6 +27,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
         <img
           src={stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')}
           alt={`${stream.channelName} stream thumbnail`}
+          loading='lazy'
         />
       </a>
       <Tag
