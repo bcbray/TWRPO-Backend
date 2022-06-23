@@ -27,7 +27,6 @@ export const getKnownTwitchUsers = async (): Promise<TwitchUser[]> => {
 
     existingPromise = new Promise<TwitchUser[]>(async (resolve, reject) => {
         try {
-            console.log('get');
             const toSearch = Object.keys(wrpCharacters);
             let allUsers: TwitchUser[] = [];
 
