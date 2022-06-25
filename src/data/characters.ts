@@ -90,6 +90,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Adolf "Dolfie" Hofcooperstedder' },
         { name: 'Moose' },
     ],
+    Ashen_Rabbit: [
+        { name: 'Dovie Parker' },
+    ],
     AtomosCLU: [
         { name: 'George Anderson' },
     ],
@@ -382,7 +385,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ham Royce' },
     ],
     DeFrostSC: [
-        { name: 'Thunder' },
+        { name: 'Eyota "Thunder" Tiama' },
+        { name: 'Hank Boon' },
     ],
     DeneeSays: [
         { name: 'Brooke "Babs" Burns' },
@@ -443,6 +447,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Danny Kerrigan' },
         { name: 'Duncan Ladle' },
         { name: 'Duncan Weller' },
+        { name: 'Darwin Howe' },
     ],
     DrulkTV: [
         { name: 'Lawrence Noll' },
@@ -460,6 +465,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DukeOfFlukes: [
         { name: 'Alexander Poe' },
+        { name: 'Duke Colt', nicknames: ['Handsome Colt'] },
     ],
     Dunrunnin12: [
         { name: 'Clay' },
@@ -639,7 +645,7 @@ export const wrpCharacters: WrpCharacters = {
     GrammTheGibbon: [
         { name: 'Herbert Parker', nicknames: ['Herb', 'Cowboy', 'Young'] },
         { name: '[Detective] Homer Carnes', factions: ['Law'], nicknames: ['Cop'] },
-        { name: '"LJ" Little Jimothy', nicknames: ['Kid'] },
+        { name: '"LJ" Little Jimothy', nicknames: ['Kid', 'Soldier'] },
         { name: 'Clayton Orwell' },
     ],
     GraveGamerTV: [
@@ -795,6 +801,9 @@ export const wrpCharacters: WrpCharacters = {
     JunkieEzek: [
         { name: 'Jeremiah Harth' },
     ],
+    JustAnotherBro: [
+        { name: 'Billy Blood' },
+    ],
     JustSam42: [
         { name: '[Ranger] Nathan Thompson', factions: ['Rangers'] },
     ],
@@ -847,6 +856,10 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Syles MacKenna', factions: ['Law'] },
         { name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
         { name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang'] },
+    ],
+    KYCaffiend: [
+        { name: 'Emerson Cain' },
+        { name: 'Montgomery Flynn' },
     ],
     Kyle: [
         { name: 'Ren Solo' },
@@ -1066,6 +1079,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     og_cush00: [
         { name: 'Walter Bridges' },
+    ],
+    OhHeyItsFunk: [
+        { name: 'Lucius Tubbs' },
     ],
     ohheyliam: [
         { name: 'Oliver "Ollie" Quil' },
@@ -1577,6 +1593,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Brian Wright', factions: ['Law'] },
         { name: 'Taylor Hicks' },
         { name: 'William "Bill" Carver' },
+        { name: 'Benji Bell' },
     ],
     WestCoastWayne: [
         { name: 'Ervin Haywood' },
@@ -1613,6 +1630,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Cassius Evans' },
         { name: 'Charles Campbell' },
         { name: 'Liam Reilly' },
+        { name: 'Alexander Williams' },
     ],
     yeka221: [
         { name: 'Tabitha "Tibbit" Birch' },
