@@ -53,6 +53,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Arthur Jones' },
         { name: 'Del Parker' },
     ],
+    Afro: [
+        { name: 'Gordon Parks' },
+    ],
     aJimmy: [
         { name: 'James Kelly', factions: ['Kelly Gang', 'Kettleman Gang'] },
     ],
@@ -277,6 +280,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     charlieblossom: [
         { name: 'Katarina Lovette' },
+        { name: 'Eleanor Wood' },
     ],
     Cheever7: [
         { name: 'Aurora Rayne' },
@@ -953,6 +957,9 @@ export const wrpCharacters: WrpCharacters = {
     Madmoiselle: [
         { name: 'Lily Landry' },
         { name: 'Oola Lafayette' },
+    ],
+    MafiaDrew: [
+        { name: 'Don Jameson' },
     ],
     MannersMaketh_: [
         { name: 'Horatio Hudson' },
