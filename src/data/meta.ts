@@ -20,6 +20,7 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     other: 'Other',
     podcast: 'Podcast',
     watchparty: 'Watch Party',
+    onelife: 'One Life',
 } as const;
 
 export const wrpFactionsMeta = {

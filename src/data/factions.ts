@@ -28,6 +28,7 @@ export const wrpFactionsRegex = {
     rangers: noFormer(/\brangers?\b/i),
     dicenzofamiglia: noFormer(/\bdicenzos?\b/i),
     medical: noLater(/(?<!then\b.*|!)(?:doctor|\b[teplch]-\d{1,2}\b|paramedic|therapist|psychologist|\b(?:dr(?!\s*pepper)|em[st])\b)/i),
+    onelife: /\bperma?thon|\bperma\s*character|\b(?:one|1)[\s\-_.]*life/i,
 } as { [key in WrpFactionsRegexKeys]: RegExp };
 
 export const wrpFactionsSubRegex: { [key in FactionRealMini]?: [string, RegExp][] } = {
@@ -48,6 +49,7 @@ export const wrpFactionsSubRegex: { [key in FactionRealMini]?: [string, RegExp][
 
 export const lesserFactions: { [key in FactionRealMini]?: true } = {
     development: true,
+    onelife: true,
 } as const;
 // validateType<{ [key in FactionRealMini]?: true }>(lesserFactions);
 // const checkKeys: FactionRealMini = (null!) as keyof typeof lesserFactions;
@@ -165,9 +167,10 @@ const filterOrder: { [key in FactionMini]?: number } = Object.assign(
 export const filterRename: { [key in FactionMini]?: string } = {
     allwildrp: 'All WildRP (Default)',
     alltwitch: 'All Twitch (No Filtering)',
-	law: 'Law',
+    law: 'Law',
     samsclub: 'Sam\'s Club',
     thehumblebunch: 'Unnamed (The Humble Bunch)',
+    onelife: 'One Life Characters',
     otherwrp: 'Unknown RPers',
     other: 'Other Servers',
     guessed: 'Uncertain',
