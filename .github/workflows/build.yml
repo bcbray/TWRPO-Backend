@@ -13,12 +13,12 @@ jobs:
       with:
         node-version: 16
     - name: yarn install (api)
-      run: yarn install
+      run: yarn install --immutable
     - name: yarn build (api)
       run: yarn build
     - name: yarn install (frontend)
       working-directory: ./frontend
-      run: yarn install
+      run: yarn install --immutable
     - name: yarn build (frontend)
       working-directory: ./frontend
       run: yarn build
