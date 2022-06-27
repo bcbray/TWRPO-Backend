@@ -80,7 +80,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Isiah Trebuchet' },
     ],
     AnthonyZ: [
-        { name: 'Antonio Corleone', nicknames: ['Tony'] },
+        { name: 'Antonio Corleone', nicknames: ['Tony'], factions: ['DiCenzo Famiglia'] },
     ],
     APPLESHAMPOO: [
         { name: 'Kenny Kidman' },
@@ -219,7 +219,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Johnny Quick' },
     ],
     Buddha: [
-        { name: 'Wu Buddha' },
+        { name: 'Wu Buddha', factions: ['DiCenzo Famiglia'] },
     ],
     buddyandy88: [
         { name: 'Carla Johanson' },
