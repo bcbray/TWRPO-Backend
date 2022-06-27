@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3029",
+  "packageManager": "yarn@3.2.1",
   "dependencies": {
     "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@testing-library/jest-dom": "^5.14.1",

@@ -6,6 +6,7 @@
     "author": "Adam Johnson <vaeb@hey.com>",
     "license": "MIT",
     "type": "module",
+    "packageManager": "yarn@3.2.1",
     "scripts": {
         "heroku-prebuild": ". ./scripts/react-env.sh && cd frontend && yarn install && yarn run build",
         "build": "tsc",
