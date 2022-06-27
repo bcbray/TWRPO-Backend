@@ -755,6 +755,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     jackiejackpot: [
         { name: 'Tilly Demeter', assume: 'assumeOther' },
+        { name: 'Jade Ming' },
     ],
     jakeyp0o: [
         { name: 'Danner Wynn' },
@@ -864,6 +865,7 @@ export const wrpCharacters: WrpCharacters = {
     KYCaffiend: [
         { name: 'Emerson Cain' },
         { name: 'Montgomery Flynn' },
+        { name: 'Tommaso Scaglietti' },
     ],
     Kyle: [
         { name: 'Ren Solo' },
@@ -953,6 +955,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Scott Samuel' },
         { name: 'Nathanial ?', nicknames: ['Smoke'] },
         { name: 'Richard Watson' },
+        { name: 'Terrance King' },
     ],
     Madmoiselle: [
         { name: 'Lily Landry' },
@@ -1099,6 +1102,7 @@ export const wrpCharacters: WrpCharacters = {
     oldkelvo: [
         { name: 'Jack Crow' },
         { name: 'Beth Gout' },
+        { name: 'Carver Reilly' },
     ],
     Orcish: [
         { name: '[Deputy] Allistair McGregor', factions: ['Law'] },
@@ -1169,6 +1173,9 @@ export const wrpCharacters: WrpCharacters = {
     Quip_TV: [
         { name: '[Deputy] Dove Hopkins', factions: ['Law'] },
         { name: 'Sally Higgins', nicknames: ['Shotgun'] },
+    ],
+    RaddRema: [
+        { name: 'Bonnie Sunn' },
     ],
     Rayormy: [
         { name: 'Adelaide Henry' },
@@ -1434,6 +1441,7 @@ export const wrpCharacters: WrpCharacters = {
     ThatTrollsomeGuy: [
         { name: 'Logan Callaway' },
         { name: '[Deputy] ? Robertson', factions: ['Law'] }, // TODO: First name?
+        { name: 'Alexander Rose' },
     ],
     The_Devils_Son: [
         { name: 'Fredrick Smythe' },
@@ -1588,6 +1596,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Joey Johns', nicknames: ['Wallaby Kid'], factions: ['Dead End Kids'] },
         { name: 'Les Darcy' },
         { name: 'Bazz Kerrigan', factions: ['Kettleman Gang'] },
+    ],
+    Viviana: [
+        { name: 'Mary Anne LeStrange' },
     ],
     VTM___: [
         { name: 'Boone Morales' },
