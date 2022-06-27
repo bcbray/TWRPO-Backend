@@ -239,6 +239,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BurtLington: [
         { name: '[Sheriff] Marty Malone', factions: ['Law'] },
+        { name: 'Paddy Connelly', nicknames: ['The Sweeper'] },
     ],
     buttrito: [
         { name: 'Dakota Slim' },
@@ -756,6 +757,7 @@ export const wrpCharacters: WrpCharacters = {
     jackiejackpot: [
         { name: 'Tilly Demeter', assume: 'assumeOther' },
         { name: 'Jade Ming' },
+        { name: 'Jezrael King' },
     ],
     jakeyp0o: [
         { name: 'Danner Wynn' },
@@ -1173,6 +1175,7 @@ export const wrpCharacters: WrpCharacters = {
     Quip_TV: [
         { name: '[Deputy] Dove Hopkins', factions: ['Law'] },
         { name: 'Sally Higgins', nicknames: ['Shotgun'] },
+        { name: 'Sofia ?' },
     ],
     RaddRema: [
         { name: 'Bonnie Sunn' },
@@ -1342,6 +1345,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Spaceboy: [
         { name: 'James Randal', nicknames: ['Jim Beef'] },
+    ],
+    Speckie_: [
+        { name: 'Emmet Gray' },
     ],
     spicybackpain: [
         { name: 'Pepper Jackson' },
