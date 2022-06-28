@@ -482,6 +482,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Solomon Walker' },
         { name: 'Lawrence "The Major" Stirling' },
         { name: 'Dr. Creed', displayName: 0 },
+        { name: 'Reggie Richardson' },
     ],
     dynadivine: [
         { name: 'Lucille Davis' },
