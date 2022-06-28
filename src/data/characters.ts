@@ -295,12 +295,14 @@ export const wrpCharacters: WrpCharacters = {
     ],
     CHUDOCKEN: [
         { name: 'Qeljayiden', nicknames: ['Qelajayiden', 'Jaden'] },
+        { name: 'Josiah Wayne' },
     ],
     ChrisTombstone: [
         { name: 'Joffery Wilkins' },
     ],
     ClassicSteeve: [
         { name: 'Melvin Brown' },
+        { name: 'Jimmy Duncs' },
     ],
     ClassyPax: [
         { name: 'Eugene Calloway' },
@@ -1293,6 +1295,7 @@ export const wrpCharacters: WrpCharacters = {
     Silbullet: [
         { name: '[Deputy] Shawn Maple', factions: ['Law'] },
         { name: 'Stefano Amendo' },
+        { name: 'Leopold Von Schitzen' },
     ],
     SilentSentry: [
         { name: 'Emmet "Stripes" Wagner' },
