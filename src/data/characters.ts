@@ -56,6 +56,9 @@ export const wrpCharacters: WrpCharacters = {
     Afro: [
         { name: 'Gordon Parks' },
     ],
+    Agidon: [
+        { name: 'Holt MacMillan' },
+    ],
     aJimmy: [
         { name: 'James Kelly', factions: ['Kelly Gang', 'Kettleman Gang'] },
     ],
@@ -424,6 +427,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Timmy Took' },
         { name: 'Dolly Dixon' },
         { name: 'Morgana Fay' },
+        { name: 'The Blood Witch', displayName: 0 },
     ],
     DJADIP: [
         { name: 'Juan Pablo' },
@@ -607,6 +611,7 @@ export const wrpCharacters: WrpCharacters = {
     GameBaked: [
         { name: 'Mato Tahoma', factions: ['Medical'] },
         { name: 'Adriaan' },
+        { name: 'Nyander Furrest' },
     ],
     GameishTV: [
         { name: 'Doug Chipper' },
