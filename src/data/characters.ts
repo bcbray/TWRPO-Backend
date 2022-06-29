@@ -798,6 +798,7 @@ export const wrpCharacters: WrpCharacters = {
     Jogiiee: [
         { name: 'Eloise Carter' },
         { name: 'Daisy Cromwell' },
+        { name: 'Naomi Fletcher' },
     ],
     johnnyblamz: [
         { name: 'Gavin Summers', factions: ['Summers Gang'], leader: true },
