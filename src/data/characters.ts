@@ -37,7 +37,7 @@ export const wrpCharacters: WrpCharacters = {
     abbbz: [
         { name: '[Deputy] Francesca Romano', factions: ['Law'] },
         { name: 'Sanjay Patel' },
-        { name: 'Mrs. Goose', displayName: 0 }, // TODO: First name?
+        { name: 'Gertrude Goose', nicknames: ['Mrs. Goose'], displayName: 3 },
     ],
     AChanceOfCosplay: [
         { name: 'Bart Bancroft' },
@@ -128,7 +128,7 @@ export const wrpCharacters: WrpCharacters = {
     AwaBeats: [
         { name: 'Ali Mason' },
         { name: 'Nokosi Ahanu' },
-        { name: 'C-Lo' }, // TODO: Real name?
+        { name: 'Cleveland Brown', nicknames: ['C-Lo'], displayName: 3 },
         { name: 'Yorrik Morales' },
     ],
     ayekayy47_: [
@@ -208,6 +208,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Bud Pierce' },
     ],
     BradWOTO: [
+        { name: 'Bentley Fog' },
         { name: 'Rufus Lorde' },
         { name: 'Tar Sullivan' },
     ],
@@ -540,11 +541,13 @@ export const wrpCharacters: WrpCharacters = {
     Eyebyte: [
         { name: 'Amarillo Marnen' },
         { name: 'Edbert Trunk' },
+        { name: 'Norman Hatt' },
         { name: 'Rutherford Peabody' },
     ],
     famousivan: [
         { name: 'Raul Dominguez' },
         { name: 'Manual Salamanca' },
+        { name: 'Chavez Rodríguez' },
     ],
     Farmhouse78: [
         { name: 'Stewart Harington' },
@@ -882,6 +885,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ren Solo' },
     ],
     Kyltrex: [
+        { name: 'Jackson "Dead-Eye Jack" Pryde' },
         { name: 'Louis "Louie" Lancaster' },
     ],
     KyQuinn: [
@@ -973,7 +977,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Oola Lafayette' },
     ],
     MafiaDrew: [
-        { name: 'Don Jameson' },
+        { name: 'Donatello "Don" Jameson' },
     ],
     MannersMaketh_: [
         { name: 'Horatio Hudson' },
@@ -1175,7 +1179,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Pumpkinberry: [
         { name: 'Honey Sparks' },
+        { name: 'Imogen Blackwell' },
         { name: 'Nora Boone' },
+        { name: 'Omens' },
     ],
     Question_Box: [
         { name: '[Sheriff] Lydia Lewis', factions: ['Law'] },
@@ -1357,7 +1363,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'James Randal', nicknames: ['Jim Beef'] },
     ],
     Speckie_: [
+        { name: '[Deputy] Andrew Hamilton', factions: ['Law'] },
         { name: 'Emmet Gray' },
+        { name: 'James Parker' },
     ],
     spicybackpain: [
         { name: 'Pepper Jackson' },
@@ -1456,7 +1464,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ThatTrollsomeGuy: [
         { name: 'Logan Callaway' },
-        { name: '[Deputy] ? Robertson', factions: ['Law'] }, // TODO: First name?
+        { name: '[Deputy] Jonathan Robertson', factions: ['Law'] },
         { name: 'Alexander Rose' },
     ],
     The_Devils_Son: [
@@ -1481,9 +1489,11 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Damien Gallagher' },
         { name: 'Sebastien Woodrow' },
         { name: 'Tobias Graves' },
+        { name: 'Adam Brand' },
         { name: 'Jonas Steel' },
     ],
     TheCocacolafreak: [
+        { name: 'Clint "Busty Danger" David' },
         { name: 'Ernst Schneider' },
         { name: 'Javier Moreno' },
         { name: 'Thomas Schneider', nicknames: ['Butcher Of Berlin'] },
@@ -1609,7 +1619,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     VERTiiGOGAMING: [
         { name: '[Deputy] Boyd Kerrigan', factions: ['Law'] },
-        { name: 'Joey Johns', nicknames: ['Wallaby Kid'], factions: ['Dead End Kids'] },
+        { name: 'Joey "The Wallaby Kid" Johns', factions: ['Dead End Kids'] },
         { name: 'Les Darcy' },
         { name: 'Bazz Kerrigan', factions: ['Kettleman Gang'] },
     ],
