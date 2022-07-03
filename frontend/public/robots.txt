@@ -1,6 +1,7 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow: /utils/
-Disallow: /api/
+Allow: /
+Disallow: /utils/*
+Disallow: /api/*
 
 Sitemap: https://twrponly.tv/sitemap.xml
