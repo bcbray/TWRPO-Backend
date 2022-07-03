@@ -124,11 +124,12 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Avioto_: [
         { name: 'Amadeo Moretti', factions: ['DiCenzo Famiglia'] },
+        { name: 'Mo Tengfei' },
     ],
     AwaBeats: [
         { name: 'Ali Mason' },
         { name: 'Nokosi Ahanu' },
-        { name: 'Cleveland Brown', nicknames: ['C-Lo'], displayName: 3 },
+        { name: '[Cadet] Cleveland Brown', nicknames: ['C-Lo'], displayName: 3, factions: ['Law'] },
         { name: 'Yorrik Morales' },
     ],
     ayekayy47_: [
@@ -211,6 +212,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Bentley Fog' },
         { name: 'Rufus Lorde' },
         { name: 'Tar Sullivan' },
+    ],
+    Brizzo24: [
+        { name: 'Craig Johnson' },
     ],
     BrutalBri: [
         { name: 'Cooter O\'Doole' },
@@ -769,6 +773,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Tilly Demeter', assume: 'assumeOther' },
         { name: 'Jade Ming' },
         { name: 'Jezrael King' },
+        { name: 'Maria Gonzales' },
     ],
     jakeyp0o: [
         { name: 'Danner Wynn' },
@@ -887,6 +892,7 @@ export const wrpCharacters: WrpCharacters = {
     Kyltrex: [
         { name: 'Jackson "Dead-Eye Jack" Pryde' },
         { name: 'Louis "Louie" Lancaster' },
+        { name: 'Luther Von Brandt' },
     ],
     KyQuinn: [
         { name: 'Carmen Beckett' },
@@ -1024,6 +1030,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Fergus McDuffy' },
         { name: 'Mal Tompkins' },
         { name: 'Orland Boggs' },
+        { name: 'Blem Jinkins' },
     ],
     MrGoonBones: [
         { name: 'Goon "Goom-Boobie" Bones' },
@@ -1076,6 +1083,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Nidas: [
         { name: 'Eustace Goodwin' },
+    ],
+    NoahsDay: [
+        { name: 'Cliff Otis' },
     ],
     Nopheros: [
         { name: 'Robert Fisher' },
@@ -1516,6 +1526,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheGoochTV: [
         { name: 'Becker Lang' },
+    ],
+    TheHardcorian: [
+        { name: 'Edgar ?' },
+        { name: 'Bill Hill' },
     ],
     TheJasonPhoenix: [
         { name: 'Fenix Hayston' },
