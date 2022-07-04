@@ -34,6 +34,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ernest Dooly' },
         { name: 'Maverik Stone' },
     ],
+    '893SHIRO': [
+        { name: 'Mitsuhide Nagahama' },
+    ],
     abbbz: [
         { name: '[Deputy] Francesca Romano', factions: ['Law'] },
         { name: 'Sanjay Patel' },
