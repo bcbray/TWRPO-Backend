@@ -42,6 +42,7 @@ export const wrpCharacters: WrpCharacters = {
     AChanceOfCosplay: [
         { name: 'Bart Bancroft' },
         { name: 'Jason Forsworn' },
+        { name: 'Billy Boom' },
     ],
     aDarkFilly: [
         { name: 'Magnolia', factions: ['The Nameless'] },
@@ -493,6 +494,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dr. Creed', displayName: 0 },
         { name: 'Reggie Richardson' },
     ],
+    Dwoalin: [
+        { name: 'Jeff “Smed” Smedley' },
+    ],
     dynadivine: [
         { name: 'Lucille Davis' },
         { name: 'Lucille Walker' },
@@ -650,6 +654,7 @@ export const wrpCharacters: WrpCharacters = {
     GmanRBI: [
         { name: 'Max Brady', factions: ['Sams Club'] },
         { name: 'Gianni Peccati' },
+        { name: 'Mordecai Butterbee' },
     ],
     GnarIyDavidson: [
         { name: 'Lluka Darkwood' },
@@ -1227,6 +1232,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Frank Church' },
         { name: 'John Hell' },
     ],
+    RookGoose: [
+        { name: 'Leto McMorris ' },
+    ],
     rossthehsauce: [
         { name: 'Forest Fish', factions: ['Guppy Gang'] },
         { name: 'Dominic Disouza', factions: ['DiCenzo Famiglia'] },
@@ -1376,6 +1384,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Andrew Hamilton', factions: ['Law'] },
         { name: 'Emmet Gray' },
         { name: 'James Parker' },
+        { name: 'Archie ?' }, // Last name maybe “Richardson”?
     ],
     spicybackpain: [
         { name: 'Pepper Jackson' },
@@ -1547,6 +1556,9 @@ export const wrpCharacters: WrpCharacters = {
     TheRandomChick: [
         { name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'] },
         { name: 'Poppet Deveaux' },
+    ],
+    TheSlappyOne: [
+        { name: 'Marcus Hutchinson' },
     ],
     TheStreetMagnet: [
         { name: 'Josiah Shepard' },
