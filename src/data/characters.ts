@@ -658,6 +658,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Max Brady', factions: ['Sams Club'] },
         { name: 'Gianni Peccati' },
         { name: 'Mordecai Butterbee' },
+        { name: 'Giano Greywolf' },
     ],
     GnarIyDavidson: [
         { name: 'Lluka Darkwood' },
@@ -1538,6 +1539,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheGoochTV: [
         { name: 'Becker Lang' },
+    ],
+    TheHairyCelt: [
+        { name: 'Ronnie Hurbert' },
     ],
     TheHardcorian: [
         { name: 'Edgar ?' },
