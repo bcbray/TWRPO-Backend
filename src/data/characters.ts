@@ -37,6 +37,9 @@ export const wrpCharacters: WrpCharacters = {
     '893SHIRO': [
         { name: 'Mitsuhide Nagahama' },
     ],
+    AaronOnAir: [
+        { name: 'Dylan Texler' },
+    ],
     abbbz: [
         { name: '[Deputy] Francesca Romano', factions: ['Law'] },
         { name: 'Sanjay Patel' },
@@ -174,6 +177,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BernieIsLive: [
         { name: 'Noah Little' },
+    ],
+    BikeMan: [
+        { name: 'Thaddeus Wick' },
     ],
     Bionic_Toothpick: [
         { name: 'Elia Marekson' },
@@ -425,6 +431,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Fiddleford "Phil" Mackit' },
         { name: 'Kaz Brekker' },
         { name: 'Tommy Townsand' },
+        { name: 'Matthias Helvar' },
     ],
     Dirty_10: [
         { name: 'Richard Long', assume: 'assumeOther' },
@@ -939,6 +946,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Doctor] Lark Atwood', factions: ['Medical'] },
         { name: 'Sylvie Chevalier' },
     ],
+    livraan: [
+        { name: 'Hanna Eriksson' },
+    ],
     ll_Marziano_ll: [
         { name: 'James Lawson' },
         { name: 'Lawrence Kelley' },
@@ -1352,6 +1362,9 @@ export const wrpCharacters: WrpCharacters = {
     SLiMt: [
         { name: 'Jimmy "Slim Jim" Slimper' },
     ],
+    smorgenborgendorgen: [
+        { name: 'Martha Crook' },
+    ],
     sneakyShadower: [
         { name: '[Deputy] Abigail Jones', factions: ['Law'] },
         { name: 'Azula Brooks' },
@@ -1411,6 +1424,9 @@ export const wrpCharacters: WrpCharacters = {
     Ssaab: [
         { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true },
         { name: 'Ali Baba', displayName: 0 },
+    ],
+    Ssmacky: [
+        { name: 'Jackson Marsh' },
     ],
     stardaze: [
         { name: 'Edie Barlowe' },
@@ -1556,6 +1572,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheObsidianTravelersCo: [
         { name: 'Cornileus Moon' },
+        { name: 'Amadeus "Adonis" Silver' },
     ],
     ThePatrician69: [
         { name: 'Nate Casey', factions: ['Kettleman Gang'] },
