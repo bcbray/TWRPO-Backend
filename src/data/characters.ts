@@ -1713,6 +1713,9 @@ export const wrpCharacters: WrpCharacters = {
     Wombax: [
         { name: 'Nash' },
     ],
+    woplotomo: [
+        { name: '? ?', assume: 'neverNp' },
+    ],
     Wrighty: [
         { name: 'Jack Reed' },
         { name: 'Logan Monroe', factions: ['Law'] },
