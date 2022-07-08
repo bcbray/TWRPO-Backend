@@ -1270,7 +1270,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ace Grimmer' },
     ],
     s5ashadow01: [
-        { name: 'Adam Skye' },
+        { name: '[Cadet] Adam Skye', factions: ['Law'] },
         { name: 'Froiland Jackson' },
     ],
     SaffyPie: [
