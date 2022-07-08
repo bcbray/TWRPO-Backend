@@ -74,20 +74,22 @@ router.get('/', async (_, res) => {
         const channelInfo = knownUsers.find(u =>
             u.displayName.toLowerCase() === streamer.toLowerCase()
             || u.login.toLowerCase() == streamer.toLowerCase());
-        return characters.map((character) => {
-            const stream = liveData.streams.find(s => s.channelName === streamer && s.characterName === character.name);
-            return {
-                channelName: streamer,
-                name: character.name,
-                displayInfo: displayInfo(character),
-                factions: character.factions?.map((faction) => {
-                    const factionMini = faction.toLowerCase().replaceAll(' ', '');
-                    return factionMap[factionMini];
-                }) ?? [independent],
-                liveInfo: stream,
-                channelInfo,
-            } as CharacterInfo;
-        });
+        return characters
+            .filter(character => character.assume !== 'neverNp')
+            .map((character) => {
+                const stream = liveData.streams.find(s => s.channelName === streamer && s.characterName === character.name);
+                return {
+                    channelName: streamer,
+                    name: character.name,
+                    displayInfo: displayInfo(character),
+                    factions: character.factions?.map((faction) => {
+                        const factionMini = faction.toLowerCase().replaceAll(' ', '');
+                        return factionMap[factionMini];
+                    }) ?? [independent],
+                    liveInfo: stream,
+                    channelInfo,
+                } as CharacterInfo;
+            });
     });
 
     const response: CharactersResponse = {
