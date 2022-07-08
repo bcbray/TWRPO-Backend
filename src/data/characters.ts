@@ -81,6 +81,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Giorgio Santorelli', factions: ['Law'] },
         { name: 'Raul Sanchez' },
     ],
+    andromedastarry: [
+        { name: 'Andi Walker' },
+    ],
     AngelKnivez: [
         { name: 'Renni Bradshaw', nicknames: ['Rimmy'] },
         { name: 'Sissi Marie' },
@@ -493,6 +496,7 @@ export const wrpCharacters: WrpCharacters = {
     DukeOfFlukes: [
         { name: 'Alexander Poe' },
         { name: 'Duke Colt', nicknames: ['Handsome Colt'] },
+        { name: 'Charles Morgan' },
     ],
     Dunrunnin12: [
         { name: 'Clay' },
@@ -543,6 +547,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     EquinoxRP: [
         { name: 'Brendyn Cormac' },
+    ],
+    EricaPlz: [
+        { name: 'Briget Thorson' },
     ],
     eternalsong: [
         { name: 'Kora Vane' },
@@ -1461,6 +1468,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Syraphic: [
         { name: 'Emilia "Emi" Song' },
+    ],
+    TaintedRUMBLER: [
+        { name: 'Drew Peters' },
     ],
     TalkingRecklessPodcast: [
         { name: 'Jeremiah Rent' },
