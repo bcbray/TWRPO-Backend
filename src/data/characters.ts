@@ -276,6 +276,9 @@ export const wrpCharacters: WrpCharacters = {
     CallieCakez: [
         { name: '[Ranger] Amelie Ashton', factions: ['Rangers'] },
     ],
+    CannaCasual: [
+        { name: 'Calvin Corbin' },
+    ],
     CapitalOGttv: [
         { name: 'Franklin Costella' },
         { name: 'James "Jimi" Black' },
@@ -1019,6 +1022,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dmitri Crenshaw' },
         { name: 'Marty Hanes' },
         { name: 'Ernie Crabgrass' },
+    ],
+    MattBreckly: [
+        { name: 'Dan Gerous' },
     ],
     MaverickHavoc: [
         { name: 'Cornellius Orvid' },
