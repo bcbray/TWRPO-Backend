@@ -518,6 +518,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Lucille Davis' },
         { name: 'Lucille Walker' },
     ],
+    DzarekK: [
+        { name: 'Eleonor ?' },
+    ],
     Eatindatcereal: [
         { name: '[Deputy] Jax Sanctum', factions: ['Law'] },
         { name: 'Al Lombardo' },
@@ -762,6 +765,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     IboonI: [
         { name: 'Elias Boon' },
+    ],
+    ICoolioM: [
+        { name: 'Arie ?' },
     ],
     illwac: [
         { name: 'Ira Smith' },
