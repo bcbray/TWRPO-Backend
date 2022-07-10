@@ -1309,6 +1309,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jolene Quinn' },
         { name: 'Josiah Matthews' },
         { name: 'Sam Bridges' },
+        { name: 'Bethany Ryder' },
     ],
     ScarletRosePlays: [
         { name: 'Allison Chase' },
@@ -1482,7 +1483,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Emilia "Emi" Song' },
     ],
     TaintedRUMBLER: [
-        { name: 'Drew Peters' },
+        { name: 'Drew Peters', assume: 'assumeOther' },
     ],
     TalkingRecklessPodcast: [
         { name: 'Jeremiah Rent' },
