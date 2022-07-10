@@ -1722,6 +1722,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ervin Haywood' },
         { name: 'Charles "Smoke" Dunn' },
     ],
+    Wetbow: [
+        { name: 'Amadeus Abraham' },
+    ],
     WhiskeyTheRedd: [
         { name: 'Devyn "Dakota" Dunning' },
     ],
