@@ -665,6 +665,9 @@ export const wrpCharacters: WrpCharacters = {
     GeorgiaBanks: [
         { name: 'Georgia Banks' },
     ],
+    GiveMeUhMinute: [
+        { name: 'James Willow' },
+    ],
     GlitchedHelix: [
         { name: 'Ada Standish' },
         { name: '[Doctor] Mya Ennis', factions: ['Medical'] },
@@ -747,6 +750,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     highkingfrazzal: [
         { name: 'James Delany' },
+    ],
+    Highpriest999: [
+        { name: 'Athos ?' },
     ],
     Hoop: [
         { name: 'Barry Bjornson', factions: ['Sams Club'] },
