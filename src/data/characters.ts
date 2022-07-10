@@ -165,7 +165,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Wade Kilian' },
     ],
     Beanblanket: [
-        { name: '[Cadet] Clifford Dawes', factions: ['Law'] },
+        { name: 'Clifford Dawes' },
     ],
     BeardofOz: [
         { name: 'Euclid Vane' },
