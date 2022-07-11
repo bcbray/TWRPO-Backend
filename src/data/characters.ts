@@ -439,6 +439,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Beau Wilder' },
         { name: 'Colt Clifford' },
     ],
+    deviliac: [
+        { name: 'Rafael "Rafa" Ramirez', nicknames: ['SnakeFace'] },
+    ],
     Dimitri: [
         { name: 'Clem Colton' },
     ],
