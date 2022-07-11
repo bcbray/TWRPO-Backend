@@ -167,6 +167,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Beanblanket: [
         { name: 'Clifford Dawes' },
+        { name: 'Emilio Peralta' },
     ],
     BeardofOz: [
         { name: 'Euclid Vane' },
