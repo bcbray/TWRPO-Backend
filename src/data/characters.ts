@@ -1065,6 +1065,7 @@ export const wrpCharacters: WrpCharacters = {
     MinksOfMars: [
         { name: 'Irene "Peaches" Corvis', factions: ['Sams Club'] },
         { name: 'Ana Stravinski' },
+        { name: 'Willow Wisp' },
     ],
     mishkaxoxo: [
         { name: 'Mishka Agapova' },
