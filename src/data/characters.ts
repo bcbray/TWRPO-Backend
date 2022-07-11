@@ -801,6 +801,9 @@ export const wrpCharacters: WrpCharacters = {
     iruASH: [
         { name: 'Kayce Smith' },
     ],
+    Its_Brogan2k: [
+        { name: 'Bogdan Hughes' },
+    ],
     ItsAsaii: [
         { name: '[Deputy] Buck Montana', factions: ['Law'] },
         { name: 'Calvin Oakes' },
