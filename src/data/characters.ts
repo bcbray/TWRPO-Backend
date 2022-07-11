@@ -1380,6 +1380,9 @@ export const wrpCharacters: WrpCharacters = {
     ShawW0w: [
         { name: 'Clarence Crudewater' },
     ],
+    Shyirasky: [
+        { name: 'Twitch Cooper' },
+    ],
     Sidkriken: [
         { name: 'Dane Swan', factions: ['Law'] },
         { name: 'Gator Weaver' },
