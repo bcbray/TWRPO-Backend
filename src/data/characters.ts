@@ -72,6 +72,9 @@ export const wrpCharacters: WrpCharacters = {
     Altrah: [
         { name: 'Victor Morteza' },
     ],
+    AlwayStayBlack: [
+        { name: 'Shaggy McRaggzzah' },
+    ],
     alyssajeanaf: [
         { name: 'Dahlia Malone', factions: ['Sams Club'] },
     ],
