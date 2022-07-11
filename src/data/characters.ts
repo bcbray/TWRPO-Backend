@@ -684,6 +684,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Gianni Peccati' },
         { name: 'Mordecai Butterbee' },
         { name: 'Giano Greywolf' },
+        { name: 'Rudy Allaway' },
     ],
     GnarIyDavidson: [
         { name: 'Lluka Darkwood' },
