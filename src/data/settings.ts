@@ -20,5 +20,5 @@ export const regOthers = [
     { name: 'Haven\'s Crest RP', reg: /\bhaven'?s\s+crest\s+(?:rp\b|roleplay)/i, include: 1 },
     { name: 'PRC', reg: /\bprc\b/i, include: 1 },
     { name: 'Red Dead Online', reg: /\b(?:rdr[\s:-]*[2]?|read\s*dead)[\s:-]*online/i, include: 0 },
-    { name: 'RDR Story', reg: /story[\s\-]*mode|\brdr[\s:-]*[2]?[\s\-]+story/i, include: 0 },
+    { name: 'RDR Story', reg: /story[\s\-]*mode|\b(?:rdr|red\s+dead\s+redemption)[\s:-]*[2]?[\s\-]+(?:story|campaign)/i, include: 0 },
 ];
