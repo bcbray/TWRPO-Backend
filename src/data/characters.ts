@@ -686,7 +686,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Rubella Davies' },
     ],
     glitchy: [
-        { name: 'James Faraday' },
+        { name: '[Deputy] James Faraday', factions: ['Law'] },
         { name: 'Raymond "Rayray" Willis' },
     ],
     GmanRBI: [
