@@ -1663,6 +1663,7 @@ export const wrpCharacters: WrpCharacters = {
     toodlehausn: [
         { name: 'Adelae "Ada" Wright' },
         { name: 'Sadie Stronge' },
+        { name: 'Mary Rassler', nicknames: ['Old'] },
     ],
     travpiper: [
         { name: 'William "Bill" Gunner', nicknames: ['Carlos Sanchez', 'Carlos'] },
