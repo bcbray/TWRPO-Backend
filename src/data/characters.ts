@@ -83,6 +83,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     andromedastarry: [
         { name: 'Andi Walker' },
+        { name: 'Quinn Connolly' },
     ],
     AngelKnivez: [
         { name: 'Renni Bradshaw', nicknames: ['Rimmy'] },
@@ -856,6 +857,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jody Quinn' },
         { name: 'Logan Miller' },
         { name: 'Avery Woods' },
+        { name: 'Peggy Brown' },
     ],
     Jonthebroski: [
         { name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5 },
@@ -1443,6 +1445,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Francesca "Frankie" Bright' },
         { name: 'Harriet "Hawk" Hawkins', factions: ['Summers Gang'] },
         { name: 'Brie Haviour' },
+        { name: 'Ruthie ?' },
     ],
     squareiz: [
         { name: 'Ed Doyle' },
