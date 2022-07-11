@@ -48,7 +48,7 @@ export const wrpCharacters: WrpCharacters = {
     AChanceOfCosplay: [
         { name: 'Bart Bancroft' },
         { name: 'Jason Forsworn' },
-        { name: 'Billy Boom' },
+        { name: 'William "Billy" Boomer' },
     ],
     aDarkFilly: [
         { name: 'Magnolia', factions: ['The Nameless'] },
@@ -154,6 +154,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     babysiren_: [
         { name: 'Laura Dunn' },
+    ],
+    Balmer: [
+        { name: 'Little Tibbles' },
     ],
     bananabrea: [
         { name: 'Josephine Gold' },
@@ -265,7 +268,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Paddy Connelly', nicknames: ['The Sweeper'] },
     ],
     buttrito: [
-        { name: 'Dakota Slim' },
+        { name: 'Dakota Ellis' },
     ],
     Caffine5: [
         { name: 'Billy Falco' },
@@ -364,6 +367,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Crom: [
         { name: 'Elias McDurn' },
+        { name: 'Aleister Reid' },
     ],
     cruddycheese: [
         { name: 'Donald McMuffin' },
@@ -396,6 +400,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     dannyfloriduh: [
         { name: 'Cliff Westwood' },
+    ],
+    Danzenken: [
+        { name: 'Aadi G. Boom' },
     ],
     Darthbobo77: [
         { name: 'Walter Rinsen' },
@@ -443,6 +450,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Dirty_10: [
         { name: 'Richard Long', assume: 'assumeOther' },
+        { name: 'Wesley Long' },
     ],
     Dirty_Fisherman: [
         { name: 'Archibald Trout' },
@@ -510,8 +518,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Charles Slaughter', factions: ['Law'] },
         { name: 'Solomon Walker' },
         { name: 'Lawrence "The Major" Stirling' },
-        { name: 'Dr. Creed', displayName: 0 },
-        { name: 'Reggie Richardson' },
+        { name: 'Isaac "Dr. Creed" Creed' },
+        { name: 'Reginald "Reggie" Richardson' },
     ],
     Dwoalin: [
         { name: 'Jeff “Smed” Smedley' },
@@ -521,7 +529,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Lucille Walker' },
     ],
     DzarekK: [
-        { name: 'Eleonor ?' },
+        { name: 'Eleonor Parker' },
     ],
     Eatindatcereal: [
         { name: '[Deputy] Jax Sanctum', factions: ['Law'] },
@@ -614,6 +622,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Evangeline Thorne' },
         { name: 'Frankie Czepanski' },
         { name: '[Sheriff] Rabbit Windward', factions: ['Law'] },
+        { name: 'Saskia "Fang" Wolf' },
+        { name: 'Quinn Thatcher' },
     ],
     ForeheadSkin: [
         { name: 'Edmund "Eddy" Reddington', factions: ['Sams Club'] },
@@ -755,7 +765,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'James Delany' },
     ],
     Highpriest999: [
-        { name: 'Athos ?' },
+        { name: 'Athos Lepida' },
     ],
     Hoop: [
         { name: 'Barry Bjornson', factions: ['Sams Club'] },
@@ -797,6 +807,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Eli Ryckman' },
         { name: 'Shaine Calhoun' },
         { name: 'Wayne Kavanaugh' },
+        { name: 'Dandy Smells' },
     ],
     Iwhuttt: [
         { name: 'Archibald Welch' },
@@ -1249,7 +1260,7 @@ export const wrpCharacters: WrpCharacters = {
     Quip_TV: [
         { name: '[Deputy] Dove Hopkins', factions: ['Law'] },
         { name: 'Sally Higgins', nicknames: ['Shotgun'] },
-        { name: 'Sofia ?' },
+        { name: 'Sofia Sherman' },
     ],
     RaddRema: [
         { name: 'Bonnie Sunn' },
@@ -1332,6 +1343,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Scriffboy: [
         { name: 'Tane' },
+    ],
+    Scwair: [
+        { name: 'Roman Blanco' },
+        { name: 'Teddy Graves' },
     ],
     seakeon: [
         { name: 'Eoghan Quinn' },
@@ -1448,7 +1463,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Francesca "Frankie" Bright' },
         { name: 'Harriet "Hawk" Hawkins', factions: ['Summers Gang'] },
         { name: 'Brie Haviour' },
-        { name: 'Ruthie ?' },
+        { name: 'Ruthie Samuels' },
     ],
     squareiz: [
         { name: 'Ed Doyle' },
@@ -1485,6 +1500,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     sweetcraw: [
         { name: '[Ranger] Joey Crawford', factions: ['Rangers'] },
+        { name: 'Ephraim Teller' },
     ],
     Sylasism: [
         { name: 'Atty Windward' },
@@ -1595,8 +1611,12 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ronnie Hurbert' },
     ],
     TheHardcorian: [
-        { name: 'Edgar ?' },
+        { name: 'Edgar Buckle' },
         { name: 'Bill Hill' },
+        { name: 'Lucius Thorn' },
+        { name: 'Pope Langer' },
+        { name: 'Ron Bryer' },
+        { name: '[Deputy] William Campbell', factions: ['Law'] },
     ],
     TheJasonPhoenix: [
         { name: 'Fenix Hayston' },
@@ -1805,5 +1825,6 @@ export const wrpCharacters: WrpCharacters = {
     Zombiefun: [
         { name: '[Ranger] Hal Dreen', factions: ['Rangers'] },
         { name: 'Alexander McCoy' },
+        { name: 'Langston Bolo' },
     ],
 };
