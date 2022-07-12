@@ -143,7 +143,7 @@ export const wrpCharacters: WrpCharacters = {
     AwaBeats: [
         { name: 'Ali Mason' },
         { name: 'Nokosi Ahanu' },
-        { name: '[Cadet] Cleveland Brown', nicknames: ['C-Lo'], displayName: 3, factions: ['Law'] },
+        { name: '[Deputy] Cleveland Brown', nicknames: ['C-Lo'], displayName: 3, factions: ['Law'] },
         { name: 'Yorrik Morales' },
     ],
     ayekayy47_: [
