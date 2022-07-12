@@ -235,7 +235,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Tar Sullivan' },
     ],
     Brizzo24: [
-        { name: 'Craig Johnson' },
+        { name: 'Craig Johnson', factions: ['Sams Club'] },
     ],
     BrutalBri: [
         { name: 'Cooter O\'Doole' },
@@ -574,7 +574,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Briget Thorson' },
     ],
     eternalsong: [
-        { name: 'Kora Vane' },
+        { name: 'Kora Vane', factions: ['Sams Club'] },
     ],
     EthanSchriver: [
         { name: 'Leanord Scout', displayName: 2 },
