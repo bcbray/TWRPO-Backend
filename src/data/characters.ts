@@ -965,6 +965,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Quinton Ivy', factions: ['Law'] },
         { name: 'Trixie Davenport' },
     ],
+    L00seyG005ey: [
+        { name: 'Elijah Grayson' },
+    ],
     LakunaRP: [
         { name: 'Tavish Black' },
     ],
