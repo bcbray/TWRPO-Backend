@@ -51,7 +51,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'William "Billy" Boomer' },
     ],
     aDarkFilly: [
-        { name: 'Magnolia', factions: ['The Nameless'] },
+        { name: 'Magnolia Decker', factions: ['The Nameless'] },
     ],
     Aero_Films: [
         { name: 'Skeeter Carlisle' },
