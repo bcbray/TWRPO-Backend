@@ -984,6 +984,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     LetterJaye: [
         { name: 'Wisteria Snowdon' },
+        { name: 'Poppy Florian' },
     ],
     LiteralBear: [
         { name: 'Marcus Danner' },
