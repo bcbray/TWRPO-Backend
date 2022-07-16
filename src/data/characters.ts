@@ -87,6 +87,7 @@ export const wrpCharacters: WrpCharacters = {
     andromedastarry: [
         { name: 'Andi Walker' },
         { name: 'Quinn Connolly' },
+        { name: 'Gabriella Gonzales' },
     ],
     AngelKnivez: [
         { name: 'Renni Bradshaw', nicknames: ['Rimmy'] },
