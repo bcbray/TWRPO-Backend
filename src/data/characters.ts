@@ -221,6 +221,9 @@ export const wrpCharacters: WrpCharacters = {
     blkcat: [
         { name: 'Johnny Walker' },
     ],
+    BloomOnline: [
+        { name: 'Norman Kobbs' },
+    ],
     BoosterGreg: [
         { name: 'Roy Whitmore' },
     ],
