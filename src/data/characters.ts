@@ -947,6 +947,9 @@ export const wrpCharacters: WrpCharacters = {
     Kiva: [
         { name: 'Harper Madison' },
     ],
+    KlokWrk: [
+        { name: 'Joshua Reeves' },
+    ],
     Kouts3: [
         { name: 'Felix Colt' },
     ],
