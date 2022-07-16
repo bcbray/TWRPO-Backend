@@ -782,6 +782,9 @@ export const wrpCharacters: WrpCharacters = {
     Highpriest999: [
         { name: 'Athos Lepida' },
     ],
+    Hurnani: [
+        { name: 'James Brown' },
+    ],
     Hoop: [
         { name: 'Barry Bjornson', factions: ['Sams Club'] },
         { name: 'Clyde Davis' },
