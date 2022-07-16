@@ -1242,6 +1242,9 @@ export const wrpCharacters: WrpCharacters = {
     PBandJLee: [
         { name: 'Elsie Fletcher' }, // TODO: `factions: ['News']` maybe?
     ],
+    PeachTreeMcGee: [
+        { name: 'Charlotte Toussaint' },
+    ],
     peachycoaster: [
         { name: 'Chrissy Snow' },
         { name: 'Toosie Loo' },
