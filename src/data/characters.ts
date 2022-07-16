@@ -1215,6 +1215,9 @@ export const wrpCharacters: WrpCharacters = {
     ohheyliam: [
         { name: 'Oliver "Ollie" Quil' },
     ],
+    OhJessBee: [
+        { name: 'Carmine Crimson' },
+    ],
     ohnopojo: [
         { name: 'Billy Kim' },
     ],
