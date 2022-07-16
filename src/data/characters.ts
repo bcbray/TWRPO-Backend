@@ -1745,6 +1745,9 @@ export const wrpCharacters: WrpCharacters = {
     UberJazer: [
         { name: 'Nahmala "Wolf" Wolfe' },
     ],
+    Ukrainy_: [
+        { name: 'Willie Reuben' },
+    ],
     unstoppableLARN: [
         { name: 'Gertrude Cockburn' },
         { name: 'Razormouth' },
