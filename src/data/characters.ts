@@ -791,6 +791,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'] },
         { name: '[Deputy] Miles Gyles', factions: ['Law'] },
     ],
+    Hoss: [
+        { name: 'Buck Cherry' },
+    ],
     IanMMori: [
         { name: '[Deputy] Enrique Vespucci', factions: ['Law'] },
         { name: 'Ewan Byrne' },
