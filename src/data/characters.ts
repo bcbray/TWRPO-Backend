@@ -1322,7 +1322,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Furio Bonanno' },
     ],
     Roach_tm: [
-        { name: 'Tony Moretti' },
+        { name: 'Tony Moretti', factions: ['DiCenzo Famiglia'] },
     ],
     rosco: [
         { name: 'Awkward Johnson', displayName: 0 },
