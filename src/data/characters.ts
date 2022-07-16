@@ -287,6 +287,9 @@ export const wrpCharacters: WrpCharacters = {
     CallieCakez: [
         { name: '[Ranger] Amelie Ashton', factions: ['Rangers'] },
     ],
+    CallisTV: [
+        { name: 'August Wheeler' },
+    ],
     CannaCasual: [
         { name: 'Calvin Corbin' },
     ],
