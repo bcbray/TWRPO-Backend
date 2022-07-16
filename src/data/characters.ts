@@ -734,6 +734,9 @@ export const wrpCharacters: WrpCharacters = {
     GreenEnigma: [
         { name: 'Jericho Blackfoot' },
     ],
+    Grennig: [
+        { name: 'Wesley Shields' },
+    ],
     grigoriypeppo: [
         { name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2 },
         { name: 'Robert Dixon' },
