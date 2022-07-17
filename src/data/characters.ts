@@ -499,7 +499,7 @@ export const wrpCharacters: WrpCharacters = {
     DreadfullyDespized: [
         { name: 'Byong Ho' },
     ],
-    drendebt: [
+    DrensWorld: [
         { name: 'Danny Kerrigan' },
         { name: 'Duncan Ladle' },
         { name: 'Duncan Weller' },
