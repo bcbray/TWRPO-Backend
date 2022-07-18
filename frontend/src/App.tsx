@@ -8,7 +8,6 @@ import MultistreamContainer from './MultistreamContainer';
 import LiveContainer from './LiveContainer';
 import ColorHelperContainer from  './ColorHelperContainer';
 import TrackerProvider from './TrackerProvider';
-import PageviewTracker from './PageviewTracker';
 import NotFound from './NotFound';
 
 interface Props {
@@ -36,7 +35,6 @@ const App: React.FC<Props> = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Structure>
-          <PageviewTracker />
         </BrowserRouter>
       </HelmetProvider>
     </TrackerProvider>
