@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Stack, Button } from 'react-bootstrap';
-import { useMatomo } from '@jonkoops/matomo-tracker-react';
 
 import styles from './FilterBar.module.css'
 import { FactionInfo } from './types';
@@ -16,22 +15,9 @@ interface Props {
 }
 
 const FilterBar: React.FC<Props> = ({ factions, selectedFaction, onSelectFaction, searchText, onChangeSearchText }) => {
-  const { trackEvent } = useMatomo()
   const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
-  const handleShowFeedback = () => {
-    trackEvent({
-      category: 'Feedback',
-      action: 'Open Feedback Form',
-    })
-    setShowingFeedbackModal(true);
-  }
-  const handleCloseFeedback = (sent: boolean) => {
-    trackEvent({
-      category: 'Feedback',
-      action: sent ? 'Feedback Sent' : 'Feedback Dismissed',
-    })
-    setShowingFeedbackModal(false);
-  }
+  const handleShowFeedback = () => setShowingFeedbackModal(true);
+  const handleCloseFeedback = () => setShowingFeedbackModal(false);
   return (
     <>
       <Stack direction='horizontal' gap={3} className={['mb-4', styles.container].join(' ')}>

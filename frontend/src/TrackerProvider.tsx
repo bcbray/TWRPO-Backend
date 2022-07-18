@@ -1,10 +1,5 @@
 import React from 'react';
-import { MatomoProvider, createInstance } from '@jonkoops/matomo-tracker-react';
-
-const instance = createInstance({
-  urlBase: 'https://twrponly.matomo.cloud/',
-  siteId: 1,
-});
+import Datadog from 'react-datadog';
 
 interface Props {
   children?: React.ReactNode;
@@ -15,9 +10,16 @@ const TrackerProvider: React.FC<Props> = ({ children }) => {
     return <>{children}</>;
   }
   return (
-    <MatomoProvider value={instance}>
+    <Datadog
+      applicationId='40c94581-de63-42af-b32b-c4f383897c3d'
+      clientToken='pub28eb54281f13367423106a5fbcdf7461'
+      site='us3.datadoghq.com'
+      service='twrponly.tv'
+      defaultPrivacyLevel='allow'
+      sessionReplayRecording
+    >
       {children}
-    </MatomoProvider>
+    </Datadog>
   );
 };
 
