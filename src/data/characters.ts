@@ -185,7 +185,7 @@ export const wrpCharacters: WrpCharacters = {
     beesneez: [
         { name: 'Georgie Meadows' },
         { name: 'Nora Boyle' },
-        { name: 'Avery Eliss' },
+        { name: '[Deputy] Avery Eliss', factions: ['Law'] },
     ],
     BernieIsLive: [
         { name: 'Noah Little' },
