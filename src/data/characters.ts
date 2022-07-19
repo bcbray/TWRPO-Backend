@@ -992,6 +992,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     LakunaRP: [
         { name: 'Tavish Black' },
+        { name: 'Jack "Ash" James', nicknames: ['Wolf-kin'] },
     ],
     LEAH: [
         { name: 'Francesca "Checkers" Bright', factions: ['Summers Gang'] },
