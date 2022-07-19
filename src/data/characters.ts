@@ -107,7 +107,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Nathan Terriers' },
     ],
     ArmoredAndy: [
-        { name: 'Buzz Buxton' },
+        { name: '[Sr. Ranger] Buzz Buxton', factions: ['Rangers'] },
         { name: 'Adolf "Dolfie" Hofcooperstedder' },
         { name: 'Moose' },
     ],
