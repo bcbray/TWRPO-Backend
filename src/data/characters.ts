@@ -1379,7 +1379,7 @@ export const wrpCharacters: WrpCharacters = {
     ScarletRosePlays: [
         { name: 'Allison Chase' },
         { name: 'Bella Baker' },
-        { name: 'Zoe Winters' },
+        { name: '[Deputy] Zoe Winters', factions: ['Law'] },
     ],
     ScottJitsu: [
         { name: 'Reno Cash' },
