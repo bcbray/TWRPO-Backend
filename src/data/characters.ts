@@ -1603,6 +1603,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Jonathan Robertson', factions: ['Law'] },
         { name: 'Alexander Rose' },
     ],
+    The_Beautiful_Void: [
+        { name: 'Katherine Byrne' },
+    ],
     The_Devils_Son: [
         { name: 'Fredrick Smythe' },
     ],
