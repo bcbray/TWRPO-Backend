@@ -1651,6 +1651,9 @@ export const wrpCharacters: WrpCharacters = {
     TheForerunner: [
         { name: 'Nico Aventi' },
     ],
+    TheGawkyGoat: [
+        { name: 'Cillian McCarty' },
+    ],
     TheGeneralSmokey: [
         { name: 'Edwin Braithwaite', nicknames: ['Eddie'], factions: ['Kettleman Gang'] },
     ],
