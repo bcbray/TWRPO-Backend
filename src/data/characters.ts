@@ -1262,6 +1262,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dr. Carrie Williams' },
         { name: 'Mischa Crane' },
     ],
+    Pezz: [
+        { name: 'Cid Speedwagon' },
+    ],
     PibbJont: [
         { name: '[Cadet] Thatcher Mantell', factions: ['Law'] },
     ],
