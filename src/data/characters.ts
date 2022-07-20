@@ -800,6 +800,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ewan Byrne' },
         { name: 'Jonathan Coiner' },
         { name: 'Nate Coiner' },
+        { name: '[Trainee] Luther Lake', factions: ['Medical'] },
     ],
     ianriveras: [
         { name: 'Hugo Teach' },
