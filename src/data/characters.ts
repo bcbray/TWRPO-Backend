@@ -1364,6 +1364,9 @@ export const wrpCharacters: WrpCharacters = {
     Sammyyyyyyy: [
         { name: 'Lizzie Clarke' },
     ],
+    sannmann_: [
+        { name: 'Jack Milton' },
+    ],
     sarahpeathatsme: [
         { name: 'Ruby Raines' },
     ],
