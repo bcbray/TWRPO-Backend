@@ -1263,7 +1263,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Mischa Crane' },
     ],
     Pezz: [
-        { name: 'Cid Speedwagon' },
+        { name: 'Cid Speedwagon', nicknames: ['Highwayman'] },
     ],
     PibbJont: [
         { name: '[Cadet] Thatcher Mantell', factions: ['Law'] },
