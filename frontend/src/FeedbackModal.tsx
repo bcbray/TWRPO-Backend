@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useLocation } from 'react-router';
 
+import OutboundLink from './OutboundLink';
+
 interface Props {
   show: boolean;
   onHide: (sent: boolean) => void;
@@ -80,7 +82,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
                 <Form.Label className="visually-hidden">Suggestion</Form.Label>
                 <div className="mb-2">
                   <Form.Text id="suggestionHelpBlock" muted className="m-0">
-                    Please make sure to include streamer and character name with suggestions. Include contact info if you’re open to questions about this feedback. You can also give feedback on the <a target='_blank' rel='noreferrer' href='https://discord.gg/fSuKefMGQp'>Twitch WildRP Only Discord</a>.
+                    Please make sure to include streamer and character name with suggestions. Include contact info if you’re open to questions about this feedback. You can also give feedback on the <OutboundLink target='_blank' rel='noreferrer' href='https://discord.gg/fSuKefMGQp'>Twitch WildRP Only Discord</OutboundLink>.
                   </Form.Text>
                 </div>
                 <Form.Control

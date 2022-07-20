@@ -5,6 +5,7 @@ import { Stream, FactionInfo, channelInfo } from './types';
 import { formatViewers } from './utils';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
+import OutboundLink from './OutboundLink';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   stream: Stream;
@@ -16,7 +17,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
 ) => (
   <div className={[styles.card, className].join(' ')} ref={ref} {...rest}>
     <div className={styles.thumbnail}>
-      <a
+      <OutboundLink
         target='_blank'
         rel='noreferrer'
         href={`https://twitch.tv/${stream.channelName}`}
@@ -29,7 +30,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
           alt={`${stream.channelName} stream thumbnail`}
           loading='lazy'
         />
-      </a>
+      </OutboundLink>
       <Tag
         className={[styles.tag, styles.name].join(' ')}
         style={{
@@ -43,7 +44,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
       </Tag>
     </div>
     <div className={[styles.info, 'stream-card-info'].join(' ')}>
-      <a
+      <OutboundLink
         target='_blank'
         rel='noreferrer'
         href={`https://twitch.tv/${stream.channelName}`}
@@ -53,14 +54,14 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
           channelInfo={channelInfo(stream)}
           size='sm'
         />
-      </a>
+      </OutboundLink>
       <div className={styles.text}>
         <div className={styles.title}>
           <p title={stream.title}>{stream.title}</p>
         </div>
         <div className={styles.channel}>
           <p>
-            <a
+            <OutboundLink
               target='_blank'
               rel='noreferrer'
               href={`https://twitch.tv/${stream.channelName}`}
@@ -69,7 +70,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
               }}
             >
               {stream.channelName}
-            </a>
+            </OutboundLink>
           </p>
         </div>
       </div>
