@@ -460,6 +460,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Kaz Brekker' },
         { name: 'Tommy Townsand' },
         { name: 'Matthias Helvar' },
+        { name: 'Ramsley Gracey' },
     ],
     Dirty_10: [
         { name: 'Richard Long', assume: 'assumeOther' },
