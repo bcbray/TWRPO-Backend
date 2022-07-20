@@ -1523,7 +1523,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ruthie Samuels' },
     ],
     squareiz: [
-        { name: 'Ed Doyle' },
+        { name: 'Eddy Doyle', nicknames: ['Ed'] },
     ],
     Ssaab: [
         { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true },
