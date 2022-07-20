@@ -1228,6 +1228,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jack Crow' },
         { name: 'Beth Gout' },
         { name: 'Carver Reilly' },
+        { name: 'Boyd Cassidy' },
     ],
     Orcish: [
         { name: '[Deputy] Allistair McGregor', factions: ['Law'] },
