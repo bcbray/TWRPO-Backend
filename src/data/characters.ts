@@ -667,6 +667,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Gallethril: [
         { name: 'Annabel Barnes' },
+        { name: 'Claire Marsh' },
     ],
     GameBaked: [
         { name: 'Mato Tahoma', factions: ['Medical'] },
