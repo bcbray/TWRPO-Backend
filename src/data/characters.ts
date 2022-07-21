@@ -1801,6 +1801,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Joey "The Wallaby Kid" Johns', factions: ['Dead End Kids'] },
         { name: 'Les Darcy' },
         { name: 'Bazz Kerrigan', factions: ['Kettleman Gang'] },
+        { name: 'Clarence McCloud' },
     ],
     Viviana: [
         { name: 'Mary Anne LeStrange' },
