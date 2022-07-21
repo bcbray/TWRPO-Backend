@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useInterval } from 'react-use';
 
 interface Idle_ {
   type: 'Idle';
@@ -37,9 +38,10 @@ export const isSuccess = <T,E>(state: LoadingState<T, E>): state is Success_<T> 
 export const isFailure = <T,E>(state: LoadingState<T, E>): state is Failure_<E> =>
   state.type === 'Failure';
 
-export function useLoading<T>(input: RequestInfo): [LoadingState<T, Error>, () => void] {
+export function useLoading<T>(input: RequestInfo): [LoadingState<T, Error>, () => void, number] {
   const [state, setState] = useState<LoadingState<T, any>>(Idle);
   const [loadCount, setLoadCount] = useState(0);
+  const [lastLoad, setLastLoad] = useState<Date | null>(null);
   useEffect(() => {
     async function fetchAndCheck(): Promise<T> {
       const response = await fetch(input);
@@ -53,16 +55,46 @@ export function useLoading<T>(input: RequestInfo): [LoadingState<T, Error>, () =
         const result = await fetchAndCheck();
         setState(Success(result));
       } catch (error: any) {
+        // TODO: If this is a reload, it would be nice
+        // to maybe still give the previous value somehow?
         setState(Failure(error));
       }
     }
     if (loadCount === 0) {
       setState(Loading);
     }
+    setLastLoad(new Date());
     performFetch();
   }, [input, loadCount]);
 
-  return [state, () => setLoadCount(loadCount + 1)];
+  return [state, () => setLoadCount(c => c + 1), lastLoad?.getTime() || 0];
+}
+
+const random = (min: number, max: number) => Math.floor(min + Math.random() * Math.floor(max-min));
+const randomJitter = () => random(-2000, 2000);
+
+export function useAutoReloading<T>(input: RequestInfo, { interval } = { interval: 60 * 1000 }): [LoadingState<T, Error>, () => void, number] {
+  const [loadState, onReload, lastLoad] = useLoading<T>(input);
+  const [jitter, setJitter] = useState(randomJitter());
+
+  useInterval(() => {
+    // TODO: Would be nice to not start the interval until
+    // after the load _becomes_ a success
+    if (isSuccess(loadState)) {
+      onReload();
+      setJitter(randomJitter());
+    }
+  }, interval + jitter);
+
+  const outerOnReload = () => {
+    onReload();
+    // Reset the jitter which will restart the interval
+    // (yeah, yeah, kinda funky, might make my own useInterval
+    // with a reset capability?)
+    setJitter(randomJitter());
+  };
+
+  return [loadState, outerOnReload, lastLoad];
 }
 
 export default LoadingState;

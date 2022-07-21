@@ -10,9 +10,10 @@ interface Props {
   streams: Stream[];
   offlineCharacters?: CharacterInfo[]
   factionInfos: {[key: string]: FactionInfo};
+  loadTick: number;
 }
 
-const StreamList: React.FC<Props> = ({ streams, offlineCharacters, factionInfos }) => {
+const StreamList: React.FC<Props> = ({ streams, offlineCharacters, factionInfos, loadTick }) => {
   return (
     <>
     <Row className={styles.row}>
@@ -21,6 +22,7 @@ const StreamList: React.FC<Props> = ({ streams, offlineCharacters, factionInfos 
           <StreamCard
             stream={stream}
             factionInfos={factionInfos}
+            loadTick={loadTick}
           />
         </Col>
       ))}

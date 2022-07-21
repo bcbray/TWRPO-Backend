@@ -10,6 +10,7 @@ import OutboundLink from './OutboundLink';
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   stream: Stream;
   factionInfos: {[key: string]: FactionInfo};
+  loadTick?: number;
 }
 
 interface StreamLinkProps {
@@ -38,7 +39,7 @@ const StreamLink: React.FC<StreamLinkProps> = ({stream, style, children}) => (
 );
 
 const StreamCard = React.forwardRef<HTMLDivElement, Props>((
-  { stream, factionInfos, className, ...rest }, ref
+  { stream, factionInfos, className, loadTick, ...rest }, ref
 ) => (
   <div className={[styles.card, className].join(' ')} ref={ref} {...rest}>
     <div className={styles.thumbnail}>
@@ -49,7 +50,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
         }}
       >
         <img
-          src={stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')}
+          src={`${stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')}${loadTick ? `?${loadTick}` : ''}`}
           alt={`${stream.channelName} stream thumbnail`}
           loading='lazy'
         />
