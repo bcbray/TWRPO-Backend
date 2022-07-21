@@ -1743,6 +1743,9 @@ export const wrpCharacters: WrpCharacters = {
     TnFD: [
         { name: 'Julian Charleston' },
     ],
+    ToneeChoppa: [
+        { name: 'Antonio Borges' },
+    ],
     Tonixion: [
         { name: 'Howard Purdnar' },
         { name: 'Samson Graves' },
