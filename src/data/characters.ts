@@ -1042,6 +1042,9 @@ export const wrpCharacters: WrpCharacters = {
     Luckcue: [
         { name: 'Alex Mystic' },
     ],
+    Lt_Custard: [
+        { name: 'Kian McNulty' },
+    ],
     Lt_Raven: [
         { name: '[Father] Samuel O\'Keeffe', displayName: 2 },
         { name: '? ?' },
