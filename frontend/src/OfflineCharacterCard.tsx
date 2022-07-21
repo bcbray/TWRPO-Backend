@@ -4,27 +4,50 @@ import styles from './OfflineCharacterCard.module.css';
 import { CharacterInfo, FactionInfo } from './types';
 import Tag from './Tag';
 import ProfilePhoto from './ProfilePhoto';
+import OutboundLink from './OutboundLink';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   character: CharacterInfo;
   factionInfos: {[key: string]: FactionInfo};
 }
 
+interface CharacterLinkProps {
+  character: CharacterInfo;
+  style?: React.CSSProperties;
+  children: React.ReactNode
+}
+
+const CharacterLink: React.FC<CharacterLinkProps> = ({character, style, children}) => (
+  <OutboundLink
+    logName={character.channelName}
+    logContext={{
+      subtype: 'offline-character-card',
+      isLive: false,
+      channel: character.channelName,
+      character: character.name
+    }}
+    target='_blank'
+    rel='noreferrer'
+    href={`https://twitch.tv/${character.channelName}`}
+    style={style}
+  >
+    {children}
+  </OutboundLink>
+);
+
 const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
   { character, factionInfos, className, ...rest }, ref
 ) => (
   <div className={[styles.card, className].join(' ')} ref={ref} {...rest}>
     <div className={styles.thumbnail}>
-      <a
-        target='_blank'
-        rel='noreferrer'
-        href={`https://twitch.tv/${character.channelName}`}
+      <CharacterLink
+        character={character}
         style={{
           color: character.factions[0]?.colorLight
         }}
       >
         <span>Offline</span>
-      </a>
+      </CharacterLink>
       <Tag
         className={[styles.tag, styles.name].join(' ')}
         style={{
@@ -46,16 +69,14 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
         </div>
         <div className={styles.channel}>
           <p>
-            <a
-              target='_blank'
-              rel='noreferrer'
-              href={`https://twitch.tv/${character.channelName}`}
+            <CharacterLink
+              character={character}
               style={{
                 color: character.factions[0]?.colorLight
               }}
             >
               {character.channelName}
-            </a>
+            </CharacterLink>
           </p>
         </div>
       </div>

@@ -12,15 +12,38 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   factionInfos: {[key: string]: FactionInfo};
 }
 
+interface StreamLinkProps {
+  stream: Stream;
+  style?: React.CSSProperties;
+  children: React.ReactNode
+}
+
+const StreamLink: React.FC<StreamLinkProps> = ({stream, style, children}) => (
+  <OutboundLink
+    logName={stream.channelName}
+    logContext={{
+      subtype: 'stream-card',
+      isLive: true,
+      viewerCount: stream.viewers,
+      channel: stream.channelName,
+      character: stream.characterName
+    }}
+    target='_blank'
+    rel='noreferrer'
+    href={`https://twitch.tv/${stream.channelName}`}
+    style={style}
+  >
+    {children}
+  </OutboundLink>
+);
+
 const StreamCard = React.forwardRef<HTMLDivElement, Props>((
   { stream, factionInfos, className, ...rest }, ref
 ) => (
   <div className={[styles.card, className].join(' ')} ref={ref} {...rest}>
     <div className={styles.thumbnail}>
-      <OutboundLink
-        target='_blank'
-        rel='noreferrer'
-        href={`https://twitch.tv/${stream.channelName}`}
+      <StreamLink
+        stream={stream}
         style={{
           color: factionInfos[stream.faction]?.colorLight,
         }}
@@ -30,7 +53,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
           alt={`${stream.channelName} stream thumbnail`}
           loading='lazy'
         />
-      </OutboundLink>
+      </StreamLink>
       <Tag
         className={[styles.tag, styles.name].join(' ')}
         style={{
@@ -44,33 +67,27 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
       </Tag>
     </div>
     <div className={[styles.info, 'stream-card-info'].join(' ')}>
-      <OutboundLink
-        target='_blank'
-        rel='noreferrer'
-        href={`https://twitch.tv/${stream.channelName}`}
-      >
+      <StreamLink stream={stream}>
         <ProfilePhotos
           className={styles.pfp}
           channelInfo={channelInfo(stream)}
           size='sm'
         />
-      </OutboundLink>
+      </StreamLink>
       <div className={styles.text}>
         <div className={styles.title}>
           <p title={stream.title}>{stream.title}</p>
         </div>
         <div className={styles.channel}>
           <p>
-            <OutboundLink
-              target='_blank'
-              rel='noreferrer'
-              href={`https://twitch.tv/${stream.channelName}`}
+            <StreamLink
+              stream={stream}
               style={{
                 color: factionInfos[stream.faction]?.colorLight,
               }}
             >
               {stream.channelName}
-            </OutboundLink>
+            </StreamLink>
           </p>
         </div>
       </div>
