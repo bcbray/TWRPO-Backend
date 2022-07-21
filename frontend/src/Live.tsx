@@ -12,9 +12,10 @@ import FilterBar from './FilterBar';
 interface Props {
   live: LiveResponse;
   characters: CharactersResponse;
+  loadTick: number;
 }
 
-const Live: React.FC<Props> = ({ live, characters }) => {
+const Live: React.FC<Props> = ({ live, characters, loadTick }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
@@ -97,6 +98,7 @@ const Live: React.FC<Props> = ({ live, characters }) => {
           streams={filteredStreams}
           offlineCharacters={offlineCharacters}
           factionInfos={factionInfoMap}
+          loadTick={loadTick}
         />
       </>
     )

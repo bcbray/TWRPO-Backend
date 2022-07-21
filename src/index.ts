@@ -39,6 +39,7 @@ app.get('/test', (_, res) => {
 // app.use('/streams', routes.streamsRouter);
 app.use('/live', routes.liveRouter);
 
+app.use('/api/v1/live', routes.liveRouter);
 app.use('/api/v2/characters', routes.v2CharactersRouter);
 app.use('/api/v2/submit-feedback', routes.v2FeedbackRouter);
 
