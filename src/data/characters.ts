@@ -112,7 +112,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Moose' },
     ],
     Ashen_Rabbit: [
-        { name: 'Dovie Parker' },
+        { name: '[Trainee] Dovie Parker', factions: ['Medical'] },
     ],
     AtomosCLU: [
         { name: 'George Anderson' },
