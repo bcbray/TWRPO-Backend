@@ -49,6 +49,7 @@ const Live: React.FC<Props> = ({ live, characters, loadTick }) => {
               || (stream.nicknameLookup && stream.nicknameLookup.includes(filterTextLookup))
               || stream.channelName.toLowerCase().includes(filterTextForSearching)
               || stream.title.toLowerCase().includes(filterTextForSearching)
+              || stream.factions.some(f => f.toLowerCase().includes(filterTextForSearching))
             )
           ) || !filterTextForSearching)
         )
