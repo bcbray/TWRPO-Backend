@@ -59,11 +59,11 @@ export function useLoading<T>(input: RequestInfo): [LoadingState<T, Error>, () =
         // to maybe still give the previous value somehow?
         setState(Failure(error));
       }
+      setLastLoad(new Date());
     }
     if (loadCount === 0) {
       setState(Loading);
     }
-    setLastLoad(new Date());
     performFetch();
   }, [input, loadCount]);
 
