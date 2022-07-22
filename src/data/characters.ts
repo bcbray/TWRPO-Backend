@@ -522,7 +522,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Dirty Dougie', displayName: 0 }, // TODO: Is this their real name?
     ],
     DukeOfFlukes: [
-        { name: 'Alexander Poe' },
+        { name: 'Alexander Poe', factions: ['Medical'] },
         { name: 'Duke Colt', nicknames: ['Handsome Colt'] },
         { name: 'Charles Morgan' },
     ],
