@@ -1458,6 +1458,9 @@ export const wrpCharacters: WrpCharacters = {
     SilentSentry: [
         { name: 'Emmet "Stripes" Wagner' },
     ],
+    SincerelyIndi: [
+        { name: 'Truly Tillery' },
+    ],
     SinnixTv: [
         { name: 'Frank Brower' },
         { name: 'Connor Acree' },
