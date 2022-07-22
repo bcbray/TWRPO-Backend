@@ -240,6 +240,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Brizzo24: [
         { name: 'Craig Johnson', factions: ['Sams Club'] },
+        { name: 'Karl Feckles' },
     ],
     BrutalBri: [
         { name: 'Cooter O\'Doole' },
