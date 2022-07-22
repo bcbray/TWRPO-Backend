@@ -1532,7 +1532,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Butch Marlow' },
     ],
     spriteleah: [
-        { name: 'Francesca "Frankie" Bright' },
+        { name: 'Francesca "Frankie" Bright', factions: ['Rangers'] },
         { name: 'Harriet "Hawk" Hawkins', factions: ['Summers Gang'] },
         { name: 'Brie Haviour' },
         { name: 'Ruthie Samuels' },
