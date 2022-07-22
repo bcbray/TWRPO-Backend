@@ -809,6 +809,9 @@ export const wrpCharacters: WrpCharacters = {
     ianriveras: [
         { name: 'Hugo Teach' },
     ],
+    IBabaganoosh: [
+        { name: 'Chuck ?' },
+    ],
     IboonI: [
         { name: 'Elias Boon' },
     ],
