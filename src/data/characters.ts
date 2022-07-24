@@ -1303,6 +1303,7 @@ export const wrpCharacters: WrpCharacters = {
     privyLore: [
         { name: 'Wren Lebow', nicknames: ['Lilith'] },
         { name: 'Kathryn ?' },
+        { name: 'Minerva Ackerman' },
     ],
     ProJB: [
         { name: 'Odin Borr' },
