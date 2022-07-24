@@ -1555,6 +1555,9 @@ export const wrpCharacters: WrpCharacters = {
     Ssmacky: [
         { name: 'Jackson Marsh' },
     ],
+    StarBarf: [
+        { name: 'Elich Doherty' },
+    ],
     stardaze: [
         { name: 'Edie Barlowe' },
     ],
