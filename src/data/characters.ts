@@ -1472,7 +1472,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     SinnixTv: [
         { name: 'Frank Brower' },
-        { name: 'Connor Acree' },
     ],
     SirisLuv: [
         { name: 'Denise Neve' },
