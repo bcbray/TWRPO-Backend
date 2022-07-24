@@ -33,6 +33,7 @@ export const wrpCharacters: WrpCharacters = {
     '2hands2thumbs': [
         { name: 'Ernest Dooly' },
         { name: 'Maverik Stone' },
+        { name: 'Sheppard Dutton' },
     ],
     '893SHIRO': [
         { name: 'Mitsuhide Nagahama' },
