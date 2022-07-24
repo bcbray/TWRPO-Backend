@@ -499,6 +499,9 @@ export const wrpCharacters: WrpCharacters = {
     DonnGaston: [
         { name: 'Miguel Hidalgo' },
     ],
+    Doodlebag: [
+        { name: 'Damian Castle' },
+    ],
     DreadfullyDespized: [
         { name: 'Byong Ho' },
     ],
