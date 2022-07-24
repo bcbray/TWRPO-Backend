@@ -539,6 +539,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Lawrence "The Major" Stirling' },
         { name: 'Isaac "Dr. Creed" Creed' },
         { name: 'Reginald "Reggie" Richardson' },
+        { name: 'Cullen Vane' },
     ],
     Dwoalin: [
         { name: 'Jeff “Smed” Smedley' },
