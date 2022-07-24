@@ -1022,6 +1022,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Wisteria Snowdon' },
         { name: 'Poppy Florian' },
     ],
+    LimaZuluTango: [
+        { name: 'Henri Sinclair' },
+    ],
     LiteralBear: [
         { name: 'Marcus Danner' },
         { name: '[Deputy] Negan McAlister', factions: ['Law'], displayName: 1 },
