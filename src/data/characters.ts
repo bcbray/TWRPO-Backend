@@ -1573,6 +1573,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     StormBreaker: [
         { name: 'Jasper Dickens' },
+        { name: 'Gretchen Morgan' },
     ],
     suddenly_pandas: [
         { name: 'Flamboise Chambord' },
