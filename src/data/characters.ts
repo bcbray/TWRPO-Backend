@@ -226,6 +226,9 @@ export const wrpCharacters: WrpCharacters = {
     BloomOnline: [
         { name: 'Norman Kobbs' },
     ],
+    BooksBlanketsandTea: [
+        { name: 'Edith Scriven' },
+    ],
     BoosterGreg: [
         { name: 'Roy Whitmore' },
     ],
