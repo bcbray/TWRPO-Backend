@@ -547,6 +547,7 @@ export const wrpCharacters: WrpCharacters = {
     dynadivine: [
         { name: 'Lucille Davis' },
         { name: 'Lucille Walker' },
+        { name: 'Danielle ?' },
     ],
     DzarekK: [
         { name: 'Eleonor Parker' },
