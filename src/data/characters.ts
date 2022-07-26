@@ -1492,6 +1492,7 @@ export const wrpCharacters: WrpCharacters = {
     SkoogFFS: [
         { name: 'Billy Joe Barber', nicknames: ['Billy Joe', 'BJB'], displayName: 4, factions: ['The Nameless'] },
         { name: 'Lefty Lone' },
+        { name: 'Reidar Hagen' },
     ],
     SLiMt: [
         { name: 'Jimmy "Slim Jim" Slimper' },
