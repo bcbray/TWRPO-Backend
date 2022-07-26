@@ -1821,7 +1821,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jack Volker' },
     ],
     VersaLK: [
-        { name: 'Carlo Marciano' },
+        { name: 'Carlo Marciano', factions: ['DiCenzo Famiglia'] },
     ],
     VERTiiGOGAMING: [
         { name: '[Deputy] Boyd Kerrigan', factions: ['Law'] },
