@@ -1188,6 +1188,9 @@ export const wrpCharacters: WrpCharacters = {
     nathankb_: [
         { name: 'Dug Dug' },
     ],
+    NaniNerd: [
+        { name: 'Ivy Hill' },
+    ],
     Nbodo: [
         { name: 'Peter Rockwell' },
     ],
