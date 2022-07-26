@@ -1436,6 +1436,7 @@ export const wrpCharacters: WrpCharacters = {
     section9_Browncoat: [
         { name: '[Deputy] Ned Fuller', factions: ['Law'] },
         { name: 'Nick Carver' },
+        { name: 'Loup Farrow' },
     ],
     Selvek: [
         { name: 'Clayton Colton', factions: ['Coltons'] },
