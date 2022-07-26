@@ -1875,6 +1875,9 @@ export const wrpCharacters: WrpCharacters = {
     WTFGameNation: [
         { name: 'Morgan Calloway' },
     ],
+    Xiceman: [
+        { name: 'Michael Bayo' },
+    ],
     xlt588gaming: [
         { name: 'Adam Garica' },
     ],
