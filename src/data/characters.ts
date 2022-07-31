@@ -590,6 +590,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     EricaPlz: [
         { name: 'Briget Thorson' },
+        { name: 'Vera Helvig' },
     ],
     eternalsong: [
         { name: 'Kora Vane', factions: ['Sams Club'] },
