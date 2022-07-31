@@ -954,6 +954,9 @@ export const wrpCharacters: WrpCharacters = {
     Khandur_: [
         { name: 'Tommy Cooper' },
     ],
+    killboy011: [
+        { name: 'John Frisco', displayName: 2 },
+    ],
     KillrBeauty: [
         { name: 'Deborah "Deb" VanBurton' },
     ],
