@@ -1899,6 +1899,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Xiceman: [
         { name: 'Michael Bayo' },
+        { name: 'Andrew Kennedy' },
     ],
     xlt588gaming: [
         { name: 'Adam Garica' },
