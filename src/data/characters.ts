@@ -838,6 +838,9 @@ export const wrpCharacters: WrpCharacters = {
     ImFromTheFuture: [
         { name: 'Roscoe Montana', factions: ['Sams Club'] },
     ],
+    inkyblackdreams: [
+        { name: 'Vera Dragavei' },
+    ],
     iruASH: [
         { name: 'Kayce Smith' },
     ],
