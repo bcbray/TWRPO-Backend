@@ -1559,6 +1559,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Brie Haviour' },
         { name: 'Ruthie Samuels' },
     ],
+    Sput: [
+        { name: 'Marvin Mayflower' },
+    ],
     squareiz: [
         { name: 'Eddy Doyle', nicknames: ['Ed'] },
     ],
