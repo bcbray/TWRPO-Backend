@@ -1584,6 +1584,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jasper Dickens' },
         { name: 'Gretchen Morgan' },
     ],
+    Strippin: [
+        { name: 'Archie Turner' },
+    ],
     suddenly_pandas: [
         { name: 'Flamboise Chambord' },
         { name: 'Harry Chapman' },
