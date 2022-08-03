@@ -4,7 +4,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import { LiveResponse, CharactersResponse } from './types';
 import { factionsFromLive, ignoredFactions } from './utils'
-import { useSingleSearchParam } from './hooks';
+import { useSingleSearchParam, useDebouncedValue } from './hooks';
 
 import StreamList from './StreamList';
 import FilterBar from './FilterBar';
@@ -21,7 +21,9 @@ const Live: React.FC<Props> = ({ live, characters, loadTick }) => {
   const params = useParams();
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
-  const filterTextForSearching = filterText.toLowerCase().trim();
+  const debouncedFilterText = useDebouncedValue(filterText, 200);
+
+  const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
 
   const factionInfos = factionsFromLive(live);
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
@@ -34,7 +36,7 @@ const Live: React.FC<Props> = ({ live, characters, loadTick }) => {
       const streams = live.streams
         .filter(stream => !ignoredFactions.includes(stream.tagFaction))
         .filter(stream => !(stream.tagFactionSecondary && ignoredFactions.includes(stream.tagFactionSecondary)))
-      const filterTextLookup = filterText
+      const filterTextLookup = debouncedFilterText
         .replace(/^\W+|\W+$|[^\w\s]+/g, ' ')
         .replace(/\s+/g, ' ')
         .toLowerCase()
