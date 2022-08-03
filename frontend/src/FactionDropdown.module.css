@@ -58,3 +58,29 @@
   color: var(--theme-black);
 }
 
+
+@media (prefers-color-scheme: dark) {
+  .factionDropdownButton {
+    background-color: var(--faction-color-dark);
+  }
+
+  .factionDropdownButton:hover {
+    background-color: var(--faction-color-dark-hover);
+  }
+
+  .item {
+    color: var(--faction-color-dark) !important;
+  }
+
+  .item:hover, .item:focus {
+    color: var(--faction-color-dark-hover) !important;
+  }
+
+  .item:active, .item.active {
+    background-color: var(--faction-color-dark) !important;
+  }
+
+  .item.active:hover {
+    background-color: var(--faction-color-dark-hover) !important;
+  }
+}

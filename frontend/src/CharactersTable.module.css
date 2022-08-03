@@ -104,3 +104,13 @@
 .factionPill span:hover {
   background-color: var(--faction-color-light-hover);
 }
+
+@media (prefers-color-scheme: dark) {
+  .factionPill span {
+    background-color: var(--faction-color-dark);
+  }
+
+  .factionPill span:hover {
+    background-color: var(--faction-color-dark-hover);
+  }
+}
