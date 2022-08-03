@@ -1,16 +1,23 @@
-.card {
-
+.card.container {
+  background: var(--theme-gray-100);
+  border-radius: 6px;
+  box-shadow: 0 15px 20px rgba(0,0,0,.02), 0 0 5px rgba(0,0,0,.2);
+  padding-bottom: 0.5rem;
+  overflow: hidden;
 }
 
 .thumbnail {
   position: relative;
-  border-radius: 6px;
-  overflow: hidden;
   margin-bottom: 0.5rem;
-  box-shadow: 0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0);
-  transition: ease-in-out .2s;
   aspect-ratio: 16/9;
   background-color: var(--bs-gray-300);
+}
+
+.inline .thumbnail {
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0);
+  transition: ease-in-out .2s;
 }
 
 .thumbnail img {
@@ -18,13 +25,13 @@
   display: block;
 }
 
-.thumbnail:hover {
+.inline .thumbnail:hover {
   transform: scale(1.01) translate3d(0px, -1px, 0px);
   box-shadow: 0 15px 20px rgba(0,0,0,.01), 0 0 5px rgba(0,0,0,.1);
   cursor: pointer;
 }
 
-.thumbnail:active {
+.inline .thumbnail:active {
   transform: scale(1.005);
   box-shadow: 0 5px 10px rgba(0,0,0,.01), 0 0 2px rgba(0,0,0,.1);
   cursor: pointer;
@@ -55,6 +62,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.card .info {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .pfp {
@@ -91,8 +103,21 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .thumbnail, .thumbnail:hover, .thumbnail:active {
-    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.1);
+  .card.container {
+    background: var(--theme-gray-050);
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
+  }
+
+  .card .thumbnail {
+    border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
+  }
+
+  .inline .thumbnail, .inline .thumbnail:hover, .inline .thumbnail:active {
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
+  }
+
+  .pfsp {
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
   }
 
   .channel a {

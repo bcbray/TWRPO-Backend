@@ -8,16 +8,24 @@ import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 
+const cardStyles = {
+  inline: styles.inline,
+  card: styles.card,
+}
+
+type CardStyle = keyof typeof cardStyles;
+
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   stream: Stream;
   factionInfos: {[key: string]: FactionInfo};
   loadTick?: number;
+  cardStyle?: CardStyle;
 }
 
 interface StreamLinkProps {
   stream: Stream;
   style?: React.CSSProperties;
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const StreamLink: React.FC<StreamLinkProps> = ({ stream, style, children }) => (
@@ -40,13 +48,21 @@ const StreamLink: React.FC<StreamLinkProps> = ({ stream, style, children }) => (
 );
 
 const StreamCard = React.forwardRef<HTMLDivElement, Props>((
-  { stream, factionInfos, className, loadTick, style, ...rest }, ref
+  {
+    stream,
+    factionInfos,
+    className,
+    loadTick,
+    style,
+    cardStyle = 'inline',
+    ...rest
+  }, ref
 ) => {
   const factionContainer = useFactionCss(Object.values(factionInfos));
 
   return (
     <div
-      className={classes(styles.card, className, factionContainer)}
+      className={classes(styles.container, className, factionContainer, cardStyles[cardStyle])}
       ref={ref}
       style={{
         ...factionStylesForKey(stream.tagFaction),

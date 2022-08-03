@@ -28,6 +28,7 @@ const LiveBadge: React.FC<{ stream: Stream, factionInfos: {[key: string]: Factio
           }}
           stream={stream}
           factionInfos={factionInfos}
+          cardStyle='card'
         />
       </div>
     )}
