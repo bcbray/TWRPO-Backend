@@ -1,39 +1,30 @@
 import React from 'react';
-import { Container, Navbar, Nav as BSNav, Button } from 'react-bootstrap';
-import PrefixLinkContainer from './PrefixLinkContainer';
+import { NavLink } from 'react-router-dom';
+import { classes } from './utils';
 
 import styles from './Nav.module.css';
 
 const Nav: React.FC<{}> = () => {
   return (
-    <Navbar className={styles.nav} bg="dark" variant="dark" expand="sm">
-      <Container>
-        <PrefixLinkContainer to='/' or={{ path: '/streams', prefix: true }}>
-          <Navbar.Brand>Twitch WildRP Only</Navbar.Brand>
-        </PrefixLinkContainer>
-        <Navbar.Toggle />
-        <Navbar.Collapse className='justify-content-end justify-content-md-between'>
-          <Button
-            className={[styles.extension, 'd-none', 'd-md-block'].join(' ')}
-            size='sm'
+    <div className={styles.navbar}>
+      <div className={classes('inset', styles.container)}>
+        <NavLink className={styles.brand} to='/'>Twitch WildRP Only</NavLink>
+        <div className={styles.links}>
+          <a
+            className={classes('button', 'primary', styles.extension)}
+            role='button'
             href='https://chrome.google.com/webstore/detail/twitch-wildrp-only/jnbgafpjnfoocapahlkjihjecoaaaikd'
           >
             Get Extension
-          </Button>
-          <BSNav>
-            <PrefixLinkContainer to='/' or={{ path: '/streams', prefix: true }}>
-              <BSNav.Link>Live</BSNav.Link>
-            </PrefixLinkContainer>
-            <PrefixLinkContainer to='/characters' prefix>
-              <BSNav.Link>Characters</BSNav.Link>
-            </PrefixLinkContainer>
-            <PrefixLinkContainer to='/multistream' prefix>
-              <BSNav.Link>Multistream</BSNav.Link>
-            </PrefixLinkContainer>
-          </BSNav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          </a>
+          <div className={styles.nav}>
+            <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/'>Live</NavLink>
+            <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/characters'>Characters</NavLink>
+            <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/multistream'>Multistream</NavLink>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

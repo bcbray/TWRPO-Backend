@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './MultistreamMain.module.css';
-import { Stack, Button } from 'react-bootstrap';
+import { Button } from '@restart/ui';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useUpdateEffect } from 'react-use';
@@ -8,7 +8,7 @@ import Multistream from './Multistream';
 import { LiveResponse, Stream, FactionInfo } from './types';
 import ReloadButton from './ReloadButton';
 import FactionDropdown from './FactionDropdown';
-import { factionsFromLive, ignoredFactions } from './utils'
+import { factionsFromLive, ignoredFactions, classes } from './utils'
 
 interface Props {
   data: LiveResponse,
@@ -76,7 +76,7 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
           />
         </Helmet>
       }
-      <Stack direction='horizontal' gap={3} className="mb-4">
+      <div className={classes('inset', styles.filterBar)}>
         <FactionDropdown
           factions={filterFactions}
           selectedFaction={selectedFaction}
@@ -102,15 +102,13 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
         {removedStreams.map(stream =>
           <Button
             key={stream.channelName}
-            className={styles.showStream}
-            variant="secondary"
-            size="sm"
+            className={classes('button', 'secondary', styles.showStream)}
             onClick={() => reAddStream(stream)}
           >
             {stream.tagText}
           </Button>
         )}
-      </Stack>
+      </div>
       <Multistream
         streams={streamsToShow}
         factionInfoMap={factionInfoMap}

@@ -1,9 +1,14 @@
 import React from 'react';
-import { Modal, Button, Form, Spinner, Alert } from 'react-bootstrap';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useLocation } from 'react-router';
+import { Button } from '@restart/ui';
+
+import styles from './FeedbackModal.module.css';
+import Modal from './Modal';
+import { classes } from './utils';
+import Spinner from './Spinner';
 
 import OutboundLink from './OutboundLink';
 
@@ -13,9 +18,9 @@ interface Props {
 }
 
 const schema = Yup.object({
-  suggestion: Yup.string().required(),
-  email: Yup.string().email(),
-  discord: Yup.string().matches(/^(?!(discordtag|here|everyone)#)(((?!@|!|:|```|discord)[\s\S]){2,32}#)\d{4}$/),
+  suggestion: Yup.string().required('cannot be empty'),
+  email: Yup.string().email('must be valid email'),
+  discord: Yup.string().matches(/^(?!(discordtag|here|everyone)#)(((?!@|!|:|```|discord)[\s\S]){2,32}#)\d{4}$/, { message: 'must be valid Discord username' }),
 });
 
 type FormData = Yup.InferType<typeof schema>;
@@ -29,6 +34,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
 
   const submitForm = async (values: FormData) => {
     setHasSubmissionError(false);
+    await new Promise(r => setTimeout(r, 2000));
     try {
       const reply = await axios.post('/api/v2/submit-feedback', {
         page: `${location.pathname}${location.search}${location.hash}`,
@@ -58,7 +64,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
         handleBlur,
         handleSubmit,
         handleReset,
-        isSubmitting
+        isSubmitting,
       }) =>
         <Modal
           show={show}
@@ -68,91 +74,110 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
             setHasSubmitted(false);
             setHasSubmissionError(false);
           }}
-          backdrop="static"
+          backdrop={values.suggestion || values.discord || values.email ? 'static' : true}
         >
-          <Form noValidate onSubmit={handleSubmit}>
-            <Modal.Header>
-              <Modal.Title>Suggestion</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-              >
-                <Form.Label className="visually-hidden">Suggestion</Form.Label>
-                <div className="mb-2">
-                  <Form.Text id="suggestionHelpBlock" muted className="m-0">
+          <form
+            onSubmit={handleSubmit}
+          >
+            <div className={styles.header}>
+              Suggestion
+            </div>
+            <div className={styles.body}>
+              <div>
+                <div className={styles.description}>
+                  <small id='suggestionHelpBlock' className={styles.muted}>
                     Please make sure to include streamer and character name with suggestions. Include contact info if you’re open to questions about this feedback. You can also give feedback on the <OutboundLink target='_blank' rel='noreferrer' href='https://discord.gg/fSuKefMGQp'>Twitch WildRP Only Discord</OutboundLink>.
-                  </Form.Text>
+                  </small>
                 </div>
-                <Form.Control
-                  name="suggestion"
-                  as="textarea"
+                <div className={styles.labelContainer}>
+                  <label htmlFor='FeedbackForm.Suggestion'>
+                    Suggestion
+                  </label>
+                  {touched.suggestion && errors.suggestion && (
+                    <span className={styles.error}>
+                        {errors.suggestion}
+                    </span>
+                  )}
+                </div>
+                <textarea
+                  name='suggestion'
                   rows={5}
+                  aria-describedby='suggestionHelpBlock'
+                  id='FeedbackForm.Suggestion'
+                  className={classes(touched.suggestion && errors.suggestion && styles.invalid)}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   value={values.suggestion}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  disabled={isSubmitting || hasSubmitted}
-                  isInvalid={!!errors.suggestion}
-                  aria-describedby="suggestionHelpBlock"
-                  //autoFocus
+                  disabled={isSubmitting}
                 />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Email address <span className="text-muted">(optional)</span></Form.Label>
-                <Form.Control
-                  name="email"
-                  type="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="name@example.com"
-                  disabled={isSubmitting || hasSubmitted}
-                  isInvalid={!!errors.email}
+              </div>
+              <div>
+                <div className={styles.labelContainer}>
+                  <label htmlFor='FeedbackForm.Email'>
+                    Email address <span className={styles.muted}>(optional)</span>
+                  </label>
+                  {touched.email && errors.email && (
+                    <span className={styles.error}>
+                        {errors.email}
+                    </span>
+                  )}
+                </div>
+                <Field
+                  className={classes(touched.email && errors.email && touched.email && styles.invalid)}
+                  name='email'
+                  placeholder='name@example.com'
+                  id='FeedbackForm.Email'
+                  disabled={isSubmitting}
                 />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Discord <span className="text-muted">(optional)</span></Form.Label>
-                <Form.Control
-                  name="discord"
-                  type="text"
-                  value={values.discord}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="You#1234"
-                  disabled={isSubmitting || hasSubmitted}
-                  isInvalid={!!errors.discord}
+              </div>
+              <div>
+                <div className={styles.labelContainer}>
+                  <label htmlFor='FeedbackForm.Discord'>
+                  Discord <span className={styles.muted}>(optional)</span>
+                  </label>
+                  {touched.discord && errors.discord && (
+                    <span className={styles.error}>
+                        {errors.discord}
+                    </span>
+                  )}
+                </div>
+                <Field
+                  className={classes(touched.discord && errors.discord && styles.invalid)}
+                  name='discord'
+                  placeholder='You#1234'
+                  id='FeedbackForm.Discord'
+                  disabled={isSubmitting}
                 />
-              </Form.Group>
-            </Modal.Body>
-            <Modal.Footer>
+              </div>
+            </div>
+            <div className={styles.footer}>
               {hasSubmissionError &&
-                <Alert variant="danger" style={{ width: '100%' }}>
-                  Unable to submit feedback. Please try again later. You can also send feedback on <a target='_blank' rel='noreferrer' href='https://discord.gg/fSuKefMGQp'>Discord</a> in the meantime.
-                </Alert>
+                <div className={styles.alert}>
+                  Unable to submit feedback. Please try again later. You can also send feedback on <OutboundLink target='_blank' rel='noreferrer' href='https://discord.gg/fSuKefMGQp'>Discord</OutboundLink> in the meantime.
+                </div>
               }
               <Button
-                variant="secondary"
+                className='button secondary'
                 onClick={() => onHide(false)}
                 disabled={isSubmitting || hasSubmitted}
               >
                 Cancel
               </Button>
               <Button
-                variant="primary"
-                type="submit"
+                className='button primary'
+                type='submit'
                 disabled={isSubmitting || hasSubmitted}
               >
                 {isSubmitting || hasSubmitted
                   ? <>
-                    <Spinner size="sm" animation="border" className="me-2" as="span"/>
+                    <Spinner size='sm' className={styles.submitSpinner} as='span' />
                     Sending…
                   </>
                   : 'Send Suggestion'
                 }
               </Button>
-            </Modal.Footer>
-          </Form>
+            </div>
+          </form>
         </Modal>
       }
     </Formik>

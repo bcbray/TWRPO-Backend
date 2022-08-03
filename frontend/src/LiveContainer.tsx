@@ -1,15 +1,25 @@
 import React from 'react';
-import { Container, Spinner, Row, Col} from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 
 import { useLoading, useAutoReloading, isSuccess, isFailure } from './LoadingState';
 import { LiveResponse, CharactersResponse } from './types';
 import Live from './Live';
+import Error from './Error';
+import Loading from './Loading';
 
 const LiveContainer: React.FC = () => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [liveLoadingState, _, lastLoad] = useAutoReloading<LiveResponse>('/api/v1/live');
-  const [charactersLoadingState] = useLoading<CharactersResponse>('/api/v2/characters');
+  const [liveLoadingState, reloadLive, lastLoad] = useAutoReloading<LiveResponse>('/api/v1/live');
+  const [charactersLoadingState, reloadCharacters] = useLoading<CharactersResponse>('/api/v2/characters');
+  const reload = () => {
+    if (isFailure(liveLoadingState)) {
+      reloadLive();
+    }
+    if (isFailure(charactersLoadingState)) {
+      reloadCharacters();
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -19,18 +29,14 @@ const LiveContainer: React.FC = () => {
           content='All live WildRP streams. Twitch WildRP Only is a website and browser extension for finding WildRP streams on Twitch.'
         />
       </Helmet>
-      <Container className="mt-5">
+      <div className="content">
         {isSuccess(liveLoadingState) && isSuccess(charactersLoadingState)
-           ? <Live live={liveLoadingState.data} characters={charactersLoadingState.data} loadTick={lastLoad} />
-           : isFailure(liveLoadingState) || isFailure(charactersLoadingState)
-             ? <Row className="justify-content-center">
-                 <Col xs="auto"><p>Failed to load data. Please try again later.</p></Col>
-              </Row>
-             : <Row className="justify-content-center">
-                 <Col xs="auto"><Spinner animation="border" /></Col>
-              </Row>
+          ? <Live live={liveLoadingState.data} characters={charactersLoadingState.data} loadTick={lastLoad} />
+          : isFailure(liveLoadingState) || isFailure(charactersLoadingState)
+            ? <Error onTryAgain={reload} />
+            : <Loading />
          }
-      </Container>
+      </div>
     </>
   );
 };

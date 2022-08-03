@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 
-import { CharactersResponse } from './types';
+import { CharactersResponse, CharacterInfo } from './types';
 import { useSingleSearchParam } from './hooks';
 
 import CharactersTable from './CharactersTable';
@@ -18,28 +18,43 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
   const params = useParams();
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
-  const filterTextForSearching = filterText.toLowerCase().trim();
 
-  const filteredCharacters = (() => {
-    const characters = data.characters;
-    const filtered = (factionKey === undefined && filterTextForSearching.length === 0)
+  const charactersByFaction = React.useMemo(() => {
+    return data.characters.reduce((map, character) => {
+      character.factions.forEach(faction => {
+        map[faction.key] = map[faction.key] ?? [];
+        map[faction.key].push(character);
+      });
+      return map;
+    }, {} as {[key: string]: CharacterInfo[]})
+  }, [data.characters])
+
+  const characters = React.useMemo(() => {
+    return factionKey === undefined
+      ? data.characters
+      : charactersByFaction[factionKey] ?? [];
+    }, [factionKey, data.characters, charactersByFaction]);
+
+  const filteredCharacters = React.useMemo(() => {
+    const filterTextForSearching = filterText.toLowerCase().trim();
+    const filtered = filterTextForSearching.length === 0
       ? characters
       : characters.filter(character =>
-        ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
-          && ((filterTextForSearching && (
-              character.channelName.toLowerCase().includes(filterTextForSearching)
-              || character.name.toLowerCase().includes(filterTextForSearching)
-              || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterTextForSearching))
-              || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
-            )
-          ) || !filterTextForSearching)
+          character.channelName.toLowerCase().includes(filterTextForSearching)
+            || character.name.toLowerCase().includes(filterTextForSearching)
+            || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterTextForSearching))
+            || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
         )
       return filtered;
-  })()
+  }, [characters, filterText]);
 
-  const factionInfoMap = Object.fromEntries(data.factions.map(info => [info.key, info]));
+  const factionInfoMap = React.useMemo(() => {
+    return Object.fromEntries(data.factions.map(info => [info.key, info]));
+  }, [data.factions]);
 
-  const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
+  const selectedFaction = React.useMemo(() => {
+    return factionKey ? factionInfoMap[factionKey] : undefined;
+  }, [factionKey, factionInfoMap]);
 
   return (
     <>

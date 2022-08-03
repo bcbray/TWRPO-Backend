@@ -1,0 +1,14 @@
+.item {
+  display: block;
+  background-color: transparent;
+  clear: both;
+  padding: 0.25rem 1rem;
+  white-space: nowrap;
+  width: 100%;
+  color: var(--theme-black);
+}
+
+.item:hover, .item:focus {
+  background-color: var(--theme-gray-200);
+  color: var(--theme-gray-950);
+}

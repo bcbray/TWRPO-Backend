@@ -1,9 +1,9 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
 import { SketchPicker } from 'react-color';
 
 import styles from './ColorHelper.module.css';
 import { CharactersResponse, Stream, FactionInfo } from './types';
+import { classes } from './utils';
 import StreamCard from './StreamCard';
 
 interface Props {
@@ -44,7 +44,7 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
     thumbnailUrl: '/images/example-live-thumbnail.jpeg',
   };
   return (
-    <Col xs={12} sm={6} md={4} lg={3} className={styles.card}>
+    <div className={styles.card}>
       <div className={styles.info}>
         <h4 title={faction.name}>{faction.name}</h4>
         <div>
@@ -63,7 +63,7 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
           <StreamCard stream={fakeStream} factionInfos={{ [faction.key]: faction }} />
         </div>
       </div>
-    </Col>
+    </div>
   )
 }
 
@@ -106,21 +106,25 @@ const ColorHelper: React.FC<Props> = ({ data }) => {
 
   return (
     <>
-      <Row>
-        <FactionCard faction={previewFaction} />
-        <Col xs={12} sm={6} md={4} lg={3} className={styles.picker}>
-          <p>Light:</p>
-          <SketchPicker color={colorLight} presetColors={presets} onChange={c => setColorLight(c.hex)} />
-        </Col>
-        <Col xs={12} sm={6} md={4} lg={3} className={styles.picker}>
-          <p>Dark:</p>
-          <SketchPicker color={colorDark} presetColors={presets} onChange={c => setColorDark(c.hex)} />
-        </Col>
-      </Row>
-      <hr />
-      <Row>
-        {data.factions.map(faction => <FactionCard key={faction.key} faction={faction} />)}
-      </Row>
+      <div className={classes(styles.grid, 'inset')}>
+        <div className={classes(styles.items)}>
+          <FactionCard faction={previewFaction} />
+          <div className={styles.picker}>
+            <p>Light:</p>
+            <SketchPicker color={colorLight} presetColors={presets} onChange={c => setColorLight(c.hex)} />
+          </div>
+          <div className={styles.picker}>
+            <p>Dark:</p>
+            <SketchPicker color={colorDark} presetColors={presets} onChange={c => setColorDark(c.hex)} />
+          </div>
+        </div>
+      </div>
+      <hr className='inset' />
+      <div className={classes(styles.grid, 'inset')}>
+        <div className={classes(styles.items)}>
+          {data.factions.map(faction => <FactionCard key={faction.key} faction={faction} />)}
+        </div>
+      </div>
     </>
   );
 };

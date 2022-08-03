@@ -1,0 +1,22 @@
+.spinner {
+  animation: spinner-border 0.75s linear infinite;
+  border: 0.25em solid;
+  border-radius: 50%;
+  border-right: 0.25em solid transparent;
+  display: inline-block;
+  height: 2rem;
+  vertical-align: -0.125em;
+  width: 2rem;
+}
+
+.small {
+  border-width: 0.2em;
+  height: 1rem;
+  width: 1rem;
+}
+
+@keyframes spinner-border {
+    100% {
+      transform: rotate(1turn);
+    }
+}

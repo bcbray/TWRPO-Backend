@@ -1,9 +1,10 @@
 import React from 'react';
-import { Container, Spinner, Row, Col} from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 import { useLoading, isSuccess, isFailure } from './LoadingState';
 import { LiveResponse } from './types';
 import MultistreamMain from './MultistreamMain';
+import Error from './Error';
+import Loading from './Loading';
 
 const MultistreamContainer: React.FunctionComponent<{}> = () => {
   // const [loadingState, onReload] = useLoading<Live>('https://vaeb.io:3030/live');
@@ -17,18 +18,14 @@ const MultistreamContainer: React.FunctionComponent<{}> = () => {
           content='Multistream of all WildRP Twitch streams.'
         />
       </Helmet>
-      <Container className="mt-5">
+      <div className="content">
         {isSuccess(loadingState)
            ? <MultistreamMain data={loadingState.data} onReload={onReload} />
            : isFailure(loadingState)
-             ? <Row className="justify-content-center">
-                 <Col xs="auto"><p>Failed to load data. Please try again later.</p></Col>
-              </Row>
-             : <Row className="justify-content-center">
-                 <Col xs="auto"><Spinner animation="border" /></Col>
-              </Row>
+            ? <Error onTryAgain={onReload} />
+            : <Loading />
          }
-      </Container>
+      </div>
     </>
   )
 }

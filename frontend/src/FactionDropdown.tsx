@@ -1,9 +1,14 @@
 import React from 'react';
-import { useCss } from 'react-use';
-import { Dropdown } from 'react-bootstrap';
+import isMobile from 'is-mobile';
 
 import styles from './FactionDropdown.module.css';
 import { FactionInfo } from './types';
+import { classes } from './utils';
+import { useFactionCss, factionStyles, factionStylesForKey } from './hooks';
+import Dropdown from  './Dropdown';
+import DropdownButton from  './DropdownButton';
+import DropdownMenu from  './DropdownMenu';
+import DropdownItem from  './DropdownItem';
 
 interface Props {
   factions: FactionInfo[];
@@ -13,6 +18,11 @@ interface Props {
   className?: string;
 };
 
+interface LineItem {
+  name: string;
+  element: React.ReactElement;
+}
+
 const FactionDropdown: React.FC<Props> = ({
   factions,
   selectedFaction = null,
@@ -20,62 +30,132 @@ const FactionDropdown: React.FC<Props> = ({
   itemContent = f => (f.name),
   className: outerClassName,
 }) => {
-  const className = useCss({
-    '.btn-independent': {
-      backgroundColor: '#12af7e',
-      borderColor: '#12af7e',
+  const [filterText, setFilterText] = React.useState('');
+
+  const filterTextToUse = filterText.toLowerCase().trim();
+
+  const allItems: LineItem[] = [
+    {
+      name: 'All WildRP',
+      element: (
+        <DropdownItem
+          key='meta-all'
+          className={classes(
+            styles.item,
+            styles.noFilter,
+            selectedFaction === null && styles.active
+          )}
+          eventKey=''
+          style={factionStylesForKey()}
+        >
+          All WildRP (no filtering)
+        </DropdownItem>
+      )
     },
-    'a.dropdown-item:active': {
-      color: '#fff',
-      backgroundColor: '#12af7e',
-    },
-    ...Object.fromEntries(factions.flatMap((faction) => {
-      return [
-        [
-          `.btn-${faction.key}`,
-          {
-            backgroundColor: faction.colorLight,
-            borderColor: faction.colorLight,
-          }
-        ],
-        [
-          `a.dropdown-item.faction-${faction.key}`,
-          {
-            color: faction.colorLight,
-          },
-        ],
-        [
-          `a.dropdown-item.faction-${faction.key}:active`,
-          {
-            color: '#fff',
-            backgroundColor: faction.colorLight,
-          },
-        ],
-      ]
-    })),
-  });
+    ...(factions
+      .map(faction => ({
+        name: faction.name,
+        element: (
+          <DropdownItem
+            key={faction.key}
+            className={classes(
+              styles.item,
+              selectedFaction?.key === faction.key && styles.active
+            )}
+            eventKey={faction.key}
+            active={selectedFaction?.key === faction.key}
+            style={factionStyles(faction)}
+          >
+            {itemContent(faction)}
+          </DropdownItem>
+        )
+      })))
+  ]
+
+  const visibleItems = filterTextToUse === ''
+    ? allItems
+    : allItems.filter(i => i.name.toLowerCase().includes(filterTextToUse));
+
+  const factionContainer = useFactionCss(factions);
+
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const dropdownRef = React.useRef<HTMLElement | null>(null);
+
+  const first = visibleItems[0];
+  if (first) {
+    visibleItems[0].element = React.cloneElement(first.element, {
+      onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => {
+        if (e.code === 'ArrowUp') {
+          e.preventDefault();
+          e.stopPropagation();
+          inputRef.current?.focus();
+        }
+      }
+    })
+  }
 
   return (
     <Dropdown
-      className={[className, styles.factionDropdown, ...(outerClassName ? [outerClassName] : [])].join(' ')}
+      className={classes(factionContainer, outerClassName)}
       onSelect={e => onSelect(factions.find(f => f.key === e) || null)}
     >
-      <Dropdown.Toggle variant={selectedFaction?.key ?? 'independent'}>
+      <DropdownButton
+        className={classes(
+          styles.factionDropdownButton,
+        )}
+        style={factionStylesForKey(selectedFaction?.key)}
+      >
         {selectedFaction?.name ?? 'All WildRP'}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        <Dropdown.Item eventKey=''>All WildRP (no filtering)</Dropdown.Item>
-        {factions
-          .map(faction =>
-            <Dropdown.Item
-              key={faction.key}
-              className={`faction-${faction.key}`}
-              eventKey={faction.key}
-            >
-              {itemContent(faction)}
-            </Dropdown.Item>
-          )}
-      </Dropdown.Menu>
+      </DropdownButton>
+      <DropdownMenu
+        ref={dropdownRef}
+        className={styles.menu}
+        onShow={() => {
+          if (!isMobile()) {
+            inputRef.current?.focus();
+          }
+        }}
+        onHide={() => {
+          setFilterText('');
+        }}
+      >
+        <input
+          ref={inputRef}
+          className={styles.search}
+          type='search'
+          placeholder='Search…'
+          value={filterText}
+          onChange={e => setFilterText(e.target.value)}
+          onKeyDown={e => {
+            const forward = () => {
+              const newEvent = new KeyboardEvent(e.type, {
+                charCode: e.charCode,
+                code: e.code,
+                key: e.key,
+                keyCode: e.keyCode,
+                location: e.location,
+                repeat: e.repeat,
+                bubbles: true,
+              });
+              e.stopPropagation();
+              e.preventDefault();
+              dropdownRef.current?.dispatchEvent(newEvent);
+            }
+            // Forward arrow down to the dropdown so it can handle them
+            // (it otherwise ignores keypresses on input elements)
+            if (e.code === 'ArrowDown') {
+              forward();
+            } else if (e.code === 'Escape' && filterText.length === 0) {
+              forward();
+            }
+          }}
+        />
+        {visibleItems.map(item => item.element)}
+        {visibleItems.length === 0 &&
+          <p className={styles.noMatches}>No matches</p>
+        }
+      </DropdownMenu>
     </Dropdown>
   );
 };

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { ArrowClockwise } from 'react-bootstrap-icons'
+import { Button } from '@restart/ui';
+import { ArrowClockwise } from 'react-bootstrap-icons';
+
+import styles from './RelaodButton.module.css';
 
 interface Props {
   onClick: () => void;
@@ -8,9 +10,8 @@ interface Props {
 
 const ReloadButton: React.FC<Props> = ({ onClick }) => (
   <Button
+    className={styles.reload}
     title='Reload'
-    className="p-0"
-    variant='reload'
     onClick={onClick}
   >
     <ArrowClockwise style={{ display: 'block' }} />

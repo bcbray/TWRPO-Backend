@@ -1,13 +1,14 @@
 import React from 'react';
-import { Container, Spinner, Row, Col} from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 
 import { useLoading, isSuccess, isFailure } from './LoadingState';
 import { CharactersResponse } from './types';
 import ColorHelper from './ColorHelper';
+import Error from './Error';
+import Loading from './Loading';
 
 const ColorHelperContainer: React.FC<{}> = () => {
-  const [loadingState] = useLoading<CharactersResponse>('/api/v2/characters');
+  const [loadingState, reload] = useLoading<CharactersResponse>('/api/v2/characters');
   return (
     <>
       <Helmet>
@@ -17,18 +18,14 @@ const ColorHelperContainer: React.FC<{}> = () => {
           content='Utility for configuring Twitch WildRP Only faction colors.'
         />
       </Helmet>
-      <Container className="my-5">
+      <div className='content'>
         {isSuccess(loadingState)
-           ? <ColorHelper data={loadingState.data} />
-           : isFailure(loadingState)
-             ? <Row className="justify-content-center">
-                 <Col xs="auto"><p>Failed to load data. Please try again later.</p></Col>
-              </Row>
-             : <Row className="justify-content-center">
-                 <Col xs="auto"><Spinner animation="border" /></Col>
-              </Row>
+          ? <ColorHelper data={loadingState.data} />
+          : isFailure(loadingState)
+            ? <Error onTryAgain={reload} />
+            : <Loading />
          }
-      </Container>
+      </div>
     </>
   )
 };

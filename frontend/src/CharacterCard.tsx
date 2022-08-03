@@ -1,9 +1,11 @@
 import React from 'react';
-import { OverlayTrigger, Tooltip} from 'react-bootstrap';
 import { Headphones, XLg, VolumeMuteFill } from 'react-bootstrap-icons';
 
 import styles from './CharacterCard.module.css';
+import OverlayTrigger from './OverlayTrigger';
+import Tooltip from './Tooltip';
 import { Stream, FactionInfo } from './types';
+import { classes } from './utils';
 import Tag from './Tag';
 
 interface Props {
@@ -18,15 +20,15 @@ interface Props {
 
 const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, onClickFocus, onClickRemove, className, children }) => {
     return (
-      <div className={[
+      <div className={classes(
         styles.container,
         focused ? styles.focused : styles.muted,
-        ...(className ? [className] : [])
-      ].join(' ')}>
+        className
+      )}>
         {children}
         <div className={styles.tags}>
           <Tag
-            className={`${styles.tag} ${styles.nametag}`}
+            className={classes(styles.tag, styles.nametag)}
             style={{
               background: factionInfo?.colorDark,
             }}
@@ -36,12 +38,12 @@ const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, 
           <OverlayTrigger
             placement="bottom"
             overlay={
-              <Tooltip id="focus-tooltip" className={styles.tooltip}>
+              <Tooltip id="focus-tooltip" className={styles.tooltip} innerClassName={styles.inner} arrowClassName={styles.arrow}>
                 {focused ? 'Mute audio' : 'Focus audio'}
               </Tooltip>
             }
           >
-            <Tag className={[styles.tag, styles.iconTag, styles.focustag].join(' ')} onClick={onClickFocus}>
+            <Tag className={classes(styles.tag, styles.iconTag, styles.focustag)} onClick={onClickFocus}>
               <div className={styles.whenFocused}>
                 <Headphones size={16} style={{ verticalAlign: 'baseline' }} />
               </div>
@@ -53,12 +55,12 @@ const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, 
           <OverlayTrigger
             placement="bottom"
             overlay={
-              <Tooltip id="remove-tooltip" className={styles.tooltip}>
+              <Tooltip id="remove-tooltip" className={styles.tooltip} innerClassName={styles.inner} arrowClassName={styles.arrow}>
                 Remove stream
               </Tooltip>
             }
           >
-            <Tag className={[styles.tag, styles.iconTag, styles.removetag].join(' ')} onClick={onClickRemove}>
+            <Tag className={classes(styles.tag, styles.iconTag, styles.removetag)} onClick={onClickRemove}>
               <XLg size={16} style={{ verticalAlign: 'baseline' }} />
             </Tag>
           </OverlayTrigger>

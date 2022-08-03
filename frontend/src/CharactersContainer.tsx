@@ -1,12 +1,13 @@
 import React from 'react';
 import Characters from './Characters';
-import { Container, Spinner, Row, Col } from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 import { useLoading, isSuccess, isFailure } from './LoadingState';
 import { CharactersResponse } from './types';
+import Error from './Error';
+import Loading from './Loading';
 
 const CharactersContainer: React.FunctionComponent<{}> = () => {
-  const [loadingState] = useLoading<CharactersResponse>('/api/v2/characters');
+  const [loadingState, reload] = useLoading<CharactersResponse>('/api/v2/characters');
   return (
     <>
       <Helmet>
@@ -16,18 +17,14 @@ const CharactersContainer: React.FunctionComponent<{}> = () => {
           content='Known WildRP streamers and their characters.'
         />
       </Helmet>
-      <Container className="my-5">
+      <div className='content'>
         {isSuccess(loadingState)
-           ? <Characters data={loadingState.data} />
-           : isFailure(loadingState)
-             ? <Row className="justify-content-center">
-                 <Col xs="auto"><p>Failed to load data. Please try again later.</p></Col>
-              </Row>
-             : <Row className="justify-content-center">
-                 <Col xs="auto"><Spinner animation="border" /></Col>
-              </Row>
+          ? <Characters data={loadingState.data} />
+          : isFailure(loadingState)
+            ? <Error onTryAgain={reload} />
+            : <Loading />
          }
-      </Container>
+      </div>
     </>
   )
 }
