@@ -5,17 +5,17 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { LiveResponse, CharactersResponse } from './types';
 import { factionsFromLive, ignoredFactions } from './utils'
 import { useSingleSearchParam, useDebouncedValue } from './hooks';
+import { useLoading, isSuccess } from './LoadingState';
 
 import StreamList from './StreamList';
 import FilterBar from './FilterBar';
 
 interface Props {
   live: LiveResponse;
-  characters: CharactersResponse;
   loadTick: number;
 }
 
-const Live: React.FC<Props> = ({ live, characters, loadTick }) => {
+const Live: React.FC<Props> = ({ live, loadTick }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
@@ -24,6 +24,12 @@ const Live: React.FC<Props> = ({ live, characters, loadTick }) => {
   const debouncedFilterText = useDebouncedValue(filterText, 200);
 
   const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
+
+  const [charactersLoadingState] = useLoading<CharactersResponse>('/api/v2/characters', { needsLoad: filterText.length > 0 });
+
+  const characters = isSuccess(charactersLoadingState)
+    ? charactersLoadingState.data.characters
+    : [];
 
   const factionInfos = factionsFromLive(live);
   const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
