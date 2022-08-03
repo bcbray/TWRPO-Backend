@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useInterval } from 'react-use';
+import { useInterval, useGetSet } from 'react-use';
 
 interface Idle_ {
   type: 'Idle';
@@ -39,7 +39,7 @@ export const isFailure = <T,E>(state: LoadingState<T, E>): state is Failure_<E> 
   state.type === 'Failure';
 
 export function useLoading<T>(input: RequestInfo): [LoadingState<T, Error>, () => void, number] {
-  const [state, setState] = useState<LoadingState<T, any>>(Idle);
+  const [getState, setState] = useGetSet<LoadingState<T, any>>(Idle);
   const [loadCount, setLoadCount] = useState(0);
   const [lastLoad, setLastLoad] = useState<Date | null>(null);
   useEffect(() => {
@@ -61,13 +61,13 @@ export function useLoading<T>(input: RequestInfo): [LoadingState<T, Error>, () =
       }
       setLastLoad(new Date());
     }
-    if (loadCount === 0) {
+    if (loadCount === 0 || isFailure(getState())) {
       setState(Loading);
     }
     performFetch();
-  }, [input, loadCount]);
+  }, [input, loadCount, getState, setState]);
 
-  return [state, () => setLoadCount(c => c + 1), lastLoad?.getTime() || 0];
+  return [getState(), () => setLoadCount(c => c + 1), lastLoad?.getTime() || 0];
 }
 
 const random = (min: number, max: number) => Math.floor(min + Math.random() * Math.floor(max-min));

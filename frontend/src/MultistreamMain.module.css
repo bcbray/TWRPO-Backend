@@ -1,9 +1,12 @@
+.filterBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
 .showStream {
   font-size: 0.65rem;
   border-radius: 100px;
-}
-
-.factionDropdown :global .btn {
-  color: #fff;
-  font-weight: 400;
 }

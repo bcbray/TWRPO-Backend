@@ -1,10 +1,11 @@
 import React from 'react';
-import { Form, Stack, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import styles from './FilterBar.module.css'
 import { FactionInfo } from './types';
 import FactionDropdown from './FactionDropdown';
 import FeedbackModal from './FeedbackModal';
+import { classes } from './utils';
 
 interface Props {
   factions: FactionInfo[];
@@ -16,32 +17,35 @@ interface Props {
 
 const FilterBar: React.FC<Props> = ({ factions, selectedFaction, onSelectFaction, searchText, onChangeSearchText }) => {
   const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
-  const handleShowFeedback = () => setShowingFeedbackModal(true);
+  const handleShowFeedback = <T,>(e: React.MouseEvent<T>) => {
+    setShowingFeedbackModal(true);
+    e.preventDefault();
+  }
   const handleCloseFeedback = () => setShowingFeedbackModal(false);
   return (
     <>
-      <Stack direction='horizontal' gap={3} className={['mb-4', styles.container].join(' ')}>
+      <div className={classes(styles.container, 'inset')}>
         <FactionDropdown
           className={styles.factionsDropdown}
           factions={factions}
           selectedFaction={selectedFaction}
           onSelect={onSelectFaction}
         />
-        <Form.Control
+        <input
           className={styles.search}
-          type="text"
-          placeholder="Search for character name / nickname / stream..."
+          type='text'
+          placeholder='Search for character name / nickname / stream…'
           value={searchText}
           onChange={e => onChangeSearchText(e.target.value)}
         />
-        <Button
-          className={styles.feedbackButton}
-          variant="secondary"
+        <Link
+          className={classes('button', 'secondary', styles.feedbackButton)}
+          to='/feedback'
           onClick={handleShowFeedback}
         >
           Suggest changes
-        </Button>
-      </Stack>
+        </Link>
+      </div>
       <FeedbackModal show={showingFeedbackModal} onHide={handleCloseFeedback} />
     </>
   );

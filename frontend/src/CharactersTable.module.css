@@ -1,3 +1,35 @@
+.tableContainer {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-color: var(--table-border-color);
+}
+
+.table thead {
+  vertical-align: bottom;
+}
+
+.table th {
+  padding: 0.5rem;
+}
+
+.table tbody {
+  border-top: 2px solid;
+}
+
+.table td {
+  border-bottom-width: 1px;
+  padding: 0.5rem;
+  border-color: inherit;
+}
+
+.table tr:hover td {
+  background-color: var(--table-row-hover-background-color);
+}
+
 .pfp {
   display: inline-block;
   vertical-align: bottom;
@@ -15,9 +47,13 @@
   white-space: nowrap;
 }
 
+.channelName a {
+  color: inherit;
+}
+
 .liveTag {
-  background-color: #dc3545;
-  color: #fff;
+  background-color: var(--theme-red);
+  color: var(--const-theme-white);
   margin: 0.5em;
   padding-top: 0.15rem;
   padding-bottom: 0.15rem;
@@ -32,10 +68,11 @@
   position: absolute;
   width: 300;
   padding-top: 6px;
+  transition: opacity 0.15s linear;
 }
 
 .streamPopover > div {
-  background: var(--bs-gray-100);
+  background: var(--theme-gray-100);
   border-radius: 6px;
   box-shadow: 0 15px 20px rgba(0,0,0,.02), 0 0 5px rgba(0,0,0,.2);
   padding-bottom: 0.5rem;
@@ -44,4 +81,26 @@
 .streamPopover :global .stream-card-info {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+
+.factionPill {
+  margin-right: 0.25em;
+}
+
+.factionPill span {
+  background-color: var(--faction-color-light);
+  border-radius: 50rem;
+  color: var(--theme-white);
+  display: inline-block;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.35em 0.65em;
+  text-align: center;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.factionPill span:hover {
+  background-color: var(--faction-color-light-hover);
 }

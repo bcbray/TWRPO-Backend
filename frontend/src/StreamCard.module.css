@@ -37,10 +37,11 @@
 
 .tag.name {
   font-weight: 500;
-  background-color: #fff;
   top: 0;
   left: 0;
   text-transform: uppercase;
+  color: var(--const-theme-black);
+  background-color: var(--faction-color-dark);
 }
 
 .tag.viewers {
@@ -81,4 +82,10 @@
 
 .channel a {
   text-decoration: none;
+  color: var(--faction-color-light);
+}
+
+.channel a:hover {
+  text-decoration: none;
+  color: var(--faction-color-light-hover);
 }

@@ -1,4 +1,60 @@
-.factionDropdown :global .btn {
-  color: #fff;
+.factionDropdownButton {
+  color: var(--theme-white);
   font-weight: 400;
 }
+
+.factionDropdownButton {
+  background-color: var(--faction-color-light);
+}
+
+.factionDropdownButton:hover {
+  background-color: var(--faction-color-light-hover);
+}
+
+.menu input {
+  border-width: 0;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px rgba(0,0,0,0.15) solid;
+  border-radius: 0;
+}
+
+.menu .noMatches {
+  margin: 0;
+  padding: 0.25rem 1rem;
+  width: 100%;
+  font-style: italic;
+  color: var(--theme-gray-600);
+}
+
+.item {
+  color: var(--faction-color-light) !important;
+}
+
+.item:hover, .item:focus {
+  color: var(--faction-color-light-hover) !important;
+}
+
+.item:active, .item.active {
+  background-color: var(--faction-color-light) !important;
+  color: var(--theme-white) !important;
+}
+
+.item.active:hover {
+  background-color: var(--faction-color-light-hover) !important;
+}
+
+.item.noFilter {
+  color: var(--theme-black);
+}
+
+.item.noFilter:hover {
+  color: var(--theme-black);
+}
+
+.item.noFilter:active, .item.noFilter.active {
+  background-color: var(--theme-gray-200);
+  color: var(--theme-black);
+}
+

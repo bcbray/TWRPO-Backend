@@ -1,9 +1,86 @@
-.nav {
+.extension {
+  white-space: nowrap;
+}
+
+.navbar {
   position: sticky;
   top: 0;
   z-index: 1010;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  background-color: var(--navbar-bg-color);
+  color: #fff;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-wrap: inherit;
+  justify-content: space-between;
+}
+
+.brand {
+  font-size: 1.25rem;
+  margin-right: 1rem;
+  padding-bottom: 0.3125rem;
+  padding-top: 0.3125rem;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.brand:hover {
+  color: #fff;
+}
+
+.links {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .extension {
   white-space: nowrap;
+  display: none;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .links {
+    justify-content: space-between;
+  }
+
+  .extension {
+    display: block;
+  }
+}
+
+
+.nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav a {
+  display: block;
+  color: hsla(0,0%,100%,.55);
+  padding: 0.5rem;
+  transition: color .15s ease-in-out;
+}
+
+.nav a:hover {
+  color: hsla(0,0%,100%,.75);
+}
+
+.nav a:focus {
+  color: hsla(0,0%,100%,.75);
+}
+
+.nav a.active {
+  color: #fff;
 }

@@ -16,7 +16,6 @@ const OutboundLink = React.forwardRef<HTMLAnchorElement, OutboundLinkProps>((
     href={href}
     onClick={(e) => {
       onClick?.(e);
-      console.log(logContext);
       rum.addAction(`Click ${logName || 'Outbound Link'}`, {
         type: 'outbound-link',
         destination: href,

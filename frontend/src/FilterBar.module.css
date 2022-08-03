@@ -1,9 +1,22 @@
 .container {
+  display: flex;
   flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: row;
+}
+
+@media (max-width: 767.98px) {
+  .container {
+    justify-content: space-between;
+  }
 }
 
 .factionsDropdown {
   order: 0;
+  flex-shrink: 0;
 }
 
 .search {

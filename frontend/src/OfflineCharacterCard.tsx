@@ -40,12 +40,7 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
 ) => (
   <div className={[styles.card, className].join(' ')} ref={ref} {...rest}>
     <div className={styles.thumbnail}>
-      <CharacterLink
-        character={character}
-        style={{
-          color: character.factions[0]?.colorLight
-        }}
-      >
+      <CharacterLink character={character}>
         <span>Offline</span>
       </CharacterLink>
       <Tag
