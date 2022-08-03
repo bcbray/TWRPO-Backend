@@ -83,7 +83,9 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
             || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterTextForSearching))
             || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
           )
-        );
+        )
+        // Limit to 50 offline characters to not overwhelm the list
+        .slice(0, 50);
   }, [characters, factionKey, filterTextForSearching, filteredStreams]);
 
   const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
