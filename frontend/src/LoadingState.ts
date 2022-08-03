@@ -38,11 +38,27 @@ export const isSuccess = <T,E>(state: LoadingState<T, E>): state is Success_<T> 
 export const isFailure = <T,E>(state: LoadingState<T, E>): state is Failure_<E> =>
   state.type === 'Failure';
 
-export function useLoading<T>(input: RequestInfo): [LoadingState<T, Error>, () => void, number] {
+export interface LoadingProps {
+  needsLoad?: boolean;
+}
+
+export function useLoading<T>(
+  input: RequestInfo,
+  props: LoadingProps = {}
+): [LoadingState<T, Error>, () => void, number] {
+  const { needsLoad = true } = props;
   const [getState, setState] = useGetSet<LoadingState<T, any>>(Idle);
   const [loadCount, setLoadCount] = useState(0);
+  const [lastLoadCount, setLastLoadCount] = useState<number | undefined>(undefined);
   const [lastLoad, setLastLoad] = useState<Date | null>(null);
+  const [lastInput, setLastInput] = useState<RequestInfo>(input);
   useEffect(() => {
+    if (!needsLoad) {
+      return;
+    }
+    if (loadCount === lastLoadCount && input === lastInput) {
+      return;
+    }
     async function fetchAndCheck(): Promise<T> {
       const response = await fetch(input);
       if (!response.ok) {
@@ -61,11 +77,13 @@ export function useLoading<T>(input: RequestInfo): [LoadingState<T, Error>, () =
       }
       setLastLoad(new Date());
     }
-    if (loadCount === 0 || isFailure(getState())) {
+    if (loadCount === 0 || isFailure(getState()) || input !== lastInput) {
       setState(Loading);
     }
+    setLastInput(input);
+    setLastLoadCount(loadCount);
     performFetch();
-  }, [input, loadCount, getState, setState]);
+  }, [input, lastInput, loadCount, getState, setState, lastLoadCount, needsLoad]);
 
   return [getState(), () => setLoadCount(c => c + 1), lastLoad?.getTime() || 0];
 }

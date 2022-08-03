@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, NavigateOptions  } from 'react-router-dom';
 import { useCss } from 'react-use';
+import { useDebounce } from 'react-use';
 
 import tinycolor from 'tinycolor2';
 
@@ -101,3 +102,11 @@ export function useWrappedRefWithWarning(ref: any, componentName: any): any {
   // Yeahhh... about that warning...
   return ref;
 }
+
+export function useDebouncedValue<T>(value: T, ms: number): T {
+  const [debounced, setDebounced] = useState(value);
+  useDebounce(() => {
+    setDebounced(value);
+  }, ms, [value]);
+  return debounced;
+};

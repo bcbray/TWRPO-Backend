@@ -3,7 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 
 import { CharactersResponse, CharacterInfo } from './types';
-import { useSingleSearchParam } from './hooks';
+import { useSingleSearchParam, useDebouncedValue } from './hooks';
 
 import CharactersTable from './CharactersTable';
 import FilterBar from './FilterBar';
@@ -18,6 +18,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
   const params = useParams();
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
+  const debouncedFilterText = useDebouncedValue(filterText, 200);
 
   const charactersByFaction = React.useMemo(() => {
     return data.characters.reduce((map, character) => {
@@ -36,7 +37,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
     }, [factionKey, data.characters, charactersByFaction]);
 
   const filteredCharacters = React.useMemo(() => {
-    const filterTextForSearching = filterText.toLowerCase().trim();
+    const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
     const filtered = filterTextForSearching.length === 0
       ? characters
       : characters.filter(character =>
@@ -46,7 +47,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
             || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
         )
       return filtered;
-  }, [characters, filterText]);
+  }, [characters, debouncedFilterText]);
 
   const factionInfoMap = React.useMemo(() => {
     return Object.fromEntries(data.factions.map(info => [info.key, info]));
