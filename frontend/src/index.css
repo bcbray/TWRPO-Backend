@@ -43,6 +43,8 @@
   --theme-secondary-color-hover: var(--theme-gray-700);
   --theme-secondary-color-active: var(--theme-gray-700);
 
+  --table-row-border-color: var(--theme-gray-300);
+  --table-header-border-color: var(--theme-gray-900);
   --table-row-hover-background-color: rgba(0,0,0,.075);
   --input-field-background-color: var(--theme-white);
   --input-field-border-color: var(--theme-gray-400);
@@ -77,7 +79,9 @@
     --theme-secondary-color-hover: var(--theme-gray-500);
     --theme-secondary-color-active: var(--theme-gray-500);
 
-    --table-row-hover-background-color: rgba(255,255,255,.075);
+    --table-row-border-color: var(--theme-gray-200);
+    --table-header-border-color: var(--theme-gray-500);
+    --table-row-hover-background-color: rgba(255,255,255,.095);
     --input-field-background-color: var(--theme-gray-050);
     --input-field-border-color: var(--theme-gray-100);
   }
@@ -89,7 +93,6 @@
   --link-color: var(--theme-primary-color);
   --link-color-hover: var(--theme-primary-color-hover);
   --navbar-bg-color: var(--const-theme-gray-900);
-  --table-border-color: var(--theme-gray-300);
 
   --button-primary-bg-color: var(--theme-primary-color);
   --button-primary-border-color: var(--theme-primary-color);

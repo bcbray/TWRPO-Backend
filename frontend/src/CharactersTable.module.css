@@ -5,7 +5,7 @@
 
 .table {
   width: 100%;
-  border-color: var(--table-border-color);
+  border-color: var(--table-row-border-color);
 }
 
 .table thead {
@@ -17,7 +17,7 @@
 }
 
 .table tbody {
-  border-top: 2px solid;
+  border-top: 2px solid var(--table-header-border-color);
 }
 
 .table td {
