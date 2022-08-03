@@ -22,23 +22,26 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
   const debouncedFilterText = useDebouncedValue(filterText, 200);
-
   const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
 
   const [charactersLoadingState] = useLoading<CharactersResponse>('/api/v2/characters', { needsLoad: filterText.length > 0 });
 
-  const characters = isSuccess(charactersLoadingState)
-    ? charactersLoadingState.data.characters
-    : [];
+  const characters = React.useMemo(() => (
+    isSuccess(charactersLoadingState)
+      ? charactersLoadingState.data.characters
+      : []
+  ), [charactersLoadingState]);
 
-  const factionInfos = factionsFromLive(live);
-  const factionInfoMap = Object.fromEntries(factionInfos.map(info => [info.key, info]));
+  const factionInfos = React.useMemo(() => factionsFromLive(live), [live]);
+  const factionInfoMap = React.useMemo(() => Object.fromEntries(factionInfos.map(info => [info.key, info])), [factionInfos]);
 
-  const filterFactions = factionInfos
-    .filter(f => f.isLive === true)
-    .filter(f => f.hideInFilter !== true);
+  const filterFactions = React.useMemo(() => (
+    factionInfos
+      .filter(f => f.isLive === true)
+      .filter(f => f.hideInFilter !== true)
+  ), [factionInfos]);
 
-  const filteredStreams = (() => {
+  const filteredStreams = React.useMemo(() => {
       const streams = live.streams
         .filter(stream => !ignoredFactions.includes(stream.tagFaction))
         .filter(stream => !(stream.tagFactionSecondary && ignoredFactions.includes(stream.tagFactionSecondary)))
@@ -63,24 +66,25 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
         )
       const sorted = filtered.sort((lhs, rhs) => rhs.viewers - lhs.viewers)
       return sorted;
-    })()
+    }, [debouncedFilterText, factionKey, filterTextForSearching, live.streams])
 
-  const liveChannels = new Set(filteredStreams.map(c => c.channelName));
+  const offlineCharacters = React.useMemo(() => {
+    const liveChannels = new Set(filteredStreams.map(c => c.channelName));
 
-  const offlineCharacters = filterTextForSearching.length === 0
-    ? []
-    : characters
-      .characters
-      .filter(character =>
-        !liveChannels.has(character.channelName)
-        && ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
-        && (
-          character.channelName.toLowerCase().includes(filterTextForSearching)
-          || character.name.toLowerCase().includes(filterTextForSearching)
-          || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterTextForSearching))
-          || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
-        )
-      );
+    return filterTextForSearching.length === 0
+      ? []
+      : characters
+        .filter(character =>
+          !liveChannels.has(character.channelName)
+          && ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
+          && (
+            character.channelName.toLowerCase().includes(filterTextForSearching)
+            || character.name.toLowerCase().includes(filterTextForSearching)
+            || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterTextForSearching))
+            || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
+          )
+        );
+  }, [characters, factionKey, filterTextForSearching, filteredStreams]);
 
   const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
 
