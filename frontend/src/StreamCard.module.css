@@ -91,6 +91,10 @@
 }
 
 @media (prefers-color-scheme: dark) {
+  .thumbnail, .thumbnail:hover, .thumbnail:active {
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.1);
+  }
+
   .channel a {
     color: var(--faction-color-dark);
   }
