@@ -89,3 +89,13 @@
   text-decoration: none;
   color: var(--faction-color-light-hover);
 }
+
+@media (prefers-color-scheme: dark) {
+  .channel a {
+    color: var(--faction-color-dark);
+  }
+
+  .channel a:hover {
+    color: var(--faction-color-dark-hover);
+  }
+}

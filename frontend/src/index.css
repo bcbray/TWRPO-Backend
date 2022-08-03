@@ -46,6 +46,39 @@
   --table-row-hover-background-color: rgba(0,0,0,.075);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --theme-white: var(--const-theme-black);
+    --theme-black: var(--const-theme-white);
+    --theme-gray-050: var(--const-theme-gray-950);
+    --theme-gray-100: var(--const-theme-gray-900);
+    --theme-gray-200: var(--const-theme-gray-800);
+    --theme-gray-300: var(--const-theme-gray-700);
+    --theme-gray-400: var(--const-theme-gray-600);
+    --theme-gray-500: var(--const-theme-gray-500);
+    --theme-gray-600: var(--const-theme-gray-400);
+    --theme-gray-700: var(--const-theme-gray-300);
+    --theme-gray-800: var(--const-theme-gray-200);
+    --theme-gray-900: var(--const-theme-gray-100);
+    --theme-gray-950: var(--const-theme-gray-050);
+
+    --theme-red: #dc3545;
+    --theme-red-100: #842029;
+    --theme-red-800: #f5c2c7;
+    --theme-modal-background: var(--theme-gray-050);
+
+    --theme-primary-color: #0d6efd;
+    --theme-primary-color-hover: #0b5ed7;
+    --theme-primary-color-active: #0a58ca;
+
+    --theme-secondary-color: var(--theme-gray-400);
+    --theme-secondary-color-hover: var(--theme-gray-500);
+    --theme-secondary-color-active: var(--theme-gray-500);
+
+    --table-row-hover-background-color: rgba(255,255,255,.075);
+  }
+}
+
 :root {
   --main-bg-color: var(--theme-white);
   --text-color: var(--theme-black);
