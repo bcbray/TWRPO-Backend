@@ -42,33 +42,15 @@
 }
 
 .body input, .body textarea {
-  -webkit-appearance: none;
-  appearance: none;
-  background-clip: padding-box;
   background-color: var(--theme-modal-background);
-  border: 1px solid var(--theme-gray-400);
-  border-radius: 0.25rem;
-  color: var(--theme-gray-900);
-  display: block;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  padding: 0.375rem 0.75rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   width: 100%;
 }
 
 .body input:focus, .body textarea:focus {
   background-color: var(--theme-modal-background);
-  border-color: #86b7fe;
-  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
-  color: var(--theme-gray-900);
-  outline: 0;
-}
-
-.body input:disabled, .body textarea:disabled {
-  background-color: var(--theme-gray-200);
-  opacity: 1;
 }
 
 .body input.invalid, .body textarea.invalid {

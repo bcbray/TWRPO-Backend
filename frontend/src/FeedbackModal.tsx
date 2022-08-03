@@ -125,6 +125,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
                 <Field
                   className={classes(touched.email && errors.email && touched.email && styles.invalid)}
                   name='email'
+                  type='text'
                   placeholder='name@example.com'
                   id='FeedbackForm.Email'
                   disabled={isSubmitting}
@@ -144,6 +145,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
                 <Field
                   className={classes(touched.discord && errors.discord && styles.invalid)}
                   name='discord'
+                  type='text'
                   placeholder='You#1234'
                   id='FeedbackForm.Discord'
                   disabled={isSubmitting}
