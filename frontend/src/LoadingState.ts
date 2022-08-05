@@ -40,13 +40,14 @@ export const isFailure = <T,E>(state: LoadingState<T, E>): state is Failure_<E> 
 
 export interface LoadingProps {
   needsLoad?: boolean;
+  onReloadFailed?: (error: Error) => void;
 }
 
 export function useLoading<T>(
   input: RequestInfo,
   props: LoadingProps = {}
 ): [LoadingState<T, Error>, () => void, number] {
-  const { needsLoad = true } = props;
+  const { needsLoad = true, onReloadFailed } = props;
   const [getState, setState] = useGetSet<LoadingState<T, any>>(Idle);
   const [loadCount, setLoadCount] = useState(0);
   const [lastLoadCount, setLastLoadCount] = useState<number | undefined>(undefined);
@@ -66,24 +67,30 @@ export function useLoading<T>(
       }
       return await response.json() as T;
     }
-    async function performFetch() {
+    async function performFetch(isReloadFromSuccess: boolean, isReloadFromFailure: boolean) {
       try {
         const result = await fetchAndCheck();
         setState(Success(result));
       } catch (error: any) {
-        // TODO: If this is a reload, it would be nice
-        // to maybe still give the previous value somehow?
-        setState(Failure(error));
+        if (isReloadFromSuccess || isReloadFromFailure) {
+          onReloadFailed?.(error);
+        }
+        if (!isReloadFromSuccess) {
+          setState(Failure(error));
+        }
       }
       setLastLoad(new Date());
     }
-    if (loadCount === 0 || isFailure(getState()) || input !== lastInput) {
+    const isInitialLoad = loadCount === 0 || input !== lastInput;
+    const isReloadFromSuccess = !isInitialLoad && isSuccess(getState());
+    const isReloadFromFailure = !isInitialLoad && isFailure(getState());
+    if (!isReloadFromSuccess && !isReloadFromFailure) {
       setState(Loading);
     }
     setLastInput(input);
     setLastLoadCount(loadCount);
-    performFetch();
-  }, [input, lastInput, loadCount, getState, setState, lastLoadCount, needsLoad]);
+    performFetch(isReloadFromSuccess, isReloadFromFailure);
+  }, [input, lastInput, loadCount, getState, setState, lastLoadCount, needsLoad, onReloadFailed]);
 
   return [getState(), () => setLoadCount(c => c + 1), lastLoad?.getTime() || 0];
 }
@@ -91,8 +98,16 @@ export function useLoading<T>(
 const random = (min: number, max: number) => Math.floor(min + Math.random() * Math.floor(max-min));
 const randomJitter = () => random(-2000, 2000);
 
-export function useAutoReloading<T>(input: RequestInfo, { interval } = { interval: 60 * 1000 }): [LoadingState<T, Error>, () => void, number] {
-  const [loadState, onReload, lastLoad] = useLoading<T>(input);
+export interface AutoReloadingProps extends LoadingProps {
+  interval?: number;
+}
+
+export function useAutoReloading<T>(
+  input: RequestInfo,
+  props: AutoReloadingProps = {}
+): [LoadingState<T, Error>, () => void, number] {
+  const { interval = 60 * 1000, ...rest } = props;
+  const [loadState, onReload, lastLoad] = useLoading<T>(input, rest);
   const [jitter, setJitter] = useState(randomJitter());
 
   useInterval(() => {
