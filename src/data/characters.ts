@@ -353,7 +353,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Father Hickey' },
     ],
     CloakingHawk: [
-        { name: '[Cadet] Danni Jackson', factions: ['Law'] },
+        { name: '[Deputy] Danni Jackson', factions: ['Law'], displayName: 1 },
         { name: 'Roo' },
         { name: 'Tilly-May Edwards' },
     ],
