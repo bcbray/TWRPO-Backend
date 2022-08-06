@@ -4,6 +4,8 @@ import { classes } from './utils';
 
 import styles from './Nav.module.css';
 
+import ThemeToggle from './ThemeToggle';
+
 const Nav: React.FC<{}> = () => {
   return (
     <div className={styles.navbar}>
@@ -18,6 +20,7 @@ const Nav: React.FC<{}> = () => {
             Get Extension
           </a>
           <div className={styles.nav}>
+            <ThemeToggle className={styles.themeToggle} />
             <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/'>Live</NavLink>
             <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/characters'>Characters</NavLink>
             <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/multistream'>Multistream</NavLink>

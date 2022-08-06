@@ -1,0 +1,91 @@
+import React from 'react';
+import { useMedia, useLocalStorage } from 'react-use';
+import { Icon, SunFill, MoonFill, Stars } from 'react-bootstrap-icons';
+
+import styles from './ThemeToggle.module.css';
+
+import { classes } from './utils';
+import Dropdown from './Dropdown';
+import DropdownButton from './DropdownButton';
+import DropdownMenu from './DropdownMenu';
+import DropdownItem from './DropdownItem';
+
+
+type Theme = 'light' | 'dark';
+type ThemeSetting = Theme | 'auto';
+
+interface ThemeToggleProps {
+  className?: string;
+}
+
+const LightIcon: React.FC<React.ComponentProps<Icon>> = (props) => <SunFill {...props} />
+const DarkIcon: React.FC<React.ComponentProps<Icon>> = (props) => <MoonFill {...props} />
+const AutoIcon: React.FC<React.ComponentProps<Icon>> = (props) => <Stars {...props} />
+
+const ThemeToggle: React.FC<ThemeToggleProps> = ({
+  className
+}) => {
+  const isSystemDark = useMedia('(prefers-color-scheme: dark)', false);
+  const [storedThemeSetting, setThemeSetting] = useLocalStorage('theme', 'auto' as ThemeSetting);
+  const themeSetting = storedThemeSetting ?? 'auto';
+
+  const theme: Theme = themeSetting === 'dark'
+    ? 'dark'
+    : themeSetting === 'light'
+      ? 'light'
+      : isSystemDark ? 'dark' : 'light'
+
+  React.useEffect(() => {
+    if (themeSetting === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    } else if (themeSetting === 'dark') {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.remove('dark');
+    }
+  }, [themeSetting]);
+
+  const ThemeIcon = theme === 'dark' ? DarkIcon : LightIcon;
+
+  return (
+    <Dropdown
+      className={className}
+      onSelect={e => setThemeSetting(e as ThemeSetting)}
+    >
+      <DropdownButton className={styles.toggleButton} size='sm' hidePopper>
+        <ThemeIcon />
+      </DropdownButton>
+      <DropdownMenu>
+        <DropdownItem
+          className={classes(styles.item, styles.light)}
+          active={themeSetting === 'light'}
+          eventKey='light'
+        >
+          <LightIcon />
+          <span>Light</span>
+        </DropdownItem>
+        <DropdownItem
+          className={classes(styles.item, styles.dark)}
+          active={themeSetting === 'dark'}
+          eventKey='dark'
+        >
+          <DarkIcon />
+          <span>Dark</span>
+        </DropdownItem>
+        <DropdownItem
+          className={classes(styles.item, styles.auto)}
+          active={themeSetting === 'auto'}
+          eventKey='auto'
+        >
+          <AutoIcon />
+          <span>System default</span>
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+  )
+};
+
+export default ThemeToggle;

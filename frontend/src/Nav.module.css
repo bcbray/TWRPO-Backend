@@ -64,23 +64,24 @@
 .nav {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
-.nav a {
+.nav > a {
   display: block;
   color: hsla(0,0%,100%,.55);
   padding: 0.5rem;
   transition: color .15s ease-in-out;
 }
 
-.nav a:hover {
+.nav > a:hover {
   color: hsla(0,0%,100%,.75);
 }
 
-.nav a:focus {
+.nav > a:focus {
   color: hsla(0,0%,100%,.75);
 }
 
-.nav a.active {
+.nav > a.active {
   color: #fff;
 }

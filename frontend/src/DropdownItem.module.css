@@ -8,7 +8,7 @@
   color: var(--theme-black);
 }
 
-.item:hover, .item:focus {
+.item:hover, .item:focus, .item.active {
   background-color: var(--theme-gray-200);
   color: var(--theme-gray-950);
 }

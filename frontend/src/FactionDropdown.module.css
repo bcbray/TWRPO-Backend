@@ -59,32 +59,58 @@
 
 .item.noFilter:active, .item.noFilter.active {
   background-color: var(--theme-gray-200);
-  color: var(--theme-black);
+  color: var(--theme-white) !important;
 }
 
 
 @media (prefers-color-scheme: dark) {
-  .factionDropdownButton {
+  :root:not(:global(.light)):not(:global(.dark)) .factionDropdownButton {
     background-color: var(--faction-color-dark);
   }
 
-  .factionDropdownButton:hover {
+  :root:not(:global(.light)):not(:global(.dark)) .factionDropdownButton:hover {
     background-color: var(--faction-color-dark-hover);
   }
 
-  .item {
+  :root:not(:global(.light)):not(:global(.dark)) .item {
     color: var(--faction-color-dark) !important;
   }
 
-  .item:hover, .item:focus {
+  :root:not(:global(.light)):not(:global(.dark)) .item:hover, :root:not(:global(.light)):not(:global(.dark)) .item:focus {
     color: var(--faction-color-dark-hover) !important;
   }
 
-  .item:active, .item.active {
+  :root:not(:global(.light)):not(:global(.dark)) .item:active, :root:not(:global(.light)):not(:global(.dark)) .item.active {
     background-color: var(--faction-color-dark) !important;
+    color: var(--theme-white) !important;
   }
 
-  .item.active:hover {
+  :root:not(:global(.light)):not(:global(.dark)) .item.active:hover {
     background-color: var(--faction-color-dark-hover) !important;
   }
+}
+
+:root:global(.dark) .factionDropdownButton {
+  background-color: var(--faction-color-dark);
+}
+
+:root:global(.dark) .factionDropdownButton:hover {
+  background-color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .item {
+  color: var(--faction-color-dark) !important;
+}
+
+:root:global(.dark) .item:hover, :root:global(.dark) .item:focus {
+  color: var(--faction-color-dark-hover) !important;
+}
+
+:root:global(.dark) .item:active, :root:global(.dark) .item.active {
+  background-color: var(--faction-color-dark) !important;
+  color: var(--theme-white) !important;
+}
+
+:root:global(.dark) .item.active:hover {
+  background-color: var(--faction-color-dark-hover) !important;
 }

@@ -51,7 +51,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light):not(.dark) {
     --theme-white: var(--const-theme-black);
     --theme-black: var(--const-theme-white);
     --theme-gray-050: var(--const-theme-gray-950);
@@ -85,6 +85,41 @@
     --input-field-background-color: var(--theme-gray-050);
     --input-field-border-color: var(--theme-gray-100);
   }
+}
+
+:root.dark {
+  --theme-white: var(--const-theme-black);
+  --theme-black: var(--const-theme-white);
+  --theme-gray-050: var(--const-theme-gray-950);
+  --theme-gray-100: var(--const-theme-gray-900);
+  --theme-gray-200: var(--const-theme-gray-800);
+  --theme-gray-300: var(--const-theme-gray-700);
+  --theme-gray-400: var(--const-theme-gray-600);
+  --theme-gray-500: var(--const-theme-gray-500);
+  --theme-gray-600: var(--const-theme-gray-400);
+  --theme-gray-700: var(--const-theme-gray-300);
+  --theme-gray-800: var(--const-theme-gray-200);
+  --theme-gray-900: var(--const-theme-gray-100);
+  --theme-gray-950: var(--const-theme-gray-050);
+
+  --theme-red: #dc3545;
+  --theme-red-100: #842029;
+  --theme-red-800: #f5c2c7;
+  --theme-modal-background: var(--theme-gray-050);
+
+  --theme-primary-color: #0d6efd;
+  --theme-primary-color-hover: #0b5ed7;
+  --theme-primary-color-active: #0a58ca;
+
+  --theme-secondary-color: var(--theme-gray-400);
+  --theme-secondary-color-hover: var(--theme-gray-500);
+  --theme-secondary-color-active: var(--theme-gray-500);
+
+  --table-row-border-color: var(--theme-gray-200);
+  --table-header-border-color: var(--theme-gray-500);
+  --table-row-hover-background-color: rgba(255,255,255,.095);
+  --input-field-background-color: var(--theme-gray-050);
+  --input-field-border-color: var(--theme-gray-100);
 }
 
 :root {
@@ -288,6 +323,10 @@ hr:not([size]) {
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   border: 1px solid transparent;
   cursor: pointer;
+}
+
+.button-sm {
+  padding: 0.25rem 0.5rem;
 }
 
 .button.primary {

@@ -5,6 +5,7 @@ import { OverlayInjectedProps } from '@restart/ui/Overlay';
 import { Placement } from '@restart/ui/usePopper';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import useTimeout from '@restart/hooks/useTimeout';
+import { useUncontrolledProp } from 'uncontrollable';
 
 import { Fade } from './Transitions';
 
@@ -18,13 +19,19 @@ export type OverlayTriggerRenderProps = OverlayInjectedProps & {
   ref: React.Ref<any>;
 };
 
+export type OverlayTriggerTrigger = 'hover' | 'click' | 'focus';
+
 export interface OverlayTriggerProps {
   children:
     | React.ReactElement
     | ((props: OverlayTriggerRenderProps) => React.ReactNode);
   placement: Placement;
   delay?: OverlayDelay;
-  overlay: OverlayChildren
+  show?: boolean;
+  onToggle?: (nextShow: boolean) => void;
+  defaultShow?: boolean;
+  trigger?: OverlayTriggerTrigger | OverlayTriggerTrigger[];
+  overlay: OverlayChildren;
 }
 
 function safeFindDOMNode(
@@ -49,6 +56,10 @@ const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
   children,
   placement,
   delay: propsDelay,
+  show: propsShow,
+  defaultShow = false,
+  onToggle,
+  trigger = ['hover', 'focus'],
   overlay,
   ...props
 }) => {
@@ -60,7 +71,7 @@ const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
   const timeout = useTimeout();
   const hoverStateRef = React.useRef<string>('');
 
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useUncontrolledProp<boolean>(propsShow, defaultShow, onToggle);
 
   const delay = normalizeDelay(propsDelay);
 
@@ -96,12 +107,32 @@ const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
     }, delay.hide);
   }, [delay.hide, setShow, timeout]);
 
+  const handleClick = React.useCallback(
+    () => {
+      setShow(!show);
+    },
+    [setShow, show],
+  );
+
+  const triggers: OverlayTriggerTrigger[] = trigger === null ? [] : [].concat(trigger as any);
+
   const triggerProps: any = {
     ref: attachRef,
   };
 
-  triggerProps.onMouseOver = handleShow;
-  triggerProps.onMouseOut = handleHide;
+  if (triggers.includes('click')) {
+    triggerProps.onClick = handleClick;
+  }
+
+  if (triggers.includes('focus')) {
+    triggerProps.onFocus = handleShow;
+    triggerProps.onBlur = handleHide;
+  }
+
+  if (triggers.includes('hover')) {
+    triggerProps.onMouseOver = handleShow;
+    triggerProps.onMouseOut = handleHide;
+  }
 
   return (
     <>
@@ -115,12 +146,18 @@ const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
         target={triggerNodeRef.current}
         transition={Fade as any}
       >
-        {(overlayInjectedProps, { arrowProps }) => {
-          const props = {
-            onMouseOver: handleShow,
-            onMouseOut: handleHide,
+        {({style, ...overlayInjectedProps}, { arrowProps }) => {
+          const props: any = {
             arrowProps,
+            style: {
+              zIndex: 1050,
+              ...style
+            },
             ...overlayInjectedProps
+          }
+          if (triggers.includes('hover')) {
+            props.onMouseOver = handleShow
+            props.onMouseOut = handleHide
           }
           return typeof overlay === 'function'
             ? overlay(props)

@@ -103,11 +103,19 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .channel a {
+  :root:not(:global(.light)):not(:global(.dark)) .channel a {
     color: var(--faction-color-dark);
   }
 
-  .channel a:hover {
+  :root:not(:global(.light)):not(:global(.dark)) .channel a:hover {
     color: var(--faction-color-dark-hover);
   }
+}
+
+:root:global(.dark) .channel a {
+  color: var(--faction-color-dark);
+}
+
+:root:global(.dark) .channel a:hover {
+  color: var(--faction-color-dark-hover);
 }

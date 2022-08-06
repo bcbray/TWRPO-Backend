@@ -2,6 +2,7 @@ import React from 'react';
 import BaseDropdown, {
   DropdownProps as BaseDropdownProps,
 } from '@restart/ui/Dropdown';
+import { useUncontrolled } from 'uncontrollable';
 
 import styles from './Dropdown.module.css';
 import { classes } from './utils';
@@ -14,7 +15,9 @@ interface DropdownProps
 }
 
 const Dropdown = React.forwardRef<HTMLElement, DropdownProps>((
-  {
+  pProps, ref
+) => {
+  const {
     as: Component = 'div',
     placement,
     defaultShow,
@@ -25,8 +28,7 @@ const Dropdown = React.forwardRef<HTMLElement, DropdownProps>((
     focusFirstItemOnShow,
     className,
     ...props
-  }, ref
-) => {
+  } = useUncontrolled(pProps, { show: 'onToggle' });
   return (
     <BaseDropdown
       placement={placement}
@@ -40,7 +42,7 @@ const Dropdown = React.forwardRef<HTMLElement, DropdownProps>((
       <Component
         {...props}
         ref={ref}
-        className={classes(styles.dropdown, className)}
+        className={classes(styles.dropdown, show && 'show', className)}
       />
     </BaseDropdown>
   );

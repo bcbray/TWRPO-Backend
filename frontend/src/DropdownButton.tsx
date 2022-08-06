@@ -7,14 +7,18 @@ import { classes } from './utils';
 interface DropdownButtonProps
   extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect' | 'children'>
 {
-  as?: React.ElementType
-  children?: React.ReactNode
+  as?: React.ElementType;
+  hidePopper?: boolean;
+  size?: 'sm';
+  children?: React.ReactNode;
 }
 
 const DropdownButton: React.FC<DropdownButtonProps> = ({
   as: Component = 'button',
   className,
   role = 'button',
+  hidePopper = false,
+  size,
   children,
   ...props
 }) => {
@@ -25,7 +29,9 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
       className={classes(
         styles.button,
         className,
-        'button'
+        'button',
+        size === 'sm' && 'button-sm',
+        hidePopper && styles.noPopper,
       )}
       role={role}
       {...toggleProps}

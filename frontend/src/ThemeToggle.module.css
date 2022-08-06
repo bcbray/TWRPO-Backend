@@ -1,0 +1,24 @@
+.toggleButton {
+  display: flex !important;
+  align-items: center;
+  padding: 0.5rem;
+  color: hsla(0,0%,100%,.55);
+  background-color: transparent;
+}
+
+.toggleButton:hover, :global(.show) .toggleButton {
+  background-color: var(--const-theme-gray-700);
+  border-radius: 0.2rem;
+  color: var(--const-theme-white);
+}
+
+.item {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem !important;
+}
+
+.item svg, .item span {
+  display: block;
+}

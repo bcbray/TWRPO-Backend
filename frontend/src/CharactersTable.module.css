@@ -94,11 +94,19 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .factionPill span {
+  :root:not(:global(.light)):not(:global(.dark)) .factionPill span {
     background-color: var(--faction-color-dark);
   }
 
-  .factionPill span:hover {
+  :root:not(:global(.light)):not(:global(.dark)) .factionPill span:hover {
     background-color: var(--faction-color-dark-hover);
   }
+}
+
+:root:global(.dark) .factionPill span {
+  background-color: var(--faction-color-dark);
+}
+
+:root:global(.dark) .factionPill span:hover {
+  background-color: var(--faction-color-dark-hover);
 }

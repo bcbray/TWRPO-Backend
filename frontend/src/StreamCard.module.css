@@ -103,28 +103,53 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .card.container {
+  :root:not(:global(.light)):not(:global(.dark)) .card.container {
     background: var(--theme-gray-050);
     box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
   }
 
-  .card .thumbnail {
+  :root:not(:global(.light)):not(:global(.dark)) .card .thumbnail {
     border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
   }
 
-  .inline .thumbnail, .inline .thumbnail:hover, .inline .thumbnail:active {
+  :root:not(:global(.light)):not(:global(.dark)) .inline .thumbnail, :root:not(:global(.light)):not(:global(.dark)) .inline .thumbnail:hover, :root:not(:global(.light)):not(:global(.dark)) .inline .thumbnail:active {
     box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
   }
 
-  .pfsp {
+  :root:not(:global(.light)):not(:global(.dark)) .pfsp {
     box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
   }
 
-  .channel a {
+  :root:not(:global(.light)):not(:global(.dark)) .channel a {
     color: var(--faction-color-dark);
   }
 
-  .channel a:hover {
+  :root:not(:global(.light)):not(:global(.dark)) .channel a:hover {
     color: var(--faction-color-dark-hover);
   }
+}
+
+:root:global(.dark) .card.container {
+  background: var(--theme-gray-050);
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+:root:global(.dark) .card .thumbnail {
+  border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
+}
+
+:root:global(.dark) .inline .thumbnail, :root:global(.dark) .inline .thumbnail:hover, :root:global(.dark) .inline .thumbnail:active {
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+:root:global(.dark) .pfsp {
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+:root:global(.dark) .channel a {
+  color: var(--faction-color-dark);
+}
+
+:root:global(.dark) .channel a:hover {
+  color: var(--faction-color-dark-hover);
 }
