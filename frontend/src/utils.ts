@@ -74,3 +74,22 @@ export const classes = (...parts: ClassPart[]): string | undefined => {
   }
   return names.join(' ');
 }
+
+export function createChainedFunction<Args extends any[], This>(
+  ...funcs: Array<(this: This, ...args: Args) => any>
+): (this: This, ...args: Args) => void {
+  return funcs
+    .filter((f) => f != null)
+    .reduce((acc, f) => {
+      if (f === null) {
+        return acc;
+      }
+
+      return function chainedFunction(...args: any[]) {
+        // @ts-ignore
+        acc.apply(this, args);
+        // @ts-ignore
+        f.apply(this, args);
+      };
+    }, () => {});
+}

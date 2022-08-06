@@ -6,6 +6,7 @@ import styles from './Nav.module.css';
 
 import { classes } from './utils';
 import ThemeToggle from './ThemeToggle';
+import { Collapse } from './Transitions';
 
 const Nav: React.FC<{}> = () => {
   const [collapsed, setCollapsed] = React.useState(true);
@@ -23,27 +24,29 @@ const Nav: React.FC<{}> = () => {
         >
           <span></span>
         </Button>
-        <div
-          className={classes(
-            styles.links,
-            styles.collapse,
-            !collapsed && styles.show
-          )}
+        <Collapse
+          in={!collapsed}
         >
-          <a
-            className={classes('button', 'primary', styles.extension)}
-            role='button'
-            href='https://chrome.google.com/webstore/detail/twitch-wildrp-only/jnbgafpjnfoocapahlkjihjecoaaaikd'
+          <div
+            className={classes(
+              styles.links,
+            )}
           >
-            Get Extension
-          </a>
-          <div className={styles.nav}>
-            <ThemeToggle className={styles.themeToggle} />
-            <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/'>Live</NavLink>
-            <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/characters'>Characters</NavLink>
-            <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/multistream'>Multistream</NavLink>
+            <a
+              className={classes('button', 'primary', styles.extension)}
+              role='button'
+              href='https://chrome.google.com/webstore/detail/twitch-wildrp-only/jnbgafpjnfoocapahlkjihjecoaaaikd'
+            >
+              Get Extension
+            </a>
+            <div className={styles.nav}>
+              <ThemeToggle className={styles.themeToggle} />
+              <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/'>Live</NavLink>
+              <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/characters'>Characters</NavLink>
+              <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/multistream'>Multistream</NavLink>
+            </div>
           </div>
-        </div>
+        </Collapse>
       </div>
     </div>
   );

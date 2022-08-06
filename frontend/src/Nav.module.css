@@ -13,6 +13,7 @@
   padding: 0.5rem 0;
   background-color: var(--navbar-bg-color);
   color: #fff;
+  overflow: hidden;
 }
 
 .container {
@@ -37,6 +38,7 @@
 }
 
 .links {
+  position: relative;
   flex-basis: 100%;
   flex-grow: 1;
   display: flex;
@@ -52,6 +54,10 @@
 }
 
 @media (min-width: 576px) {
+  .navbar {
+    overflow: unset;
+  }
+
   .toggler {
     display: none;
   }
@@ -110,10 +116,6 @@
   font-size: 1.25rem;
   line-height: 1;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-.collapse:not(.show) {
-  display: none;
 }
 
 .nav {
