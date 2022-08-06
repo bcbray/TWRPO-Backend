@@ -2,6 +2,7 @@ import React from 'react';
 import { useMedia, useLocalStorage } from 'react-use';
 import { Icon, SunFill, MoonFill, Stars } from 'react-bootstrap-icons';
 import { Button } from '@restart/ui';
+import { useDatadogRum } from 'react-datadog';
 
 import styles from './ThemeToggle.module.css';
 
@@ -29,12 +30,26 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
   const isSystemDark = useMedia('(prefers-color-scheme: dark)', false);
   const [storedThemeSetting, setThemeSetting] = useLocalStorage('theme', 'auto' as ThemeSetting);
   const themeSetting = storedThemeSetting ?? 'auto';
+  const rum = useDatadogRum();
 
   const theme: Theme = themeSetting === 'dark'
     ? 'dark'
     : themeSetting === 'light'
       ? 'light'
       : isSystemDark ? 'dark' : 'light'
+
+  React.useEffect(() => {
+    const themeContext = {
+      setting: themeSetting,
+      theme,
+      system: isSystemDark ? 'dark' : 'light',
+    }
+    if ('theme' in rum.getRumGlobalContext()) {
+      rum.setRumGlobalContext({ theme: themeContext });
+    } else {
+      rum.addRumGlobalContext('theme', themeContext);
+    }
+  }, [rum, theme, themeSetting, isSystemDark]);
 
   React.useEffect(() => {
     if (themeSetting === 'light') {
@@ -57,7 +72,13 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
     >
       <Dropdown
         className={styles.dropdown}
-        onSelect={e => setThemeSetting(e as ThemeSetting)}
+        onSelect={e => {
+          rum.addAction(`Change theme to ${e}`, {
+            type: 'theme-change',
+            selectedTheme: e,
+          });
+          setThemeSetting(e as ThemeSetting)
+        }}
       >
         <DropdownButton className={styles.toggleButton} size='sm' hidePopper>
           <ThemeIcon />
