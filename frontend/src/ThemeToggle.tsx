@@ -1,6 +1,7 @@
 import React from 'react';
 import { useMedia, useLocalStorage } from 'react-use';
 import { Icon, SunFill, MoonFill, Stars } from 'react-bootstrap-icons';
+import { Button } from '@restart/ui';
 
 import styles from './ThemeToggle.module.css';
 
@@ -51,40 +52,79 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
   const ThemeIcon = theme === 'dark' ? DarkIcon : LightIcon;
 
   return (
-    <Dropdown
-      className={className}
-      onSelect={e => setThemeSetting(e as ThemeSetting)}
+    <div
+        className={className}
     >
-      <DropdownButton className={styles.toggleButton} size='sm' hidePopper>
-        <ThemeIcon />
-      </DropdownButton>
-      <DropdownMenu>
-        <DropdownItem
-          className={classes(styles.item, styles.light)}
-          active={themeSetting === 'light'}
-          eventKey='light'
+      <Dropdown
+        className={styles.dropdown}
+        onSelect={e => setThemeSetting(e as ThemeSetting)}
+      >
+        <DropdownButton className={styles.toggleButton} size='sm' hidePopper>
+          <ThemeIcon />
+        </DropdownButton>
+        <DropdownMenu>
+          <DropdownItem
+            className={classes(styles.item, styles.light)}
+            active={themeSetting === 'light'}
+            eventKey='light'
+          >
+            <LightIcon />
+            <span>Light</span>
+          </DropdownItem>
+          <DropdownItem
+            className={classes(styles.item, styles.dark)}
+            active={themeSetting === 'dark'}
+            eventKey='dark'
+          >
+            <DarkIcon />
+            <span>Dark</span>
+          </DropdownItem>
+          <DropdownItem
+            className={classes(styles.item, styles.auto)}
+            active={themeSetting === 'auto'}
+            eventKey='auto'
+          >
+            <AutoIcon />
+            <span>System default</span>
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+      <div className={styles.inline}>
+        <Button
+          className={classes(
+            styles.item,
+            styles.light,
+            themeSetting === 'light' && styles.active
+          )}
+          onClick={() => setThemeSetting('light')}
         >
           <LightIcon />
           <span>Light</span>
-        </DropdownItem>
-        <DropdownItem
-          className={classes(styles.item, styles.dark)}
-          active={themeSetting === 'dark'}
-          eventKey='dark'
+        </Button>
+        <Button
+          className={classes(
+            styles.item,
+            styles.dark,
+            themeSetting === 'dark' && styles.active
+          )}
+          onClick={() => setThemeSetting('dark')}
         >
           <DarkIcon />
           <span>Dark</span>
-        </DropdownItem>
-        <DropdownItem
-          className={classes(styles.item, styles.auto)}
-          active={themeSetting === 'auto'}
-          eventKey='auto'
+        </Button>
+        <Button
+          className={classes(
+            styles.item,
+            styles.auto,
+            themeSetting === 'auto' && styles.active
+          )}
+          onClick={() => setThemeSetting('auto')}
         >
           <AutoIcon />
           <span>System default</span>
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+        </Button>
+      </div>
+    </div>
   )
 };
 

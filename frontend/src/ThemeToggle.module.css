@@ -1,3 +1,39 @@
+.dropdown {
+  display: none;
+}
+
+.inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.inline button {
+  background-color: transparent;
+  border: none;
+  color: hsla(0,0%,100%,.55);
+}
+
+.inline button:not(:first-child):before {
+  content: '';
+  border-right: 1px solid hsla(0,0%,100%,.1);
+  align-self: stretch;
+  margin-right: 1rem;
+}
+
+.inline .active, .inline button:hover {
+  color: var(--const-theme-white);
+}
+
+@media (min-width: 576px) {
+  .dropdown {
+    display: block;
+  }
+  .inline {
+    display: none;
+  }
+}
+
 .toggleButton {
   display: flex !important;
   align-items: center;
@@ -15,8 +51,11 @@
 .item {
   display: flex !important;
   align-items: center;
-  gap: 0.5rem;
   padding: 0.25rem 0.5rem !important;
+}
+
+.item svg {
+  margin-right: 0.5rem;
 }
 
 .item svg, .item span {

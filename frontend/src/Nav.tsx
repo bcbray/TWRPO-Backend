@@ -1,17 +1,35 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { classes } from './utils';
+import { Button } from '@restart/ui';
 
 import styles from './Nav.module.css';
 
+import { classes } from './utils';
 import ThemeToggle from './ThemeToggle';
 
 const Nav: React.FC<{}> = () => {
+  const [collapsed, setCollapsed] = React.useState(true);
+
   return (
     <div className={styles.navbar}>
       <div className={classes('inset', styles.container)}>
         <NavLink className={styles.brand} to='/'>Twitch WildRP Only</NavLink>
-        <div className={styles.links}>
+        <Button
+          className={classes(
+            styles.toggler,
+            collapsed && styles.collapsed
+          )}
+          onClick={() => setCollapsed(c => !c)}
+        >
+          <span></span>
+        </Button>
+        <div
+          className={classes(
+            styles.links,
+            styles.collapse,
+            !collapsed && styles.show
+          )}
+        >
           <a
             className={classes('button', 'primary', styles.extension)}
             role='button'
