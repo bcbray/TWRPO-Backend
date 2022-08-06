@@ -41,13 +41,14 @@ export const isFailure = <T,E>(state: LoadingState<T, E>): state is Failure_<E> 
 export interface LoadingProps {
   needsLoad?: boolean;
   onReloadFailed?: (error: Error) => void;
+  onReloadSuccess?: () => void;
 }
 
 export function useLoading<T>(
   input: RequestInfo,
   props: LoadingProps = {}
 ): [LoadingState<T, Error>, () => void, number] {
-  const { needsLoad = true, onReloadFailed } = props;
+  const { needsLoad = true, onReloadFailed, onReloadSuccess } = props;
   const [getState, setState] = useGetSet<LoadingState<T, any>>(Idle);
   const [loadCount, setLoadCount] = useState(0);
   const [lastLoadCount, setLastLoadCount] = useState<number | undefined>(undefined);
@@ -70,6 +71,9 @@ export function useLoading<T>(
     async function performFetch(isReloadFromSuccess: boolean, isReloadFromFailure: boolean) {
       try {
         const result = await fetchAndCheck();
+        if (isReloadFromSuccess || isReloadFromFailure) {
+          onReloadSuccess?.();
+        }
         setState(Success(result));
       } catch (error: any) {
         if (isReloadFromSuccess || isReloadFromFailure) {
@@ -90,7 +94,7 @@ export function useLoading<T>(
     setLastInput(input);
     setLastLoadCount(loadCount);
     performFetch(isReloadFromSuccess, isReloadFromFailure);
-  }, [input, lastInput, loadCount, getState, setState, lastLoadCount, needsLoad, onReloadFailed]);
+  }, [input, lastInput, loadCount, getState, setState, lastLoadCount, needsLoad, onReloadFailed, onReloadSuccess]);
 
   return [getState(), () => setLoadCount(c => c + 1), lastLoad?.getTime() || 0];
 }

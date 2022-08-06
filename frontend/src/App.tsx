@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import Structure from './Structure';
 import CharactersContainer from './CharactersContainer';
