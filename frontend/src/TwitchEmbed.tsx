@@ -1,5 +1,4 @@
 import React from 'react';
-import { useUncontrolledProp } from 'uncontrollable';
 
 import { TwitchPlayer } from './twitch-embed'
 
@@ -14,12 +13,6 @@ interface Props {
     controls?: boolean;
     autoplay?: boolean;
     play?: boolean;
-    onTogglePlay?: (nextPlay: boolean) => void;
-
-    // Roughly equivalent to onTogglePlay,
-    // but won't switch to `true` until the
-    // video is actually playing (e.g. after
-    // the initial buffering is complete)
     onPlaying?: (playing: boolean) => void;
 }
 
@@ -45,15 +38,13 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
   parent,
   muted,
   controls,
-  play: propsPlaying,
-  onTogglePlay: propsOnTogglePlaying,
+  play,
   autoplay = true,
   onPlaying,
 }) => {
   const [player, setPlayer] = React.useState<TwitchPlayer | undefined>(undefined);
   const [isPlayerReady, setIsPlayerReady] = React.useState(false);
   const [actuallyPlaying, setActuallyPlaying] = React.useState(false);
-  const [playing, setPlaying] = useUncontrolledProp(propsPlaying, autoplay, propsOnTogglePlaying);
 
   React.useEffect(() => {
     if (isPlayerReady) {
@@ -65,12 +56,12 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
     if (!isPlayerReady) {
       return;
     }
-    if (!actuallyPlaying && playing) {
+    if (!actuallyPlaying && play) {
       player?.play();
-    } else if (actuallyPlaying && !playing) {
+    } else if (actuallyPlaying && !play) {
       player?.pause();
     }
-  }, [player, actuallyPlaying, playing, isPlayerReady]);
+  }, [player, actuallyPlaying, play, isPlayerReady]);
 
   React.useEffect(() => {
     function ready() {
@@ -78,12 +69,10 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
     }
     function pause() {
       setActuallyPlaying(false);
-      setPlaying(false);
       onPlaying?.(false);
     }
     function playing() {
       setActuallyPlaying(true);
-      setPlaying(true);
       onPlaying?.(true);
     }
 
@@ -95,7 +84,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
       player?.removePauseListener(pause);
       player?.removePlayingListener(playing);
     }
-  }, [player, setPlaying, onPlaying]);
+  }, [player, onPlaying]);
 
   React.useEffect(() => {
     function createPlayer() {
@@ -105,7 +94,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
         width: '100%',
         height: '100%',
         muted: muted ?? false,
-        autoplay: playing,
+        autoplay: autoplay,
         controls,
       });
       setPlayer(player);
