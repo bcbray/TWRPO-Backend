@@ -9,6 +9,7 @@ interface Props {
     height: number;
     parent: string;
     muted?: boolean;
+    controls?: boolean;
 }
 
 function addScript(): HTMLScriptElement {
@@ -24,7 +25,16 @@ function addScript(): HTMLScriptElement {
   return scriptElement;
 };
 
-const TwitchEmbed: React.FunctionComponent<Props> = ({ id, className, channel, width, height, parent, muted }) => {
+const TwitchEmbed: React.FunctionComponent<Props> = ({
+  id,
+  className,
+  channel,
+  width,
+  height,
+  parent,
+  muted,
+  controls,
+}) => {
   const [player, setPlayer] = React.useState<TwitchPlayer | undefined>(undefined);
   const [isPlayerReady, setIsPlayerReady] = React.useState(false);
 
@@ -54,6 +64,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({ id, className, channel, w
         height: '100%',
         muted: muted ?? false,
         autoplay: true,
+        controls,
       });
       setPlayer(player);
     }
