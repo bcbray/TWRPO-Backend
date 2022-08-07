@@ -91,9 +91,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
 
   const hideEmbed = (embed === 'hover' && !embedIsPlaying) || !embedHasEverPlayed;
 
-  const startDate = React.useMemo(() => {
-    return stream.startDate ? new Date(stream.startDate) : undefined;
-  }, [stream.startDate])
+  const startDate = React.useMemo(() => new Date(stream.startDate), [stream.startDate])
 
   const [now, setNow] = React.useState(new Date());
   useHarmonicIntervalFn(() => setNow(new Date()), 1000);
@@ -136,11 +134,9 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
         <Tag className={classes(styles.tag, styles.viewers)}>
           <p>{formatViewers(stream.viewers)}</p>
         </Tag>
-        {startDate &&
-          <Tag className={classes(styles.tag, styles.runtime)}>
-            <p>{formatDuration(startDate, now)}</p>
-          </Tag>
-        }
+        <Tag className={classes(styles.tag, styles.runtime)}>
+          <p>{formatDuration(startDate, now)}</p>
+        </Tag>
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
         <StreamLink stream={stream}>

@@ -331,7 +331,7 @@ export interface Stream extends BaseStream {
     tagFactionSecondary?: FactionColorsMini;
     videoUrl?: string;
     thumbnailUrl?: string;
-    startDate?: Date;
+    startDate: Date;
 }
 
 type FactionCount = { [key in FactionMini]: number };

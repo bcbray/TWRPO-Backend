@@ -27,6 +27,7 @@ const ColorCell: React.FC<{color: string, invert?: boolean, dark?: boolean }> = 
 }
 
 const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
+  const startDate = React.useMemo(() => (new Date(new Date().getTime() - 5241000)).toString() ,[]);
   const fakeStream: Stream = {
     channelName: 'Ssaab',
     title: 'Sam Baas | WildRP',
@@ -42,6 +43,7 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
     tagText: 'Sam',
     tagFaction: faction.key,
     thumbnailUrl: '/images/example-live-thumbnail.jpeg',
+    startDate
   };
   return (
     <div className={styles.card}>
