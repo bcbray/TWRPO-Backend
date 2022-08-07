@@ -606,6 +606,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     extralivia: [
         { name: 'Lydia Spade' },
+        { name: 'Aria Monroe' },
     ],
     Eyebyte: [
         { name: 'Amarillo Marnen' },
