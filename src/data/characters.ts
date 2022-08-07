@@ -1328,6 +1328,9 @@ export const wrpCharacters: WrpCharacters = {
     Point1985: [
         { name: 'Joe Jackson' },
     ],
+    potsie30: [
+        { name: 'Doug Landers' },
+    ],
     privyLore: [
         { name: 'Wren Lebow', nicknames: ['Lilith'] },
         { name: 'Kathryn ?' },
