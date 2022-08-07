@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flipper, Flipped } from 'react-flip-toolkit';
+import isMobile from 'is-mobile';
 
 import styles from './StreamList.module.css';
 import { Stream, CharacterInfo, FactionInfo } from './types';
@@ -26,7 +27,7 @@ const StreamList: React.FC<Props> = ({ streams, offlineCharacters, factionInfos,
                   stream={stream}
                   factionInfos={factionInfos}
                   loadTick={loadTick}
-                  embed={'hover'}
+                  embed={isMobile() ? false : 'hover'}
                 />
               </div>
             </Flipped>
