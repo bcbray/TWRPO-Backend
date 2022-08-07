@@ -108,6 +108,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
       player?.play();
     } else if (actuallyPlaying && !play) {
       player?.pause();
+      setActuallyPlaying(false);
     }
   }, [player, actuallyPlaying, play, isPlayerReady]);
 
