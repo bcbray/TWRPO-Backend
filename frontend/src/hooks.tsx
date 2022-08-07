@@ -143,4 +143,26 @@ export function useDelayed<T>(value: T, delay: number): T {
   }, [value]);
 
   return effectiveValue;
+};
+
+const hasFocus = () => document && document.hasFocus()
+
+export function useWindowFocus(): boolean {
+  const [focused, setFocused] = useState(hasFocus());
+  useEffect(() => {
+    setFocused(hasFocus());
+
+    const handleFocus = () => setFocused(true);
+    const handleBlur = () => setFocused(false);
+
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', handleBlur);
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('blur', handleBlur);
+    }
+  }, []);
+
+  return focused;
 }

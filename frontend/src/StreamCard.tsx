@@ -1,10 +1,16 @@
 import React from 'react';
-import { useHoverDirty, useIntersection } from 'react-use';
+import { useIntersection, useHoverDirty } from 'react-use';
 
 import styles from './StreamCard.module.css';
 import { Stream, FactionInfo, channelInfo } from './types';
 import { formatViewers, classes } from './utils';
-import { useFactionCss, factionStylesForKey, useOneWayBoolean, useDelayed } from './hooks';
+import {
+  useFactionCss,
+  factionStylesForKey,
+  useOneWayBoolean,
+  useDelayed,
+  useWindowFocus
+} from './hooks';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
@@ -73,9 +79,12 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
   const instantHovered = useHoverDirty(thumbnailRef);
   const hovered = useDelayed(instantHovered, embedHasEverPlayed ? 0 : 250);
 
+  const windowFocused = useWindowFocus();
+
   const isInViewport = intersection != null && intersection.isIntersecting;
 
-  const hasEmbed = (embed === true && isInViewport) || (embed === 'hover' && hovered);
+  const hasEmbed = (embed === true && isInViewport)
+    || (embed === 'hover' && hovered && windowFocused);
 
   const hasEverHadEmbed = useOneWayBoolean(hasEmbed);
 
