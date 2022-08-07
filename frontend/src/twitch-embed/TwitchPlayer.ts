@@ -1,6 +1,7 @@
 import { Player } from './Player';
 import { TwitchPlayerOptions } from './TwitchPlayerOptions'
 import { TwitchPlaybackStats } from './TwitchPlaybackStats'
+import { TwitchQuality } from './TwitchQuality'
 
 interface EventKeys {
   CAPTIONS: string;
@@ -153,7 +154,7 @@ export class TwitchPlayer {
     return this.player.getPlaybackStats();
   }
 
-  public getQualities(): string[] {
+  public getQualities(): TwitchQuality[] {
     this._fixWindowRefIfNeeded();
     return this.player.getQualities();
   }

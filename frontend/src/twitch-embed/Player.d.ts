@@ -19,7 +19,7 @@ export interface Player {
     getCurrentTime(): number | undefined;
     getDuration(): number | undefined;
     getEnded(): boolean;
-    getQualities(): string[];
+    getQualities(): Qualities[];
     getQuality(): string;
     getVideo(): string | undefined;
     isPaused(): boolean;
