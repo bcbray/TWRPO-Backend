@@ -27,7 +27,7 @@ export const wrpFactionsRegex = {
     law: noLater(noFormer(/\b(?:deputy|cadet|detective|sheriff|scsd)\b/i)),
     rangers: noFormer(/\brangers?\b/i),
     dicenzofamiglia: noFormer(/\bdicenzos?\b/i),
-    medical: noLater(/(?<!then\b.*|!)(?:doctor|medic|paramedic|therapist|psychologist|\b(?:dr(?!\s*pepper)|em[st]|scdh)\b)/i),
+    medical: noLater(/(?<!then\b.*|!)(?:doctor|medic|paramedic|therapist|psychologist|\b(?:dr(?!(?:\s*pepper|\s+will\s+see\s+you))|em[st]|scdh)\b)/i),
     onelife: /\bperma?thon|\bperma\s*character|\b(?:one|1)[\s\-_.]*life/i,
 } as { [key in WrpFactionsRegexKeys]: RegExp };
 
