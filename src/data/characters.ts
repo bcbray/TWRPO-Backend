@@ -1637,6 +1637,9 @@ export const wrpCharacters: WrpCharacters = {
     Syraphic: [
         { name: 'Emilia "Emi" Song' },
     ],
+    TacticalGH0STT: [
+        { name: 'Beaux Carter' },
+    ],
     TaintedRUMBLER: [
         { name: 'Drew Peters', assume: 'assumeOther' },
     ],
