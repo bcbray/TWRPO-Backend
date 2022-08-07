@@ -4,7 +4,7 @@ import { useHoverDirty, useIntersection } from 'react-use';
 import styles from './StreamCard.module.css';
 import { Stream, FactionInfo, channelInfo } from './types';
 import { formatViewers, classes } from './utils';
-import { useFactionCss, factionStylesForKey, useOneWayBoolean } from './hooks';
+import { useFactionCss, factionStylesForKey, useOneWayBoolean, useDelayed } from './hooks';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
@@ -64,8 +64,14 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
 ) => {
   const factionContainer = useFactionCss(Object.values(factionInfos));
   const thumbnailRef = React.useRef(null);
-  const intersection = useIntersection(thumbnailRef, {})
-  const hovered = useHoverDirty(thumbnailRef);
+  const intersection = useIntersection(thumbnailRef, {});
+
+  const [embedIsPlaying, setEmbedPlaying] = React.useState(false);
+
+  const embedHasEverPlayed = useOneWayBoolean(embedIsPlaying);
+
+  const instantHovered = useHoverDirty(thumbnailRef);
+  const hovered = useDelayed(instantHovered, embedHasEverPlayed ? 0 : 250);
 
   const isInViewport = intersection != null && intersection.isIntersecting;
 
@@ -73,9 +79,6 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
 
   const hasEverHadEmbed = useOneWayBoolean(hasEmbed);
 
-  const [embedIsPlaying, setEmbedPlaying] = React.useState(false);
-
-  const embedHasEverPlayed = useOneWayBoolean(embedIsPlaying);
 
   const hideEmbed = (embed === 'hover' && !embedIsPlaying) || !embedHasEverPlayed;
 
