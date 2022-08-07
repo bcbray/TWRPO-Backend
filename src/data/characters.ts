@@ -1892,6 +1892,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'William "Bill" Carver' },
         { name: 'Benji Bell' },
     ],
+    WeeJimcent: [
+        { name: 'Sergio ?' },
+    ],
     WestCoastWayne: [
         { name: 'Ervin Haywood' },
         { name: 'Charles "Smoke" Dunn' },
