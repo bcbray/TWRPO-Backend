@@ -662,6 +662,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Chester Fox' },
         { name: 'Robert "Bobo" Thompson', nicknames: ['Bob'] },
     ],
+    FortyOne: [
+        { name: 'Sean Mercer' },
+    ],
     FrankTheTank5494: [
         { name: 'Matthew Isaiah' },
     ],
