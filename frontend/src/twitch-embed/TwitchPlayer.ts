@@ -1,5 +1,6 @@
 import { Player } from './Player';
 import { TwitchPlayerOptions } from './TwitchPlayerOptions'
+import { TwitchPlaybackStats } from './TwitchPlaybackStats'
 
 interface EventKeys {
   CAPTIONS: string;
@@ -35,6 +36,14 @@ export class TwitchPlayer {
     }
   }
 
+  public play() {
+    this.player.play();
+  }
+
+  public pause() {
+    this.player.pause();
+  }
+
   public getMuted(): boolean {
     return this.player.getMuted();
   }
@@ -49,5 +58,45 @@ export class TwitchPlayer {
 
   public removeReadyListener(callback: () => void): void {
     this.player.removeEventListener(this.eventKeys.READY, callback);
+  }
+
+  public addPlayListener(callback: () => void): void {
+    this.player.addEventListener(this.eventKeys.PLAY, callback);
+  }
+
+  public removePlayListener(callback: () => void): void {
+    this.player.removeEventListener(this.eventKeys.PLAY, callback);
+  }
+
+  public addPauseListener(callback: () => void): void {
+    this.player.addEventListener(this.eventKeys.PAUSE, callback);
+  }
+
+  public removePauseListener(callback: () => void): void {
+    this.player.removeEventListener(this.eventKeys.PAUSE, callback);
+  }
+
+  public addPlayingListener(callback: () => void): void {
+    this.player.addEventListener(this.eventKeys.PLAYING, callback);
+  }
+
+  public removePlayingListener(callback: () => void): void {
+    this.player.removeEventListener(this.eventKeys.PLAYING, callback);
+  }
+
+  public getPlaybackStats(): TwitchPlaybackStats {
+    return this.player.getPlaybackStats();
+  }
+
+  public getQualities(): string[] {
+    return this.player.getQualities();
+  }
+
+  public getQuality(): string {
+    return this.player.getQuality();
+  }
+
+  public setQuality(quality: string) {
+    return this.player.setQuality(quality);
   }
 }

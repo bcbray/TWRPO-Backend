@@ -10,6 +10,7 @@ interface Props {
     parent: string;
     muted?: boolean;
     controls?: boolean;
+    playing?: boolean;
 }
 
 function addScript(): HTMLScriptElement {
@@ -34,9 +35,11 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
   parent,
   muted,
   controls,
+  playing = true
 }) => {
   const [player, setPlayer] = React.useState<TwitchPlayer | undefined>(undefined);
   const [isPlayerReady, setIsPlayerReady] = React.useState(false);
+  const [isPlaying, setIsPlaying] = React.useState(false);
 
   React.useEffect(() => {
     if (isPlayerReady) {
@@ -45,13 +48,34 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
   }, [player, isPlayerReady, muted]);
 
   React.useEffect(() => {
+    if (!isPlayerReady) {
+      return;
+    }
+    if (!isPlaying && playing) {
+      player?.play();
+    } else if (isPlaying && !playing) {
+      player?.pause();
+    }
+  }, [player, isPlaying, playing, isPlayerReady]);
+
+  React.useEffect(() => {
     function ready() {
       setIsPlayerReady(true);
     }
+    function pause() {
+      setIsPlaying(false);
+    }
+    function playing() {
+      setIsPlaying(true);
+    }
 
     player?.addReadyListener(ready);
+    player?.addPauseListener(pause);
+    player?.addPlayingListener(playing);
     return () => {
       player?.removeReadyListener(ready);
+      player?.removePauseListener(pause);
+      player?.removePlayingListener(playing);
     }
   }, [player]);
 
@@ -63,7 +87,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
         width: '100%',
         height: '100%',
         muted: muted ?? false,
-        autoplay: true,
+        autoplay: playing,
         controls,
       });
       setPlayer(player);
@@ -86,7 +110,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
       tag?.removeEventListener('load', createPlayer);
       // TODO: Figure out how to remove the script when we no longer need it across any embeds?
     }
-// explicitly ignore "muted" as it's handled in another hook
+// explicitly ignore "muted" and "playing" as they're handled in another hook
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [channel, id, parent]);
 
