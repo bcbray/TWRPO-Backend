@@ -1657,7 +1657,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Eugene Goodman' },
         { name: '[Deputy] Jean-Pierre Lefrancois', factions: ['Law'] },
         { name: 'Julius "The Jade King" Bradshaw' },
-        { name: '[Mershal] Rico Ortega', factions: ['Law'] },
+        { name: '[Mershal] Rico Ortega', nicknames: ['Deputy Marshal'], factions: ['Law'] },
     ],
     Taranix: [
         { name: 'Mattias Temble' },
