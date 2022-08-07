@@ -23,6 +23,18 @@
 .thumbnail img {
   width: 100%;
   display: block;
+  position: absolute;
+  top: 0;
+}
+
+.thumbnail iframe {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+}
+
+.thumbnail .hidden {
+  opacity: 0%;
 }
 
 .inline .thumbnail:hover {

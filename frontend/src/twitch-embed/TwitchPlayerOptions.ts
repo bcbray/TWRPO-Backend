@@ -7,4 +7,5 @@ export interface TwitchPlayerOptions {
     autoplay?: boolean;
     muted?: boolean;
     time?: string;
+    controls?: boolean;
 }

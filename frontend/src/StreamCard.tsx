@@ -1,12 +1,20 @@
 import React from 'react';
+import { useIntersection, useHoverDirty } from 'react-use';
 
 import styles from './StreamCard.module.css';
 import { Stream, FactionInfo, channelInfo } from './types';
 import { formatViewers, classes } from './utils';
-import { useFactionCss, factionStylesForKey } from './hooks';
+import {
+  useFactionCss,
+  factionStylesForKey,
+  useOneWayBoolean,
+  useDelayed,
+  useWindowFocus
+} from './hooks';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
+import TwitchEmbed from './TwitchEmbed';
 
 const cardStyles = {
   inline: styles.inline,
@@ -20,6 +28,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   factionInfos: {[key: string]: FactionInfo};
   loadTick?: number;
   cardStyle?: CardStyle;
+  embed?: boolean | 'hover';
 }
 
 interface StreamLinkProps {
@@ -55,10 +64,32 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     loadTick,
     style,
     cardStyle = 'inline',
+    embed = false,
     ...rest
   }, ref
 ) => {
   const factionContainer = useFactionCss(Object.values(factionInfos));
+  const thumbnailRef = React.useRef(null);
+  const intersection = useIntersection(thumbnailRef, {});
+
+  const [embedIsPlaying, setEmbedPlaying] = React.useState(false);
+
+  const embedHasEverPlayed = useOneWayBoolean(embedIsPlaying);
+
+  const instantHovered = useHoverDirty(thumbnailRef);
+  const hovered = useDelayed(instantHovered, embedHasEverPlayed ? 0 : 250);
+
+  const windowFocused = useWindowFocus();
+
+  const isInViewport = intersection != null && intersection.isIntersecting;
+
+  const hasEmbed = (embed === true && isInViewport)
+    || (embed === 'hover' && hovered && windowFocused);
+
+  const hasEverHadEmbed = useOneWayBoolean(hasEmbed);
+
+
+  const hideEmbed = (embed === 'hover' && !embedIsPlaying) || !embedHasEverPlayed;
 
   return (
     <div
@@ -70,13 +101,27 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
       }}
       {...rest}
     >
-      <div className={styles.thumbnail}>
+      <div className={styles.thumbnail} ref={thumbnailRef}>
         <StreamLink stream={stream}>
           <img
             src={`${stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')}${loadTick ? `?${loadTick}` : ''}`}
             alt={`${stream.channelName} stream thumbnail`}
             loading='lazy'
           />
+          {hasEverHadEmbed &&
+            <TwitchEmbed
+              id={`${stream.channelName.toLowerCase()}-twitch-preview`}
+              className={classes(hideEmbed && styles.hidden)}
+              channel={stream.channelName}
+              width='100%'
+              height='100%'
+              parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
+              muted
+              controls={false}
+              autoplay={false}
+              play={hasEmbed}
+              onPlaying={setEmbedPlaying}
+            />}
         </StreamLink>
         <Tag className={classes(styles.tag, styles.name)}>
           <p>{stream.tagText}</p>

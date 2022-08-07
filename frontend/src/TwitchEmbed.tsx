@@ -1,14 +1,21 @@
 import React from 'react';
-import { TwitchPlayer } from './twitch-embed'
+
+import { TwitchPlayer, TwitchQuality } from './twitch-embed'
+import { useMeasure } from 'react-use';
+import { useDevicePixelRatio } from './hooks';
 
 interface Props {
     id: string;
     className?: string;
     channel: string;
-    width: number;
-    height: number;
+    width: number | string;
+    height: number | string;
     parent: string;
     muted?: boolean;
+    controls?: boolean;
+    autoplay?: boolean;
+    play?: boolean;
+    onPlaying?: (playing: boolean) => void;
 }
 
 function addScript(): HTMLScriptElement {
@@ -24,9 +31,68 @@ function addScript(): HTMLScriptElement {
   return scriptElement;
 };
 
-const TwitchEmbed: React.FunctionComponent<Props> = ({ id, className, channel, width, height, parent, muted }) => {
+const TwitchEmbed: React.FunctionComponent<Props> = ({
+  id,
+  className,
+  channel,
+  width,
+  height,
+  parent,
+  muted,
+  controls,
+  play: propsPlay,
+  autoplay = true,
+  onPlaying,
+}) => {
   const [player, setPlayer] = React.useState<TwitchPlayer | undefined>(undefined);
   const [isPlayerReady, setIsPlayerReady] = React.useState(false);
+  const [actuallyPlaying, setActuallyPlaying] = React.useState(false);
+  const [ref, measure] = useMeasure<HTMLDivElement>();
+  const scale = useDevicePixelRatio();
+  const [qualities, setQualities] = React.useState<TwitchQuality[]>([]);
+  const [targetQuality, setTargetQuality] = React.useState<TwitchQuality | undefined>(undefined);
+
+  const play = propsPlay !== undefined ? propsPlay : autoplay;
+
+  React.useEffect(() => {
+    if (!isPlayerReady) {
+      return;
+    }
+    if (!targetQuality) {
+      return;
+    }
+    if (controls) {
+      return;
+    }
+    if (player?.getQuality() !== targetQuality.group) {
+      player?.setQuality(targetQuality.group);
+    }
+  }, [targetQuality, isPlayerReady, player, controls]);
+
+  React.useEffect(() => {
+    // Only auto-quality if controls are hidden (otherwise, let people manage their own quality)
+    if (controls) {
+      return;
+    }
+    let defaultQuality: TwitchQuality | undefined = undefined;
+    let targetQuality: TwitchQuality | undefined = undefined;
+    for (const quality of qualities) {
+      if (quality.isDefault) {
+        defaultQuality = quality;
+        // Once we find the default quality, if we have no height we can stop looping
+        if (measure.height === 0) {
+          break;
+        }
+      }
+      if (measure.height === 0 || quality.height < measure.height * scale) continue;
+      if (targetQuality === undefined || quality.height < targetQuality.height) {
+        targetQuality = quality;
+      }
+    }
+    setTargetQuality(targetQuality ?? defaultQuality);
+  }, [scale, measure.height, qualities, controls]);
+
+  //const [play, setPlay] = useUncontrolledProp(propsPlaying, autoplay, propsOnTogglePlaying);
 
   React.useEffect(() => {
     if (isPlayerReady) {
@@ -35,15 +101,41 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({ id, className, channel, w
   }, [player, isPlayerReady, muted]);
 
   React.useEffect(() => {
+    if (!isPlayerReady) {
+      return;
+    }
+    if (!actuallyPlaying && play) {
+      player?.play();
+    } else if (actuallyPlaying && !play) {
+      player?.pause();
+      setActuallyPlaying(false);
+    }
+  }, [player, actuallyPlaying, play, isPlayerReady]);
+
+  React.useEffect(() => {
     function ready() {
       setIsPlayerReady(true);
     }
+    function pause() {
+      setActuallyPlaying(false);
+      onPlaying?.(false);
+    }
+    function playing() {
+      if (!player) return;
+      setQualities(player.getQualities());
+      setActuallyPlaying(true);
+      onPlaying?.(true);
+    }
 
     player?.addReadyListener(ready);
+    player?.addPauseListener(pause);
+    player?.addPlayingListener(playing);
     return () => {
       player?.removeReadyListener(ready);
+      player?.removePauseListener(pause);
+      player?.removePlayingListener(playing);
     }
-  }, [player]);
+  }, [player, onPlaying]);
 
   React.useEffect(() => {
     function createPlayer() {
@@ -53,7 +145,8 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({ id, className, channel, w
         width: '100%',
         height: '100%',
         muted: muted ?? false,
-        autoplay: true,
+        autoplay: autoplay,
+        controls,
       });
       setPlayer(player);
     }
@@ -75,12 +168,23 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({ id, className, channel, w
       tag?.removeEventListener('load', createPlayer);
       // TODO: Figure out how to remove the script when we no longer need it across any embeds?
     }
-// explicitly ignore "muted" as it's handled in another hook
+// explicitly ignore "muted" and "playing" as they're handled in another hook
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [channel, id, parent]);
 
+  const styleWidth = typeof width === 'number' ? `${width}px` : width;
+  const styleHeight = typeof height === 'number' ? `${height}px` : height;
+
   return (
-    <div id={id} className={className} style={{width: `${width}px`, height: `${height}px` }} />
+    <div
+      id={id}
+      ref={ref}
+      className={className}
+      style={{
+        width: styleWidth,
+        height: styleHeight,
+      }}
+    />
   );
 };
 

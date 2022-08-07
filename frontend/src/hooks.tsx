@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useSearchParams, NavigateOptions  } from 'react-router-dom';
 import { useCss } from 'react-use';
-import { useDebounce } from 'react-use';
+import { useDebounce, usePreviousDistinct, useUpdateEffect } from 'react-use';
+import useTimeout from '@restart/hooks/useTimeout';
 
 import tinycolor from 'tinycolor2';
 
@@ -110,3 +111,58 @@ export function useDebouncedValue<T>(value: T, ms: number): T {
   }, ms, [value]);
   return debounced;
 };
+
+// Once it's `true` once, it's `true` forever
+export const useOneWayBoolean = (value: boolean): boolean => {
+  const previous = usePreviousDistinct(value);
+  return previous || value;
+}
+
+export function useDelayed<T>(value: T, delay: number): T {
+  const timeout = useTimeout();
+
+  const [effectiveValue, setEffectiveValue] = useState(value);
+  const valueRef = useRef<T>(value);
+
+  const handleChange = useCallback((value: T) => {
+    timeout.clear();
+    valueRef.current = value;
+
+    if (!delay) {
+      setEffectiveValue(value);
+      return;
+    }
+
+    timeout.set(() => {
+      if (valueRef.current === value) setEffectiveValue(value);
+    }, delay);
+  }, [delay, timeout]);
+
+  useUpdateEffect(() => {
+    handleChange(value);
+  }, [value]);
+
+  return effectiveValue;
+};
+
+const hasFocus = () => document && document.hasFocus()
+
+export function useWindowFocus(): boolean {
+  const [focused, setFocused] = useState(hasFocus());
+  useEffect(() => {
+    setFocused(hasFocus());
+
+    const handleFocus = () => setFocused(true);
+    const handleBlur = () => setFocused(false);
+
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', handleBlur);
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('blur', handleBlur);
+    }
+  }, []);
+
+  return focused;
+}
