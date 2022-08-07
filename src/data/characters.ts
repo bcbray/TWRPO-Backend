@@ -1414,6 +1414,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Cadet] Adam Skye', factions: ['Law'] },
         { name: 'Froiland Jackson' },
     ],
+    SaberTV: [
+        { name: 'Constance Miles' },
+    ],
     SaffyPie: [
         { name: 'Cassidy Reynolds' },
     ],
