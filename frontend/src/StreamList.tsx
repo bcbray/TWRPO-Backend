@@ -26,6 +26,7 @@ const StreamList: React.FC<Props> = ({ streams, offlineCharacters, factionInfos,
                   stream={stream}
                   factionInfos={factionInfos}
                   loadTick={loadTick}
+                  embed={'hover'}
                 />
               </div>
             </Flipped>
