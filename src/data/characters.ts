@@ -1880,6 +1880,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Boone Morales' },
         { name: 'Guy Hyneman' },
     ],
+    vtrich: [
+        { name: 'Fester Buckland' },
+    ],
     WaistcoatDave: [
         { name: 'Dr. C.J Matthews' },
     ],
