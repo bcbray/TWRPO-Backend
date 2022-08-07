@@ -7,8 +7,8 @@ interface Props {
     id: string;
     className?: string;
     channel: string;
-    width: number;
-    height: number;
+    width: number | string;
+    height: number | string;
     parent: string;
     muted?: boolean;
     controls?: boolean;
@@ -132,8 +132,18 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [channel, id, parent]);
 
+  const styleWidth = typeof width === 'number' ? `${width}px` : width;
+  const styleHeight = typeof height === 'number' ? `${height}px` : height;
+
   return (
-    <div id={id} className={className} style={{width: `${width}px`, height: `${height}px` }} />
+    <div
+      id={id}
+      className={className}
+      style={{
+        width: styleWidth,
+        height: styleHeight,
+      }}
+    />
   );
 };
 
