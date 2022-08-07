@@ -882,6 +882,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jade Ming' },
         { name: 'Jezrael King' },
         { name: 'Maria Gonzales' },
+        { name: 'Widow Fan' },
     ],
     jakeyp0o: [
         { name: 'Danner Wynn' },
