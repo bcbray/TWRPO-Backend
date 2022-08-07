@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { TwitchPlayer } from './twitch-embed'
+import { TwitchPlayer, TwitchQuality } from './twitch-embed'
+import { useMeasure } from 'react-use';
+import { useDevicePixelRatio } from './hooks';
 
 interface Props {
     id: string;
@@ -38,13 +40,59 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
   parent,
   muted,
   controls,
-  play,
+  play: propsPlay,
   autoplay = true,
   onPlaying,
 }) => {
   const [player, setPlayer] = React.useState<TwitchPlayer | undefined>(undefined);
   const [isPlayerReady, setIsPlayerReady] = React.useState(false);
   const [actuallyPlaying, setActuallyPlaying] = React.useState(false);
+  const [ref, measure] = useMeasure<HTMLDivElement>();
+  const scale = useDevicePixelRatio();
+  const [qualities, setQualities] = React.useState<TwitchQuality[]>([]);
+  const [targetQuality, setTargetQuality] = React.useState<TwitchQuality | undefined>(undefined);
+
+  const play = propsPlay !== undefined ? propsPlay : autoplay;
+
+  React.useEffect(() => {
+    if (!isPlayerReady) {
+      return;
+    }
+    if (!targetQuality) {
+      return;
+    }
+    if (controls) {
+      return;
+    }
+    if (player?.getQuality() !== targetQuality.group) {
+      player?.setQuality(targetQuality.group);
+    }
+  }, [targetQuality, isPlayerReady, player, controls]);
+
+  React.useEffect(() => {
+    // Only auto-quality if controls are hidden (otherwise, let people manage their own quality)
+    if (controls) {
+      return;
+    }
+    let defaultQuality: TwitchQuality | undefined = undefined;
+    let targetQuality: TwitchQuality | undefined = undefined;
+    for (const quality of qualities) {
+      if (quality.isDefault) {
+        defaultQuality = quality;
+        // Once we find the default quality, if we have no height we can stop looping
+        if (measure.height === 0) {
+          break;
+        }
+      }
+      if (measure.height === 0 || quality.height < measure.height * scale) continue;
+      if (targetQuality === undefined || quality.height < targetQuality.height) {
+        targetQuality = quality;
+      }
+    }
+    setTargetQuality(targetQuality ?? defaultQuality);
+  }, [scale, measure.height, qualities, controls]);
+
+  //const [play, setPlay] = useUncontrolledProp(propsPlaying, autoplay, propsOnTogglePlaying);
 
   React.useEffect(() => {
     if (isPlayerReady) {
@@ -72,6 +120,8 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
       onPlaying?.(false);
     }
     function playing() {
+      if (!player) return;
+      setQualities(player.getQualities());
       setActuallyPlaying(true);
       onPlaying?.(true);
     }
@@ -127,6 +177,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
   return (
     <div
       id={id}
+      ref={ref}
       className={className}
       style={{
         width: styleWidth,
