@@ -157,6 +157,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Solomon Kray' },
         { name: 'Thomas Ethan', nicknames: ['The Kid'] },
     ],
+    B3UDown: [
+        { name: 'Zip Quil' },
+    ],
     babysiren_: [
         { name: 'Laura Dunn' },
     ],
