@@ -1144,6 +1144,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Audrey Dusk', factions: ['Law'] },
         { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
     ],
+    MeMine30: [
+        { name: 'Walt McGrath' },
+    ],
     Mhaple_: [
         { name: 'Morgan Lee' },
     ],
