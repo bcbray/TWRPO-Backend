@@ -1030,6 +1030,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     LEAH: [
         { name: 'Francesca "Checkers" Bright', factions: ['Summers Gang'] },
+        { name: '[Ranger] Frankie Bright', factions: ['Rangers'] },
     ],
     Lendermations: [
         { name: 'Inessa "Miss Match" Bornlof' },
