@@ -1804,6 +1804,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Timmac: [
         { name: 'Gomer Colton', factions: ['Coltons'] },
+        { name: 'Enzo Valentino' },
     ],
     tmcrane: [
         { name: 'Lucius Bickmore' },
