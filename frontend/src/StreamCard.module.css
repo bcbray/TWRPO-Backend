@@ -70,6 +70,13 @@
   left: 0;
 }
 
+.tag.runtime {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  bottom: 0;
+  right: 0;
+}
+
 .info {
   display: flex;
   flex-direction: row;

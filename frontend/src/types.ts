@@ -55,7 +55,7 @@ export interface Stream {
   tagFactionSecondary?: FactionKey;
   videoUrl?: string;
   thumbnailUrl?: string;
-  startDate?: Date;
+  startDate?: string;
 }
 
 export interface LiveResponse {

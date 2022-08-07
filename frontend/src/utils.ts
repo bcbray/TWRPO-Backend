@@ -93,3 +93,15 @@ export function createChainedFunction<Args extends any[], This>(
       };
     }, () => {});
 }
+
+export const formatDuration = (start: Date, end: Date): string => {
+  const totalSeconds = (end.getTime() - start.getTime()) / 1000;
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+  if (hours === 0) {
+    return `${minutes}m`;
+  } else {
+    return `${hours}h ${minutes}m`;
+  }
+}
