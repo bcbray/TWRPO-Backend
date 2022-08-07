@@ -377,6 +377,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Frank Murdock' },
         { name: 'Cash Colton', factions: ['Coltons'] },
     ],
+    Criken: [
+        { name: 'Festus Asbestus' },
+    ],
     crocc_: [
         { name: 'Santino "Sonny" DiCenzo', factions: ['DiCenzo Famiglia'], leader: true },
     ],
