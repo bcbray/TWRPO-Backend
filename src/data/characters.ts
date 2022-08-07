@@ -1055,7 +1055,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Lithiaris: [
         { name: '[Doctor] Lark Atwood', factions: ['Medical'] },
-        { name: 'Sylvie Chevalier' },
+        { name: '[Deputy] Sylvie Chevalier', factions: ['Law'] },
     ],
     livraan: [
         { name: 'Hanna Eriksson' },
