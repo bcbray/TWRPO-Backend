@@ -1663,8 +1663,8 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Mattias Temble' },
     ],
     Tasara22: [
-        { name: 'Betty Butcher' },
         { name: '[Deputy] Jane Ripley', factions: ['Law'] },
+        { name: 'Betty Butcher' },
         { name: 'Madame Milena' },
         { name: 'Monica Peach' },
         { name: 'Oneida Zonta' },
