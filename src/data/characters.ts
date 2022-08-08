@@ -429,6 +429,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Walter Rinsen' },
         { name: 'Cooter Jonason' },
     ],
+    DarysFrost: [
+        { name: 'Hunter Solomons' },
+    ],
     Dastardly_Dog: [
         { name: 'Barry Smith' },
         { name: 'Cassel bottom' },
