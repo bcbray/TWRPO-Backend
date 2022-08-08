@@ -845,6 +845,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Ronnie Tate' },
         { name: 'Theodore Ellis' },
     ],
+    IMeMine30: [
+        { name: 'Angelo Clemente' },
+    ],
     ImFromTheFuture: [
         { name: 'Roscoe Montana', factions: ['Sams Club'] },
     ],
