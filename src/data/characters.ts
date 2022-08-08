@@ -1602,6 +1602,7 @@ export const wrpCharacters: WrpCharacters = {
     Ssaab: [
         { name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true },
         { name: 'Ali Baba', displayName: 0 },
+        { name: 'Leo Slack' },
     ],
     Ssmacky: [
         { name: 'Jackson Marsh' },
