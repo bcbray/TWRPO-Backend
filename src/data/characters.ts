@@ -517,7 +517,7 @@ export const wrpCharacters: WrpCharacters = {
     DrensWorld: [
         { name: 'Danny Kerrigan' },
         { name: 'Duncan Ladle' },
-        { name: 'Duncan Weller' },
+        { name: '[Deputy] Duncan Weller', factions: ['Law'] },
         { name: 'Darwin Howe' },
     ],
     DrulkTV: [
