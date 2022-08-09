@@ -34,7 +34,7 @@ const createDevServerConfig = require('../config/webpack.devServer.config');
 const getClientEnvironment = require('../config/env');
 const react = require(require.resolve('react', { paths: [paths.appPath] }));
 
-const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1), false);
+const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
 
