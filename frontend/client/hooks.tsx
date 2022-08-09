@@ -40,6 +40,7 @@ export const useDevicePixelRatio = (fallback: number = 1) => {
         media.removeEventListener('change', handler);
       }
     }
+    return () => {};
   }, []);
 
   return ratio;

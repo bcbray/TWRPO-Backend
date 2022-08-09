@@ -17,10 +17,13 @@ require('../config/env');
 const chalk = require('react-dev-utils/chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
-const config = require('../config/webpack.server.config');
+const configFactory = require('../config/webpack.config');
 const paths = require('../config/paths');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
+
+// Generate configuration
+const config = configFactory('server');
 
 fs.emptyDirSync(paths.serverBuild);
 build()
