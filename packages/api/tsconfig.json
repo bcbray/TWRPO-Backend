@@ -21,7 +21,8 @@
         "removeComments": true,
         "sourceMap": true,
         "strictFunctionTypes": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "downlevelIteration": true
     },
     "include": [
         "src"

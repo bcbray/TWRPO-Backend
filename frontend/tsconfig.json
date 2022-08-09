@@ -23,5 +23,10 @@
   },
   "include": [
     "client"
+  ],
+  "references": [
+    {
+      "path": "../packages/api"
+    }
   ]
 }

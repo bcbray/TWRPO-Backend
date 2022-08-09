@@ -1,4 +1,4 @@
-import { apiClient } from './twitchSetup';
+import { ApiClient } from 'twitch';
 import { wrpCharacters } from './data/characters';
 import { log } from './utils';
 
@@ -14,7 +14,7 @@ const fetchLimit = 100 as const;
 let cachedResults: TwitchUser[] | undefined;
 let existingPromise: Promise<TwitchUser[]> | undefined;
 
-export const getKnownTwitchUsers = async (): Promise<TwitchUser[]> => {
+export const getKnownTwitchUsers = async (apiClient: ApiClient): Promise<TwitchUser[]> => {
     if (cachedResults) {
         log('Returing cached users result');
         return cachedResults;

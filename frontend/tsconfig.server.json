@@ -36,5 +36,10 @@
     "include": [
         "server",
         "client"
+    ],
+    "references": [
+        {
+            "path": "../packages/api"
+        }
     ]
 }

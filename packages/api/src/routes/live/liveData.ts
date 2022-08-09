@@ -1,8 +1,7 @@
-import { randomUUID } from 'crypto'
+import { randomUUID } from 'crypto';
 
-import { HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
+import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
 
-import { apiClient } from '../../twitchSetup';
 import {
     log, cloneDeepJson, filterObj, mapObj, parseParam, isObjEmpty, parseLookup,
 } from '../../utils';
@@ -14,7 +13,14 @@ import settingsParsed from '../../data/settingsParsed';
 import factionsParsed from '../../data/factionsParsed';
 import { WrpFactions, wrpFactions } from '../../data/meta';
 import { wrpCharacters as wrpCharactersOld } from '../../data/characters';
-import { isFactionColor, lesserFactions, greaterFactions, wrpFactionsRegex, wrpFactionsSubRegex, filterFactionsBase } from '../../data/factions';
+import {
+    isFactionColor,
+    lesserFactions,
+    greaterFactions,
+    wrpFactionsRegex,
+    wrpFactionsSubRegex,
+    filterFactionsBase,
+} from '../../data/factions';
 import { wrpPodcasts } from '../../data/podcasts';
 
 import type { RecordGen } from '../../utils';
@@ -72,7 +78,7 @@ const bigLimit = 100 as const;
 // const maxPages = 5 as const;
 const searchNumDefault = 2000;
 const searchNumMax = 5000;
-const updateCacheMs = 1000 * 60;
+// const updateCacheMs = 1000 * 60;
 
 const toFactionMini = (faction: string) => faction.toLowerCase().replaceAll(' ', '');
 
@@ -238,14 +244,14 @@ const knownPfps: { [key: string]: string } = {};
 
 interface GetStreamsOptions { searchNum?: number; international?: boolean }
 type GetStreamsOptionsRequired = Required<GetStreamsOptions>;
-export const getStreams = async (options: GetStreamsOptions, endpoint = '<no-endpoint>'): Promise<HelixStream[]> => {
+export const getStreams = async (apiClient: ApiClient, options: GetStreamsOptions, endpoint = '<no-endpoint>'): Promise<HelixStream[]> => {
     const optionsParsed: GetStreamsOptionsRequired = {
         searchNum: searchNumDefault,
         international: false,
         ...filterObj(options, v => v !== undefined),
     };
 
-    const knownUsers = await getKnownTwitchUsers();
+    const knownUsers = await getKnownTwitchUsers(apiClient);
     knownUsers.forEach((user) => {
         knownPfps[user.id] = user.profilePictureUrl.replace('-300x300.', '-50x50.');
     });
@@ -352,7 +358,7 @@ interface InjectionConfiguration {
     insertionElementSelector: string;
 }
 
-interface Live {
+export interface Live {
     minViewers: number;
     stopOnMin: boolean;
     intervalSeconds: number;
@@ -389,7 +395,7 @@ const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podc
     return { podcast, reg };
 });
 
-export const getWrpLive = async (baseOptions = {}, override = false, endpoint = '<no-endpoint>', useActivePromise = false): Promise<Live> => {
+export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, override = false, endpoint = '<no-endpoint>', useActivePromise = false): Promise<Live> => {
     if (!isObjEmpty(baseOptions)) log(`${endpoint}: options -`, JSON.stringify(baseOptions));
 
     const options: LiveOptions = {
@@ -417,9 +423,9 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
         return cachedResults[optionsStr]!;
     }
 
-    const fetchID = randomUUID()
+    const fetchID = randomUUID();
     const fetchStart = process.hrtime.bigint();
-    console.log(JSON.stringify({traceID: fetchID, event: "start"}));
+    console.log(JSON.stringify({ traceID: fetchID, event: 'start' }));
 
     if (wrpStreamsPromise[optionsStr] === undefined || override) {
         wrpStreamsPromise[optionsStr] = new Promise<Live>(async (resolve, reject) => {
@@ -433,10 +439,11 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
 
                 const nowTime = +new Date();
 
-                const gtaStreams: (HelixStream)[] = await getStreams({ searchNum, international }, endpoint);
+                const gtaStreams: (HelixStream)[] = await getStreams(apiClient,
+                    { searchNum, international }, endpoint);
 
                 const fetchEnd = process.hrtime.bigint();
-                console.log(JSON.stringify({traceID: fetchID, event: "fetched", fetchTime: Number((fetchEnd-fetchStart) / BigInt(1e+6))}));
+                console.log(JSON.stringify({ traceID: fetchID, event: 'fetched', fetchTime: Number((fetchEnd - fetchStart) / BigInt(1e+6)) }));
 
                 log(`${endpoint}: Fetched streams! Now processing data...`);
 
@@ -562,7 +569,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                             tagFaction: 'other',
                             // keepCase: true,
                             thumbnailUrl: helixStream.thumbnailUrl,
-                            startDate: helixStream.startDate
+                            startDate: helixStream.startDate,
                         };
 
                         nextId++;
@@ -740,10 +747,10 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                         tagText,
                         tagFaction,
                         thumbnailUrl: helixStream.thumbnailUrl,
-                        startDate: helixStream.startDate
+                        startDate: helixStream.startDate,
                     };
 
-                    console.log(JSON.stringify({traceID: fetchID, event: "stream", channel: channelName, stream: stream}));
+                    console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
 
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
@@ -774,16 +781,16 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                 const baseHtml = '<div class="tno-stream" id="tno-stream-_TNOID_" data-target="" style="order: _ORDER_;"><div class="Layout-sc-nxg1ff-0 cUYIUW"><div><div class="Layout-sc-nxg1ff-0"><article data-a-target="card-4" data-a-id="card-_CHANNEL1_" class="Layout-sc-nxg1ff-0 frepDF"><div class="Layout-sc-nxg1ff-0 ggozbG"><div class="Layout-sc-nxg1ff-0 kTkZWx"><div class="ScTextWrapper-sc-14f6evl-1 fejGga"><div class="ScTextMargin-sc-14f6evl-2 biJSak"><a data-test-selector="TitleAndChannel" data-a-target="preview-card-channel-link" aria-label="_TITLE_" class="ScCoreLink-sc-udwpw5-0 cmQKL tw-link" href="/_CHANNEL1_/videos"><h3 title="_TITLE_" class="CoreText-sc-cpl358-0 hjONlz">_TITLE_</h3><p data-a-target="preview-card-channel-link" tabindex="-1" title="_CHANNEL2_" class="CoreText-sc-cpl358-0 eyuUlK">_CHANNEL2_</p></a></div><div class="Layout-sc-nxg1ff-0 dRKpYM"><div class="InjectLayout-sc-588ddc-0 eXNwOD"><div class="InjectLayout-sc-588ddc-0 beXCOC"><button class="ScTag-sc-xzp4i-0 iKNvdP tw-tag" aria-describedby="9449931af8bd9bbdff3c67df6755f045" aria-label="English" data-a-target="English"><div class="ScTagContent-sc-xzp4i-1 gONNWj"><div class="ScTagText-sc-xzp4i-2 eMoqSY"><span>English</span></div></div></button></div></div></div></div><div class="ScImageWrapper-sc-14f6evl-0 jISSAW"><a data-a-target="card-4" data-a-id="card-_CHANNEL1_" data-test-selector="preview-card-avatar" tabindex="-1" class="ScCoreLink-sc-udwpw5-0 ktfxqP tw-link" href="/_CHANNEL1_/videos"><div class="ScAspectRatio-sc-1sw3lwy-1 eQcihY tw-aspect"><div class="ScAspectSpacer-sc-1sw3lwy-0 dsswUS"></div><figure aria-label="_CHANNEL1_" class="ScAvatar-sc-12nlgut-0 bmqpYD tw-avatar"><img class="InjectLayout-sc-588ddc-0 iDjrEF tw-image tw-image-avatar" alt="_CHANNEL1_" src="_PFP_"></figure></div></a></div></div></div><div class="ScWrapper-sc-uo2e2v-0 sqjWZ tw-hover-accent-effect"><div class="ScTransformWrapper-sc-uo2e2v-1 ScCornerTop-sc-uo2e2v-2 lmjSRR gaYszF"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ScCornerBottom-sc-uo2e2v-3 gEIaFB fGRgGA"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ScEdgeLeft-sc-uo2e2v-4 eTyELd eRrHBW"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ScEdgeBottom-sc-uo2e2v-5 kocUMp cWOxay"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ghrhyx"><a data-a-target="preview-card-image-link" tabindex="-1" class="ScCoreLink-sc-udwpw5-0 ktfxqP preview-card-image-link tw-link" href="/_CHANNEL1_"><div class="Layout-sc-nxg1ff-0 fjGGXR"><div class="ScAspectRatio-sc-1sw3lwy-1 kPofwJ tw-aspect"><div class="ScAspectSpacer-sc-1sw3lwy-0 kECpQh"></div><img alt="_TITLE_ - _CHANNEL1_" class="tw-image" src="https://static-cdn.jtvnw.net/previews-ttv/live_user__CHANNEL1_-440x248.jpg_TIMEID_"></div><div class="ScPositionCorner-sc-1iiybo2-1 gtpTmt"><div class="ScChannelStatusTextIndicator-sc-1f5ghgf-0 gfqupx tw-channel-status-text-indicator" font-size="font-size-6"><p class="CoreText-sc-cpl358-0 duTViv">LIVE</p></div></div><div class="ScPositionCorner-sc-1iiybo2-1 eHqCXd"><div class="ScMediaCardStatWrapper-sc-1ncw7wk-0 jluyAA tw-media-card-stat">_VIEWERS_ viewers</div></div></div></a></div></div></article></div></div></div></div>';
 
                 const injection: InjectionConfiguration = {
-                    targetElementSelector: "article",
+                    targetElementSelector: 'article',
                     hopsToMainAncestor: 4,
-                    channelNameElementSelector: `p[data-a-target='preview-card-channel-link']`,
-                    liveBadgeElementSelector: `.tw-channel-status-text-indicator`,
-                    liveBadgeContentElementSelector: `p`,
-                    viewersBadgeElementSelector: `.tw-media-card-stat`,
-                    mainScrollSelector: `div.root-scrollable.scrollable-area > div.simplebar-scroll-content`,
-                    settingsTargetElementSelector: `[data-test-selector="follow-game-button-component"]`,
+                    channelNameElementSelector: 'p[data-a-target="preview-card-channel-link"]',
+                    liveBadgeElementSelector: '.tw-channel-status-text-indicator',
+                    liveBadgeContentElementSelector: 'p',
+                    viewersBadgeElementSelector: '.tw-media-card-stat',
+                    mainScrollSelector: 'div.root-scrollable.scrollable-area > div.simplebar-scroll-content',
+                    settingsTargetElementSelector: '[data-test-selector="follow-game-button-component"]',
                     hopsToSettingsContainerAncestor: 2,
-                    insertionElementSelector: `[data-target="directory-first-item"]`,
+                    insertionElementSelector: '[data-target="directory-first-item"]',
                 };
 
                 const result: Live = {
@@ -804,7 +811,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                 console.log(JSON.stringify({
                     traceID: fetchID,
                     event: 'done',
-                    factionCount: factionCount,
+                    factionCount,
                     parseTime: Number((parseEnd - fetchEnd) / BigInt(1e+6)),
                     totalTime: Number((parseEnd - fetchStart) / BigInt(1e+6)),
                     factionViewerCount: wrpStreams.reduce<Record<string, number>>((viewers, stream) => (
@@ -823,7 +830,7 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
                 resolve(result);
             } catch (err) {
                 const parseEnd = process.hrtime.bigint();
-                console.log(JSON.stringify({traceID: fetchID, event: "failed", error: err, totalTime: Number((parseEnd-fetchStart) / BigInt(1e+6))}));
+                console.log(JSON.stringify({ traceID: fetchID, event: 'failed', error: err, totalTime: Number((parseEnd - fetchStart) / BigInt(1e+6)) }));
                 log(`${endpoint}: Failed to fetch streams data:`, err);
                 reject(err);
             }
@@ -839,20 +846,27 @@ export const getWrpLive = async (baseOptions = {}, override = false, endpoint = 
     return cachedResults[optionsStr]!;
 };
 
-export const getWrpStreams = async (baseOptions = {}, override = false): Promise<Stream[]> => {
-    const live = await getWrpLive(baseOptions, override, '/streams');
+export const getWrpStreams = async (apiClient: ApiClient, baseOptions = {}, override = false): Promise<Stream[]> => {
+    const live = await getWrpLive(apiClient, baseOptions, override, '/streams');
     return live.streams;
 };
 
-getWrpLive();
+export type IntervalTimeout = ReturnType<typeof setInterval>;
 
-setInterval(async () => {
-    const cachedResultsKeys = Object.keys(cachedResults);
-    if (!cachedResultsKeys.length) return;
-    log('Refreshing cache...');
-    for (const optionsStr of cachedResultsKeys) {
-        log('Refreshing optionStr');
-        const optionsObj = JSON.parse(optionsStr);
-        await getWrpLive(optionsObj, true);
-    }
-}, updateCacheMs);
+export const startRefreshing = (apiClient: ApiClient, intervalMs: number): IntervalTimeout => {
+    getWrpLive(apiClient);
+
+    return setInterval(async () => {
+        const cachedResultsKeys = Object.keys(cachedResults);
+        if (!cachedResultsKeys.length) {
+            log('Not refreshing cache...');
+            return;
+        }
+        log('Refreshing cache...');
+        for (const optionsStr of cachedResultsKeys) {
+            log('Refreshing optionStr');
+            const optionsObj = JSON.parse(optionsStr);
+            await getWrpLive(apiClient, optionsObj, true);
+        }
+    }, intervalMs);
+};

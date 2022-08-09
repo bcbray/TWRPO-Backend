@@ -1,19 +1,14 @@
 {
     "name": "@twrpo/api",
     "version": "1.0.0",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "repository": "https://github.com/Vaeb/TNO-Backend.git",
     "author": "Adam Johnson <vaeb@hey.com>",
     "license": "MIT",
-    "type": "module",
     "scripts": {
         "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
-        "build": "tsc",
-        "start": "node --trace-deprecation --experimental-specifier-resolution=node dist/index.js",
-        "dev": "nodemon --trace-deprecation --experimental-specifier-resolution=node dist/index.js",
-        "watch": "tsc -w",
-        "hook": "node --trace-deprecation --experimental-specifier-resolution=node src/webhooks.js"
+        "build": "tsc"
     },
     "dependencies": {
         "axios": "^0.27.2",

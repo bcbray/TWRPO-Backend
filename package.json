@@ -2,13 +2,13 @@
     "name": "twrponly",
     "private": true,
     "workspaces": [
-        "frontend",
-        "packages/api"
+        "packages/api",
+        "frontend"
     ],
     "scripts": {
+        "heroku-prebuild": "./scripts/react-env-setup.sh",
         "clean": "yarn workspaces run clean",
         "build": "yarn workspaces run build",
-        "heroku-postbuild": ". ./scripts/react-env.sh && cd frontend && yarn build",
-        "start": "cd frontend && yarn start:server"
+        "start": "yarn workspace frontend start:server"
     }
 }
