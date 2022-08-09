@@ -354,8 +354,9 @@ module.exports = function (webpackEnv) {
     },
     externals: [
       isEnvServer && nodeExternals({
-         // load non-javascript files with extensions, presumably via loaders
-         allowlist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
+        modulesDir: paths.appNodeModules,
+        // load non-javascript files with extensions, presumably via loaders
+        allowlist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
       })
     ].filter(Boolean),
     module: {

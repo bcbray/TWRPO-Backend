@@ -1,10 +1,8 @@
 {
-    "extends": "../tsconfig.build.json",
+    "extends": "../../tsconfig.build.json",
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "emitDecoratorMetadata": true,
-        "esModuleInterop": true,
         "experimentalDecorators": true,
         "lib": [
             "dom",
@@ -12,8 +10,6 @@
             "es6",
             "esnext.asynciterable"
         ],
-        "module": "esnext",
-        "moduleResolution": "node",
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
@@ -21,20 +17,13 @@
         "noUnusedLocals": true,
         "noUnusedParameters": false,
         "outDir": "./dist",
+        "rootDir": "./src",
         "removeComments": true,
-        "resolveJsonModule": true,
         "sourceMap": true,
         "strictFunctionTypes": true,
-        "strictNullChecks": true,
-        "target": "es2020",
-        "jsx": "react-jsx",
-        "skipLibCheck": true
+        "strictNullChecks": true
     },
-    "exclude": [
-        "node_modules"
-    ],
     "include": [
-        "server",
-        "client"
+        "src"
     ]
 }

@@ -69,9 +69,9 @@ module.exports = {
   serverIndexJs: resolveModule(resolveApp, 'server/index'),
   yarnLockFile: resolveApp('yarn.lock'),
   proxySetup: resolveApp('client/setupProxy.js'),
-  appNodeModules: resolveApp('node_modules'),
-  appWebpackCache: resolveApp('node_modules/.cache'),
-  appTsBuildInfoFile: resolveApp('node_modules/.cache/tsconfig.tsbuildinfo'),
+  appNodeModules: resolveApp('../node_modules'),
+  appWebpackCache: resolveApp('../node_modules/.cache'),
+  appTsBuildInfoFile: resolveApp('../node_modules/.cache/tsconfig.tsbuildinfo'),
   swSrc: resolveModule(resolveApp, 'client/service-worker'),
   publicUrlOrPath,
 };
