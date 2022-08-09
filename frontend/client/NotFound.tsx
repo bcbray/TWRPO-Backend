@@ -1,7 +1,12 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
 
+import { SSRRoutingContext } from './SSRRouting';
+
 const NotFound: React.FunctionComponent<{}> = () => {
+  const context = React.useContext(SSRRoutingContext);
+  context.notFound = true;
+
   return (
     <>
       <Helmet>

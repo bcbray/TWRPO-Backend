@@ -6,6 +6,7 @@ import { StaticRouter } from "react-router-dom/server";
 import { SSRProvider } from "@restart/ui/ssr";
 
 import App from '../client/App';
+import { SSRRouting, SSRRoutingProvider } from '../client/SSRRouting';
 
 const app = express();
 
@@ -15,13 +16,21 @@ const ssrHandler: RequestHandler = (req, res) => {
       encoding: 'utf8',
     });
 
+    const routingContext: SSRRouting = {};
+
     let appHTML = ReactDOMServer.renderToString(
       <SSRProvider>
-        <StaticRouter location={req.url}>
-          <App />
-        </StaticRouter>
+        <SSRRoutingProvider value={routingContext}>
+          <StaticRouter location={req.url}>
+            <App />
+          </StaticRouter>
+        </SSRRoutingProvider>
       </SSRProvider>
     );
+
+    if (routingContext.redirect) {
+      return res.redirect(routingContext.redirect);
+    }
 
     indexHTML = indexHTML.replace(
       '<div id="root"></div>',
@@ -29,7 +38,7 @@ const ssrHandler: RequestHandler = (req, res) => {
     );
 
     return res
-      .status(200)
+      .status(routingContext.notFound ? 404 : 200)
       .contentType('text/html')
       .send(indexHTML);
   } catch (err) {
