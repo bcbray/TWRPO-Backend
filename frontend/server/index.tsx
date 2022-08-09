@@ -1,16 +1,32 @@
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import path from 'path';
 import fs from 'fs';
+import ReactDOMServer from 'react-dom/server';
+import { StaticRouter } from "react-router-dom/server";
+import { SSRProvider } from "@restart/ui/ssr";
+
+import App from '../client/App';
 
 const app = express();
 
-app.use(express.static(path.resolve('build')));
-
-app.use('*', (_req, res) => {
+const ssrHandler: RequestHandler = (req, res) => {
   try {
     let indexHTML = fs.readFileSync(path.resolve('build/index.html'), {
       encoding: 'utf8',
     });
+
+    let appHTML = ReactDOMServer.renderToString(
+      <SSRProvider>
+        <StaticRouter location={req.url}>
+          <App />
+        </StaticRouter>
+      </SSRProvider>
+    );
+
+    indexHTML = indexHTML.replace(
+      '<div id="root"></div>',
+      `<div id="root">${appHTML}</div>`
+    );
 
     return res
       .status(200)
@@ -36,7 +52,16 @@ app.use('*', (_req, res) => {
 </body>
 </html>`);
   }
-});
+};
+
+// Index is SSR
+app.get('/', ssrHandler);
+
+// Then static files
+app.use(express.static(path.resolve('build')));
+
+// Then back to SSR for catch-all to handle routing
+app.get('*', ssrHandler);
 
 app.listen( '9000', () => {
   console.log( 'Express server started at http://localhost:9000' );
