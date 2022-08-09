@@ -29,6 +29,7 @@
     "eslint": "^8.3.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-webpack-plugin": "^3.1.1",
+    "express": "^4.18.1",
     "file-loader": "^6.2.0",
     "formik": "^2.2.9",
     "fs-extra": "^10.0.0",
@@ -76,8 +77,11 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start:client": "node scripts/start-client.js",
-    "build:client": "node scripts/build-client.js"
+    "build": "concurrently \"yarn:build:client\" \"yarn:build:server\"",
+    "build:client": "node scripts/build-client.js",
+    "build:server": "node scripts/build-server.js",
+    "start:server": "node --experimental-specifier-resolution=node ./dist/main.js",
+    "dev:client": "node scripts/start-client.js"
   },
   "eslintConfig": {
     "extends": [
@@ -100,5 +104,10 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.3.0",
+    "ts-loader": "^9.3.1",
+    "webpack-node-externals": "^3.0.0"
   }
 }
