@@ -7,8 +7,14 @@
     ],
     "scripts": {
         "heroku-prebuild": "./scripts/react-env-setup.sh",
+        "heroku-cleanup": "patch-package",
+        "postinstall": "patch-package",
         "clean": "yarn workspaces run clean",
         "build": "yarn workspaces run build",
         "start": "yarn workspace frontend start:server"
+    },
+    "dependencies": {
+        "patch-package": "^6.4.7",
+        "postinstall-postinstall": "^2.1.0"
     }
 }

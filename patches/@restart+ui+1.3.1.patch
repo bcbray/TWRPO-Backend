@@ -1,0 +1,27 @@
+diff --git a/node_modules/@restart/ui/cjs/ssr.js b/node_modules/@restart/ui/cjs/ssr.js
+index b340741..ca6686b 100644
+--- a/node_modules/@restart/ui/cjs/ssr.js
++++ b/node_modules/@restart/ui/cjs/ssr.js
+@@ -3,7 +3,8 @@
+ exports.__esModule = true;
+ 
+ var _ssr = require("@react-aria/ssr");
++var _React = require("react");
+ 
+-exports.useSSRSafeId = _ssr.useSSRSafeId;
++exports.useSSRSafeId = _React.useId;
+ exports.useIsSSR = _ssr.useIsSSR;
+ exports.SSRProvider = _ssr.SSRProvider;
+\ No newline at end of file
+diff --git a/node_modules/@restart/ui/esm/ssr.js b/node_modules/@restart/ui/esm/ssr.js
+index 9c4d673..8c3918a 100644
+--- a/node_modules/@restart/ui/esm/ssr.js
++++ b/node_modules/@restart/ui/esm/ssr.js
+@@ -1,2 +1,3 @@
+-import { useSSRSafeId, useIsSSR, SSRProvider } from '@react-aria/ssr';
+-export { useSSRSafeId, useIsSSR, SSRProvider };
+\ No newline at end of file
++import { useIsSSR, SSRProvider } from '@react-aria/ssr';
++import { useId } from 'react';
++export { useId as useSSRSafeId, useIsSSR, SSRProvider };
+\ No newline at end of file
