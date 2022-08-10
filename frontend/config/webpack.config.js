@@ -200,11 +200,11 @@ module.exports = function (webpackEnv) {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
-    devtool: isEnvProduction
-      ? shouldUseSourceMap && isEnvClient
+    devtool: isEnvProduction && isEnvClient
+      ? shouldUseSourceMap
         ? 'source-map'
         : false
-      : isEnvDevelopment && 'cheap-module-source-map',
+      : (isEnvDevelopment || isEnvServer) && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry: isEnvServer ? paths.serverIndexJs : paths.appIndexJs,
@@ -232,15 +232,13 @@ module.exports = function (webpackEnv) {
       // We inferred the "public path" (such as / or /my-project) from homepage.
       publicPath: paths.publicUrlOrPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: isEnvServer
-        ? undefined
-        : isEnvProduction
-          ? info =>
-              path
-                .relative(isEnvServer ? paths.serverSrc : paths.appSrc, info.absoluteResourcePath)
-                .replace(/\\/g, '/')
-          : isEnvDevelopment &&
-            (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
+      devtoolModuleFilenameTemplate: isEnvProduction && isEnvClient
+        ? info =>
+            path
+              .relative(isEnvServer ? paths.serverSrc : paths.appSrc, info.absoluteResourcePath)
+              .replace(/\\/g, '/')
+        : (isEnvDevelopment || isEnvServer) &&
+          (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
     },
     cache: {
       type: 'filesystem',
