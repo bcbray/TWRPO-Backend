@@ -13,8 +13,7 @@ import { SSRRouting, SSRRoutingProvider } from '../client/SSRRouting';
 import {
   PreloadedData,
   ServerPreloadedDataProvider,
-  preloadedNowKey,
-  preloadedLiveDataKey,
+  preloadedDataKey,
 } from '../client/Data';
 import { LiveResponse } from '../client/types';
 
@@ -34,7 +33,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
     const routingContext: SSRRouting = {};
     const preloadedData: PreloadedData = {
-      now,
+      now: JSON.stringify(now),
       live,
       // characters is HUGE … so not a great candidate for preloading in its current state
     }
@@ -59,20 +58,18 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     }
 
     // TODO: Actual XSS concerns pls
-    // (threat model: someone puts data into a twitch title)
-    const preloaded = [
-      preloadedData.usedNow && `window.${preloadedNowKey} = ${JSON.stringify(now)};`,
-      preloadedData.usedLive && `window.${preloadedLiveDataKey} = ${JSON.stringify(live).replace(/</g,'\\u003c')};`,
-    ].filter(Boolean);
-
-    if (preloaded.length) {
-      indexHTML = indexHTML.replace(
-        '<script id="preloaded"></script>',
-        `<script id="preloaded">
-${preloaded.join('\n')}
-</script>`
-      )
+    // (threat model: someone puts data into a twitch title, which… there's not really anything to XSS right now anyway given we don't have such a thing as authenticated sessions, but still)
+    const preloaded: PreloadedData = {
+      now: preloadedData.usedNow ? JSON.stringify(now) : undefined,
+      live: preloadedData.usedLive ? live : undefined,
     }
+
+    indexHTML = indexHTML.replace(
+      '<script id="preloaded"></script>',
+      `<script id="preloaded">
+window.${preloadedDataKey} = ${JSON.stringify(preloaded).replace(/</g,'\\u003c')}
+</script>`
+    )
 
     indexHTML = indexHTML.replace(
       '<div id="root"></div>',

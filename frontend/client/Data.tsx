@@ -6,7 +6,7 @@ import { useLoading, useAutoReloading, LoadingProps, AutoReloadingProps } from '
 import { LiveResponse, CharactersResponse } from './types'
 
 export interface PreloadedData {
-  now?: Date;
+  now?: string;
   usedNow?: boolean;
 
   live?: LiveResponse;
@@ -16,10 +16,7 @@ export interface PreloadedData {
   usedCharacters?: boolean;
 }
 
-export const preloadedNowKey = '__PRELOADED_NOW__';
-
-export const preloadedLiveDataKey = '__PRELOADED_LIVE_DATA__';
-export const preloadedCharacterDataKey = '__PRELOADED_CHARACTERS_DATA__';
+export const preloadedDataKey = '__TWRPO_PRELOADED__';
 
 export const PreloadedDataContext = React.createContext<PreloadedData>({});
 
@@ -30,27 +27,23 @@ export const ClientPreloadedDataProvider: React.FC<{ children: React.ReactElemen
     console.error('ClientPreloadedDataProvider should not be used on the server');
   }
 
-  const now = preloadedNowKey in window
-    ? new Date((window as any)[preloadedNowKey])
-    : undefined;
+  const data = React.useMemo(() => {
+    return preloadedDataKey in window
+      ? (window as any)[preloadedDataKey] as PreloadedData
+      : {};
+  }, []);
 
-  const live = preloadedLiveDataKey in window
-    ? (window as any)[preloadedLiveDataKey] as LiveResponse
-    : undefined;
-
-  const characters = preloadedLiveDataKey in window
-    ? (window as any)[preloadedCharacterDataKey] as CharactersResponse
-    : undefined;
-
-  return <PreloadedDataContext.Provider value={{ now, live, characters }}>
+  return <PreloadedDataContext.Provider value={data}>
     {children}
   </PreloadedDataContext.Provider>
 }
 
-export const useNow = (intervalMs: number = 1000) => {
+export const useNow = (intervalMs: number = 1000): Date => {
   const preloadedContext = React.useContext(PreloadedDataContext);
   preloadedContext.usedNow = true;
-  const [now, setNow] = React.useState(preloadedContext.now ?? new Date());
+  const [now, setNow] = React.useState(preloadedContext.now
+    ? new Date(preloadedContext.now)
+    : new Date());
   useHarmonicIntervalFn(() => setNow(new Date()), intervalMs);
   return now;
 };
