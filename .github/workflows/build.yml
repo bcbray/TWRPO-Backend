@@ -12,13 +12,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16
-    - name: yarn install (api)
+    - name: yarn install
       run: yarn install
-    - name: yarn build (api)
-      run: yarn build
-    - name: yarn install (frontend)
-      working-directory: ./frontend
-      run: yarn install
-    - name: yarn build (frontend)
-      working-directory: ./frontend
+    - name: yarn build
       run: yarn build

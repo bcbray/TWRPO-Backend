@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.build.json",
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -21,6 +22,11 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "client"
+  ],
+  "references": [
+    {
+      "path": "../packages/api"
+    }
   ]
 }

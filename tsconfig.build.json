@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+
+        "declaration": true,
+        "declarationMap": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "baseUrl": "."
+    }
+}
