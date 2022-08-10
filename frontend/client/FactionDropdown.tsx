@@ -16,6 +16,8 @@ interface Props {
   onSelect: (faction: FactionInfo | null) => void;
   itemContent?: (faction: FactionInfo) => React.ReactNode;
   className?: string;
+  allHref?: string;
+  itemHref?: (faction: FactionInfo) => string;
 };
 
 interface LineItem {
@@ -29,6 +31,8 @@ const FactionDropdown: React.FC<Props> = ({
   onSelect,
   itemContent = f => (f.name),
   className: outerClassName,
+  allHref,
+  itemHref,
 }) => {
   const [filterText, setFilterText] = React.useState('');
 
@@ -40,6 +44,8 @@ const FactionDropdown: React.FC<Props> = ({
       element: (
         <DropdownItem
           key='meta-all'
+          href={allHref}
+          onClick={(e) => e.preventDefault()}
           className={classes(
             styles.item,
             styles.noFilter,
@@ -58,6 +64,8 @@ const FactionDropdown: React.FC<Props> = ({
         element: (
           <DropdownItem
             key={faction.key}
+            href={itemHref?.(faction)}
+            onClick={(e) => e.preventDefault()}
             className={classes(
               styles.item,
               selectedFaction?.key === faction.key && styles.active

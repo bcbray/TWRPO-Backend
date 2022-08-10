@@ -108,6 +108,8 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
           onSelectFaction={f => navigate(`/${f ? `streams/faction/${f.key}` : ''}${location.search}`) }
           searchText={filterText}
           onChangeSearchText={text => setFilterText(text, { replace: true })}
+          allHref={'/'}
+          factionHref={(f) => `/streams/faction/${f.key}`}
         />
         <StreamList
           streams={filteredStreams}

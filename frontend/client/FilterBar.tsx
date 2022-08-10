@@ -13,9 +13,19 @@ interface Props {
   onSelectFaction: (faction: FactionInfo | null) => void;
   searchText: string;
   onChangeSearchText: (text: string) => void;
+  allHref?: string;
+  factionHref?: (faction: FactionInfo) => string;
 }
 
-const FilterBar: React.FC<Props> = ({ factions, selectedFaction, onSelectFaction, searchText, onChangeSearchText }) => {
+const FilterBar: React.FC<Props> = ({
+  factions,
+  selectedFaction,
+  onSelectFaction,
+  searchText,
+  onChangeSearchText,
+  allHref,
+  factionHref,
+}) => {
   const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
   const handleShowFeedback = <T,>(e: React.MouseEvent<T>) => {
     setShowingFeedbackModal(true);
@@ -30,6 +40,8 @@ const FilterBar: React.FC<Props> = ({ factions, selectedFaction, onSelectFaction
           factions={factions}
           selectedFaction={selectedFaction}
           onSelect={onSelectFaction}
+          allHref={allHref}
+          itemHref={factionHref}
         />
         <input
           className={styles.search}

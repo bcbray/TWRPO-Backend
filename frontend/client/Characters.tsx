@@ -74,6 +74,8 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
         onSelectFaction={f => navigate(`/characters${f ? `/faction/${f.key}` : ''}${location.search}`) }
         searchText={filterText}
         onChangeSearchText={text => setFilterText(text, { replace: true })}
+        allHref={'/characters'}
+        factionHref={(f) => `/characters/faction/${f.key}`}
       />
       <CharactersTable characters={filteredCharacters} factionInfos={factionInfoMap} />
     </>
