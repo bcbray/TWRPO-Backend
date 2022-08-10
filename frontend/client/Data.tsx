@@ -54,7 +54,7 @@ export const useNow = (intervalMs: number = 1000): Date => {
   const preloadedContext = React.useContext(PreloadedDataContext);
   preloadedContext.usedNow = true;
   const [now, setNow] = React.useState(preloadedContext.now
-    ? new Date(preloadedContext.now)
+    ? new Date(JSON.parse(preloadedContext.now))
     : new Date());
   React.useEffect(() => setNow(new Date()), []);
   useHarmonicIntervalFn(() => setNow(new Date()), intervalMs);
