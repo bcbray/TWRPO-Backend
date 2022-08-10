@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import Structure from './Structure';
@@ -19,24 +18,22 @@ interface Props {
 const App: React.FC<Props> = () => {
   return (
     <TrackerProvider>
-      <HelmetProvider>
-        <Structure>
-          <Routes>
-            <Route path="/" element={<LiveContainer />} />
-            <Route path="/streams" element={<Redirect to="/" />} />
-            <Route path="/streams/faction" element={<Redirect to="/" />} />
-            <Route path="/streams/faction/:factionKey" element={<LiveContainer />} />
-            <Route path="/characters" element={<CharactersContainer />} />
-            <Route path="/characters/faction" element={<Redirect to="/characters" />} />
-            <Route path="/characters/faction/:factionKey" element={<CharactersContainer />} />
-            <Route path="/multistream" element={<MultistreamContainer />} />
-            <Route path="/multistream/faction" element={<Redirect to="/multistream" />} />
-            <Route path="/multistream/faction/:factionKey" element={<MultistreamContainer />} />
-            <Route path="/utils/colors" element={<ColorHelperContainer />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Structure>
-      </HelmetProvider>
+      <Structure>
+        <Routes>
+          <Route path="/" element={<LiveContainer />} />
+          <Route path="/streams" element={<Redirect to="/" />} />
+          <Route path="/streams/faction" element={<Redirect to="/" />} />
+          <Route path="/streams/faction/:factionKey" element={<LiveContainer />} />
+          <Route path="/characters" element={<CharactersContainer />} />
+          <Route path="/characters/faction" element={<Redirect to="/characters" />} />
+          <Route path="/characters/faction/:factionKey" element={<CharactersContainer />} />
+          <Route path="/multistream" element={<MultistreamContainer />} />
+          <Route path="/multistream/faction" element={<Redirect to="/multistream" />} />
+          <Route path="/multistream/faction/:factionKey" element={<MultistreamContainer />} />
+          <Route path="/utils/colors" element={<ColorHelperContainer />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Structure>
     </TrackerProvider>
   );
 };
