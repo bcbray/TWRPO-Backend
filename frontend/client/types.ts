@@ -36,6 +36,10 @@ export interface CharactersResponse {
   characters: CharacterInfo[];
 };
 
+export interface FactionsResponse {
+  factions: FactionInfo[];
+};
+
 export type FactionKey = string;
 
 export interface Stream {

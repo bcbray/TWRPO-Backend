@@ -15,7 +15,8 @@ import {
   ServerPreloadedDataProvider,
   preloadedDataKey,
 } from '../client/Data';
-import { LiveResponse, CharactersResponse } from '../client/types';
+import { LiveResponse, CharactersResponse, FactionsResponse } from '../client/types';
+import { rootFactionStylesheetContents } from '../client/FactionStyleProvider';
 
 const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
   try {
@@ -31,6 +32,11 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     // TODO: Maybe we should just make an API call?
     const live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
 
+    const factionsResponse = await api.fetchFactions();
+    // Hacky round-trip through JSON to make sure our types are converted the same
+    // TODO: Maybe we should just make an API call?
+    const factions = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
+
     const charactersResponse = await api.fetchCharacters();
     // Hacky round-trip through JSON to make sure our types are converted the same
     // TODO: Maybe we should just make an API call?
@@ -40,6 +46,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     const preloadedData: PreloadedData = {
       now: JSON.stringify(now),
       live,
+      factions,
       characters,
     }
     const helmetContext = {};
@@ -67,6 +74,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     const preloaded: PreloadedData = {
       now: preloadedData.usedNow ? JSON.stringify(now) : undefined,
       live: preloadedData.usedLive ? live : undefined,
+      factions: preloadedData.usedFactions || preloadedData.usedFactionCss ? factions : undefined,
       characters: preloadedData.usedCharacters ? characters : undefined,
     }
 
@@ -76,6 +84,15 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 window.${preloadedDataKey} = ${JSON.stringify(preloaded).replace(/</g,'\\u003c')}
 </script>`
     )
+
+
+    if (preloadedData.usedFactionCss) {
+      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(factions.factions)
+      indexHTML = indexHTML.replace(
+        '<style id="root-faction-styles"></style>',
+        `<style id="root-faction-styles" data-style-hash="${factionStylesHash}">${factionStyles}</style>`
+      )
+    }
 
     indexHTML = indexHTML.replace(
       '<div id="root"></div>',

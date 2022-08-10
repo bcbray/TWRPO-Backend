@@ -10,7 +10,7 @@ import {
   isSuccess,
   LoadingResult,
 } from './LoadingState';
-import { LiveResponse, CharactersResponse } from './types'
+import { LiveResponse, CharactersResponse, FactionsResponse } from './types'
 
 export interface PreloadedData {
   now?: string;
@@ -19,8 +19,13 @@ export interface PreloadedData {
   live?: LiveResponse;
   usedLive?: boolean;
 
+  factions?: FactionsResponse;
+  usedFactions?: boolean;
+
   characters?: CharactersResponse;
   usedCharacters?: boolean;
+
+  usedFactionCss?: boolean;
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
@@ -70,6 +75,25 @@ export const useCharacters = (props: LoadingProps<CharactersResponse> = {}): Loa
   // Update the context so we don't get stuck with stale data later
   if (isSuccess(loadState)) {
     preloadedContext.characters = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+}
+
+export const useFactions = (props: LoadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> => {
+  const preloadedContext = React.useContext(PreloadedDataContext);
+  if (props.needsLoad !== false && preloadedContext.factions && !props.preloaded) {
+    preloadedContext.usedFactions = true;
+  }
+
+  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/factions', {
+    preloaded: preloadedContext.factions,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    preloadedContext.factions = loadState.data;
   }
 
   return [loadState, outerOnReload, lastLoad];

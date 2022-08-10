@@ -5,12 +5,11 @@ import styles from './StreamCard.module.css';
 import { Stream, FactionInfo, channelInfo } from './types';
 import { formatViewers, formatDuration, classes } from './utils';
 import {
-  useFactionCss,
-  factionStylesForKey,
   useOneWayBoolean,
   useDelayed,
   useWindowFocus
 } from './hooks';
+import { useFactionCss } from './FactionStyleProvider';
 import { useNow } from './Data';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
@@ -69,7 +68,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     ...rest
   }, ref
 ) => {
-  const factionContainer = useFactionCss(Object.values(factionInfos));
+  const { factionStylesForKey } = useFactionCss();
   const thumbnailRef = React.useRef(null);
   const intersection = useIntersection(thumbnailRef, {});
 
@@ -98,7 +97,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
 
   return (
     <div
-      className={classes(styles.container, className, factionContainer, cardStyles[cardStyle])}
+      className={classes(styles.container, className, cardStyles[cardStyle])}
       ref={ref}
       style={{
         ...factionStylesForKey(stream.tagFaction),
