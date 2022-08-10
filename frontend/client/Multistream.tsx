@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIsomorphicLayoutEffect } from 'react-use';
 
 import styles from './Multistream.module.css';
 import { Stream, FactionKey, FactionInfo } from './types';
@@ -12,6 +13,105 @@ interface Props {
   onClickRemove: (stream: Stream) => void;
 }
 
+interface BestSizeOptions {
+  gap?: number;
+  aspectRatio?: number;
+  smallBreakpoint?: number;
+  fallback?: BestSize;
+}
+
+interface BestSize {
+  width: number;
+  height: number;
+  totalHeight: number;
+  overlayHeight: number;
+  overlayTop: number;
+}
+
+export type BestSizeRef<E extends HTMLElement = HTMLElement> = (element: E) => void;
+
+export type BestSizeResult<E extends HTMLElement = HTMLElement> = [BestSizeRef<E>, BestSize];
+
+const isBrowser = typeof window !== 'undefined';
+
+function useBestSize<E extends HTMLElement = HTMLElement>(count: number, options: BestSizeOptions = {}): BestSizeResult<E> {
+  const { gap = 4 , aspectRatio = 16/9, smallBreakpoint = 514, fallback } = options;
+  const [element, ref] = React.useState<E | null>(null);
+
+  const [result, setResult] = React.useState<BestSize>(fallback ?? {
+    height: 248,
+    width: 440,
+    totalHeight: 248 * count,
+    overlayHeight: 248 * count,
+    overlayTop: 0,
+  })
+
+  interface Dimensions {
+    height: number;
+    width: number;
+    offsetTop: number;
+    windowHeight: number;
+  }
+
+  const compute = React.useCallback((dimensions: Dimensions) => {
+    let bestHeight = 0;
+    let bestWidth = 0;
+    let totalHeight = dimensions.height;
+
+    if (dimensions.width > smallBreakpoint) {
+      for (var perRow = 1; perRow <= count; perRow++) {
+        let rowCount = Math.ceil(count / perRow);
+        let width = (dimensions.width - gap * (perRow - 1)) / perRow;
+        let height = (dimensions.height -  gap * (rowCount - 1)) / rowCount;
+        if ((width / aspectRatio) < height) {
+          height = width / aspectRatio;
+        } else {
+          width = height * aspectRatio;
+        }
+        if (width > bestWidth) {
+          bestWidth = width;
+          bestHeight = height;
+        }
+      }
+    } else {
+      bestWidth = dimensions.width;
+      bestHeight = bestWidth / aspectRatio;
+      totalHeight = (bestHeight * count) + (gap * (count - 1));
+    }
+
+    setResult({
+      width: bestWidth,
+      height: bestHeight,
+      totalHeight: totalHeight,
+      overlayHeight: dimensions.windowHeight - dimensions.offsetTop,
+      overlayTop: dimensions.offsetTop,
+    });
+  }, [aspectRatio, count, gap, smallBreakpoint]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (isBrowser && element) {
+      const handler = () => {
+        compute({
+          height: window.innerHeight - element.offsetTop,
+          width: element.clientWidth,
+          offsetTop: element.offsetTop,
+          windowHeight: window.innerHeight,
+        });
+      };
+
+      handler();
+      window.addEventListener('resize', handler);
+
+      return () => {
+        window.removeEventListener('resize', handler);
+      };
+    }
+    return () => {};
+  }, [element, compute]);
+
+  return [ref, result];
+}
+
 const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, onClickRemove }) => {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [listeningTo, setListeningTo] = React.useState<Stream | null>(null);
@@ -23,70 +123,27 @@ const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, 
     }
   };
 
-  // TODO: Consider moving width/height out of the react tree
-  const [dimensions, setDimensions] = React.useState({
-    height: window.innerHeight,
-    width: window.innerWidth,
-    offsetTop: 0,
-    windowHeight: window.innerHeight,
-  });
-
-  React.useEffect(() => {
-    function listener() {
-      const element = document.getElementById('multistream-primary-container');
-      if (!element) return;
-      setDimensions({
-        height: window.innerHeight - element.offsetTop,
-        width: element.clientWidth,
-        offsetTop: element.offsetTop,
-        windowHeight: window.innerHeight,
-      });
-    };
-    listener();
-    window.addEventListener('resize', listener);
-    return () => window.removeEventListener('resize', listener);
-  }, []);
-
-  const count = streams.length;
   const gap = 4;
-  const smallBreakpoint = 514;
 
-  let bestHeight = 0;
-  let bestWidth = 0;
-  let totalHeight = dimensions.height;
-  let ratio = 16/9;
+  const [containerRef, bestSize] = useBestSize<HTMLDivElement>(streams.length, { gap });
 
-  if (dimensions.width > smallBreakpoint) {
-    for (var perRow = 1; perRow <= count; perRow++) {
-      let rowCount = Math.ceil(count / perRow);
-      let width = (dimensions.width - gap * (perRow - 1)) / perRow;
-      let height = (dimensions.height -  gap * (rowCount - 1)) / rowCount;
-      if ((width / ratio) < height) {
-        height = width / ratio;
-      } else {
-        width = height * ratio;
-      }
-      if (width > bestWidth) {
-        bestWidth = width;
-        bestHeight = height;
-      }
-    }
-  } else {
-    bestWidth = dimensions.width;
-    bestHeight = bestWidth / ratio;
-    totalHeight = (bestHeight * count) + (gap * (count - 1));
-  }
+  const {
+    width: bestWidth,
+    height: bestHeight,
+    totalHeight,
+    overlayHeight,
+    overlayTop,
+  } = bestSize;
 
   return (
     <div
-      id='multistream-primary-container'
+      ref={containerRef}
       className={[styles.container, isPlaying ? styles.playing : styles.paused].join(' ')}
       style={{
         height: `${totalHeight}px`,
       }}
     >
       <div
-        id='multistream-primary-container'
         className={styles.streamContainer}
         style={{
           gap: gap,
@@ -131,8 +188,8 @@ const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, 
         <div
           className={styles.playOverlay}
           style={{
-            height: `${dimensions.windowHeight - dimensions.offsetTop}px`,
-            top: `${dimensions.offsetTop}px`,
+            height: `${overlayHeight}px`,
+            top: `${overlayTop}px`,
           }}
         >
           <div>
