@@ -47,6 +47,17 @@ export const useNow = (intervalMs: number = 1000) => {
   return now;
 };
 
+export const useLive = (props: LoadingProps<LiveResponse> = {}) => {
+  const preloadedContext = React.useContext(PreloadedDataContext);
+  if (props.needsLoad !== false && preloadedContext.live && !props.preloaded) {
+    preloadedContext.usedLive = true;
+  }
+  return useLoading('/api/v1/live', {
+    preloaded: preloadedContext.live,
+    ...props,
+  });
+};
+
 export const useAutoreloadLive = (props: AutoReloadingProps<LiveResponse> = {}) => {
   const preloadedContext = React.useContext(PreloadedDataContext);
   if (props.needsLoad !== false && preloadedContext.live && !props.preloaded) {

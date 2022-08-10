@@ -1,14 +1,14 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
-import { useLoading, isSuccess, isFailure } from './LoadingState';
-import { LiveResponse } from './types';
+import { isSuccess, isFailure } from './LoadingState';
+import { useLive } from './Data';
 import MultistreamMain from './MultistreamMain';
 import Error from './Error';
 import Loading from './Loading';
 
 const MultistreamContainer: React.FunctionComponent<{}> = () => {
   // const [loadingState, onReload] = useLoading<Live>('https://vaeb.io:3030/live');
-  const [loadingState, onReload] = useLoading<LiveResponse>('/live');
+  const [loadingState, onReload] = useLive();
   return (
     <>
       <Helmet>
