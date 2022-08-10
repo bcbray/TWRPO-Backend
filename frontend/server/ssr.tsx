@@ -15,7 +15,7 @@ import {
   ServerPreloadedDataProvider,
   preloadedDataKey,
 } from '../client/Data';
-import { LiveResponse } from '../client/types';
+import { LiveResponse, CharactersResponse } from '../client/types';
 
 const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
   try {
@@ -31,11 +31,16 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     // TODO: Maybe we should just make an API call?
     const live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
 
+    const charactersResponse = await api.fetchCharacters();
+    // Hacky round-trip through JSON to make sure our types are converted the same
+    // TODO: Maybe we should just make an API call?
+    const characters = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
+
     const routingContext: SSRRouting = {};
     const preloadedData: PreloadedData = {
       now: JSON.stringify(now),
       live,
-      // characters is HUGE … so not a great candidate for preloading in its current state
+      characters,
     }
     const helmetContext = {};
 
@@ -62,6 +67,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     const preloaded: PreloadedData = {
       now: preloadedData.usedNow ? JSON.stringify(now) : undefined,
       live: preloadedData.usedLive ? live : undefined,
+      characters: preloadedData.usedCharacters ? characters : undefined,
     }
 
     indexHTML = indexHTML.replace(
