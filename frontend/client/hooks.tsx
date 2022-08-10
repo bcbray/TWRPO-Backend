@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useSearchParams, NavigateOptions  } from 'react-router-dom';
-import { useCss } from 'react-use';
 import { useDebounce, usePreviousDistinct, useUpdateEffect } from 'react-use';
 import useTimeout from '@restart/hooks/useTimeout';
 
 import tinycolor from 'tinycolor2';
 
 import { FactionInfo } from './types';
+import useCss from './useCss';
 
 const isBrowser = typeof window !== 'undefined';
 
