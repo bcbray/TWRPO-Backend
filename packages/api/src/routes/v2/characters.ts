@@ -2,12 +2,10 @@ import { Router } from 'express';
 import { ApiClient } from 'twitch';
 
 import { wrpCharacters } from '../../data/characters';
-import { wrpFactionsReal, FactionRealFull } from '../../data/meta';
-import { useColorsLight, useColorsDark, filterRename } from '../../data/factions';
-import { objectEntries } from '../../utils';
 import { getWrpLive, Stream } from '../live/liveData';
 import { displayInfo } from '../../characterUtils';
 import { getKnownTwitchUsers } from '../../pfps';
+import { fetchFactions } from './factions';
 
 interface FactionInfo {
     key: string;
@@ -50,21 +48,7 @@ export const fetchCharacters = async (apiClient: ApiClient): Promise<CharactersR
 
     const liveData = await getWrpLive(apiClient);
 
-    const ignoredFactions: FactionRealFull[] = ['Development', 'Other', 'Other Faction', 'Podcast', 'Watch Party'];
-    const factionInfos = objectEntries(wrpFactionsReal).filter(([__, faction]) => !ignoredFactions.includes(faction)).map(([mini, faction]) => {
-        const colorLightKey = mini as keyof typeof useColorsLight;
-        const colorDarkKey = mini as keyof typeof useColorsDark;
-        const factionRenameKey = mini as keyof typeof filterRename;
-
-        const factionInfo: FactionInfo = {
-            key: mini,
-            name: filterRename[factionRenameKey] ?? faction,
-            colorLight: useColorsLight[colorLightKey] ?? '#12af7e',
-            colorDark: useColorsDark[colorDarkKey] ?? '#32ff7e',
-            liveCount: liveData.factionCount[factionRenameKey],
-        };
-        return factionInfo;
-    });
+    const { factions: factionInfos } = await fetchFactions(apiClient);
 
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
     const { independent } = factionMap;

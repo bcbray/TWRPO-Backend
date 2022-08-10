@@ -5,6 +5,7 @@ import { AuthProvider } from 'twitch-auth';
 
 import { getWrpLive, Live, startRefreshing, IntervalTimeout } from './routes/live/liveData';
 import { fetchCharacters, CharactersResponse } from './routes/v2/characters';
+import { fetchFactions, FactionsResponse } from './routes/v2/factions';
 import routes from './routes';
 
 interface ApiOptions {
@@ -31,6 +32,7 @@ class Api {
         this.apiRouter.use(express.json());
         this.apiRouter.use('/v1/live', routes.liveRouter(this.twitchClient));
         this.apiRouter.use('/v2/characters', routes.v2CharactersRouter(this.twitchClient));
+        this.apiRouter.use('/v2/factions', routes.v2FactionsRouter(this.twitchClient));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter);
 
         const { refreshInterval = 1000 * 60 } = options;
@@ -39,6 +41,10 @@ class Api {
 
     public async fetchLive(): Promise<Live> {
         return getWrpLive(this.twitchClient);
+    }
+
+    public async fetchFactions(): Promise<FactionsResponse> {
+        return fetchFactions(this.twitchClient);
     }
 
     public async fetchCharacters(): Promise<CharactersResponse> {

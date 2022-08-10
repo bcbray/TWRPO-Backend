@@ -15,7 +15,7 @@ import {
   ServerPreloadedDataProvider,
   preloadedDataKey,
 } from '../client/Data';
-import { LiveResponse, CharactersResponse } from '../client/types';
+import { LiveResponse, CharactersResponse, FactionsResponse } from '../client/types';
 
 const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
   try {
@@ -31,6 +31,11 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     // TODO: Maybe we should just make an API call?
     const live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
 
+    const factionsResponse = await api.fetchFactions();
+    // Hacky round-trip through JSON to make sure our types are converted the same
+    // TODO: Maybe we should just make an API call?
+    const factions = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
+
     const charactersResponse = await api.fetchCharacters();
     // Hacky round-trip through JSON to make sure our types are converted the same
     // TODO: Maybe we should just make an API call?
@@ -40,6 +45,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     const preloadedData: PreloadedData = {
       now: JSON.stringify(now),
       live,
+      factions,
       characters,
     }
     const helmetContext = {};
@@ -67,6 +73,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     const preloaded: PreloadedData = {
       now: preloadedData.usedNow ? JSON.stringify(now) : undefined,
       live: preloadedData.usedLive ? live : undefined,
+      factions: preloadedData.usedFactions ? factions : undefined,
       characters: preloadedData.usedCharacters ? characters : undefined,
     }
 
