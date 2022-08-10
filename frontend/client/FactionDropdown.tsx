@@ -127,6 +127,7 @@ const FactionDropdown: React.FC<Props> = ({
         onHide={() => {
           setFilterText('');
         }}
+        alwaysRender
       >
         <input
           ref={inputRef}

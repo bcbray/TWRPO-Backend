@@ -14,10 +14,11 @@ interface DropdownMenuProps {
   popperConfig?: UseDropdownMenuOptions['popperConfig'];
   onShow?: () => void;
   onHide?: () => void;
+  alwaysRender?: boolean;
 }
 
 const DropdownMenu = React.forwardRef<HTMLElement, DropdownMenuProps>((
-  { className, children, popperConfig, onShow, onHide }, ref
+  { className, children, popperConfig, onShow, onHide, alwaysRender = false }, ref
 ) => {
   const [props, { hasShown, show} ] = useDropdownMenu({
     popperConfig,
@@ -41,7 +42,7 @@ const DropdownMenu = React.forwardRef<HTMLElement, DropdownMenuProps>((
     useWrappedRefWithWarning(ref, 'DropdownMenu')
   )
 
-  if (!hasShown) {
+  if (!hasShown && !alwaysRender) {
     return null;
   }
 
