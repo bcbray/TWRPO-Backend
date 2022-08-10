@@ -1,4 +1,5 @@
 .menu {
+  position: absolute;
   display: block;
   background-color: var(--theme-modal-background);
   border: 1px solid rgba(0,0,0,0.15);
