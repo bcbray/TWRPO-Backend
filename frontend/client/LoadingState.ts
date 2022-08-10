@@ -53,7 +53,7 @@ export function useLoading<T>(
 ): LoadingResult<T> {
   const { preloaded, needsLoad = true, onReloadFailed, onReloadSuccess } = props;
   const [getState, setState] = useGetSet<LoadingState<T, any>>(
-    preloaded ? Success(preloaded) : Idle
+    preloaded && needsLoad ? Success(preloaded) : Idle
   );
   const [loadCount, setLoadCount] = useState(0);
   const [lastLoadCount, setLastLoadCount] = useState<number | undefined>(undefined);

@@ -24,6 +24,8 @@ export interface PreloadedData {
 
   characters?: CharactersResponse;
   usedCharacters?: boolean;
+
+  usedFactionCss?: boolean;
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';

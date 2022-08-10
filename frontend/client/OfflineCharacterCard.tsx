@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './OfflineCharacterCard.module.css';
 import { CharacterInfo, FactionInfo } from './types';
 import { classes } from './utils';
-import { useFactionCss, factionStylesForKey } from './hooks';
+import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhoto from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
@@ -40,11 +40,11 @@ const CharacterLink: React.FC<CharacterLinkProps> = ({character, style, children
 const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
   { character, factionInfos, className, style, ...rest }, ref
 ) => {
-  const factionContainer = useFactionCss(Object.values(factionInfos));
+  const { factionStylesForKey } = useFactionCss();
 
   return (
     <div
-      className={classes(styles.card, className, factionContainer)}
+      className={classes(styles.card, className)}
       ref={ref}
       style={{
         ...factionStylesForKey(character.factions[0]?.key),

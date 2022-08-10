@@ -16,6 +16,7 @@ import {
   preloadedDataKey,
 } from '../client/Data';
 import { LiveResponse, CharactersResponse, FactionsResponse } from '../client/types';
+import { rootFactionStylesheetContents } from '../client/FactionStyleProvider';
 
 const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
   try {
@@ -73,7 +74,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     const preloaded: PreloadedData = {
       now: preloadedData.usedNow ? JSON.stringify(now) : undefined,
       live: preloadedData.usedLive ? live : undefined,
-      factions: preloadedData.usedFactions ? factions : undefined,
+      factions: preloadedData.usedFactions || preloadedData.usedFactionCss ? factions : undefined,
       characters: preloadedData.usedCharacters ? characters : undefined,
     }
 
@@ -83,6 +84,15 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 window.${preloadedDataKey} = ${JSON.stringify(preloaded).replace(/</g,'\\u003c')}
 </script>`
     )
+
+
+    if (preloadedData.usedFactionCss) {
+      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(factions.factions)
+      indexHTML = indexHTML.replace(
+        '<style id="root-faction-styles"></style>',
+        `<style id="root-faction-styles" data-style-hash="${factionStylesHash}">${factionStyles}</style>`
+      )
+    }
 
     indexHTML = indexHTML.replace(
       '<div id="root"></div>',

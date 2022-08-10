@@ -7,7 +7,7 @@ import Tag from './Tag';
 import StreamCard from './StreamCard';
 import ProfilePhoto from './ProfilePhoto';
 import { classes } from './utils';
-import { useFactionCss, factionStyles } from './hooks';
+import { useFactionCss } from './FactionStyleProvider';
 import OverlayTrigger from './OverlayTrigger';
 
 interface Props {
@@ -40,10 +40,10 @@ const LiveBadge: React.FC<{ stream: Stream, factionInfos: {[key: string]: Factio
 
 const CharactersTable: React.FunctionComponent<Props> = ({ characters, factionInfos }) => {
   const location = useLocation();
-  const factionContainer = useFactionCss(Object.values(factionInfos));
+  const { factionStyles } = useFactionCss();
 
   return (
-    <div className={classes(styles.tableContainer, factionContainer, 'inset')}>
+    <div className={classes(styles.tableContainer, 'inset')}>
       <table className={styles.table}>
         <thead>
           <tr>

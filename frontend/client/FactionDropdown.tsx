@@ -4,7 +4,7 @@ import isMobile from 'is-mobile';
 import styles from './FactionDropdown.module.css';
 import { FactionInfo } from './types';
 import { classes } from './utils';
-import { useFactionCss, factionStyles, factionStylesForKey } from './hooks';
+import { useFactionCss } from './FactionStyleProvider';
 import Dropdown from  './Dropdown';
 import DropdownButton from  './DropdownButton';
 import DropdownMenu from  './DropdownMenu';
@@ -37,6 +37,8 @@ const FactionDropdown: React.FC<Props> = ({
   const [filterText, setFilterText] = React.useState('');
 
   const filterTextToUse = filterText.toLowerCase().trim();
+
+  const { factionStyles, factionStylesForKey } = useFactionCss();
 
   const allItems: LineItem[] = [
     {
@@ -84,8 +86,6 @@ const FactionDropdown: React.FC<Props> = ({
     ? allItems
     : allItems.filter(i => i.name.toLowerCase().includes(filterTextToUse));
 
-  const factionContainer = useFactionCss(factions);
-
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
   const dropdownRef = React.useRef<HTMLElement | null>(null);
@@ -105,7 +105,7 @@ const FactionDropdown: React.FC<Props> = ({
 
   return (
     <Dropdown
-      className={classes(factionContainer, outerClassName)}
+      className={classes(outerClassName)}
       onSelect={e => onSelect(factions.find(f => f.key === e) || null)}
     >
       <DropdownButton
