@@ -45,10 +45,12 @@ export interface LoadingProps<T> {
   onReloadSuccess?: () => void;
 }
 
+export type LoadingResult<T> = [LoadingState<T, Error>, () => void, number];
+
 export function useLoading<T>(
   input: RequestInfo,
   props: LoadingProps<T> = {}
-): [LoadingState<T, Error>, () => void, number] {
+): LoadingResult<T> {
   const { preloaded, needsLoad = true, onReloadFailed, onReloadSuccess } = props;
   const [getState, setState] = useGetSet<LoadingState<T, any>>(
     preloaded ? Success(preloaded) : Idle
@@ -112,7 +114,7 @@ export interface AutoReloadingProps<T> extends LoadingProps<T> {
 export function useAutoReloading<T>(
   input: RequestInfo,
   props: AutoReloadingProps<T> = {}
-): [LoadingState<T, Error>, () => void, number] {
+): LoadingResult<T> {
   const { interval = 60 * 1000, ...rest } = props;
   const [loadState, onReload, lastLoad] = useLoading<T>(input, rest);
   const [jitter, setJitter] = useState(randomJitter());

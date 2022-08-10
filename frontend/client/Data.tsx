@@ -2,7 +2,14 @@ import React from 'react';
 import { useIsSSR } from '@restart/ui/ssr';
 import { useHarmonicIntervalFn } from 'react-use';
 
-import { useLoading, useAutoReloading, LoadingProps, AutoReloadingProps } from './LoadingState';
+import {
+  useLoading,
+  useAutoReloading,
+  LoadingProps,
+  AutoReloadingProps,
+  isSuccess,
+  LoadingResult,
+} from './LoadingState';
 import { LiveResponse, CharactersResponse } from './types'
 
 export interface PreloadedData {
@@ -44,39 +51,62 @@ export const useNow = (intervalMs: number = 1000): Date => {
   const [now, setNow] = React.useState(preloadedContext.now
     ? new Date(preloadedContext.now)
     : new Date());
+  React.useEffect(() => setNow(new Date()), []);
   useHarmonicIntervalFn(() => setNow(new Date()), intervalMs);
   return now;
 };
 
-export const useCharacters = (props: LoadingProps<CharactersResponse> = {}) => {
+export const useCharacters = (props: LoadingProps<CharactersResponse> = {}): LoadingResult<CharactersResponse> => {
   const preloadedContext = React.useContext(PreloadedDataContext);
   if (props.needsLoad !== false && preloadedContext.characters && !props.preloaded) {
     preloadedContext.usedCharacters = true;
   }
-  return useLoading('/api/v2/characters', {
+
+  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/characters', {
     preloaded: preloadedContext.characters,
     ...props,
   });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    preloadedContext.characters = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
 }
 
-export const useLive = (props: LoadingProps<LiveResponse> = {}) => {
+export const useLive = (props: LoadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
   const preloadedContext = React.useContext(PreloadedDataContext);
   if (props.needsLoad !== false && preloadedContext.live && !props.preloaded) {
     preloadedContext.usedLive = true;
   }
-  return useLoading('/api/v1/live', {
+  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v1/live', {
     preloaded: preloadedContext.live,
     ...props,
   });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    preloadedContext.live = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
 };
 
-export const useAutoreloadLive = (props: AutoReloadingProps<LiveResponse> = {}) => {
+export const useAutoreloadLive = (props: AutoReloadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
   const preloadedContext = React.useContext(PreloadedDataContext);
   if (props.needsLoad !== false && preloadedContext.live && !props.preloaded) {
     preloadedContext.usedLive = true;
   }
-  return useAutoReloading('/api/v1/live', {
+  const [loadState, outerOnReload, lastLoad] = useAutoReloading('/api/v1/live', {
     preloaded: preloadedContext.live,
     ...props,
   });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    preloadedContext.live = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
 };
