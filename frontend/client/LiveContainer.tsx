@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet-async";
 import { toast, Id as ToastId } from 'react-toastify';
 import { Button } from '@restart/ui';
 
-import { useAutoReloading, isSuccess, isFailure } from './LoadingState';
-import { LiveResponse } from './types';
+import { useAutoreloadLive } from './Data';
+import { isSuccess, isFailure } from './LoadingState';
 import Live from './Live';
 import Error from './Error';
 import Loading from './Loading';
@@ -68,7 +68,7 @@ const LiveContainer: React.FC = () => {
     updateToastIfVisible();
   }, [updateToastIfVisible]);
 
-  const [liveLoadingState, reloadLive, lastLoad] = useAutoReloading<LiveResponse>('/api/v1/live', {
+  const [liveLoadingState, reloadLive, lastLoad] = useAutoreloadLive({
     needsLoad: !autoreloadPaused,
     onReloadFailed,
     onReloadSuccess: dismissToastIfVisible,

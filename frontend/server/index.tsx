@@ -9,7 +9,7 @@ const app = express();
 app.enable('trust proxy');
 
 // Index is SSR
-app.get('/', ssr);
+app.get('/', ssr(twrpo));
 
 // Redirect /live to /api/v1/live
 app.get('/live', (_res, res) => res.redirect('/api/v1/live'));
@@ -21,7 +21,7 @@ app.use('/api', twrpo.apiRouter);
 app.use(express.static(path.resolve('build')));
 
 // And finally, back to SSR for catch-all to handle routing
-app.get('*', ssr);
+app.get('*', ssr(twrpo));
 
 // Auto-refresh Twitch data
 twrpo.startRefreshing();

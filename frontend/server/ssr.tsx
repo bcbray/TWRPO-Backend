@@ -6,32 +6,64 @@ import { StaticRouter } from "react-router-dom/server";
 import { SSRProvider } from "@restart/ui/ssr";
 import { HelmetProvider, FilledContext } from 'react-helmet-async';
 
+import TWRPOApi from '@twrpo/api';
+
 import App from '../client/App';
 import { SSRRouting, SSRRoutingProvider } from '../client/SSRRouting';
+import {
+  PreloadedData,
+  ServerPreloadedDataProvider,
+  preloadedLiveDataKey,
+} from '../client/Data';
+import { LiveResponse } from '../client/types';
 
-const ssrHandler: RequestHandler = (req, res) => {
+const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
   try {
     let indexHTML = fs.readFileSync(path.resolve('build/index.html'), {
       encoding: 'utf8',
     });
 
+    // TODO: try/catch this
+    const liveResponse = await api.fetchLive();
+    // Hacky round-trip through JSON to make sure our types are converted the same
+    // TODO: Maybe we should just make an API call?
+    const live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
+
     const routingContext: SSRRouting = {};
+    const preloadedData: PreloadedData = { live }
     const helmetContext = {};
 
     let appHTML = ReactDOMServer.renderToString(
-      <SSRProvider>
-        <SSRRoutingProvider value={routingContext}>
-          <HelmetProvider context={helmetContext} >
-            <StaticRouter location={req.url}>
-              <App />
-            </StaticRouter>
-          </HelmetProvider>
-        </SSRRoutingProvider>
-      </SSRProvider>
+      <ServerPreloadedDataProvider value={preloadedData}>
+        <SSRProvider>
+          <SSRRoutingProvider value={routingContext}>
+            <HelmetProvider context={helmetContext} >
+              <StaticRouter location={req.url}>
+                <App />
+              </StaticRouter>
+            </HelmetProvider>
+          </SSRRoutingProvider>
+        </SSRProvider>
+      </ServerPreloadedDataProvider>
     );
 
     if (routingContext.redirect) {
       return res.redirect(routingContext.redirect);
+    }
+
+    // TODO: Actual XSS concerns pls
+    // (threat model: someone puts data into a twitch title)
+    const preloaded = [
+      preloadedData.usedLive && `window.${preloadedLiveDataKey} = ${JSON.stringify(live).replace(/</g,'\\u003c')};`,
+    ].filter(Boolean);
+
+    if (preloaded.length) {
+      indexHTML = indexHTML.replace(
+        '<script id="preloaded"></script>',
+        `<script id="preloaded">
+${preloaded.join('\n')}
+</script>`
+      )
     }
 
     indexHTML = indexHTML.replace(

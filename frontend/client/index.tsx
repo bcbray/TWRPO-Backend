@@ -7,14 +7,17 @@ import 'normalize.css';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import { ClientPreloadedDataProvider } from './Data';
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <React.StrictMode>
     <BrowserRouter>
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
+      <ClientPreloadedDataProvider>
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
+      </ClientPreloadedDataProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
