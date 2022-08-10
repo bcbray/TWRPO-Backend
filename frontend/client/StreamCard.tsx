@@ -1,5 +1,5 @@
 import React from 'react';
-import { useIntersection, useHoverDirty, useHarmonicIntervalFn } from 'react-use';
+import { useIntersection, useHoverDirty } from 'react-use';
 
 import styles from './StreamCard.module.css';
 import { Stream, FactionInfo, channelInfo } from './types';
@@ -11,6 +11,7 @@ import {
   useDelayed,
   useWindowFocus
 } from './hooks';
+import { useNow } from './Data';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
@@ -93,8 +94,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
 
   const startDate = React.useMemo(() => new Date(stream.startDate), [stream.startDate])
 
-  const [now, setNow] = React.useState(new Date());
-  useHarmonicIntervalFn(() => setNow(new Date()), 1000);
+  const now = useNow();
 
   return (
     <div

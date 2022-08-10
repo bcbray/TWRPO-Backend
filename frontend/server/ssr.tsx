@@ -13,6 +13,7 @@ import { SSRRouting, SSRRoutingProvider } from '../client/SSRRouting';
 import {
   PreloadedData,
   ServerPreloadedDataProvider,
+  preloadedNowKey,
   preloadedLiveDataKey,
 } from '../client/Data';
 import { LiveResponse } from '../client/types';
@@ -23,6 +24,8 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
       encoding: 'utf8',
     });
 
+    const now = new Date();
+
     // TODO: try/catch this
     const liveResponse = await api.fetchLive();
     // Hacky round-trip through JSON to make sure our types are converted the same
@@ -30,7 +33,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     const live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
 
     const routingContext: SSRRouting = {};
-    const preloadedData: PreloadedData = { live }
+    const preloadedData: PreloadedData = { now, live };
     const helmetContext = {};
 
     let appHTML = ReactDOMServer.renderToString(
@@ -54,6 +57,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     // TODO: Actual XSS concerns pls
     // (threat model: someone puts data into a twitch title)
     const preloaded = [
+      preloadedData.usedNow && `window.${preloadedNowKey} = ${JSON.stringify(now)};`,
       preloadedData.usedLive && `window.${preloadedLiveDataKey} = ${JSON.stringify(live).replace(/</g,'\\u003c')};`,
     ].filter(Boolean);
 
