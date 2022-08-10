@@ -27,7 +27,7 @@ export const useSingleSearchParam = (name: string): [string, ((value: string, op
 };
 
 export const useDevicePixelRatio = (fallback: number = 1) => {
-  const [ratio, setRatio] = useState(isBrowser ? window.devicePixelRatio : fallback);
+  const [ratio, setRatio] = useState(fallback);
 
   useEffect(() => {
     if (isBrowser) {
@@ -146,10 +146,10 @@ export function useDelayed<T>(value: T, delay: number): T {
   return effectiveValue;
 };
 
-const hasFocus = () => document && document.hasFocus()
+const hasFocus = () => typeof document !== 'undefined' && document.hasFocus()
 
 export function useWindowFocus(): boolean {
-  const [focused, setFocused] = useState(hasFocus());
+  const [focused, setFocused] = useState(true);
   useEffect(() => {
     setFocused(hasFocus());
 
