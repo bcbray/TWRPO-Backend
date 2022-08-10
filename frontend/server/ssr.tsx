@@ -33,7 +33,11 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     const live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
 
     const routingContext: SSRRouting = {};
-    const preloadedData: PreloadedData = { now, live };
+    const preloadedData: PreloadedData = {
+      now,
+      live,
+      // characters is HUGE … so not a great candidate for preloading in its current state
+    }
     const helmetContext = {};
 
     let appHTML = ReactDOMServer.renderToString(

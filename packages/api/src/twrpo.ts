@@ -4,6 +4,7 @@ import { ApiClient } from 'twitch';
 import { AuthProvider } from 'twitch-auth';
 
 import { getWrpLive, Live, startRefreshing, IntervalTimeout } from './routes/live/liveData';
+import { fetchCharacters, CharactersResponse } from './routes/v2/characters';
 import routes from './routes';
 
 interface ApiOptions {
@@ -38,6 +39,10 @@ class Api {
 
     public async fetchLive(): Promise<Live> {
         return getWrpLive(this.twitchClient);
+    }
+
+    public async fetchCharacters(): Promise<CharactersResponse> {
+        return fetchCharacters(this.twitchClient);
     }
 
     public startRefreshing(): void {

@@ -2,8 +2,8 @@ import React from 'react';
 import { useIsSSR } from '@restart/ui/ssr';
 import { useHarmonicIntervalFn } from 'react-use';
 
-import { useAutoReloading, AutoReloadingProps } from './LoadingState';
-import { LiveResponse } from './types'
+import { useLoading, useAutoReloading, LoadingProps, AutoReloadingProps } from './LoadingState';
+import { LiveResponse, CharactersResponse } from './types'
 
 export interface PreloadedData {
   now?: Date;
@@ -11,11 +11,15 @@ export interface PreloadedData {
 
   live?: LiveResponse;
   usedLive?: boolean;
+
+  characters?: CharactersResponse;
+  usedCharacters?: boolean;
 }
 
 export const preloadedNowKey = '__PRELOADED_NOW__';
 
 export const preloadedLiveDataKey = '__PRELOADED_LIVE_DATA__';
+export const preloadedCharacterDataKey = '__PRELOADED_CHARACTERS_DATA__';
 
 export const PreloadedDataContext = React.createContext<PreloadedData>({});
 
@@ -34,7 +38,11 @@ export const ClientPreloadedDataProvider: React.FC<{ children: React.ReactElemen
     ? (window as any)[preloadedLiveDataKey] as LiveResponse
     : undefined;
 
-  return <PreloadedDataContext.Provider value={{ now, live }}>
+  const characters = preloadedLiveDataKey in window
+    ? (window as any)[preloadedCharacterDataKey] as CharactersResponse
+    : undefined;
+
+  return <PreloadedDataContext.Provider value={{ now, live, characters }}>
     {children}
   </PreloadedDataContext.Provider>
 }
@@ -46,6 +54,17 @@ export const useNow = (intervalMs: number = 1000) => {
   useHarmonicIntervalFn(() => setNow(new Date()), intervalMs);
   return now;
 };
+
+export const useCharacters = (props: LoadingProps<CharactersResponse> = {}) => {
+  const preloadedContext = React.useContext(PreloadedDataContext);
+  if (props.needsLoad !== false && preloadedContext.characters && !props.preloaded) {
+    preloadedContext.usedCharacters = true;
+  }
+  return useLoading('/api/v2/characters', {
+    preloaded: preloadedContext.characters,
+    ...props,
+  });
+}
 
 export const useLive = (props: LoadingProps<LiveResponse> = {}) => {
   const preloadedContext = React.useContext(PreloadedDataContext);

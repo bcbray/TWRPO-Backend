@@ -1,13 +1,13 @@
 import React from 'react';
 import Characters from './Characters';
 import { Helmet } from "react-helmet-async";
-import { useLoading, isSuccess, isFailure } from './LoadingState';
-import { CharactersResponse } from './types';
+import { isSuccess, isFailure } from './LoadingState';
+import { useCharacters } from './Data';
 import Error from './Error';
 import Loading from './Loading';
 
 const CharactersContainer: React.FunctionComponent<{}> = () => {
-  const [loadingState, reload] = useLoading<CharactersResponse>('/api/v2/characters');
+  const [loadingState, reload] = useCharacters();
   return (
     <>
       <Helmet>
