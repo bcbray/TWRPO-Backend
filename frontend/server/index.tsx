@@ -1,7 +1,8 @@
 import 'dotenv/config'
 
-import express from 'express';
+import express, { Router } from 'express';
 import path from 'path';
+import cors from 'cors';
 import http from 'http';
 
 import ssr from './ssr';
@@ -14,7 +15,10 @@ app.enable('trust proxy');
 app.get('/', ssr(twrpo));
 
 // Redirect /live to /api/v1/live
-app.get('/live', (_res, res) => res.redirect('/api/v1/live'));
+const redirectRouter = Router();
+redirectRouter.use(cors());
+redirectRouter.get('/', (_req, res) => res.redirect('/api/v1/live'));
+app.use('/live', redirectRouter);
 
 // API
 app.use('/api', twrpo.apiRouter);
