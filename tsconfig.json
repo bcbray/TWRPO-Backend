@@ -4,5 +4,10 @@
         "paths": {
             "@twrpo/api/*": ["packages/api/src/*"]
         }
-    }
+    },
+    "files": [],
+    "references": [
+        { "path": "frontend" },
+        { "path": "packages/api" }
+    ]
 }
