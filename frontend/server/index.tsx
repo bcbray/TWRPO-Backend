@@ -7,9 +7,11 @@ import http from 'http';
 
 import ssr from './ssr';
 import twrpo from './twrpo';
+import requireHttps from './requireHttps';
 
 const app = express();
 app.enable('trust proxy');
+app.use(requireHttps);
 
 // Index is SSR
 app.get('/', ssr(twrpo));
