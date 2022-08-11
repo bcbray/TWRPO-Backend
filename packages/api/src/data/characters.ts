@@ -479,6 +479,7 @@ export const wrpCharacters: WrpCharacters = {
     Dirty_10: [
         { name: 'Richard Long', assume: 'assumeOther' },
         { name: 'Wesley Long' },
+        { name: 'Vincent La Guardia' },
     ],
     Dirty_Fisherman: [
         { name: 'Archibald Trout' },
