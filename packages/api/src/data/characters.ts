@@ -943,6 +943,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Jonthebroski: [
         { name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5 },
+        { name: '[Cadet] Jaime Ruth', factions: ['Law'] },
     ],
     JunkieEzek: [
         { name: 'Jeremiah Harth' },
