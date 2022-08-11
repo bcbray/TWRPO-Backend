@@ -1721,6 +1721,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheAaronShaq: [
         { name: 'Kenneth "Ricky" Randall' },
+        { name: 'Wesley Spats' },
     ],
     TheAmelina: [
         { name: 'Elisabeth "Ellie" Beauregard' },
