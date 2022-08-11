@@ -129,7 +129,7 @@ export const useFactionCss = (): FactionMethods => {
   if (!context) {
     console.warn('Missing FactionStyleContextProvider in tree');
   }
-  context?.needsFactionCss();
+  React.useEffect(() => context?.needsFactionCss(), [context]);
 
   const preloadedContext = React.useContext(PreloadedDataContext);
   preloadedContext.usedFactionCss = true;
