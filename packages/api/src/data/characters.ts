@@ -878,6 +878,7 @@ export const wrpCharacters: WrpCharacters = {
     Iwhuttt: [
         { name: 'Archibald Welch' },
         { name: 'Houston Gray' },
+        { name: 'Patch "Patches" Twine' },
     ],
     J0J0: [
         { name: 'Delilah Kane' },
