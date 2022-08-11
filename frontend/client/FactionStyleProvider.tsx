@@ -13,6 +13,10 @@ const rootFactionStyles = (factions: FactionInfo[]) => {
     '--faction-color-fallback-dark': '#32ff7e',
     '--faction-color-fallback-light-hover': tinycolor('#12af7e').darken().toString(),
     '--faction-color-fallback-dark-hover': tinycolor('#32ff7e').darken().toString(),
+    '--faction-color-light-otherwrp': '#000',
+    '--faction-color-dark-otherwrp': '#fff',
+    '--faction-color-light-otherwrp-hover': 'var(--faction-color-otherwrp-light)',
+    '--faction-color-dark-otherwrp-hover': 'var(--faction-color-fallback-dark-hover)',
     ...Object.fromEntries(factions.flatMap(faction => [
       [
         `--faction-color-light-${faction.key}`,
