@@ -9,9 +9,10 @@ async function bootstrap(): Promise<void> {
   if (!hasTable) {
     console.log('Synchronizing');
     await dataStore.synchronize();
+  } else {
+    console.info('Running migrations');
+    await dataStore.runMigrations();
   }
-  console.info('Running migrations');
-  await dataStore.runMigrations();
 }
 
 
