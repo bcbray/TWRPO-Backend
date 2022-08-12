@@ -2,6 +2,10 @@ import { randomUUID } from 'crypto';
 
 import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
 
+import { DataSource } from 'typeorm';
+
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+
 import {
     log, cloneDeepJson, filterObj, mapObj, parseParam, isObjEmpty, parseLookup,
 } from '../../utils';
@@ -28,6 +32,8 @@ import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from 
 import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther } from '../../data/characters';
 import type { WrpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } from '../../data/factions';
 import type { Podcast } from '../../data/podcasts';
+
+import { StreamChunk } from '../../db/entity/StreamChunk';
 
 const includedData = Object.assign(
     {},
@@ -395,7 +401,14 @@ const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podc
     return { podcast, reg };
 });
 
-export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, override = false, endpoint = '<no-endpoint>', useActivePromise = false): Promise<Live> => {
+export const getWrpLive = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    baseOptions = {},
+    override = false,
+    endpoint = '<no-endpoint>',
+    useActivePromise = false
+): Promise<Live> => {
     if (!isObjEmpty(baseOptions)) log(`${endpoint}: options -`, JSON.stringify(baseOptions));
 
     const options: LiveOptions = {
@@ -459,6 +472,10 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
                 let nextId = 0;
                 const wrpStreams: Stream[] = [];
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
+
+                const chunks: QueryDeepPartialEntity<StreamChunk>[] = [];
+                const now = new Date();
+
                 gtaStreams.forEach((helixStream) => {
                     const { userDisplayName: channelName, title, viewers } = helixStream;
 
@@ -752,11 +769,33 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
 
                     console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
 
+                    // StreamChunk
+                    chunks.push({
+                        streamerId: helixStream.userId,
+                        characterId: possibleCharacter?.id,
+                        characterUncertain: possibleCharacter && !nowCharacter,
+                        streamId: helixStream.id,
+                        streamStartDate: helixStream.startDate,
+                        title: helixStream.title,
+                        lastSeenDate: now,
+                    });
+
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
                     factionCount.allwildrp++;
                     wrpStreams.push(stream);
                 });
+
+                try {
+                    const streamChunkRepository = dataSource.getRepository(StreamChunk);
+                    await streamChunkRepository.upsert(chunks, {
+                        conflictPaths: ['streamerId', 'characterId', 'streamId', 'title'],
+                        skipUpdateIfNoValuesChanged: true,
+                    });
+                    log(`Logged ${chunks.length} streams to db`);
+                } catch (error) {
+                    console.error(JSON.stringify({ message: 'Failed to store streams to db', error }));
+                }
 
                 factionCount.alltwitch = gtaStreams.length;
 
@@ -846,15 +885,15 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
     return cachedResults[optionsStr]!;
 };
 
-export const getWrpStreams = async (apiClient: ApiClient, baseOptions = {}, override = false): Promise<Stream[]> => {
-    const live = await getWrpLive(apiClient, baseOptions, override, '/streams');
+export const getWrpStreams = async (apiClient: ApiClient, dataSource: DataSource, baseOptions = {}, override = false): Promise<Stream[]> => {
+    const live = await getWrpLive(apiClient, dataSource, baseOptions, override, '/streams');
     return live.streams;
 };
 
 export type IntervalTimeout = ReturnType<typeof setInterval>;
 
-export const startRefreshing = (apiClient: ApiClient, intervalMs: number): IntervalTimeout => {
-    getWrpLive(apiClient);
+export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, intervalMs: number): IntervalTimeout => {
+    getWrpLive(apiClient, dataSource);
 
     return setInterval(async () => {
         const cachedResultsKeys = Object.keys(cachedResults);
@@ -866,7 +905,7 @@ export const startRefreshing = (apiClient: ApiClient, intervalMs: number): Inter
         for (const optionsStr of cachedResultsKeys) {
             log('Refreshing optionStr');
             const optionsObj = JSON.parse(optionsStr);
-            await getWrpLive(apiClient, optionsObj, true);
+            await getWrpLive(apiClient, dataSource, optionsObj, true);
         }
     }, intervalMs);
 };

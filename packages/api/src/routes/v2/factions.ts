@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ApiClient } from 'twitch';
+import { DataSource } from 'typeorm';
 
 import { wrpFactionsReal, FactionRealFull } from '../../data/meta';
 import { useColorsLight, useColorsDark, filterRename } from '../../data/factions';
@@ -18,8 +19,8 @@ export interface FactionsResponse {
     factions: FactionInfo[];
 }
 
-export const fetchFactions = async (apiClient: ApiClient): Promise<FactionsResponse> => {
-    const liveData = await getWrpLive(apiClient);
+export const fetchFactions = async (apiClient: ApiClient, dataSource: DataSource): Promise<FactionsResponse> => {
+    const liveData = await getWrpLive(apiClient, dataSource);
 
     const ignoredFactions: FactionRealFull[] = ['Development', 'Other', 'Other Faction', 'Podcast', 'Watch Party'];
     const factionInfos = objectEntries(wrpFactionsReal).filter(([__, faction]) => !ignoredFactions.includes(faction)).map(([mini, faction]) => {
@@ -42,11 +43,11 @@ export const fetchFactions = async (apiClient: ApiClient): Promise<FactionsRespo
     };
 };
 
-const buildRouter = (apiClient: ApiClient): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
     router.get('/', async (_, res) => {
-        const response = await fetchFactions(apiClient);
+        const response = await fetchFactions(apiClient, dataSource);
         return res.send(response);
     });
 

@@ -7,7 +7,7 @@
     ],
     "scripts": {
         "heroku-prebuild": "./scripts/react-env-setup.sh",
-        "heroku-cleanup": "patch-package",
+        "heroku-postbuild": "yarn workspace @twrpo/api bootstrap-db",
         "postinstall": "patch-package",
         "clean": "yarn workspaces run clean",
         "build": "yarn workspaces run build",

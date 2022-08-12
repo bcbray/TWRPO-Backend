@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ApiClient } from 'twitch';
+import { DataSource } from 'typeorm';
 
 import { wrpCharacters } from '../../data/characters';
 import { getWrpLive, Stream } from '../live/liveData';
@@ -43,12 +44,12 @@ export interface CharactersResponse {
     characters: CharacterInfo[];
 }
 
-export const fetchCharacters = async (apiClient: ApiClient): Promise<CharactersResponse> => {
+export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource): Promise<CharactersResponse> => {
     const knownUsers = await getKnownTwitchUsers(apiClient);
 
-    const liveData = await getWrpLive(apiClient);
+    const liveData = await getWrpLive(apiClient, dataSource);
 
-    const { factions: factionInfos } = await fetchFactions(apiClient);
+    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource);
 
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
     const { independent } = factionMap;
@@ -81,11 +82,11 @@ export const fetchCharacters = async (apiClient: ApiClient): Promise<CharactersR
     };
 };
 
-const buildRouter = (apiClient: ApiClient): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
     router.get('/', async (_, res) => {
-        const response = await fetchCharacters(apiClient);
+        const response = await fetchCharacters(apiClient, dataSource);
         return res.send(response);
     });
 

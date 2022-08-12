@@ -2,19 +2,21 @@
 
 import { Router } from 'express';
 import { ApiClient } from 'twitch';
+import { DataSource } from 'typeorm';
 
 import { mapObjKeys, cloneDeepJson, log } from '../../utils';
 import { getWrpLive } from './liveData';
 
 import type { RecordGen } from '../../utils';
 
-const buildRouter = (apiClient: ApiClient): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
         // log('Handling request for /live');
         let live = await getWrpLive(
             apiClient,
+            dataSource,
             mapObjKeys(req.query as RecordGen, ((_v, k) => {
                 if (k === 'faction') return 'factionName';
                 return k;
