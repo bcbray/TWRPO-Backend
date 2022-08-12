@@ -77,7 +77,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Shaggy McRaggzzah' },
     ],
     alyssajeanaf: [
-        { name: 'Dahlia Malone', factions: ['Sams Club'] },
+        { name: 'Dahlia Malone' },
     ],
     AM_Raid: [
         { name: 'Cain Lockhart' },
