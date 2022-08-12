@@ -1574,6 +1574,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Ranger] Isla White', factions: ['Rangers'] },
         { name: 'Berdie Lloyd' },
         { name: '[Deputy] Cait McAlister', factions: ['Law'] },
+        { name: 'Amarok' },
     ],
     Sonneflower: [
         { name: 'Eliana Diaz' },
