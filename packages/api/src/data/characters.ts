@@ -948,6 +948,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5 },
         { name: '[Cadet] Jaime Ruth', factions: ['Law'] },
     ],
+    JugsySiegel: [
+        { name: 'Lyle Lancaster' },
+    ],
     JunkieEzek: [
         { name: 'Jeremiah Harth' },
     ],
