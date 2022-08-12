@@ -1558,6 +1558,9 @@ export const wrpCharacters: WrpCharacters = {
         { name: '[Deputy] Jackie Lockwood', factions: ['Law'] },
         { name: 'Raven Bennett' },
     ],
+    SocialTortoise: [
+        { name: 'Billy Jackson' },
+    ],
     Sock22: [
         { name: 'Daniel "Danny" Moss' },
     ],
