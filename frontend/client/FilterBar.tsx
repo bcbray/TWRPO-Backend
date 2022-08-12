@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDatadogRum } from 'react-datadog';
 
 import styles from './FilterBar.module.css'
 import { FactionInfo } from './types';
@@ -32,6 +33,27 @@ const FilterBar: React.FC<Props> = ({
     e.preventDefault();
   }
   const handleCloseFeedback = () => setShowingFeedbackModal(false);
+  const rum = useDatadogRum();
+
+  const timeout = React.useRef<ReturnType<typeof setTimeout>>();
+
+  const logSearch = React.useCallback((searchText: string) => {
+    timeout.current && clearTimeout(timeout.current);
+    timeout.current = setTimeout(() => {
+      if (searchText) {
+        rum.addAction(`Search for "${searchText}"`, {
+          type: 'filter-bar-search',
+          searchText
+        });
+      } else {
+        rum.addAction(`Clear search`, {
+          type: 'filter-bar-search',
+          searchText: ''
+        });
+      }
+    }, 1000);
+  }, [rum, timeout]);
+
   return (
     <>
       <div className={classes(styles.container, 'inset')}>
@@ -48,7 +70,12 @@ const FilterBar: React.FC<Props> = ({
           type='text'
           placeholder='Search for character name / nickname / stream…'
           value={searchText}
-          onChange={e => onChangeSearchText(e.target.value)}
+          onChange={(e) => {
+            onChangeSearchText(e.target.value)
+            if (!e.isPropagationStopped()) {
+              logSearch(e.target.value);
+            }
+          }}
         />
         <Link
           className={classes('button', 'secondary', styles.feedbackButton)}
