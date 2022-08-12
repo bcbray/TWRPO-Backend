@@ -151,6 +151,7 @@ export const wrpCharacters: WrpCharacters = {
     ayekayy47_: [
         { name: 'Misty Shaw' },
         { name: 'Rayne Beaux' },
+        { name: 'Toni Chambers' },
     ],
     AzzTazz: [
         { name: 'Eric Butter' },
