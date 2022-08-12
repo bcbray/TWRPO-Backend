@@ -31,6 +31,7 @@ class Api {
         this.twitchClient = new ApiClient({
             authProvider: options.twitchAuthProvider,
         });
+        this.dataSource = dataSource(options.postgresUrl);
 
         this.apiRouter = Router();
         this.apiRouter.use(cors());
@@ -42,8 +43,6 @@ class Api {
 
         const { refreshInterval = 1000 * 60 } = options;
         this.refreshInterval = refreshInterval;
-
-        this.dataSource = dataSource(options.postgresUrl);
     }
 
     public async initialize(): Promise<void> {
