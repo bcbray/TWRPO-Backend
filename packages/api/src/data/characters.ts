@@ -1810,6 +1810,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheTofuSamurai: [
         { name: 'Jimothy James' },
+        { name: 'John Crath' },
     ],
     theweyu: [
         { name: 'Alawa "Ali" Meota' },
