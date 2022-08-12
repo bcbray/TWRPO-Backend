@@ -5,6 +5,7 @@ export default function dataSource(postgresUrl: string): DataSource {
     return new DataSource({
         type: 'postgres',
         url: postgresUrl,
+        ssl: { rejectUnauthorized: false },
         entities: [path.resolve(__dirname, 'entity/*.ts')],
         migrations: [path.resolve(__dirname, 'migration/*.ts')],
         subscribers: [],
