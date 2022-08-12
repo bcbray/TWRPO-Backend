@@ -1162,7 +1162,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MEKABEAR: [
         { name: '[Deputy] Audrey Dusk', factions: ['Law'] },
-        { name: 'Goldie Fisher', factions: ['Kettleman Gang'] },
+        { name: 'Goldie Fisher', factions: ['Dead End Kids'] },
     ],
     MeMine30: [
         { name: 'Walt McGrath' },
