@@ -1044,9 +1044,10 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Jack "Ash" James', nicknames: ['Wolf-kin'] },
     ],
     LEAH: [
-        { name: 'Francesca "Checkers" Bright', factions: ['Summers Gang'] },
-        { name: '[Ranger] Frankie Bright', factions: ['Rangers'] },
-        { name: 'Harriett "Hawk" Hawkins' },
+        { name: '[Ranger] Francesca "Frankie" Bright', factions: ['Rangers'], displayName: 2 },
+        { name: 'Harriet "Hawk" Hawkins', factions: ['Summers Gang'] },
+        { name: 'Brie Haviour' },
+        { name: 'Ruthie Samuels' },
     ],
     Lendermations: [
         { name: 'Inessa "Miss Match" Bornlof' },
@@ -1596,7 +1597,7 @@ export const wrpCharacters: WrpCharacters = {
         { name: 'Butch Marlow' },
     ],
     spriteleah: [
-        { name: 'Francesca "Frankie" Bright', factions: ['Rangers'] },
+        { name: '[Ranger] Francesca "Frankie" Bright', factions: ['Rangers'], displayName: 2 },
         { name: 'Harriet "Hawk" Hawkins', factions: ['Summers Gang'] },
         { name: 'Brie Haviour' },
         { name: 'Ruthie Samuels' },
