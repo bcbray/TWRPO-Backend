@@ -86,7 +86,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
               <div>
                 <div className={styles.description}>
                   <small id='suggestionHelpBlock' className={styles.muted}>
-                    Please make sure to include streamer and character name with suggestions. Include contact info if you’re open to questions about this feedback. You can also give feedback on the <OutboundLink target='_blank' rel='noreferrer' href='https://discord.gg/fSuKefMGQp'>Twitch WildRP Only Discord</OutboundLink>.
+                    Keeping track of all the meta is hard. If you notice something missing or out of place, please include streamer, character, and faction names as appropriate. Throw in your contact info if you’re open to questions about this feedback. You can also give feedback on the <OutboundLink target='_blank' rel='noreferrer' href='https://discord.gg/fSuKefMGQp'>Twitch WildRP Only Discord</OutboundLink>.
                   </small>
                 </div>
                 <div className={styles.labelContainer}>
