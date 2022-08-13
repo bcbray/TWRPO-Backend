@@ -67,15 +67,15 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         .addOrderBy('chunk.lastSeenDate', 'DESC')
         .getMany();
 
-    const lastSeen: { [key: string]: { [key: number]: Date } } = {};
+    const seen: Record<string, Record<number, StreamChunk>> = {};
     streamChunks.forEach((streamChunk) => {
         if (!streamChunk.characterId) {
             return;
         }
-        if (!lastSeen[streamChunk.streamerId]) {
-            lastSeen[streamChunk.streamerId] = {};
+        if (!seen[streamChunk.streamerId]) {
+            seen[streamChunk.streamerId] = {};
         }
-        lastSeen[streamChunk.streamerId][streamChunk.characterId] = streamChunk.lastSeenDate;
+        seen[streamChunk.streamerId][streamChunk.characterId] = streamChunk;
     });
 
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
@@ -89,6 +89,17 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
             .filter(character => character.assume !== 'neverNp')
             .map((character) => {
                 const stream = liveData.streams.find(s => s.channelName === streamer && s.characterName === character.name);
+                let lastSeenLive: Date | undefined;
+                if (channelInfo?.id
+                    && seen[channelInfo?.id]
+                    && seen[channelInfo?.id][character.id]
+                    && seen[channelInfo?.id][character.id].lastSeenDate.getTime() - seen[channelInfo?.id][character.id].firstSeenDate.getTime() > 1000 * 60 * 10
+                ) {
+                    lastSeenLive = seen[channelInfo?.id][character.id].lastSeenDate;
+                } else {
+                    lastSeenLive = undefined;
+                }
+
                 return {
                     channelName: streamer,
                     name: character.name,
@@ -99,9 +110,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                     }) ?? [independent],
                     liveInfo: stream,
                     channelInfo,
-                    lastSeenLive: channelInfo?.id && lastSeen[channelInfo?.id]
-                        ? lastSeen[channelInfo?.id][character.id]
-                        : undefined,
+                    lastSeenLive,
                 } as CharacterInfo;
             });
     });
