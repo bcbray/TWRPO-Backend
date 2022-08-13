@@ -28,7 +28,7 @@
         "tree-kill": "^1.2.2",
         "twitch": "^4.5.5",
         "twitch-auth": "^4.5.5",
-        "typeorm": "^0.3.7"
+        "typeorm": "https://github.com/bcbray/typeorm.git#bray/release/upsert-where"
     },
     "devDependencies": {
         "@types/cors": "^2.8.10",
