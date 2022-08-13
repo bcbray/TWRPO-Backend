@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, Index, CreateDateColumn } from 'typeorm';
 
 @Entity()
-@Index(['streamerId', 'characterId', 'streamId', 'title'], { unique: true })
+@Index('SEEN_INSTANCE', ['streamerId', 'characterId', 'streamId', 'title'], { unique: true, where: '"characterId" IS NOT NULL' })
+@Index('SEEN_INSTANCE_NO_CHARACTER', ['streamerId', 'streamId', 'title'], { unique: true, where: '"characterId" IS NULL' })
 export class StreamChunk {
     @PrimaryGeneratedColumn()
     id: number;
