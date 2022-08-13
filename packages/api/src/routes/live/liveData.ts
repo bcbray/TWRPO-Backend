@@ -769,7 +769,6 @@ export const getWrpLive = async (
 
                     console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
 
-                    // StreamChunk
                     chunks.push({
                         streamerId: helixStream.userId,
                         characterId: possibleCharacter?.id,
@@ -787,14 +786,35 @@ export const getWrpLive = async (
                 });
 
                 try {
-                    const streamChunkRepository = dataSource.getRepository(StreamChunk);
-                    await streamChunkRepository.upsert(chunks, {
-                        conflictPaths: ['streamerId', 'characterId', 'streamId', 'title'],
-                        skipUpdateIfNoValuesChanged: true,
-                    });
-                    log(`Logged ${chunks.length} streams to db`);
+                    const chunksWithCharacters = chunks.filter(c => c.characterId);
+                    await dataSource.manager.createQueryBuilder()
+                        .insert()
+                        .into(StreamChunk)
+                        .values(chunksWithCharacters)
+                        .orUpdate(
+                            ['lastSeenDate'],
+                            ['streamerId', 'characterId', 'streamId', 'title'],
+                            { skipUpdateIfNoValuesChanged: true }
+                        )
+                        .where('"characterId" IS NOT NULL')
+                        .execute();
+                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams with characters to database', count: chunksWithCharacters.length }));
+
+                    const chunksWithoutCharacters = chunks.filter(c => !c.characterId);
+                    await dataSource.manager.createQueryBuilder()
+                        .insert()
+                        .into(StreamChunk)
+                        .values(chunksWithoutCharacters)
+                        .orUpdate(
+                            ['lastSeenDate'],
+                            ['streamerId', 'streamId', 'title'],
+                            { skipUpdateIfNoValuesChanged: true }
+                        )
+                        .where('"characterId" IS NULL')
+                        .execute();
+                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams without characters to database', count: chunksWithoutCharacters.length }));
                 } catch (error) {
-                    console.error(JSON.stringify({ message: 'Failed to store streams to db', error }));
+                    console.error(JSON.stringify({ level: 'error', message: 'Failed to store streams to db', error }));
                 }
 
                 factionCount.alltwitch = gtaStreams.length;
