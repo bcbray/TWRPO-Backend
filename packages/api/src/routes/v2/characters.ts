@@ -72,6 +72,9 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         if (!streamChunk.characterId) {
             return;
         }
+        if (streamChunk.characterUncertain) {
+            return;
+        }
         if (!seen[streamChunk.streamerId]) {
             seen[streamChunk.streamerId] = {};
         }
