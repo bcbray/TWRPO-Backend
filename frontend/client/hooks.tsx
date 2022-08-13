@@ -1,7 +1,9 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useSearchParams, NavigateOptions  } from 'react-router-dom';
 import { useDebounce, usePreviousDistinct, useUpdateEffect } from 'react-use';
 import useTimeout from '@restart/hooks/useTimeout';
+
+import { useNow } from './Data';
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -107,4 +109,53 @@ export function useWindowFocus(): boolean {
   }, []);
 
   return focused;
+}
+
+export interface RelativeDateResult {
+  full: string;
+  relative: string;
+}
+
+export function useRelativeDate(date?: Date): RelativeDateResult | undefined {
+  const now = useNow();
+
+  const formatter = useMemo(() => new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' }), []);
+
+  return useMemo(() => {
+    if (!date) return undefined;
+    const full = date.toLocaleString();
+    let relative: string;
+    const diffSeconds = (date.getTime() - now.getTime()) / 1000;
+    const diffMinutes = diffSeconds / 60;
+    const diffHours = diffMinutes / 60;
+    const diffDays = diffHours / 24;
+    const diffWeeks = diffDays / 7;
+     if (diffSeconds > 0) {
+      return undefined;
+    }
+    if (Math.abs(diffMinutes) < 1) {
+      relative = 'just now'
+    } else if (Math.abs(diffHours) < 1) {
+      relative = formatter.format(Math.round(diffMinutes), 'minutes');
+    } else if (Math.abs(diffDays) < 1) {
+      relative = formatter.format(Math.round(diffHours), 'hours');
+    } else if (Math.abs(diffWeeks) < 1) {
+      relative = formatter.format(Math.round(diffDays), 'days');
+    } else if (Math.abs(diffWeeks) < 2) {
+      relative = formatter.format(Math.round(diffWeeks), 'weeks')
+    } else if (date.getFullYear() === now.getFullYear()) {
+      relative = date.toLocaleDateString(undefined, {
+        month: 'short',
+        day: 'numeric',
+      })
+    } else {
+      relative = date.toLocaleDateString(undefined, {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    }
+
+    return { relative, full }
+  }, [now, date, formatter]);
 }

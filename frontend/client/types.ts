@@ -22,6 +22,7 @@ export interface CharacterInfo {
   factions: FactionInfo[];
   liveInfo?: Stream;
   channelInfo?: ChannelInfo;
+  lastSeenLive?: string;
 }
 
 export interface ChannelInfo {

@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './OfflineCharacterCard.module.css';
 import { CharacterInfo, FactionInfo } from './types';
 import { classes } from './utils';
+import { useRelativeDate } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhoto from './ProfilePhoto';
@@ -41,6 +42,14 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
   { character, factionInfos, className, style, ...rest }, ref
 ) => {
   const { factionStylesForKey } = useFactionCss();
+  const lastSeenLiveDate = React.useMemo(() => {
+    if (!character.lastSeenLive) return undefined;
+    const date = new Date(character.lastSeenLive);
+    if (isNaN(date.getTime())) return undefined;
+    return date;
+  }, [character.lastSeenLive]);
+
+  const lastSeenLive = useRelativeDate(lastSeenLiveDate);
 
   return (
     <div
@@ -54,7 +63,25 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
     >
       <div className={styles.thumbnail}>
         <CharacterLink character={character}>
-          <span>Offline</span>
+          <div className={styles.offline}>
+            {lastSeenLive &&
+            <p
+              className={classes(styles.lastSeen, styles.spacer)}
+              title={lastSeenLive.full}
+            >
+              {`Last seen ${lastSeenLive.relative}`}
+            </p>
+          }
+            <p>Offline</p>
+            {lastSeenLive &&
+              <p
+                className={styles.lastSeen}
+                title={lastSeenLive.full}
+              >
+                {`Last seen ${lastSeenLive.relative}`}
+              </p>
+            }
+          </div>
         </CharacterLink>
         <Tag className={classes(styles.tag, styles.name)}>
           <p>{character.displayInfo.displayName}</p>
