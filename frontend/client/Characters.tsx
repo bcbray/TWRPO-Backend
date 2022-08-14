@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
+import { CharactersResponse, CharacterInfo } from '@twrpo/types';
 
-import { CharactersResponse, CharacterInfo } from './types';
 import { useSingleSearchParam, useDebouncedValue } from './hooks';
 
 import CharactersTable from './CharactersTable';
@@ -49,13 +49,9 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
       return filtered;
   }, [characters, debouncedFilterText]);
 
-  const factionInfoMap = React.useMemo(() => {
-    return Object.fromEntries(data.factions.map(info => [info.key, info]));
-  }, [data.factions]);
-
   const selectedFaction = React.useMemo(() => {
-    return factionKey ? factionInfoMap[factionKey] : undefined;
-  }, [factionKey, factionInfoMap]);
+    return factionKey ? data.factions.find(info => info.key === factionKey) : undefined;
+  }, [data.factions, factionKey]);
 
   return (
     <>
@@ -77,7 +73,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
         allHref={'/characters'}
         factionHref={(f) => `/characters/faction/${f.key}`}
       />
-      <CharactersTable characters={filteredCharacters} factionInfos={factionInfoMap} />
+      <CharactersTable characters={filteredCharacters} />
     </>
   )
 }

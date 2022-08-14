@@ -1,12 +1,13 @@
 import React from 'react';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import isMobile from 'is-mobile';
+import { Stream, CharacterInfo } from '@twrpo/types';
 
 import styles from './StreamList.module.css';
-import { Stream, CharacterInfo, FactionInfo } from './types';
 import StreamCard from './StreamCard';
 import OfflineCharacterCard from './OfflineCharacterCard';
 import { classes } from './utils';
+import Crossfade from './Crossfade';
 
 type SortBy = 'viewers' | 'duration' | 'channel';
 type Order = 'asc' | 'desc';
@@ -14,7 +15,6 @@ type Order = 'asc' | 'desc';
 interface Props {
   streams: Stream[];
   offlineCharacters?: CharacterInfo[]
-  factionInfos: {[key: string]: FactionInfo};
   loadTick: number;
   sort?: SortBy;
   order?: Order;
@@ -23,7 +23,6 @@ interface Props {
 const StreamList: React.FC<Props> = ({
   streams,
   offlineCharacters,
-  factionInfos,
   loadTick,
   sort = 'viewers',
   order = 'desc',
@@ -51,25 +50,35 @@ const StreamList: React.FC<Props> = ({
       <div className={classes('inset', styles.grid)}>
         <div className={classes(styles.items)}>
           {sorted.map(stream => (
-            <Flipped key={stream.channelName} flipId={stream.channelName}>
-              <div>
+            <Flipped
+              key={
+                stream.characterId
+                  ? `char:${stream.characterId}`
+                  : `chan:${stream.channelName}`
+              }
+              flipId={
+                stream.characterId
+                  ? `char:${stream.characterId}`
+                  : `chan:${stream.channelName}`
+              }>
+              <Crossfade fadeKey='live'>
                 <StreamCard
                   stream={stream}
-                  factionInfos={factionInfos}
                   loadTick={loadTick}
                   embed={isMobile() ? false : 'hover'}
                 />
-              </div>
+              </Crossfade>
             </Flipped>
           ))}
           {offlineCharacters && offlineCharacters.map(character => (
-            <div key={`${character.channelName}_${character.name}`}>
-              <OfflineCharacterCard
-                className={styles.offline}
-                character={character}
-                factionInfos={factionInfos}
-              />
-            </div>
+            <Flipped key={`char:${character.id}`} flipId={`char:${character.id}`}>
+              <Crossfade fadeKey='offline'>
+                <OfflineCharacterCard
+                  className={styles.offline}
+                  character={character}
+                />
+              </Crossfade>
+            </Flipped>
           ))}
         </div>
       </div>

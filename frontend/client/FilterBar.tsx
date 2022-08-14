@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDatadogRum } from 'react-datadog';
+import { FactionInfo } from '@twrpo/types';
 
 import styles from './FilterBar.module.css'
-import { FactionInfo } from './types';
 import FactionDropdown from './FactionDropdown';
 import FeedbackModal from './FeedbackModal';
 import { classes } from './utils';

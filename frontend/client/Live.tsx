@@ -1,11 +1,12 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { LiveResponse } from '@twrpo/types';
 
-import { LiveResponse, CharactersResponse } from './types';
 import { factionsFromLive, ignoredFactions } from './utils'
 import { useSingleSearchParam, useDebouncedValue } from './hooks';
-import { useLoading, isSuccess } from './LoadingState';
+import { isSuccess } from './LoadingState';
+import { useCharacters } from './Data';
 
 import StreamList from './StreamList';
 import FilterBar from './FilterBar';
@@ -24,7 +25,7 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
   const debouncedFilterText = useDebouncedValue(filterText, 200);
   const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
 
-  const [charactersLoadingState] = useLoading<CharactersResponse>('/api/v2/characters', { needsLoad: filterText.length > 0 });
+  const [charactersLoadingState] = useCharacters({ needsLoad: filterText.length > 0 });
 
   const characters = React.useMemo(() => (
     isSuccess(charactersLoadingState)
@@ -33,7 +34,9 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
   ), [charactersLoadingState]);
 
   const factionInfos = React.useMemo(() => factionsFromLive(live), [live]);
-  const factionInfoMap = React.useMemo(() => Object.fromEntries(factionInfos.map(info => [info.key, info])), [factionInfos]);
+  const selectedFaction = React.useMemo(() => (
+    factionKey ? factionInfos.find(f => f.key === factionKey) : undefined
+  ), [factionKey, factionInfos]);
 
   const filterFactions = React.useMemo(() => (
     factionInfos
@@ -72,7 +75,9 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
     const liveChannels = new Set(filteredStreams.map(c => c.channelName));
 
     return filterTextForSearching.length === 0
-      ? []
+      ? live
+        .recentOfflineCharacters ?? []
+        .slice(0, 50)
       : characters
         .filter(character =>
           !liveChannels.has(character.channelName)
@@ -86,9 +91,7 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
         )
         // Limit to 50 offline characters to not overwhelm the list
         .slice(0, 50);
-  }, [characters, factionKey, filterTextForSearching, filteredStreams]);
-
-  const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
+  }, [characters, factionKey, filterTextForSearching, filteredStreams, live.recentOfflineCharacters]);
 
   return (
     (
@@ -114,7 +117,6 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
         <StreamList
           streams={filteredStreams}
           offlineCharacters={offlineCharacters}
-          factionInfos={factionInfoMap}
           loadTick={loadTick}
         />
       </>

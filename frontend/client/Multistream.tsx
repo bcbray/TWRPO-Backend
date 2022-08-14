@@ -1,8 +1,8 @@
 import React from 'react';
 import { useIsomorphicLayoutEffect } from 'react-use';
+import { Stream, FactionKey, FactionInfo } from '@twrpo/types';
 
 import styles from './Multistream.module.css';
-import { Stream, FactionKey, FactionInfo } from './types';
 import TwitchEmbed from './TwitchEmbed';
 import CharacterCard from './CharacterCard';
 import { PlayBtnFill } from 'react-bootstrap-icons';

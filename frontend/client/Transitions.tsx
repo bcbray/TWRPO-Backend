@@ -10,7 +10,7 @@ import { classes, createChainedFunction } from './utils';
 const transitionStatusStyle: Partial<Record<TransitionStatus, string>> = {
   entering: styles.show,
   entered: styles.show,
-  //exiting: "exiting",
+  exiting: styles.exiting,
   //exited: "exited",
   //unmounted: "unmounted"
 };
@@ -40,7 +40,23 @@ export const Slide: React.FC<Omit<CSSTransitionProps, 'children'> & { children: 
   );
 };
 
-export const Fade: React.FC<Omit<CSSTransitionProps, 'children'> & { children: React.ReactElement }> = ({ children, ...props }) => {
+export type FadeDirection = 'only-fade-in' | 'both';
+
+export const Fade: React.FC<
+  Omit<CSSTransitionProps, 'children'>
+  & {
+    className?: string,
+    statusClassNames?: Partial<Record<TransitionStatus, string>>;
+    children: React.ReactElement,
+    direction?: FadeDirection,
+  }
+> = ({
+  className,
+  statusClassNames,
+  children,
+  direction = 'both',
+  ...props
+}) => {
   const nodeRef = React.useRef(null);
   const { ref } = children as any;
   const mergedRef = useMergedRefs(nodeRef, ref);
@@ -58,7 +74,14 @@ export const Fade: React.FC<Omit<CSSTransitionProps, 'children'> & { children: R
       {(status: TransitionStatus) =>
         React.cloneElement(children, {
           ref: mergedRef,
-          className: classes(styles.fade, transitionStatusStyle[status], children.props.className)
+          className: classes(
+            children.props.className,
+            className,
+            statusClassNames?.[status],
+            styles.fade,
+            direction === 'only-fade-in' && styles.onlyFadeIn,
+            transitionStatusStyle[status],
+          )
         })
       }
     </CSSTransition>

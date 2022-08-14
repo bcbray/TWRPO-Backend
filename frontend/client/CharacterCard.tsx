@@ -1,10 +1,10 @@
 import React from 'react';
 import { Headphones, XLg, VolumeMuteFill } from 'react-bootstrap-icons';
+import { Stream, FactionInfo } from '@twrpo/types';
 
 import styles from './CharacterCard.module.css';
 import OverlayTrigger from './OverlayTrigger';
 import Tooltip from './Tooltip';
-import { Stream, FactionInfo } from './types';
 import { classes } from './utils';
 import Tag from './Tag';
 

@@ -7,6 +7,7 @@ import CharactersContainer from './CharactersContainer';
 import MultistreamContainer from './MultistreamContainer';
 import LiveContainer from './LiveContainer';
 import ColorHelperContainer from  './ColorHelperContainer';
+import CrossfadeHelper from  './CrossfadeHelper';
 import TrackerProvider from './TrackerProvider';
 import { FactionStyleContextProvider } from './FactionStyleProvider';
 import NotFound from './NotFound';
@@ -33,6 +34,7 @@ const App: React.FC<Props> = () => {
             <Route path="/multistream/faction" element={<Redirect to="/multistream" />} />
             <Route path="/multistream/faction/:factionKey" element={<MultistreamContainer />} />
             <Route path="/utils/colors" element={<ColorHelperContainer />} />
+            <Route path="/utils/crossfade" element={<CrossfadeHelper />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Structure>

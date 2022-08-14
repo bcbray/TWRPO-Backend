@@ -1,8 +1,9 @@
 import React from 'react';
+import { CharacterInfo } from '@twrpo/types';
 
 import styles from './OfflineCharacterCard.module.css';
-import { CharacterInfo, FactionInfo } from './types';
 import { classes } from './utils';
+import { useRelativeDate } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhoto from './ProfilePhoto';
@@ -10,7 +11,6 @@ import OutboundLink from './OutboundLink';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   character: CharacterInfo;
-  factionInfos: {[key: string]: FactionInfo};
 }
 
 interface CharacterLinkProps {
@@ -38,9 +38,17 @@ const CharacterLink: React.FC<CharacterLinkProps> = ({character, style, children
 );
 
 const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
-  { character, factionInfos, className, style, ...rest }, ref
+  { character, className, style, ...rest }, ref
 ) => {
   const { factionStylesForKey } = useFactionCss();
+  const lastSeenLiveDate = React.useMemo(() => {
+    if (!character.lastSeenLive) return undefined;
+    const date = new Date(character.lastSeenLive);
+    if (isNaN(date.getTime())) return undefined;
+    return date;
+  }, [character.lastSeenLive]);
+
+  const lastSeenLive = useRelativeDate(lastSeenLiveDate);
 
   return (
     <div
@@ -54,7 +62,25 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
     >
       <div className={styles.thumbnail}>
         <CharacterLink character={character}>
-          <span>Offline</span>
+          <div className={styles.offline}>
+            {lastSeenLive &&
+            <p
+              className={classes(styles.lastSeen, styles.spacer)}
+              title={lastSeenLive.full}
+            >
+              {`Last online ${lastSeenLive.relative}`}
+            </p>
+          }
+            <p>Offline</p>
+            {lastSeenLive &&
+              <p
+                className={styles.lastSeen}
+                title={lastSeenLive.full}
+              >
+                {`Last online ${lastSeenLive.relative}`}
+              </p>
+            }
+          </div>
         </CharacterLink>
         <Tag className={classes(styles.tag, styles.name)}>
           <p>{character.displayInfo.displayName}</p>

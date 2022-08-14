@@ -2,16 +2,18 @@
     "name": "twrponly",
     "private": true,
     "workspaces": [
+        "packages/types",
         "packages/api",
         "frontend"
     ],
     "scripts": {
         "heroku-prebuild": "./scripts/react-env-setup.sh",
-        "heroku-cleanup": "patch-package",
+        "heroku-postbuild": "yarn workspace @twrpo/api bootstrap-db && yarn build",
         "postinstall": "patch-package",
         "clean": "yarn workspaces run clean",
         "build": "yarn workspaces run build",
-        "start": "yarn workspace frontend start:server"
+        "start": "yarn workspace frontend start:server",
+        "inspect": "yarn workspace frontend inspect"
     },
     "dependencies": {
         "patch-package": "^6.4.7",

@@ -1,42 +1,27 @@
 import 'dotenv/config'
+import 'reflect-metadata';
 
-import express, { Router } from 'express';
-import path from 'path';
-import cors from 'cors';
+import express from 'express';
 import http from 'http';
 
-import ssr from './ssr';
+import server from './server';
 import twrpo from './twrpo';
 import requireHttps from './requireHttps';
 
 const app = express();
 app.enable('trust proxy');
 app.use(requireHttps);
+app.use('/', server());
 
-// Index is SSR
-app.get('/', ssr(twrpo));
+twrpo.initialize()
+  .then(() => {
+    // Auto-refresh Twitch data
+    twrpo.startRefreshing();
 
-// Redirect /live to /api/v1/live
-const redirectRouter = Router();
-redirectRouter.use(cors());
-redirectRouter.get('/', (_req, res) => res.redirect('/api/v1/live'));
-app.use('/live', redirectRouter);
+    const port = process.env.PORT || 5000;
 
-// API
-app.use('/api', twrpo.apiRouter);
-
-// Then static files
-app.use(express.static(path.resolve('build')));
-
-// And finally, back to SSR for catch-all to handle routing
-app.get('*', ssr(twrpo));
-
-// Auto-refresh Twitch data
-twrpo.startRefreshing();
-
-const port = process.env.PORT || 5000;
-
-const httpServer = http.createServer(app);
-httpServer.listen(port, () => {
-    console.log(`HTTP server running on port ${port}!`);
-});
+    const httpServer = http.createServer(app);
+    httpServer.listen(port, () => {
+        console.log(`HTTP server running on port ${port}!`);
+    });
+  })

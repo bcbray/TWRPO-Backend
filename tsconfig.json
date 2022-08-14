@@ -2,12 +2,14 @@
     "compilerOptions": {
         "esModuleInterop": true,
         "paths": {
-            "@twrpo/api/*": ["packages/api/src/*"]
+            "@twrpo/api/*": ["packages/api/src/*"],
+            "@twrpo/types/*": ["packages/api/types/*"]
         }
     },
     "files": [],
     "references": [
         { "path": "frontend" },
-        { "path": "packages/api" }
+        { "path": "packages/api" },
+        { "path": "packages/types" }
     ]
 }

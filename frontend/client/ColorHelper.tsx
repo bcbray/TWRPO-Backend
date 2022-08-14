@@ -1,8 +1,8 @@
 import React from 'react';
 import { SketchPicker } from 'react-color';
+import { CharactersResponse, Stream, FactionInfo } from '@twrpo/types';
 
 import styles from './ColorHelper.module.css';
-import { CharactersResponse, Stream, FactionInfo } from './types';
 import { classes } from './utils';
 import StreamCard from './StreamCard';
 
@@ -36,6 +36,7 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
     id: 0,
     rpServer: 'WRP',
     characterName: 'Sam Baas',
+    characterId: 1,
     nicknameLookup: null,
     faction: faction.key,
     factions: [faction.key],
@@ -62,7 +63,7 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
       </div>
       <div>
         <div>
-          <StreamCard stream={fakeStream} factionInfos={{ [faction.key]: faction }} />
+          <StreamCard stream={fakeStream} />
         </div>
       </div>
     </div>

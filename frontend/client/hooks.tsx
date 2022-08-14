@@ -1,7 +1,9 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useSearchParams, NavigateOptions  } from 'react-router-dom';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useSearchParams, NavigateOptions } from 'react-router-dom';
 import { useDebounce, usePreviousDistinct, useUpdateEffect } from 'react-use';
 import useTimeout from '@restart/hooks/useTimeout';
+
+import { useNow } from './Data';
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -107,4 +109,97 @@ export function useWindowFocus(): boolean {
   }, []);
 
   return focused;
+}
+
+export interface RelativeDateResult {
+  full: string;
+  relative: string;
+}
+
+export function useRelativeDate(date?: Date): RelativeDateResult | undefined {
+  const now = useNow();
+
+  const formatter = useMemo(() => new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' }), []);
+
+  return useMemo(() => {
+    if (!date) return undefined;
+    const full = date.toLocaleString();
+    let relative: string;
+    const diffSeconds = (date.getTime() - now.getTime()) / 1000;
+    const diffMinutes = diffSeconds / 60;
+    const diffHours = diffMinutes / 60;
+    const diffDays = diffHours / 24;
+    const diffWeeks = diffDays / 7;
+     if (diffSeconds > 0) {
+      return undefined;
+    }
+    if (Math.abs(diffMinutes) < 1) {
+      relative = 'just now'
+    } else if (Math.abs(diffHours) < 1) {
+      relative = formatter.format(Math.round(diffMinutes), 'minutes');
+    } else if (Math.abs(diffDays) < 1) {
+      relative = formatter.format(Math.round(diffHours), 'hours');
+    } else if (Math.abs(diffWeeks) < 1) {
+      relative = formatter.format(Math.round(diffDays), 'days');
+    } else if (Math.abs(diffWeeks) < 2) {
+      relative = formatter.format(Math.round(diffWeeks), 'weeks')
+    } else if (date.getFullYear() === now.getFullYear()) {
+      relative = date.toLocaleDateString(undefined, {
+        month: 'short',
+        day: 'numeric',
+      })
+    } else {
+      relative = date.toLocaleDateString(undefined, {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    }
+
+    return { relative, full }
+  }, [now, date, formatter]);
+}
+
+/**
+ * Delays image URLs until the image has been loaded once (and thus is cached).
+ * The initial URL will be returned immediately and no pre-loading will occur.
+ *
+ * In the case on an error, the previous URL will continue to be returned, as
+ * well as the `failed` (until a subsequent load succeeded).
+ */
+export function useImageUrlOnceLoaded<T extends (string | undefined)>(url: T): { url: T, loading: boolean, failed: boolean} {
+  const [loadedUrl, setLoadedUrl] = useState(url);
+  const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  const onload = useCallback(() => {
+    setLoadedUrl(url);
+    setLoading(false);
+    setFailed(false);
+  }, [url]);
+
+  const onerror = useCallback(() => {
+    setLoading(false);
+    setFailed(true);
+  }, []);
+
+  useUpdateEffect(() => {
+    if (!url || !document) {
+      setLoading(false);
+      setFailed(false);
+      setLoadedUrl(url);
+      return;
+    }
+    setLoading(true);
+    const image = new Image();
+    image.addEventListener('load', onload);
+    image.addEventListener('error', onerror);
+    image.src = url;
+    return () => {
+      image.removeEventListener('load', onload);
+      image.removeEventListener('error', onerror);
+    }
+  }, [url, onload, onerror]);
+
+  return { url: loadedUrl, loading, failed };
 }

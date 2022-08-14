@@ -1,6 +1,7 @@
 import React from 'react';
 import { useIsSSR } from '@restart/ui/ssr';
 import { useHarmonicIntervalFn } from 'react-use';
+import { LiveResponse, CharactersResponse, FactionsResponse } from '@twrpo/types'
 
 import {
   useLoading,
@@ -10,7 +11,6 @@ import {
   isSuccess,
   LoadingResult,
 } from './LoadingState';
-import { LiveResponse, CharactersResponse, FactionsResponse } from './types'
 
 export interface PreloadedData {
   now?: string;

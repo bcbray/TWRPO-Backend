@@ -1,57 +1,51 @@
 import { Router } from 'express';
 import { ApiClient } from 'twitch';
+import { DataSource } from 'typeorm';
+import { CharactersResponse } from '@twrpo/types';
 
 import { wrpCharacters } from '../../data/characters';
-import { getWrpLive, Stream } from '../live/liveData';
-import { displayInfo } from '../../characterUtils';
+import { getWrpLive } from '../live/liveData';
+import { getCharacterInfo } from '../../characterUtils';
 import { getKnownTwitchUsers } from '../../pfps';
 import { fetchFactions } from './factions';
+import { StreamChunk } from '../../db/entity/StreamChunk';
 
-interface FactionInfo {
-    key: string;
-    name: string;
-    colorLight: string;
-    colorDark: string;
-    liveCount: number;
+export interface CharactersRequest {
+    limit?: number;
+    page?: number;
 }
 
-interface DisplayInfo {
-    realNames: string[];
-    nicknames: string[];
-    titles: string[];
-    displayName: string;
-}
-
-interface CharacterInfo {
-    channelName: string;
-    name: string;
-    displayInfo: DisplayInfo;
-    factions: FactionInfo[];
-    liveInfo?: Stream;
-    channelInfo?: ChannelInfo;
-}
-
-interface ChannelInfo {
-    id: string;
-    login: string;
-    displayName: string;
-    profilePictureUrl: string;
-}
-
-export interface CharactersResponse {
-    factions: FactionInfo[];
-    characters: CharacterInfo[];
-}
-
-export const fetchCharacters = async (apiClient: ApiClient): Promise<CharactersResponse> => {
+export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource): Promise<CharactersResponse> => {
     const knownUsers = await getKnownTwitchUsers(apiClient);
 
-    const liveData = await getWrpLive(apiClient);
+    const liveData = await getWrpLive(apiClient, dataSource);
 
-    const { factions: factionInfos } = await fetchFactions(apiClient);
+    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource);
+
+    const streamChunks = await dataSource
+        .getRepository(StreamChunk)
+        .createQueryBuilder('chunk')
+        .distinctOn(['chunk.streamerId', 'chunk.characterId'])
+        .orderBy('chunk.streamerId', 'ASC')
+        .addOrderBy('chunk.characterId', 'ASC')
+        .addOrderBy('chunk.lastSeenDate', 'DESC')
+        .getMany();
+
+    const seen: Record<string, Record<number, StreamChunk>> = {};
+    streamChunks.forEach((streamChunk) => {
+        if (!streamChunk.characterId) {
+            return;
+        }
+        if (streamChunk.characterUncertain) {
+            return;
+        }
+        if (!seen[streamChunk.streamerId]) {
+            seen[streamChunk.streamerId] = {};
+        }
+        seen[streamChunk.streamerId][streamChunk.characterId] = streamChunk;
+    });
 
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
-    const { independent } = factionMap;
 
     const characterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) => {
         const channelInfo = knownUsers.find(u =>
@@ -60,18 +54,23 @@ export const fetchCharacters = async (apiClient: ApiClient): Promise<CharactersR
         return characters
             .filter(character => character.assume !== 'neverNp')
             .map((character) => {
-                const stream = liveData.streams.find(s => s.channelName === streamer && s.characterName === character.name);
-                return {
-                    channelName: streamer,
-                    name: character.name,
-                    displayInfo: displayInfo(character),
-                    factions: character.factions?.map((faction) => {
-                        const factionMini = faction.toLowerCase().replaceAll(' ', '');
-                        return factionMap[factionMini];
-                    }) ?? [independent],
-                    liveInfo: stream,
-                    channelInfo,
-                } as CharacterInfo;
+                const characterInfo = getCharacterInfo(streamer, character, channelInfo, factionMap);
+
+                characterInfo.liveInfo = liveData.streams.find(s =>
+                    s.channelName === streamer
+                    && s.characterName === character.name);
+
+                if (channelInfo?.id
+                    && seen[channelInfo?.id]
+                    && seen[channelInfo?.id][character.id]
+                    && seen[channelInfo?.id][character.id].lastSeenDate.getTime() - seen[channelInfo?.id][character.id].firstSeenDate.getTime() > 1000 * 60 * 10
+                ) {
+                    characterInfo.lastSeenLive = JSON.stringify(
+                        seen[channelInfo?.id][character.id].lastSeenDate
+                    );
+                }
+
+                return characterInfo;
             });
     });
 
@@ -81,11 +80,11 @@ export const fetchCharacters = async (apiClient: ApiClient): Promise<CharactersR
     };
 };
 
-const buildRouter = (apiClient: ApiClient): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
     router.get('/', async (_, res) => {
-        const response = await fetchCharacters(apiClient);
+        const response = await fetchCharacters(apiClient, dataSource);
         return res.send(response);
     });
 

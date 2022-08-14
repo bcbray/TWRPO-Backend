@@ -1,5 +1,8 @@
-import { Character } from './data/characters';
+import { CharacterInfo, FactionInfo } from '@twrpo/types';
+
+import type { Character } from './data/characters';
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from './data/meta';
+import type { TwitchUser } from './pfps';
 
 // TODO: Share this code between /api/v2/characters and liveData
 
@@ -92,4 +95,27 @@ export const displayInfo = (character: Character): DisplayInfo => {
         titles,
         displayName,
     };
+};
+
+export const getCharacterInfo = (
+    channelName: string,
+    character: Character,
+    twitchUser: TwitchUser | undefined,
+    factions: FactionInfo[] | Record<string, FactionInfo>
+): CharacterInfo => {
+    const factionMap = Array.isArray(factions)
+        ? Object.fromEntries(factions.map(f => [f.key, f]))
+        : factions;
+    const { independent } = factionMap;
+    return {
+        id: character.id,
+        channelName,
+        name: character.name,
+        displayInfo: displayInfo(character),
+        factions: character.factions?.map((faction) => {
+            const factionMini = faction.toLowerCase().replaceAll(' ', '');
+            return factionMap[factionMini];
+        }) ?? [independent],
+        channelInfo: twitchUser,
+    } as CharacterInfo;
 };

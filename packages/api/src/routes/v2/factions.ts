@@ -1,52 +1,24 @@
 import { Router } from 'express';
 import { ApiClient } from 'twitch';
+import { DataSource } from 'typeorm';
+import { FactionsResponse } from '@twrpo/types';
 
-import { wrpFactionsReal, FactionRealFull } from '../../data/meta';
-import { useColorsLight, useColorsDark, filterRename } from '../../data/factions';
-import { objectEntries } from '../../utils';
 import { getWrpLive } from '../live/liveData';
+import { getFactionInfos } from '../../factionUtils';
 
-interface FactionInfo {
-    key: string;
-    name: string;
-    colorLight: string;
-    colorDark: string;
-    liveCount: number;
-}
-
-export interface FactionsResponse {
-    factions: FactionInfo[];
-}
-
-export const fetchFactions = async (apiClient: ApiClient): Promise<FactionsResponse> => {
-    const liveData = await getWrpLive(apiClient);
-
-    const ignoredFactions: FactionRealFull[] = ['Development', 'Other', 'Other Faction', 'Podcast', 'Watch Party'];
-    const factionInfos = objectEntries(wrpFactionsReal).filter(([__, faction]) => !ignoredFactions.includes(faction)).map(([mini, faction]) => {
-        const colorLightKey = mini as keyof typeof useColorsLight;
-        const colorDarkKey = mini as keyof typeof useColorsDark;
-        const factionRenameKey = mini as keyof typeof filterRename;
-
-        const factionInfo: FactionInfo = {
-            key: mini,
-            name: filterRename[factionRenameKey] ?? faction,
-            colorLight: useColorsLight[colorLightKey] ?? '#12af7e',
-            colorDark: useColorsDark[colorDarkKey] ?? '#32ff7e',
-            liveCount: liveData.factionCount[factionRenameKey],
-        };
-        return factionInfo;
-    });
+export const fetchFactions = async (apiClient: ApiClient, dataSource: DataSource): Promise<FactionsResponse> => {
+    const liveData = await getWrpLive(apiClient, dataSource);
 
     return {
-        factions: factionInfos,
+        factions: getFactionInfos(liveData.factionCount),
     };
 };
 
-const buildRouter = (apiClient: ApiClient): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
     router.get('/', async (_, res) => {
-        const response = await fetchFactions(apiClient);
+        const response = await fetchFactions(apiClient, dataSource);
         return res.send(response);
     });
 

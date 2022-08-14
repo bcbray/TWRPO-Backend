@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
-
 import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
+import { DataSource } from 'typeorm';
+import { LiveResponse, Stream, CharacterInfo } from '@twrpo/types';
 
 import {
     log, cloneDeepJson, filterObj, mapObj, parseParam, isObjEmpty, parseLookup,
@@ -8,10 +9,12 @@ import {
 
 import { getKnownTwitchUsers } from '../../pfps';
 
+import { getCharacterInfo } from '../../characterUtils';
+import { getFactionInfos } from '../../factionUtils';
 import { regOthers, regWrp } from '../../data/settings';
 import settingsParsed from '../../data/settingsParsed';
 import factionsParsed from '../../data/factionsParsed';
-import { WrpFactions, wrpFactions } from '../../data/meta';
+import { wrpFactions } from '../../data/meta';
 import { wrpCharacters as wrpCharactersOld } from '../../data/characters';
 import {
     isFactionColor,
@@ -28,6 +31,9 @@ import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from 
 import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther } from '../../data/characters';
 import type { WrpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } from '../../data/factions';
 import type { Podcast } from '../../data/podcasts';
+import type { TwitchUser } from '../../pfps';
+
+import { StreamChunk } from '../../db/entity/StreamChunk';
 
 const includedData = Object.assign(
     {},
@@ -51,6 +57,7 @@ type WrpCharacter = Character[] & { assumeChar?: Character; assumeOther: number;
 type WrpCharacters = { [key: string]: WrpCharacter };
 
 const wrpCharacters = cloneDeepJson<WrpCharactersOld, WrpCharacters>(wrpCharactersOld);
+const wrpRawCharacters = cloneDeepJson<WrpCharactersOld, WrpCharactersOld>(wrpCharactersOld);
 
 const fullFactionMap: { [key in FactionMini]?: FactionFull } = {}; // Factions with corresponding characters
 
@@ -238,9 +245,18 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
     }
 }
 
+for (const [streamer, characters] of Object.entries(wrpRawCharacters)) {
+    const streamerLower = streamer.toLowerCase();
+    if (streamer !== streamerLower) {
+        wrpRawCharacters[streamerLower] = characters;
+        delete wrpRawCharacters[streamer];
+    }
+}
+
 const wrpFactionsRegexEntries = Object.entries(wrpFactionsRegex) as [WrpFactionsRegexMini, RegExp][];
 
 const knownPfps: { [key: string]: string } = {};
+const knownTwitchUsers: { [key: string]: TwitchUser } = {};
 
 interface GetStreamsOptions { searchNum?: number; international?: boolean }
 type GetStreamsOptionsRequired = Required<GetStreamsOptions>;
@@ -254,6 +270,7 @@ export const getStreams = async (apiClient: ApiClient, options: GetStreamsOption
     const knownUsers = await getKnownTwitchUsers(apiClient);
     knownUsers.forEach((user) => {
         knownPfps[user.id] = user.profilePictureUrl.replace('-300x300.', '-50x50.');
+        knownTwitchUsers[user.id] = user;
     });
 
     let { searchNum } = optionsParsed;
@@ -324,22 +341,6 @@ interface BaseStream {
     profileUrl: string;
 }
 
-export interface Stream extends BaseStream {
-    id: number;
-    rpServer: string | null;
-    characterName: string | null;
-    nicknameLookup: string | null;
-    faction: FactionMini;
-    factions: FactionMini[];
-    factionsMap: { [key in FactionMini]?: boolean };
-    tagText: string;
-    tagFaction: FactionColorsMini;
-    tagFactionSecondary?: FactionColorsMini;
-    videoUrl?: string;
-    thumbnailUrl?: string;
-    startDate: Date;
-}
-
 type FactionCount = { [key in FactionMini]: number };
 
 interface InjectionConfiguration {
@@ -358,23 +359,13 @@ interface InjectionConfiguration {
     insertionElementSelector: string;
 }
 
-export interface Live {
-    minViewers: number;
-    stopOnMin: boolean;
-    intervalSeconds: number;
-    useColorsDark: RecordGen;
-    useColorsLight: RecordGen;
-    wrpFactions: WrpFactions;
-    factionCount: FactionCount;
-    filterFactions: any[];
-    streams: Stream[];
+interface ExtensionLiveResponse extends LiveResponse {
     baseHtml: string;
-    tick: number;
     injectionConfiguration: InjectionConfiguration;
 }
 
-const cachedResults: { [key: string]: Live | undefined } = {};
-const wrpStreamsPromise: { [key: string]: Promise<Live> | undefined } = {};
+const cachedResults: { [key: string]: ExtensionLiveResponse | undefined } = {};
+const wrpStreamsPromise: { [key: string]: Promise<ExtensionLiveResponse> | undefined } = {};
 
 const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podcast) => {
     const nameAll = [podcast.name];
@@ -395,7 +386,14 @@ const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podc
     return { podcast, reg };
 });
 
-export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, override = false, endpoint = '<no-endpoint>', useActivePromise = false): Promise<Live> => {
+export const getWrpLive = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    baseOptions = {},
+    override = false,
+    endpoint = '<no-endpoint>',
+    useActivePromise = false
+): Promise<ExtensionLiveResponse> => {
     if (!isObjEmpty(baseOptions)) log(`${endpoint}: options -`, JSON.stringify(baseOptions));
 
     const options: LiveOptions = {
@@ -428,7 +426,7 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
     console.log(JSON.stringify({ traceID: fetchID, event: 'start' }));
 
     if (wrpStreamsPromise[optionsStr] === undefined || override) {
-        wrpStreamsPromise[optionsStr] = new Promise<Live>(async (resolve, reject) => {
+        wrpStreamsPromise[optionsStr] = new Promise<ExtensionLiveResponse>(async (resolve, reject) => {
             try {
                 log(`${endpoint}: Fetching streams data...`);
 
@@ -459,6 +457,10 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
                 let nextId = 0;
                 const wrpStreams: Stream[] = [];
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
+
+                const chunks: Omit<StreamChunk, 'id' | 'firstSeenDate'>[] = [];
+                const now = new Date();
+
                 gtaStreams.forEach((helixStream) => {
                     const { userDisplayName: channelName, title, viewers } = helixStream;
 
@@ -467,7 +469,7 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
                         title,
                         // tagIds: helixStream.tagIds,
                         viewers,
-                        profileUrl: knownPfps[(helixStream as HelixStream).userId],
+                        profileUrl: knownPfps[helixStream.userId],
                     }; // rpServer, characterName, faction, tagText, tagFaction
 
                     // let noOthersInclude = true; // INV: Still being used?
@@ -561,6 +563,7 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
                             ...baseStream,
                             rpServer: serverName.length ? serverName : null,
                             characterName: null,
+                            characterId: null,
                             nicknameLookup: null,
                             faction: 'other',
                             factions: ['other'],
@@ -569,7 +572,7 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
                             tagFaction: 'other',
                             // keepCase: true,
                             thumbnailUrl: helixStream.thumbnailUrl,
-                            startDate: helixStream.startDate,
+                            startDate: helixStream.startDate.toISOString(),
                         };
 
                         nextId++;
@@ -740,6 +743,7 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
                         ...baseStream,
                         rpServer: serverName,
                         characterName: possibleCharacter?.name ?? null,
+                        characterId: possibleCharacter?.id ?? null,
                         nicknameLookup: possibleCharacter?.nicknames ? possibleCharacter.nicknames.map(nick => parseLookup(nick)).join(' _-_ ') : null,
                         faction: activeFactions[0],
                         factions: activeFactions,
@@ -747,16 +751,58 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
                         tagText,
                         tagFaction,
                         thumbnailUrl: helixStream.thumbnailUrl,
-                        startDate: helixStream.startDate,
+                        startDate: helixStream.startDate.toISOString(),
                     };
 
                     console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
+
+                    chunks.push({
+                        streamerId: helixStream.userId,
+                        characterId: possibleCharacter?.id,
+                        characterUncertain: possibleCharacter !== undefined && nowCharacter !== undefined,
+                        streamId: helixStream.id,
+                        streamStartDate: helixStream.startDate,
+                        title: helixStream.title,
+                        lastSeenDate: now,
+                    });
 
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
                     factionCount.allwildrp++;
                     wrpStreams.push(stream);
                 });
+
+                try {
+                    const chunksWithCharacters = chunks.filter(c => c.characterId);
+                    await dataSource.manager.createQueryBuilder()
+                        .insert()
+                        .into(StreamChunk)
+                        .values(chunksWithCharacters)
+                        .orUpdate(
+                            ['lastSeenDate'],
+                            ['streamerId', 'characterId', 'streamId', 'title'],
+                            { skipUpdateIfNoValuesChanged: true }
+                        )
+                        .where('"characterId" IS NOT NULL')
+                        .execute();
+                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams with characters to database', count: chunksWithCharacters.length }));
+
+                    const chunksWithoutCharacters = chunks.filter(c => !c.characterId);
+                    await dataSource.manager.createQueryBuilder()
+                        .insert()
+                        .into(StreamChunk)
+                        .values(chunksWithoutCharacters)
+                        .orUpdate(
+                            ['lastSeenDate'],
+                            ['streamerId', 'streamId', 'title'],
+                            { skipUpdateIfNoValuesChanged: true }
+                        )
+                        .where('"characterId" IS NULL')
+                        .execute();
+                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams without characters to database', count: chunksWithoutCharacters.length }));
+                } catch (error) {
+                    console.error(JSON.stringify({ level: 'error', message: 'Failed to store streams to db', error }));
+                }
 
                 factionCount.alltwitch = gtaStreams.length;
 
@@ -772,6 +818,79 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
 
                 for (const data of filterFactions) {
                     data[2] = factionCount[data[0]] !== 0;
+                }
+
+                const recentlyOnlineCharacters: CharacterInfo[] = [];
+                try {
+                    const distinctCharacters = dataSource
+                        .getRepository(StreamChunk)
+                        .createQueryBuilder('stream_chunk')
+                        .select([
+                            'stream_chunk.streamerId',
+                            'stream_chunk.characterId',
+                            'stream_chunk.lastSeenDate',
+                        ])
+                        .distinctOn(['stream_chunk.characterId'])
+                        .where('stream_chunk.characterId IS NOT NULL')
+                        .andWhere(
+                            'stream_chunk.lastSeenDate > (current_timestamp at time zone \'UTC\' - make_interval(hours => 12))'
+                        )
+                        .andWhere(
+                            'stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)'
+                        )
+                        .orderBy('stream_chunk.characterId', 'ASC')
+                        .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
+
+                    const liveCharacterIds = chunks.flatMap(c => (c.characterId ? [c.characterId] : []));
+                    if (liveCharacterIds.length) {
+                        distinctCharacters.andWhere(
+                            'stream_chunk.characterId NOT IN (:...ids)',
+                            { ids: liveCharacterIds }
+                        );
+                    }
+
+                    const recentChunks = await dataSource
+                        .createQueryBuilder()
+                        .select()
+                        .from(`(${distinctCharacters.getQuery()})`, 'recent_chunk')
+                        .setParameters(distinctCharacters.getParameters())
+                        .orderBy('"stream_chunk_lastSeenDate"', 'DESC')
+                        .addOrderBy('"stream_chunk_streamerId"')
+                        .execute();
+
+                    const factions = getFactionInfos(factionCount);
+                    const factionMap = Object.fromEntries(factions.map(f => [f.key, f]));
+
+                    recentChunks.forEach((chunk: any) => {
+                        const streamerId = chunk.stream_chunk_streamerId as string;
+                        const characterId = chunk.stream_chunk_characterId as number;
+                        const lastSeenString = chunk.stream_chunk_lastSeenDate as string;
+                        if (!streamerId || !characterId || !lastSeenString) {
+                            console.warn(JSON.stringify({
+                                level: 'warning',
+                                message: 'Missing required properties on recent stream segment',
+                                segment: chunk,
+                            }));
+                            return;
+                        }
+                        const knownUser = knownTwitchUsers[streamerId];
+                        if (!knownUser) return;
+                        const channelNameLower = knownUser.displayName.toLowerCase();
+                        const characters = wrpRawCharacters[channelNameLower];
+                        const character = characters.find(c => c.id === characterId);
+                        if (!character) return;
+                        recentlyOnlineCharacters.push({
+                            ...getCharacterInfo(
+                                knownUser.displayName,
+                                character,
+                                knownUser,
+                                factionMap
+                            ),
+                            lastSeenLive: lastSeenString,
+                        });
+                    });
+                } catch (error) {
+                    console.error(JSON.stringify({ level: 'error', message: 'Failed to load recent characters', error }));
                 }
 
                 // log(filterFactions);
@@ -793,7 +912,7 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
                     insertionElementSelector: '[data-target="directory-first-item"]',
                 };
 
-                const result: Live = {
+                const result: ExtensionLiveResponse = {
                     ...includedData,
                     factionCount,
                     filterFactions,
@@ -801,6 +920,9 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
                     baseHtml,
                     tick: nowTime,
                     injectionConfiguration: injection,
+                    recentOfflineCharacters: recentlyOnlineCharacters.length
+                        ? recentlyOnlineCharacters
+                        : undefined,
                 };
 
                 // console.log('npStreamsFb', npStreamsFb);
@@ -846,15 +968,15 @@ export const getWrpLive = async (apiClient: ApiClient, baseOptions = {}, overrid
     return cachedResults[optionsStr]!;
 };
 
-export const getWrpStreams = async (apiClient: ApiClient, baseOptions = {}, override = false): Promise<Stream[]> => {
-    const live = await getWrpLive(apiClient, baseOptions, override, '/streams');
+export const getWrpStreams = async (apiClient: ApiClient, dataSource: DataSource, baseOptions = {}, override = false): Promise<Stream[]> => {
+    const live = await getWrpLive(apiClient, dataSource, baseOptions, override, '/streams');
     return live.streams;
 };
 
 export type IntervalTimeout = ReturnType<typeof setInterval>;
 
-export const startRefreshing = (apiClient: ApiClient, intervalMs: number): IntervalTimeout => {
-    getWrpLive(apiClient);
+export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, intervalMs: number): IntervalTimeout => {
+    getWrpLive(apiClient, dataSource);
 
     return setInterval(async () => {
         const cachedResultsKeys = Object.keys(cachedResults);
@@ -866,7 +988,7 @@ export const startRefreshing = (apiClient: ApiClient, intervalMs: number): Inter
         for (const optionsStr of cachedResultsKeys) {
             log('Refreshing optionStr');
             const optionsObj = JSON.parse(optionsStr);
-            await getWrpLive(apiClient, optionsObj, true);
+            await getWrpLive(apiClient, dataSource, optionsObj, true);
         }
     }, intervalMs);
 };

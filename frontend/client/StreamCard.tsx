@@ -1,13 +1,15 @@
 import React from 'react';
 import { useIntersection, useHoverDirty } from 'react-use';
+import { Stream } from '@twrpo/types';
 
 import styles from './StreamCard.module.css';
-import { Stream, FactionInfo, channelInfo } from './types';
+import { channelInfo } from './types';
 import { formatViewers, formatDuration, classes } from './utils';
 import {
   useOneWayBoolean,
   useDelayed,
-  useWindowFocus
+  useWindowFocus,
+  useImageUrlOnceLoaded,
 } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import { useNow } from './Data';
@@ -15,6 +17,7 @@ import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 import TwitchEmbed from './TwitchEmbed';
+import Crossfade from './Crossfade';
 
 const cardStyles = {
   inline: styles.inline,
@@ -25,7 +28,6 @@ type CardStyle = keyof typeof cardStyles;
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   stream: Stream;
-  factionInfos: {[key: string]: FactionInfo};
   loadTick?: number;
   cardStyle?: CardStyle;
   embed?: boolean | 'hover';
@@ -59,7 +61,6 @@ const StreamLink: React.FC<StreamLinkProps> = ({ stream, style, children }) => (
 const StreamCard = React.forwardRef<HTMLDivElement, Props>((
   {
     stream,
-    factionInfos,
     className,
     loadTick,
     style,
@@ -95,6 +96,17 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
 
   const now = useNow();
 
+  const thumbnailUrl = React.useMemo(() => {
+    if (!stream.thumbnailUrl) return undefined;
+    return `${
+      stream.thumbnailUrl
+        ?.replace('{width}', '440')
+        .replace('{height}', '248')
+    }${loadTick ? `?${loadTick}` : ''}`
+  }, [stream.thumbnailUrl, loadTick]);
+
+  const { url: loadedThumbnailUrl } = useImageUrlOnceLoaded(thumbnailUrl);
+
   return (
     <div
       className={classes(styles.container, className, cardStyles[cardStyle])}
@@ -107,11 +119,13 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     >
       <div className={styles.thumbnail} ref={thumbnailRef}>
         <StreamLink stream={stream}>
-          <img
-            src={`${stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')}${loadTick ? `?${loadTick}` : ''}`}
-            alt={`${stream.channelName} stream thumbnail`}
-            loading='lazy'
-          />
+          <Crossfade fadeKey={loadedThumbnailUrl} fadeOver>
+            <img
+              src={loadedThumbnailUrl}
+              alt={`${stream.channelName} stream thumbnail`}
+              loading='lazy'
+            />
+          </Crossfade>
           {hasEverHadEmbed &&
             <TwitchEmbed
               id={`${stream.channelName.toLowerCase()}-twitch-preview`}
