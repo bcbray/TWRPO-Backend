@@ -10,11 +10,13 @@ interface CrossfadeProps {
   className?: string;
   fadeKey: any;
   children: React.ReactElement;
+  fadeOver?: boolean;
 }
 
 const Crossfade: React.FC<CrossfadeProps> = ({
   className,
   fadeKey,
+  fadeOver = false,
   children,
 }) => {
   return (
@@ -22,9 +24,16 @@ const Crossfade: React.FC<CrossfadeProps> = ({
       className={classes(
         className,
         styles.container,
+        fadeOver && styles.fadeOver,
       )}
     >
-      <Fade key={fadeKey}>
+      <Fade
+        key={fadeKey}
+        statusClassNames={{
+          'exiting': classes(fadeOver && styles.fadeOver)
+        }}
+        direction={fadeOver ? 'only-fade-in' : 'both'}
+      >
         {children}
       </Fade>
     </TransitionGroup>

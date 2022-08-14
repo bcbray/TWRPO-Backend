@@ -9,6 +9,11 @@
   pointer-events: initial;
 }
 
+.fade.exiting.onlyFadeIn {
+  opacity: 1;
+  pointer-events: initial;
+}
+
 .slide {
   opacity: 0;
   transform: translateY(-50px);

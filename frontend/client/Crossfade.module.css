@@ -7,3 +7,7 @@
   grid-area: 1 / 1;
   min-width: 0px;
 }
+
+.fadeOver {
+  z-index: -1;
+}

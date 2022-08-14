@@ -16,6 +16,7 @@ import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 import TwitchEmbed from './TwitchEmbed';
+import Crossfade from './Crossfade';
 
 const cardStyles = {
   inline: styles.inline,
@@ -94,6 +95,15 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
 
   const now = useNow();
 
+  const thumbnailUrl = React.useMemo(() => {
+    if (!stream.thumbnailUrl) return undefined;
+    return `${
+      stream.thumbnailUrl
+        ?.replace('{width}', '440')
+        .replace('{height}', '248')
+    }${loadTick ? `?${loadTick}` : ''}`
+  }, [stream.thumbnailUrl, loadTick]);
+
   return (
     <div
       className={classes(styles.container, className, cardStyles[cardStyle])}
@@ -106,11 +116,13 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     >
       <div className={styles.thumbnail} ref={thumbnailRef}>
         <StreamLink stream={stream}>
-          <img
-            src={`${stream.thumbnailUrl?.replace('{width}', '440').replace('{height}', '248')}${loadTick ? `?${loadTick}` : ''}`}
-            alt={`${stream.channelName} stream thumbnail`}
-            loading='lazy'
-          />
+          <Crossfade fadeKey={thumbnailUrl} fadeOver>
+            <img
+              src={thumbnailUrl}
+              alt={`${stream.channelName} stream thumbnail`}
+              loading='lazy'
+            />
+          </Crossfade>
           {hasEverHadEmbed &&
             <TwitchEmbed
               id={`${stream.channelName.toLowerCase()}-twitch-preview`}

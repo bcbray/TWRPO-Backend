@@ -18,6 +18,8 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
   useFactionCss();
 
   const [offline, setOffline] = React.useState(false);
+  const [tick, setTick] = React.useState(0);
+  const [secondImage, setSecondImage] = React.useState(false);
 
   const startDate = React.useMemo(() => (new Date(new Date().getTime() - 5241000)).toISOString() ,[]);
   const endDate = React.useMemo(() => (new Date(new Date().getTime() - 1000 * 60)).toISOString() ,[]);
@@ -61,7 +63,9 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
     factionsMap: {fake: true},
     tagText: 'Sam',
     tagFaction: fakeFaction.key,
-    thumbnailUrl: '/images/example-live-thumbnail.jpeg',
+    thumbnailUrl: secondImage
+      ? '/images/example-live-thumbnail-2.jpeg'
+      : '/images/example-live-thumbnail.jpeg',
     startDate
   };
 
@@ -73,6 +77,18 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
           onClick={() => setOffline(o => !o)}
         >
           {offline ? 'Go online' : 'Go offline'}
+        </Button>
+        <Button
+          className='button primary'
+          onClick={() => setSecondImage(s => !s)}
+        >
+          Swap image
+        </Button>
+        <Button
+          className='button primary'
+          onClick={() => setTick(t => t + 1)}
+        >
+          Tick
         </Button>
       </div>
       <Crossfade
@@ -87,6 +103,7 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
           <StreamCard
             className={styles.online}
             stream={fakeStream}
+            loadTick={tick}
           />
         )}
       </Crossfade>
