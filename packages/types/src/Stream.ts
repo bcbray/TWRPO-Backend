@@ -8,6 +8,7 @@ export default interface Stream {
   id: number;
   rpServer: string | null;
   characterName: string | null;
+  characterId: number | null;
   nicknameLookup: string | null;
   faction: FactionKey;
   factions: FactionKey[];

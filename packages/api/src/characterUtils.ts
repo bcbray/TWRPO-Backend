@@ -108,6 +108,7 @@ export const getCharacterInfo = (
         : factions;
     const { independent } = factionMap;
     return {
+        id: character.id,
         channelName,
         name: character.name,
         displayInfo: displayInfo(character),

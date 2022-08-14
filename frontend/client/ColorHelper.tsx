@@ -36,6 +36,7 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
     id: 0,
     rpServer: 'WRP',
     characterName: 'Sam Baas',
+    characterId: 1,
     nicknameLookup: null,
     faction: faction.key,
     factions: [faction.key],
