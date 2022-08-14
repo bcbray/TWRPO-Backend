@@ -133,6 +133,10 @@
   :root:not(:global(.light)):not(:global(.dark)) .channel a:hover {
     color: var(--faction-color-dark-hover);
   }
+
+  :root:not(:global(.light)):not(:global(.dark)) .thumbnail .offline .lastSeen {
+    color: var(--theme-gray-050);
+  }
 }
 
 :root:global(.dark) .channel a {
@@ -141,4 +145,8 @@
 
 :root:global(.dark) .channel a:hover {
   color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .thumbnail .offline .lastSeen {
+  color: var(--theme-gray-050);
 }
