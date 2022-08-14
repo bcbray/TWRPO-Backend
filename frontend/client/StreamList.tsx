@@ -51,7 +51,17 @@ const StreamList: React.FC<Props> = ({
       <div className={classes('inset', styles.grid)}>
         <div className={classes(styles.items)}>
           {sorted.map(stream => (
-            <Flipped key={stream.channelName} flipId={stream.channelName}>
+            <Flipped
+              key={
+                stream.characterId
+                  ? `char:${stream.characterId}`
+                  : `chan:${stream.channelName}`
+              }
+              flipId={
+                stream.characterId
+                  ? `char:${stream.characterId}`
+                  : `chan:${stream.channelName}`
+              }>
               <div>
                 <StreamCard
                   stream={stream}
@@ -63,13 +73,15 @@ const StreamList: React.FC<Props> = ({
             </Flipped>
           ))}
           {offlineCharacters && offlineCharacters.map(character => (
-            <div key={`${character.channelName}_${character.name}`}>
-              <OfflineCharacterCard
-                className={styles.offline}
-                character={character}
-                factionInfos={factionInfos}
-              />
-            </div>
+            <Flipped key={`char:${character.id}`} flipId={`char:${character.id}`}>
+              <div>
+                <OfflineCharacterCard
+                  className={styles.offline}
+                  character={character}
+                  factionInfos={factionInfos}
+                />
+              </div>
+            </Flipped>
           ))}
         </div>
       </div>
