@@ -69,7 +69,7 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
               className={classes(styles.lastSeen, styles.spacer)}
               title={lastSeenLive.full}
             >
-              {`Last seen ${lastSeenLive.relative}`}
+              {`Last online ${lastSeenLive.relative}`}
             </p>
           }
             <p>Offline</p>
@@ -78,7 +78,7 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
                 className={styles.lastSeen}
                 title={lastSeenLive.full}
               >
-                {`Last seen ${lastSeenLive.relative}`}
+                {`Last online ${lastSeenLive.relative}`}
               </p>
             }
           </div>
