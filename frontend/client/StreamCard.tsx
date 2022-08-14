@@ -8,7 +8,8 @@ import { formatViewers, formatDuration, classes } from './utils';
 import {
   useOneWayBoolean,
   useDelayed,
-  useWindowFocus
+  useWindowFocus,
+  useImageUrlOnceLoaded,
 } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import { useNow } from './Data';
@@ -104,6 +105,8 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     }${loadTick ? `?${loadTick}` : ''}`
   }, [stream.thumbnailUrl, loadTick]);
 
+  const { url: loadedThumbnailUrl } = useImageUrlOnceLoaded(thumbnailUrl);
+
   return (
     <div
       className={classes(styles.container, className, cardStyles[cardStyle])}
@@ -116,9 +119,9 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     >
       <div className={styles.thumbnail} ref={thumbnailRef}>
         <StreamLink stream={stream}>
-          <Crossfade fadeKey={thumbnailUrl} fadeOver>
+          <Crossfade fadeKey={loadedThumbnailUrl} fadeOver>
             <img
-              src={thumbnailUrl}
+              src={loadedThumbnailUrl}
               alt={`${stream.channelName} stream thumbnail`}
               loading='lazy'
             />
