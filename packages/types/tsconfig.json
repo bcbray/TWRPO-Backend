@@ -1,0 +1,27 @@
+{
+    "extends": "../../tsconfig.build.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "lib": [
+            "dom",
+            "es2021",
+            "es6",
+            "esnext.asynciterable"
+        ],
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "removeComments": true,
+        "sourceMap": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true
+    },
+    "include": [
+        "src"
+    ]
+}
