@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { ApiClient } from 'twitch';
 import { DataSource } from 'typeorm';
-import { CharacterInfo, CharactersResponse } from '@twrpo/types';
+import { CharactersResponse } from '@twrpo/types';
 
 import { wrpCharacters } from '../../data/characters';
 import { getWrpLive } from '../live/liveData';
-import { displayInfo } from '../../characterUtils';
+import { getCharacterInfo } from '../../characterUtils';
 import { getKnownTwitchUsers } from '../../pfps';
 import { fetchFactions } from './factions';
 import { StreamChunk } from '../../db/entity/StreamChunk';
@@ -46,7 +46,6 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
     });
 
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
-    const { independent } = factionMap;
 
     const characterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) => {
         const channelInfo = knownUsers.find(u =>
@@ -55,30 +54,23 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         return characters
             .filter(character => character.assume !== 'neverNp')
             .map((character) => {
-                const stream = liveData.streams.find(s => s.channelName === streamer && s.characterName === character.name);
-                let lastSeenLive: Date | undefined;
+                const characterInfo = getCharacterInfo(streamer, character, channelInfo, factionMap);
+
+                characterInfo.liveInfo = liveData.streams.find(s =>
+                    s.channelName === streamer
+                    && s.characterName === character.name);
+
                 if (channelInfo?.id
                     && seen[channelInfo?.id]
                     && seen[channelInfo?.id][character.id]
                     && seen[channelInfo?.id][character.id].lastSeenDate.getTime() - seen[channelInfo?.id][character.id].firstSeenDate.getTime() > 1000 * 60 * 10
                 ) {
-                    lastSeenLive = seen[channelInfo?.id][character.id].lastSeenDate;
-                } else {
-                    lastSeenLive = undefined;
+                    characterInfo.lastSeenLive = JSON.stringify(
+                        seen[channelInfo?.id][character.id].lastSeenDate
+                    );
                 }
 
-                return {
-                    channelName: streamer,
-                    name: character.name,
-                    displayInfo: displayInfo(character),
-                    factions: character.factions?.map((faction) => {
-                        const factionMini = faction.toLowerCase().replaceAll(' ', '');
-                        return factionMap[factionMini];
-                    }) ?? [independent],
-                    liveInfo: stream,
-                    channelInfo,
-                    lastSeenLive,
-                } as CharacterInfo;
+                return characterInfo;
             });
     });
 

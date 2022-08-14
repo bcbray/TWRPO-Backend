@@ -1,8 +1,7 @@
 import { randomUUID } from 'crypto';
 import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
 import { DataSource } from 'typeorm';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { LiveResponse, Stream } from '@twrpo/types';
+import { LiveResponse, Stream, CharacterInfo } from '@twrpo/types';
 
 import {
     log, cloneDeepJson, filterObj, mapObj, parseParam, isObjEmpty, parseLookup,
@@ -10,6 +9,8 @@ import {
 
 import { getKnownTwitchUsers } from '../../pfps';
 
+import { getCharacterInfo } from '../../characterUtils';
+import { getFactionInfos } from '../../factionUtils';
 import { regOthers, regWrp } from '../../data/settings';
 import settingsParsed from '../../data/settingsParsed';
 import factionsParsed from '../../data/factionsParsed';
@@ -30,6 +31,7 @@ import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from 
 import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther } from '../../data/characters';
 import type { WrpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } from '../../data/factions';
 import type { Podcast } from '../../data/podcasts';
+import type { TwitchUser } from '../../pfps';
 
 import { StreamChunk } from '../../db/entity/StreamChunk';
 
@@ -55,6 +57,7 @@ type WrpCharacter = Character[] & { assumeChar?: Character; assumeOther: number;
 type WrpCharacters = { [key: string]: WrpCharacter };
 
 const wrpCharacters = cloneDeepJson<WrpCharactersOld, WrpCharacters>(wrpCharactersOld);
+const wrpRawCharacters = cloneDeepJson<WrpCharactersOld, WrpCharactersOld>(wrpCharactersOld);
 
 const fullFactionMap: { [key in FactionMini]?: FactionFull } = {}; // Factions with corresponding characters
 
@@ -242,9 +245,18 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
     }
 }
 
+for (const [streamer, characters] of Object.entries(wrpRawCharacters)) {
+    const streamerLower = streamer.toLowerCase();
+    if (streamer !== streamerLower) {
+        wrpRawCharacters[streamerLower] = characters;
+        delete wrpRawCharacters[streamer];
+    }
+}
+
 const wrpFactionsRegexEntries = Object.entries(wrpFactionsRegex) as [WrpFactionsRegexMini, RegExp][];
 
 const knownPfps: { [key: string]: string } = {};
+const knownTwitchUsers: { [key: string]: TwitchUser } = {};
 
 interface GetStreamsOptions { searchNum?: number; international?: boolean }
 type GetStreamsOptionsRequired = Required<GetStreamsOptions>;
@@ -258,6 +270,7 @@ export const getStreams = async (apiClient: ApiClient, options: GetStreamsOption
     const knownUsers = await getKnownTwitchUsers(apiClient);
     knownUsers.forEach((user) => {
         knownPfps[user.id] = user.profilePictureUrl.replace('-300x300.', '-50x50.');
+        knownTwitchUsers[user.id] = user;
     });
 
     let { searchNum } = optionsParsed;
@@ -445,7 +458,7 @@ export const getWrpLive = async (
                 const wrpStreams: Stream[] = [];
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
 
-                const chunks: QueryDeepPartialEntity<StreamChunk>[] = [];
+                const chunks: Omit<StreamChunk, 'id' | 'firstSeenDate'>[] = [];
                 const now = new Date();
 
                 gtaStreams.forEach((helixStream) => {
@@ -456,7 +469,7 @@ export const getWrpLive = async (
                         title,
                         // tagIds: helixStream.tagIds,
                         viewers,
-                        profileUrl: knownPfps[(helixStream as HelixStream).userId],
+                        profileUrl: knownPfps[helixStream.userId],
                     }; // rpServer, characterName, faction, tagText, tagFaction
 
                     // let noOthersInclude = true; // INV: Still being used?
@@ -558,7 +571,7 @@ export const getWrpLive = async (
                             tagFaction: 'other',
                             // keepCase: true,
                             thumbnailUrl: helixStream.thumbnailUrl,
-                            startDate: JSON.stringify(helixStream.startDate),
+                            startDate: helixStream.startDate.toISOString(),
                         };
 
                         nextId++;
@@ -736,7 +749,7 @@ export const getWrpLive = async (
                         tagText,
                         tagFaction,
                         thumbnailUrl: helixStream.thumbnailUrl,
-                        startDate: JSON.stringify(helixStream.startDate),
+                        startDate: helixStream.startDate.toISOString(),
                     };
 
                     console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
@@ -744,7 +757,7 @@ export const getWrpLive = async (
                     chunks.push({
                         streamerId: helixStream.userId,
                         characterId: possibleCharacter?.id,
-                        characterUncertain: possibleCharacter && !nowCharacter,
+                        characterUncertain: possibleCharacter !== undefined && nowCharacter !== undefined,
                         streamId: helixStream.id,
                         streamStartDate: helixStream.startDate,
                         title: helixStream.title,
@@ -805,6 +818,79 @@ export const getWrpLive = async (
                     data[2] = factionCount[data[0]] !== 0;
                 }
 
+                const recentlyOnlineCharacters: CharacterInfo[] = [];
+                try {
+                    const distinctCharacters = dataSource
+                        .getRepository(StreamChunk)
+                        .createQueryBuilder('stream_chunk')
+                        .select([
+                            'stream_chunk.streamerId',
+                            'stream_chunk.characterId',
+                            'stream_chunk.lastSeenDate',
+                        ])
+                        .distinctOn(['stream_chunk.characterId'])
+                        .where('stream_chunk.characterId IS NOT NULL')
+                        .andWhere(
+                            'stream_chunk.lastSeenDate > (current_timestamp at time zone \'UTC\' - make_interval(hours => 12))'
+                        )
+                        .andWhere(
+                            'stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)'
+                        )
+                        .orderBy('stream_chunk.characterId', 'ASC')
+                        .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
+
+                    const liveCharacterIds = chunks.flatMap(c => (c.characterId ? [c.characterId] : []));
+                    if (liveCharacterIds.length) {
+                        distinctCharacters.andWhere(
+                            'stream_chunk.characterId NOT IN (:...ids)',
+                            { ids: liveCharacterIds }
+                        );
+                    }
+
+                    const recentChunks = await dataSource
+                        .createQueryBuilder()
+                        .select()
+                        .from(`(${distinctCharacters.getQuery()})`, 'recent_chunk')
+                        .setParameters(distinctCharacters.getParameters())
+                        .orderBy('"stream_chunk_lastSeenDate"', 'DESC')
+                        .addOrderBy('"stream_chunk_streamerId"')
+                        .execute();
+
+                    const factions = getFactionInfos(factionCount);
+                    const factionMap = Object.fromEntries(factions.map(f => [f.key, f]));
+
+                    recentChunks.forEach((chunk: any) => {
+                        const streamerId = chunk.stream_chunk_streamerId as string;
+                        const characterId = chunk.stream_chunk_characterId as number;
+                        const lastSeenString = chunk.stream_chunk_lastSeenDate as string;
+                        if (!streamerId || !characterId || !lastSeenString) {
+                            console.warn(JSON.stringify({
+                                level: 'warning',
+                                message: 'Missing required properties on recent stream segment',
+                                segment: chunk,
+                            }));
+                            return;
+                        }
+                        const knownUser = knownTwitchUsers[streamerId];
+                        if (!knownUser) return;
+                        const channelNameLower = knownUser.displayName.toLowerCase();
+                        const characters = wrpRawCharacters[channelNameLower];
+                        const character = characters.find(c => c.id === characterId);
+                        if (!character) return;
+                        recentlyOnlineCharacters.push({
+                            ...getCharacterInfo(
+                                knownUser.displayName,
+                                character,
+                                knownUser,
+                                factionMap
+                            ),
+                            lastSeenLive: lastSeenString,
+                        });
+                    });
+                } catch (error) {
+                    console.error(JSON.stringify({ level: 'error', message: 'Failed to load recent characters', error }));
+                }
+
                 // log(filterFactions);
 
                 // Includes npManual, _ORDER_, _TITLE_, _VIEWERS_, _PFP_, _CHANNEL1_, _CHANNEL2_
@@ -832,6 +918,9 @@ export const getWrpLive = async (
                     baseHtml,
                     tick: nowTime,
                     injectionConfiguration: injection,
+                    recentOfflineCharacters: recentlyOnlineCharacters.length
+                        ? recentlyOnlineCharacters
+                        : undefined,
                 };
 
                 // console.log('npStreamsFb', npStreamsFb);

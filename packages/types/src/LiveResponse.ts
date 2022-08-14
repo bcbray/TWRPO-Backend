@@ -1,5 +1,6 @@
 import FactionKey from './FactionKey';
 import Stream from './Stream';
+import CharacterInfo from './CharacterInfo';
 
 export default interface LiveResponse {
     minViewers: number;
@@ -12,4 +13,5 @@ export default interface LiveResponse {
     filterFactions: [FactionKey, string, boolean][];
     streams: Stream[];
     tick: number;
+    recentOfflineCharacters?: CharacterInfo[];
 }
