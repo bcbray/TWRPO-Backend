@@ -1,12 +1,12 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { LiveResponse, CharacterInfo } from '@twrpo/types';
+import { LiveResponse } from '@twrpo/types';
 
 import { factionsFromLive, ignoredFactions } from './utils'
 import { useSingleSearchParam, useDebouncedValue } from './hooks';
 import { isSuccess } from './LoadingState';
-import { useNow, useCharacters } from './Data';
+import { useCharacters } from './Data';
 
 import StreamList from './StreamList';
 import FilterBar from './FilterBar';
@@ -24,9 +24,8 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
   const [filterText, setFilterText] = useSingleSearchParam('search');
   const debouncedFilterText = useDebouncedValue(filterText, 200);
   const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
-  const now = useNow(1000 * 60);
 
-  const [charactersLoadingState] = useCharacters();
+  const [charactersLoadingState] = useCharacters({ needsLoad: filterText.length > 0 });
 
   const characters = React.useMemo(() => (
     isSuccess(charactersLoadingState)
@@ -74,25 +73,8 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
     const liveChannels = new Set(filteredStreams.map(c => c.channelName));
 
     return filterTextForSearching.length === 0
-      ? characters
-        .filter(character =>
-          !liveChannels.has(character.channelName)
-          && character.lastSeenLive
-        )
-        .map((c): [CharacterInfo, Date | undefined] =>
-          [c, c.lastSeenLive ? new Date(c.lastSeenLive) : undefined]
-        )
-        // Only include characters seen in the last 12 hours
-        .filter(([_c, date]) => date &&
-          now.getTime() - date.getTime() < 1000 * 60 * 60 * 12
-        )
-        .sort(([_l, lhs], [_r, rhs]) => {
-          if (!lhs && !rhs) return 0;
-          if (!lhs) return 1;
-          if (!rhs) return -1;
-          return rhs.getTime() - lhs.getTime();
-        })
-        .map(([c, _c]) => c)
+      ? live
+        .recentOfflineCharacters ?? []
         .slice(0, 50)
       : characters
         .filter(character =>
@@ -107,7 +89,7 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
         )
         // Limit to 50 offline characters to not overwhelm the list
         .slice(0, 50);
-  }, [characters, factionKey, filterTextForSearching, filteredStreams, now]);
+  }, [characters, factionKey, filterTextForSearching, filteredStreams, live.recentOfflineCharacters]);
 
   const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
 
