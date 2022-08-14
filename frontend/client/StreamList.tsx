@@ -7,6 +7,7 @@ import styles from './StreamList.module.css';
 import StreamCard from './StreamCard';
 import OfflineCharacterCard from './OfflineCharacterCard';
 import { classes } from './utils';
+import Crossfade from './Crossfade';
 
 type SortBy = 'viewers' | 'duration' | 'channel';
 type Order = 'asc' | 'desc';
@@ -60,23 +61,23 @@ const StreamList: React.FC<Props> = ({
                   ? `char:${stream.characterId}`
                   : `chan:${stream.channelName}`
               }>
-              <div>
+              <Crossfade fadeKey='live'>
                 <StreamCard
                   stream={stream}
                   loadTick={loadTick}
                   embed={isMobile() ? false : 'hover'}
                 />
-              </div>
+              </Crossfade>
             </Flipped>
           ))}
           {offlineCharacters && offlineCharacters.map(character => (
             <Flipped key={`char:${character.id}`} flipId={`char:${character.id}`}>
-              <div>
+              <Crossfade fadeKey='offline'>
                 <OfflineCharacterCard
                   className={styles.offline}
                   character={character}
                 />
-              </div>
+              </Crossfade>
             </Flipped>
           ))}
         </div>

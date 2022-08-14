@@ -1,0 +1,9 @@
+.container {
+  display: grid;
+  grid-template: 1 / 1;
+}
+
+.container > * {
+  grid-area: 1 / 1;
+  min-width: 0px;
+}
