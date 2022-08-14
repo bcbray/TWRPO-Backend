@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { CharacterInfo, FactionInfo, Stream } from '@twrpo/types';
+import { CharacterInfo, Stream } from '@twrpo/types';
 
 import styles from './CharactersTable.module.css';
 import Tag from './Tag';
@@ -12,10 +12,9 @@ import OverlayTrigger from './OverlayTrigger';
 
 interface Props {
   characters: CharacterInfo[];
-  factionInfos: {[key: string]: FactionInfo};
 };
 
-const LiveBadge: React.FC<{ stream: Stream, factionInfos: {[key: string]: FactionInfo} }> = ({ stream, factionInfos }) => (
+const LiveBadge: React.FC<{ stream: Stream }> = ({ stream }) => (
   <OverlayTrigger
     placement='bottom-start'
     delay={{ show: 250, hide: 100 }}
@@ -27,7 +26,6 @@ const LiveBadge: React.FC<{ stream: Stream, factionInfos: {[key: string]: Factio
             width: 300,
           }}
           stream={stream}
-          factionInfos={factionInfos}
           cardStyle='card'
           embed
         />
@@ -38,7 +36,7 @@ const LiveBadge: React.FC<{ stream: Stream, factionInfos: {[key: string]: Factio
   </OverlayTrigger>
 );
 
-const CharactersTable: React.FunctionComponent<Props> = ({ characters, factionInfos }) => {
+const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
   const location = useLocation();
   const { factionStyles } = useFactionCss();
 
@@ -83,7 +81,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters, factionIn
                       }}
                     />
                     {character.channelName}
-                    {character.liveInfo && <LiveBadge stream={character.liveInfo} factionInfos={factionInfos} />}
+                    {character.liveInfo && <LiveBadge stream={character.liveInfo} />}
                   </a>
                 </td>
                 <td className={styles.titles}>{character.displayInfo.titles.join(', ')}</td>

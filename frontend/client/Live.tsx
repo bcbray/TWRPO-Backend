@@ -34,7 +34,9 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
   ), [charactersLoadingState]);
 
   const factionInfos = React.useMemo(() => factionsFromLive(live), [live]);
-  const factionInfoMap = React.useMemo(() => Object.fromEntries(factionInfos.map(info => [info.key, info])), [factionInfos]);
+  const selectedFaction = React.useMemo(() => (
+    factionKey ? factionInfos.find(f => f.key === factionKey) : undefined
+  ), [factionKey, factionInfos]);
 
   const filterFactions = React.useMemo(() => (
     factionInfos
@@ -91,8 +93,6 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
         .slice(0, 50);
   }, [characters, factionKey, filterTextForSearching, filteredStreams, live.recentOfflineCharacters]);
 
-  const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
-
   return (
     (
       <>
@@ -117,7 +117,6 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
         <StreamList
           streams={filteredStreams}
           offlineCharacters={offlineCharacters}
-          factionInfos={factionInfoMap}
           loadTick={loadTick}
         />
       </>

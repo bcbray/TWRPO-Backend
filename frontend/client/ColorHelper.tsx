@@ -63,7 +63,7 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
       </div>
       <div>
         <div>
-          <StreamCard stream={fakeStream} factionInfos={{ [faction.key]: faction }} />
+          <StreamCard stream={fakeStream} />
         </div>
       </div>
     </div>

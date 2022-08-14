@@ -1,5 +1,5 @@
 import React from 'react';
-import { CharacterInfo, FactionInfo } from '@twrpo/types';
+import { CharacterInfo } from '@twrpo/types';
 
 import styles from './OfflineCharacterCard.module.css';
 import { classes } from './utils';
@@ -11,7 +11,6 @@ import OutboundLink from './OutboundLink';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   character: CharacterInfo;
-  factionInfos: {[key: string]: FactionInfo};
 }
 
 interface CharacterLinkProps {
@@ -39,7 +38,7 @@ const CharacterLink: React.FC<CharacterLinkProps> = ({character, style, children
 );
 
 const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
-  { character, factionInfos, className, style, ...rest }, ref
+  { character, className, style, ...rest }, ref
 ) => {
   const { factionStylesForKey } = useFactionCss();
   const lastSeenLiveDate = React.useMemo(() => {

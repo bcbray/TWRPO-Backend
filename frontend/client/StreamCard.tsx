@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntersection, useHoverDirty } from 'react-use';
-import { Stream, FactionInfo } from '@twrpo/types';
+import { Stream } from '@twrpo/types';
 
 import styles from './StreamCard.module.css';
 import { channelInfo } from './types';
@@ -26,7 +26,6 @@ type CardStyle = keyof typeof cardStyles;
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   stream: Stream;
-  factionInfos: {[key: string]: FactionInfo};
   loadTick?: number;
   cardStyle?: CardStyle;
   embed?: boolean | 'hover';
@@ -60,7 +59,6 @@ const StreamLink: React.FC<StreamLinkProps> = ({ stream, style, children }) => (
 const StreamCard = React.forwardRef<HTMLDivElement, Props>((
   {
     stream,
-    factionInfos,
     className,
     loadTick,
     style,

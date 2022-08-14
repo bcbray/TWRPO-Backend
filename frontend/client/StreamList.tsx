@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import isMobile from 'is-mobile';
-import { Stream, CharacterInfo, FactionInfo } from '@twrpo/types';
+import { Stream, CharacterInfo } from '@twrpo/types';
 
 import styles from './StreamList.module.css';
 import StreamCard from './StreamCard';
@@ -14,7 +14,6 @@ type Order = 'asc' | 'desc';
 interface Props {
   streams: Stream[];
   offlineCharacters?: CharacterInfo[]
-  factionInfos: {[key: string]: FactionInfo};
   loadTick: number;
   sort?: SortBy;
   order?: Order;
@@ -23,7 +22,6 @@ interface Props {
 const StreamList: React.FC<Props> = ({
   streams,
   offlineCharacters,
-  factionInfos,
   loadTick,
   sort = 'viewers',
   order = 'desc',
@@ -65,7 +63,6 @@ const StreamList: React.FC<Props> = ({
               <div>
                 <StreamCard
                   stream={stream}
-                  factionInfos={factionInfos}
                   loadTick={loadTick}
                   embed={isMobile() ? false : 'hover'}
                 />
@@ -78,7 +75,6 @@ const StreamList: React.FC<Props> = ({
                 <OfflineCharacterCard
                   className={styles.offline}
                   character={character}
-                  factionInfos={factionInfos}
                 />
               </div>
             </Flipped>
