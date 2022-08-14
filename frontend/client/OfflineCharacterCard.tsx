@@ -1,7 +1,7 @@
 import React from 'react';
+import { CharacterInfo, FactionInfo } from '@twrpo/types';
 
 import styles from './OfflineCharacterCard.module.css';
-import { CharacterInfo, FactionInfo } from './types';
 import { classes } from './utils';
 import { useRelativeDate } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';

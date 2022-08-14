@@ -1,8 +1,8 @@
 import React from 'react';
 import { SketchPicker } from 'react-color';
+import { CharactersResponse, Stream, FactionInfo } from '@twrpo/types';
 
 import styles from './ColorHelper.module.css';
-import { CharactersResponse, Stream, FactionInfo } from './types';
 import { classes } from './utils';
 import StreamCard from './StreamCard';
 

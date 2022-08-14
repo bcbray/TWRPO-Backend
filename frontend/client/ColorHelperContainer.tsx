@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
+import { CharactersResponse } from '@twrpo/types';
 
 import { useLoading, isSuccess, isFailure } from './LoadingState';
-import { CharactersResponse } from './types';
 import ColorHelper from './ColorHelper';
 import Error from './Error';
 import Loading from './Loading';

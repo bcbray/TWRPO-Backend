@@ -1,8 +1,8 @@
 import React from 'react';
 import isMobile from 'is-mobile';
+import { FactionInfo } from '@twrpo/types';
 
 import styles from './FactionDropdown.module.css';
-import { FactionInfo } from './types';
 import { classes } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
 import Dropdown from  './Dropdown';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { LiveResponse, CharacterInfo } from '@twrpo/types';
 
-import { LiveResponse, CharacterInfo } from './types';
 import { factionsFromLive, ignoredFactions } from './utils'
 import { useSingleSearchParam, useDebouncedValue } from './hooks';
 import { isSuccess } from './LoadingState';

@@ -1,7 +1,7 @@
 import React from 'react';
+import { ChannelInfo } from '@twrpo/types';
 
 import styles from './ProfilePhoto.module.css';
-import { ChannelInfo } from './types';
 import { classes } from './utils';
 import { useDevicePixelRatio } from './hooks';
 

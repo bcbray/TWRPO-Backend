@@ -1,8 +1,9 @@
 import React from 'react';
 import { useIntersection, useHoverDirty } from 'react-use';
+import { Stream, FactionInfo } from '@twrpo/types';
 
 import styles from './StreamCard.module.css';
-import { Stream, FactionInfo, channelInfo } from './types';
+import { channelInfo } from './types';
 import { formatViewers, formatDuration, classes } from './utils';
 import {
   useOneWayBoolean,

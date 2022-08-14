@@ -10,6 +10,7 @@
     "@restart/ui": "^1.3.0",
     "@svgr/webpack": "^5.5.0",
     "@twrpo/api": "1.0.0",
+    "@twrpo/types": "1.0.0",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-color": "^3.0.6",

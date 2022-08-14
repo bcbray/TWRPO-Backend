@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from "react-router-dom";
+import { CharacterInfo, FactionInfo, Stream } from '@twrpo/types';
 
 import styles from './CharactersTable.module.css';
-import { CharacterInfo, FactionInfo, Stream } from './types';
 import Tag from './Tag';
 import StreamCard from './StreamCard';
 import ProfilePhoto from './ProfilePhoto';

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import isMobile from 'is-mobile';
+import { Stream, CharacterInfo, FactionInfo } from '@twrpo/types';
 
 import styles from './StreamList.module.css';
-import { Stream, CharacterInfo, FactionInfo } from './types';
 import StreamCard from './StreamCard';
 import OfflineCharacterCard from './OfflineCharacterCard';
 import { classes } from './utils';

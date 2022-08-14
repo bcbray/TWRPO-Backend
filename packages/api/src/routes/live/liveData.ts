@@ -1,10 +1,8 @@
 import { randomUUID } from 'crypto';
-
 import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
-
 import { DataSource } from 'typeorm';
-
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { LiveResponse, Stream } from '@twrpo/types';
 
 import {
     log, cloneDeepJson, filterObj, mapObj, parseParam, isObjEmpty, parseLookup,
@@ -15,7 +13,7 @@ import { getKnownTwitchUsers } from '../../pfps';
 import { regOthers, regWrp } from '../../data/settings';
 import settingsParsed from '../../data/settingsParsed';
 import factionsParsed from '../../data/factionsParsed';
-import { WrpFactions, wrpFactions } from '../../data/meta';
+import { wrpFactions } from '../../data/meta';
 import { wrpCharacters as wrpCharactersOld } from '../../data/characters';
 import {
     isFactionColor,
@@ -330,22 +328,6 @@ interface BaseStream {
     profileUrl: string;
 }
 
-export interface Stream extends BaseStream {
-    id: number;
-    rpServer: string | null;
-    characterName: string | null;
-    nicknameLookup: string | null;
-    faction: FactionMini;
-    factions: FactionMini[];
-    factionsMap: { [key in FactionMini]?: boolean };
-    tagText: string;
-    tagFaction: FactionColorsMini;
-    tagFactionSecondary?: FactionColorsMini;
-    videoUrl?: string;
-    thumbnailUrl?: string;
-    startDate: Date;
-}
-
 type FactionCount = { [key in FactionMini]: number };
 
 interface InjectionConfiguration {
@@ -364,23 +346,13 @@ interface InjectionConfiguration {
     insertionElementSelector: string;
 }
 
-export interface Live {
-    minViewers: number;
-    stopOnMin: boolean;
-    intervalSeconds: number;
-    useColorsDark: RecordGen;
-    useColorsLight: RecordGen;
-    wrpFactions: WrpFactions;
-    factionCount: FactionCount;
-    filterFactions: any[];
-    streams: Stream[];
+interface ExtensionLiveResponse extends LiveResponse {
     baseHtml: string;
-    tick: number;
     injectionConfiguration: InjectionConfiguration;
 }
 
-const cachedResults: { [key: string]: Live | undefined } = {};
-const wrpStreamsPromise: { [key: string]: Promise<Live> | undefined } = {};
+const cachedResults: { [key: string]: ExtensionLiveResponse | undefined } = {};
+const wrpStreamsPromise: { [key: string]: Promise<ExtensionLiveResponse> | undefined } = {};
 
 const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podcast) => {
     const nameAll = [podcast.name];
@@ -408,7 +380,7 @@ export const getWrpLive = async (
     override = false,
     endpoint = '<no-endpoint>',
     useActivePromise = false
-): Promise<Live> => {
+): Promise<ExtensionLiveResponse> => {
     if (!isObjEmpty(baseOptions)) log(`${endpoint}: options -`, JSON.stringify(baseOptions));
 
     const options: LiveOptions = {
@@ -441,7 +413,7 @@ export const getWrpLive = async (
     console.log(JSON.stringify({ traceID: fetchID, event: 'start' }));
 
     if (wrpStreamsPromise[optionsStr] === undefined || override) {
-        wrpStreamsPromise[optionsStr] = new Promise<Live>(async (resolve, reject) => {
+        wrpStreamsPromise[optionsStr] = new Promise<ExtensionLiveResponse>(async (resolve, reject) => {
             try {
                 log(`${endpoint}: Fetching streams data...`);
 
@@ -586,7 +558,7 @@ export const getWrpLive = async (
                             tagFaction: 'other',
                             // keepCase: true,
                             thumbnailUrl: helixStream.thumbnailUrl,
-                            startDate: helixStream.startDate,
+                            startDate: JSON.stringify(helixStream.startDate),
                         };
 
                         nextId++;
@@ -764,7 +736,7 @@ export const getWrpLive = async (
                         tagText,
                         tagFaction,
                         thumbnailUrl: helixStream.thumbnailUrl,
-                        startDate: helixStream.startDate,
+                        startDate: JSON.stringify(helixStream.startDate),
                     };
 
                     console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
@@ -852,7 +824,7 @@ export const getWrpLive = async (
                     insertionElementSelector: '[data-target="directory-first-item"]',
                 };
 
-                const result: Live = {
+                const result: ExtensionLiveResponse = {
                     ...includedData,
                     factionCount,
                     filterFactions,

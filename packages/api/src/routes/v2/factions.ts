@@ -1,23 +1,12 @@
 import { Router } from 'express';
 import { ApiClient } from 'twitch';
 import { DataSource } from 'typeorm';
+import { FactionInfo, FactionsResponse } from '@twrpo/types';
 
 import { wrpFactionsReal, FactionRealFull } from '../../data/meta';
 import { useColorsLight, useColorsDark, filterRename } from '../../data/factions';
 import { objectEntries } from '../../utils';
 import { getWrpLive } from '../live/liveData';
-
-interface FactionInfo {
-    key: string;
-    name: string;
-    colorLight: string;
-    colorDark: string;
-    liveCount: number;
-}
-
-export interface FactionsResponse {
-    factions: FactionInfo[];
-}
 
 export const fetchFactions = async (apiClient: ApiClient, dataSource: DataSource): Promise<FactionsResponse> => {
     const liveData = await getWrpLive(apiClient, dataSource);

@@ -2,6 +2,7 @@
     "name": "twrponly",
     "private": true,
     "workspaces": [
+        "packages/types",
         "packages/api",
         "frontend"
     ],
@@ -11,7 +12,8 @@
         "postinstall": "patch-package",
         "clean": "yarn workspaces run clean",
         "build": "yarn workspaces run build",
-        "start": "yarn workspace frontend start:server"
+        "start": "yarn workspace frontend start:server",
+        "inspect": "yarn workspace frontend inspect"
     },
     "dependencies": {
         "patch-package": "^6.4.7",

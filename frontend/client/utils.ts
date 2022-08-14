@@ -1,4 +1,4 @@
-import { LiveResponse, FactionInfo } from './types';
+import { LiveResponse, FactionInfo } from '@twrpo/types';
 
 export const ignoredFactions = ['other', 'alltwitch'];
 export const ignoredFilterFactions = ['otherwrp', 'allwildrp', 'guessed', ...ignoredFactions]

@@ -1,54 +1,18 @@
 import { Router } from 'express';
 import { ApiClient } from 'twitch';
 import { DataSource } from 'typeorm';
+import { CharacterInfo, CharactersResponse } from '@twrpo/types';
 
 import { wrpCharacters } from '../../data/characters';
-import { getWrpLive, Stream } from '../live/liveData';
+import { getWrpLive } from '../live/liveData';
 import { displayInfo } from '../../characterUtils';
 import { getKnownTwitchUsers } from '../../pfps';
 import { fetchFactions } from './factions';
 import { StreamChunk } from '../../db/entity/StreamChunk';
 
-interface FactionInfo {
-    key: string;
-    name: string;
-    colorLight: string;
-    colorDark: string;
-    liveCount: number;
-}
-
-interface DisplayInfo {
-    realNames: string[];
-    nicknames: string[];
-    titles: string[];
-    displayName: string;
-}
-
-interface CharacterInfo {
-    channelName: string;
-    name: string;
-    displayInfo: DisplayInfo;
-    factions: FactionInfo[];
-    liveInfo?: Stream;
-    channelInfo?: ChannelInfo;
-    lastSeenLive?: Date;
-}
-
-interface ChannelInfo {
-    id: string;
-    login: string;
-    displayName: string;
-    profilePictureUrl: string;
-}
-
 export interface CharactersRequest {
     limit?: number;
     page?: number;
-}
-
-export interface CharactersResponse {
-    factions: FactionInfo[];
-    characters: CharacterInfo[];
 }
 
 export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource): Promise<CharactersResponse> => {

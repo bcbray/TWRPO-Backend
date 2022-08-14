@@ -1,9 +1,9 @@
 import React from 'react';
 import tinycolor from 'tinycolor2';
+import { FactionInfo, FactionsResponse } from '@twrpo/types';
 
 import { useFactions } from './Data';
 import LoadingState, { isSuccess } from './LoadingState';
-import { FactionInfo, FactionsResponse } from './types';
 import { cyrb53 } from './utils';
 import { PreloadedDataContext } from './Data';
 
