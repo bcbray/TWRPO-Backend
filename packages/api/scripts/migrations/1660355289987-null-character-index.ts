@@ -8,6 +8,16 @@ export class nullCharacterIndex1660355289987 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         // - Consolidate duplicated NULL character stream chunks
 
+        const table = await queryRunner.getTable('stream_chunk');
+        if (
+            table
+            && table.indices.find(i => i.name === 'SEEN_INSTANCE')
+            && table.indices.find(i => i.name === 'SEEN_INSTANCE_NO_CHARACTER')
+        ) {
+            console.log('Indices already exist, skipping "nullCharacterIndex1660355289987" migration');
+            return;
+        }
+
         // Create a rollback point of the data we'll be removing
         await queryRunner.query(`
             CREATE TABLE stream_chunk_1660355289987_removed AS
@@ -101,30 +111,33 @@ export class nullCharacterIndex1660355289987 implements MigrationInterface {
         `);
 
         // Pull data from the backup
-        await queryRunner.query(`
-            INSERT INTO "stream_chunk" (
-                "id",
-                "streamerId",
-                "characterId",
-                "characterUncertain",
-                "streamId",
-                "streamStartDate",
-                "title",
-                "firstSeenDate",
-                "lastSeenDate"
-            )
-            SELECT
-                "id",
-                "streamerId",
-                "characterId",
-                "characterUncertain",
-                "streamId",
-                "streamStartDate",
-                "title",
-                "firstSeenDate",
-                "lastSeenDate"
-            FROM "stream_chunk_1660355289987_removed";
-        `);
+        const hasRemoved = await queryRunner.hasTable('stream_chunk_1660355289987_removed');
+        if (hasRemoved) {
+            await queryRunner.query(`
+                INSERT INTO "stream_chunk" (
+                    "id",
+                    "streamerId",
+                    "characterId",
+                    "characterUncertain",
+                    "streamId",
+                    "streamStartDate",
+                    "title",
+                    "firstSeenDate",
+                    "lastSeenDate"
+                )
+                SELECT
+                    "id",
+                    "streamerId",
+                    "characterId",
+                    "characterUncertain",
+                    "streamId",
+                    "streamStartDate",
+                    "title",
+                    "firstSeenDate",
+                    "lastSeenDate"
+                FROM "stream_chunk_1660355289987_removed";
+            `);
+        }
 
         // Restore the backup
         await queryRunner.query(`
