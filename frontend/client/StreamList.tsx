@@ -22,7 +22,7 @@ interface Props {
 
 const StreamList: React.FC<Props> = ({
   streams,
-  offlineCharacters,
+  offlineCharacters = [],
   loadTick,
   sort = 'viewers',
   order = 'desc',
@@ -70,7 +70,7 @@ const StreamList: React.FC<Props> = ({
               </Crossfade>
             </Flipped>
           ))}
-          {offlineCharacters && offlineCharacters.map(character => (
+          {offlineCharacters.map(character => (
             <Flipped key={`char:${character.id}`} flipId={`char:${character.id}`}>
               <Crossfade fadeKey='offline'>
                 <OfflineCharacterCard

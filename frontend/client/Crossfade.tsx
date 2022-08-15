@@ -18,6 +18,7 @@ const Crossfade: React.FC<CrossfadeProps> = ({
   fadeKey,
   fadeOver = false,
   children,
+  ...rest
 }) => {
   return (
     <TransitionGroup
@@ -26,6 +27,7 @@ const Crossfade: React.FC<CrossfadeProps> = ({
         styles.container,
         fadeOver && styles.fadeOver,
       )}
+      {...rest}
     >
       <Fade
         key={fadeKey}
