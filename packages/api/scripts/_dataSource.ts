@@ -11,7 +11,5 @@ export async function initializeDataStore(): Promise<DataSource> {
         logging: true,
         migrations,
     });
-    ds = await ds.initialize();
-    ds = ds.setOptions({ logging: true });
-    return ds;
+    return await ds.initialize();
 }
