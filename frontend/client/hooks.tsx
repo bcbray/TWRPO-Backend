@@ -111,6 +111,12 @@ export function useWindowFocus(): boolean {
   return focused;
 }
 
+export function useInitialRender(): boolean {
+  const [firstRender, setFirstRender] = useState(true);
+  useEffect(() => setFirstRender(false), []);
+  return firstRender;
+}
+
 export interface RelativeDateResult {
   full: string;
   relative: string;
@@ -118,12 +124,25 @@ export interface RelativeDateResult {
 
 export function useRelativeDate(date?: Date): RelativeDateResult | undefined {
   const now = useNow();
+  const isFirstRender = useInitialRender();
 
-  const formatter = useMemo(() => new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' }), []);
+  // Use en-US and UTC for the first render so we're consistent between SSR and the
+  // first client-side render. Then immediately swap in client local.
+  const locale = isFirstRender ? 'en-US' : undefined;
+
+  // Similarly, use UTC for the first render then fall back to client time zone.
+  const formatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
+    timeZone: isFirstRender ? 'utc' : undefined,
+    timeZoneName: isFirstRender ? 'short' : undefined,
+  }), [isFirstRender]);
+
+  const formatter = useMemo(() => (
+    new Intl.RelativeTimeFormat(locale, { numeric: 'auto' })
+  ), [locale]);
 
   return useMemo(() => {
     if (!date) return undefined;
-    const full = date.toLocaleString();
+    const full = date.toLocaleString(locale, formatOptions);
     let relative: string;
     const diffSeconds = (date.getTime() - now.getTime()) / 1000;
     const diffMinutes = diffSeconds / 60;
@@ -144,12 +163,14 @@ export function useRelativeDate(date?: Date): RelativeDateResult | undefined {
     } else if (Math.abs(diffWeeks) < 2) {
       relative = formatter.format(Math.round(diffWeeks), 'weeks')
     } else if (date.getFullYear() === now.getFullYear()) {
-      relative = date.toLocaleDateString(undefined, {
+      relative = date.toLocaleDateString(locale, {
+        ...formatOptions,
         month: 'short',
         day: 'numeric',
       })
     } else {
-      relative = date.toLocaleDateString(undefined, {
+      relative = date.toLocaleDateString(locale, {
+        ...formatOptions,
         month: 'short',
         day: 'numeric',
         year: 'numeric',
@@ -157,7 +178,7 @@ export function useRelativeDate(date?: Date): RelativeDateResult | undefined {
     }
 
     return { relative, full }
-  }, [now, date, formatter]);
+  }, [now, date, formatter, locale, formatOptions]);
 }
 
 /**
