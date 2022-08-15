@@ -832,6 +832,7 @@ export const getWrpLive = async (
                         ])
                         .distinctOn(['stream_chunk.characterId'])
                         .where('stream_chunk.characterId IS NOT NULL')
+                        .andWhere('stream_chunk.characterUncertain = false')
                         .andWhere(
                             'stream_chunk.lastSeenDate > (current_timestamp at time zone \'UTC\' - make_interval(hours => 12))'
                         )
