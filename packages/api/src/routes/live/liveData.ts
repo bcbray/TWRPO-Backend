@@ -759,7 +759,7 @@ export const getWrpLive = async (
                     chunks.push({
                         streamerId: helixStream.userId,
                         characterId: possibleCharacter?.id,
-                        characterUncertain: possibleCharacter !== undefined && nowCharacter !== undefined,
+                        characterUncertain: possibleCharacter !== undefined && nowCharacter === undefined,
                         streamId: helixStream.id,
                         streamStartDate: helixStream.startDate,
                         title: helixStream.title,
