@@ -1,12 +1,15 @@
 import { ApiClient } from 'twitch';
+import { DataSource } from 'typeorm';
 import { wrpCharacters } from './data/characters';
 import { log } from './utils';
+import { TwitchChannel } from './db/entity/TwitchChannel';
 
 export interface TwitchUser {
     id: string;
     login: string;
     displayName: string;
     profilePictureUrl: string;
+    createdAt: Date;
 }
 
 const fetchLimit = 100 as const;
@@ -14,7 +17,7 @@ const fetchLimit = 100 as const;
 let cachedResults: TwitchUser[] | undefined;
 let existingPromise: Promise<TwitchUser[]> | undefined;
 
-export const getKnownTwitchUsers = async (apiClient: ApiClient): Promise<TwitchUser[]> => {
+export const getKnownTwitchUsers = async (apiClient: ApiClient, dataSource: DataSource): Promise<TwitchUser[]> => {
     if (cachedResults) {
         log('Returing cached users result');
         return cachedResults;
@@ -42,8 +45,34 @@ export const getKnownTwitchUsers = async (apiClient: ApiClient): Promise<TwitchU
                     login: helixUser.name,
                     displayName: helixUser.displayName,
                     profilePictureUrl: helixUser.profilePictureUrl,
+                    createdAt: helixUser.creationDate,
                 }));
                 allUsers = [...allUsers, ...found];
+
+                const twitchChannels: Partial<TwitchChannel>[] = found.map(u => ({
+                    twitchId: u.id,
+                    twitchLogin: u.login,
+                    displayName: u.displayName,
+                    profilePhotoUrl: u.profilePictureUrl,
+                    twitchCreatedAt: u.createdAt,
+                }));
+
+                const result = await dataSource
+                    .getRepository(TwitchChannel)
+                    .upsert(twitchChannels, {
+                        conflictPaths: ['twitchId'],
+                        skipUpdateIfNoValuesChanged: true,
+                    });
+                const updateCount = result.identifiers.reduce((count, id) => (
+                    id ? count + 1 : count
+                ), 0);
+                if (updateCount) {
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        message: `Updated ${updateCount} twitch channels in database`,
+                        count: updateCount
+                    }));
+                }
             }
 
             cachedResults = allUsers;

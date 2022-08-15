@@ -260,14 +260,14 @@ const knownTwitchUsers: { [key: string]: TwitchUser } = {};
 
 interface GetStreamsOptions { searchNum?: number; international?: boolean }
 type GetStreamsOptionsRequired = Required<GetStreamsOptions>;
-export const getStreams = async (apiClient: ApiClient, options: GetStreamsOptions, endpoint = '<no-endpoint>'): Promise<HelixStream[]> => {
+const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options: GetStreamsOptions, endpoint = '<no-endpoint>'): Promise<HelixStream[]> => {
     const optionsParsed: GetStreamsOptionsRequired = {
         searchNum: searchNumDefault,
         international: false,
         ...filterObj(options, v => v !== undefined),
     };
 
-    const knownUsers = await getKnownTwitchUsers(apiClient);
+    const knownUsers = await getKnownTwitchUsers(apiClient, dataSource);
     knownUsers.forEach((user) => {
         knownPfps[user.id] = user.profilePictureUrl.replace('-300x300.', '-50x50.');
         knownTwitchUsers[user.id] = user;
@@ -437,7 +437,7 @@ export const getWrpLive = async (
 
                 const nowTime = +new Date();
 
-                const gtaStreams: (HelixStream)[] = await getStreams(apiClient,
+                const gtaStreams: (HelixStream)[] = await getStreams(apiClient, dataSource,
                     { searchNum, international }, endpoint);
 
                 const fetchEnd = process.hrtime.bigint();

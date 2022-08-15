@@ -16,7 +16,7 @@ export interface CharactersRequest {
 }
 
 export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource): Promise<CharactersResponse> => {
-    const knownUsers = await getKnownTwitchUsers(apiClient);
+    const knownUsers = await getKnownTwitchUsers(apiClient, dataSource);
 
     const liveData = await getWrpLive(apiClient, dataSource);
 
