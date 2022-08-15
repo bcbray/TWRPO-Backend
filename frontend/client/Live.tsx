@@ -74,11 +74,11 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
   const offlineCharacters = React.useMemo(() => {
     const liveChannels = new Set(filteredStreams.map(c => c.channelName));
 
-    return filterTextForSearching.length === 0
-      ? live
-        .recentOfflineCharacters ?? []
-        .slice(0, 50)
+    const candidateCharacters = filterTextForSearching.length === 0
+      ? live.recentOfflineCharacters ?? []
       : characters
+
+    return candidateCharacters
         .filter(character =>
           !liveChannels.has(character.channelName)
           && ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
