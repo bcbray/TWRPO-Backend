@@ -17,14 +17,14 @@
         "noUnusedLocals": true,
         "noUnusedParameters": false,
         "outDir": "./dist",
-        "rootDir": "./src",
+        "rootDir": ".",
         "removeComments": true,
         "sourceMap": true,
         "strictFunctionTypes": true,
-        "strictNullChecks": true,
-        "downlevelIteration": true
+        "strictNullChecks": true
     },
     "include": [
-        "src"
+        "src",
+        "scripts"
     ]
 }

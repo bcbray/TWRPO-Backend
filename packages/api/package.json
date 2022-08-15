@@ -1,8 +1,8 @@
 {
     "name": "@twrpo/api",
     "version": "1.0.0",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "./dist/src/index.js",
+    "types": "./dist/src/index.d.ts",
     "repository": "https://github.com/Vaeb/TNO-Backend.git",
     "author": "Adam Johnson <vaeb@hey.com>",
     "license": "MIT",
@@ -10,7 +10,7 @@
         "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
         "build": "tsc",
         "typeorm": "typeorm-ts-node-esm",
-        "bootstrap-db": "ts-node scripts/bootstrap-db.ts"
+        "bootstrap-db": "node dist/scripts/bootstrap-db.js"
     },
     "dependencies": {
         "@twrpo/types": "1.0.0",
