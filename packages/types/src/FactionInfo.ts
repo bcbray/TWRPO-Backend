@@ -6,4 +6,5 @@ export default interface FactionInfo {
   liveCount?: number;
   isLive?: boolean;
   hideInFilter?: boolean;
+  hasCharacters?: boolean;
 }

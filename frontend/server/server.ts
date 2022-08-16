@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import ssr from './ssr';
 import twrpo from './twrpo';
+import sitemap from './sitemap';
 
 const router = Router();
 
@@ -18,6 +19,8 @@ router.use('/live', redirectRouter);
 
 // API
 router.use('/api', twrpo.apiRouter);
+
+router.get('/sitemap.xml', sitemap(twrpo));
 
 // Then static files
 router.use(express.static(path.resolve('build')));
