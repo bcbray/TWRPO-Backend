@@ -23,7 +23,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 982
+// Next ID: 983
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -386,6 +386,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Criken: [
         { id: 173, name: 'Festus Asbestus' },
+        { id: 982, name: 'Barry Beaver' },
     ],
     crocc_: [
         { id: 174, name: 'Santino "Sonny" DiCenzo', factions: ['DiCenzo Famiglia'], leader: true },
