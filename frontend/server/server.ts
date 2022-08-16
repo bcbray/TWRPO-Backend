@@ -20,7 +20,18 @@ router.use('/live', redirectRouter);
 // API
 router.use('/api', twrpo.apiRouter);
 
+// sitemap.xml
 router.get('/sitemap.xml', sitemap(twrpo));
+
+// robots.txt that disallows all if the environment says so
+console.log(JSON.stringify(process.env));
+if (process.env.TWRPO_NO_ROBOTS) {
+  router.get('/robots.txt', (_req, res) => {
+    res
+      .set('Content-Type', 'text/plain')
+      .send(`User-agent: *\nDisallow: /\n`);
+  });
+}
 
 // Then static files
 router.use(express.static(path.resolve('build')));
