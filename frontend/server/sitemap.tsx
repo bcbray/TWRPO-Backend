@@ -135,7 +135,7 @@ const pages = (params: Record<string, string[]>) => {
   });
 }
 
-const prefixPriority: [RegExp, number][] = [
+const priorities: [RegExp, number][] = [
   [/^\/$/, 0.8],
   [/^\/streams\/.*$/, 0.7],
   [/^\/characters$/, 0.75],
@@ -145,7 +145,7 @@ const prefixPriority: [RegExp, number][] = [
 ]
 
 const priority = (page: string): number | undefined => {
-  const found = prefixPriority.find(([r]) => r.test(page));
+  const found = priorities.find(([r]) => r.test(page));
   if (found === undefined) return undefined;
   return found[1];
 };
@@ -156,6 +156,32 @@ const priorityTag = (page: string): string => {
     ? `<priority>${prio}</priority>`
     : '';
 };
+
+
+type ChangeFrequency = 'always' | 'daily';
+
+const changeFrequencies: [RegExp, ChangeFrequency][] = [
+  [/^\/$/, 'always'],
+  [/^\/streams\/.*$/, 'always'],
+  [/^\/characters$/, 'daily'],
+  [/^\/characters\/.*$/, 'daily'],
+  [/^\/multistream$/, 'always'],
+  [/^\/multistream\/.*$/, 'always'],
+];
+
+const changeFrequency = (page: string): ChangeFrequency | undefined => {
+  const found = changeFrequencies.find(([r]) => r.test(page));
+  if (found === undefined) return undefined;
+  return found[1];
+};
+
+const changeFrequencyTag = (page: string): string => {
+  const freq = changeFrequency(page);
+  return freq
+    ? `<changefreq>${freq}</changefreq>`
+    : '';
+};
+
 
 const sitemap = (api: TWRPOApi): RequestHandler => async (req, res, next) => {
   const factions = await api.fetchFactions();
@@ -169,9 +195,11 @@ const sitemap = (api: TWRPOApi): RequestHandler => async (req, res, next) => {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${allPages.map(page =>
   `<url>
-    <loc>https://${host}${page}</loc>
-    <changefreq>always</changefreq>
-    ${priorityTag(page)}
+    ${[
+      `<loc>https://${host}${page}</loc>`,
+      changeFrequencyTag(page),
+      priorityTag(page),
+    ].filter(Boolean).join('\n    ')}
   </url>`).join('\n  ')}
 </urlset>
 `;
