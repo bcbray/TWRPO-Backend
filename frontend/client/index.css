@@ -400,32 +400,8 @@ hr:not([size]) {
 
 @media (min-width: 576px) {
   .inset {
-    max-width: 540px;
-  }
-}
-
-@media (min-width: 768px) {
-  .inset {
-    max-width: 720px;
-  }
-}
-
-@media (min-width: 992px) {
-  .inset {
-    max-width: 960px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .inset {
-    max-width: 1140px;
-  }
-}
-
-
-@media (min-width: 1400px) {
-  .inset {
-    max-width: 1320px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
