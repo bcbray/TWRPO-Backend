@@ -20,6 +20,19 @@ interface Props {
   order?: Order;
 }
 
+interface LiveItem {
+  type: 'live';
+  stream: Stream;
+}
+
+interface OfflineItem {
+  type: 'offline';
+  character: CharacterInfo;
+}
+
+const liveItem = (stream: Stream): LiveItem => ({ type: 'live', stream });
+const offlineItem = (character: CharacterInfo): OfflineItem => ({ type: 'offline', character });
+
 const StreamList: React.FC<Props> = ({
   streams,
   offlineCharacters = [],
@@ -49,37 +62,44 @@ const StreamList: React.FC<Props> = ({
     <Flipper flipKey={loadTick}>
       <div className={classes('inset', styles.grid)}>
         <div className={classes(styles.items)}>
-          {sorted.map(stream => (
-            <Flipped
-              key={
-                stream.characterId
-                  ? `char:${stream.characterId}`
-                  : `chan:${stream.channelName}`
-              }
-              flipId={
-                stream.characterId
-                  ? `char:${stream.characterId}`
-                  : `chan:${stream.channelName}`
-              }>
-              <Crossfade fadeKey='live'>
-                <StreamCard
-                  stream={stream}
-                  loadTick={loadTick}
-                  embed={isMobile() ? false : 'hover'}
-                />
-              </Crossfade>
-            </Flipped>
-          ))}
-          {offlineCharacters.map(character => (
-            <Flipped key={`char:${character.id}`} flipId={`char:${character.id}`}>
-              <Crossfade fadeKey='offline'>
-                <OfflineCharacterCard
-                  className={styles.offline}
-                  character={character}
-                />
-              </Crossfade>
-            </Flipped>
-          ))}
+          {[...sorted.map(liveItem), ...offlineCharacters.map(offlineItem)].map(item => {
+            if (item.type === 'live') {
+              const { stream } = item;
+              return (
+                <Flipped
+                  key={
+                    stream.characterId
+                      ? `char:${stream.characterId}`
+                      : `chan:${stream.channelName}`
+                  }
+                  flipId={
+                    stream.characterId
+                      ? `char:${stream.characterId}`
+                      : `chan:${stream.channelName}`
+                  }>
+                  <Crossfade fadeKey='live'>
+                    <StreamCard
+                      stream={stream}
+                      loadTick={loadTick}
+                      embed={isMobile() ? false : 'hover'}
+                    />
+                  </Crossfade>
+                </Flipped>
+              );
+            } else {
+              const { character } = item;
+              return (
+                <Flipped key={`char:${character.id}`} flipId={`char:${character.id}`}>
+                  <Crossfade fadeKey='offline'>
+                    <OfflineCharacterCard
+                      className={styles.offline}
+                      character={character}
+                    />
+                  </Crossfade>
+                </Flipped>
+              );
+            }
+          })}
         </div>
       </div>
     </Flipper>
