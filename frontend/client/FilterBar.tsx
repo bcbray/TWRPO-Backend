@@ -28,11 +28,13 @@ const FilterBar: React.FC<Props> = ({
   factionHref,
 }) => {
   const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
-  const handleShowFeedback = <T,>(e: React.MouseEvent<T>) => {
+  const handleShowFeedback = React.useCallback(<T,>(e: React.MouseEvent<T>) => {
     setShowingFeedbackModal(true);
     e.preventDefault();
-  }
-  const handleCloseFeedback = () => setShowingFeedbackModal(false);
+  }, []);
+  const handleCloseFeedback = React.useCallback(() => (
+    setShowingFeedbackModal(false)
+  ), []);
   const rum = useDatadogRum();
 
   const timeout = React.useRef<ReturnType<typeof setTimeout>>();

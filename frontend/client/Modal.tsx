@@ -51,6 +51,7 @@ const Fade: React.FC<Omit<CSSTransitionProps, 'children'> & { children: React.Re
 
 const Modal = React.forwardRef<ModalHandle, ModalProps>((
   {
+    className,
     children,
 
     // BaseModelProps
@@ -121,7 +122,7 @@ const Modal = React.forwardRef<ModalHandle, ModalProps>((
   const renderDialog = (dialogProps: RenderModalDialogProps) => (
     <div
       {...dialogProps}
-      className={classes(styles.modal, isPreventingDismiss && styles.shake)}
+      className={classes(className, styles.modal, isPreventingDismiss && styles.shake)}
       onClick={handleBackdropClick}
       {...props}
     >

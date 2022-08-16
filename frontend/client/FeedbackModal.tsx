@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useLocation } from 'react-router';
 import { Button } from '@restart/ui';
+import { toast } from 'react-toastify';
 
 import styles from './FeedbackModal.module.css';
 import Modal from './Modal';
@@ -32,7 +33,11 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
 
   const initialFields: FormData = { suggestion: '', email: undefined, discord: undefined };
 
-  const submitForm = async (values: FormData) => {
+  const showSentToast = React.useCallback(() => (
+    toast.info('Feedback sent. Thank you!')
+  ), []);
+
+  const submitForm = React.useCallback(async (values: FormData) => {
     setHasSubmissionError(false);
     await new Promise(r => setTimeout(r, 2000));
     try {
@@ -43,12 +48,13 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
       if (reply.data.success !== true) {
         throw Error('Invalid response')
       }
+      showSentToast();
       setHasSubmitted(true);
       onHide(true);
     } catch (error) {
       setHasSubmissionError(true);
     }
-  }
+  }, [location.hash, location.pathname, location.search, showSentToast, onHide]);
 
   return (
     <Formik
