@@ -956,7 +956,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Jonthebroski: [
         { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5 },
-        { id: 458, name: '[Cadet] Jaime Ruth', factions: ['Law'] },
+        { id: 458, name: '[Deputy] Jaime Ruth', factions: ['Law'] },
     ],
     JugsySiegel: [
         { id: 459, name: 'Lyle Lancaster' },
@@ -1447,7 +1447,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 689, name: 'Ace Grimmer' },
     ],
     s5ashadow01: [
-        { id: 690, name: '[Cadet] Adam Skye', factions: ['Law'] },
+        { id: 690, name: '[Deputy] Adam Skye', factions: ['Law'] },
         { id: 691, name: 'Froiland Jackson' },
     ],
     SaberTV: [
