@@ -50,6 +50,10 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
 
   const lastSeenLive = useRelativeDate(lastSeenLiveDate);
 
+  const realName = React.useMemo(() => (
+    character.displayInfo.realNames.join(' ')
+  ), [character.displayInfo.realNames])
+
   return (
     <div
       className={classes(styles.card, className)}
@@ -94,7 +98,7 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
         />
         <div className={styles.text}>
           <div className={styles.title}>
-            <p title={character.name}>{character.name}</p>
+            <p title={realName}>{realName}</p>
           </div>
           <div className={styles.channel}>
             <p>
