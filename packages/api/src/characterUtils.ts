@@ -85,7 +85,11 @@ export const displayInfo = (character: Character): DisplayInfo => {
     } else if (displayNameNum === 0) {
         displayNameChar = realNames.join(' ');
     } else {
-        displayNameChar = realNames[displayNameNum - 1] || realNames[0];
+        const displayNameCandidates = [...realNames];
+        if (realNames.length === 1) displayNameCandidates.push(realNames[0]);
+        displayNameCandidates.push(...nicknames);
+        displayNameChar = displayNameCandidates[displayNameNum - 1]
+            || displayNameCandidates[0];
     }
     const displayName = `${character.leader ? `♛${displayNameTitle ? '' : ' '}` : ''}${displayNameTitle}${displayNameChar}`.trim();
 
