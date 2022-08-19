@@ -217,7 +217,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 92, name: 'Jesse Flint' },
     ],
     bldrs: [
-        { id: 93, name: 'Casey Rigsby', factions: ['Independent', 'Guppy Gang'] },
+        { id: 93, name: 'Casey Rigsby', factions: ['The Unhung', 'Guppy Gang'] },
     ],
     BlitzyNation: [
         { id: 94, name: 'Charlie Walker' },
@@ -251,7 +251,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 109, name: 'Tar Sullivan' },
     ],
     Brizzo24: [
-        { id: 110, name: 'Craig Johnson', factions: ['Sams Club'] },
+        { id: 110, name: 'Craig Johnson' },
         { id: 111, name: 'Karl Feckles' },
     ],
     BrutalBri: [
@@ -609,7 +609,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 284, name: 'Vera Helvig' },
     ],
     eternalsong: [
-        { id: 285, name: 'Kora Vane', factions: ['Sams Club'] },
+        { id: 285, name: 'Kora Vane' },
     ],
     EthanSchriver: [
         { id: 286, name: 'Leanord Scout', displayName: 2 },
@@ -668,7 +668,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 315, name: 'Quinn Thatcher' },
     ],
     ForeheadSkin: [
-        { id: 316, name: 'Edmund "Eddy" Reddington', factions: ['Sams Club'] },
+        { id: 316, name: 'Edmund "Eddy" Reddington', factions: ['The Unhung'] },
         { id: 317, name: 'Henry Huff' },
         { id: 318, name: 'Joseph Walters' },
         { id: 319, name: 'Morris Sterling' },
@@ -737,7 +737,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 350, name: 'Raymond "Rayray" Willis' },
     ],
     GmanRBI: [
-        { id: 351, name: 'Max Brady', factions: ['Sams Club'] },
+        { id: 351, name: 'Max Brady' },
         { id: 352, name: 'Gianni Peccati' },
         { id: 353, name: 'Mordecai Butterbee' },
         { id: 354, name: 'Giano Greywolf' },
@@ -824,7 +824,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 390, name: 'James Brown' },
     ],
     Hoop: [
-        { id: 391, name: 'Barry Bjornson', factions: ['Sams Club'] },
+        { id: 391, name: 'Barry Bjornson' },
         { id: 392, name: 'Clyde Davis' },
         { id: 393, name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'] },
         { id: 394, name: '[Deputy] Miles Gyles', factions: ['Law'] },
@@ -862,7 +862,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 408, name: 'Angelo Clemente' },
     ],
     ImFromTheFuture: [
-        { id: 409, name: 'Roscoe Montana', factions: ['Sams Club'] },
+        { id: 409, name: 'Roscoe Montana', factions: ['The Unhung'] },
     ],
     inkyblackdreams: [
         { id: 410, name: 'Vera Dragavei' },
@@ -955,7 +955,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 456, name: 'Peggy Brown' },
     ],
     Jonthebroski: [
-        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5 },
+        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5, factions: ['The Unhung'] },
         { id: 458, name: '[Deputy] Jaime Ruth', factions: ['Law'] },
     ],
     JugsySiegel: [
@@ -1192,7 +1192,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 565, name: 'Gladys Berry' },
     ],
     MinksOfMars: [
-        { id: 566, name: 'Irene "Peaches" Corvis', factions: ['Sams Club'] },
+        { id: 566, name: 'Irene "Peaches" Corvis', factions: ['The Unhung'] },
         { id: 567, name: 'Ana Stravinski' },
         { id: 568, name: 'Willow Wisp' },
     ],
@@ -1525,7 +1525,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 726, name: 'Emily Marie Kenward' },
     ],
     Shake4L: [
-        { id: 727, name: 'Buzz Bleu', factions: ['Sams Club'] },
+        { id: 727, name: 'Buzz Bleu' },
     ],
     ShawW0w: [
         { id: 728, name: 'Clarence Crudewater' },
@@ -1643,7 +1643,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 983, name: 'Malaha Mage' },
     ],
     Ssaab: [
-        { id: 784, name: 'Sam Baas', factions: ['Sams Club'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true },
+        { id: 784, name: 'Sam Baas', factions: ['The Unhung'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true },
         { id: 785, name: 'Ali Baba', displayName: 0 },
         { id: 786, name: 'Leo Slack' },
     ],
@@ -2026,7 +2026,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 962, name: 'Everett Silver' },
     ],
     Zarrqq: [
-        { id: 963, name: 'Benjamin Gaines', factions: ['Sams Club'], nicknames: ['Ben'], displayName: 3 },
+        { id: 963, name: 'Benjamin Gaines', nicknames: ['Ben'], displayName: 3 },
     ],
     ZetarkGG: [
         { id: 964, name: 'Cesare DiCenzo', factions: ['DiCenzo Famiglia'], leader: true },

@@ -1,5 +1,5 @@
 export const wrpFactionsReal = { // map: removed spaces + converted to lower case
-    samsclub: 'Sams Club',
+    theunhung: 'The Unhung',
     kettlemangang: 'Kettleman Gang',
     rangers: 'Rangers',
     dicenzofamiglia: 'DiCenzo Famiglia',
