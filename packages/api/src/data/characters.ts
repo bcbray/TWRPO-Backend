@@ -1989,7 +1989,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 946, name: 'Morgan Calloway' },
     ],
     Xiceman: [
-        { id: 947, name: 'Michael Bayo' },
+        { id: 947, name: 'Michael Bayo', factions: ['The Unhung'] },
         { id: 948, name: 'Andrew Kennedy' },
     ],
     xlt588gaming: [
