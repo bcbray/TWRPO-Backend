@@ -23,7 +23,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 990
+// Next ID: 991
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -587,6 +587,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 272, name: 'Crissy "Cricket" Blitz' },
         { id: 273, name: 'Holly Frost' },
         { id: 274, name: 'Sadhbh O\'Brien', factions: ['The Humble Bunch'] },
+        { id: 990, name: 'Meabh "Mayve" O\'Driscoll', factions: ['Hagen'] },
     ],
     EmptyDome: [
         { id: 275, name: 'Barry Armstrong' },
@@ -1192,7 +1193,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 565, name: 'Gladys Berry' },
     ],
     MinksOfMars: [
-        { id: 566, name: 'Irene "Peaches" Corvis', factions: ['The Unhung'] },
+        { id: 566, name: 'Irene "Peaches" Corvis', nicknames: ['Forbidden Fruit'], factions: ['The Unhung', 'Hagen'] },
         { id: 567, name: 'Ana Stravinski' },
         { id: 568, name: 'Willow Wisp' },
     ],
@@ -1221,7 +1222,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 580, name: 'Cathal McCarthy' },
     ],
     MsVenture: [
-        { id: 581, name: 'Martina Guzman' },
+        { id: 581, name: 'Martina Guzman', factions: ['Hagen'] },
     ],
     muhzzy: [
         { id: 582, name: 'Dr. Cloth', displayName: 0 },
@@ -1625,7 +1626,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 776, name: 'Rosamaria Sandoval' },
     ],
     SprayNprayErik: [
-        { id: 777, name: 'Butch Marlow' },
+        { id: 777, name: 'Butch Marlow', factions: ['Hagen'] },
     ],
     spriteleah: [
         { id: 778, name: '[Ranger] Francesca "Frankie" Bright', factions: ['Rangers'], displayName: 2 },
