@@ -15,7 +15,4 @@ export class Nickname {
 
     @ViewColumn()
     nickname: string;
-
-    @ViewColumn({ name: 'is_regex' })
-    isRegex: boolean;
 }

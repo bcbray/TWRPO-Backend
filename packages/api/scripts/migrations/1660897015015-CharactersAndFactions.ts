@@ -174,7 +174,6 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
                 foreign_id integer NOT NULL,
                 foreign_type nickname_type NOT NULL,
                 nickname character varying NOT NULL,
-                is_regex boolean NOT NULL DEFAULT false,
                 validity tsrange NOT NULL DEFAULT '[,]'
             )
         `);
@@ -210,13 +209,61 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
         `);
 
         await queryRunner.query(`
+            CREATE TABLE raw_regex(
+                id serial NOT NULL,
+                foreign_id integer NOT NULL,
+                foreign_type nickname_type NOT NULL,
+                regex character varying NOT NULL,
+                no_former boolean NOT NULL DEFAULT false,
+                no_later boolean NOT NULL DEFAULT false,
+                validity tsrange NOT NULL
+            )
+        `);
+
+        await queryRunner.query(`
+            CREATE INDEX raw_regex_foreign_id_foreign_type_idx ON raw_regex
+                (foreign_id, foreign_type)
+        `);
+
+        await queryRunner.query(`
+            CREATE INDEX raw_regex_validity_idx ON raw_regex(validity)
+        `);
+
+        await queryRunner.query(`
+            CREATE INDEX raw_regex_id_idx ON raw_regex(id)
+        `);
+
+        await queryRunner.query(`
+            ALTER TABLE raw_regex ADD CONSTRAINT raw_regex_no_overlap
+                EXCLUDE USING gist (id WITH =, validity WITH &&)
+        `);
+
+        await queryRunner.query(`
+            CREATE TRIGGER raw_regex_timetravel_before
+                BEFORE INSERT OR UPDATE OR DELETE ON raw_regex
+                FOR EACH ROW EXECUTE PROCEDURE process_timetravel_before()
+        `);
+
+        await queryRunner.query(`
+            CREATE TRIGGER raw_regex_timetravel_after
+                AFTER UPDATE OR DELETE ON raw_regex
+                FOR EACH ROW EXECUTE PROCEDURE process_timetravel_after()
+        `);
+
+        await queryRunner.query(`
             ALTER TABLE twitch_channel
                 ADD COLUMN streamer_id SERIAL NOT NULL;
         `);
 
         await queryRunner.query(`
             CREATE VIEW nickname AS
-                SELECT id, foreign_id, foreign_type, nickname, is_regex FROM raw_nickname
+                SELECT id, foreign_id, foreign_type, nickname FROM raw_nickname
+                    WHERE validity @> 'infinity'::TIMESTAMP WITHOUT TIME ZONE
+        `);
+
+        await queryRunner.query(`
+            CREATE VIEW regex AS
+                SELECT id, foreign_id, foreign_type, regex, no_former, no_later FROM raw_regex
                     WHERE validity @> 'infinity'::TIMESTAMP WITHOUT TIME ZONE
         `);
 
@@ -238,7 +285,7 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
                     character.id,
                     character.name,
                     nn.nicknames,
-                    rnn.nicknames as regex_nicknames,
+                    rx.regexes,
                     streamer_id,
                     sort_order
                 FROM character
@@ -248,18 +295,22 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
                         array_agg(nickname.nickname) as nicknames
                     FROM nickname
                     WHERE nickname.foreign_type = 'character'
-                    AND nickname.is_regex = false
                     GROUP BY nickname.foreign_id
                 ) nn USING (id)
                 LEFT JOIN (
                     SELECT
-                        nickname.foreign_id AS id,
-                        array_agg(nickname.nickname) as nicknames
-                    FROM nickname
-                    WHERE nickname.foreign_type = 'character'
-                    AND nickname.is_regex = true
-                    GROUP BY nickname.foreign_id
-                ) rnn USING (id)
+                        regex.foreign_id AS id,
+                        array_agg(
+                            json_build_object(
+                                'regex', regex.regex,
+                                'no_former', regex.no_former,
+                                'no_later', regex.no_later
+                            )
+                        ) as regexes
+                    FROM regex
+                    WHERE regex.foreign_type = 'character'
+                    GROUP BY regex.foreign_id
+                ) rx USING (id);
         `);
 
         await queryRunner.query(`
@@ -268,7 +319,7 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
                     faction.id,
                     faction.name,
                     nn.nicknames,
-                    rnn.nicknames as regex_nicknames,
+                    rx.regexes,
                     sort_order
                 FROM faction
                 LEFT JOIN (
@@ -277,18 +328,22 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
                         array_agg(nickname.nickname) as nicknames
                     FROM nickname
                     WHERE nickname.foreign_type = 'faction'
-                    AND nickname.is_regex = false
                     GROUP BY nickname.foreign_id
                 ) nn USING (id)
                 LEFT JOIN (
                     SELECT
-                        nickname.foreign_id AS id,
-                        array_agg(nickname.nickname) as nicknames
-                    FROM nickname
-                    WHERE nickname.foreign_type = 'faction'
-                    AND nickname.is_regex = true
-                    GROUP BY nickname.foreign_id
-                ) rnn USING (id)
+                        regex.foreign_id AS id,
+                        array_agg(
+                            json_build_object(
+                                'regex', regex.regex,
+                                'no_former', regex.no_former,
+                                'no_later', regex.no_later
+                            )
+                        ) as regexes
+                    FROM regex
+                    WHERE regex.foreign_type = 'faction'
+                    GROUP BY regex.foreign_id
+                ) rx USING (id);
         `);
 
         await queryRunner.query(`
@@ -322,6 +377,10 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
         `);
 
         await queryRunner.query(`
+            DROP VIEW regex
+        `);
+
+        await queryRunner.query(`
             DROP VIEW nickname
         `);
 
@@ -352,6 +411,10 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
 
         await queryRunner.query(`
             DROP TABLE raw_nickname
+        `);
+
+        await queryRunner.query(`
+            DROP TABLE raw_regex
         `);
 
         await queryRunner.query(`

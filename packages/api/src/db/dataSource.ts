@@ -4,6 +4,7 @@ import { StreamSegment } from './entity/StreamSegment';
 import { TwitchChannel } from './entity/TwitchChannel';
 import { Character } from './entity/Character';
 import { Nickname } from './entity/Nickname';
+import { Regex } from './entity/Regex';
 import { Faction } from './entity/Faction';
 import { FactionMembership } from './entity/FactionMembership';
 
@@ -17,6 +18,7 @@ export default function dataSource(postgresUrl: string): DataSource {
             TwitchChannel,
             Character,
             Nickname,
+            Regex,
             Faction,
             FactionMembership,
         ],
