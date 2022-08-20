@@ -33,7 +33,7 @@ import type { WrpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } f
 import type { Podcast } from '../../data/podcasts';
 import type { TwitchUser } from '../../pfps';
 
-import { StreamChunk } from '../../db/entity/StreamChunk';
+import { StreamSegment } from '../../db/entity/StreamSegment';
 
 const includedData = Object.assign(
     {},
@@ -458,7 +458,7 @@ export const getWrpLive = async (
                 const wrpStreams: Stream[] = [];
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
 
-                const chunks: Omit<StreamChunk, 'id' | 'firstSeenDate'>[] = [];
+                const segments: Omit<StreamSegment, 'id'>[] = [];
                 const now = new Date();
 
                 gtaStreams.forEach((helixStream) => {
@@ -756,13 +756,14 @@ export const getWrpLive = async (
 
                     console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
 
-                    chunks.push({
-                        streamerId: helixStream.userId,
+                    segments.push({
+                        twitchChannelId: helixStream.userId,
                         characterId: possibleCharacter?.id,
                         characterUncertain: possibleCharacter !== undefined && nowCharacter === undefined,
-                        streamId: helixStream.id,
+                        twitchStreamId: helixStream.id,
                         streamStartDate: helixStream.startDate,
                         title: helixStream.title,
+                        firstSeenDate: now,
                         lastSeenDate: now,
                     });
 
@@ -773,33 +774,33 @@ export const getWrpLive = async (
                 });
 
                 try {
-                    const chunksWithCharacters = chunks.filter(c => c.characterId);
+                    const segmentsWithCharacters = segments.filter(c => c.characterId);
                     await dataSource.manager.createQueryBuilder()
                         .insert()
-                        .into(StreamChunk)
-                        .values(chunksWithCharacters)
+                        .into(StreamSegment)
+                        .values(segmentsWithCharacters)
                         .orUpdate(
-                            ['lastSeenDate'],
-                            ['streamerId', 'characterId', 'streamId', 'title'],
+                            ['last_seen_date'],
+                            ['twitch_channel_id', 'character_id', 'twitch_stream_id', 'title'],
                             { skipUpdateIfNoValuesChanged: true }
                         )
-                        .where('"characterId" IS NOT NULL')
+                        .where('"character_id" IS NOT NULL')
                         .execute();
-                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams with characters to database', count: chunksWithCharacters.length }));
+                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams with characters to database', count: segmentsWithCharacters.length }));
 
-                    const chunksWithoutCharacters = chunks.filter(c => !c.characterId);
+                    const segmentsWithoutCharacters = segments.filter(c => !c.characterId);
                     await dataSource.manager.createQueryBuilder()
                         .insert()
-                        .into(StreamChunk)
-                        .values(chunksWithoutCharacters)
+                        .into(StreamSegment)
+                        .values(segmentsWithoutCharacters)
                         .orUpdate(
-                            ['lastSeenDate'],
-                            ['streamerId', 'streamId', 'title'],
+                            ['last_seen_date'],
+                            ['twitch_channel_id', 'twitch_stream_id', 'title'],
                             { skipUpdateIfNoValuesChanged: true }
                         )
-                        .where('"characterId" IS NULL')
+                        .where('"character_id" IS NULL')
                         .execute();
-                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams without characters to database', count: chunksWithoutCharacters.length }));
+                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams without characters to database', count: segmentsWithoutCharacters.length }));
                 } catch (error) {
                     console.error(JSON.stringify({ level: 'error', message: 'Failed to store streams to db', error }));
                 }
@@ -823,54 +824,54 @@ export const getWrpLive = async (
                 const recentlyOnlineCharacters: CharacterInfo[] = [];
                 try {
                     const distinctCharacters = dataSource
-                        .getRepository(StreamChunk)
-                        .createQueryBuilder('stream_chunk')
+                        .getRepository(StreamSegment)
+                        .createQueryBuilder('stream_segment')
                         .select([
-                            'stream_chunk.streamerId',
-                            'stream_chunk.characterId',
-                            'stream_chunk.lastSeenDate',
+                            'stream_segment.twitchChannelId',
+                            'stream_segment.characterId',
+                            'stream_segment.lastSeenDate',
                         ])
-                        .distinctOn(['stream_chunk.characterId'])
-                        .where('stream_chunk.characterId IS NOT NULL')
-                        .andWhere('stream_chunk.characterUncertain = false')
+                        .distinctOn(['stream_segment.character_id'])
+                        .where('stream_segment.character_id IS NOT NULL')
+                        .andWhere('stream_segment.character_uncertain = false')
                         .andWhere(
-                            'stream_chunk.lastSeenDate > (current_timestamp at time zone \'UTC\' - make_interval(hours => 12))'
+                            'stream_segment.last_seen_date > (current_timestamp at time zone \'UTC\' - make_interval(hours => 12))'
                         )
                         .andWhere(
-                            'stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)'
+                            'stream_segment.last_seen_date - stream_segment.first_seen_date > make_interval(mins => 10)'
                         )
-                        .orderBy('stream_chunk.characterId', 'ASC')
-                        .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
+                        .orderBy('stream_segment.character_id', 'ASC')
+                        .addOrderBy('stream_segment.last_seen_date', 'DESC');
 
-                    const liveCharacterIds = chunks.flatMap(c => (c.characterId ? [c.characterId] : []));
+                    const liveCharacterIds = segments.flatMap(c => (c.characterId ? [c.characterId] : []));
                     if (liveCharacterIds.length) {
                         distinctCharacters.andWhere(
-                            'stream_chunk.characterId NOT IN (:...ids)',
+                            'stream_segment.character_id NOT IN (:...ids)',
                             { ids: liveCharacterIds }
                         );
                     }
 
-                    const recentChunks = await dataSource
+                    const recentSegments = await dataSource
                         .createQueryBuilder()
                         .select()
-                        .from(`(${distinctCharacters.getQuery()})`, 'recent_chunk')
+                        .from(`(${distinctCharacters.getQuery()})`, 'recent_segment')
                         .setParameters(distinctCharacters.getParameters())
-                        .orderBy('"stream_chunk_lastSeenDate"', 'DESC')
-                        .addOrderBy('"stream_chunk_streamerId"')
+                        .orderBy('stream_segment_last_seen_date', 'DESC')
+                        .addOrderBy('stream_segment_character_id')
                         .execute();
 
                     const factions = getFactionInfos(factionCount);
                     const factionMap = Object.fromEntries(factions.map(f => [f.key, f]));
 
-                    recentChunks.forEach((chunk: any) => {
-                        const streamerId = chunk.stream_chunk_streamerId as string;
-                        const characterId = chunk.stream_chunk_characterId as number;
-                        const lastSeenString = chunk.stream_chunk_lastSeenDate as string;
+                    recentSegments.forEach((segment: any) => {
+                        const streamerId = segment.stream_segment_twitch_channel_id as string;
+                        const characterId = segment.stream_segment_character_id as number;
+                        const lastSeenString = segment.stream_segment_last_seen_date as string;
                         if (!streamerId || !characterId || !lastSeenString) {
                             console.warn(JSON.stringify({
                                 level: 'warning',
                                 message: 'Missing required properties on recent stream segment',
-                                segment: chunk,
+                                segment,
                             }));
                             return;
                         }

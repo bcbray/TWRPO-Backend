@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 
-import { StreamChunk } from './entity/StreamChunk';
+import { StreamSegment } from './entity/StreamSegment';
 import { TwitchChannel } from './entity/TwitchChannel';
 
 export default function dataSource(postgresUrl: string): DataSource {
@@ -8,6 +8,9 @@ export default function dataSource(postgresUrl: string): DataSource {
         type: 'postgres',
         url: postgresUrl,
         ssl: { rejectUnauthorized: false },
-        entities: [StreamChunk, TwitchChannel],
+        entities: [
+            StreamSegment,
+            TwitchChannel,
+        ],
     });
 }

@@ -139,7 +139,7 @@ export class nullCharacterIndex1660355289987 implements MigrationInterface {
             `);
         }
 
-        // Restore the backup
+        // Remove the backup
         await queryRunner.query(`
             DROP TABLE "stream_chunk_1660355289987_removed";
         `);

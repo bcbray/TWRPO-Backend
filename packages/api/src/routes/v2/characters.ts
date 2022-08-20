@@ -8,7 +8,7 @@ import { getWrpLive } from '../live/liveData';
 import { getCharacterInfo } from '../../characterUtils';
 import { getKnownTwitchUsers } from '../../pfps';
 import { fetchFactions } from './factions';
-import { StreamChunk } from '../../db/entity/StreamChunk';
+import { StreamSegment } from '../../db/entity/StreamSegment';
 
 export interface CharactersRequest {
     limit?: number;
@@ -22,27 +22,27 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
 
     const { factions: factionInfos } = await fetchFactions(apiClient, dataSource);
 
-    const streamChunks = await dataSource
-        .getRepository(StreamChunk)
-        .createQueryBuilder('chunk')
-        .distinctOn(['chunk.streamerId', 'chunk.characterId'])
-        .orderBy('chunk.streamerId', 'ASC')
-        .addOrderBy('chunk.characterId', 'ASC')
-        .addOrderBy('chunk.lastSeenDate', 'DESC')
+    const streamSegments = await dataSource
+        .getRepository(StreamSegment)
+        .createQueryBuilder('segment')
+        .distinctOn(['segment.twitchChannelId', 'segment.characterId'])
+        .orderBy('segment.twitch_channel_id', 'ASC')
+        .addOrderBy('segment.character_id', 'ASC')
+        .addOrderBy('segment.last_seen_date', 'DESC')
         .getMany();
 
-    const seen: Record<string, Record<number, StreamChunk>> = {};
-    streamChunks.forEach((streamChunk) => {
-        if (!streamChunk.characterId) {
+    const seen: Record<string, Record<number, StreamSegment>> = {};
+    streamSegments.forEach((segment) => {
+        if (!segment.characterId) {
             return;
         }
-        if (streamChunk.characterUncertain) {
+        if (segment.characterUncertain) {
             return;
         }
-        if (!seen[streamChunk.streamerId]) {
-            seen[streamChunk.streamerId] = {};
+        if (!seen[segment.twitchChannelId]) {
+            seen[segment.twitchChannelId] = {};
         }
-        seen[streamChunk.streamerId][streamChunk.characterId] = streamChunk;
+        seen[segment.twitchChannelId][segment.characterId] = segment;
     });
 
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
