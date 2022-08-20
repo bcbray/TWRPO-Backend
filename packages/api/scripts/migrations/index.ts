@@ -3,6 +3,7 @@ import { nullCharacterIndex1660355289987 } from './1660355289987-null-character-
 import { AddTwitchChannel1660551290102 } from './1660551290102-AddTwitchChannel';
 import { FixUncertainCharacters1660563350573 } from './1660563350573-FixUncertainCharacters';
 import { RenameStreamChunk1660879369731 } from './1660879369731-RenameStreamChunk';
+import { RenameTwitchChannel1660884344839 } from './1660884344839-RenameTwitchChannel';
 
 export default [
     Initial1660336359134,
@@ -10,4 +11,5 @@ export default [
     AddTwitchChannel1660551290102,
     FixUncertainCharacters1660563350573,
     RenameStreamChunk1660879369731,
+    RenameTwitchChannel1660884344839,
 ];
