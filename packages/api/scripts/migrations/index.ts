@@ -5,6 +5,7 @@ import { FixUncertainCharacters1660563350573 } from './1660563350573-FixUncertai
 import { RenameStreamChunk1660879369731 } from './1660879369731-RenameStreamChunk';
 import { RenameTwitchChannel1660884344839 } from './1660884344839-RenameTwitchChannel';
 import { AddTimetravel1660896659642 } from './1660896659642-AddTimetravel';
+import { CharactersAndFactions1660897015015 } from './1660897015015-CharactersAndFactions';
 
 export default [
     Initial1660336359134,
@@ -14,4 +15,5 @@ export default [
     RenameStreamChunk1660879369731,
     RenameTwitchChannel1660884344839,
     AddTimetravel1660896659642,
+    CharactersAndFactions1660897015015,
 ];

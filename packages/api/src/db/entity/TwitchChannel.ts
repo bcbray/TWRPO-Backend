@@ -30,4 +30,7 @@ export class TwitchChannel {
 
     @Column({ name: 'twitch_created_at' })
     twitchCreatedAt: Date;
+
+    @Column({ name: 'streamer_id' })
+    streamerId: number;
 }
