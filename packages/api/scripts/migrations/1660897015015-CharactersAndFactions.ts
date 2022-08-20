@@ -1,9 +1,8 @@
-/* eslint-disable */
+/* eslint-disable class-methods-use-this */
 
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CharactersAndFactions1660897015015 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             CREATE EXTENSION IF NOT EXISTS btree_gist
@@ -211,14 +210,8 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
         `);
 
         await queryRunner.query(`
-            CREATE TABLE streamer
-                (id serial NOT NULL, CONSTRAINT streamer_pkey PRIMARY KEY(id))
-        `);
-
-        await queryRunner.query(`
-            ALTER TABLE raw_character
-                ADD CONSTRAINT raw_character_streamer_id_fkey
-                    FOREIGN KEY (streamer_id) REFERENCES streamer (id)
+            ALTER TABLE twitch_channel
+                ADD COLUMN streamer_id SERIAL NOT NULL;
         `);
 
         await queryRunner.query(`
@@ -309,55 +302,9 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
                 SELECT id, faction_id, name, display_name FROM raw_faction_rank
                     WHERE validity @> 'infinity'::TIMESTAMP WITHOUT TIME ZONE
         `);
-
-        await queryRunner.query(`
-            CREATE TEMP TABLE streamer_id_temp(
-                id serial NOT NULL,
-                twitch_id character varying NOT NULL
-            );
-        `);
-
-        await queryRunner.query(`
-            INSERT INTO streamer_id_temp (twitch_id)
-                SELECT twitch_id
-                FROM twitch_channel;
-        `);
-
-        await queryRunner.query(`
-            INSERT INTO streamer (id)
-                SELECT id
-                FROM streamer_id_temp;
-        `);
-
-        await queryRunner.query(`
-            ALTER TABLE twitch_channel
-                ADD COLUMN streamer_id integer;
-        `);
-
-        await queryRunner.query(`
-            UPDATE twitch_channel
-                SET streamer_id = streamer_id_temp.id
-                FROM streamer_id_temp
-                WHERE twitch_channel.twitch_id = streamer_id_temp.twitch_id;
-        `);
-
-        await queryRunner.query(`
-            ALTER TABLE twitch_channel ALTER COLUMN streamer_id SET NOT NULL;
-        `);
-
-        await queryRunner.query(`
-            ALTER TABLE twitch_channel
-                ADD CONSTRAINT twitch_channel_streamer_id_fkey
-                    FOREIGN KEY (streamer_id) REFERENCES streamer (id)
-        `);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
-            ALTER TABLE twitch_channel
-                DROP COLUMN streamer_id
-        `);
-
         await queryRunner.query(`
             DROP VIEW character_with_nicknames
         `);
@@ -387,6 +334,11 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
         `);
 
         await queryRunner.query(`
+            ALTER TABLE twitch_channel
+                DROP COLUMN streamer_id
+        `);
+
+        await queryRunner.query(`
             DROP TABLE raw_character
         `);
 
@@ -407,13 +359,7 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
         `);
 
         await queryRunner.query(`
-            DROP TABLE streamer
-        `);
-
-        await queryRunner.query(`
             DROP TYPE nickname_type
         `);
-
     }
-
 }
