@@ -348,7 +348,7 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
 
         await queryRunner.query(`
             CREATE VIEW faction_membership AS
-                SELECT character_id, faction_id, sort_order FROM raw_faction_membership
+                SELECT character_id, faction_id, is_leader, rank_id, sort_order FROM raw_faction_membership
                     WHERE validity @> 'infinity'::TIMESTAMP WITHOUT TIME ZONE
         `);
 
@@ -357,9 +357,31 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
                 SELECT id, faction_id, name, display_name FROM raw_faction_rank
                     WHERE validity @> 'infinity'::TIMESTAMP WITHOUT TIME ZONE
         `);
+
+        await queryRunner.query(`
+            CREATE VIEW faction_membership_with_rank AS
+                SELECT
+                    character_id,
+                    faction_id,
+                    is_leader,
+                    rank.name AS rank_name,
+                    rank.display_name AS rank_display_name
+                FROM faction_membership
+                LEFT JOIN (
+                    SELECT
+                        faction_rank.id AS rank_id,
+                        faction_rank.name,
+                        faction_rank.display_name
+                    FROM faction_rank
+                ) rank USING (rank_id)
+        `);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`
+            DROP VIEW faction_membership_with_rank
+        `);
+
         await queryRunner.query(`
             DROP VIEW character_with_nicknames
         `);

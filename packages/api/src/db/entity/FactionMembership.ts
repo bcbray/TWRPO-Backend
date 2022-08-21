@@ -8,6 +8,12 @@ export class FactionMembership {
     @ViewColumn({ name: 'faction_id' })
     factionId: number;
 
+    @ViewColumn({ name: 'is_leader' })
+    isLeader: boolean;
+
+    @ViewColumn({ name: 'rank_id' })
+    rankId: number;
+
     @ViewColumn({ name: 'sort_order' })
     sortOrder: number;
 }
