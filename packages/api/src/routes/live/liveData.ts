@@ -34,6 +34,8 @@ import type { Podcast } from '../../data/podcasts';
 import type { TwitchUser } from '../../pfps';
 
 import { StreamSegment } from '../../db/entity/StreamSegment';
+import { Game } from '../../db/entity/Game';
+import { Server } from '../../db/entity/Server';
 
 const includedData = Object.assign(
     {},
@@ -421,6 +423,15 @@ export const getWrpLive = async (
         return cachedResults[optionsStr]!;
     }
 
+    const storedGame = await dataSource.getRepository(Game).findOneByOrFail({
+        twitchId: game,
+    });
+
+    const storedServer = await dataSource.getRepository(Server).findOneByOrFail({
+        gameId: storedGame.id,
+        key: 'wrp',
+    });
+
     const fetchID = randomUUID();
     const fetchStart = process.hrtime.bigint();
     console.log(JSON.stringify({ traceID: fetchID, event: 'start' }));
@@ -765,6 +776,8 @@ export const getWrpLive = async (
                         title: helixStream.title,
                         firstSeenDate: now,
                         lastSeenDate: now,
+                        gameId: storedGame.id,
+                        serverId: storedServer.id,
                     });
 
                     nextId++;

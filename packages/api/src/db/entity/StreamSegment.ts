@@ -50,4 +50,10 @@ export class StreamSegment {
 
     @Column({ name: 'last_seen_date' })
     lastSeenDate: Date;
+
+    @Column({ name: 'game_id' })
+    gameId: number;
+
+    @Column({ name: 'server_id' })
+    serverId: number;
 }

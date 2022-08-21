@@ -6,6 +6,8 @@ import { RenameStreamChunk1660879369731 } from './1660879369731-RenameStreamChun
 import { RenameTwitchChannel1660884344839 } from './1660884344839-RenameTwitchChannel';
 import { AddTimetravel1660896659642 } from './1660896659642-AddTimetravel';
 import { CharactersAndFactions1660897015015 } from './1660897015015-CharactersAndFactions';
+import { ServerNicknameType1661053964214 } from './1661053964214-ServerNicknameType';
+import { GameAndServer1661056314825 } from './1661056314825-GameAndServer';
 
 export default [
     Initial1660336359134,
@@ -16,4 +18,6 @@ export default [
     RenameTwitchChannel1660884344839,
     AddTimetravel1660896659642,
     CharactersAndFactions1660897015015,
+    ServerNicknameType1661053964214,
+    GameAndServer1661056314825,
 ];

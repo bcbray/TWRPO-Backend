@@ -1,6 +1,6 @@
 import { ViewEntity, ViewColumn } from 'typeorm';
 
-export type ForeignType = 'character' | 'faction';
+export type ForeignType = 'character' | 'faction' | 'server';
 
 @ViewEntity({ name: 'nickname', synchronize: false })
 export class Nickname {

@@ -17,6 +17,9 @@ export class Faction {
     @ViewColumn({ name: 'dark_color' })
     darkColor?: string;
 
+    @ViewColumn({ name: 'server_id' })
+    serverId: number;
+
     @ViewColumn({ name: 'sort_order' })
     sortOrder: number;
 }

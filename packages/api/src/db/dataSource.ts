@@ -7,6 +7,8 @@ import { Nickname } from './entity/Nickname';
 import { Regex } from './entity/Regex';
 import { Faction } from './entity/Faction';
 import { FactionMembership } from './entity/FactionMembership';
+import { Game } from './entity/Game';
+import { Server } from './entity/Server';
 
 export default function dataSource(postgresUrl: string): DataSource {
     return new DataSource({
@@ -21,6 +23,8 @@ export default function dataSource(postgresUrl: string): DataSource {
             Regex,
             Faction,
             FactionMembership,
+            Game,
+            Server,
         ],
     });
 }

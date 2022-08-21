@@ -11,6 +11,9 @@ export class Character {
     @ViewColumn({ name: 'streamer_id' })
     streamerId: number;
 
+    @ViewColumn({ name: 'server_id' })
+    serverId: number;
+
     @ViewColumn({ name: 'sort_order' })
     sortOrder: number;
 }
