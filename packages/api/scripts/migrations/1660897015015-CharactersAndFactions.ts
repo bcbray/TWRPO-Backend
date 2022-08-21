@@ -280,12 +280,25 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
         `);
 
         await queryRunner.query(`
+            CREATE VIEW faction_membership AS
+                SELECT character_id, faction_id, is_leader, rank_id, sort_order FROM raw_faction_membership
+                    WHERE validity @> 'infinity'::TIMESTAMP WITHOUT TIME ZONE
+        `);
+
+        await queryRunner.query(`
+            CREATE VIEW faction_rank AS
+                SELECT id, faction_id, name, display_name FROM raw_faction_rank
+                    WHERE validity @> 'infinity'::TIMESTAMP WITHOUT TIME ZONE
+        `);
+
+        await queryRunner.query(`
             CREATE VIEW character_with_nicknames AS
                 SELECT
                     character.id,
                     character.name,
                     nn.nicknames,
                     rx.regexes,
+                    fs.faction_ids,
                     streamer_id,
                     sort_order
                 FROM character
@@ -310,14 +323,24 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
                     FROM regex
                     WHERE regex.foreign_type = 'character'
                     GROUP BY regex.foreign_id
-                ) rx USING (id);
+                ) rx USING (id)
+                LEFT JOIN (
+                    SELECT
+                        faction_membership.character_id AS id,
+                        array_agg(faction_membership.faction_id) as faction_ids
+                    FROM faction_membership
+                    GROUP BY faction_membership.character_id
+                ) fs USING (id)
         `);
 
         await queryRunner.query(`
             CREATE VIEW faction_with_nicknames AS
                 SELECT
                     faction.id,
+                    faction.key,
                     faction.name,
+                    faction.light_color,
+                    faction.dark_color,
                     nn.nicknames,
                     rx.regexes,
                     sort_order
@@ -344,18 +367,6 @@ export class CharactersAndFactions1660897015015 implements MigrationInterface {
                     WHERE regex.foreign_type = 'faction'
                     GROUP BY regex.foreign_id
                 ) rx USING (id);
-        `);
-
-        await queryRunner.query(`
-            CREATE VIEW faction_membership AS
-                SELECT character_id, faction_id, is_leader, rank_id, sort_order FROM raw_faction_membership
-                    WHERE validity @> 'infinity'::TIMESTAMP WITHOUT TIME ZONE
-        `);
-
-        await queryRunner.query(`
-            CREATE VIEW faction_rank AS
-                SELECT id, faction_id, name, display_name FROM raw_faction_rank
-                    WHERE validity @> 'infinity'::TIMESTAMP WITHOUT TIME ZONE
         `);
 
         await queryRunner.query(`
