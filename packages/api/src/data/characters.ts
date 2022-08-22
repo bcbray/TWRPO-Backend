@@ -162,7 +162,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 67, name: 'Thomas Ethan', nicknames: ['The Kid'] },
     ],
     B3UDown: [
-        { id: 68, name: 'Zip Quil' }, // Kettleman hangaround
+        { id: 68, name: 'Zip Quil', factions: ['Kettleman Gang'] },
     ],
     babysiren_: [
         { id: 69, name: 'Laura Dunn' },
