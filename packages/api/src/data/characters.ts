@@ -586,8 +586,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 271, name: '[Deputy] Saffron Mitchell', factions: ['Law'] },
         { id: 272, name: 'Crissy "Cricket" Blitz' },
         { id: 273, name: 'Holly Frost' },
-        { id: 274, name: 'Sadhbh O\'Brien', factions: ['The Humble Bunch'] }, //Is a current Hagen as far as I'm aware.
-        { id: 990, name: 'Meabh "Mayve" O\'Driscoll', factions: ['Hagen'] }, //As far as I'm aware, Mayve does not exist on WildRP only Wild West RP. Sadhbh took over much of or all of her lore on WildRP.
+        { id: 274, name: 'Sadhbh O\'Brien', factions: ['Hagen', 'The Humble Bunch'] }, //Is a current Hagen as far as I'm aware.
     ],
     EmptyDome: [
         { id: 275, name: 'Barry Armstrong' },
