@@ -111,3 +111,6 @@ dist
 
 # frontend build
 frontend/build
+
+# Visual Studio cache/options directory
+.vs/
