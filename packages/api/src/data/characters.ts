@@ -554,7 +554,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DustMonkeyGames: [
         { id: 253, name: '[Deputy] Charles Slaughter', factions: ['Law'] },
-        { id: 254, name: 'Solomon Walker' }, //Leader of The Cut. Dead 
+        { id: 254, name: 'Solomon Walker' }, //Leader of The Cut. Dead
         { id: 255, name: 'Lawrence "The Major" Stirling' },
         { id: 256, name: 'Isaac "Dr. Creed" Creed' }, //Leader of The Ward
         { id: 257, name: 'Reginald "Reggie" Richardson' },
