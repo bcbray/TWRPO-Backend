@@ -65,9 +65,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                     && seen[channelInfo?.id][character.id]
                     && seen[channelInfo?.id][character.id].lastSeenDate.getTime() - seen[channelInfo?.id][character.id].firstSeenDate.getTime() > 1000 * 60 * 10
                 ) {
-                    characterInfo.lastSeenLive = JSON.stringify(
-                        seen[channelInfo?.id][character.id].lastSeenDate
-                    );
+                    characterInfo.lastSeenLive = seen[channelInfo?.id][character.id].lastSeenDate.toISOString();
                 }
 
                 return characterInfo;
