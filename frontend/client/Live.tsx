@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { LiveResponse, CharacterInfo } from '@twrpo/types';
+import { LiveResponse } from '@twrpo/types';
 
 import { factionsFromLive, ignoredFactions } from './utils'
 import { useSingleSearchParam, useDebouncedValue } from './hooks';
@@ -74,11 +74,12 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
   const offlineCharacters = React.useMemo(() => {
     const liveChannels = new Set(filteredStreams.map(c => c.channelName));
 
+    const recentOfflineCharacters = live.recentOfflineCharacters ?? [];
     const recentOfflineCharacerIds = new Set((live.recentOfflineCharacters ?? []).map(c => c.id));
-    const candidateCharacters = ([] as CharacterInfo[]).concat(
-      ...(live.recentOfflineCharacters ?? []),
-      ...(characters.filter(c => !recentOfflineCharacerIds.has(c.id)))
-    );
+    const olderOfflineCharacter = filterTextForSearching.length !== 0
+      ? characters.filter(c => !recentOfflineCharacerIds.has(c.id))
+      : []
+    const candidateCharacters = [...recentOfflineCharacters, ...olderOfflineCharacter];
 
     return candidateCharacters
         .filter(character =>
