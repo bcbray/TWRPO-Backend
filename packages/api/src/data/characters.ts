@@ -1304,7 +1304,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 621, name: 'Lucius Tubbs' },
     ],
     ohheyliam: [
-        { id: 622, name: 'Oliver "Ollie" Quil' }, // Kettleman hangaround
+        { id: 622, name: 'Oliver "Ollie" Quil', factions: ['Kettleman Gang'] },
     ],
     OhJessBee: [
         { id: 623, name: 'Carmine Crimson' },
