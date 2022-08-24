@@ -71,7 +71,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 20, name: 'Holt MacMillan' },
     ],
     aJimmy: [
-        { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], factions: ['Kettleman Gang'] }, //Briefly led Kelly Gang
+        { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], factions: ['Kettleman Gang'] }, // Briefly led Kelly Gang
     ],
     Altrah: [
         { id: 22, name: 'Victor Morteza' },
@@ -94,7 +94,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 31, name: 'Gabriella Gonzales' },
     ],
     AngelKnivez: [
-        { id: 32, name: 'Renni Bradshaw', nicknames: ['Rimmy'] }, //Former Danger Gang. Briefly Kelly Gang
+        { id: 32, name: 'Renni Bradshaw', nicknames: ['Rimmy'] }, // Former Danger Gang. Briefly Kelly Gang
         { id: 33, name: 'Sissi Marie', factions: ['DiCenzo Famiglia'] },
     ],
     AngryPotatoChipz: [
@@ -174,7 +174,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 71, name: 'Josephine Gold' },
     ],
     barrybogan: [
-        { id: 72, name: 'Bernard "Bernie" Bogan', nicknames: ['Bernie the Butcher'] }, //Former Bloody Hood. Bloody Hoods disbanded
+        { id: 72, name: 'Bernard "Bernie" Bogan', nicknames: ['Bernie the Butcher'] }, // Former Bloody Hood. Bloody Hoods disbanded
         { id: 73, name: 'Jack Doolan' },
     ],
     BASHZOR: [
@@ -205,7 +205,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 86, name: 'Elia Marekson' },
     ],
     BitterRabbit: [
-        { id: 87, name: 'Eliza Kerrigan' }, //Kerrigan Ranch
+        { id: 87, name: 'Eliza Kerrigan' }, // Kerrigan Ranch
         { id: 88, name: 'Grace Shelton' },
         { id: 89, name: '[Deputy] Kate Hearst', factions: ['Law'] },
         { id: 90, name: 'Sam Caldwell' },
@@ -217,7 +217,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 92, name: 'Jesse Flint' },
     ],
     bldrs: [
-        { id: 93, name: 'Casey Rigsby', factions: ['The Unhung', 'Guppy Gang'] }, //Former Sam's Club
+        { id: 93, name: 'Casey Rigsby', factions: ['The Unhung', 'Guppy Gang'] }, // Former Sam's Club
     ],
     BlitzyNation: [
         { id: 94, name: 'Charlie Walker' },
@@ -247,12 +247,12 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BradWOTO: [
         { id: 107, name: 'Bentley Fog' },
-        { id: 108, name: 'Rufus Lorde' }, //Dead End Kid. Summer's Gang. Dead
+        { id: 108, name: 'Rufus Lorde' }, // Dead End Kid. Summer's Gang. Dead
         { id: 109, name: 'Tar Sullivan' },
     ],
     Brizzo24: [
-        { id: 110, name: 'Craig Johnson' }, //Former Sam's Club
-        { id: 111, name: 'Karl Feckles' }, //Dead
+        { id: 110, name: 'Craig Johnson' }, // Former Sam's Club
+        { id: 111, name: 'Karl Feckles' }, // Dead
     ],
     BrutalBri: [
         { id: 112, name: 'Cooter O\'Doole' },
@@ -291,7 +291,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 127, name: 'Dakota Ellis' },
     ],
     Caffine5: [
-        { id: 128, name: 'Billy Falco', nicknames: ['Billy Blasters', 'Billy Blunders'] }, //Former Danger Gang
+        { id: 128, name: 'Billy Falco', nicknames: ['Billy Blasters', 'Billy Blunders'] }, // Former Danger Gang
         { id: 129, name: 'Vincenzo Struzzo' },
     ],
     calibriggs: [
@@ -460,10 +460,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 204, name: 'Hank Boon' },
     ],
     DeneeSays: [
-        { id: 205, name: 'Brooke "Babs" Burns' }, //DiCenzo hangaround?
+        { id: 205, name: 'Brooke "Babs" Burns' }, // DiCenzo hangaround?
     ],
     Deputy_Games: [
-        { id: 206, name: 'Sam Rosco' }, //Former The Cut
+        { id: 206, name: 'Sam Rosco' }, // Former The Cut
     ],
     DetectiveDoorag: [
         { id: 207, name: '[Deputy] Casey Kramer', factions: ['Law'] },
@@ -477,8 +477,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 211, name: 'Clem Colton' },
     ],
     Dimoak: [
-        { id: 212, name: 'Fiddleford "Phil" Mackit' }, //Dead
-        { id: 213, name: 'Kaz Brekker' },  //Dead
+        { id: 212, name: 'Fiddleford "Phil" Mackit' }, // Dead
+        { id: 213, name: 'Kaz Brekker' },  // Dead
         { id: 214, name: 'Tommy Townsand' },
         { id: 215, name: 'Matthias Helvar' },
         { id: 216, name: 'Ramsley Gracey' },
@@ -493,7 +493,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DisbeArex: [
         { id: 221, name: 'Timmy Took' },
-        { id: 222, name: 'Dolly Dixon' }, //Dead
+        { id: 222, name: 'Dolly Dixon' }, // Dead
         { id: 223, name: 'Morgana Fay' },
         { id: 224, name: 'The Blood Witch', displayName: 0 },
     ],
@@ -526,7 +526,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 238, name: 'Byong Ho' },
     ],
     DrensWorld: [
-        { id: 239, name: 'Danny Kerrigan' }, //Kerrigan Ranch. Dead
+        { id: 239, name: 'Danny Kerrigan' }, // Kerrigan Ranch. Dead
         { id: 240, name: 'Duncan Ladle' },
         { id: 241, name: '[Deputy] Duncan Weller', factions: ['Law'] },
         { id: 242, name: 'Darwin Howe' },
@@ -555,9 +555,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DustMonkeyGames: [
         { id: 253, name: '[Deputy] Charles Slaughter', factions: ['Law'] },
-        { id: 254, name: 'Solomon Walker' }, //Leader of The Cut. Dead
+        { id: 254, name: 'Solomon Walker' }, // Leader of The Cut. Dead
         { id: 255, name: 'Lawrence "The Major" Stirling' },
-        { id: 256, name: 'Isaac "Dr. Creed" Creed' }, //Leader of The Ward
+        { id: 256, name: 'Isaac "Dr. Creed" Creed' }, // Leader of The Ward
         { id: 257, name: 'Reginald "Reggie" Richardson' },
         { id: 258, name: 'Cullen Vane' },
     ],
@@ -566,7 +566,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     dynadivine: [
         { id: 260, name: 'Lucille Davis' },
-        { id: 261, name: 'Lucille Walker' }, //Former The Cut
+        { id: 261, name: 'Lucille Walker' }, // Former The Cut
         { id: 262, name: 'Danielle ?' },
     ],
     DzarekK: [
@@ -587,7 +587,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 271, name: '[Deputy] Saffron Mitchell', factions: ['Law'] },
         { id: 272, name: 'Crissy "Cricket" Blitz' },
         { id: 273, name: 'Holly Frost' },
-        { id: 274, name: 'Sadhbh O\'Brien', factions: ['Hagen', 'The Humble Bunch'] }, //Is a current Hagen as far as I'm aware.
+        { id: 274, name: 'Sadhbh O\'Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
     ],
     EmptyDome: [
         { id: 275, name: 'Barry Armstrong' },
@@ -610,7 +610,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 284, name: 'Vera Helvig' },
     ],
     eternalsong: [
-        { id: 285, name: 'Kora Vane' }, //Former Sam's Club
+        { id: 285, name: 'Kora Vane' }, // Former Sam's Club
     ],
     EthanSchriver: [
         { id: 286, name: 'Leanord Scout', displayName: 2 },
@@ -642,11 +642,11 @@ export const wrpCharacters: WrpCharacters = {
         { id: 300, name: 'Nessa Evans' },
     ],
     feardeer: [
-        { id: 301, name: 'Bryn "Sloan" Keith', factions: ['DiCenzo Famiglia'] }, //Former Kettleman. She would disagree, but she was definitely a Kettleman.
+        { id: 301, name: 'Bryn "Sloan" Keith', factions: ['DiCenzo Famiglia'] }, // Former Kettleman. She would disagree, but she was definitely a Kettleman.
     ],
     FhaeLin: [
-        { id: 302, name: '[Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 }, //Senior Deputy
-        { id: 303, name: 'Amber Sage' }, //Medic?
+        { id: 302, name: '[Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 }, // Senior Deputy
+        { id: 303, name: 'Amber Sage' }, // Medic?
     ],
     FireLordRevan: [
         { id: 304, name: 'Hannah Belles' },
@@ -669,12 +669,12 @@ export const wrpCharacters: WrpCharacters = {
         { id: 315, name: 'Quinn Thatcher' },
     ],
     ForeheadSkin: [
-        { id: 316, name: 'Edmund "Eddy" Reddington', factions: ['The Unhung'] }, //Former Sam's Club
+        { id: 316, name: 'Edmund "Eddy" Reddington', factions: ['The Unhung'] }, // Former Sam's Club
         { id: 317, name: 'Henry Huff' },
         { id: 318, name: 'Joseph Walters' },
         { id: 319, name: 'Morris Sterling' },
         { id: 320, name: 'Chester Fox' },
-        { id: 321, name: 'Robert "Bobo" Thompson', nicknames: ['Bob'] }, //Dead?
+        { id: 321, name: 'Robert "Bobo" Thompson', nicknames: ['Bob'] }, // Dead?
     ],
     FortyOne: [
         { id: 322, name: 'Sean Mercer' },
@@ -738,7 +738,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 350, name: 'Raymond "Rayray" Willis' },
     ],
     GmanRBI: [
-        { id: 351, name: 'Max Brady' }, //Former Sam's Club
+        { id: 351, name: 'Max Brady' }, // Former Sam's Club
         { id: 352, name: 'Gianni Peccati' },
         { id: 353, name: 'Mordecai Butterbee' },
         { id: 354, name: 'Giano Greywolf' },
@@ -756,10 +756,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 360, name: 'Speedy McGillagully' },
     ],
     GrammTheGibbon: [
-        { id: 361, name: 'Herbert Parker', nicknames: ['Herb', 'Cowboy', 'Young'] }, //Kettleman hangaround
+        { id: 361, name: 'Herbert Parker', nicknames: ['Herb', 'Cowboy', 'Young'] }, // Kettleman hangaround
         { id: 362, name: '[Detective] Homer Carnes', factions: ['Law'], nicknames: ['Cop'] },
-        { id: 363, name: '"LJ" Little Jimothy', nicknames: ['Kid', 'Soldier'] }, //Former Dead End Kid
-        { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'] }, //Dead. Considered to be the one and only leader of the Kettleman Gang
+        { id: 363, name: '"LJ" Little Jimothy', nicknames: ['Kid', 'Soldier'] }, // Former Dead End Kid
+        { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'] }, // Dead. Considered to be the one and only leader of the Kettleman Gang
     ],
     GraveGamerTV: [
         { id: 365, name: 'Paulson Greer' },
@@ -771,7 +771,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 369, name: 'Jericho Blackfoot' },
     ],
     Grennig: [
-        { id: 370, name: 'Wesley "Wes" Shields', factions: ['Kettleman Gang'] }, //Former Law
+        { id: 370, name: 'Wesley "Wes" Shields', factions: ['Kettleman Gang'] }, // Former Law
     ],
     grigoriypeppo: [
         { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2 },
@@ -825,8 +825,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 390, name: 'James Brown' },
     ],
     Hoop: [
-        { id: 391, name: 'Barry Bjornson' }, //Former Sam's Club
-        { id: 392, name: 'Clyde Davis', nicknames: ['Dusty Danger'] }, //Leader of the Danger Gang. Dead.
+        { id: 391, name: 'Barry Bjornson' }, // Former Sam's Club
+        { id: 392, name: 'Clyde Davis', nicknames: ['Dusty Danger'] }, // Leader of the Danger Gang. Dead.
         { id: 393, name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'] },
         { id: 394, name: '[Deputy] Miles Gyles', factions: ['Law'] },
     ],
@@ -847,7 +847,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 402, name: 'Chuck ?' },
     ],
     IboonI: [
-        { id: 403, name: 'Elias Boon' }, //Emerald Ranch
+        { id: 403, name: 'Elias Boon' }, // Emerald Ranch
     ],
     ICoolioM: [
         { id: 404, name: 'Arie ?' },
@@ -863,7 +863,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 408, name: 'Angelo Clemente' },
     ],
     ImFromTheFuture: [
-        { id: 409, name: 'Roscoe Montana', factions: ['The Unhung'] }, //Former Sam's Club
+        { id: 409, name: 'Roscoe Montana', factions: ['The Unhung'] }, // Former Sam's Club
     ],
     inkyblackdreams: [
         { id: 410, name: 'Vera Dragavei' },
@@ -892,17 +892,17 @@ export const wrpCharacters: WrpCharacters = {
     ],
     J0J0: [
         { id: 423, name: 'Delilah Kane' },
-        { id: 424, name: 'Effie Parker', factions: ['DiCenzo Famiglia'] }, //Former The Cut
+        { id: 424, name: 'Effie Parker', factions: ['DiCenzo Famiglia'] }, // Former The Cut
         { id: 425, name: 'Katherine Dunn' },
     ],
     Jackariah: [
         { id: 426, name: 'Bo Whitmore' },
     ],
     jackiejackpot: [
-        { id: 427, name: 'Tilly Demeter', assume: 'assumeOther' }, //Dead
+        { id: 427, name: 'Tilly Demeter', assume: 'assumeOther' }, // Dead
         { id: 428, name: 'Jade Ming' },
         { id: 429, name: 'Jezrael King' },
-        { id: 430, name: 'Maria Gonzales' }, //Former Bloody Hood
+        { id: 430, name: 'Maria Gonzales' }, // Former Bloody Hood
         { id: 431, name: 'Widow Fan' },
         { id: 976, name: 'Sabina ?' },
     ],
@@ -956,7 +956,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 456, name: 'Peggy Brown' },
     ],
     Jonthebroski: [
-        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5, factions: ['The Unhung'] }, //Former Sam's Club
+        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5, factions: ['The Unhung'] }, // Former Sam's Club
         { id: 458, name: '[Deputy] Jaime Ruth', factions: ['Law'] },
     ],
     JugsySiegel: [
@@ -1041,7 +1041,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 488, name: 'Ren Solo' },
     ],
     Kyltrex: [
-        { id: 489, name: 'Jackson "Dead-Eye Jack" Pryde', nicknames: ['#1'] }, //Former leader of the Bloody Hoods
+        { id: 489, name: 'Jackson "Dead-Eye Jack" Pryde', nicknames: ['#1'] }, // Former leader of the Bloody Hoods
         { id: 490, name: 'Louis "Louie" Lancaster' },
         { id: 491, name: 'Luther Von Brandt' },
     ],
@@ -1181,7 +1181,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MEKABEAR: [
         { id: 561, name: '[Deputy] Audrey Dusk', factions: ['Law'] },
-        { id: 562, name: 'Goldie Fisher', factions: ['Dead End Kids'] }, //Former Kettleman.
+        { id: 562, name: 'Goldie Fisher', factions: ['Dead End Kids'] }, // Former Kettleman.
     ],
     MeMine30: [
         { id: 563, name: 'Walt McGrath' },
@@ -1193,7 +1193,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 565, name: 'Gladys Berry' },
     ],
     MinksOfMars: [
-        { id: 566, name: 'Irene "Peaches" Corvus', nicknames: ['Forbidden Fruit'], factions: ['The Unhung', 'Hagen'] }, //Former Sam's Club
+        { id: 566, name: 'Irene "Peaches" Corvus', nicknames: ['Forbidden Fruit'], factions: ['The Unhung', 'Hagen'] }, // Former Sam's Club
         { id: 567, name: 'Ana Stravinski' },
         { id: 568, name: 'Willow Wisp' },
     ],
@@ -1215,7 +1215,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 577, name: 'Goon "Goom-Boobie" Bones' },
     ],
     MrMoonsHouse: [
-        { id: 578, name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4, assumeChar: true }, //Former Momma's Boys, but I'm not sure if they still exist or not. May have been the leader?
+        { id: 578, name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4, assumeChar: true }, // Former Momma's Boys, but I'm not sure if they still exist or not. May have been the leader?
         { id: 579, name: 'Kang Colton', factions: ['Coltons'] },
     ],
     MrPandaaBear: [
@@ -1319,7 +1319,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 628, name: 'Boyd Cassidy' },
     ],
     Orcish: [
-        { id: 629, name: '[Deputy] Allistair McGregor', factions: ['Law'] }, //Senior Deputy
+        { id: 629, name: '[Deputy] Allistair McGregor', factions: ['Law'] }, // Senior Deputy
         { id: 630, name: 'Billy Beetur' },
         { id: 631, name: 'Otis Potts' },
         { id: 632, name: 'Richard Westlake' },
@@ -1342,7 +1342,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     peachycoaster: [
         { id: 639, name: 'Chrissy Snow' },
-        { id: 640, name: 'Toosie Loo' }, //Kettleman hangaround? I would consider her Kettleman, but Jack doesn't
+        { id: 640, name: 'Toosie Loo' }, // Kettleman hangaround? I would consider her Kettleman, but Jack doesn't
         { id: 641, name: 'Kipper O\'Neil' },
     ],
     Pengwin: [
@@ -1374,7 +1374,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 653, name: 'Doug Landers' },
     ],
     privyLore: [
-        { id: 654, name: 'Wren Lebow', nicknames: ['Lilith', 'The Siren'] }, //Former Sam's Club
+        { id: 654, name: 'Wren Lebow', nicknames: ['Lilith', 'The Siren'] }, // Former Sam's Club
         { id: 655, name: 'Kathryn ?' },
         { id: 656, name: 'Minerva Ackerman' },
     ],
@@ -1397,7 +1397,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 664, name: 'Omens' },
     ],
     Question_Box: [
-        { id: 665, name: 'Lydia Lewis' }, //Former Sheriff
+        { id: 665, name: 'Lydia Lewis' }, // Former Sheriff
         { id: 666, name: 'Blaire Turner' },
     ],
     Quip_TV: [
@@ -1426,7 +1426,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 677, name: 'Tony Moretti', factions: ['DiCenzo Famiglia'] },
     ],
     rosco: [
-        { id: 678, name: 'Awkward Johnson', displayName: 0 }, //Dead.
+        { id: 678, name: 'Awkward Johnson', displayName: 0 }, // Dead.
         { id: 679, name: 'Frank Church' },
         { id: 680, name: 'John Hell' },
     ],
@@ -1439,7 +1439,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 684, name: 'Lionel Miles' },
     ],
     RY4N: [
-        { id: 685, name: 'Christine "Momma" Thomas' }, //Former Momma's Boys? Maybe leader of Momma's Boys?
+        { id: 685, name: 'Christine "Momma" Thomas' }, // Former Momma's Boys? Maybe leader of Momma's Boys?
         { id: 686, name: 'Joe "Moonshine Joe" Burns' },
         { id: 687, name: 'Randy Randy' },
         { id: 688, name: 'Thomas Church' },
@@ -1520,13 +1520,13 @@ export const wrpCharacters: WrpCharacters = {
     sgttyn: [
         { id: 723, name: 'Jacob Dubois' },
         { id: 724, name: 'Norris Olson' },
-        { id: 725, name: '[Deputy] Sam Winters', factions: ['Law'] }, //Sam Winters
+        { id: 725, name: '[Deputy] Sam Winters', factions: ['Law'] }, // Sam Winters
     ],
     shadowsINsilence: [
         { id: 726, name: 'Emily Marie Kenward' },
     ],
     Shake4L: [
-        { id: 727, name: 'Buzz Bleu' }, //Former Sam's Club.
+        { id: 727, name: 'Buzz Bleu' }, // Former Sam's Club.
     ],
     ShawW0w: [
         { id: 728, name: 'Clarence Crudewater' },
@@ -1577,7 +1577,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 749, name: 'Martha Crook' },
     ],
     sneakyShadower: [
-        { id: 750, name: '[Deputy] Abigail Jones', factions: ['Law'] }, //I'm pretty sure she's a reporter
+        { id: 750, name: '[Deputy] Abigail Jones', factions: ['Law'] }, // I'm pretty sure she's a reporter
         { id: 751, name: 'Azula Brooks' },
         { id: 752, name: '[Doctor] Isabella Vautour', factions: ['Medical'] },
         { id: 753, name: '[Deputy] Jackie Lockwood', factions: ['Law'] },
@@ -1605,7 +1605,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 765, name: 'Jean Rivers' },
     ],
     SpaceAndromeda: [
-        { id: 766, name: '[Deputy] Aoife McCarthy', factions: ['Law'] }, //Senior Deputy
+        { id: 766, name: '[Deputy] Aoife McCarthy', factions: ['Law'] }, // Senior Deputy
         { id: 767, name: 'Clarabelle Manson' },
         { id: 768, name: 'Cora Crow' },
     ],
@@ -1644,7 +1644,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 983, name: 'Malaha Mage' },
     ],
     Ssaab: [
-        { id: 784, name: 'Sam Baas', factions: ['The Unhung'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true }, //Former Sam's Club. leader of Sam's Club
+        { id: 784, name: 'Sam Baas', factions: ['The Unhung'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true }, // Former Sam's Club. leader of Sam's Club
         { id: 785, name: 'Ali Baba', displayName: 0 },
         { id: 786, name: '[Deputy] Leo Slack', factions: ['Law'] },
     ],
@@ -1703,7 +1703,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 810, name: 'Jeremiah Rent' },
     ],
     TankGirl: [
-        { id: 811, name: 'Effie Mae Braithwaite' }, //Dead.
+        { id: 811, name: 'Effie Mae Braithwaite' }, // Dead.
         { id: 812, name: 'Gloria Bonanno' },
     ],
     tanklovesyou: [
@@ -1711,13 +1711,13 @@ export const wrpCharacters: WrpCharacters = {
         { id: 814, name: 'Eugene Goodman' },
         { id: 815, name: '[Deputy] Jean-Pierre Lefrancois', factions: ['Law'] },
         { id: 816, name: 'Julius "The Jade King" Bradshaw' },
-        { id: 817, name: '[Marshal] Rico Ortega', nicknames: ['Deputy Marshal'], factions: ['Law'] }, //Deputy Marshal
+        { id: 817, name: '[Marshal] Rico Ortega', nicknames: ['Deputy Marshal'], factions: ['Law'] }, // Deputy Marshal
     ],
     Taranix: [
         { id: 818, name: 'Mattias Temble' },
     ],
     Tasara22: [
-        { id: 819, name: '[Deputy] Jane Ripley', factions: ['Law'] }, //Senior Deputy
+        { id: 819, name: '[Deputy] Jane Ripley', factions: ['Law'] }, // Senior Deputy
         { id: 820, name: 'Betty Butcher' },
         { id: 821, name: 'Madame Milena' },
         { id: 822, name: 'Monica Peach' },
@@ -1798,7 +1798,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 860, name: 'Cillian McCarty' },
     ],
     TheGeneralSmokey: [
-        { id: 861, name: 'Edwin Braithwaite', nicknames: ['Eddie'], factions: ['Kettleman Gang'] }, //Former Dead End Kid. Former Kettleman
+        { id: 861, name: 'Edwin Braithwaite', nicknames: ['Eddie'], factions: ['Kettleman Gang'] }, // Former Dead End Kid. Former Kettleman
     ],
     TheGoochTV: [
         { id: 862, name: 'Becker Lang' },
@@ -1826,7 +1826,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 874, name: 'Amadeus "Adonis" Silver' },
     ],
     ThePatrician69: [
-        { id: 875, name: 'Nate Casey' }, //Former Kelly Gang
+        { id: 875, name: 'Nate Casey' }, // Former Kelly Gang
     ],
     TheRandomChick: [
         { id: 876, name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'] },
@@ -1905,7 +1905,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 907, name: 'Rooporian Roo', factions: ['Independent', 'Guppy Gang'], displayName: 2 },
     ],
     UberJazer: [
-        { id: 908, name: 'Nahmala "Wolf" Wolfe' }, //Wapiti?
+        { id: 908, name: 'Nahmala "Wolf" Wolfe' }, // Wapiti?
     ],
     Ukrainy_: [
         { id: 909, name: 'Willie Reuben' },
@@ -1935,10 +1935,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 918, name: 'Carlo Marciano', factions: ['DiCenzo Famiglia'] },
     ],
     VERTiiGOGAMING: [
-        { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'] }, //Former Kerrigan Ranch
+        { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'] }, // Former Kerrigan Ranch
         { id: 920, name: 'Joey "The Wallaby Kid" Johns', factions: ['Dead End Kids'] },
         { id: 921, name: 'Les Darcy' },
-        { id: 922, name: 'Bazz Kerrigan', factions: ['Kettleman Gang'] }, //leader of Kerrigan Ranch. Dead.
+        { id: 922, name: 'Bazz Kerrigan', factions: ['Kettleman Gang'] }, // leader of Kerrigan Ranch. Dead.
         { id: 923, name: 'Clarence McCloud' },
     ],
     Viviana: [
@@ -1955,7 +1955,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 928, name: 'Dr. C.J Matthews' },
     ],
     WANTED_MANIAC: [
-        { id: 929, name: 'Brian Wright' }, //Former Senior Deputy
+        { id: 929, name: 'Brian Wright' }, // Former Senior Deputy
         { id: 930, name: 'Taylor Hicks' },
         { id: 931, name: 'William "Bill" Carver' },
         { id: 932, name: 'Benji Bell' },
@@ -1978,14 +1978,14 @@ export const wrpCharacters: WrpCharacters = {
         { id: 939, name: 'Sally Cooper-Borr' },
     ],
     Wombax: [
-        { id: 940, name: 'Nash' }, //Former Kettleman. Dead.
+        { id: 940, name: 'Nash' }, // Former Kettleman. Dead.
     ],
     woplotomo: [
         { id: 941, name: '? ?', assume: 'neverNp' },
     ],
     Wrighty: [
         { id: 942, name: 'Jack Reed' },
-        { id: 943, name: '[Marshal] Logan Monroe', factions: ['Law'] }, //Deputy Marshal
+        { id: 943, name: '[Marshal] Logan Monroe', factions: ['Law'] }, // Deputy Marshal
         { id: 944, name: 'Roscoe Riggs' },
         { id: 945, name: 'Joseph Carter' },
     ],
@@ -2030,13 +2030,13 @@ export const wrpCharacters: WrpCharacters = {
         { id: 962, name: 'Everett Silver' },
     ],
     Zarrqq: [
-        { id: 963, name: 'Benjamin Gaines', nicknames: ['Ben'], displayName: 3 }, //Former Sam's Club
+        { id: 963, name: 'Benjamin Gaines', nicknames: ['Ben'], displayName: 3 }, // Former Sam's Club
     ],
     ZetarkGG: [
         { id: 964, name: 'Cesare DiCenzo', factions: ['DiCenzo Famiglia'], leader: true },
     ],
     ZeusLair: [
-        { id: 965, name: 'Robbie Gold' }, //Former Lang Gang.
+        { id: 965, name: 'Robbie Gold' }, // Former Lang Gang.
         { id: 984, name: 'Elijah James' },
     ],
     Ziggy: [
