@@ -23,7 +23,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1002
+// Next ID: 1003
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -1223,6 +1223,7 @@ export const wrpCharacters: WrpCharacters = {
     MrMoonsHouse: [
         { id: 578, name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4, assumeChar: true }, // Former Momma's Boys, but I'm not sure if they still exist or not. May have been the leader?
         { id: 579, name: 'Kang Colton', factions: ['Coltons'] },
+        { id: 1002, name: 'Waylon Puckett', factions: ['One Life'] },
     ],
     MrPandaaBear: [
         { id: 580, name: 'Cathal McCarthy' },
