@@ -75,16 +75,15 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
     const liveCharacterIds = new Set((filteredStreams ?? []).map(s => s.characterId));
 
     const recentOfflineCharacters = live.recentOfflineCharacters ?? [];
-    const recentOfflineCharacerIds = new Set((live.recentOfflineCharacters ?? []).map(c => c.id));
+    const recentOfflineCharacerIds = new Set(recentOfflineCharacters.map(c => c.id));
     const olderOfflineCharacter = filterTextForSearching.length !== 0
-      ? characters.filter(c => !recentOfflineCharacerIds.has(c.id))
+      ? characters.filter(c => !recentOfflineCharacerIds.has(c.id) && !liveCharacterIds.has(c.id))
       : []
     const candidateCharacters = [...recentOfflineCharacters, ...olderOfflineCharacter];
 
     return candidateCharacters
         .filter(character =>
-          !liveCharacterIds.has(character.id)
-          && ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
+          ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
           && (
             character.channelName.toLowerCase().includes(filterTextForSearching)
             || character.name.toLowerCase().includes(filterTextForSearching)
@@ -92,6 +91,18 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
             || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
           )
         )
+        .sort((lhs, rhs) => {
+          if (lhs.lastSeenLive && rhs.lastSeenLive) {
+            return rhs.lastSeenLive.localeCompare(lhs.lastSeenLive);
+          }
+          if (lhs.lastSeenLive && !rhs.lastSeenLive) {
+            return -1;
+          }
+          if (!lhs.lastSeenLive && rhs.lastSeenLive) {
+            return 1;
+          }
+          return lhs.displayInfo.realNames.join(' ').localeCompare(rhs.displayInfo.realNames.join(' '));
+        })
         // Limit to 50 offline characters to not overwhelm the list
         .slice(0, 50);
   }, [characters, factionKey, filterTextForSearching, filteredStreams, live.recentOfflineCharacters]);
