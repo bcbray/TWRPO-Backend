@@ -72,7 +72,7 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
     }, [debouncedFilterText, factionKey, filterTextForSearching, live.streams])
 
   const offlineCharacters = React.useMemo(() => {
-    const liveChannels = new Set(filteredStreams.map(c => c.channelName));
+    const liveCharacterIds = new Set((filteredStreams ?? []).map(s => s.characterId));
 
     const recentOfflineCharacters = live.recentOfflineCharacters ?? [];
     const recentOfflineCharacerIds = new Set((live.recentOfflineCharacters ?? []).map(c => c.id));
@@ -83,7 +83,7 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
 
     return candidateCharacters
         .filter(character =>
-          !liveChannels.has(character.channelName)
+          !liveCharacterIds.has(character.id)
           && ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
           && (
             character.channelName.toLowerCase().includes(filterTextForSearching)
