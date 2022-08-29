@@ -1193,7 +1193,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 563, name: 'Walt McGrath' },
     ],
     Mhaple_: [
-        { id: 564, name: 'Morgan Lee' },
+        { id: 564, name: 'Morgan Lee', factions: ['Summers Gang'] }, // Unconfirmed, but he's at least riding with them
     ],
     Mick: [
         { id: 565, name: 'Gladys Berry' },
