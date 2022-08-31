@@ -7,7 +7,7 @@ import styles from './Live.module.css';
 
 import { ignoredFactions } from './utils'
 import { useSingleSearchParam, useDebouncedValue } from './hooks';
-import { isSuccess } from './LoadingState';
+import { isSuccess, isLoading } from './LoadingState';
 import { useCharacters } from './Data';
 
 import StreamList from './StreamList';
@@ -144,6 +144,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
         <StreamList
           streams={filteredStreams}
           offlineCharacters={offlineCharacters}
+          isLoadingMore={showOlderOfflineCharacters && isLoading(charactersLoadingState)}
           paginationKey={factionKey ?? '_no-faction_'}
           loadTick={loadTick}
         />

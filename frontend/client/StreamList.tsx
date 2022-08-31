@@ -9,6 +9,7 @@ import OfflineCharacterCard from './OfflineCharacterCard';
 import { classes } from './utils';
 import Crossfade from './Crossfade';
 import { usePaginated } from './hooks';
+import Spinner from './Spinner';
 
 type SortBy = 'viewers' | 'duration' | 'channel';
 type Order = 'asc' | 'desc';
@@ -16,6 +17,7 @@ type Order = 'asc' | 'desc';
 interface Props {
   streams: Stream[];
   offlineCharacters?: CharacterInfo[];
+  isLoadingMore?: boolean;
   paginationKey: string;
   loadTick: number;
   sort?: SortBy;
@@ -38,6 +40,7 @@ const offlineItem = (character: CharacterInfo): OfflineItem => ({ type: 'offline
 const StreamList: React.FC<Props> = ({
   streams,
   offlineCharacters = [],
+  isLoadingMore = false,
   loadTick,
   paginationKey,
   sort = 'viewers',
@@ -70,7 +73,7 @@ const StreamList: React.FC<Props> = ({
   return (
     <Flipper flipKey={loadTick}>
       <div className={classes('inset', styles.grid)}>
-        <div className={classes(styles.items)}>
+        <div className={classes(styles.items, visibleItems.length === 0 && styles.empty)}>
           {visibleItems.map(item => {
             if (item.type === 'live') {
               const { stream } = item;
@@ -109,6 +112,7 @@ const StreamList: React.FC<Props> = ({
               );
             }
           })}
+          {isLoadingMore && <div className={styles.spinnerCard}><Spinner /></div>}
         </div>
         {loadMoreTrigger}
       </div>

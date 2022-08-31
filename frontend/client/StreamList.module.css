@@ -9,33 +9,38 @@
   grid-template-columns: 1fr;
 }
 
+.spinnerCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (min-width: 576px) {
-  .grid .items {
+  .grid .items:not(.empty) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 768px) {
-  .grid .items {
+  .grid .items:not(.empty) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (min-width: 992px) {
-  .grid .items {
+  .grid .items:not(.empty) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
-  .grid .items {
+  .grid .items:not(.empty) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-
 @media (min-width: 1400px) {
-  .grid .items {
+  .grid .items:not(.empty) {
     grid-template-columns: repeat(5, 1fr);
   }
 }
