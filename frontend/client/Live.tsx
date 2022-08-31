@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { LiveResponse, FactionsResponse } from '@twrpo/types';
+import _ from 'lodash';
 
 import styles from './Live.module.css';
 
@@ -27,6 +28,17 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
   const [filterText, setFilterText] = useSingleSearchParam('search');
   const debouncedFilterText = useDebouncedValue(filterText, 200);
   const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
+
+  const filterRegex = React.useMemo(() => {
+    if (!filterTextForSearching) return undefined;
+    const escapedFilter = _.escapeRegExp(filterTextForSearching)
+      // Match curly or straight quotes
+      // So “O’Grady” and “O'Grady” both match “O’Grady”
+      .replaceAll(/['‘’]/g, '[‘’\']')
+      .replaceAll(/["“”]/g, '[“”"]');
+
+    return new RegExp(escapedFilter, 'i');
+  }, [filterTextForSearching]);
 
   const showOlderOfflineCharacters = filterTextForSearching.length !== 0
     || (factionKey !== undefined && factionKey !== 'independent');
@@ -67,23 +79,23 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
         .replace(/\s+/g, ' ')
         .toLowerCase()
         .trim();
-      const filtered = (factionKey === undefined && filterTextForSearching.length === 0)
+      const filtered = (factionKey === undefined && filterRegex === undefined)
         ? streams
         : streams.filter(stream =>
           ((factionKey && stream.factionsMap[factionKey]) || !factionKey)
-            && ((filterTextForSearching && (
-              stream.tagText.toLowerCase().includes(filterTextForSearching)
-              || (stream.characterName && stream.characterName.toLowerCase().includes(filterTextForSearching))
+            && ((filterRegex && (
+              filterRegex.test(stream.tagText)
+              || (stream.characterName && filterRegex.test(stream.characterName))
               || (stream.nicknameLookup && stream.nicknameLookup.includes(filterTextLookup))
-              || stream.channelName.toLowerCase().includes(filterTextForSearching)
-              || stream.title.toLowerCase().includes(filterTextForSearching)
-              || stream.factions.some(f => f.toLowerCase().includes(filterTextForSearching))
+              || filterRegex.test(stream.channelName)
+              || filterRegex.test(stream.title)
+              || stream.factions.some(f => filterRegex.test(f))
             )
-          ) || !filterTextForSearching)
+          ) || !filterRegex)
         )
       const sorted = filtered.sort((lhs, rhs) => rhs.viewers - lhs.viewers)
       return sorted;
-    }, [debouncedFilterText, factionKey, filterTextForSearching, live.streams])
+    }, [debouncedFilterText, factionKey, filterRegex, live.streams])
 
   const offlineCharacters = React.useMemo(() => {
     const liveCharacterIds = new Set((filteredStreams ?? []).map(s => s.characterId));
@@ -98,12 +110,13 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
     return candidateCharacters
         .filter(character =>
           ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
-          && (
-            character.channelName.toLowerCase().includes(filterTextForSearching)
-            || character.name.toLowerCase().includes(filterTextForSearching)
-            || character.displayInfo.nicknames.some(n => n.toLowerCase().includes(filterTextForSearching))
-            || character.factions.some(f => f.name.toLowerCase().includes(filterTextForSearching))
-          )
+            && ((filterRegex && (
+              filterRegex.test(character.channelName)
+              || filterRegex.test(character.name)
+              || character.displayInfo.nicknames.some(n => filterRegex.test(n))
+              || character.factions.some(f => filterRegex.test(f.name))
+            )
+          ) || !filterRegex)
         )
         .sort((lhs, rhs) => {
           if (lhs.lastSeenLive && rhs.lastSeenLive) {
@@ -117,7 +130,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
           }
           return lhs.displayInfo.realNames.join(' ').localeCompare(rhs.displayInfo.realNames.join(' '));
         })
-  }, [characters, factionKey, filterTextForSearching, filteredStreams, live.recentOfflineCharacters, showOlderOfflineCharacters]);
+  }, [characters, factionKey, filterRegex, filteredStreams, live.recentOfflineCharacters, showOlderOfflineCharacters]);
 
   return (
     (
