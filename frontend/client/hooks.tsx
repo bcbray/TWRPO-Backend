@@ -255,7 +255,7 @@ interface PaginationOptions {
 export const usePaginated = <T,>(data: T[], options: PaginationOptions): [T[], React.ReactElement | undefined] => {
   const {
     key,
-    initialPageSize = 50,
+    initialPageSize = 72,
     subsequentPageSize = 24,
   } = options;
 
