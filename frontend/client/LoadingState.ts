@@ -60,7 +60,13 @@ export function useLoading<T>(
   const [lastLoad, setLastLoad] = useState<Date | null>(null);
   const [lastInput, setLastInput] = useState<RequestInfo>(input);
   useEffect(() => {
-    if (!needsLoad || (preloaded !== undefined && loadCount === 0)) {
+    if (!needsLoad) {
+      return;
+    }
+    if (preloaded !== undefined && loadCount === 0) {
+      if (isIdle(getState())) {
+        setState(Success(preloaded));
+      }
       return;
     }
     if (loadCount === lastLoadCount && input === lastInput) {
