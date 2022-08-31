@@ -28,7 +28,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
   const debouncedFilterText = useDebouncedValue(filterText, 200);
   const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
 
-  const [charactersLoadingState] = useCharacters();
+  const [charactersLoadingState] = useCharacters({ skipsPreload: true });
 
   const characters = React.useMemo(() => (
     isSuccess(charactersLoadingState)

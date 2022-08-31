@@ -61,14 +61,22 @@ export const useNow = (intervalMs: number = 1000): Date => {
   return now;
 };
 
-export const useCharacters = (props: LoadingProps<CharactersResponse> = {}): LoadingResult<CharactersResponse> => {
+export interface PreLoadingProps<T> extends LoadingProps<T> {
+  skipsPreload?: boolean;
+}
+
+export interface PreAutoReloadingProps<T> extends AutoReloadingProps<T> {
+  skipsPreload?: boolean;
+}
+
+export const useCharacters = ({ skipsPreload = false, ...props }: PreLoadingProps<CharactersResponse> = {}): LoadingResult<CharactersResponse> => {
   const preloadedContext = React.useContext(PreloadedDataContext);
-  if (props.needsLoad !== false && preloadedContext.characters && !props.preloaded) {
+  if (skipsPreload !== true && props.needsLoad !== false && preloadedContext.characters && !props.preloaded) {
     preloadedContext.usedCharacters = true;
   }
 
   const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/characters', {
-    preloaded: preloadedContext.characters,
+    preloaded: skipsPreload ? undefined : preloadedContext.characters,
     ...props,
   });
 
@@ -80,14 +88,14 @@ export const useCharacters = (props: LoadingProps<CharactersResponse> = {}): Loa
   return [loadState, outerOnReload, lastLoad];
 }
 
-export const useFactions = (props: LoadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> => {
+export const useFactions = ({ skipsPreload = false, ...props }: PreLoadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> => {
   const preloadedContext = React.useContext(PreloadedDataContext);
-  if (props.needsLoad !== false && preloadedContext.factions && !props.preloaded) {
+  if (skipsPreload !== true && props.needsLoad !== false && preloadedContext.factions && !props.preloaded) {
     preloadedContext.usedFactions = true;
   }
 
   const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/factions', {
-    preloaded: preloadedContext.factions,
+    preloaded: skipsPreload ? undefined : preloadedContext.factions,
     ...props,
   });
 
@@ -99,13 +107,13 @@ export const useFactions = (props: LoadingProps<FactionsResponse> = {}): Loading
   return [loadState, outerOnReload, lastLoad];
 }
 
-export const useLive = (props: LoadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
+export const useLive = ({ skipsPreload = false, ...props }: PreLoadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
   const preloadedContext = React.useContext(PreloadedDataContext);
-  if (props.needsLoad !== false && preloadedContext.live && !props.preloaded) {
+  if (skipsPreload !== true && props.needsLoad !== false && preloadedContext.live && !props.preloaded) {
     preloadedContext.usedLive = true;
   }
   const [loadState, outerOnReload, lastLoad] = useLoading('/api/v1/live', {
-    preloaded: preloadedContext.live,
+    preloaded: skipsPreload ? undefined : preloadedContext.live,
     ...props,
   });
 
@@ -117,13 +125,13 @@ export const useLive = (props: LoadingProps<LiveResponse> = {}): LoadingResult<L
   return [loadState, outerOnReload, lastLoad];
 };
 
-export const useAutoreloadLive = (props: AutoReloadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
+export const useAutoreloadLive = ({ skipsPreload = false, ...props }: PreAutoReloadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
   const preloadedContext = React.useContext(PreloadedDataContext);
-  if (props.needsLoad !== false && preloadedContext.live && !props.preloaded) {
+  if (skipsPreload !== true && props.needsLoad !== false && preloadedContext.live && !props.preloaded) {
     preloadedContext.usedLive = true;
   }
   const [loadState, outerOnReload, lastLoad] = useAutoReloading('/api/v1/live', {
-    preloaded: preloadedContext.live,
+    preloaded: skipsPreload ? undefined :  preloadedContext.live,
     ...props,
   });
 
