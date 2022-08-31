@@ -133,9 +133,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 50, name: 'Lena Phipps' },
         { id: 51, name: 'Scarlet ?' }, // TODO: Last name?
     ],
-    AustiinTV: [
-        { id: 52, name: 'Mickey Toolin' },
-    ],
     aviceration: [
         { id: 53, name: 'Ella Mason' },
         { id: 54, name: 'Vincencia "Vinnie" Romeo' },
@@ -1199,6 +1196,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Mick: [
         { id: 565, name: 'Gladys Berry' },
+    ],
+    MickeyyyTV: [
+        { id: 52, name: 'Mickey Toolin' },
     ],
     MinksOfMars: [
         { id: 566, name: 'Irene "Peaches" Corvus', nicknames: ['Forbidden Fruit'], factions: ['The Unhung', 'Hagen'] }, // Former Sam's Club
