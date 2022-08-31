@@ -252,7 +252,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 111, name: 'Karl Feckles' }, // Dead
     ],
     BrutalBri: [
-        { id: 112, name: 'Cooter O\'Doole' },
+        { id: 112, name: 'Cooter O’Doole' },
         { id: 113, name: 'Dakota Rush' },
         { id: 114, name: 'Robin Fischer' },
     ],
@@ -585,7 +585,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 271, name: 'Saffron Mitchell' }, // Former Law
         { id: 272, name: 'Crissy "Cricket" Blitz' },
         { id: 273, name: 'Holly Frost' },
-        { id: 274, name: 'Sadhbh O\'Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
+        { id: 274, name: 'Sadhbh O’Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
     ],
     EmptyDome: [
         { id: 275, name: 'Barry Armstrong' },
@@ -961,7 +961,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 456, name: 'Peggy Brown' },
     ],
     Jonthebroski: [
-        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J\'Baas', 'J Baas'], displayName: 5, factions: ['The Unhung'] }, // Former Sam's Club
+        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J’Baas', 'J Baas'], displayName: 5, factions: ['The Unhung'] }, // Former Sam's Club
         { id: 458, name: '[Deputy] Jaime Ruth', factions: ['Law'] },
         { id: 1010, name: 'Erik "Nose" ?', nicknames: ['Vladimir', 'Ivan'] },
     ],
@@ -1000,7 +1000,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Khandur_: [
         { id: 472, name: 'Tommy Cooper' },
-        { id: 1012, name: '[Deputy] Deputy Dan O\'Grady', factions: ['Law'] },
+        { id: 1012, name: '[Deputy] Deputy Dan O’Grady', factions: ['Law'] },
     ],
     killboy011: [
         { id: 473, name: 'John Frisco', displayName: 2 },
@@ -1127,12 +1127,12 @@ export const wrpCharacters: WrpCharacters = {
         { id: 530, name: 'Kian McNulty' },
     ],
     Lt_Raven: [
-        { id: 531, name: '[Father] Samuel O\'Keeffe', displayName: 2 },
-        { id: 532, name: 'Randall "Ears" ?' },
+        { id: 531, name: '[Father] Samuel O’Keeffe', displayName: 2 },
+        { id: 532, name: 'Randall "Ears" ?' }, // Rhodes Ruffians
     ],
     luka_aus: [
         { id: 533, name: 'Lukeas Winsmore' },
-        { id: 534, name: 'Louis O\'Neil' },
+        { id: 534, name: 'Louis O’Neil' },
     ],
     Lunabee: [
         { id: 535, name: 'Abigale Hart' },
@@ -1357,7 +1357,7 @@ export const wrpCharacters: WrpCharacters = {
     peachycoaster: [
         { id: 639, name: 'Chrissy Snow', factions: ['Dead End Kids'] },
         { id: 640, name: 'Toosie Loo' }, // Kettleman hangaround? I would consider her Kettleman, but Jack doesn't
-        { id: 641, name: 'Kipper O\'Neil' },
+        { id: 641, name: 'Kipper O’Neil' },
     ],
     Pengwin: [
         { id: 642, name: 'Staniel Wilkerson' },
