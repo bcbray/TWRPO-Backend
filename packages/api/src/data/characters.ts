@@ -865,6 +865,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     IMeMine30: [
         { id: 408, name: 'Angelo Clemente' },
+        { id: 563, name: 'Walt McGrath' },
     ],
     ImFromTheFuture: [
         { id: 409, name: 'Roscoe Montana', factions: ['The Unhung'] }, // Former Sam's Club
@@ -1187,9 +1188,6 @@ export const wrpCharacters: WrpCharacters = {
     MEKABEAR: [
         { id: 561, name: '[Deputy] Audrey Dusk', factions: ['Law'] },
         { id: 562, name: 'Goldie Fisher', factions: ['Dead End Kids'] }, // Former Kettleman.
-    ],
-    MeMine30: [
-        { id: 563, name: 'Walt McGrath' },
     ],
     Mhaple_: [
         { id: 564, name: 'Morgan Lee', factions: ['Summers Gang'] }, // Unconfirmed, but he's at least riding with them
