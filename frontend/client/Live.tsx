@@ -143,6 +143,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
         <StreamList
           streams={filteredStreams}
           offlineCharacters={offlineCharacters}
+          paginationKey={factionKey ?? '_no-faction_'}
           loadTick={loadTick}
         />
       </>

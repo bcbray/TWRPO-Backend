@@ -248,17 +248,23 @@ export const LoadTrigger: React.FC<{ loadMore: () => void }> = ({ loadMore }) =>
 }
 
 interface PaginationOptions {
+  key: number | string;
   initialPageSize?: number;
   subsequentPageSize?: number;
 }
-export const usePaginated = <T,>(data: T[], options: PaginationOptions = {}): [T[], React.ReactElement | undefined] => {
+export const usePaginated = <T,>(data: T[], options: PaginationOptions): [T[], React.ReactElement | undefined] => {
   const {
+    key,
     initialPageSize = 50,
     subsequentPageSize = 24,
   } = options;
 
   const [currentLength, setCurrentLength] = useState(initialPageSize);
-  useEffect(() => setCurrentLength(initialPageSize), [data, initialPageSize]);
+  useEffect(() => (
+    setCurrentLength(initialPageSize)
+  // We explicitly don't want to reset on initialPageSize changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  ), [key]);
 
   const loadMore = useCallback(() => {
     setCurrentLength(l => l + subsequentPageSize);

@@ -15,7 +15,8 @@ type Order = 'asc' | 'desc';
 
 interface Props {
   streams: Stream[];
-  offlineCharacters?: CharacterInfo[]
+  offlineCharacters?: CharacterInfo[];
+  paginationKey: string;
   loadTick: number;
   sort?: SortBy;
   order?: Order;
@@ -38,6 +39,7 @@ const StreamList: React.FC<Props> = ({
   streams,
   offlineCharacters = [],
   loadTick,
+  paginationKey,
   sort = 'viewers',
   order = 'desc',
 }) => {
@@ -63,7 +65,7 @@ const StreamList: React.FC<Props> = ({
     [...sorted.map(liveItem), ...offlineCharacters.map(offlineItem)]
   ), [sorted, offlineCharacters]);
 
-  const [visibleItems, loadMoreTrigger] = usePaginated(allItems);
+  const [visibleItems, loadMoreTrigger] = usePaginated(allItems, { key: paginationKey });
 
   return (
     <Flipper flipKey={loadTick}>
