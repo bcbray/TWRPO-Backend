@@ -28,7 +28,12 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
   const debouncedFilterText = useDebouncedValue(filterText, 200);
   const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
 
-  const [charactersLoadingState] = useCharacters({ skipsPreload: true });
+  const showOlderOfflineCharacters = filterTextForSearching.length !== 0 || factionKey !== undefined;
+
+  const [charactersLoadingState] = useCharacters({
+    needsLoad: showOlderOfflineCharacters,
+    skipsPreload: true,
+  });
 
   const characters = React.useMemo(() => (
     isSuccess(charactersLoadingState)
@@ -84,7 +89,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
 
     const recentOfflineCharacters = live.recentOfflineCharacters ?? [];
     const recentOfflineCharacerIds = new Set(recentOfflineCharacters.map(c => c.id));
-    const olderOfflineCharacter = filterTextForSearching.length !== 0 || factionKey !== undefined
+    const olderOfflineCharacter = showOlderOfflineCharacters
       ? characters.filter(c => !recentOfflineCharacerIds.has(c.id) && !liveCharacterIds.has(c.id))
       : []
     const candidateCharacters = [...recentOfflineCharacters, ...olderOfflineCharacter];
@@ -113,7 +118,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
         })
         // Limit to 50 offline characters to not overwhelm the list
         .slice(0, 50);
-  }, [characters, factionKey, filterTextForSearching, filteredStreams, live.recentOfflineCharacters]);
+  }, [characters, factionKey, filterTextForSearching, filteredStreams, live.recentOfflineCharacters, showOlderOfflineCharacters]);
 
   return (
     (
