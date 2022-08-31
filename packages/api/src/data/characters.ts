@@ -1701,7 +1701,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 799, name: 'Mackenzie Kale' },
         { id: 800, name: 'Boyd Banks' },
     ],
-    Sugarsockzgg: [
+    Sugarsockz: [
         { id: 801, name: 'Mason Memphis' },
     ],
     sweetcraw: [
