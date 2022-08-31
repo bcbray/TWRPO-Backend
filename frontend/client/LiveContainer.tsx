@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { toast, Id as ToastId } from 'react-toastify';
 import { Button } from '@restart/ui';
 
-import { useAutoreloadLive } from './Data';
+import { useAutoreloadLive, useFactions } from './Data';
 import { isSuccess, isFailure } from './LoadingState';
 import Live from './Live';
 import Error from './Error';
@@ -74,6 +74,8 @@ const LiveContainer: React.FC = () => {
     onReloadSuccess: dismissToastIfVisible,
   });
 
+  const [factionsLoadingState] = useFactions();
+
   return (
     <>
       <Helmet>
@@ -84,9 +86,9 @@ const LiveContainer: React.FC = () => {
         />
       </Helmet>
       <div className="content">
-        {isSuccess(liveLoadingState)
-          ? <Live live={liveLoadingState.data} loadTick={lastLoad} />
-          : isFailure(liveLoadingState)
+        {isSuccess(liveLoadingState) && isSuccess(factionsLoadingState)
+          ? <Live live={liveLoadingState.data} factions={factionsLoadingState.data} loadTick={lastLoad} />
+          : isFailure(liveLoadingState) || isFailure(factionsLoadingState)
             ? <Error onTryAgain={reloadLive} />
             : <Loading />
          }

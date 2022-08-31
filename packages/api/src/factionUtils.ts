@@ -26,6 +26,7 @@ export const getFactionInfos = (liveCounts: Record<FactionKey, number>): Faction
             name: filterRename[factionRenameKey] ?? faction,
             colorLight: useColorsLight[colorLightKey] ?? '#12af7e',
             colorDark: useColorsDark[colorDarkKey] ?? '#32ff7e',
+            isLive: liveCounts[factionRenameKey] > 0,
             liveCount: liveCounts[factionRenameKey],
             hasCharacters: factionsWithCharacters.has(faction),
         };

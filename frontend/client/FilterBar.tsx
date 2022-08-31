@@ -12,6 +12,7 @@ interface Props {
   factions: FactionInfo[];
   selectedFaction?: FactionInfo;
   onSelectFaction: (faction: FactionInfo | null) => void;
+  factionItemContent?: (faction: FactionInfo) => React.ReactNode;
   searchText: string;
   onChangeSearchText: (text: string) => void;
   allHref?: string;
@@ -22,6 +23,7 @@ const FilterBar: React.FC<Props> = ({
   factions,
   selectedFaction,
   onSelectFaction,
+  factionItemContent,
   searchText,
   onChangeSearchText,
   allHref,
@@ -63,6 +65,7 @@ const FilterBar: React.FC<Props> = ({
           className={styles.factionsDropdown}
           factions={factions}
           selectedFaction={selectedFaction}
+          itemContent={factionItemContent}
           onSelect={onSelectFaction}
           allHref={allHref}
           itemHref={factionHref}

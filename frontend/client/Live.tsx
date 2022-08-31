@@ -1,9 +1,11 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { LiveResponse } from '@twrpo/types';
+import { LiveResponse, FactionsResponse } from '@twrpo/types';
 
-import { factionsFromLive, ignoredFactions } from './utils'
+import styles from './Live.module.css';
+
+import { ignoredFactions } from './utils'
 import { useSingleSearchParam, useDebouncedValue } from './hooks';
 import { isSuccess } from './LoadingState';
 import { useCharacters } from './Data';
@@ -13,10 +15,11 @@ import FilterBar from './FilterBar';
 
 interface Props {
   live: LiveResponse;
+  factions: FactionsResponse;
   loadTick: number;
 }
 
-const Live: React.FC<Props> = ({ live, loadTick }) => {
+const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
@@ -25,7 +28,7 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
   const debouncedFilterText = useDebouncedValue(filterText, 200);
   const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
 
-  const [charactersLoadingState] = useCharacters({ needsLoad: filterText.length > 0 });
+  const [charactersLoadingState] = useCharacters();
 
   const characters = React.useMemo(() => (
     isSuccess(charactersLoadingState)
@@ -33,15 +36,20 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
       : []
   ), [charactersLoadingState]);
 
-  const factionInfos = React.useMemo(() => factionsFromLive(live), [live]);
+  const factionInfos = factions.factions;
   const selectedFaction = React.useMemo(() => (
     factionKey ? factionInfos.find(f => f.key === factionKey) : undefined
   ), [factionKey, factionInfos]);
 
   const filterFactions = React.useMemo(() => (
-    factionInfos
-      .filter(f => f.isLive === true)
+    [...factionInfos]
+      .filter(f => f.hasCharacters === true)
       .filter(f => f.hideInFilter !== true)
+      .sort((lhs, rhs) => {
+        if (lhs.isLive === rhs.isLive) return 0;
+        if (lhs.isLive) return -1;
+        return 1;
+      })
   ), [factionInfos]);
 
   const filteredStreams = React.useMemo(() => {
@@ -76,7 +84,7 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
 
     const recentOfflineCharacters = live.recentOfflineCharacters ?? [];
     const recentOfflineCharacerIds = new Set(recentOfflineCharacters.map(c => c.id));
-    const olderOfflineCharacter = filterTextForSearching.length !== 0
+    const olderOfflineCharacter = filterTextForSearching.length !== 0 || factionKey !== undefined
       ? characters.filter(c => !recentOfflineCharacerIds.has(c.id) && !liveCharacterIds.has(c.id))
       : []
     const candidateCharacters = [...recentOfflineCharacters, ...olderOfflineCharacter];
@@ -123,6 +131,7 @@ const Live: React.FC<Props> = ({ live, loadTick }) => {
           factions={filterFactions}
           selectedFaction={selectedFaction}
           onSelectFaction={f => navigate(`/${f ? `streams/faction/${f.key}` : ''}${location.search}`) }
+          factionItemContent={f => f.isLive ? f.name : <span className={styles.notLive}>{f.name} (not live)</span>}
           searchText={filterText}
           onChangeSearchText={text => setFilterText(text, { replace: true })}
           allHref={'/'}
