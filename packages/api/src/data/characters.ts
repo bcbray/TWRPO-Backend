@@ -1356,7 +1356,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 638, name: 'Charlotte Toussaint' },
     ],
     peachycoaster: [
-        { id: 639, name: 'Chrissy Snow' },
+        { id: 639, name: 'Chrissy Snow', factions: ['Dead End Kids'] },
         { id: 640, name: 'Toosie Loo' }, // Kettleman hangaround? I would consider her Kettleman, but Jack doesn't
         { id: 641, name: 'Kipper O\'Neil' },
     ],
