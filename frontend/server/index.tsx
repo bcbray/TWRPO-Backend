@@ -5,6 +5,7 @@ import './tracer';
 
 import express from 'express';
 import http from 'http';
+import compression from 'compression';
 
 import server from './server';
 import twrpo from './twrpo';
@@ -12,6 +13,7 @@ import requireHttps from './requireHttps';
 
 const app = express();
 app.enable('trust proxy');
+app.use(compression());
 app.use(requireHttps);
 app.use('/', server());
 
