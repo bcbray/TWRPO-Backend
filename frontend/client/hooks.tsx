@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useSearchParams, NavigateOptions } from 'react-router-dom';
 import { useDebounce, usePreviousDistinct, useUpdateEffect } from 'react-use';
 import useTimeout from '@restart/hooks/useTimeout';
+import Waypoint from '@restart/ui/Waypoint';
+import { WaypointEvent, Position } from '@restart/ui/useWaypoint';
 
 import { useNow } from './Data';
 
@@ -223,4 +225,50 @@ export function useImageUrlOnceLoaded<T extends (string | undefined)>(url: T): {
   }, [url, onload, onerror]);
 
   return { url: loadedUrl, loading, failed };
+}
+
+export const LoadTrigger: React.FC<{ loadMore: () => void }> = ({ loadMore }) => {
+  const [hasBeenSeen, setHasBeenSeen] = useState(false);
+
+  const onPositionChange = useCallback(({ position }: WaypointEvent) => {
+    if (hasBeenSeen) {
+      return;
+    }
+    if (position !== Position.INSIDE) {
+      return;
+    }
+    loadMore();
+    setHasBeenSeen(true);
+  }, [hasBeenSeen, loadMore]);
+
+  return <Waypoint
+    scrollDirection={'vertical'}
+    onPositionChange={onPositionChange}
+  />
+}
+
+interface PaginationOptions {
+  initialPageSize?: number;
+  subsequentPageSize?: number;
+}
+export const usePaginated = <T,>(data: T[], options: PaginationOptions = {}): [T[], React.ReactElement | undefined] => {
+  const {
+    initialPageSize = 50,
+    subsequentPageSize = 24,
+  } = options;
+
+  const [currentLength, setCurrentLength] = useState(initialPageSize);
+  useEffect(() => setCurrentLength(initialPageSize), [data, initialPageSize]);
+
+  const loadMore = useCallback(() => {
+    setCurrentLength(l => l + subsequentPageSize);
+  }, [subsequentPageSize]);
+  const currentData = useMemo(() => data.slice(0, currentLength), [data, currentLength]);
+
+  return [
+    currentData,
+    currentData.length < data.length
+      ? <LoadTrigger key={currentLength} loadMore={loadMore} />
+      : undefined
+  ];
 }

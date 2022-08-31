@@ -116,8 +116,6 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
           }
           return lhs.displayInfo.realNames.join(' ').localeCompare(rhs.displayInfo.realNames.join(' '));
         })
-        // Limit to 50 offline characters to not overwhelm the list
-        .slice(0, 50);
   }, [characters, factionKey, filterTextForSearching, filteredStreams, live.recentOfflineCharacters, showOlderOfflineCharacters]);
 
   return (

@@ -8,6 +8,7 @@ import StreamCard from './StreamCard';
 import OfflineCharacterCard from './OfflineCharacterCard';
 import { classes } from './utils';
 import Crossfade from './Crossfade';
+import { usePaginated } from './hooks';
 
 type SortBy = 'viewers' | 'duration' | 'channel';
 type Order = 'asc' | 'desc';
@@ -58,11 +59,17 @@ const StreamList: React.FC<Props> = ({
       });
   }, [streams, sort, order]);
 
+  const allItems = React.useMemo(() => (
+    [...sorted.map(liveItem), ...offlineCharacters.map(offlineItem)]
+  ), [sorted, offlineCharacters]);
+
+  const [visibleItems, loadMoreTrigger] = usePaginated(allItems);
+
   return (
     <Flipper flipKey={loadTick}>
       <div className={classes('inset', styles.grid)}>
         <div className={classes(styles.items)}>
-          {[...sorted.map(liveItem), ...offlineCharacters.map(offlineItem)].map(item => {
+          {visibleItems.map(item => {
             if (item.type === 'live') {
               const { stream } = item;
               return (
@@ -101,6 +108,7 @@ const StreamList: React.FC<Props> = ({
             }
           })}
         </div>
+        {loadMoreTrigger}
       </div>
     </Flipper>
   );
