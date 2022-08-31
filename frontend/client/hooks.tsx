@@ -4,6 +4,7 @@ import { useDebounce, usePreviousDistinct, useUpdateEffect } from 'react-use';
 import useTimeout from '@restart/hooks/useTimeout';
 import Waypoint from '@restart/ui/Waypoint';
 import { WaypointEvent, Position } from '@restart/ui/useWaypoint';
+import _ from 'lodash';
 
 import { useNow } from './Data';
 
@@ -277,4 +278,17 @@ export const usePaginated = <T,>(data: T[], options: PaginationOptions): [T[], R
       ? <LoadTrigger key={currentLength} loadMore={loadMore} />
       : undefined
   ];
+}
+
+export const useFilterRegex = (filterText: string | undefined) => {
+  return useMemo(() => {
+    if (!filterText) return undefined;
+    const escapedFilter = _.escapeRegExp(filterText)
+      // Match curly or straight quotes
+      // So “O’Grady” and “O'Grady” both match “O’Grady”
+      .replaceAll(/['‘’]/g, '[‘’\']')
+      .replaceAll(/["“”]/g, '[“”"]');
+
+    return new RegExp(escapedFilter, 'i');
+  }, [filterText]);
 }

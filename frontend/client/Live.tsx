@@ -2,12 +2,11 @@ import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { LiveResponse, FactionsResponse } from '@twrpo/types';
-import _ from 'lodash';
 
 import styles from './Live.module.css';
 
 import { ignoredFactions } from './utils'
-import { useSingleSearchParam, useDebouncedValue } from './hooks';
+import { useSingleSearchParam, useDebouncedValue, useFilterRegex } from './hooks';
 import { isSuccess, isLoading } from './LoadingState';
 import { useCharacters } from './Data';
 
@@ -27,20 +26,9 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
   const debouncedFilterText = useDebouncedValue(filterText, 200);
-  const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
+  const filterRegex = useFilterRegex(debouncedFilterText.trim());
 
-  const filterRegex = React.useMemo(() => {
-    if (!filterTextForSearching) return undefined;
-    const escapedFilter = _.escapeRegExp(filterTextForSearching)
-      // Match curly or straight quotes
-      // So “O’Grady” and “O'Grady” both match “O’Grady”
-      .replaceAll(/['‘’]/g, '[‘’\']')
-      .replaceAll(/["“”]/g, '[“”"]');
-
-    return new RegExp(escapedFilter, 'i');
-  }, [filterTextForSearching]);
-
-  const showOlderOfflineCharacters = filterTextForSearching.length !== 0
+  const showOlderOfflineCharacters = filterRegex !== undefined
     || (factionKey !== undefined && factionKey !== 'independent');
 
   const [charactersLoadingState] = useCharacters({
