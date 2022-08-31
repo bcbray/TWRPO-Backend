@@ -28,7 +28,8 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
   const debouncedFilterText = useDebouncedValue(filterText, 200);
   const filterTextForSearching = debouncedFilterText.toLowerCase().trim();
 
-  const showOlderOfflineCharacters = filterTextForSearching.length !== 0 || factionKey !== undefined;
+  const showOlderOfflineCharacters = filterTextForSearching.length !== 0
+    || (factionKey !== undefined && factionKey !== 'independent');
 
   const [charactersLoadingState] = useCharacters({
     needsLoad: showOlderOfflineCharacters,
