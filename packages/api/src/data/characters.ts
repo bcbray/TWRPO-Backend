@@ -423,7 +423,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 188, name: 'Brett Jordan' },
         { id: 189, name: 'Wolverine Payton' },
     ],
-    dannyfloriduh: [
+    dannyf1orida: [
         { id: 190, name: 'Cliff Westwood' },
     ],
     Danzenken: [
