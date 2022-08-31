@@ -1129,7 +1129,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Lt_Raven: [
         { id: 531, name: '[Father] Samuel O\'Keeffe', displayName: 2 },
-        { id: 532, name: '? ?' },
+        { id: 532, name: 'Randall "Ears" ?' },
     ],
     luka_aus: [
         { id: 533, name: 'Lukeas Winsmore' },
@@ -1341,7 +1341,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 634, name: 'Lloyd Conway' },
     ],
     OwenSeven: [
-        { id: 1005, name: '? "Lips" ?' },
+        { id: 1005, name: 'Alfred "Lips" Hoover' },
     ],
     PapaDrgnz: [
         { id: 635, name: 'Shiv Bailey' },
