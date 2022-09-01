@@ -42,7 +42,14 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
       : []
   ), [charactersLoadingState]);
 
-  const factionInfos = factions.factions;
+  const factionInfos = React.useMemo(() => (
+    factions.factions.map(faction => ({
+      ...faction,
+      liveCount: live.factionCount[faction.key],
+      isLive: live.factionCount[faction.key] > 0,
+    }))
+  ), [factions.factions, live]);
+
   const selectedFaction = React.useMemo(() => (
     factionKey ? factionInfos.find(f => f.key === factionKey) : undefined
   ), [factionKey, factionInfos]);
