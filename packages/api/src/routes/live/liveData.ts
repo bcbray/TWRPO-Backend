@@ -176,10 +176,18 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
                     nameRegAll.push(nck.substring(1, nck.length - 1));
                 } else {
                     const nicknameKeywords = [...nck.matchAll(/"([^"]+)"/g)].map(result => result[1]);
+                    const allNicknames: string[] = [];
                     if (nicknameKeywords.length > 0) {
-                        parsedNames.push(...nicknameKeywords.map(keyword => RegExp.escape(keyword.toLowerCase())));
+                        allNicknames.push(...nicknameKeywords);
                     } else {
-                        parsedNames.push(RegExp.escape(nck.toLowerCase()));
+                        allNicknames.push(nck);
+                    }
+                    for (const nickname of allNicknames) {
+                        parsedNames.push(RegExp.escape(nickname));
+                        // Match both "J’Baas" (curly quote) and "J'Baas" (straight quote)
+                        if (/’/.test(nickname)) {
+                            parsedNames.push(RegExp.escape(nickname.replaceAll(/’/g, '\'').toLowerCase()));
+                        }
                     }
                 }
             });
