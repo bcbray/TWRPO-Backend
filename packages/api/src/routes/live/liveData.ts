@@ -620,6 +620,9 @@ export const getWrpLive = async (
                         }
                     }
 
+                    const takeoverFactions: FactionMini[] = ['podcast', 'watchparty'];
+                    let hasTitleTakeoverFaction = false;
+
                     let factionNames: FactionRealMini[] = [];
                     const factionsInTitle: FactionRealMini[] = [];
                     let newCharFactionSpotted = false;
@@ -638,7 +641,11 @@ export const getWrpLive = async (
                     for (const [faction, regex] of wrpFactionsRegexEntries) {
                         const matchPos = title.indexOfRegex(regex);
                         if (matchPos > -1) {
-                            if (nowCharacter) {
+                            const isTakeoverFaction = takeoverFactions.includes(faction);
+                            if (isTakeoverFaction) {
+                                hasTitleTakeoverFaction = true;
+                            }
+                            if (nowCharacter && !isTakeoverFaction) {
                                 factionsInTitle.push(faction);
                             } else {
                                 const factionCharacter = characters && characters.find(char => char.factionsObj[faction]);
@@ -655,7 +662,7 @@ export const getWrpLive = async (
                         }
                     }
 
-                    if (nowCharacter) {
+                    if (nowCharacter && !hasTitleTakeoverFaction) {
                         if (factionsInTitle.length > 0) {
                             const charFactionsMap = Object.assign({}, ...nowCharacter.factions.map(faction => ({ [faction]: true })));
                             for (const faction of factionsInTitle) {
@@ -693,16 +700,6 @@ export const getWrpLive = async (
                         }
                     }
 
-                    let hasFactionsTagText;
-                    if (!nowCharacter && hasFactions && factionNames[0] in wrpFactionsSubRegex) {
-                        for (const [tagText, tagReg] of wrpFactionsSubRegex[factionNames[0]]!) {
-                            if (tagReg.test(title)) {
-                                hasFactionsTagText = tagText;
-                                break;
-                            }
-                        }
-                    }
-
                     let possibleCharacter = nowCharacter;
                     if (!nowCharacter && !hasFactions && hasCharacters) {
                         if (characters.assumeChar) {
@@ -710,6 +707,21 @@ export const getWrpLive = async (
                             possibleCharacter = nowCharacter;
                         } else {
                             possibleCharacter = characters[0];
+                        }
+                    }
+
+                    if (hasTitleTakeoverFaction) {
+                        possibleCharacter = nowCharacter;
+                        nowCharacter = undefined;
+                    }
+
+                    let hasFactionsTagText;
+                    if (!nowCharacter && hasFactions && factionNames[0] in wrpFactionsSubRegex) {
+                        for (const [tagText, tagReg] of wrpFactionsSubRegex[factionNames[0]]!) {
+                            if (tagReg.test(title)) {
+                                hasFactionsTagText = tagText;
+                                break;
+                            }
                         }
                     }
 
@@ -723,6 +735,16 @@ export const getWrpLive = async (
                     let activeFactions: FactionMini[];
                     let tagFaction: FactionColorsMini;
                     let tagText;
+
+                    if (channelNameLower === 'b3udown') {
+                        console.log('nowCharacter', nowCharacter);
+                        console.log('possibleCharacter', nowCharacter);
+                        console.log('factionNames', factionNames);
+                        console.log('factionsInTitle', factionsInTitle);
+                        console.log('newCharFactionSpotted', newCharFactionSpotted);
+                        console.log('hasFactions', hasFactions);
+                        console.log('hasTitleTakeoverFaction', hasTitleTakeoverFaction);
+                    }
 
                     if (nowCharacter) {
                         activeFactions = [...nowCharacter.factions];
