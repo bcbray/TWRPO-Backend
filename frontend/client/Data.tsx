@@ -107,6 +107,25 @@ export const useFactions = ({ skipsPreload = false, ...props }: PreLoadingProps<
   return [loadState, outerOnReload, lastLoad];
 }
 
+export const useAutoreloadFactions = ({ skipsPreload = false, ...props }: PreAutoReloadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> => {
+  const preloadedContext = React.useContext(PreloadedDataContext);
+  if (skipsPreload !== true && props.needsLoad !== false && preloadedContext.factions && !props.preloaded) {
+    preloadedContext.usedFactions = true;
+  }
+
+  const [loadState, outerOnReload, lastLoad] = useAutoReloading('/api/v2/factions', {
+    preloaded: skipsPreload ? undefined :  preloadedContext.factions,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    preloadedContext.factions = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+}
+
 export const useLive = ({ skipsPreload = false, ...props }: PreLoadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
   const preloadedContext = React.useContext(PreloadedDataContext);
   if (skipsPreload !== true && props.needsLoad !== false && preloadedContext.live && !props.preloaded) {

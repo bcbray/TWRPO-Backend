@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { toast, Id as ToastId } from 'react-toastify';
 import { Button } from '@restart/ui';
 
-import { useAutoreloadLive, useFactions } from './Data';
+import { useAutoreloadLive, useAutoreloadFactions } from './Data';
 import { isSuccess, isFailure } from './LoadingState';
 import Live from './Live';
 import Error from './Error';
@@ -74,7 +74,7 @@ const LiveContainer: React.FC = () => {
     onReloadSuccess: dismissToastIfVisible,
   });
 
-  const [factionsLoadingState] = useFactions();
+  const [factionsLoadingState] = useAutoreloadFactions();
 
   return (
     <>
