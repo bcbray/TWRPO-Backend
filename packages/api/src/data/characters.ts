@@ -771,7 +771,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GraveGamerTV: [
         { id: 365, name: 'Paulson Greer' },
-        { id: 366, name: 'Peter Gray', nicknames: ['Pete'] },
+        { id: 366, name: 'Peter Gray', nicknames: ['Pete'], factions: ['Summers Gang'] },
         { id: 367, name: 'Balter Duncans' },
         { id: 368, name: 'Paz Ferrer' },
     ],
