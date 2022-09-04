@@ -183,7 +183,7 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
                         allNicknames.push(nck);
                     }
                     for (const nickname of allNicknames) {
-                        parsedNames.push(RegExp.escape(nickname));
+                        parsedNames.push(RegExp.escape(nickname.toLowerCase()));
                         // Match both "J’Baas" (curly quote) and "J'Baas" (straight quote)
                         if (/’/.test(nickname)) {
                             parsedNames.push(RegExp.escape(nickname.replaceAll(/’/g, '\'').toLowerCase()));
