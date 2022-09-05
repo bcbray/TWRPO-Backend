@@ -1929,7 +1929,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     toodlehausn: [
         { id: 899, name: 'Adelae "Ada" Wright' },
-        { id: 900, name: 'Sadie Stronge' },
+        { id: 900, name: '[Medic] Sadie Stronge', factions: ['Medical'] },
         { id: 901, name: 'Mary Rassler', nicknames: ['Old'] },
     ],
     topspin17: [
