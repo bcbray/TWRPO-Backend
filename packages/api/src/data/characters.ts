@@ -1067,7 +1067,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 496, name: 'Portia Hartley' },
         { id: 497, name: '[Deputy] Quinton Ivy', factions: ['Law'] },
         { id: 498, name: 'Trixie Davenport' },
-        { id: 499, name: 'Jade ?' },
+        { id: 499, name: 'Jade Turner' },
     ],
     L00seyG005ey: [
         { id: 500, name: 'Elijah Grayson' },
