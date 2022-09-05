@@ -381,7 +381,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 170, name: 'Richard Sionis' },
     ],
     Coolidge: [
-        { id: 171, name: 'Frank Murdock', nicknames: ['Fwank'] },
+        { id: 171, name: 'Franco "Frank" Salvatore Murdock', nicknames: ['Fwank'] },
         { id: 172, name: 'Cash Colton', factions: ['Coltons'] },
     ],
     Criken: [
