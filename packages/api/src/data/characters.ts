@@ -561,7 +561,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 258, name: 'Cullen Vane' },
     ],
     Dwoalin: [
-        { id: 259, name: 'Jeff “Smed” Smedley' },
+        { id: 259, name: 'Jeff "Smed" Smedley' },
     ],
     dynadivine: [
         { id: 260, name: 'Lucille Davis' },
@@ -1116,7 +1116,7 @@ export const wrpCharacters: WrpCharacters = {
     ll_Marziano_ll: [
         { id: 521, name: 'James Lawson' },
         { id: 522, name: 'Lawrence Kelley' },
-        { id: 523, name: 'Nitokaayi “Lone Bison” Nawakwa' },
+        { id: 523, name: 'Nitokaayi "Lone Bison" Nawakwa' },
     ],
     LLumiya: [
         { id: 524, name: 'Elizabeth Black' },
