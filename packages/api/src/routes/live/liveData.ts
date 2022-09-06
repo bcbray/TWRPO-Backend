@@ -813,7 +813,7 @@ export const getWrpLive = async (
                         .into(StreamChunk)
                         .values(chunksWithCharacters)
                         .orUpdate(
-                            ['lastSeenDate'],
+                            ['lastSeenDate', 'characterId', 'characterUncertain'],
                             ['streamerId', 'characterId', 'streamId', 'title'],
                             { skipUpdateIfNoValuesChanged: true }
                         )
@@ -827,7 +827,7 @@ export const getWrpLive = async (
                         .into(StreamChunk)
                         .values(chunksWithoutCharacters)
                         .orUpdate(
-                            ['lastSeenDate'],
+                            ['lastSeenDate', 'characterId', 'characterUncertain'],
                             ['streamerId', 'streamId', 'title'],
                             { skipUpdateIfNoValuesChanged: true }
                         )
