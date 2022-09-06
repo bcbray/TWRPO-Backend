@@ -652,7 +652,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 301, name: 'Bryn "Sloan" Keith', factions: ['DiCenzo Famiglia'] }, // Former Kettleman. She would disagree, but she was definitely a Kettleman.
     ],
     FhaeLin: [
-        { id: 302, name: '[Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 }, // Senior Deputy
+        { id: 302, name: '[Sr. Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 },
         { id: 303, name: 'Amber Sage' }, // Medic?
     ],
     FireLordRevan: [
@@ -1342,7 +1342,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 995, name: 'John Loch' },
     ],
     Orcish: [
-        { id: 629, name: '[Deputy] Allistair McGregor', factions: ['Law'] }, // Senior Deputy
+        { id: 629, name: '[Sr. Deputy] Allistair McGregor', factions: ['Law'] },
         { id: 630, name: 'Billy Beetur' },
         { id: 631, name: 'Otis Potts' },
         { id: 632, name: 'Richard Westlake' },
@@ -1641,7 +1641,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 765, name: 'Jean Rivers' },
     ],
     SpaceAndromeda: [
-        { id: 766, name: '[Deputy] Aoife McCarthy', factions: ['Law'] }, // Senior Deputy
+        { id: 766, name: '[Sr. Deputy] Aoife McCarthy', factions: ['Law'] },
         { id: 767, name: 'Clarabelle Manson' },
         { id: 768, name: 'Cora Crow' },
     ],
@@ -1756,7 +1756,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 818, name: 'Mattias Temble' },
     ],
     Tasara22: [
-        { id: 819, name: '[Deputy] Jane Ripley', factions: ['Law'] }, // Senior Deputy
+        { id: 819, name: '[Sr. Deputy] Jane Ripley', factions: ['Law'] },
         { id: 820, name: 'Betty Butcher' },
         { id: 821, name: 'Madame Milena' },
         { id: 822, name: 'Monica Peach' },
