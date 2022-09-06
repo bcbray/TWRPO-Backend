@@ -727,7 +727,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GeneralEmu: [
         { id: 342, name: 'Lance Divine' },
-        { id: 343, name: '[Cadet] Jimmy Avola', nicknames: ['Two Times', 'Jimmy "Two Times"'], displayName: 4, factions: ['Law'] },
+        { id: 343, name: '[Deputy] Jimmy Avola', nicknames: ['Two Times', 'Jimmy "Two Times"'], displayName: 4, factions: ['Law'] },
     ],
     GeorgiaBanks: [
         { id: 344, name: 'Georgia Banks' },
