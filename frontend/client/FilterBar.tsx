@@ -72,7 +72,7 @@ const FilterBar: React.FC<Props> = ({
         />
         <input
           className={styles.search}
-          type='text'
+          type='search'
           placeholder='Search for character name / nickname / stream…'
           value={searchText}
           onChange={(e) => {
