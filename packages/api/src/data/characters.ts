@@ -95,7 +95,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AngelKnivez: [
         { id: 32, name: 'Renni Bradshaw', nicknames: ['Rimmy'] }, // Former Danger Gang. Briefly Kelly Gang
-        { id: 33, name: 'Sissi Marie', factions: ['DiCenzo Group 1', 'DiCenzo Famiglia'] },
+        { id: 33, name: 'Sissi Marie', factions: ['DiCenzo Famiglia'] },
     ],
     AngryPotatoChipz: [
         { id: 34, name: 'Jamie Marlow' },
@@ -139,7 +139,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 55, name: 'Kitty LaRoux' },
     ],
     Avioto_: [
-        { id: 56, name: 'Amadeo Moretti', factions: ['DiCenzo Group 2', 'DiCenzo Famiglia'] },
+        { id: 56, name: 'Amadeo Moretti', factions: ['DiCenzo Group 2'] },
         { id: 57, name: 'Mo Tengfei' },
     ],
     AwaBeats: [
@@ -371,7 +371,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 165, name: 'Cecil Prichard' },
     ],
     Cojothebro: [
-        { id: 166, name: 'Oliver Toscano', nicknames: ['Mad Dog'], factions: ['DiCenzo Group 1', 'DiCenzo Famiglia'] },
+        { id: 166, name: 'Oliver Toscano', nicknames: ['Mad Dog'], factions: ['DiCenzo Famiglia'] },
         { id: 991, name: 'Asher Bell' },
     ],
     ConnorCronus: [
@@ -389,7 +389,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 982, name: 'Barry Beaver' },
     ],
     crocc_: [
-        { id: 174, name: 'Santino "Sonny" DiCenzo', factions: ['DiCenzo Group 1', 'DiCenzo Famiglia'], leader: true },
+        { id: 174, name: 'Santino "Sonny" DiCenzo', factions: ['DiCenzo Famiglia'], leader: true },
     ],
     Crom: [
         { id: 175, name: 'Elias McDurn' },
@@ -649,7 +649,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 300, name: 'Nessa Evans' },
     ],
     feardeer: [
-        { id: 301, name: 'Bryn "Sloan" Keith', factions: ['DiCenzo Group 1', 'DiCenzo Famiglia'] }, // Former Kettleman. She would disagree, but she was definitely a Kettleman.
+        { id: 301, name: 'Bryn "Sloan" Keith', factions: ['DiCenzo Famiglia'] }, // Former Kettleman. She would disagree, but she was definitely a Kettleman.
     ],
     FhaeLin: [
         { id: 302, name: '[Sr. Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1 },
@@ -691,7 +691,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Freumont: [
         { id: 324, name: 'Edward Shaw' },
-        { id: 325, name: 'Leonardo E. "Leo" Fantoni', factions: ['DiCenzo Group 2', 'DiCenzo Famiglia'], leader: true },
+        { id: 325, name: 'Leonardo E. "Leo" Fantoni', factions: ['DiCenzo Group 2'], leader: true },
     ],
     friendly_chick: [
         { id: 326, name: 'Angelica "Angel" Ward', nicknames: ['Angle'] },
@@ -905,7 +905,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     J0J0: [
         { id: 423, name: 'Delilah Kane' },
-        { id: 424, name: 'Effie Parker', factions: ['DiCenzo Group 1', 'DiCenzo Famiglia'] }, // Former The Cut.  Membership in DiCenzo Group 1 pending conversation
+        { id: 424, name: 'Effie Parker', factions: ['DiCenzo Famiglia'] }, // Former The Cut.  Membership in DiCenzo Group 1 pending conversation
         { id: 425, name: 'Katherine Dunn' },
     ],
     Jackariah: [
@@ -1040,7 +1040,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 479, name: 'Felix Colt' },
     ],
     KripkeyTV: [
-        { id: 480, name: 'Sergio Scarpatti', factions: ['DiCenzo Group 1', 'DiCenzo Famiglia'] },
+        { id: 480, name: 'Sergio Scarpatti', factions: ['DiCenzo Famiglia'] },
     ],
     KristoferYee: [
         { id: 481, name: 'Posie Tiv' },
@@ -1471,7 +1471,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     rossthehsauce: [
         { id: 682, name: 'Forest Fish', factions: ['Guppy Gang'] },
-        { id: 683, name: 'Dominic Disouza', factions: ['DiCenzo Group 2', 'DiCenzo Famiglia'] },
+        { id: 683, name: 'Dominic Disouza', factions: ['DiCenzo Group 2'] },
         { id: 684, name: 'Lionel Miles' },
     ],
     RY4N: [
@@ -1829,7 +1829,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 856, name: 'Dr. Nikolai' },
     ],
     TheDasTony: [
-        { id: 857, name: 'Antonio "Tony" Salerno', factions: ['DiCenzo Group 1', 'DiCenzo Famiglia'] },
+        { id: 857, name: 'Antonio "Tony" Salerno', factions: ['DiCenzo Famiglia'] },
     ],
     TheFoodcartGamer: [
         { id: 858, name: 'Felix Ellis' },
@@ -1988,7 +1988,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 992, name: 'Henry Laveer' },
     ],
     VersaLK: [
-        { id: 918, name: 'Carlo Marciano', factions: ['DiCenzo Group 2', 'DiCenzo Famiglia'] },
+        { id: 918, name: 'Carlo Marciano', factions: ['DiCenzo Group 2'] },
     ],
     VERTiiGOGAMING: [
         { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'] }, // Former Kerrigan Ranch
@@ -2058,7 +2058,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 949, name: 'Adam Garica' },
     ],
     xoVESPER: [
-        { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Group 1', 'DiCenzo Famiglia'] },
+        { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Famiglia'] },
     ],
     XxAshleyxX: [
         { id: 950, name: 'Rayven Hope', nicknames: ['Rayvn'] },
@@ -2094,7 +2094,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 963, name: 'Benjamin Gaines', nicknames: ['Ben'], displayName: 3 }, // Former Sam's Club
     ],
     ZetarkGG: [
-        { id: 964, name: 'Cesare DiCenzo', factions: ['DiCenzo Group 1', 'DiCenzo Famiglia'], leader: true },
+        { id: 964, name: 'Cesare DiCenzo', factions: ['DiCenzo Famiglia'], leader: true },
     ],
     ZeusLair: [
         { id: 965, name: 'Robbie Gold' }, // Former Lang Gang.
