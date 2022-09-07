@@ -109,7 +109,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
     }, [debouncedFilterText, factionKey, filterRegex, live.streams])
 
   const [offlineCharacters, otherOfflineCharacters] = React.useMemo(() => {
-    const liveCharacterIds = new Set((filteredStreams ?? []).map(s => s.characterId));
+    const liveCharacterIds = new Set(live.streams.map(s => s.characterId));
 
     const recentOfflineCharacters = live.recentOfflineCharacters ?? [];
     const recentOfflineCharacerIds = new Set(recentOfflineCharacters.map(c => c.id));
@@ -137,7 +137,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
     const sorted = filtered.sort(offlineSort);
     const otherSorted = otherFiltered.sort(offlineSort);
     return [sorted, otherSorted];
-  }, [characters, factionKey, filterRegex, filteredStreams, live.recentOfflineCharacters, showOlderOfflineCharacters]);
+  }, [characters, factionKey, filterRegex, live.streams, live.recentOfflineCharacters, showOlderOfflineCharacters]);
 
   const isLoadingMore = showOlderOfflineCharacters && isLoading(charactersLoadingState);
   const matchCount = filteredStreams.length + offlineCharacters.length;
