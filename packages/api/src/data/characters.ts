@@ -2112,6 +2112,6 @@ export const wrpCharacters: WrpCharacters = {
     Zombiefun: [
         { id: 969, name: '[Ranger] Hal Dreen', factions: ['Rangers'] },
         { id: 970, name: 'Alexander McCoy' },
-        { id: 971, name: 'Langston Bolo' },
+        { id: 971, name: '[Deputy] Langston Bolo', factions: ['Law'] },
     ],
 };
