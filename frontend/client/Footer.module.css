@@ -5,3 +5,7 @@
   color: var(--theme-gray-600);
   font-size: 0.875rem;
 }
+
+.footer p {
+  margin: 0;
+}
