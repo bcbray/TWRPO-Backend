@@ -1,11 +1,11 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { LiveResponse, FactionsResponse } from '@twrpo/types';
+import { LiveResponse, FactionsResponse, CharacterInfo } from '@twrpo/types';
 
 import styles from './Live.module.css';
 
-import { ignoredFactions } from './utils'
+import { ignoredFactions, classes } from './utils'
 import { useSingleSearchParam, useDebouncedValue, useFilterRegex } from './hooks';
 import { isSuccess, isLoading } from './LoadingState';
 import { useCharacters } from './Data';
@@ -19,14 +19,27 @@ interface Props {
   loadTick: number;
 }
 
+const offlineSort = (lhs: CharacterInfo, rhs: CharacterInfo) => {
+  if (lhs.lastSeenLive && rhs.lastSeenLive) {
+    return rhs.lastSeenLive.localeCompare(lhs.lastSeenLive);
+  }
+  if (lhs.lastSeenLive && !rhs.lastSeenLive) {
+    return -1;
+  }
+  if (!lhs.lastSeenLive && rhs.lastSeenLive) {
+    return 1;
+  }
+  return lhs.displayInfo.realNames.join(' ').localeCompare(rhs.displayInfo.realNames.join(' '));
+};
+
 const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
-  const debouncedFilterText = useDebouncedValue(filterText, 200);
-  const filterRegex = useFilterRegex(debouncedFilterText.trim());
+  const debouncedFilterText = useDebouncedValue(filterText.trim(), 200);
+  const filterRegex = useFilterRegex(debouncedFilterText);
 
   const showOlderOfflineCharacters = filterRegex !== undefined
     || (factionKey !== undefined && factionKey !== 'independent');
@@ -65,7 +78,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
       })
   ), [factionInfos]);
 
-  const filteredStreams = React.useMemo(() => {
+  const [filteredStreams, otherFilteredStreams] = React.useMemo(() => {
       const streams = live.streams
         .filter(stream => !ignoredFactions.includes(stream.tagFaction))
         .filter(stream => !(stream.tagFactionSecondary && ignoredFactions.includes(stream.tagFactionSecondary)))
@@ -74,25 +87,28 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
         .replace(/\s+/g, ' ')
         .toLowerCase()
         .trim();
-      const filtered = (factionKey === undefined && filterRegex === undefined)
+      const textFiltered = (filterRegex === undefined)
         ? streams
         : streams.filter(stream =>
-          ((factionKey && stream.factionsMap[factionKey]) || !factionKey)
-            && ((filterRegex && (
-              filterRegex.test(stream.tagText)
-              || (stream.characterName && filterRegex.test(stream.characterName))
-              || (stream.nicknameLookup && stream.nicknameLookup.includes(filterTextLookup))
-              || filterRegex.test(stream.channelName)
-              || filterRegex.test(stream.title)
-              || stream.factions.some(f => filterRegex.test(f))
-            )
-          ) || !filterRegex)
-        )
+          filterRegex.test(stream.tagText)
+          || (stream.characterName && filterRegex.test(stream.characterName))
+          || (stream.nicknameLookup && stream.nicknameLookup.includes(filterTextLookup))
+          || filterRegex.test(stream.channelName)
+          || filterRegex.test(stream.title)
+          || stream.factions.some(f => filterRegex.test(f)));
+      const filtered = (factionKey === undefined)
+          ? textFiltered
+          : textFiltered.filter(stream => stream.factionsMap[factionKey]);
+      const otherFiltered = (factionKey === undefined || filterRegex === undefined)
+          ? []
+          : textFiltered.filter(stream => !stream.factionsMap[factionKey]);
+
       const sorted = filtered.sort((lhs, rhs) => rhs.viewers - lhs.viewers)
-      return sorted;
+      const otherSorted = otherFiltered.sort((lhs, rhs) => rhs.viewers - lhs.viewers)
+      return [sorted, otherSorted];
     }, [debouncedFilterText, factionKey, filterRegex, live.streams])
 
-  const offlineCharacters = React.useMemo(() => {
+  const [offlineCharacters, otherOfflineCharacters] = React.useMemo(() => {
     const liveCharacterIds = new Set((filteredStreams ?? []).map(s => s.characterId));
 
     const recentOfflineCharacters = live.recentOfflineCharacters ?? [];
@@ -102,30 +118,30 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
       : []
     const candidateCharacters = [...recentOfflineCharacters, ...olderOfflineCharacter];
 
-    return candidateCharacters
-        .filter(character =>
-          ((factionKey && character.factions.some(f => f.key === factionKey)) || !factionKey)
-            && ((filterRegex && (
-              filterRegex.test(character.channelName)
-              || filterRegex.test(character.name)
-              || character.displayInfo.nicknames.some(n => filterRegex.test(n))
-              || character.factions.some(f => filterRegex.test(f.name))
-            )
-          ) || !filterRegex)
-        )
-        .sort((lhs, rhs) => {
-          if (lhs.lastSeenLive && rhs.lastSeenLive) {
-            return rhs.lastSeenLive.localeCompare(lhs.lastSeenLive);
-          }
-          if (lhs.lastSeenLive && !rhs.lastSeenLive) {
-            return -1;
-          }
-          if (!lhs.lastSeenLive && rhs.lastSeenLive) {
-            return 1;
-          }
-          return lhs.displayInfo.realNames.join(' ').localeCompare(rhs.displayInfo.realNames.join(' '));
-        })
+    const textFilteredCandidateCharacters = (filterRegex === undefined)
+      ? candidateCharacters
+      : candidateCharacters.filter(character =>
+        filterRegex.test(character.channelName)
+        || filterRegex.test(character.name)
+        || character.displayInfo.nicknames.some(n => filterRegex.test(n))
+        || character.factions.some(f => filterRegex.test(f.name)));
+
+    const filtered = (factionKey === undefined)
+      ? textFilteredCandidateCharacters
+      : textFilteredCandidateCharacters.filter(character => character.factions.some(f => f.key === factionKey));
+
+    const otherFiltered = (factionKey === undefined || filterRegex === undefined)
+      ? []
+      : textFilteredCandidateCharacters.filter(character => !character.factions.some(f => f.key === factionKey));
+
+    const sorted = filtered.sort(offlineSort);
+    const otherSorted = otherFiltered.sort(offlineSort);
+    return [sorted, otherSorted];
   }, [characters, factionKey, filterRegex, filteredStreams, live.recentOfflineCharacters, showOlderOfflineCharacters]);
+
+  const isLoadingMore = showOlderOfflineCharacters && isLoading(charactersLoadingState);
+  const matchCount = filteredStreams.length + offlineCharacters.length;
+  const otherFactionMatchCount = otherFilteredStreams.length + otherOfflineCharacters.length;
 
   return (
     (
@@ -149,13 +165,31 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
           allHref={'/'}
           factionHref={(f) => `/streams/faction/${f.key}`}
         />
-        <StreamList
-          streams={filteredStreams}
-          offlineCharacters={offlineCharacters}
-          isLoadingMore={showOlderOfflineCharacters && isLoading(charactersLoadingState)}
-          paginationKey={factionKey ?? '_no-faction_'}
-          loadTick={loadTick}
-        />
+        {matchCount > 0 || isLoadingMore
+          ?
+            <StreamList
+              streams={filteredStreams}
+              offlineCharacters={offlineCharacters}
+              isLoadingMore={isLoadingMore}
+              paginationKey={factionKey ?? '_no-faction_'}
+              loadTick={loadTick}
+            />
+          :
+            <div className={classes('inset', styles.noMatches)}>
+              <p>{`No characters${debouncedFilterText ? ` matching “${debouncedFilterText}”` : ''}${selectedFaction ? ` from ${selectedFaction.name}` : ''}.`}</p>
+            </div>
+        }
+        {!isLoadingMore && otherFactionMatchCount > 0 && matchCount < 10 &&
+          <>
+            <h2 className={classes('inset', styles.otherMatchesHeader)}>Matches from other factions</h2>
+            <StreamList
+              streams={otherFilteredStreams}
+              offlineCharacters={otherOfflineCharacters}
+              paginationKey={`${factionKey}__other` ?? '_no-faction__other_'}
+              loadTick={loadTick}
+            />
+          </>
+        }
       </>
     )
   )
