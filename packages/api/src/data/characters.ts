@@ -872,7 +872,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 407, name: 'Theodore Ellis' },
     ],
     IMeMine30: [
-        { id: 408, name: 'Angelo Clemente' },
+        { id: 408, name: 'Angelo Clemente', factions: ['DiCenzo Group 2'] },
         { id: 563, name: 'Walt McGrath' },
     ],
     ImFromTheFuture: [
@@ -1040,7 +1040,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 479, name: 'Felix Colt' },
     ],
     KripkeyTV: [
-        { id: 480, name: 'Sergio Scarpatti', factions: ['DiCenzo Famiglia'] },
+        { id: 480, name: 'Sergio Scarpatti', nicknames: ['Scarpo'], factions: ['DiCenzo Famiglia'] },
     ],
     KristoferYee: [
         { id: 481, name: 'Posie Tiv' },
@@ -1436,7 +1436,7 @@ export const wrpCharacters: WrpCharacters = {
     Quip_TV: [
         { id: 667, name: '[Deputy] Dove Hopkins', factions: ['Law'] },
         { id: 668, name: 'Sally Higgins', nicknames: ['Shotgun'] },
-        { id: 669, name: 'Sofia Sherman' },
+        { id: 669, name: 'Sofia Sherman', factions: ['DiCenzo Group 2'] },
     ],
     RaddRema: [
         { id: 670, name: 'Bonnie Sunn' },
@@ -1757,7 +1757,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Tasara22: [
         { id: 819, name: '[Sr. Deputy] Jane Ripley', factions: ['Law'] },
-        { id: 820, name: 'Betty Butcher' },
+        { id: 820, name: 'Betty Butcher', factions: ['DiCenzo Group 2'] },
         { id: 821, name: 'Madame Milena' },
         { id: 822, name: 'Monica Peach' },
         { id: 823, name: 'Oneida Zonta' },
