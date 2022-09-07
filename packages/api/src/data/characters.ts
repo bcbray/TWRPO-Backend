@@ -102,7 +102,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 35, name: 'Isiah Trebuchet' },
     ],
     AnthonyZ: [
-        { id: 36, name: 'Antonio Corleone', nicknames: ['Tony'], factions: ['DiCenzo Famiglia'] }, // Not in the DiCenzo restructure
+        { id: 36, name: 'Antonio Corleone', nicknames: ['Tony'] }, // Former DiCenzo. Not in the DiCenzo restructure
     ],
     APPLESHAMPOO: [
         { id: 37, name: 'Kenny Kidman' },
@@ -263,7 +263,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 117, name: 'Johnny Quick' },
     ],
     Buddha: [
-        { id: 118, name: 'Wu Buddha', factions: ['DiCenzo Famiglia'] }, // Not in the DiCenzo restructure
+        { id: 118, name: 'Wu Buddha' }, // Former DiCenzo. Not in the DiCenzo restructure
     ],
     buddyandy88: [
         { id: 119, name: 'Carla Johanson' },
@@ -623,7 +623,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1001, name: 'Finn Taytum' }, // Dead.
     ],
     ewanruss: [
-        { id: 287, name: 'Alfonso Bonucci', factions: ['DiCenzo Famiglia'], nicknames: ['Coach Al', 'Al'], displayName: 4 }, // Not in the DiCenzo restructure
+        { id: 287, name: 'Alfonso Bonucci', nicknames: ['Coach Al', 'Al'], displayName: 4 }, // Former DiCenzo? Not in the DiCenzo restructure.
     ],
     extralivia: [
         { id: 288, name: 'Lydia Spade' },
@@ -1459,7 +1459,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 676, name: 'Furio Bonanno' },
     ],
     Roach_tm: [
-        { id: 677, name: 'Tony Moretti', factions: ['DiCenzo Famiglia'] }, // Not in the DiCenzo restructure
+        { id: 677, name: 'Tony Moretti' }, // Former DiCenzo? Not in the DiCenzo restructure
     ],
     rosco: [
         { id: 678, name: 'Awkward Johnson', displayName: 0 }, // Dead.
