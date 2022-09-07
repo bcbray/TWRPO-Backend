@@ -1,6 +1,8 @@
 import React from 'react';
 import Datadog from 'react-datadog';
 
+import { Plausible } from './Plausible'
+
 interface Props {
   children?: React.ReactNode;
 }
@@ -18,7 +20,9 @@ const TrackerProvider: React.FC<Props> = ({ children }) => {
       defaultPrivacyLevel='allow'
       sessionReplayRecording
     >
-      {children}
+      <Plausible>
+        {children}
+      </Plausible>
     </Datadog>
   );
 };
