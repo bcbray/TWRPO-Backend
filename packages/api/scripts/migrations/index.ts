@@ -4,6 +4,7 @@ import { AddTwitchChannel1660551290102 } from './1660551290102-AddTwitchChannel'
 import { FixUncertainCharacters1660563350573 } from './1660563350573-FixUncertainCharacters';
 import { Stream1662698374839 } from './1662698374839-Stream';
 import { LastVideoCheck1662701175263 } from './1662701175263-LastVideoCheck';
+import { NullableThumbnail1662705316517 } from './1662705316517-NullableThumbnail';
 
 export default [
     Initial1660336359134,
@@ -12,4 +13,5 @@ export default [
     FixUncertainCharacters1660563350573,
     Stream1662698374839,
     LastVideoCheck1662701175263,
+    NullableThumbnail1662705316517,
 ];

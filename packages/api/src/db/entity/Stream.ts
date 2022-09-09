@@ -26,8 +26,8 @@ export class Stream {
     @Column()
     url: string;
 
-    @Column()
-    thumbnailUrl: string;
+    @Column({ nullable: true })
+    thumbnailUrl?: string;
 
     @Column()
     title: string;
