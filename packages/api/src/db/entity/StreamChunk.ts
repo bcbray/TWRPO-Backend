@@ -1,4 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, CreateDateColumn } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    Index,
+    CreateDateColumn,
+    ManyToOne,
+    JoinColumn,
+} from 'typeorm';
+
+import { Video } from './Video';
 
 @Entity()
 @Index('SEEN_INSTANCE', ['streamerId', 'characterId', 'streamId', 'title'], { unique: true, where: '"characterId" IS NOT NULL' })
@@ -31,6 +42,10 @@ export class StreamChunk {
 
     @Column()
     lastSeenDate: Date;
+
+    @ManyToOne(() => Video, video => video.streamChunks)
+    @JoinColumn({ name: 'streamId', referencedColumnName: 'streamId' })
+    video?: Video;
 }
 /*
 id

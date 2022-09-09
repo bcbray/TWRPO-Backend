@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany } from 'typeorm';
+
+import { StreamChunk } from './StreamChunk';
 
 @Entity()
 export class Video {
@@ -34,4 +36,7 @@ export class Video {
 
     @Column()
     duration: string;
+
+    @OneToMany(() => StreamChunk, chunk => chunk.video)
+    streamChunks?: StreamChunk[];
 }

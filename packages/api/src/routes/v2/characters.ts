@@ -25,7 +25,9 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
     const streamChunks = await dataSource
         .getRepository(StreamChunk)
         .createQueryBuilder('chunk')
+        .select()
         .distinctOn(['chunk.streamerId', 'chunk.characterId'])
+        .leftJoinAndSelect('chunk.video', 'video')
         .orderBy('chunk.streamerId', 'ASC')
         .addOrderBy('chunk.characterId', 'ASC')
         .addOrderBy('chunk.lastSeenDate', 'DESC')
@@ -65,7 +67,10 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                     && seen[channelInfo?.id][character.id]
                     && seen[channelInfo?.id][character.id].lastSeenDate.getTime() - seen[channelInfo?.id][character.id].firstSeenDate.getTime() > 1000 * 60 * 10
                 ) {
-                    characterInfo.lastSeenLive = seen[channelInfo?.id][character.id].lastSeenDate.toISOString();
+                    const chunk = seen[channelInfo?.id][character.id];
+                    characterInfo.lastSeenLive = chunk.lastSeenDate.toISOString();
+                    characterInfo.lastSeenVideoUrl = chunk.video?.url;
+                    characterInfo.lastSeenVideoThumbnailUrl = chunk.video?.thumbnailUrl;
                 }
 
                 return characterInfo;
