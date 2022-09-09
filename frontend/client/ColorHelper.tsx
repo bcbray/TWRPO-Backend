@@ -26,7 +26,7 @@ const ColorCell: React.FC<{color: string, invert?: boolean, dark?: boolean }> = 
   );
 }
 
-const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
+const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}> = ({ faction, style }) => {
   const startDate = React.useMemo(() => (new Date(new Date().getTime() - 5241000)).toString() ,[]);
   const fakeStream: Stream = {
     channelName: 'Ssaab',
@@ -47,7 +47,7 @@ const FactionCard: React.FC<{faction: FactionInfo}> = ({ faction }) => {
     startDate
   };
   return (
-    <div className={styles.card}>
+    <div className={styles.card} style={style}>
       <div className={styles.info}>
         <h4 title={faction.name}>{faction.name}</h4>
         <div>
@@ -111,7 +111,13 @@ const ColorHelper: React.FC<Props> = ({ data }) => {
     <>
       <div className={classes(styles.grid, 'inset')}>
         <div className={classes(styles.items)}>
-          <FactionCard faction={previewFaction} />
+          <FactionCard
+            faction={previewFaction}
+            style={{
+              '--faction-color-light-preview': colorLight,
+              '--faction-color-dark-preview': colorDark,
+            } as React.CSSProperties}
+          />
           <div className={styles.picker}>
             <p>Light:</p>
             <SketchPicker color={colorLight} presetColors={presets} onChange={c => setColorLight(c.hex)} />
