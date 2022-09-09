@@ -1,5 +1,4 @@
 import { initializeDataStore } from './_dataSource';
-import { StreamChunk } from '../src/db/entity/StreamChunk';
 
 async function bootstrap(): Promise<void> {
     const dataStore = await initializeDataStore();

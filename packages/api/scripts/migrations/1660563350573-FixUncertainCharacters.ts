@@ -1,9 +1,10 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+/* eslint-disable class-methods-use-this */
+
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 import { cloneDeepJson } from '../../src/utils';
 import { wrpCharacters as wrpCharactersOld } from '../../src/data/characters';
 import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld } from '../../src/data/characters';
-
 
 // Hoo boy. So, I messed up and wrote a bug that tagged a lot of stream chunks
 // as uncertain (basically inverting them). Then I fixed that, but it meant that
@@ -18,7 +19,6 @@ import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld } fro
 //
 // Note to self: test things. Also build a way to re-match stream segments after
 // the fact and review the changes without a hacky one-off migration.
-
 
 interface Character extends CharacterOld {
     nameReg: RegExp;
@@ -41,7 +41,7 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
         const titles = [];
         const realNames = [];
         let currentName = null;
-        let displayNameNum = charOld.displayName;
+        const displayNameNum = charOld.displayName;
 
         for (let i = 0; i < names.length; i++) {
             const name = names[i];
@@ -101,9 +101,7 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
     }
 }
 
-
 export class FixUncertainCharacters1660563350573 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         interface Result {
             chunkId: number;
@@ -146,8 +144,8 @@ export class FixUncertainCharacters1660563350573 implements MigrationInterface {
             if (!character) {
                 console.warn(JSON.stringify({
                     level: 'warning',
-                    message: `Could not find character id ${result.characterId} for ${result.channelName} (${result.twitchId})`
-                }))
+                    message: `Could not find character id ${result.characterId} for ${result.channelName} (${result.twitchId})`,
+                }));
                 continue;
             }
 
@@ -175,20 +173,20 @@ export class FixUncertainCharacters1660563350573 implements MigrationInterface {
                     "characterUncertain" = "update"."uncertain"
                 FROM (values
                     ${updates.map(u => (
-                        `(${u.chunkId}, ${u.uncertain})`
-                    )).join(',\n                ')}
+        `(${u.chunkId}, ${u.uncertain})`
+    )).join(',\n                ')}
                 ) AS "update"("chunk_id", "uncertain")
                 WHERE "stream_chunk"."id" = "update"."chunk_id";
             `);
 
             console.log(JSON.stringify({
                 level: 'info',
-                message: `Fixed uncertainty for ${updates.length} stream segments`
+                message: `Fixed uncertainty for ${updates.length} stream segments`,
             }));
         } else {
             console.log(JSON.stringify({
                 level: 'info',
-                message: `No incorrect uncertainty to fix`
+                message: 'No incorrect uncertainty to fix',
             }));
         }
     }
@@ -235,5 +233,4 @@ export class FixUncertainCharacters1660563350573 implements MigrationInterface {
             DROP TABLE "stream_chunk_1660563350573_uncertain_updated";
         `);
     }
-
 }
