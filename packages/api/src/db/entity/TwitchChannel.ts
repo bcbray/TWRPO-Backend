@@ -31,4 +31,7 @@ export class TwitchChannel {
 
     @Column()
     twitchCreatedAt: Date;
+
+    @Column({ nullable: true })
+    lastVideoCheck: Date;
 }
