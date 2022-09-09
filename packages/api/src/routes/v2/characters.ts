@@ -9,6 +9,7 @@ import { getCharacterInfo } from '../../characterUtils';
 import { getKnownTwitchUsers } from '../../pfps';
 import { fetchFactions } from './factions';
 import { StreamChunk } from '../../db/entity/StreamChunk';
+import { videoUrlOffset } from '../../utils';
 
 export interface CharactersRequest {
     limit?: number;
@@ -69,8 +70,10 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                 ) {
                     const chunk = seen[channelInfo?.id][character.id];
                     characterInfo.lastSeenLive = chunk.lastSeenDate.toISOString();
-                    characterInfo.lastSeenVideoUrl = chunk.video?.url;
                     characterInfo.lastSeenVideoThumbnailUrl = chunk.video?.thumbnailUrl;
+                    if (chunk.video?.url) {
+                        characterInfo.lastSeenVideoUrl = videoUrlOffset(chunk.video?.url, chunk.streamStartDate, chunk.firstSeenDate);
+                    }
                 }
 
                 return characterInfo;

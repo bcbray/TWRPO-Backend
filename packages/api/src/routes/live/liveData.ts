@@ -4,7 +4,8 @@ import { DataSource } from 'typeorm';
 import { LiveResponse, Stream, CharacterInfo } from '@twrpo/types';
 
 import {
-    log, cloneDeepJson, filterObj, mapObj, parseParam, isObjEmpty, parseLookup,
+    log, cloneDeepJson, filterObj, mapObj, parseParam,
+    isObjEmpty, parseLookup, videoUrlOffset,
 } from '../../utils';
 
 import { getKnownTwitchUsers } from '../../pfps';
@@ -922,7 +923,9 @@ export const getWrpLive = async (
                         .select([
                             'stream_chunk.streamerId',
                             'stream_chunk.characterId',
+                            'stream_chunk.firstSeenDate',
                             'stream_chunk.lastSeenDate',
+                            'stream_chunk.streamStartDate',
                             'video.url',
                             'video.thumbnailUrl',
                         ])
@@ -962,8 +965,10 @@ export const getWrpLive = async (
                     recentChunks.forEach((chunk: any) => {
                         const streamerId = chunk.stream_chunk_streamerId as string;
                         const characterId = chunk.stream_chunk_characterId as number;
+                        const streamStartString = chunk.stream_chunk_streamStartDate as string;
+                        const firstSeenString = chunk.stream_chunk_firstSeenDate as string;
                         const lastSeenString = chunk.stream_chunk_lastSeenDate as string;
-                        const videoUrl = chunk.video_url as string | undefined;
+                        let videoUrl = chunk.video_url as string | undefined;
                         const videoThumbnailUrl = chunk.video_thumbnailUrl as string | undefined;
                         if (!streamerId || !characterId || !lastSeenString) {
                             console.warn(JSON.stringify({
@@ -979,6 +984,14 @@ export const getWrpLive = async (
                         const characters = wrpRawCharacters[channelNameLower];
                         const character = characters.find(c => c.id === characterId);
                         if (!character) return;
+
+                        if (videoUrl) {
+                            const start = new Date(streamStartString);
+                            const firstSeen = new Date(firstSeenString);
+
+                            videoUrl = videoUrlOffset(videoUrl, start, firstSeen);
+                        }
+
                         recentlyOnlineCharacters.push({
                             ...getCharacterInfo(
                                 knownUser.displayName,

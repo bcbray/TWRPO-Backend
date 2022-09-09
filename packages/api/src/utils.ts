@@ -93,3 +93,21 @@ export const parseLookup = (text: string, retainCase = false): string => {
     if (!retainCase) text = text.toLowerCase();
     return text.trim();
 };
+
+export const videoUrlOffset = (url: string, startTime: Date, offsetTime: Date): string => {
+    // Start time, backed up by one minute to account for
+    // the fact that we only fetch streams every minute
+    const totalSeconds = (offsetTime.getTime() - startTime.getTime()) / 1000 - 60;
+    // Don't bother skipping the very first part of a stream
+    if (totalSeconds > 60 * 5) {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = Math.floor(totalSeconds % 60);
+        const timestamp = minutes > 0
+            ? `${minutes}m${seconds}s`
+            : `${seconds}s`;
+        const newUrl = new URL(url);
+        newUrl.searchParams.append('t', timestamp);
+        return newUrl.toString();
+    }
+    return url;
+};
