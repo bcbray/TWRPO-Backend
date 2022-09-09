@@ -5,16 +5,18 @@ import { AuthProvider } from '@twurple/auth';
 import { DataSource } from 'typeorm';
 import { CharactersResponse, FactionsResponse, LiveResponse } from '@twrpo/types';
 
-import { getWrpLive, startRefreshing, IntervalTimeout } from './routes/live/liveData';
+import { getWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
 import { fetchCharacters } from './routes/v2/characters';
 import { fetchFactions } from './routes/v2/factions';
 import routes from './routes';
 import dataSource from './db/dataSource';
+import { startRefreshing as startRefreshingVideos } from './fetchVideos';
 
 interface ApiOptions {
     twitchAuthProvider: AuthProvider;
     postgresUrl: string;
-    refreshInterval?: number;
+    liveRefreshInterval?: number;
+    videoRefreshInterval?: number;
 }
 
 class Api {
@@ -24,9 +26,15 @@ class Api {
 
     private dataSource: DataSource;
 
-    private refreshInterval: number;
+    private liveRefreshInterval: number;
 
-    private refreshTimeout: IntervalTimeout | null;
+    private liveRefreshTimeout: IntervalTimeout | null;
+
+    private videoRefreshInterval: number;
+
+    private videoRefreshInitialTimeout: IntervalTimeout | null;
+
+    private videoRefreshTimeout: IntervalTimeout | null;
 
     constructor(options: ApiOptions) {
         this.twitchClient = new ApiClient({
@@ -42,8 +50,11 @@ class Api {
         this.apiRouter.use('/v2/factions', routes.v2FactionsRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter);
 
-        const { refreshInterval = 1000 * 60 } = options;
-        this.refreshInterval = refreshInterval;
+        const { liveRefreshInterval = 1000 * 60 } = options;
+        this.liveRefreshInterval = liveRefreshInterval;
+
+        const { videoRefreshInterval = 1000 * 60 * 10 } = options;
+        this.videoRefreshInterval = videoRefreshInterval;
     }
 
     public async initialize(): Promise<void> {
@@ -63,16 +74,30 @@ class Api {
     }
 
     public startRefreshing(): void {
-        if (this.refreshTimeout) {
+        if (this.liveRefreshTimeout || this.videoRefreshTimeout || this.videoRefreshInitialTimeout) {
             this.stopRefreshing();
         }
-        this.refreshTimeout = startRefreshing(this.twitchClient, this.dataSource, this.refreshInterval);
+        this.liveRefreshTimeout = startRefreshingLive(this.twitchClient, this.dataSource, this.liveRefreshInterval);
+        // Wait half the live interval to start the video refresh to stagger them
+        this.videoRefreshInitialTimeout = setTimeout(() => {
+            this.videoRefreshInitialTimeout = null;
+            this.videoRefreshTimeout = startRefreshingVideos(this.twitchClient, this.dataSource, this.videoRefreshInterval);
+        }, this.liveRefreshInterval / 2);
     }
 
     public stopRefreshing(): void {
-        if (!this.refreshTimeout) return;
-        clearInterval(this.refreshTimeout);
-        this.refreshTimeout = null;
+        if (this.liveRefreshTimeout) {
+            clearInterval(this.liveRefreshTimeout);
+            this.liveRefreshTimeout = null;
+        }
+        if (this.videoRefreshTimeout) {
+            clearInterval(this.videoRefreshTimeout);
+            this.videoRefreshTimeout = null;
+        }
+        if (this.videoRefreshInitialTimeout) {
+            clearTimeout(this.videoRefreshInitialTimeout);
+            this.videoRefreshInitialTimeout = null;
+        }
     }
 }
 
