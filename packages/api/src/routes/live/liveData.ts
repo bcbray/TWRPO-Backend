@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
+import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from '@twurple/api';
 import { DataSource } from 'typeorm';
 import { LiveResponse, Stream, CharacterInfo } from '@twrpo/types';
 
@@ -80,7 +80,7 @@ const ASTATES = {
 
 const game = '493959' as const;
 const languages: string[] = ['en', 'hi', 'no', 'pt']; // https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-const streamType = HelixStreamType.Live;
+const streamType: HelixStreamType = 'live';
 const bigLimit = 100 as const;
 // const maxPages = 5 as const;
 const searchNumDefault = 2000;
@@ -295,11 +295,11 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
     while (searchNum > 0) {
         const limitNow = Math.min(searchNum, bigLimit);
         searchNum -= limitNow;
-        const gtaStreamsNow: HelixPaginatedResult<HelixStream> = await apiClient.helix.streams.getStreams({
+        const gtaStreamsNow: HelixPaginatedResult<HelixStream> = await apiClient.streams.getStreams({
             game,
             // language: optionsParsed.international ? undefined : language,
             language: languages,
-            limit: String(limitNow),
+            limit: limitNow,
             type: streamType,
             after,
         });
@@ -322,7 +322,7 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
 
         if (lookupStreams.length > 0) {
             log(`${endpoint}: Looking up pfp for ${lookupStreams.length} users after...`);
-            const foundUsers = await apiClient.helix.users.getUsersByIds(lookupStreams);
+            const foundUsers = await apiClient.users.getUsersByIds(lookupStreams);
             for (const helixUser of foundUsers) {
                 knownPfps[helixUser.id] = helixUser.profilePictureUrl.replace('-300x300.', '-50x50.');
             }

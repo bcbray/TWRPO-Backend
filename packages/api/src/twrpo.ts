@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import cors from 'cors';
-import { ApiClient } from 'twitch';
-import { AuthProvider } from 'twitch-auth';
+import { ApiClient } from '@twurple/api';
+import { AuthProvider } from '@twurple/auth';
 import { DataSource } from 'typeorm';
 import { CharactersResponse, FactionsResponse, LiveResponse } from '@twrpo/types';
 

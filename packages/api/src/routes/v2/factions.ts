@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ApiClient } from 'twitch';
+import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
 import { FactionsResponse } from '@twrpo/types';
 

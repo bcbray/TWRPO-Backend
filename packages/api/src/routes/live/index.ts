@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 
 import { Router } from 'express';
-import { ApiClient } from 'twitch';
+import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
 
 import { mapObjKeys, cloneDeepJson, log } from '../../utils';

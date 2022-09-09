@@ -1,4 +1,4 @@
-import { ClientCredentialsAuthProvider } from 'twitch-auth';
+import { ClientCredentialsAuthProvider } from '@twurple/auth';
 
 import TWRPOApi from '@twrpo/api';
 

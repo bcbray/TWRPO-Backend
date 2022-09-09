@@ -1,4 +1,4 @@
-import { ApiClient } from 'twitch';
+import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
 import { wrpCharacters } from './data/characters';
 import { log } from './utils';
@@ -38,7 +38,7 @@ export const getKnownTwitchUsers = async (apiClient: ApiClient, dataSource: Data
             while (toSearch.length > 0) {
                 const thisSearch = toSearch.splice(0, fetchLimit);
                 log(`Feting ${thisSearch.length} users`);
-                const foundUsers = await apiClient.helix.users.getUsersByNames(thisSearch);
+                const foundUsers = await apiClient.users.getUsersByNames(thisSearch);
                 log(`Found ${foundUsers.length} users`);
                 const found: TwitchUser[] = foundUsers.map(helixUser => ({
                     id: helixUser.id,
@@ -70,7 +70,7 @@ export const getKnownTwitchUsers = async (apiClient: ApiClient, dataSource: Data
                     console.log(JSON.stringify({
                         level: 'info',
                         message: `Updated ${updateCount} twitch channels in database`,
-                        count: updateCount
+                        count: updateCount,
                     }));
                 }
             }
