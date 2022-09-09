@@ -6,6 +6,9 @@ export class AddTwitchChannel1660551290102 implements MigrationInterface {
     name = 'AddTwitchChannel1660551290102'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        if (await queryRunner.hasTable('twitch_channel')) {
+            return;
+        }
         await queryRunner.query(`
             CREATE TABLE "twitch_channel" (
                 "id" SERIAL NOT NULL,

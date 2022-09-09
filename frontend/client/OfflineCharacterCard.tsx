@@ -3,7 +3,7 @@ import { CharacterInfo } from '@twrpo/types';
 
 import styles from './OfflineCharacterCard.module.css';
 import { classes } from './utils';
-import { useRelativeDate } from './hooks';
+import { useRelativeDate, useImageUrlOnceLoaded } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhoto from './ProfilePhoto';
@@ -30,7 +30,7 @@ const CharacterLink: React.FC<CharacterLinkProps> = ({character, style, children
     }}
     target='_blank'
     rel='noreferrer'
-    href={`https://twitch.tv/${character.channelName}`}
+    href={character.lastSeenVideoUrl ?? `https://twitch.tv/${character.channelName}`}
     style={style}
   >
     {children}
@@ -54,6 +54,15 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
     character.displayInfo.realNames.join(' ')
   ), [character.displayInfo.realNames])
 
+  const lastSeenVideoThumbnailUrl = React.useMemo(() => {
+    if (!character.lastSeenVideoThumbnailUrl) return undefined;
+    return character.lastSeenVideoThumbnailUrl
+      .replace('%{width}', '440')
+      .replace('%{height}', '248')
+  }, [character.lastSeenVideoThumbnailUrl]);
+
+  const { url: loadedThumbnailUrl } = useImageUrlOnceLoaded(lastSeenVideoThumbnailUrl);
+
   return (
     <div
       className={classes(styles.card, className)}
@@ -64,8 +73,25 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
       }}
       {...rest}
     >
-      <div className={styles.thumbnail}>
+      <div
+        className={classes(
+          styles.thumbnail,
+          lastSeenVideoThumbnailUrl && styles.hasThumbnail
+        )}
+      >
         <CharacterLink character={character}>
+          {loadedThumbnailUrl &&
+            <>
+              <img
+                className={styles.lastStreamThumbnail}
+                src={loadedThumbnailUrl}
+                alt={`${character.channelName} stream video thumbnail`}
+                loading='lazy'
+              />
+              <div className={styles.thumbnailBlurOverlay} />
+              <div className={styles.thumbnailColorOverlay} />
+            </>
+          }
           <div className={styles.offline}>
             {lastSeenLive &&
             <p

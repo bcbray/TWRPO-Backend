@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from 'twitch';
+import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from '@twurple/api';
 import { DataSource } from 'typeorm';
 import { LiveResponse, Stream, CharacterInfo } from '@twrpo/types';
 
@@ -25,6 +25,7 @@ import {
     filterFactionsBase,
 } from '../../data/factions';
 import { wrpPodcasts } from '../../data/podcasts';
+import { fetchVideosForUser, fetchMissingThumbnailsForVideoIds } from '../../fetchVideos';
 
 import type { RecordGen } from '../../utils';
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from '../../data/meta';
@@ -34,6 +35,7 @@ import type { Podcast } from '../../data/podcasts';
 import type { TwitchUser } from '../../pfps';
 
 import { StreamChunk } from '../../db/entity/StreamChunk';
+import { Video } from '../../db/entity/Video';
 
 const includedData = Object.assign(
     {},
@@ -80,7 +82,7 @@ const ASTATES = {
 
 const game = '493959' as const;
 const languages: string[] = ['en', 'hi', 'no', 'pt']; // https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-const streamType = HelixStreamType.Live;
+const streamType: HelixStreamType = 'live';
 const bigLimit = 100 as const;
 // const maxPages = 5 as const;
 const searchNumDefault = 2000;
@@ -295,11 +297,11 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
     while (searchNum > 0) {
         const limitNow = Math.min(searchNum, bigLimit);
         searchNum -= limitNow;
-        const gtaStreamsNow: HelixPaginatedResult<HelixStream> = await apiClient.helix.streams.getStreams({
+        const gtaStreamsNow: HelixPaginatedResult<HelixStream> = await apiClient.streams.getStreams({
             game,
             // language: optionsParsed.international ? undefined : language,
             language: languages,
-            limit: String(limitNow),
+            limit: limitNow,
             type: streamType,
             after,
         });
@@ -322,7 +324,7 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
 
         if (lookupStreams.length > 0) {
             log(`${endpoint}: Looking up pfp for ${lookupStreams.length} users after...`);
-            const foundUsers = await apiClient.helix.users.getUsersByIds(lookupStreams);
+            const foundUsers = await apiClient.users.getUsersByIds(lookupStreams);
             for (const helixUser of foundUsers) {
                 knownPfps[helixUser.id] = helixUser.profilePictureUrl.replace('-300x300.', '-50x50.');
             }
@@ -834,6 +836,64 @@ export const getWrpLive = async (
                         .where('"characterId" IS NULL')
                         .execute();
                     console.log(JSON.stringify({ level: 'info', message: 'Stored streams without characters to database', count: chunksWithoutCharacters.length }));
+
+                    const liveStreamIds = [...chunksWithCharacters.map(c => c.streamId), ...chunksWithoutCharacters.map(c => c.streamId)];
+
+                    // Fetch any missing thumbnails from streams that just went offline
+                    const recentVideosMissingThumbnails = await dataSource.getRepository(Video)
+                        .createQueryBuilder('video')
+                        .select()
+                        .distinctOn(['video.videoId'])
+                        .innerJoin(StreamChunk, 'stream_chunk', 'video.streamId = stream_chunk.streamId')
+                        .where('stream_chunk.lastSeenDate >= :cutoff', { cutoff: new Date(now.getTime() - 1000 * 60 * 10) })
+                        .andWhere('video.thumbnailUrl IS NULL')
+                        .andWhere('stream_chunk.streamId NOT IN (:...liveStreamIds)', { liveStreamIds })
+                        .orderBy('video.videoId', 'ASC')
+                        .getMany();
+                    if (recentVideosMissingThumbnails.length) {
+                        await fetchMissingThumbnailsForVideoIds(apiClient, dataSource, recentVideosMissingThumbnails.map(v => v.videoId));
+                    } else {
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            message: 'No recent videos missing thumbnails',
+                            event: 'video-thumbnail-skip',
+                        }));
+                    }
+
+                    // Fetch videos for users who just went offline
+                    const chunksToFetch = await dataSource.getRepository(StreamChunk)
+                        .createQueryBuilder('stream_chunk')
+                        .select()
+                        .distinctOn(['stream_chunk.streamId'])
+                        .leftJoin(Video, 'video', 'video.streamId = stream_chunk.streamId')
+                        .where('video.id IS NULL')
+                        .andWhere('stream_chunk.lastSeenDate >= :cutoff', { cutoff: new Date(now.getTime() - 1000 * 60 * 10) })
+                        .andWhere('stream_chunk.streamId NOT IN (:...liveStreamIds)', { liveStreamIds })
+                        .orderBy('stream_chunk.streamId', 'ASC')
+                        .getMany();
+
+                    const streamIds = new Set(chunksToFetch.map(c => c.streamId));
+                    const streamerIds = [...new Set(chunksToFetch.map(c => c.streamerId))];
+
+                    if (streamerIds.length) {
+                        let foundVideos = 0;
+                        for (const streamerId of streamerIds) {
+                            foundVideos += await fetchVideosForUser(apiClient, dataSource, streamerId, streamIds);
+                        }
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            message: `Fetched videos for ${streamerIds.length} users, found ${foundVideos} videos`,
+                            event: 'video-end',
+                            userCount: streamerIds.length,
+                            foundVideos,
+                        }));
+                    } else {
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            message: 'No recent stream segments to fetch videos for',
+                            event: 'video-skip',
+                        }));
+                    }
                 } catch (error) {
                     console.error(JSON.stringify({ level: 'error', message: 'Failed to store streams to db', error }));
                 }
@@ -863,8 +923,11 @@ export const getWrpLive = async (
                             'stream_chunk.streamerId',
                             'stream_chunk.characterId',
                             'stream_chunk.lastSeenDate',
+                            'video.url',
+                            'video.thumbnailUrl',
                         ])
                         .distinctOn(['stream_chunk.characterId'])
+                        .leftJoin(Video, 'video', 'video.streamId = stream_chunk.streamId')
                         .where('stream_chunk.characterId IS NOT NULL')
                         .andWhere('stream_chunk.characterUncertain = false')
                         .andWhere(
@@ -900,6 +963,8 @@ export const getWrpLive = async (
                         const streamerId = chunk.stream_chunk_streamerId as string;
                         const characterId = chunk.stream_chunk_characterId as number;
                         const lastSeenString = chunk.stream_chunk_lastSeenDate as string;
+                        const videoUrl = chunk.video_url as string | undefined;
+                        const videoThumbnailUrl = chunk.video_thumbnailUrl as string | undefined;
                         if (!streamerId || !characterId || !lastSeenString) {
                             console.warn(JSON.stringify({
                                 level: 'warning',
@@ -922,6 +987,8 @@ export const getWrpLive = async (
                                 factionMap
                             ),
                             lastSeenLive: lastSeenString,
+                            lastSeenVideoUrl: videoUrl,
+                            lastSeenVideoThumbnailUrl: videoThumbnailUrl,
                         });
                     });
                 } catch (error) {
