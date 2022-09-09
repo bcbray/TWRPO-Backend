@@ -44,7 +44,3 @@
     grid-template-columns: repeat(5, 1fr);
   }
 }
-
-.offline {
-  filter: grayscale(0.7);
-}
