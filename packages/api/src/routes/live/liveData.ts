@@ -923,8 +923,11 @@ export const getWrpLive = async (
                             'stream_chunk.streamerId',
                             'stream_chunk.characterId',
                             'stream_chunk.lastSeenDate',
+                            'video.url',
+                            'video.thumbnailUrl',
                         ])
                         .distinctOn(['stream_chunk.characterId'])
+                        .leftJoin(Video, 'video', 'video.streamId = stream_chunk.streamId')
                         .where('stream_chunk.characterId IS NOT NULL')
                         .andWhere('stream_chunk.characterUncertain = false')
                         .andWhere(
@@ -960,6 +963,8 @@ export const getWrpLive = async (
                         const streamerId = chunk.stream_chunk_streamerId as string;
                         const characterId = chunk.stream_chunk_characterId as number;
                         const lastSeenString = chunk.stream_chunk_lastSeenDate as string;
+                        const videoUrl = chunk.video_url as string | undefined;
+                        const videoThumbnailUrl = chunk.video_thumbnailUrl as string | undefined;
                         if (!streamerId || !characterId || !lastSeenString) {
                             console.warn(JSON.stringify({
                                 level: 'warning',
@@ -982,6 +987,8 @@ export const getWrpLive = async (
                                 factionMap
                             ),
                             lastSeenLive: lastSeenString,
+                            lastSeenVideoUrl: videoUrl,
+                            lastSeenVideoThumbnailUrl: videoThumbnailUrl,
                         });
                     });
                 } catch (error) {
