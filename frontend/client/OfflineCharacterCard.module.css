@@ -88,7 +88,6 @@
 
 .thumbnail.hasThumbnail .offline {
   transition: ease-in-out .2s;
-  mix-blend-mode: hard-light;
 }
 
 .thumbnail.hasThumbnail:not(:hover) .offline {
