@@ -67,29 +67,17 @@ export const fetchVideosForUser = async (
     return foundVideos;
 };
 
-export const fetchMissingThumbnails = async (
+export const fetchMissingThumbnailsForVideoIds = async (
     apiClient: ApiClient,
-    dataSource: DataSource
+    dataSource: DataSource,
+    videoIds: string[]
 ): Promise<void> => {
-    const videosWithoutThumbnails = await dataSource.getRepository(Video)
-        .createQueryBuilder('video')
-        .where('video.thumbnailUrl IS NULL')
-        .getMany();
-    if (videosWithoutThumbnails.length === 0) {
-        console.log(JSON.stringify({
-            level: 'info',
-            message: 'No videos missing thumbnails',
-            event: 'video-thumbnail-skip',
-        }));
-        return;
-    }
-
     const fetchLimit = 100;
-    const toFetchVideoIds = videosWithoutThumbnails.map(v => v.videoId);
+    const toFetchVideoIds = [...videoIds];
 
     console.log(JSON.stringify({
         level: 'info',
-        message: `Fetching thumbnails for ${videosWithoutThumbnails.length} videos`,
+        message: `Fetching thumbnails for ${videoIds.length} videos`,
         event: 'video-thumbnail-start',
         videoCount: toFetchVideoIds.length,
     }));
@@ -123,12 +111,36 @@ export const fetchMissingThumbnails = async (
 
     console.log(JSON.stringify({
         level: 'info',
-        message: `Fetched thumbnails for ${videosWithoutThumbnails.length} videos, found ${foundThumbnails} thumbnails`,
+        message: `Fetched thumbnails for ${videoIds.length} videos, found ${foundThumbnails} thumbnails`,
         event: 'video-thumbnail-end',
         videoCount: toFetchVideoIds.length,
         foundThumbnails,
         totalTime: Number((fetchEnd - fetchStart) / BigInt(1e+6)),
     }));
+};
+
+export const fetchMissingThumbnails = async (
+    apiClient: ApiClient,
+    dataSource: DataSource
+): Promise<void> => {
+    const videosWithoutThumbnails = await dataSource.getRepository(Video)
+        .createQueryBuilder('video')
+        .where('video.thumbnailUrl IS NULL')
+        .getMany();
+    if (videosWithoutThumbnails.length === 0) {
+        console.log(JSON.stringify({
+            level: 'info',
+            message: 'No videos missing thumbnails',
+            event: 'video-thumbnail-skip',
+        }));
+        return;
+    }
+
+    fetchMissingThumbnailsForVideoIds(
+        apiClient,
+        dataSource,
+        videosWithoutThumbnails.map(v => v.videoId)
+    );
 };
 
 export const fetchVideos = async (
