@@ -67,6 +67,70 @@ export const fetchVideosForUser = async (
     return foundVideos;
 };
 
+export const fetchMissingThumbnails = async (
+    apiClient: ApiClient,
+    dataSource: DataSource
+): Promise<void> => {
+    const videosWithoutThumbnails = await dataSource.getRepository(Video)
+        .createQueryBuilder('video')
+        .where('video.thumbnailUrl IS NULL')
+        .getMany();
+    if (videosWithoutThumbnails.length === 0) {
+        console.log(JSON.stringify({
+            level: 'info',
+            message: 'No videos missing thumbnails',
+            event: 'video-thumbnail-skip',
+        }));
+        return;
+    }
+
+    const fetchLimit = 100;
+    const toFetchVideoIds = videosWithoutThumbnails.map(v => v.videoId);
+
+    console.log(JSON.stringify({
+        level: 'info',
+        message: `Fetching thumbnails for ${videosWithoutThumbnails.length} videos`,
+        event: 'video-thumbnail-start',
+        videoCount: toFetchVideoIds.length,
+    }));
+
+    const fetchStart = process.hrtime.bigint();
+    let foundThumbnails = 0;
+
+    while (toFetchVideoIds.length > 0) {
+        const thisSearch = toFetchVideoIds.splice(0, fetchLimit);
+        const videos = await apiClient.videos.getVideosByIds(thisSearch);
+        for (const video of videos) {
+            if (video.thumbnailUrl) {
+                await dataSource.getRepository(Video)
+                    .update(
+                        { videoId: video.id },
+                        { thumbnailUrl: video.thumbnailUrl }
+                    );
+                console.log(JSON.stringify({
+                    level: 'info',
+                    message: `Found thumbnail for “${video.title}” for ${video.userDisplayName}`,
+                    event: 'video-thumbnail-found',
+                    channel: video.userDisplayName,
+                    title: video.title,
+                }));
+                foundThumbnails += 1;
+            }
+        }
+    }
+
+    const fetchEnd = process.hrtime.bigint();
+
+    console.log(JSON.stringify({
+        level: 'info',
+        message: `Fetched thumbnails for ${videosWithoutThumbnails.length} videos, found ${foundThumbnails} thumbnails`,
+        event: 'video-thumbnail-end',
+        videoCount: toFetchVideoIds.length,
+        foundThumbnails,
+        totalTime: Number((fetchEnd - fetchStart) / BigInt(1e+6)),
+    }));
+};
+
 export const fetchVideos = async (
     apiClient: ApiClient,
     dataSource: DataSource
@@ -123,6 +187,17 @@ export const fetchVideos = async (
             level: 'info',
             message: 'No stream segments to fetch videos for',
             event: 'video-skip',
+        }));
+    }
+
+    try {
+        await fetchMissingThumbnails(apiClient, dataSource);
+    } catch (error) {
+        console.log(JSON.stringify({
+            level: 'warning',
+            message: 'Failed to fetch video thumbnails',
+            event: 'video-thumnail-fetch-failed',
+            error,
         }));
     }
 };
