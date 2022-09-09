@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, Index } from 'typeorm';
 
 @Entity()
-export class Stream {
+export class Video {
     @PrimaryGeneratedColumn()
     id: number;
 

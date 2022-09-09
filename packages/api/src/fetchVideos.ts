@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 
 import { StreamChunk } from './db/entity/StreamChunk';
 import { TwitchChannel } from './db/entity/TwitchChannel';
-import { Stream } from './db/entity/Stream';
+import { Video } from './db/entity/Video';
 
 export const fetchVideos = async (
     apiClient: ApiClient,
@@ -13,9 +13,9 @@ export const fetchVideos = async (
     const chunksWithoutVideos = await dataSource.getRepository(StreamChunk)
         .createQueryBuilder('stream_chunk')
         .distinctOn(['stream_chunk.streamId'])
-        .leftJoin(Stream, 'stream', 'stream.streamId = stream_chunk.streamId')
+        .leftJoin(Video, 'video', 'video.streamId = stream_chunk.streamId')
         .innerJoin(TwitchChannel, 'twitch_channel', 'stream_chunk.streamerId = twitch_channel.twitchId')
-        .where('stream.id IS NULL')
+        .where('video.id IS NULL')
         .andWhere('(twitch_channel.lastVideoCheck IS NULL OR twitch_channel.lastVideoCheck < :checkTime)',
             { checkTime: new Date(checkTime.getTime() - 1000 * 60 * 60) })
         .orderBy('stream_chunk.streamId', 'ASC')
@@ -62,7 +62,7 @@ export const fetchVideos = async (
                 });
                 for (const video of videos.data) {
                     if (video.streamId && streamIds.has(video.streamId)) {
-                        await dataSource.getRepository(Stream).insert({
+                        await dataSource.getRepository(Video).insert({
                             videoId: video.id,
                             streamId: video.streamId,
                             streamerId: video.userId,
