@@ -25,6 +25,7 @@ import {
     filterFactionsBase,
 } from '../../data/factions';
 import { wrpPodcasts } from '../../data/podcasts';
+import { fetchVideosForUser, fetchMissingThumbnailsForVideoIds } from '../../fetchVideos';
 
 import type { RecordGen } from '../../utils';
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from '../../data/meta';
@@ -34,6 +35,7 @@ import type { Podcast } from '../../data/podcasts';
 import type { TwitchUser } from '../../pfps';
 
 import { StreamChunk } from '../../db/entity/StreamChunk';
+import { Video } from '../../db/entity/Video';
 
 const includedData = Object.assign(
     {},
@@ -834,6 +836,64 @@ export const getWrpLive = async (
                         .where('"characterId" IS NULL')
                         .execute();
                     console.log(JSON.stringify({ level: 'info', message: 'Stored streams without characters to database', count: chunksWithoutCharacters.length }));
+
+                    const liveStreamIds = [...chunksWithCharacters.map(c => c.streamId), ...chunksWithoutCharacters.map(c => c.streamId)];
+
+                    // Fetch any missing thumbnails from streams that just went offline
+                    const recentVideosMissingThumbnails = await dataSource.getRepository(Video)
+                        .createQueryBuilder('video')
+                        .select()
+                        .distinctOn(['video.videoId'])
+                        .innerJoin(StreamChunk, 'stream_chunk', 'video.streamId = stream_chunk.streamId')
+                        .where('stream_chunk.lastSeenDate >= :cutoff', { cutoff: new Date(now.getTime() - 1000 * 60 * 10) })
+                        .andWhere('video.thumbnailUrl IS NULL')
+                        .andWhere('stream_chunk.streamId NOT IN (:...liveStreamIds)', { liveStreamIds })
+                        .orderBy('video.videoId', 'ASC')
+                        .getMany();
+                    if (recentVideosMissingThumbnails.length) {
+                        await fetchMissingThumbnailsForVideoIds(apiClient, dataSource, recentVideosMissingThumbnails.map(v => v.videoId));
+                    } else {
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            message: 'No recent videos missing thumbnails',
+                            event: 'video-thumbnail-skip',
+                        }));
+                    }
+
+                    // Fetch videos for users who just went offline
+                    const chunksToFetch = await dataSource.getRepository(StreamChunk)
+                        .createQueryBuilder('stream_chunk')
+                        .select()
+                        .distinctOn(['stream_chunk.streamId'])
+                        .leftJoin(Video, 'video', 'video.streamId = stream_chunk.streamId')
+                        .where('video.id IS NULL')
+                        .andWhere('stream_chunk.lastSeenDate >= :cutoff', { cutoff: new Date(now.getTime() - 1000 * 60 * 10) })
+                        .andWhere('stream_chunk.streamId NOT IN (:...liveStreamIds)', { liveStreamIds })
+                        .orderBy('stream_chunk.streamId', 'ASC')
+                        .getMany();
+
+                    const streamIds = new Set(chunksToFetch.map(c => c.streamId));
+                    const streamerIds = [...new Set(chunksToFetch.map(c => c.streamerId))];
+
+                    if (streamerIds.length) {
+                        let foundVideos = 0;
+                        for (const streamerId of streamerIds) {
+                            foundVideos += await fetchVideosForUser(apiClient, dataSource, streamerId, streamIds);
+                        }
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            message: `Fetched videos for ${streamerIds.length} users, found ${foundVideos} videos`,
+                            event: 'video-end',
+                            userCount: streamerIds.length,
+                            foundVideos,
+                        }));
+                    } else {
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            message: 'No recent stream segments to fetch videos for',
+                            event: 'video-skip',
+                        }));
+                    }
                 } catch (error) {
                     console.error(JSON.stringify({ level: 'error', message: 'Failed to store streams to db', error }));
                 }
