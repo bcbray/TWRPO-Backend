@@ -9,6 +9,7 @@ import { getCharacterInfo } from '../../characterUtils';
 import { getKnownTwitchUsers } from '../../pfps';
 import { fetchFactions } from './factions';
 import { StreamChunk } from '../../db/entity/StreamChunk';
+import { Video } from '../../db/entity/Video';
 import { videoUrlOffset } from '../../utils';
 
 export interface CharactersRequest {
@@ -23,23 +24,60 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
 
     const { factions: factionInfos } = await fetchFactions(apiClient, dataSource);
 
-    const streamChunks = await dataSource
-        .getRepository(StreamChunk)
-        .createQueryBuilder('chunk')
-        .select()
-        .distinctOn(['chunk.streamerId', 'chunk.characterId'])
-        .leftJoinAndSelect('chunk.video', 'video')
-        .orderBy('chunk.streamerId', 'ASC')
-        .addOrderBy('chunk.characterId', 'ASC')
-        .addOrderBy('chunk.lastSeenDate', 'DESC')
-        .getMany();
+    interface AggregateChunk {
+        streamerId: string;
+        characterId: number;
+        streamStartDate: Date;
+        firstSeenDate: Date;
+        lastSeenDate: Date;
+        spans: { title: string, start: string, end: string }[];
+        videoUrl: string | null;
+        videoThumbnailUrl: string | null;
+    }
 
-    const seen: Record<string, Record<number, StreamChunk>> = {};
+    const streamChunks = await dataSource
+        .createQueryBuilder()
+        .select('recent_chunk.streamer_id', 'streamerId')
+        .addSelect('recent_chunk.character_id', 'characterId')
+        .addSelect('recent_chunk.stream_start_date', 'streamStartDate')
+        .addSelect('recent_chunk.first_seen_date', 'firstSeenDate')
+        .addSelect('recent_chunk.last_seen_date', 'lastSeenDate')
+        .addSelect('recent_chunk.spans', 'spans')
+        .addSelect('video.url', 'videoUrl')
+        .addSelect('video.thumbnailUrl', 'videoThumbnailUrl')
+        .from(qb =>
+            qb.subQuery()
+                .from(StreamChunk, 'stream_chunk')
+                .select('stream_chunk.streamerId', 'streamer_id')
+                .addSelect('stream_chunk.characterId', 'character_id')
+                .addSelect('stream_chunk.streamStartDate', 'stream_start_date')
+                .addSelect('stream_chunk.streamId', 'stream_id')
+                .addSelect('MIN(stream_chunk.firstSeenDate)', 'first_seen_date')
+                .addSelect('MAX(stream_chunk.lastSeenDate)', 'last_seen_date')
+                .addSelect(`
+                    jsonb_agg(
+                        jsonb_build_object(
+                          'title', stream_chunk.title,
+                          'start', stream_chunk.firstSeenDate,
+                          'end', stream_chunk.lastSeenDate)
+                      )
+                `, 'spans')
+                .distinctOn(['stream_chunk.characterId'])
+                .where('stream_chunk.characterId IS NOT NULL')
+                .andWhere('stream_chunk.characterUncertain = false')
+                .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+                .groupBy('stream_chunk.streamerId')
+                .addGroupBy('stream_chunk.streamId')
+                .addGroupBy('stream_chunk.characterId')
+                .addGroupBy('stream_chunk.streamStartDate')
+                .orderBy('character_id', 'ASC')
+                .addOrderBy('last_seen_date', 'DESC'), 'recent_chunk')
+        .leftJoin(Video, 'video', 'video.streamId = recent_chunk.stream_id')
+        .execute() as AggregateChunk[];
+
+    const seen: Record<string, Record<number, AggregateChunk>> = {};
     streamChunks.forEach((streamChunk) => {
         if (!streamChunk.characterId) {
-            return;
-        }
-        if (streamChunk.characterUncertain) {
             return;
         }
         if (!seen[streamChunk.streamerId]) {
@@ -70,9 +108,10 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                 ) {
                     const chunk = seen[channelInfo?.id][character.id];
                     characterInfo.lastSeenLive = chunk.lastSeenDate.toISOString();
-                    characterInfo.lastSeenVideoThumbnailUrl = chunk.video?.thumbnailUrl;
-                    if (chunk.video?.url) {
-                        characterInfo.lastSeenVideoUrl = videoUrlOffset(chunk.video?.url, chunk.streamStartDate, chunk.firstSeenDate);
+                    characterInfo.lastSeenTitle = chunk.spans[0]?.title;
+                    characterInfo.lastSeenVideoThumbnailUrl = chunk.videoThumbnailUrl ?? undefined;
+                    if (chunk.videoUrl) {
+                        characterInfo.lastSeenVideoUrl = videoUrlOffset(chunk.videoUrl, chunk.streamStartDate, chunk.firstSeenDate);
                     }
                 }
 

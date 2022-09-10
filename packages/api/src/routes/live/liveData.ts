@@ -959,14 +959,14 @@ export const getWrpLive = async (
                     }
 
                     interface AggregateChunk {
-                        videoUrl: string | null;
-                        videoThumbnailUrl: string | null;
                         streamerId: string;
                         characterId: number;
                         streamStartDate: Date;
                         firstSeenDate: Date;
                         lastSeenDate: Date;
                         spans: { title: string, start: string, end: string }[];
+                        videoUrl: string | null;
+                        videoThumbnailUrl: string | null;
                     }
 
                     const recentChunks = await dataSource
