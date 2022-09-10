@@ -920,17 +920,21 @@ export const getWrpLive = async (
                     const distinctCharacters = dataSource
                         .getRepository(StreamChunk)
                         .createQueryBuilder('stream_chunk')
-                        .select([
-                            'stream_chunk.streamerId',
-                            'stream_chunk.characterId',
-                            'stream_chunk.firstSeenDate',
-                            'stream_chunk.lastSeenDate',
-                            'stream_chunk.streamStartDate',
-                            'video.url',
-                            'video.thumbnailUrl',
-                        ])
+                        .select('stream_chunk.streamerId', 'streamer_id')
+                        .addSelect('stream_chunk.characterId', 'character_id')
+                        .addSelect('stream_chunk.streamStartDate', 'stream_start_date')
+                        .addSelect('stream_chunk.streamId', 'stream_id')
+                        .addSelect('MIN(stream_chunk.firstSeenDate)', 'first_seen_date')
+                        .addSelect('MAX(stream_chunk.lastSeenDate)', 'last_seen_date')
+                        .addSelect(`
+                            jsonb_agg(
+                                jsonb_build_object(
+                                  'title', stream_chunk.title,
+                                  'start', stream_chunk.firstSeenDate,
+                                  'end', stream_chunk.lastSeenDate)
+                              )
+                        `, 'spans')
                         .distinctOn(['stream_chunk.characterId'])
-                        .leftJoin(Video, 'video', 'video.streamId = stream_chunk.streamId')
                         .where('stream_chunk.characterId IS NOT NULL')
                         .andWhere('stream_chunk.characterUncertain = false')
                         .andWhere(
@@ -939,8 +943,12 @@ export const getWrpLive = async (
                         .andWhere(
                             'stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)'
                         )
-                        .orderBy('stream_chunk.characterId', 'ASC')
-                        .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
+                        .groupBy('stream_chunk.streamerId')
+                        .addGroupBy('stream_chunk.streamId')
+                        .addGroupBy('stream_chunk.characterId')
+                        .addGroupBy('stream_chunk.streamStartDate')
+                        .orderBy('character_id', 'ASC')
+                        .addOrderBy('last_seen_date', 'DESC');
 
                     const liveCharacterIds = chunks.flatMap(c => (c.characterId ? [c.characterId] : []));
                     if (liveCharacterIds.length) {
@@ -950,27 +958,40 @@ export const getWrpLive = async (
                         );
                     }
 
+                    interface AggregateChunk {
+                        videoUrl: string | null;
+                        videoThumbnailUrl: string | null;
+                        streamerId: string;
+                        characterId: number;
+                        streamStartDate: Date;
+                        firstSeenDate: Date;
+                        lastSeenDate: Date;
+                        spans: { title: string, start: string, end: string }[];
+                    }
+
                     const recentChunks = await dataSource
                         .createQueryBuilder()
-                        .select()
+                        .select('recent_chunk.streamer_id', 'streamerId')
+                        .addSelect('recent_chunk.character_id', 'characterId')
+                        .addSelect('recent_chunk.stream_start_date', 'streamStartDate')
+                        .addSelect('recent_chunk.first_seen_date', 'firstSeenDate')
+                        .addSelect('recent_chunk.last_seen_date', 'lastSeenDate')
+                        .addSelect('recent_chunk.spans', 'spans')
+                        .addSelect('video.url', 'videoUrl')
+                        .addSelect('video.thumbnailUrl', 'videoThumbnailUrl')
                         .from(`(${distinctCharacters.getQuery()})`, 'recent_chunk')
+                        .leftJoin(Video, 'video', 'video.streamId = recent_chunk.stream_id')
                         .setParameters(distinctCharacters.getParameters())
-                        .orderBy('"stream_chunk_lastSeenDate"', 'DESC')
-                        .addOrderBy('"stream_chunk_streamerId"')
-                        .execute();
+                        .orderBy('recent_chunk.last_seen_date', 'DESC')
+                        .addOrderBy('recent_chunk.streamer_id')
+                        .execute() as AggregateChunk[];
 
                     const factions = getFactionInfos(factionCount);
                     const factionMap = Object.fromEntries(factions.map(f => [f.key, f]));
 
-                    recentChunks.forEach((chunk: any) => {
-                        const streamerId = chunk.stream_chunk_streamerId as string;
-                        const characterId = chunk.stream_chunk_characterId as number;
-                        const streamStartString = chunk.stream_chunk_streamStartDate as string;
-                        const firstSeenString = chunk.stream_chunk_firstSeenDate as string;
-                        const lastSeenString = chunk.stream_chunk_lastSeenDate as string;
-                        let videoUrl = chunk.video_url as string | undefined;
-                        const videoThumbnailUrl = chunk.video_thumbnailUrl as string | undefined;
-                        if (!streamerId || !characterId || !lastSeenString) {
+                    recentChunks.forEach((chunk) => {
+                        let { videoUrl } = chunk;
+                        if (!chunk.streamerId || !chunk.characterId || !chunk.lastSeenDate) {
                             console.warn(JSON.stringify({
                                 level: 'warning',
                                 message: 'Missing required properties on recent stream segment',
@@ -978,16 +999,16 @@ export const getWrpLive = async (
                             }));
                             return;
                         }
-                        const knownUser = knownTwitchUsers[streamerId];
+                        const knownUser = knownTwitchUsers[chunk.streamerId];
                         if (!knownUser) return;
                         const channelNameLower = knownUser.displayName.toLowerCase();
                         const characters = wrpRawCharacters[channelNameLower];
-                        const character = characters.find(c => c.id === characterId);
+                        const character = characters.find(c => c.id === chunk.characterId);
                         if (!character) return;
 
                         if (videoUrl) {
-                            const start = new Date(streamStartString);
-                            const firstSeen = new Date(firstSeenString);
+                            const start = chunk.streamStartDate;
+                            const firstSeen = chunk.firstSeenDate;
 
                             videoUrl = videoUrlOffset(videoUrl, start, firstSeen);
                         }
@@ -999,9 +1020,9 @@ export const getWrpLive = async (
                                 knownUser,
                                 factionMap
                             ),
-                            lastSeenLive: lastSeenString,
-                            lastSeenVideoUrl: videoUrl,
-                            lastSeenVideoThumbnailUrl: videoThumbnailUrl,
+                            lastSeenLive: chunk.lastSeenDate.toISOString(),
+                            lastSeenVideoUrl: videoUrl ?? undefined,
+                            lastSeenVideoThumbnailUrl: chunk.videoThumbnailUrl ?? undefined,
                         });
                     });
                 } catch (error) {
