@@ -124,7 +124,7 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
         />
         <div className={styles.text}>
           <div className={styles.title}>
-            <p title={realName}>{realName}</p>
+            <p title={character.lastSeenTitle ?? realName}>{character.lastSeenTitle ?? realName}</p>
           </div>
           <div className={styles.channel}>
             <p>

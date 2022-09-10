@@ -1021,6 +1021,7 @@ export const getWrpLive = async (
                                 factionMap
                             ),
                             lastSeenLive: chunk.lastSeenDate.toISOString(),
+                            lastSeenTitle: chunk.spans[0]?.title,
                             lastSeenVideoUrl: videoUrl ?? undefined,
                             lastSeenVideoThumbnailUrl: chunk.videoThumbnailUrl ?? undefined,
                         });

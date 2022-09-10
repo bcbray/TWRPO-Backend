@@ -12,6 +12,7 @@ export default interface CharacterInfo {
   liveInfo?: Stream;
   channelInfo?: ChannelInfo;
   lastSeenLive?: string;
+  lastSeenTitle?: string;
   lastSeenVideoUrl?: string;
   lastSeenVideoThumbnailUrl?: string;
 }
