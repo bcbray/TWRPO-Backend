@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { CharacterInfo, Stream } from '@twrpo/types';
+import { CharacterInfo } from '@twrpo/types';
 
 import styles from './CharactersTable.module.css';
 import LiveBadge from './LiveBadge';
