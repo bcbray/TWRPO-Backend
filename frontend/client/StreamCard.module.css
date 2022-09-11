@@ -57,6 +57,24 @@
   margin: 0.5rem;
 }
 
+.topTags {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.topTags .tag {
+  position: unset;
+  margin: 0;
+}
+
 .tag.name {
   font-weight: 500;
   top: 0;
@@ -64,6 +82,15 @@
   text-transform: uppercase;
   color: var(--const-theme-black);
   background-color: var(--faction-color-dark);
+}
+
+.tag.live {
+  font-weight: 500;
+  top: 0;
+  left: 0;
+  text-transform: uppercase;
+  color: var(--const-theme-white);
+  background-color: var(--theme-red);
 }
 
 .tag.viewers {
@@ -108,6 +135,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500;
+}
+
+.title.wrap p {
+  white-space: unset;
 }
 
 .channel p {
