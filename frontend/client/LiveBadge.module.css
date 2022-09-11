@@ -1,0 +1,18 @@
+.liveTag {
+  background-color: var(--theme-red);
+  color: var(--const-theme-white);
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+  padding-left: 0.375rem !important;
+  padding-right: 0.375rem !important;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.75em !important;
+}
+
+.streamPopover {
+  position: absolute;
+  width: 300;
+  padding-top: 6px;
+  transition: opacity 0.15s linear;
+}

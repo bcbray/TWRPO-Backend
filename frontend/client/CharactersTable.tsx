@@ -3,38 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { CharacterInfo, Stream } from '@twrpo/types';
 
 import styles from './CharactersTable.module.css';
-import Tag from './Tag';
-import StreamCard from './StreamCard';
+import LiveBadge from './LiveBadge';
 import ProfilePhoto from './ProfilePhoto';
 import { classes } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
-import OverlayTrigger from './OverlayTrigger';
 
 interface Props {
   characters: CharacterInfo[];
 };
-
-const LiveBadge: React.FC<{ stream: Stream }> = ({ stream }) => (
-  <OverlayTrigger
-    placement='bottom-start'
-    delay={{ show: 250, hide: 100 }}
-    overlay={({ placement, arrowProps, show: _show, popper, ...props }) => (
-      <div className={styles.streamPopover} {...props}>
-        <StreamCard
-          id='live-preview-tooltop'
-          style={{
-            width: 300,
-          }}
-          stream={stream}
-          cardStyle='card'
-          embed
-        />
-      </div>
-    )}
-  >
-    <Tag as='span' className={styles.liveTag}>Live</Tag>
-  </OverlayTrigger>
-);
 
 const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
   const location = useLocation();
