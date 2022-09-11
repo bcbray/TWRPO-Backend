@@ -37,6 +37,7 @@ import type { TwitchUser } from '../../pfps';
 
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { Video } from '../../db/entity/Video';
+import { TwitchChannel } from '../../db/entity/TwitchChannel';
 
 const includedData = Object.assign(
     {},
@@ -272,6 +273,7 @@ const wrpFactionsRegexEntries = Object.entries(wrpFactionsRegex) as [WrpFactions
 
 const knownPfps: { [key: string]: string } = {};
 const knownTwitchUsers: { [key: string]: TwitchUser } = {};
+let unknownTwitchUsers: { [key: string]: TwitchUser } = {};
 
 interface GetStreamsOptions { searchNum?: number; international?: boolean }
 type GetStreamsOptionsRequired = Required<GetStreamsOptions>;
@@ -328,6 +330,13 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
             const foundUsers = await apiClient.users.getUsersByIds(lookupStreams);
             for (const helixUser of foundUsers) {
                 knownPfps[helixUser.id] = helixUser.profilePictureUrl.replace('-300x300.', '-50x50.');
+                unknownTwitchUsers[helixUser.id] = {
+                    id: helixUser.id,
+                    login: helixUser.name,
+                    displayName: helixUser.displayName,
+                    profilePictureUrl: helixUser.profilePictureUrl,
+                    createdAt: helixUser.creationDate,
+                };
             }
         }
 
@@ -475,6 +484,7 @@ export const getWrpLive = async (
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
 
                 const chunks: Omit<StreamChunk, 'id' | 'firstSeenDate'>[] = [];
+                const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck'>[] = [];
                 const now = new Date();
 
                 gtaStreams.forEach((helixStream) => {
@@ -805,6 +815,18 @@ export const getWrpLive = async (
                         lastSeenDate: now,
                     });
 
+                    if (helixStream.userId in unknownTwitchUsers) {
+                        const u = unknownTwitchUsers[helixStream.userId];
+                        delete unknownTwitchUsers[helixStream.userId];
+                        newChannels.push({
+                            twitchId: u.id,
+                            twitchLogin: u.login,
+                            displayName: u.displayName,
+                            profilePhotoUrl: u.profilePictureUrl,
+                            twitchCreatedAt: u.createdAt,
+                        });
+                    }
+
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
                     factionCount.allwildrp++;
@@ -812,6 +834,30 @@ export const getWrpLive = async (
                 });
 
                 try {
+                    if (newChannels.length) {
+                        const result = await dataSource
+                            .getRepository(TwitchChannel)
+                            .upsert(newChannels, {
+                                conflictPaths: ['twitchId'],
+                                skipUpdateIfNoValuesChanged: true,
+                            });
+                        const updateCount = result.identifiers.reduce((count, id) => (
+                            id ? count + 1 : count
+                        ), 0);
+                        if (updateCount) {
+                            console.log(JSON.stringify({
+                                level: 'info',
+                                message: `Updated ${updateCount} twitch channels in database`,
+                                count: updateCount,
+                            }));
+                        }
+                        Object.assign(
+                            knownTwitchUsers,
+                            Object.fromEntries(newChannels.map(c => [c.twitchId, c]))
+                        );
+                        unknownTwitchUsers = {};
+                    }
+
                     const chunksWithCharacters = chunks.filter(c => c.characterId);
                     await dataSource.manager.createQueryBuilder()
                         .insert()
