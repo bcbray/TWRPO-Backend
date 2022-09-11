@@ -22,6 +22,7 @@ export interface PreloadedData {
   live?: LiveResponse;
   factions?: FactionsResponse;
   characters?: CharactersResponse;
+  streamers?: Record<string, StreamerResponse>;
 }
 
 export interface PreloadedUsed {
@@ -29,6 +30,7 @@ export interface PreloadedUsed {
   usedLive?: boolean;
   usedFactions?: boolean;
   usedCharacters?: boolean;
+  usedStreamerNames?: string[];
   usedFactionCss?: boolean;
 }
 
@@ -193,8 +195,30 @@ export const useAutoreloadLive = ({ skipsPreload = false, ...props }: PreAutoRel
 };
 
 export const useStreamer = (name: string, { skipsPreload = false, ...props }: PreLoadingProps<StreamerResponse> = {}): LoadingResult<StreamerResponse> => {
+  const preloadedData = React.useContext(PreloadedDataContext);
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  const nameLower = React.useMemo(() => name.toLowerCase(), [name]);
+  if (skipsPreload !== true && props.needsLoad !== false && !props.preloaded) {
+    if (!preloadedUsed.usedStreamerNames) {
+      preloadedUsed.usedStreamerNames = [];
+    }
+    preloadedUsed.usedStreamerNames.push(nameLower);
+  }
+  const preloaded = skipsPreload
+    ? undefined
+    : preloadedData.streamers?.[nameLower];
   const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/streamers/${name}`, {
+    preloaded,
     ...props,
   });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    if (!preloadedData.streamers) {
+      preloadedData.streamers = {};
+    }
+    preloadedData.streamers[nameLower] = loadState.data;
+  }
+
   return [loadState, outerOnReload, lastLoad];
 }

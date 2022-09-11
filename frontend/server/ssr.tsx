@@ -7,7 +7,7 @@ import { SSRProvider } from "@restart/ui/ssr";
 import { HelmetProvider, FilledContext } from 'react-helmet-async';
 
 import TWRPOApi from '@twrpo/api';
-import { LiveResponse, CharactersResponse, FactionsResponse } from '@twrpo/types';
+import { LiveResponse, CharactersResponse, FactionsResponse, StreamerResponse } from '@twrpo/types';
 
 import App from '../client/App';
 import { SSRRouting, SSRRoutingProvider } from '../client/SSRRouting';
@@ -74,6 +74,19 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
       // Hacky round-trip through JSON to make sure our types are converted the same
       // TODO: Maybe we should just make an API call?
       preloaded.characters = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
+    }
+
+    if (preload.usedStreamerNames && preload.usedStreamerNames.length) {
+      preloaded.streamers = {};
+      for (const name of preload.usedStreamerNames) {
+        const streamerResponse = await api.fetchStreamer(name);
+        if (!streamerResponse) {
+          continue;
+        }
+        // Hacky round-trip through JSON to make sure our types are converted the same
+        // TODO: Maybe we should just make an API call?
+        preloaded.streamers[name.toLowerCase()] = JSON.parse(JSON.stringify(streamerResponse)) as StreamerResponse;
+      }
     }
 
     const routingContext: SSRRouting = {};
