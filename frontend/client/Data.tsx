@@ -1,7 +1,12 @@
 import React from 'react';
 import { useIsSSR } from '@restart/ui/ssr';
 import { useHarmonicIntervalFn } from 'react-use';
-import { LiveResponse, CharactersResponse, FactionsResponse } from '@twrpo/types'
+import {
+  LiveResponse,
+  CharactersResponse,
+  FactionsResponse,
+  StreamerResponse,
+} from '@twrpo/types'
 
 import {
   useLoading,
@@ -161,3 +166,10 @@ export const useAutoreloadLive = ({ skipsPreload = false, ...props }: PreAutoRel
 
   return [loadState, outerOnReload, lastLoad];
 };
+
+export const useStreamer = (name: string, { skipsPreload = false, ...props }: PreLoadingProps<StreamerResponse> = {}): LoadingResult<StreamerResponse> => {
+  const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/streamers/${name}`, {
+    ...props,
+  });
+  return [loadState, outerOnReload, lastLoad];
+}
