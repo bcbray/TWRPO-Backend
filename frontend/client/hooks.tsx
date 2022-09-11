@@ -165,23 +165,45 @@ export function useRelativeDate(date?: Date): RelativeDateResult | undefined {
       relative = formatter.format(Math.round(diffDays), 'days');
     } else if (Math.abs(diffWeeks) < 2) {
       relative = formatter.format(Math.round(diffWeeks), 'weeks')
-    } else if (date.getFullYear() === now.getFullYear()) {
-      relative = date.toLocaleDateString(locale, {
-        ...formatOptions,
-        month: 'short',
-        day: 'numeric',
-      })
     } else {
-      relative = date.toLocaleDateString(locale, {
-        ...formatOptions,
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
+      relative = shortDate(date, now, locale, formatOptions);
     }
 
     return { relative, full }
   }, [now, date, formatter, locale, formatOptions]);
+}
+
+function shortDate(date: Date, now: Date, locale: string | undefined, formatOptions: Intl.DateTimeFormatOptions): string {
+  if (date.getFullYear() === now.getFullYear()) {
+    return date.toLocaleDateString(locale, {
+      ...formatOptions,
+      month: 'short',
+      day: 'numeric',
+    })
+  }
+  return date.toLocaleDateString(locale, {
+    ...formatOptions,
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+}
+
+export function useShortDate(date: Date): string {
+  const now = useNow();
+  const isFirstRender = useInitialRender();
+
+  // Use en-US and UTC for the first render so we're consistent between SSR and the
+  // first client-side render. Then immediately swap in client local.
+  const locale = isFirstRender ? 'en-US' : undefined;
+
+  // Similarly, use UTC for the first render then fall back to client time zone.
+  const formatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
+    timeZone: isFirstRender ? 'utc' : undefined,
+    timeZoneName: isFirstRender ? 'short' : undefined,
+  }), [isFirstRender]);
+
+  return shortDate(date, now, locale, formatOptions);
 }
 
 /**
