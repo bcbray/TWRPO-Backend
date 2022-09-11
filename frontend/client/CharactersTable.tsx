@@ -10,18 +10,29 @@ import { useFactionCss } from './FactionStyleProvider';
 
 interface Props {
   characters: CharacterInfo[];
+  hideStreamer?: boolean;
+  noInset?: boolean;
 };
 
-const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
+const CharactersTable: React.FunctionComponent<Props> = ({
+  characters,
+  hideStreamer = false,
+  noInset = false,
+}) => {
   const location = useLocation();
   const { factionStyles } = useFactionCss();
 
   return (
-    <div className={classes(styles.tableContainer, 'inset')}>
+    <div
+      className={classes(
+        styles.tableContainer,
+        !noInset && 'inset'
+      )}
+    >
       <table className={styles.table}>
         <thead>
           <tr>
-          <th style={{ width: '20%' }}>Streamer</th>
+          {!hideStreamer && <th style={{ width: '20%' }}>Streamer</th>}
           <th style={{ width: '10%' }}>Titles</th>
           <th style={{ width: '25%' }}>Name</th>
           <th style={{ width: '25%' }}>
@@ -44,24 +55,29 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
               : character.factions;
             return (
               <tr className={styles.characterRow} key={`${character.channelName}_${character.name}`}>
-                <td className={styles.channelName}>
-                  <a style={{ textDecoration: 'none' }} href={`https://twitch.tv/${character.channelName.toLowerCase()}`}>
-                    <ProfilePhoto
-                      className={styles.pfp}
-                      channelInfo={character.channelInfo}
-                      size={24}
-                      style={{
-                        height: '1.5rem',
-                        width: '1.5rem',
-                        borderRadius: '0.75rem',
-                      }}
-                    />
-                    {character.channelName}
-                    {character.liveInfo && <LiveBadge stream={character.liveInfo} />}
-                  </a>
-                </td>
+                {!hideStreamer &&
+                  <td className={styles.channelName}>
+                    <a style={{ textDecoration: 'none' }} href={`/streamer/${character.channelName.toLowerCase()}`}>
+                      <ProfilePhoto
+                        className={styles.pfp}
+                        channelInfo={character.channelInfo}
+                        size={24}
+                        style={{
+                          height: '1.5rem',
+                          width: '1.5rem',
+                          borderRadius: '0.75rem',
+                        }}
+                      />
+                      {character.channelName}
+                      {character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
+                    </a>
+                  </td>
+                }
                 <td className={styles.titles}>{character.displayInfo.titles.join(', ')}</td>
-                <td className={styles.name}>{character.displayInfo.realNames.join(' ')}</td>
+                <td className={styles.name}>
+                  {character.displayInfo.realNames.join(' ')}
+                  {hideStreamer && character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
+                </td>
                 <td className={styles.nicknames}>{character.displayInfo.nicknames.join(', ')}</td>
                 <td className={styles.factions}>
                 {
