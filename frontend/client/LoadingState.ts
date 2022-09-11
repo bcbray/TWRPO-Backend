@@ -45,6 +45,12 @@ export interface LoadingProps<T> {
   onReloadSuccess?: () => void;
 }
 
+export class NotFoundError extends Error {
+  constructor(public body?: any) {
+    super();
+  }
+}
+
 export type LoadingResult<T> = [LoadingState<T, Error>, () => void, number];
 
 export function useLoading<T>(
@@ -75,6 +81,9 @@ export function useLoading<T>(
     async function fetchAndCheck(): Promise<T> {
       const response = await fetch(input);
       if (!response.ok) {
+        if (response.status === 404) {
+          throw new NotFoundError(await response.json());
+        }
         throw Error(response.statusText);
       }
       return await response.json() as T;
