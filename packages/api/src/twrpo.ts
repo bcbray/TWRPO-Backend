@@ -48,6 +48,7 @@ class Api {
         this.apiRouter.use('/v1/live', routes.liveRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/characters', routes.v2CharactersRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/factions', routes.v2FactionsRouter(this.twitchClient, this.dataSource));
+        this.apiRouter.use('/v2/streamers', routes.v2StreamersRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter);
 
         const { liveRefreshInterval = 1000 * 60 } = options;
