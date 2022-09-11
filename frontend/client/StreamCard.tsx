@@ -1,5 +1,6 @@
 import React from 'react';
 import { useIntersection, useHoverDirty } from 'react-use';
+import { Link } from 'react-router-dom';
 import { Stream } from '@twrpo/types';
 
 import styles from './StreamCard.module.css';
@@ -166,13 +167,13 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
         {!hideStreamer &&
-          <StreamLink stream={stream}>
+          <Link to={`/streamer/${stream.channelName.toLowerCase()}`}>
             <ProfilePhotos
               className={styles.pfp}
               channelInfo={channelInfo(stream)}
               size='sm'
             />
-          </StreamLink>
+          </Link>
         }
         <div className={styles.text}>
           <div className={classes(styles.title, wrapTitle && styles.wrap)}>
@@ -181,9 +182,9 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
           {!hideStreamer &&
             <div className={styles.channel}>
               <p>
-                <StreamLink stream={stream}>
+                <Link to={`/streamer/${stream.channelName.toLowerCase()}`}>
                   {stream.channelName}
-                </StreamLink>
+                </Link>
               </p>
             </div>
           }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { CharacterInfo } from '@twrpo/types';
 
 import styles from './OfflineCharacterCard.module.css';
@@ -120,11 +121,13 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
         {!hideStreamer &&
-          <ProfilePhoto
-            className={styles.pfp}
-            channelInfo={character.channelInfo}
-            size={30}
-          />
+          <Link to={`/streamer/${character.channelInfo?.login ?? character.channelName.toLowerCase()}`}>
+            <ProfilePhoto
+              className={styles.pfp}
+              channelInfo={character.channelInfo}
+              size={30}
+            />
+          </Link>
         }
         <div className={styles.text}>
           <div className={classes(styles.title, wrapTitle && styles.wrap)}>
@@ -133,9 +136,9 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
           {!hideStreamer &&
             <div className={styles.channel}>
               <p>
-                <CharacterLink character={character}>
+                <Link to={`/streamer/${character.channelInfo?.login ?? character.channelName.toLowerCase()}`}>
                   {character.channelName}
-                </CharacterLink>
+                </Link>
               </p>
             </div>
           }
