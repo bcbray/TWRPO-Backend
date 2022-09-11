@@ -354,6 +354,7 @@ interface BaseStream {
     // tagIds: string[];
     viewers: number;
     profileUrl: string;
+    streamId: string;
 }
 
 type FactionCount = { [key in FactionMini]: number };
@@ -485,6 +486,7 @@ export const getWrpLive = async (
                         // tagIds: helixStream.tagIds,
                         viewers,
                         profileUrl: knownPfps[helixStream.userId],
+                        streamId: helixStream.id,
                     }; // rpServer, characterName, faction, tagText, tagFaction
 
                     // let noOthersInclude = true; // INV: Still being used?
