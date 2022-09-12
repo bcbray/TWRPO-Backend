@@ -11,7 +11,7 @@
 }
 
 .streamer {
-  justify-self: center;
+  margin: 0 auto;
 }
 
 .characters, .recentStreams {
@@ -21,10 +21,6 @@
 
 .recentStreams {
   flex-basis: 100%;
-}
-
-.content h3 {
-  /* margin-top: 3rem; */
 }
 
 .channelLink {
