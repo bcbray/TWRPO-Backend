@@ -39,7 +39,7 @@ export const isFailure = <T,E>(state: LoadingState<T, E>): state is Failure_<E> 
   state.type === 'Failure';
 
 export interface LoadingProps<T> {
-  preloaded?: T;
+  preloaded?: T | null;
   needsLoad?: boolean;
   onReloadFailed?: (error: Error) => void;
   onReloadSuccess?: () => void;
@@ -59,7 +59,11 @@ export function useLoading<T>(
 ): LoadingResult<T> {
   const { preloaded, needsLoad = true, onReloadFailed, onReloadSuccess } = props;
   const [getState, setState] = useGetSet<LoadingState<T, any>>(
-    preloaded && needsLoad ? Success(preloaded) : Idle
+    preloaded !== undefined && needsLoad
+      ? preloaded === null
+        ? Failure(new NotFoundError())
+        : Success(preloaded)
+      : Idle
   );
   const [loadCount, setLoadCount] = useState(0);
   const [lastLoadCount, setLastLoadCount] = useState<number | undefined>(undefined);
@@ -71,7 +75,11 @@ export function useLoading<T>(
     }
     if (preloaded !== undefined && loadCount === 0) {
       if (isIdle(getState())) {
-        setState(Success(preloaded));
+        if (preloaded === null) {
+          setState(Failure(new NotFoundError()));
+        } else {
+          setState(Success(preloaded));
+        }
       }
       return;
     }

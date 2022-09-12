@@ -23,7 +23,7 @@ export interface PreloadedData {
   live?: LiveResponse;
   factions?: FactionsResponse;
   characters?: CharactersResponse;
-  streamers?: Record<string, StreamerResponse>;
+  streamers?: Record<string, StreamerResponse | null>;
   unknown?: UnknownResponse;
 }
 
@@ -104,7 +104,7 @@ export interface PreAutoReloadingProps<T> extends AutoReloadingProps<T> {
 export const useCharacters = ({ skipsPreload = false, ...props }: PreLoadingProps<CharactersResponse> = {}): LoadingResult<CharactersResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && !props.preloaded && !preloadedData.characters) {
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && !preloadedData.characters) {
     preloadedUsed.usedCharacters = true;
   }
 
@@ -124,7 +124,7 @@ export const useCharacters = ({ skipsPreload = false, ...props }: PreLoadingProp
 export const useFactions = ({ skipsPreload = false, ...props }: PreLoadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && !props.preloaded && !preloadedData.factions) {
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && !preloadedData.factions) {
     preloadedUsed.usedFactions = true;
   }
 
@@ -144,7 +144,7 @@ export const useFactions = ({ skipsPreload = false, ...props }: PreLoadingProps<
 export const useAutoreloadFactions = ({ skipsPreload = false, ...props }: PreAutoReloadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && !props.preloaded && !preloadedData.factions) {
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && !preloadedData.factions) {
     preloadedUsed.usedFactions = true;
   }
 
@@ -164,7 +164,7 @@ export const useAutoreloadFactions = ({ skipsPreload = false, ...props }: PreAut
 export const useLive = ({ skipsPreload = false, ...props }: PreLoadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && !props.preloaded && !preloadedData.live) {
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && !preloadedData.live) {
     preloadedUsed.usedLive = true;
   }
   const [loadState, outerOnReload, lastLoad] = useLoading('/api/v1/live', {
@@ -183,7 +183,7 @@ export const useLive = ({ skipsPreload = false, ...props }: PreLoadingProps<Live
 export const useAutoreloadLive = ({ skipsPreload = false, ...props }: PreAutoReloadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && !props.preloaded && !preloadedData.live) {
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && !preloadedData.live) {
     preloadedUsed.usedLive = true;
   }
   const [loadState, outerOnReload, lastLoad] = useAutoReloading('/api/v1/live', {
@@ -203,7 +203,7 @@ export const useStreamer = (name: string, { skipsPreload = false, ...props }: Pr
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
   const nameLower = React.useMemo(() => name.toLowerCase(), [name]);
-  if (skipsPreload !== true && props.needsLoad !== false && !props.preloaded && !preloadedData.streamers?.[nameLower]) {
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.streamers?.[nameLower] === undefined) {
     if (!preloadedUsed.usedStreamerNames) {
       preloadedUsed.usedStreamerNames = [];
     }
@@ -231,7 +231,7 @@ export const useStreamer = (name: string, { skipsPreload = false, ...props }: Pr
 export const useUnknown = ({ skipsPreload = false, ...props }: PreLoadingProps<UnknownResponse> = {}): LoadingResult<UnknownResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && !props.preloaded && !preloadedData.unknown) {
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && !preloadedData.unknown) {
     preloadedUsed.usedUnknown = true;
   }
   const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/unknown', {

@@ -105,12 +105,9 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           }
           for (const name of used.usedStreamerNames) {
             const streamerResponse = await api.fetchStreamer(name);
-            if (!streamerResponse) {
-              continue;
-            }
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
-            preloadedData.streamers[name.toLowerCase()] = JSON.parse(JSON.stringify(streamerResponse)) as StreamerResponse;
+            preloadedData.streamers[name.toLowerCase()] = JSON.parse(JSON.stringify(streamerResponse)) as StreamerResponse | null;
           }
         }
 
