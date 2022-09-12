@@ -751,16 +751,6 @@ export const getWrpLive = async (
                     let tagFaction: FactionColorsMini;
                     let tagText;
 
-                    if (channelNameLower === 'b3udown') {
-                        console.log('nowCharacter', nowCharacter);
-                        console.log('possibleCharacter', nowCharacter);
-                        console.log('factionNames', factionNames);
-                        console.log('factionsInTitle', factionsInTitle);
-                        console.log('newCharFactionSpotted', newCharFactionSpotted);
-                        console.log('hasFactions', hasFactions);
-                        console.log('hasTitleTakeoverFaction', hasTitleTakeoverFaction);
-                    }
-
                     if (nowCharacter) {
                         activeFactions = [...nowCharacter.factions];
                         tagFaction = nowCharacter.factionUse;
