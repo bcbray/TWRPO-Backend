@@ -90,7 +90,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 28, name: 'Raul Sanchez' },
     ],
     AndiiCraft: [
-        { id: 1068, name: '? ?', nicknames: ['Swamp Witch'], displayName: 3 }, // Real name?
+        { id: 1068, name: 'Allison Gator', nicknames: ['Swamp Witch'], displayName: 3 },
     ],
     andromedastarry: [
         { id: 29, name: 'Andi Walker' },
