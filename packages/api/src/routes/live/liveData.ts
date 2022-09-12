@@ -483,7 +483,7 @@ export const getWrpLive = async (
                 const wrpStreams: Stream[] = [];
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
 
-                const chunks: Omit<StreamChunk, 'id' | 'firstSeenDate'>[] = [];
+                const chunks: Omit<StreamChunk, 'id' | 'firstSeenDate' | 'lastSeenDate'>[] = [];
                 const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck'>[] = [];
                 const now = new Date();
 
@@ -802,7 +802,6 @@ export const getWrpLive = async (
                         streamId: helixStream.id,
                         streamStartDate: helixStream.startDate,
                         title: helixStream.title,
-                        lastSeenDate: now,
                     });
 
                     if (helixStream.userId in unknownTwitchUsers) {
@@ -837,6 +836,7 @@ export const getWrpLive = async (
                         if (updateCount) {
                             console.log(JSON.stringify({
                                 level: 'info',
+                                event: 'channel-update',
                                 message: `Updated ${updateCount} twitch channels in database`,
                                 count: updateCount,
                             }));
@@ -848,35 +848,81 @@ export const getWrpLive = async (
                         unknownTwitchUsers = {};
                     }
 
-                    const chunksWithCharacters = chunks.filter(c => c.characterId);
-                    await dataSource.manager.createQueryBuilder()
-                        .insert()
-                        .into(StreamChunk)
-                        .values(chunksWithCharacters)
-                        .orUpdate(
-                            ['lastSeenDate', 'characterId', 'characterUncertain'],
-                            ['streamerId', 'characterId', 'streamId', 'title'],
-                            { skipUpdateIfNoValuesChanged: true }
-                        )
-                        .where('"characterId" IS NOT NULL')
-                        .execute();
-                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams with characters to database', count: chunksWithCharacters.length }));
+                    let updatedChunkCount = 0;
+                    const newChunks: Omit<StreamChunk, 'id'>[] = [];
 
-                    const chunksWithoutCharacters = chunks.filter(c => !c.characterId);
-                    await dataSource.manager.createQueryBuilder()
-                        .insert()
-                        .into(StreamChunk)
-                        .values(chunksWithoutCharacters)
-                        .orUpdate(
-                            ['lastSeenDate', 'characterId', 'characterUncertain'],
-                            ['streamerId', 'streamId', 'title'],
-                            { skipUpdateIfNoValuesChanged: true }
-                        )
-                        .where('"characterId" IS NULL')
-                        .execute();
-                    console.log(JSON.stringify({ level: 'info', message: 'Stored streams without characters to database', count: chunksWithoutCharacters.length }));
+                    for (const chunk of chunks) {
+                        const mostRecentStreamSegment = await dataSource.getRepository(StreamChunk)
+                            .findOne({
+                                where: {
+                                    streamerId: chunk.streamerId,
+                                    streamId: chunk.streamId,
+                                },
+                                order: {
+                                    lastSeenDate: 'desc',
+                                },
+                            });
+                        if (mostRecentStreamSegment && mostRecentStreamSegment.title === chunk.title) {
+                            // TODO: Add some way to mark a chunk as manually edited
+                            // (and omit changes to characters when we have them)
+                            const { id } = mostRecentStreamSegment;
+                            const { characterId, characterUncertain } = chunk;
+                            const updatedChunk: Pick<StreamChunk, 'lastSeenDate' | 'characterId' | 'characterUncertain'> = {
+                                characterId,
+                                characterUncertain,
+                                lastSeenDate: now,
+                            };
+                            const updateResult = await dataSource
+                                .getRepository(StreamChunk)
+                                .update(
+                                    { id },
+                                    updatedChunk
+                                );
+                            updatedChunkCount += updateResult.affected ?? 0;
+                            if (updateResult.affected === undefined || updateResult.affected !== 1) {
+                                console.error(JSON.stringify({
+                                    level: 'error',
+                                    event: 'segment-update-error',
+                                    message: 'Stream segment update didn’t affect exactly one row',
+                                    affected: updateResult.affected ?? null,
+                                    previous: mostRecentStreamSegment,
+                                    update: updatedChunk,
+                                }));
+                            }
+                        } else {
+                            newChunks.push({
+                                ...chunk,
+                                firstSeenDate: now,
+                                lastSeenDate: now,
+                            });
+                        }
+                    }
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        event: 'segment-update',
+                        message: `Updated ${updatedChunkCount} streams in database`,
+                        count: updatedChunkCount,
+                    }));
 
-                    const liveStreamIds = [...chunksWithCharacters.map(c => c.streamId), ...chunksWithoutCharacters.map(c => c.streamId)];
+                    if (newChunks.length) {
+                        const insertResult = await dataSource
+                            .getRepository(StreamChunk)
+                            .insert(newChunks);
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            event: 'segment-insert',
+                            message: `Stored ${insertResult.identifiers.length} new streams to database`,
+                            count: insertResult.identifiers.length,
+                        }));
+                    } else {
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            event: 'segment-insert-skip',
+                            message: 'No new streams to store',
+                        }));
+                    }
+
+                    const liveStreamIds = chunks.map(c => c.streamId);
 
                     // Fetch any missing thumbnails from streams that just went offline
                     const recentVideosMissingThumbnails = await dataSource.getRepository(Video)
