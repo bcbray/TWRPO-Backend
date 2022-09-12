@@ -677,7 +677,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 310, name: 'Cade Cross' },
     ],
     Flickerclad: [
-        { id: 311, name: 'Evangeline Thorne' },
+        { id: 311, name: 'Evangeline Thorne', factions: ['Summers Gang'] },
         { id: 312, name: 'Frankie Czepanski' },
         { id: 313, name: '[Sheriff] Rabbit Windward', factions: ['Law'] },
         { id: 314, name: 'Saskia "Fang" Wolf' },
