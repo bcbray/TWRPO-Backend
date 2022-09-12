@@ -160,10 +160,8 @@ export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult
       relative = formatter.format(Math.round(diffMinutes), 'minutes');
     } else if (Math.abs(diffDays) < 1) {
       relative = formatter.format(Math.round(diffHours), 'hours');
-    } else if (Math.abs(diffWeeks) < 1) {
-      relative = formatter.format(Math.round(diffDays), 'days');
     } else if (Math.abs(diffWeeks) < 2) {
-      relative = formatter.format(Math.round(diffWeeks), 'weeks')
+      relative = formatter.format(Math.round(diffDays), 'days');
     } else {
       relative = shortDate(date, now, locale, formatOptions);
     }
