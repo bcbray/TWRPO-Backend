@@ -19,6 +19,7 @@ export const regOthers = [
     { name: 'Hollow Creek RP', reg: /\bhc\s*rp|\bhollow\s*creek\s*(?:rp\b|roleplay)/i, include: 1 },
     { name: 'Haven\'s Crest RP', reg: /\bhaven'?s\s+crest\s+(?:rp\b|roleplay)/i, include: 1 },
     { name: 'PRC', reg: /\bprc\b/i, include: 1 },
+    { name: 'Calico County RP', reg: /\bcalico\s*county\s*(?:rp\b|roleplay)/i, include: 1 },
     { name: 'Red Dead Online', reg: /\b(?:rdr[\s:-]*[2]?|read\s*dead)[\s:-]*online/i, include: 0 },
     { name: 'RDR Story', reg: /\bstory[\s\-]*mode\b|\bsingle[\s\-]*player\b|\b(?:rdr|red\s+dead\s+redemption)[\s:-]*[2]?[\s\-]+(?:story|campaign)|playthrough/i, include: 0 },
 ];
