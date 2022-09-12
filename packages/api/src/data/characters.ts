@@ -1504,7 +1504,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     rossthehsauce: [
         { id: 682, name: 'Forest Fish', factions: ['Guppy Gang'] },
-        { id: 683, name: 'Dominic Disouza', factions: ['DiCenzo Group 2'] },
+        { id: 683, name: 'Dominic "Dom" Disouza', factions: ['DiCenzo Group 2'] },
         { id: 684, name: 'Lionel Miles' },
     ],
     RY4N: [
