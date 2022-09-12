@@ -13,16 +13,20 @@ interface Props {
   characters: CharacterInfo[];
   hideStreamer?: boolean;
   noInset?: boolean;
+  noStreamerLink?: boolean;
+  noHover?: boolean;
 };
 
 interface RowProps {
   character: CharacterInfo;
   hideStreamer: boolean;
+  noStreamerLink: boolean;
 }
 
 const CharacterRow: React.FC<RowProps> = ({
   character,
   hideStreamer,
+  noStreamerLink,
 }) => {
   const location = useLocation();
   const { factionStyles } = useFactionCss();
@@ -42,28 +46,48 @@ const CharacterRow: React.FC<RowProps> = ({
     <tr className={styles.characterRow}>
       {!hideStreamer &&
         <td className={styles.channelName}>
-          <Link
-            className={styles.factionPill}
-            to={`/streamer/${character.channelName.toLowerCase()}`}
-          >
-            <ProfilePhoto
-              className={styles.pfp}
-              channelInfo={character.channelInfo}
-              size={24}
-              style={{
-                height: '1.5rem',
-                width: '1.5rem',
-                borderRadius: '0.75rem',
-              }}
-            />
-            {character.channelName}
-            {character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
-          </Link>
+          {noStreamerLink ? (
+            <>
+              <ProfilePhoto
+                className={styles.pfp}
+                channelInfo={character.channelInfo}
+                size={24}
+                style={{
+                  height: '1.5rem',
+                  width: '1.5rem',
+                  borderRadius: '0.75rem',
+                }}
+              />
+              {character.channelName}
+              {character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
+            </>
+          ) : (
+            <Link to={`/streamer/${character.channelName.toLowerCase()}`}>
+              <ProfilePhoto
+                className={styles.pfp}
+                channelInfo={character.channelInfo}
+                size={24}
+                style={{
+                  height: '1.5rem',
+                  width: '1.5rem',
+                  borderRadius: '0.75rem',
+                }}
+              />
+              {character.channelName}
+              {character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
+            </Link>
+          )}
         </td>
       }
       <td className={styles.titles}>{character.displayInfo.titles.join(', ')}</td>
       <td className={styles.name}>
-        {character.displayInfo.realNames.join(' ')}
+        {noStreamerLink ? (
+          character.displayInfo.realNames.join(' ')
+        ) : (
+          <Link to={`/streamer/${character.channelName.toLowerCase()}`}>
+            {character.displayInfo.realNames.join(' ')}
+          </Link>
+        )}
         {hideStreamer && character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
       </td>
       <td className={styles.nicknames}>{character.displayInfo.nicknames.join(', ')}</td>
@@ -84,9 +108,12 @@ const CharacterRow: React.FC<RowProps> = ({
       }
       </td>
       <td className={styles.lastSeen}>
-        {lastSeenLive &&
-          <span title={lastSeenLive.full}>{lastSeenLive.relative}</span>
-        }
+        {character.liveInfo ? (
+          'live now'
+        ) : (
+          lastSeenLive &&
+            <span title={lastSeenLive.full}>{lastSeenLive.relative}</span>
+        )}
       </td>
     </tr>
   );
@@ -96,6 +123,8 @@ const CharactersTable: React.FunctionComponent<Props> = ({
   characters,
   hideStreamer = false,
   noInset = false,
+  noStreamerLink = false,
+  noHover = false,
 }) => {
   return (
     <div
@@ -104,7 +133,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
         !noInset && 'inset'
       )}
     >
-      <table className={styles.table}>
+      <table className={classes(styles.table, noHover && styles.noHover)}>
         <thead>
           <tr>
           {!hideStreamer && <th style={{ width: '20%' }}>Streamer</th>}
@@ -130,6 +159,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
               key={`${character.id}`}
               character={character}
               hideStreamer={hideStreamer}
+              noStreamerLink={noStreamerLink}
             />
           )}
         </tbody>

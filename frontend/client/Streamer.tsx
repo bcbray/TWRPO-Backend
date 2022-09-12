@@ -97,7 +97,13 @@ const Streamer: React.FC<StreamerProps> = ({ data, loadTick }) => {
             Characters
           </h3>
           {data.characters.length > 0 ? (
-            <CharactersTable characters={data.characters} hideStreamer noInset />
+            <CharactersTable
+              characters={data.characters}
+              hideStreamer
+              noInset
+              noStreamerLink
+              noHover
+            />
           ) : (
             <p>
               {`We don’t know about characters for ${data.streamer.displayName}. `}

@@ -26,7 +26,7 @@
   border-color: inherit;
 }
 
-.table tr:hover td {
+.table:not(.noHover) tr:hover td {
   background-color: var(--table-row-hover-background-color);
 }
 
@@ -47,8 +47,12 @@
   white-space: nowrap;
 }
 
-.channelName a {
+.channelName a, .name a {
   color: inherit;
+}
+
+.channelName a:hover, .name a:hover {
+  color: var(--theme-primary-color-hover);
 }
 
 .liveTag {
