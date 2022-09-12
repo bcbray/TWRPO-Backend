@@ -15,18 +15,21 @@ interface Props {
   noInset?: boolean;
   noStreamerLink?: boolean;
   noHover?: boolean;
+  factionDestination?: 'characters' | 'streams';
 };
 
 interface RowProps {
   character: CharacterInfo;
   hideStreamer: boolean;
   noStreamerLink: boolean;
+  factionDestination: 'characters' | 'streams';
 }
 
 const CharacterRow: React.FC<RowProps> = ({
   character,
   hideStreamer,
   noStreamerLink,
+  factionDestination,
 }) => {
   const location = useLocation();
   const { factionStyles } = useFactionCss();
@@ -97,7 +100,11 @@ const CharacterRow: React.FC<RowProps> = ({
         <Link
           key={faction.key}
           className={styles.factionPill}
-          to={`/characters/faction/${faction.key}${location.search}`}
+          to={
+            factionDestination === 'characters'
+              ? `/characters/faction/${faction.key}${location.search}`
+              : `/streams/faction/${faction.key}`
+          }
           style={factionStyles(faction)}
         >
           <span>
@@ -125,6 +132,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
   noInset = false,
   noStreamerLink = false,
   noHover = false,
+  factionDestination = 'characters',
 }) => {
   return (
     <div
@@ -160,6 +168,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
               character={character}
               hideStreamer={hideStreamer}
               noStreamerLink={noStreamerLink}
+              factionDestination={factionDestination}
             />
           )}
         </tbody>

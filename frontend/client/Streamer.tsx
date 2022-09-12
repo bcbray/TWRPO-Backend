@@ -99,6 +99,7 @@ const Streamer: React.FC<StreamerProps> = ({ data, loadTick }) => {
           {data.characters.length > 0 ? (
             <CharactersTable
               characters={data.characters}
+              factionDestination='streams'
               hideStreamer
               noInset
               noStreamerLink
