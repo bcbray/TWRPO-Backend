@@ -6,6 +6,7 @@ import LiveContainer from './LiveContainer';
 import StreamerContainer from './StreamerContainer';
 import ColorHelperContainer from  './ColorHelperContainer';
 import CrossfadeHelper from  './CrossfadeHelper';
+import UnknownContainer from  './UnknownContainer';
 import Redirect from './Redirect';
 
 export const publicRoutes = <>
@@ -21,6 +22,7 @@ export const publicRoutes = <>
 export const privateRoutes = <>
   <Route path="/utils/colors" element={<ColorHelperContainer />} />
   <Route path="/utils/crossfade" element={<CrossfadeHelper />} />
+  <Route path="/utils/unknown" element={<UnknownContainer />} />
 </>;
 
 export const redirects = <>
