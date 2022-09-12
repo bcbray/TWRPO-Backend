@@ -4,6 +4,7 @@ import v2CharactersRouter from './v2/characters';
 import v2FactionsRouter from './v2/factions';
 import v2FeedbackRouter from './v2/feedback';
 import v2StreamersRouter from './v2/streamers';
+import v2UnknownRouter from './v2/unknown';
 
 export default {
     liveRouter,
@@ -11,4 +12,5 @@ export default {
     v2FactionsRouter,
     v2FeedbackRouter,
     v2StreamersRouter,
+    v2UnknownRouter,
 };

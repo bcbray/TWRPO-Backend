@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 
 import { Video } from './Video';
+import { TwitchChannel } from './TwitchChannel';
 
 @Entity()
 @Index('SEEN_INSTANCE', ['streamerId', 'characterId', 'streamId', 'title'], { unique: true, where: '"characterId" IS NOT NULL' })
@@ -46,14 +47,8 @@ export class StreamChunk {
     @ManyToOne(() => Video, video => video.streamChunks)
     @JoinColumn({ name: 'streamId', referencedColumnName: 'streamId' })
     video?: Video;
+
+    @ManyToOne(() => TwitchChannel, channel => channel.streamChunks)
+    @JoinColumn({ name: 'streamerId', referencedColumnName: 'twitchId' })
+    channel?: TwitchChannel;
 }
-/*
-id
-streamer_id
-character_id?
-stream_id
-stream_start_date
-title
-first_seen_date
-last_seen_date
-*/

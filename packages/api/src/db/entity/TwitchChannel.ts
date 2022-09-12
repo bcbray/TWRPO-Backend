@@ -1,10 +1,15 @@
+/* eslint-disable import/no-cycle */
+
 import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
     Index,
     CreateDateColumn,
+    OneToMany,
 } from 'typeorm';
+
+import { StreamChunk } from './StreamChunk';
 
 @Entity()
 export class TwitchChannel {
@@ -34,4 +39,7 @@ export class TwitchChannel {
 
     @Column({ nullable: true })
     lastVideoCheck: Date;
+
+    @OneToMany(() => StreamChunk, chunk => chunk.channel)
+    streamChunks?: StreamChunk[];
 }

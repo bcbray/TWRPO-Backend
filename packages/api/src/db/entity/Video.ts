@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany } from 'typeorm';
+/* eslint-disable import/no-cycle */
+
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    Index,
+    OneToMany,
+} from 'typeorm';
 
 import { StreamChunk } from './StreamChunk';
 

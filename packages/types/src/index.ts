@@ -12,6 +12,8 @@ import type StreamersResponse from './StreamersResponse';
 import type StreamerResponse from './StreamerResponse';
 import type Video from './Video';
 import type VideoSegment from './VideoSegment';
+import type SegmentAndStreamer from './SegmentAndStreamer';
+import type UnknownResponse from './UnknownResponse';
 
 
 export {
@@ -29,4 +31,6 @@ export {
   StreamerResponse,
   Video,
   VideoSegment,
+  SegmentAndStreamer,
+  UnknownResponse,
 }
