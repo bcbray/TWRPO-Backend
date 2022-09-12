@@ -27,84 +27,108 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
     const now = new Date();
 
-    const preload = (() => {
-      const routingContext: SSRRouting = {};
+    const {
+      appHtml,
+      preloadedData,
+      routingContext,
+      helmetContext,
+      needsFactionCss,
+    } = await (async () => {
       const preloadedData: PreloadedData = {
         now: JSON.stringify(now),
       }
-      const used: PreloadedUsed = {};
-      const helmetContext = {};
 
-      ReactDOMServer.renderToString(
-        <ServerPreloadedDataProvider data={preloadedData} used={used}>
-          <SSRProvider>
-            <SSRRoutingProvider value={routingContext}>
-              <HelmetProvider context={helmetContext} >
-                <StaticRouter location={req.url}>
-                  <App />
-                </StaticRouter>
-              </HelmetProvider>
-            </SSRRoutingProvider>
-          </SSRProvider>
-        </ServerPreloadedDataProvider>
-      );
-      return used;
-    })();
+      let routingContext: SSRRouting = {};
+      let helmetContext = {};
+      let needsFactionCss = false;
 
-    const preloaded: PreloadedData = {
-      now: JSON.stringify(now)
-    };
+      let appHtml = '';
+      const MAX_LOADS = 5;
+      for (let i = 1; i <= MAX_LOADS; i++) {
+        routingContext = {} as SSRRouting;
+        helmetContext = {};
+        const used: PreloadedUsed = {};
 
-    if (preload.usedLive) {
-      const liveResponse = await api.fetchLive();
-      // Hacky round-trip through JSON to make sure our types are converted the same
-      // TODO: Maybe we should just make an API call?
-      preloaded.live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
-    }
+        appHtml = ReactDOMServer.renderToString(
+          <ServerPreloadedDataProvider data={preloadedData} used={used}>
+            <SSRProvider>
+              <SSRRoutingProvider value={routingContext}>
+                <HelmetProvider context={helmetContext} >
+                  <StaticRouter location={req.url}>
+                    <App />
+                  </StaticRouter>
+                </HelmetProvider>
+              </SSRRoutingProvider>
+            </SSRProvider>
+          </ServerPreloadedDataProvider>
+        );
 
-    if (preload.usedFactions || preload.usedFactionCss) {
-      const factionsResponse = await api.fetchFactions();
-      // Hacky round-trip through JSON to make sure our types are converted the same
-      // TODO: Maybe we should just make an API call?
-      preloaded.factions = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
-    }
+        let needsAnotherLoad = false;
 
-    if (preload.usedCharacters) {
-      const charactersResponse = await api.fetchCharacters();
-      // Hacky round-trip through JSON to make sure our types are converted the same
-      // TODO: Maybe we should just make an API call?
-      preloaded.characters = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
-    }
-
-    if (preload.usedStreamerNames && preload.usedStreamerNames.length) {
-      preloaded.streamers = {};
-      for (const name of preload.usedStreamerNames) {
-        const streamerResponse = await api.fetchStreamer(name);
-        if (!streamerResponse) {
-          continue;
+        if (used.usedLive) {
+          needsAnotherLoad = true;
+          const liveResponse = await api.fetchLive();
+          // Hacky round-trip through JSON to make sure our types are converted the same
+          // TODO: Maybe we should just make an API call?
+          preloadedData.live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
         }
-        // Hacky round-trip through JSON to make sure our types are converted the same
-        // TODO: Maybe we should just make an API call?
-        preloaded.streamers[name.toLowerCase()] = JSON.parse(JSON.stringify(streamerResponse)) as StreamerResponse;
+
+        if (used.usedFactions || used.usedFactionCss) {
+          needsFactionCss = needsFactionCss || used.usedFactionCss === true;
+          if (used.usedFactions) {
+            needsAnotherLoad = true;
+          }
+          const factionsResponse = await api.fetchFactions();
+          // Hacky round-trip through JSON to make sure our types are converted the same
+          // TODO: Maybe we should just make an API call?
+          preloadedData.factions = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
+        }
+
+        if (used.usedCharacters) {
+          needsAnotherLoad = true;
+          const charactersResponse = await api.fetchCharacters();
+          // Hacky round-trip through JSON to make sure our types are converted the same
+          // TODO: Maybe we should just make an API call?
+          preloadedData.characters = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
+        }
+
+        if (used.usedStreamerNames && used.usedStreamerNames.length) {
+          needsAnotherLoad = true;
+          if (!preloadedData.streamers) {
+            preloadedData.streamers = {};
+          }
+          for (const name of used.usedStreamerNames) {
+            const streamerResponse = await api.fetchStreamer(name);
+            if (!streamerResponse) {
+              continue;
+            }
+            // Hacky round-trip through JSON to make sure our types are converted the same
+            // TODO: Maybe we should just make an API call?
+            preloadedData.streamers[name.toLowerCase()] = JSON.parse(JSON.stringify(streamerResponse)) as StreamerResponse;
+          }
+        }
+
+        if (!needsAnotherLoad) {
+          break;
+        }
+
+        if (needsAnotherLoad && i === MAX_LOADS) {
+          console.warn(JSON.stringify({
+              level: 'warning',
+              event: 'too-many-ssr-loads',
+              message: `Required more than ${MAX_LOADS} to render ${req.url}`,
+              path: req.url,
+          }));
+        }
       }
-    }
-
-    const routingContext: SSRRouting = {};
-    const helmetContext = {};
-
-    let loadedAppHTML = ReactDOMServer.renderToString(
-      <ServerPreloadedDataProvider data={preloaded} used={{}}>
-        <SSRProvider>
-          <SSRRoutingProvider value={routingContext}>
-            <HelmetProvider context={helmetContext} >
-              <StaticRouter location={req.url}>
-                <App />
-              </StaticRouter>
-            </HelmetProvider>
-          </SSRRoutingProvider>
-        </SSRProvider>
-      </ServerPreloadedDataProvider>
-    );
+      return {
+        appHtml,
+        preloadedData,
+        routingContext,
+        helmetContext,
+        needsFactionCss,
+      };
+    })();
 
     if (routingContext.redirect) {
       return res.redirect(routingContext.redirect);
@@ -113,13 +137,13 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     indexHTML = indexHTML.replace(
       '<script id="preloaded"></script>',
       `<script id="preloaded">
-window.${preloadedDataKey} = ${JSON.stringify(preloaded).replace(/</g,'\\u003c')}
+window.${preloadedDataKey} = ${JSON.stringify(preloadedData).replace(/</g,'\\u003c')}
 </script>`
     )
 
 
-    if (preloaded.factions && preload.usedFactionCss) {
-      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(preloaded.factions.factions)
+    if (preloadedData.factions && needsFactionCss) {
+      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(preloadedData.factions.factions)
       indexHTML = indexHTML.replace(
         '<style id="root-faction-styles"></style>',
         `<style id="root-faction-styles" data-style-hash="${factionStylesHash}">${factionStyles}</style>`
@@ -128,7 +152,7 @@ window.${preloadedDataKey} = ${JSON.stringify(preloaded).replace(/</g,'\\u003c')
 
     indexHTML = indexHTML.replace(
       '<div id="root"></div>',
-      `<div id="root">${loadedAppHTML}</div>`
+      `<div id="root">${appHtml}</div>`
     );
 
     if ('helmet' in helmetContext) {
