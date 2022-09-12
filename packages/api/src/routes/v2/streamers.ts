@@ -79,6 +79,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
             order: {
                 lastSeenDate: 'desc',
             },
+            take: 24,
         });
 
     const now = new Date();
