@@ -2069,7 +2069,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     WANTED_MANIAC: [
         { id: 929, name: 'Brian Wright' }, // Former Senior Deputy
-        { id: 930, name: 'Taylor Hicks' },
+        { id: 930, name: 'Taylor Hicks', factions: ['Summers Gang'] },
         { id: 931, name: 'William "Bill" Carver' },
         { id: 932, name: 'Benji Bell' },
     ],
