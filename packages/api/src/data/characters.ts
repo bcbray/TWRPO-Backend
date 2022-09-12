@@ -463,7 +463,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 204, name: 'Hank Boon' },
     ],
     Demorga_: [
-        { id: 1043, name: 'Avery Hobbs' },
+        { id: 1043, name: 'Avery Hobbs', displayName: 2 },
     ],
     DeneeSays: [
         { id: 205, name: 'Brooke "Babs" Burns' }, // DiCenzo hangaround? (Not in the restructure tho)
