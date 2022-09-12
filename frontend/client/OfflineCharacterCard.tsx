@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { CharacterInfo } from '@twrpo/types';
 
 import styles from './OfflineCharacterCard.module.css';
@@ -11,6 +12,8 @@ import OutboundLink from './OutboundLink';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   character: CharacterInfo;
+  hideStreamer?: boolean;
+  wrapTitle?: boolean;
 }
 
 interface CharacterLinkProps {
@@ -38,7 +41,7 @@ const CharacterLink: React.FC<CharacterLinkProps> = ({character, style, children
 );
 
 const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
-  { character, className, style, ...rest }, ref
+  { character, className, style, hideStreamer = false, wrapTitle = false, ...rest }, ref
 ) => {
   const { factionStylesForKey } = useFactionCss();
   const lastSeenLiveDate = React.useMemo(() => {
@@ -117,22 +120,28 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
         </Tag>
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
-        <ProfilePhoto
-          className={styles.pfp}
-          channelInfo={character.channelInfo}
-          size={30}
-        />
+        {!hideStreamer &&
+          <Link to={`/streamer/${character.channelInfo?.login ?? character.channelName.toLowerCase()}`}>
+            <ProfilePhoto
+              className={styles.pfp}
+              channelInfo={character.channelInfo}
+              size={30}
+            />
+          </Link>
+        }
         <div className={styles.text}>
-          <div className={styles.title}>
+          <div className={classes(styles.title, wrapTitle && styles.wrap)}>
             <p title={character.lastSeenTitle ?? realName}>{character.lastSeenTitle ?? realName}</p>
           </div>
-          <div className={styles.channel}>
-            <p>
-              <CharacterLink character={character}>
-                {character.channelName}
-              </CharacterLink>
-            </p>
-          </div>
+          {!hideStreamer &&
+            <div className={styles.channel}>
+              <p>
+                <Link to={`/streamer/${character.channelInfo?.login ?? character.channelName.toLowerCase()}`}>
+                  {character.channelName}
+                </Link>
+              </p>
+            </div>
+          }
         </div>
       </div>
     </div>

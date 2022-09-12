@@ -7,12 +7,13 @@ import { SSRProvider } from "@restart/ui/ssr";
 import { HelmetProvider, FilledContext } from 'react-helmet-async';
 
 import TWRPOApi from '@twrpo/api';
-import { LiveResponse, CharactersResponse, FactionsResponse } from '@twrpo/types';
+import { LiveResponse, CharactersResponse, FactionsResponse, StreamerResponse } from '@twrpo/types';
 
 import App from '../client/App';
 import { SSRRouting, SSRRoutingProvider } from '../client/SSRRouting';
 import {
   PreloadedData,
+  PreloadedUsed,
   ServerPreloadedDataProvider,
   preloadedDataKey,
 } from '../client/Data';
@@ -26,33 +27,73 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
     const now = new Date();
 
-    // TODO: try/catch this
-    const liveResponse = await api.fetchLive();
-    // Hacky round-trip through JSON to make sure our types are converted the same
-    // TODO: Maybe we should just make an API call?
-    const live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
+    const preload = (() => {
+      const routingContext: SSRRouting = {};
+      const preloadedData: PreloadedData = {
+        now: JSON.stringify(now),
+      }
+      const used: PreloadedUsed = {};
+      const helmetContext = {};
 
-    const factionsResponse = await api.fetchFactions();
-    // Hacky round-trip through JSON to make sure our types are converted the same
-    // TODO: Maybe we should just make an API call?
-    const factions = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
+      ReactDOMServer.renderToString(
+        <ServerPreloadedDataProvider data={preloadedData} used={used}>
+          <SSRProvider>
+            <SSRRoutingProvider value={routingContext}>
+              <HelmetProvider context={helmetContext} >
+                <StaticRouter location={req.url}>
+                  <App />
+                </StaticRouter>
+              </HelmetProvider>
+            </SSRRoutingProvider>
+          </SSRProvider>
+        </ServerPreloadedDataProvider>
+      );
+      return used;
+    })();
 
-    const charactersResponse = await api.fetchCharacters();
-    // Hacky round-trip through JSON to make sure our types are converted the same
-    // TODO: Maybe we should just make an API call?
-    const characters = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
+    const preloaded: PreloadedData = {
+      now: JSON.stringify(now)
+    };
+
+    if (preload.usedLive) {
+      const liveResponse = await api.fetchLive();
+      // Hacky round-trip through JSON to make sure our types are converted the same
+      // TODO: Maybe we should just make an API call?
+      preloaded.live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
+    }
+
+    if (preload.usedFactions || preload.usedFactionCss) {
+      const factionsResponse = await api.fetchFactions();
+      // Hacky round-trip through JSON to make sure our types are converted the same
+      // TODO: Maybe we should just make an API call?
+      preloaded.factions = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
+    }
+
+    if (preload.usedCharacters) {
+      const charactersResponse = await api.fetchCharacters();
+      // Hacky round-trip through JSON to make sure our types are converted the same
+      // TODO: Maybe we should just make an API call?
+      preloaded.characters = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
+    }
+
+    if (preload.usedStreamerNames && preload.usedStreamerNames.length) {
+      preloaded.streamers = {};
+      for (const name of preload.usedStreamerNames) {
+        const streamerResponse = await api.fetchStreamer(name);
+        if (!streamerResponse) {
+          continue;
+        }
+        // Hacky round-trip through JSON to make sure our types are converted the same
+        // TODO: Maybe we should just make an API call?
+        preloaded.streamers[name.toLowerCase()] = JSON.parse(JSON.stringify(streamerResponse)) as StreamerResponse;
+      }
+    }
 
     const routingContext: SSRRouting = {};
-    const preloadedData: PreloadedData = {
-      now: JSON.stringify(now),
-      live,
-      factions,
-      characters,
-    }
     const helmetContext = {};
 
-    let appHTML = ReactDOMServer.renderToString(
-      <ServerPreloadedDataProvider value={preloadedData}>
+    let loadedAppHTML = ReactDOMServer.renderToString(
+      <ServerPreloadedDataProvider data={preloaded} used={{}}>
         <SSRProvider>
           <SSRRoutingProvider value={routingContext}>
             <HelmetProvider context={helmetContext} >
@@ -69,15 +110,6 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
       return res.redirect(routingContext.redirect);
     }
 
-    // TODO: Actual XSS concerns pls
-    // (threat model: someone puts data into a twitch title, which… there's not really anything to XSS right now anyway given we don't have such a thing as authenticated sessions, but still)
-    const preloaded: PreloadedData = {
-      now: preloadedData.usedNow ? JSON.stringify(now) : undefined,
-      live: preloadedData.usedLive ? live : undefined,
-      factions: preloadedData.usedFactions || preloadedData.usedFactionCss ? factions : undefined,
-      characters: preloadedData.usedCharacters ? characters : undefined,
-    }
-
     indexHTML = indexHTML.replace(
       '<script id="preloaded"></script>',
       `<script id="preloaded">
@@ -86,8 +118,8 @@ window.${preloadedDataKey} = ${JSON.stringify(preloaded).replace(/</g,'\\u003c')
     )
 
 
-    if (preloadedData.usedFactionCss) {
-      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(factions.factions)
+    if (preloaded.factions && preload.usedFactionCss) {
+      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(preloaded.factions.factions)
       indexHTML = indexHTML.replace(
         '<style id="root-faction-styles"></style>',
         `<style id="root-faction-styles" data-style-hash="${factionStylesHash}">${factionStyles}</style>`
@@ -96,7 +128,7 @@ window.${preloadedDataKey} = ${JSON.stringify(preloaded).replace(/</g,'\\u003c')
 
     indexHTML = indexHTML.replace(
       '<div id="root"></div>',
-      `<div id="root">${appHTML}</div>`
+      `<div id="root">${loadedAppHTML}</div>`
     );
 
     if ('helmet' in helmetContext) {

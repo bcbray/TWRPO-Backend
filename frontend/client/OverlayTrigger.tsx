@@ -143,6 +143,7 @@ const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
         {...props}
         show={show}
         placement={placement}
+        flip
         target={triggerNodeRef.current}
         transition={Fade as any}
       >

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useIntersection, useHoverDirty } from 'react-use';
+import { Link } from 'react-router-dom';
 import { Stream } from '@twrpo/types';
 
 import styles from './StreamCard.module.css';
@@ -31,6 +32,9 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   loadTick?: number;
   cardStyle?: CardStyle;
   embed?: boolean | 'hover';
+  hideStreamer?: boolean;
+  wrapTitle?: boolean;
+  showLiveBadge?: boolean;
 }
 
 interface StreamLinkProps {
@@ -66,6 +70,9 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     style,
     cardStyle = 'inline',
     embed = false,
+    hideStreamer = false,
+    wrapTitle = false,
+    showLiveBadge = false,
     ...rest
   }, ref
 ) => {
@@ -141,9 +148,16 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
               onPlaying={setEmbedPlaying}
             />}
         </StreamLink>
-        <Tag className={classes(styles.tag, styles.name)}>
-          <p>{stream.tagText}</p>
-        </Tag>
+        <div className={styles.topTags}>
+          <Tag className={classes(styles.tag, styles.name)}>
+            <p>{stream.tagText}</p>
+          </Tag>
+          {showLiveBadge &&
+            <Tag className={classes(styles.tag, styles.live)}>
+              <p>Live</p>
+            </Tag>
+          }
+        </div>
         <Tag className={classes(styles.tag, styles.viewers)}>
           <p>{formatViewers(stream.viewers)}</p>
         </Tag>
@@ -152,24 +166,28 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
         </Tag>
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
-        <StreamLink stream={stream}>
-          <ProfilePhotos
-            className={styles.pfp}
-            channelInfo={channelInfo(stream)}
-            size='sm'
-          />
-        </StreamLink>
+        {!hideStreamer &&
+          <Link to={`/streamer/${stream.channelName.toLowerCase()}`}>
+            <ProfilePhotos
+              className={styles.pfp}
+              channelInfo={channelInfo(stream)}
+              size='sm'
+            />
+          </Link>
+        }
         <div className={styles.text}>
-          <div className={styles.title}>
+          <div className={classes(styles.title, wrapTitle && styles.wrap)}>
             <p title={stream.title}>{stream.title}</p>
           </div>
-          <div className={styles.channel}>
-            <p>
-              <StreamLink stream={stream}>
-                {stream.channelName}
-              </StreamLink>
-            </p>
-          </div>
+          {!hideStreamer &&
+            <div className={styles.channel}>
+              <p>
+                <Link to={`/streamer/${stream.channelName.toLowerCase()}`}>
+                  {stream.channelName}
+                </Link>
+              </p>
+            </div>
+          }
         </div>
       </div>
     </div>

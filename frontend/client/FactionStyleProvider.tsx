@@ -5,7 +5,7 @@ import { FactionInfo, FactionsResponse } from '@twrpo/types';
 import { useFactions } from './Data';
 import LoadingState, { isSuccess } from './LoadingState';
 import { cyrb53 } from './utils';
-import { PreloadedDataContext } from './Data';
+import { PreloadedUsedContext } from './Data';
 
 const rootFactionStyles = (factions: FactionInfo[]) => {
   return {
@@ -135,8 +135,8 @@ export const useFactionCss = (): FactionMethods => {
   }
   React.useEffect(() => context?.needsFactionCss(), [context]);
 
-  const preloadedContext = React.useContext(PreloadedDataContext);
-  preloadedContext.usedFactionCss = true;
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  preloadedUsed.usedFactionCss = true;
 
   return { factionStyles, factionStylesForKey };
 }

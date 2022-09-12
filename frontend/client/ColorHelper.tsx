@@ -34,6 +34,7 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
     viewers: 1432,
     profileUrl: '/images/example-live-pfp.png',
     id: 0,
+    streamId: '0',
     rpServer: 'WRP',
     characterName: 'Sam Baas',
     characterId: 1,

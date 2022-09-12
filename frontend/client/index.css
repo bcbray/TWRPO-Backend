@@ -188,12 +188,12 @@ p {
   margin-bottom: 1rem;
 }
 
-a {
+a, .linkish {
   color: var(--link-color);
   text-decoration: none;
 }
 
-a:hover {
+a:hover, .linkish:hover {
   color: var(--link-color-hover);
 }
 
@@ -293,6 +293,14 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
 }
 
+h1 {
+  font-size: calc(1.375rem + 1.5vw);
+}
+
+h2 {
+  font-size: calc(1.325rem + .9vw);
+}
+
 h3 {
   font-size: calc(1.3rem + .6vw);
 }
@@ -302,6 +310,14 @@ h4 {
 }
 
 @media (min-width: 1200px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
   h3 {
     font-size: 1.75rem;
   }

@@ -6,6 +6,7 @@ export default interface Stream {
   viewers: number;
   profileUrl: string;
   id: number;
+  streamId: string;
   rpServer: string | null;
   characterName: string | null;
   characterId: number | null;

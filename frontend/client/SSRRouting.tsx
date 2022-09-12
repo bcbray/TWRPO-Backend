@@ -8,3 +8,8 @@ export interface SSRRouting {
 export const SSRRoutingContext = React.createContext<SSRRouting>({});
 
 export const SSRRoutingProvider = SSRRoutingContext.Provider;
+
+export const useNotFound = () => {
+  const context = React.useContext(SSRRoutingContext);
+  context.notFound = true;
+}

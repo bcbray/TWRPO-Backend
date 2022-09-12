@@ -1,10 +1,11 @@
 import React from 'react';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import isMobile from 'is-mobile';
-import { Stream, CharacterInfo } from '@twrpo/types';
+import { Stream, CharacterInfo, Streamer, VideoSegment } from '@twrpo/types';
 
 import styles from './StreamList.module.css';
 import StreamCard from './StreamCard';
+import PastStreamCard from './PastStreamCard';
 import OfflineCharacterCard from './OfflineCharacterCard';
 import { classes } from './utils';
 import Crossfade from './Crossfade';
@@ -16,17 +17,28 @@ type Order = 'asc' | 'desc';
 
 interface Props {
   streams: Stream[];
+  pastStreams?: [Streamer, VideoSegment][];
   offlineCharacters?: CharacterInfo[];
   isLoadingMore?: boolean;
   paginationKey: string;
   loadTick: number;
   sort?: SortBy;
   order?: Order;
+  hideStreamer?: boolean;
+  noInset?: boolean;
+  wrapTitle?: boolean;
+  showLiveBadge?: boolean;
 }
 
 interface LiveItem {
   type: 'live';
   stream: Stream;
+}
+
+interface PastItem {
+  type: 'past';
+  streamer: Streamer;
+  segment: VideoSegment;
 }
 
 interface OfflineItem {
@@ -35,16 +47,22 @@ interface OfflineItem {
 }
 
 const liveItem = (stream: Stream): LiveItem => ({ type: 'live', stream });
+const pastItem = (streamer: Streamer, segment: VideoSegment): PastItem => ({ type: 'past', streamer, segment });
 const offlineItem = (character: CharacterInfo): OfflineItem => ({ type: 'offline', character });
 
 const StreamList: React.FC<Props> = ({
   streams,
+  pastStreams = [],
   offlineCharacters = [],
   isLoadingMore = false,
   loadTick,
   paginationKey,
   sort = 'viewers',
   order = 'desc',
+  hideStreamer = false,
+  noInset = false,
+  wrapTitle = false,
+  showLiveBadge = false,
 }) => {
   const sorted = React.useMemo(() => {
     return streams
@@ -65,14 +83,18 @@ const StreamList: React.FC<Props> = ({
   }, [streams, sort, order]);
 
   const allItems = React.useMemo(() => (
-    [...sorted.map(liveItem), ...offlineCharacters.map(offlineItem)]
-  ), [sorted, offlineCharacters]);
+    [
+      ...sorted.map(liveItem),
+      ...pastStreams.map(([streamer, segment]) => pastItem(streamer, segment)),
+      ...offlineCharacters.map(offlineItem),
+    ]
+  ), [sorted, pastStreams, offlineCharacters]);
 
   const [visibleItems, loadMoreTrigger] = usePaginated(allItems, { key: paginationKey });
 
   return (
     <Flipper flipKey={loadTick}>
-      <div className={classes('inset', styles.grid)}>
+      <div className={classes(!noInset && 'inset', styles.grid)}>
         <div className={classes(styles.items, visibleItems.length === 0 && styles.empty)}>
           {visibleItems.map(item => {
             if (item.type === 'live') {
@@ -94,10 +116,30 @@ const StreamList: React.FC<Props> = ({
                       stream={stream}
                       loadTick={loadTick}
                       embed={isMobile() ? false : 'hover'}
+                      hideStreamer={hideStreamer}
+                      wrapTitle={wrapTitle}
+                      showLiveBadge={showLiveBadge}
                     />
                   </Crossfade>
                 </Flipped>
               );
+            } else if (item.type === 'past' ) {
+              const { streamer, segment } = item;
+              return (
+                <Flipped
+                  key={`segment:${segment.id}`}
+                  flipId={`segment:${segment.id}`}
+                >
+                  <Crossfade fadeKey='past'>
+                    <PastStreamCard
+                      streamer={streamer}
+                      segment={segment}
+                      hideStreamer={hideStreamer}
+                      wrapTitle={wrapTitle}
+                    />
+                  </Crossfade>
+                </Flipped>
+              )
             } else {
               const { character } = item;
               return (
@@ -106,6 +148,8 @@ const StreamList: React.FC<Props> = ({
                     <OfflineCharacterCard
                       className={styles.offline}
                       character={character}
+                      hideStreamer={hideStreamer}
+                      wrapTitle={wrapTitle}
                     />
                   </Crossfade>
                 </Flipped>

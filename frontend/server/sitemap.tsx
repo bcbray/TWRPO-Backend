@@ -185,10 +185,12 @@ const changeFrequencyTag = (page: string): string => {
 
 const sitemap = (api: TWRPOApi): RequestHandler => async (req, res, next) => {
   const factions = await api.fetchFactions();
+  const streamers = await api.fetchStreamers();
   const allPages = pages({
     'factionKey': factions.factions.flatMap(f =>
       !f.hideInFilter && f.hasCharacters ? [f.key] : []
     ),
+    'streamerName': streamers.streamers.map(s => s.twitchLogin),
   });
   const host = req.get('host');
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>

@@ -7,6 +7,11 @@ import type FactionKey from './FactionKey';
 import type FactionsResponse from './FactionsResponse';
 import type LiveResponse from './LiveResponse';
 import type Stream from './Stream';
+import type Streamer from './Streamer';
+import type StreamersResponse from './StreamersResponse';
+import type StreamerResponse from './StreamerResponse';
+import type Video from './Video';
+import type VideoSegment from './VideoSegment';
 
 
 export {
@@ -19,14 +24,9 @@ export {
   FactionsResponse,
   LiveResponse,
   Stream,
+  Streamer,
+  StreamersResponse,
+  StreamerResponse,
+  Video,
+  VideoSegment,
 }
-
-// export type ChannelInfo from './ChannelInfo';
-// export type CharacterInfo from './CharacterInfo';
-// export type CharactersResponse from './CharactersResponse';
-// export type DisplayInfo from './DisplayInfo';
-// export type FactionInfo from './FactionInfo';
-// export type FactionKey from './FactionKey';
-// export type FactionsResponse from './FactionsResponse';
-// export type LiveResponse from './LiveResponse';
-// export type Stream from './Stream';

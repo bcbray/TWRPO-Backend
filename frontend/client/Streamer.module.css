@@ -1,0 +1,121 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.content.noCharacters {
+  flex-direction: column;
+}
+
+.streamer {
+  justify-self: center;
+}
+
+.characters, .recentStreams {
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.recentStreams {
+  flex-basis: 100%;
+}
+
+.content h3 {
+  /* margin-top: 3rem; */
+}
+
+.channelLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.channelLink:hover {
+  text-decoration: underline;
+}
+
+.twitchLogo {
+  color: #9146FF;
+}
+
+a:hover .twitchLogo {
+  color: #772CE8;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.streamList {
+
+}
+
+.recentStreams {
+  max-width: 100%;
+}
+
+.segment {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25em;
+}
+
+.segment .date,
+.segment .live,
+.segment .character,
+.segment .duration {
+  flex-shrink: 0;
+  /* white-space: nowrap; */
+}
+
+.segment .title {
+  flex-shrink: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  min-width: 10em;
+}
+
+.tag {
+  /* margin-right: 0.5em; */
+}
+
+.characterTag {
+  color: var(--const-theme-black);
+  background-color: var(--faction-color-dark);
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+  padding-left: 0.375rem !important;
+  padding-right: 0.375rem !important;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.75em !important;
+}
+
+.styleButtons {
+  float: right;
+}
+
+.characterStyleButton {
+  background: none;
+  color: inherit;
+  border: none;
+  opacity: 0.4;
+}
+
+.characterStyleButton:not(.active):not(:active):hover {
+  opacity: 0.8;
+}
+
+.characterStyleButton.active, .characterStyleButton:active {
+  opacity: 1;
+}
+

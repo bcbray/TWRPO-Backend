@@ -1,51 +1,38 @@
 import React from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { CharacterInfo, Stream } from '@twrpo/types';
+import { CharacterInfo } from '@twrpo/types';
 
 import styles from './CharactersTable.module.css';
-import Tag from './Tag';
-import StreamCard from './StreamCard';
+import LiveBadge from './LiveBadge';
 import ProfilePhoto from './ProfilePhoto';
 import { classes } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
-import OverlayTrigger from './OverlayTrigger';
 
 interface Props {
   characters: CharacterInfo[];
+  hideStreamer?: boolean;
+  noInset?: boolean;
 };
 
-const LiveBadge: React.FC<{ stream: Stream }> = ({ stream }) => (
-  <OverlayTrigger
-    placement='bottom-start'
-    delay={{ show: 250, hide: 100 }}
-    overlay={({ placement, arrowProps, show: _show, popper, ...props }) => (
-      <div className={styles.streamPopover} {...props}>
-        <StreamCard
-          id='live-preview-tooltop'
-          style={{
-            width: 300,
-          }}
-          stream={stream}
-          cardStyle='card'
-          embed
-        />
-      </div>
-    )}
-  >
-    <Tag as='span' className={styles.liveTag}>Live</Tag>
-  </OverlayTrigger>
-);
-
-const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
+const CharactersTable: React.FunctionComponent<Props> = ({
+  characters,
+  hideStreamer = false,
+  noInset = false,
+}) => {
   const location = useLocation();
   const { factionStyles } = useFactionCss();
 
   return (
-    <div className={classes(styles.tableContainer, 'inset')}>
+    <div
+      className={classes(
+        styles.tableContainer,
+        !noInset && 'inset'
+      )}
+    >
       <table className={styles.table}>
         <thead>
           <tr>
-          <th style={{ width: '20%' }}>Streamer</th>
+          {!hideStreamer && <th style={{ width: '20%' }}>Streamer</th>}
           <th style={{ width: '10%' }}>Titles</th>
           <th style={{ width: '25%' }}>Name</th>
           <th style={{ width: '25%' }}>
@@ -68,24 +55,29 @@ const CharactersTable: React.FunctionComponent<Props> = ({ characters }) => {
               : character.factions;
             return (
               <tr className={styles.characterRow} key={`${character.channelName}_${character.name}`}>
-                <td className={styles.channelName}>
-                  <a style={{ textDecoration: 'none' }} href={`https://twitch.tv/${character.channelName.toLowerCase()}`}>
-                    <ProfilePhoto
-                      className={styles.pfp}
-                      channelInfo={character.channelInfo}
-                      size={24}
-                      style={{
-                        height: '1.5rem',
-                        width: '1.5rem',
-                        borderRadius: '0.75rem',
-                      }}
-                    />
-                    {character.channelName}
-                    {character.liveInfo && <LiveBadge stream={character.liveInfo} />}
-                  </a>
-                </td>
+                {!hideStreamer &&
+                  <td className={styles.channelName}>
+                    <a style={{ textDecoration: 'none' }} href={`/streamer/${character.channelName.toLowerCase()}`}>
+                      <ProfilePhoto
+                        className={styles.pfp}
+                        channelInfo={character.channelInfo}
+                        size={24}
+                        style={{
+                          height: '1.5rem',
+                          width: '1.5rem',
+                          borderRadius: '0.75rem',
+                        }}
+                      />
+                      {character.channelName}
+                      {character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
+                    </a>
+                  </td>
+                }
                 <td className={styles.titles}>{character.displayInfo.titles.join(', ')}</td>
-                <td className={styles.name}>{character.displayInfo.realNames.join(' ')}</td>
+                <td className={styles.name}>
+                  {character.displayInfo.realNames.join(' ')}
+                  {hideStreamer && character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
+                </td>
                 <td className={styles.nicknames}>{character.displayInfo.nicknames.join(', ')}</td>
                 <td className={styles.factions}>
                 {
