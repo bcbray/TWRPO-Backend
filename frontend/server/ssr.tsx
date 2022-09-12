@@ -7,7 +7,13 @@ import { SSRProvider } from "@restart/ui/ssr";
 import { HelmetProvider, FilledContext } from 'react-helmet-async';
 
 import TWRPOApi from '@twrpo/api';
-import { LiveResponse, CharactersResponse, FactionsResponse, StreamerResponse } from '@twrpo/types';
+import {
+  LiveResponse,
+  CharactersResponse,
+  FactionsResponse,
+  StreamerResponse,
+  UnknownResponse,
+} from '@twrpo/types';
 
 import App from '../client/App';
 import { SSRRouting, SSRRoutingProvider } from '../client/SSRRouting';
@@ -45,7 +51,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
       let appHtml = '';
       const MAX_LOADS = 5;
       for (let i = 1; i <= MAX_LOADS; i++) {
-        routingContext = {} as SSRRouting;
+        routingContext = {};
         helmetContext = {};
         const used: PreloadedUsed = {};
 
@@ -106,6 +112,14 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
             // TODO: Maybe we should just make an API call?
             preloadedData.streamers[name.toLowerCase()] = JSON.parse(JSON.stringify(streamerResponse)) as StreamerResponse;
           }
+        }
+
+        if (used.usedUnknown) {
+          needsAnotherLoad = true;
+          const unknownResponse = await api.fetchUnknown();
+          // Hacky round-trip through JSON to make sure our types are converted the same
+          // TODO: Maybe we should just make an API call?
+          preloadedData.unknown = JSON.parse(JSON.stringify(unknownResponse)) as UnknownResponse;
         }
 
         if (!needsAnotherLoad) {

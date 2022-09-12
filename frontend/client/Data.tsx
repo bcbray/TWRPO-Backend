@@ -6,6 +6,7 @@ import {
   CharactersResponse,
   FactionsResponse,
   StreamerResponse,
+  UnknownResponse,
 } from '@twrpo/types'
 
 import {
@@ -23,6 +24,7 @@ export interface PreloadedData {
   factions?: FactionsResponse;
   characters?: CharactersResponse;
   streamers?: Record<string, StreamerResponse>;
+  unknown?: UnknownResponse;
 }
 
 export interface PreloadedUsed {
@@ -32,6 +34,7 @@ export interface PreloadedUsed {
   usedCharacters?: boolean;
   usedStreamerNames?: string[];
   usedFactionCss?: boolean;
+  usedUnknown?: boolean;
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
@@ -224,3 +227,22 @@ export const useStreamer = (name: string, { skipsPreload = false, ...props }: Pr
 
   return [loadState, outerOnReload, lastLoad];
 }
+
+export const useUnknown = ({ skipsPreload = false, ...props }: PreLoadingProps<UnknownResponse> = {}): LoadingResult<UnknownResponse> => {
+  const preloadedData = React.useContext(PreloadedDataContext);
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  if (skipsPreload !== true && props.needsLoad !== false && !props.preloaded && !preloadedData.unknown) {
+    preloadedUsed.usedUnknown = true;
+  }
+  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/unknown', {
+    preloaded: skipsPreload ? undefined : preloadedData.unknown,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    preloadedData.unknown = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+};
