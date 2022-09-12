@@ -1711,7 +1711,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 775, name: 'Tormund Kray' },
     ],
     split_uni: [
-        { id: 1007, name: 'Koho "Fox" ?', factions: ['Summers Gang'] },
+        { id: 1007, name: 'Koho ?', nicknames: ['Fox'], factions: ['Summers Gang'] },
         { id: 1033, name: 'Bai Li' },
     ],
     sporkerific: [
