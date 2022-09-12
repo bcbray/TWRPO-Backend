@@ -2062,7 +2062,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     vtrich: [
         { id: 927, name: 'Fester Buckland' },
-        { id: 1059, name: 'Jean Claude' },
+        { id: 1059, name: 'Jean Claude', assume: 'assumeOther' },
     ],
     WaistcoatDave: [
         { id: 928, name: 'Dr. C.J Matthews' },
