@@ -3,12 +3,18 @@ import cors from 'cors';
 import { ApiClient } from '@twurple/api';
 import { AuthProvider } from '@twurple/auth';
 import { DataSource } from 'typeorm';
-import { CharactersResponse, FactionsResponse, LiveResponse, StreamerResponse } from '@twrpo/types';
+import {
+    CharactersResponse,
+    FactionsResponse,
+    LiveResponse,
+    StreamerResponse,
+    StreamersResponse,
+} from '@twrpo/types';
 
 import { getWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
 import { fetchCharacters } from './routes/v2/characters';
 import { fetchFactions } from './routes/v2/factions';
-import { fetchStreamer } from './routes/v2/streamers';
+import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
 import routes from './routes';
 import dataSource from './db/dataSource';
 import { startRefreshing as startRefreshingVideos } from './fetchVideos';
@@ -77,6 +83,10 @@ class Api {
 
     public async fetchStreamer(name: string): Promise<StreamerResponse | null> {
         return fetchStreamer(this.twitchClient, this.dataSource, name);
+    }
+
+    public async fetchStreamers(): Promise<StreamersResponse> {
+        return fetchStreamers(this.twitchClient, this.dataSource);
     }
 
     public startRefreshing(): void {

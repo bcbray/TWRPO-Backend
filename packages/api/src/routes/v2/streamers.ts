@@ -31,8 +31,8 @@ export const fetchStreamers = async (apiClient: ApiClient, dataSource: DataSourc
         streamers: channels.flatMap((channel) => {
             const channelLower = channel.displayName.toLowerCase();
             const characters = charactersLookup[channelLower]
-                .filter(c => c.assume !== 'neverNp');
-            if (characters.length === 0) {
+                ?.filter(c => c.assume !== 'neverNp');
+            if (!characters || characters.length === 0) {
                 return [];
             }
             return [{
