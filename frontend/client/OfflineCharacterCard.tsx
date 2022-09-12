@@ -4,7 +4,7 @@ import { CharacterInfo } from '@twrpo/types';
 
 import styles from './OfflineCharacterCard.module.css';
 import { classes } from './utils';
-import { useRelativeDate, useImageUrlOnceLoaded } from './hooks';
+import { useRelativeDateMaybe, useImageUrlOnceLoaded } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhoto from './ProfilePhoto';
@@ -51,7 +51,7 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
     return date;
   }, [character.lastSeenLive]);
 
-  const lastSeenLive = useRelativeDate(lastSeenLiveDate);
+  const lastSeenLive = useRelativeDateMaybe(lastSeenLiveDate);
 
   const realName = React.useMemo(() => (
     character.displayInfo.realNames.join(' ')

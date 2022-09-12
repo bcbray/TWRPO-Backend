@@ -5,7 +5,7 @@ import { VideoSegment, Streamer } from '@twrpo/types';
 import styles from './PastStreamCard.module.css';
 
 import { formatDuration, classes } from './utils';
-import { useImageUrlOnceLoaded, useShortDate } from './hooks';
+import { useImageUrlOnceLoaded, useRelativeDate } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
@@ -61,7 +61,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
   const startDate = React.useMemo(() => new Date(segment.startDate), [segment.startDate])
   const endDate = React.useMemo(() => new Date(segment.endDate), [segment.endDate])
 
-  const shortDate = useShortDate(startDate);
+  const { full: fullDate, relative: relativeDate } = useRelativeDate(startDate);
 
   const thumbnailUrl = React.useMemo(() => {
     if (!segment.thumbnailUrl) return undefined;
@@ -109,7 +109,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
           </p>
         </Tag>
         <Tag className={classes(styles.tag, styles.viewers)}>
-          <p>{shortDate}</p>
+          <p title={fullDate}>{relativeDate}</p>
         </Tag>
         <Tag className={classes(styles.tag, styles.runtime)}>
           <p>{formatDuration(startDate, endDate)}</p>

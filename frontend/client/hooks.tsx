@@ -125,7 +125,7 @@ export interface RelativeDateResult {
   relative: string;
 }
 
-export function useRelativeDate(date?: Date): RelativeDateResult | undefined {
+export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult | undefined {
   const now = useNow();
   const isFirstRender = useInitialRender();
 
@@ -152,10 +152,9 @@ export function useRelativeDate(date?: Date): RelativeDateResult | undefined {
     const diffHours = diffMinutes / 60;
     const diffDays = diffHours / 24;
     const diffWeeks = diffDays / 7;
-     if (diffSeconds > 0) {
-      return undefined;
-    }
-    if (Math.abs(diffMinutes) < 1) {
+    if (diffSeconds > 0) {
+      relative = 'just now'
+    } else if (Math.abs(diffMinutes) < 1) {
       relative = 'just now'
     } else if (Math.abs(diffHours) < 1) {
       relative = formatter.format(Math.round(diffMinutes), 'minutes');
@@ -171,6 +170,10 @@ export function useRelativeDate(date?: Date): RelativeDateResult | undefined {
 
     return { relative, full }
   }, [now, date, formatter, locale, formatOptions]);
+}
+
+export function useRelativeDate(date: Date): RelativeDateResult {
+  return useRelativeDateMaybe(date)!;
 }
 
 function shortDate(date: Date, now: Date, locale: string | undefined, formatOptions: Intl.DateTimeFormatOptions): string {
