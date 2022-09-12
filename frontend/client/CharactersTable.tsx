@@ -39,7 +39,7 @@ const CharacterRow: React.FC<RowProps> = ({
   const lastSeenLive = useRelativeDateMaybe(lastSeenLiveDate);
 
   return (
-    <tr className={styles.characterRow} key={`${character.channelName}_${character.name}`}>
+    <tr className={styles.characterRow}>
       {!hideStreamer &&
         <td className={styles.channelName}>
           <Link
@@ -127,6 +127,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
         <tbody>
           {characters && characters.map(character =>
             <CharacterRow
+              key={`${character.id}`}
               character={character}
               hideStreamer={hideStreamer}
             />
