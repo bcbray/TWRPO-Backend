@@ -7,6 +7,7 @@ import { useSingleSearchParam, useDebouncedValue, useFilterRegex } from './hooks
 
 import CharactersTable from './CharactersTable';
 import FilterBar from './FilterBar';
+import NotFound from './NotFound';
 
 interface Props {
   data: CharactersResponse
@@ -53,6 +54,10 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
   const selectedFaction = React.useMemo(() => {
     return factionKey ? data.factions.find(info => info.key === factionKey) : undefined;
   }, [data.factions, factionKey]);
+
+  if (factionKey && !selectedFaction) {
+    return <NotFound alreadyContent />;
+  }
 
   return (
     <>

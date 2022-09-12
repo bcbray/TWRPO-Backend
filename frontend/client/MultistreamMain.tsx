@@ -10,6 +10,7 @@ import Multistream from './Multistream';
 import ReloadButton from './ReloadButton';
 import FactionDropdown from './FactionDropdown';
 import { factionsFromLive, ignoredFactions, classes } from './utils'
+import NotFound from './NotFound';
 
 interface Props {
   data: LiveResponse,
@@ -65,6 +66,10 @@ const MultistreamMain: React.FunctionComponent<Props> = ({ data, onReload }) => 
   const streamsToShow = filteredStreams.slice(0, maxStreams);
 
   const selectedFaction = factionKey ? factionInfoMap[factionKey] : undefined;
+
+  if (factionKey && !selectedFaction) {
+    return <NotFound alreadyContent />;
+  }
 
   return (
     <>

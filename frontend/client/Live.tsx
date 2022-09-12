@@ -12,6 +12,7 @@ import { useCharacters } from './Data';
 
 import StreamList from './StreamList';
 import FilterBar from './FilterBar';
+import NotFound from './NotFound';
 
 interface Props {
   live: LiveResponse;
@@ -142,6 +143,10 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
   const isLoadingMore = showOlderOfflineCharacters && isLoading(charactersLoadingState);
   const matchCount = filteredStreams.length + offlineCharacters.length;
   const otherFactionMatchCount = otherFilteredStreams.length + otherOfflineCharacters.length;
+
+  if (factionKey && !selectedFaction) {
+    return <NotFound alreadyContent />;
+  }
 
   return (
     (
