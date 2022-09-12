@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { VideoSegment, Streamer } from '@twrpo/types';
 
 import styles from './PastStreamCard.module.css';
+
 import { formatDuration, classes } from './utils';
 import { useImageUrlOnceLoaded, useShortDate } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
-// import { useNow } from './Data';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
@@ -26,21 +26,23 @@ interface StreamLinkProps {
 }
 
 const StreamLink: React.FC<StreamLinkProps> = ({ streamer, segment, style, children }) => (
-  <OutboundLink
-    logName={streamer.displayName}
-    logContext={{
-      subtype: 'past-stream-card',
-      isLive: true,
-      channel: streamer.displayName,
-      character: segment.character?.name,
-    }}
-    target='_blank'
-    rel='noreferrer'
-    href={segment.url ?? `https://twitch.tv/${streamer.twitchLogin}`}
-    style={style}
-  >
-    {children}
-  </OutboundLink>
+  segment.url
+    ? <OutboundLink
+        logName={streamer.displayName}
+        logContext={{
+          subtype: 'past-stream-card',
+          isLive: true,
+          channel: streamer.displayName,
+          character: segment.character?.name,
+        }}
+        target='_blank'
+        rel='noreferrer'
+        href={segment.url ?? `https://twitch.tv/${streamer.twitchLogin}`}
+        style={style}
+      >
+        {children}
+      </OutboundLink>
+    : <>{children}</>
 );
 
 const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
@@ -82,7 +84,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
       }}
       {...rest}
     >
-      <div className={styles.thumbnail}>
+      <div className={classes(styles.thumbnail, !segment.url && styles.noLink)}>
         <StreamLink streamer={streamer} segment={segment}>
           {loadedThumbnailUrl &&
             <img
