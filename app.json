@@ -22,6 +22,9 @@
     },
     "TWITCH_CLIENT_SECRET": {
       "required": true
+    },
+    "SESSION_SECRET": {
+      "required": true
     }
   },
   "formation": {
