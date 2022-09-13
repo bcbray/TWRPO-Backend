@@ -483,7 +483,7 @@ export const getWrpLive = async (
                 const wrpStreams: Stream[] = [];
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
 
-                const chunks: Omit<StreamChunk, 'id' | 'firstSeenDate' | 'lastSeenDate'>[] = [];
+                const chunks: Omit<StreamChunk, 'id' | 'firstSeenDate' | 'lastSeenDate' | 'isOverridden'>[] = [];
                 const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck'>[] = [];
                 const now = new Date();
 
@@ -849,7 +849,7 @@ export const getWrpLive = async (
                     }
 
                     let updatedChunkCount = 0;
-                    const newChunks: Omit<StreamChunk, 'id'>[] = [];
+                    const newChunks: Omit<StreamChunk, 'id' | 'isOverridden'>[] = [];
 
                     for (const chunk of chunks) {
                         const mostRecentStreamSegment = await dataSource.getRepository(StreamChunk)

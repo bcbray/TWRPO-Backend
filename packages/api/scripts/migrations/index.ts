@@ -7,6 +7,7 @@ import { LastVideoCheck1662701175263 } from './1662701175263-LastVideoCheck';
 import { NullableThumbnail1662705316517 } from './1662705316517-NullableThumbnail';
 import { StreamToVideo1662706675467 } from './1662706675467-StreamToVideo';
 import { RemoveChunkConstraints1663028654972 } from './1663028654972-RemoveChunkConstraints';
+import { StreamChunkOverride1663040662484 } from './1663040662484-StreamChunkOverride';
 
 export default [
     Initial1660336359134,
@@ -18,4 +19,5 @@ export default [
     NullableThumbnail1662705316517,
     StreamToVideo1662706675467,
     RemoveChunkConstraints1663028654972,
+    StreamChunkOverride1663040662484,
 ];
