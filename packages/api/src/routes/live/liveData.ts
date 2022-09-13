@@ -486,11 +486,12 @@ export const getWrpLive = async (
                 const wrpStreams: Stream[] = [];
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
 
-                const chunks: Omit<StreamChunk, 'id' | 'firstSeenDate' | 'lastSeenDate' | 'isOverridden'>[] = [];
+                const newChunks: Omit<StreamChunk, 'id' | 'isOverridden'>[] = [];
+                const updatedChunks: StreamChunk[] = [];
                 const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck'>[] = [];
                 const now = new Date();
 
-                gtaStreams.forEach((helixStream) => {
+                for (const helixStream of gtaStreams) {
                     const { userDisplayName: channelName, title, viewers } = helixStream;
 
                     const baseStream: BaseStream = {
@@ -537,7 +538,7 @@ export const getWrpLive = async (
 
                     if (characters && characters.assumeOther === ASTATES.neverNp) {
                         console.log('Excluded', channelName, 'because of "neverNp"');
-                        return;
+                        continue;
                     }
 
                     const mainsOther = characters && characters.assumeOther == ASTATES.assumeOther;
@@ -560,14 +561,14 @@ export const getWrpLive = async (
                                 streamState = FSTATES.other;
                                 // noOthersInclude = false;
                             } else {
-                                return;
+                                continue;
                             }
                         } else if (npStreamer && !onMainOther && !onOther) {
                             // If NoPixel streamer that isn't on another server
                             streamState = FSTATES.nopixel;
                             serverName = 'WRP';
                         } else {
-                            return;
+                            continue;
                         }
                     } else if (npStreamer && !onMainOther && !onOther) {
                         // If NoPixel streamer that isn't on another server
@@ -585,7 +586,7 @@ export const getWrpLive = async (
                         // Other included RP servers
                         const allowStream = isMetaFaction;
                         if (allowStream === false) {
-                            return;
+                            continue;
                         }
 
                         const stream: Stream = {
@@ -608,32 +609,66 @@ export const getWrpLive = async (
                         nextId++;
                         factionCount.other++;
                         wrpStreams.push(stream);
-                        return;
+                        continue;
                     }
+
+                    let mostRecentStreamSegment = await dataSource.getRepository(StreamChunk)
+                        .findOne({
+                            where: {
+                                streamerId: helixStream.userId,
+                                streamId: helixStream.id,
+                            },
+                            order: {
+                                lastSeenDate: 'desc',
+                            },
+                        });
+
+                    // This is done here not as a WHERE clause so that we always
+                    // compare against the most-recent segment, not just the
+                    // most-recent segment with a matching title
+                    if (mostRecentStreamSegment && mostRecentStreamSegment.title !== title) {
+                        mostRecentStreamSegment = null;
+                    }
+
+                    const isOverridden = mostRecentStreamSegment !== null && mostRecentStreamSegment.isOverridden;
 
                     // streamState === FSTATES.nopixel
 
-                    let nowCharacter;
+                    let nowCharacter: Character | undefined;
 
                     if (hasCharacters) {
-                        let lowestPos = Infinity;
-                        let maxResults = -1;
-                        let maxSize = -1;
-                        for (const char of characters) {
-                            const matchPositions = [...titleParsed.matchAll(char.nameReg)];
-                            const numResults = matchPositions.length;
-                            const resSize = numResults > 0 ? matchPositions[0][0].length : -1; // Could use all matches, but more expensive
-                            const devFactionWeight = char.factions[0] === 'development' ? 2e4 : 0;
-                            const lowIndex = numResults ? matchPositions[0].index! + devFactionWeight : -1;
-                            if (lowIndex > -1 && (
-                                lowIndex < lowestPos
-                                || (lowIndex === lowestPos && numResults > maxResults)
-                                || (lowIndex === lowestPos && numResults === maxResults && resSize > maxSize)
-                            )) {
-                                lowestPos = lowIndex;
-                                maxResults = numResults;
-                                maxSize = resSize;
-                                nowCharacter = char;
+                        if (isOverridden) {
+                            if (mostRecentStreamSegment?.characterId) {
+                                nowCharacter = characters.find(c => c.id === mostRecentStreamSegment?.characterId);
+                            }
+                            console.log(JSON.stringify({
+                                level: 'info',
+                                event: 'stream-override',
+                                message: `Found override for ${channelName} to character ${nowCharacter ? `"${nowCharacter.name}"` : '(NULL)'}`,
+                                channel: channelName,
+                                title,
+                                character: nowCharacter?.name ?? null,
+                            }));
+                        } else {
+                            let lowestPos = Infinity;
+                            let maxResults = -1;
+                            let maxSize = -1;
+                            for (const char of characters) {
+                                const matchPositions = [...titleParsed.matchAll(char.nameReg)];
+                                const numResults = matchPositions.length;
+                                const resSize = numResults > 0 ? matchPositions[0][0].length : -1; // Could use all matches, but more expensive
+                                const devFactionWeight = char.factions[0] === 'development' ? 2e4 : 0;
+                                const lowIndex = numResults ? matchPositions[0].index! + devFactionWeight : -1;
+                                if (lowIndex > -1 && (
+                                    lowIndex < lowestPos
+                                    || (lowIndex === lowestPos && numResults > maxResults)
+                                    || (lowIndex === lowestPos && numResults === maxResults && resSize > maxSize)
+                                )) {
+                                    lowestPos = lowIndex;
+                                    maxResults = numResults;
+                                    maxSize = resSize;
+                                    nowCharacter = char;
+                                }
                             }
                         }
                     }
@@ -660,7 +695,7 @@ export const getWrpLive = async (
                         const matchPos = title.indexOfRegex(regex);
                         if (matchPos > -1) {
                             const isTakeoverFaction = takeoverFactions.includes(faction);
-                            if (isTakeoverFaction) {
+                            if (isTakeoverFaction && !isOverridden) {
                                 hasTitleTakeoverFaction = true;
                             }
                             if (nowCharacter && !isTakeoverFaction) {
@@ -692,7 +727,7 @@ export const getWrpLive = async (
                         }
                     } else if (factionObjects.length) {
                         factionObjects.sort((a, b) => a.rank1 - b.rank1 || a.rank2 - b.rank2 || a.rank3 - b.rank3 || a.index - b.index);
-                        if (factionObjects[0].character) nowCharacter = factionObjects[0].character; // Sorted by has-character
+                        if (factionObjects[0].character && !isOverridden) nowCharacter = factionObjects[0].character; // Sorted by has-character
                         // factionNames = factionObjects[0].factions;
                         factionNames = factionObjects.map(factionObj => factionObj.factions).flat(1);
                     }
@@ -719,7 +754,7 @@ export const getWrpLive = async (
                     }
 
                     let possibleCharacter = nowCharacter;
-                    if (!nowCharacter && !hasFactions && hasCharacters) {
+                    if (!isOverridden && !nowCharacter && !hasFactions && hasCharacters) {
                         if (characters.assumeChar) {
                             nowCharacter = characters.assumeChar;
                             possibleCharacter = nowCharacter;
@@ -734,7 +769,7 @@ export const getWrpLive = async (
                     }
 
                     let hasFactionsTagText;
-                    if (!nowCharacter && hasFactions && factionNames[0] in wrpFactionsSubRegex) {
+                    if (!isOverridden && !nowCharacter && hasFactions && factionNames[0] in wrpFactionsSubRegex) {
                         for (const [tagText, tagReg] of wrpFactionsSubRegex[factionNames[0]]!) {
                             if (tagReg.test(title)) {
                                 hasFactionsTagText = tagText;
@@ -746,7 +781,7 @@ export const getWrpLive = async (
                     // log(allowStream === false, (onNpPublic && factionName !== 'publicnp' && allowPublic == false));
 
                     if (allowStream === false) {
-                        return;
+                        continue;
                     }
 
                     // let keepCase = false;
@@ -798,14 +833,49 @@ export const getWrpLive = async (
 
                     console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
 
-                    chunks.push({
+                    const chunk: Omit<StreamChunk, 'id' | 'isOverridden'> = {
                         streamerId: helixStream.userId,
                         characterId: possibleCharacter?.id,
                         characterUncertain: possibleCharacter !== undefined && nowCharacter === undefined,
                         streamId: helixStream.id,
                         streamStartDate: helixStream.startDate,
                         title: helixStream.title,
-                    });
+                        firstSeenDate: now,
+                        lastSeenDate: now,
+                    };
+
+                    if (mostRecentStreamSegment) {
+                        const { id } = mostRecentStreamSegment;
+                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate', 'characterId' | 'characterUncertain'> = {
+                            id,
+                            lastSeenDate: now,
+                        };
+                        if (!mostRecentStreamSegment.isOverridden) {
+                            const { characterId, characterUncertain } = chunk;
+                            chunkUpdate.characterId = characterId;
+                            chunkUpdate.characterUncertain = characterUncertain;
+                        }
+
+                        try {
+                            const updatedChunk = await dataSource
+                                .getRepository(StreamChunk)
+                                .save(chunkUpdate, { reload: true });
+
+                            updatedChunks.push({
+                                ...mostRecentStreamSegment,
+                                ...updatedChunk,
+                            });
+                        } catch (error) {
+                            console.error(JSON.stringify({
+                                level: 'error',
+                                message: 'Failed to update chunk',
+                                chunkUpdate,
+                                error,
+                            }));
+                        }
+                    } else {
+                        newChunks.push(chunk);
+                    }
 
                     if (helixStream.userId in unknownTwitchUsers) {
                         const u = unknownTwitchUsers[helixStream.userId];
@@ -823,7 +893,9 @@ export const getWrpLive = async (
                     for (const faction of activeFactions) factionCount[faction]++;
                     factionCount.allwildrp++;
                     wrpStreams.push(stream);
-                });
+                }
+
+                const allChunks = [...newChunks, ...updatedChunks];
 
                 try {
                     if (newChannels.length) {
@@ -851,60 +923,11 @@ export const getWrpLive = async (
                         unknownTwitchUsers = {};
                     }
 
-                    let updatedChunkCount = 0;
-                    const newChunks: Omit<StreamChunk, 'id' | 'isOverridden'>[] = [];
-
-                    for (const chunk of chunks) {
-                        const mostRecentStreamSegment = await dataSource.getRepository(StreamChunk)
-                            .findOne({
-                                where: {
-                                    streamerId: chunk.streamerId,
-                                    streamId: chunk.streamId,
-                                },
-                                order: {
-                                    lastSeenDate: 'desc',
-                                },
-                            });
-                        if (mostRecentStreamSegment && mostRecentStreamSegment.title === chunk.title) {
-                            const { id } = mostRecentStreamSegment;
-                            const updatedChunk: Some<StreamChunk, 'lastSeenDate', 'characterId' | 'characterUncertain'> = {
-                                lastSeenDate: now,
-                            };
-                            if (!mostRecentStreamSegment.isOverridden) {
-                                const { characterId, characterUncertain } = chunk;
-                                updatedChunk.characterId = characterId;
-                                updatedChunk.characterUncertain = characterUncertain;
-                            }
-                            const updateResult = await dataSource
-                                .getRepository(StreamChunk)
-                                .update(
-                                    { id },
-                                    updatedChunk
-                                );
-                            updatedChunkCount += updateResult.affected ?? 0;
-                            if (updateResult.affected === undefined || updateResult.affected !== 1) {
-                                console.error(JSON.stringify({
-                                    level: 'error',
-                                    event: 'segment-update-error',
-                                    message: 'Stream segment update didn’t affect exactly one row',
-                                    affected: updateResult.affected ?? null,
-                                    previous: mostRecentStreamSegment,
-                                    update: updatedChunk,
-                                }));
-                            }
-                        } else {
-                            newChunks.push({
-                                ...chunk,
-                                firstSeenDate: now,
-                                lastSeenDate: now,
-                            });
-                        }
-                    }
                     console.log(JSON.stringify({
                         level: 'info',
                         event: 'segment-update',
-                        message: `Updated ${updatedChunkCount} streams in database`,
-                        count: updatedChunkCount,
+                        message: `Updated ${updatedChunks.length} streams in database`,
+                        count: updatedChunks.length,
                     }));
 
                     if (newChunks.length) {
@@ -925,7 +948,7 @@ export const getWrpLive = async (
                         }));
                     }
 
-                    const liveStreamIds = chunks.map(c => c.streamId);
+                    const liveStreamIds = allChunks.map(c => c.streamId);
 
                     // Fetch any missing thumbnails from streams that just went offline
                     const recentVideosMissingThumbnails = await dataSource.getRepository(Video)
@@ -1037,7 +1060,7 @@ export const getWrpLive = async (
                         .orderBy('character_id', 'ASC')
                         .addOrderBy('last_seen_date', 'DESC');
 
-                    const liveCharacterIds = chunks.flatMap(c => (c.characterId ? [c.characterId] : []));
+                    const liveCharacterIds = allChunks.flatMap(c => (c.characterId ? [c.characterId] : []));
                     if (liveCharacterIds.length) {
                         distinctCharacters.andWhere(
                             'stream_chunk.characterId NOT IN (:...ids)',
