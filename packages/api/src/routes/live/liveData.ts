@@ -56,6 +56,9 @@ interface Character extends Omit<CharacterOld, 'factions' | 'displayName' | 'ass
     nameReg: RegExp;
 }
 
+// A new type with some properties of T and some properties of T made optional
+type Some<T, K extends keyof T, O extends keyof T> = Pick<T, K> & Partial<Pick<T, O>>;
+
 type WrpCharacter = Character[] & { assumeChar?: Character; assumeOther: number; };
 
 type WrpCharacters = { [key: string]: WrpCharacter };
@@ -863,15 +866,15 @@ export const getWrpLive = async (
                                 },
                             });
                         if (mostRecentStreamSegment && mostRecentStreamSegment.title === chunk.title) {
-                            // TODO: Add some way to mark a chunk as manually edited
-                            // (and omit changes to characters when we have them)
                             const { id } = mostRecentStreamSegment;
-                            const { characterId, characterUncertain } = chunk;
-                            const updatedChunk: Pick<StreamChunk, 'lastSeenDate' | 'characterId' | 'characterUncertain'> = {
-                                characterId,
-                                characterUncertain,
+                            const updatedChunk: Some<StreamChunk, 'lastSeenDate', 'characterId' | 'characterUncertain'> = {
                                 lastSeenDate: now,
                             };
+                            if (!mostRecentStreamSegment.isOverridden) {
+                                const { characterId, characterUncertain } = chunk;
+                                updatedChunk.characterId = characterId;
+                                updatedChunk.characterUncertain = characterUncertain;
+                            }
                             const updateResult = await dataSource
                                 .getRepository(StreamChunk)
                                 .update(
