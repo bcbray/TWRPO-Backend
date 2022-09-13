@@ -65,6 +65,15 @@ export function authentication({
     return res.send({ s: req.session, u: req.user });
   });
 
+  router.post('/auth/logout', (req, res, next) => {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.send();
+    })
+  });
+
   const sessionRepository = twrpo.getSessionRepository() as any as Repository<ISession>;
   const sessionStore = new TypeormStore().connect(sessionRepository);
 
