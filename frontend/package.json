@@ -11,6 +11,8 @@
     "@svgr/webpack": "^5.5.0",
     "@twrpo/api": "1.0.0",
     "@twrpo/types": "1.0.0",
+    "@twurple/api": "^5.2.3",
+    "@twurple/auth": "^5.2.3",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-color": "^3.0.6",
@@ -41,6 +43,7 @@
     "is-mobile": "^3.1.1",
     "mini-css-extract-plugin": "^2.4.5",
     "normalize.css": "^8.0.1",
+    "passport-oauth2": "^1.6.1",
     "plausible-tracker": "^0.3.8",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
@@ -113,6 +116,7 @@
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",
+    "@types/passport-oauth2": "^1.4.11",
     "concurrently": "^7.3.0",
     "ts-loader": "^9.3.1",
     "webpack-node-externals": "^3.0.0"
