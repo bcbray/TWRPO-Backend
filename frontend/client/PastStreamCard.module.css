@@ -26,6 +26,15 @@
   top: 0;
 }
 
+.thumbnail img, .thumbnail .tag {
+  transition: filter ease-in-out .2s;
+  filter: grayscale(0.7);
+}
+
+.thumbnail:hover img, .thumbnail:hover .tag {
+  filter: none;
+}
+
 .thumbnail iframe {
   pointer-events: none;
   position: absolute;
