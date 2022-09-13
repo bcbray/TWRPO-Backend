@@ -763,7 +763,7 @@ export const getWrpLive = async (
                         }
                     }
 
-                    if (hasTitleTakeoverFaction) {
+                    if (hasTitleTakeoverFaction || (isOverridden && mostRecentStreamSegment?.characterUncertain)) {
                         possibleCharacter = nowCharacter;
                         nowCharacter = undefined;
                     }
@@ -793,7 +793,7 @@ export const getWrpLive = async (
                         activeFactions = [...nowCharacter.factions];
                         tagFaction = nowCharacter.factionUse;
                         tagText = nowCharacter.displayName;
-                    } else if (hasFactions) {
+                    } else if (hasFactions && !isOverridden) {
                         activeFactions = [...factionNames, 'guessed'];
                         tagFaction = isFactionColor(factionNames[0]) ? factionNames[0] : 'independent';
                         const factionNameFull = fullFactionMap[factionNames[0]] || factionNames[0];
