@@ -10,6 +10,7 @@ import {
     StreamerResponse,
     StreamersResponse,
     UnknownResponse,
+    User as UserResponse,
 } from '@twrpo/types';
 
 import { getWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
@@ -17,6 +18,7 @@ import { fetchCharacters } from './routes/v2/characters';
 import { fetchFactions } from './routes/v2/factions';
 import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
 import { fetchUnknown } from './routes/v2/unknown';
+import { fetchUser } from './routes/v2/admin/users';
 import routes from './routes';
 import dataSource from './db/dataSource';
 import { SessionUser } from './SessionUser';
@@ -100,6 +102,10 @@ class Api {
 
     public async fetchUnknown(): Promise<UnknownResponse> {
         return fetchUnknown(this.twitchClient, this.dataSource);
+    }
+
+    public async fetchFrontendUser(id: number): Promise<UserResponse | null> {
+        return fetchUser(this.dataSource, id);
     }
 
     public getSessionRepository(): Repository<Session> {
