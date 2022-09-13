@@ -1,3 +1,4 @@
-import twrpo from './twrpo';
+import TWRPOApi from './twrpo';
+import { SessionUser } from './SessionUser';
 
-export default twrpo;
+export { TWRPOApi, SessionUser };

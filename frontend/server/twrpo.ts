@@ -1,6 +1,6 @@
 import { ClientCredentialsAuthProvider } from '@twurple/auth';
 
-import TWRPOApi from '@twrpo/api';
+import { TWRPOApi } from '@twrpo/api';
 
 console.log('Creating new client credentials...');
 if (!process.env.TWITCH_CLIENT_ID) {

@@ -6,7 +6,7 @@ import { StaticRouter } from "react-router-dom/server";
 import { SSRProvider } from "@restart/ui/ssr";
 import { HelmetProvider, FilledContext } from 'react-helmet-async';
 
-import TWRPOApi from '@twrpo/api';
+import { TWRPOApi } from '@twrpo/api';
 import {
   LiveResponse,
   CharactersResponse,
