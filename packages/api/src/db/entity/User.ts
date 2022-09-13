@@ -6,6 +6,12 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 
+export enum UserRole {
+    ADMIN = 'admin',
+    EDITOR = 'editor',
+    GUEST = 'guest'
+}
+
 @Entity({ name: 'user' })
 export class User {
     @PrimaryGeneratedColumn()
@@ -23,4 +29,11 @@ export class User {
 
     @CreateDateColumn()
     createdAt: Date;
+
+    @Column({
+        type: 'enum',
+        enum: UserRole,
+        default: UserRole.GUEST,
+    })
+    globalRole: UserRole;
 }
