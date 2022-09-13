@@ -7,9 +7,11 @@ import {
     Index,
     CreateDateColumn,
     OneToMany,
+    OneToOne,
 } from 'typeorm';
 
 import { StreamChunk } from './StreamChunk';
+import { User } from './User';
 
 @Entity()
 export class TwitchChannel {
@@ -42,4 +44,7 @@ export class TwitchChannel {
 
     @OneToMany(() => StreamChunk, chunk => chunk.channel)
     streamChunks?: StreamChunk[];
+
+    @OneToOne(() => User, user => user.channel)
+    user?: User;
 }

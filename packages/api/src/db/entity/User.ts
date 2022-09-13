@@ -1,10 +1,16 @@
+/* eslint-disable import/no-cycle */
+
 import {
     Entity,
     Column,
     Index,
     CreateDateColumn,
     PrimaryGeneratedColumn,
+    OneToOne,
+    JoinColumn,
 } from 'typeorm';
+
+import { TwitchChannel } from './TwitchChannel';
 
 export enum UserRole {
     ADMIN = 'admin',
@@ -36,4 +42,8 @@ export class User {
         default: UserRole.GUEST,
     })
     globalRole: UserRole;
+
+    @OneToOne(() => TwitchChannel, channel => channel.streamChunks)
+    @JoinColumn({ name: 'twitchId', referencedColumnName: 'twitchId' })
+    channel: TwitchChannel;
 }

@@ -15,6 +15,8 @@ import type VideoSegment from './VideoSegment';
 import type SegmentAndStreamer from './SegmentAndStreamer';
 import type UnknownResponse from './UnknownResponse';
 import type OverrideSegmentRequest from './OverrideSegmentRequest';
+import type User from './User';
+import type UserRole from './UserRole';
 
 
 export {
@@ -35,4 +37,6 @@ export {
   SegmentAndStreamer,
   UnknownResponse,
   OverrideSegmentRequest,
+  User,
+  UserRole,
 }

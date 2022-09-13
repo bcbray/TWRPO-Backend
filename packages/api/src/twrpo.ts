@@ -65,6 +65,7 @@ class Api {
         this.apiRouter.use('/v2/unknown', routes.v2UnknownRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter);
         this.apiRouter.use('/v2/admin/override-segment', routes.v2AdminOverrideSegmentRouter(this.dataSource));
+        this.apiRouter.use('/v2/admin/users', routes.v2AdminUsersRouter(this.dataSource));
 
         const { liveRefreshInterval = 1000 * 60 } = options;
         this.liveRefreshInterval = liveRefreshInterval;
