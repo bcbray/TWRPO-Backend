@@ -835,7 +835,7 @@ export const getWrpLive = async (
 
                     const chunk: Omit<StreamChunk, 'id' | 'isOverridden'> = {
                         streamerId: helixStream.userId,
-                        characterId: possibleCharacter?.id,
+                        characterId: possibleCharacter?.id ?? null,
                         characterUncertain: possibleCharacter !== undefined && nowCharacter === undefined,
                         streamId: helixStream.id,
                         streamStartDate: helixStream.startDate,

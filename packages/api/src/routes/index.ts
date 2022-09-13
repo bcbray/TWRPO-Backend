@@ -5,6 +5,7 @@ import v2FactionsRouter from './v2/factions';
 import v2FeedbackRouter from './v2/feedback';
 import v2StreamersRouter from './v2/streamers';
 import v2UnknownRouter from './v2/unknown';
+import v2AdminOverrideSegmentRouter from './v2/admin/override-segment';
 
 export default {
     liveRouter,
@@ -13,4 +14,5 @@ export default {
     v2FeedbackRouter,
     v2StreamersRouter,
     v2UnknownRouter,
+    v2AdminOverrideSegmentRouter,
 };
