@@ -7,9 +7,12 @@ import styles from './Nav.module.css';
 import { classes } from './utils';
 import ThemeToggle from './ThemeToggle';
 import { Collapse } from './Transitions';
+import { useAuth } from './auth';
+import ProfilePhoto from './ProfilePhoto'
 
 const Nav: React.FC<{}> = () => {
   const [collapsed, setCollapsed] = React.useState(true);
+  const { user, logout } = useAuth();
 
   return (
     <div className={styles.navbar}>
@@ -44,6 +47,20 @@ const Nav: React.FC<{}> = () => {
               <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/'>Live</NavLink>
               <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/characters'>Characters</NavLink>
               <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/multistream'>Multistream</NavLink>
+              {user &&
+                <Button
+                  className={styles.userButton}
+                  onClick={logout}
+                  title={user.displayName}
+                >
+                  <ProfilePhoto channelInfo={{
+                    id: user.twitchId,
+                    login: user.twitchLogin,
+                    displayName: user.displayName,
+                    profilePictureUrl: user.profilePhotoUrl,
+                  }} />
+                </Button>
+              }
             </div>
           </div>
         </Collapse>

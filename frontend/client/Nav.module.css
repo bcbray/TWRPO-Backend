@@ -150,3 +150,8 @@
 .nav > a.active {
   color: #fff;
 }
+
+.userButton {
+  background: none;
+  border: none;
+}
