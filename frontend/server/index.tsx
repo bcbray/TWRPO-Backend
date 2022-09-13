@@ -11,14 +11,14 @@ import server from './server';
 import twrpo from './twrpo';
 import requireHttps from './requireHttps';
 
-const app = express();
-app.enable('trust proxy');
-app.use(compression());
-app.use(requireHttps);
-app.use('/', server());
-
 twrpo.initialize()
   .then(() => {
+    const app = express();
+    app.enable('trust proxy');
+    app.use(compression());
+    app.use(requireHttps);
+    app.use('/', server(twrpo));
+
     // Auto-refresh Twitch data
     twrpo.startRefreshing();
 
