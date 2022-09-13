@@ -139,6 +139,7 @@ class Api {
             id: user.id,
             profilePhotoUrl: twitchChannel.profilePhotoUrl,
             displayName: twitchChannel.displayName,
+            twitchLogin: twitchChannel.twitchLogin,
         };
     }
 

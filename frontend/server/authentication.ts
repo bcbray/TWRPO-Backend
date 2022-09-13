@@ -11,14 +11,20 @@ import { TwitchStrategy, TwitchProfile } from './passport-twitch';
 import { urlJoin } from './utils';
 
 export interface AuthenticationOptions {
+  twrpo: TWRPOApi
   twitchClientId: string;
   twitchClientSecret: string;
   sessionSecret: string;
   callbackUrlBase: string;
 }
 
-export function authentication(twrpo: TWRPOApi, options: AuthenticationOptions) {
-  const { twitchClientId, twitchClientSecret, sessionSecret, callbackUrlBase } = options;
+export function authentication({
+    twrpo,
+    twitchClientId,
+    twitchClientSecret,
+    sessionSecret,
+    callbackUrlBase,
+}: AuthenticationOptions) {
   const passport = new Passport();
 
   passport.use(new TwitchStrategy({
@@ -33,31 +39,31 @@ export function authentication(twrpo: TWRPOApi, options: AuthenticationOptions) 
       .catch((error?: Error) =>
         verified(error)
       );
-  }))
+  }));
 
   passport.serializeUser((user, done) => {
-    console.log('serializeUser', user);
     done(null, user);
   });
 
   passport.deserializeUser((user, done) => {
-    console.log('deserializeUser', user);
     done(null, user as SessionUser);
-  })
+  });
 
   const router = Router();
 
   router.get('/auth/twitch', passport.authenticate('twitch'));
   router.get('/auth/twitch/callback', passport.authenticate('twitch', {
-    failureRedirect: '/auth/failure',
+    // TODO: Use a real route here
+    failureRedirect: '/',
   }), (_req, res) => {
-    res.redirect("/auth/session");
-  })
+    // TODO: Use a real route here
+    res.redirect('/auth/session');
+  });
 
   // FIXME: Temp endpoint to inspect the session. Remove this.
   router.get('/auth/session', (req, res) => {
     return res.send({ s: req.session, u: req.user });
-  })
+  });
 
   const sessionRepository = twrpo.getSessionRepository() as any as Repository<ISession>;
   const sessionStore = new TypeormStore().connect(sessionRepository);
@@ -66,10 +72,8 @@ export function authentication(twrpo: TWRPOApi, options: AuthenticationOptions) 
     session({
       name: 'session',
       cookie: {
-        // secure: true,
+        secure: true,
         httpOnly: true,
-        // sameSite
-        sameSite: 'none',
       },
       secret: sessionSecret,
       resave: false,

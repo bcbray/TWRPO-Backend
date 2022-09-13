@@ -17,13 +17,15 @@ if (!process.env.TWITCH_CLIENT_ID) {
     console.log('Missing TWITCH_CLIENT_ID');
     process.exit(1);
 }
+const twitchClientId = process.env.TWITCH_CLIENT_ID;
 if (!process.env.TWITCH_CLIENT_SECRET) {
     console.log('Missing TWITCH_CLIENT_SECRET');
     process.exit(1);
 }
+const twitchClientSecret = process.env.TWITCH_CLIENT_SECRET;
 const twitchAuthProvider = new ClientCredentialsAuthProvider(
-  process.env.TWITCH_CLIENT_ID,
-  process.env.TWITCH_CLIENT_SECRET
+  twitchClientId,
+  twitchClientSecret
 );
 
 if (!process.env.DATABASE_URL) {
@@ -31,6 +33,14 @@ if (!process.env.DATABASE_URL) {
     process.exit(1);
 }
 const postgresUrl = process.env.DATABASE_URL;
+
+if (!process.env.SESSION_SECRET) {
+    console.log('Missing SESSION_SECRET');
+    process.exit(1);
+}
+const sessionSecret = process.env.SESSION_SECRET;
+
+const rootUrl = process.env.ROOT_URL;
 
 const twrpo = new TWRPOApi({ twitchAuthProvider, postgresUrl });
 
@@ -40,7 +50,13 @@ twrpo.initialize()
     app.enable('trust proxy');
     app.use(compression());
     app.use(requireHttps);
-    app.use('/', server(twrpo));
+    app.use('/', server({
+      twrpo,
+      twitchClientId,
+      twitchClientSecret,
+      sessionSecret,
+      rootUrl,
+    }));
 
     // Auto-refresh Twitch data
     twrpo.startRefreshing();

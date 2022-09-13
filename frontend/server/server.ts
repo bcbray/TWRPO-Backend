@@ -5,9 +5,32 @@ import { TWRPOApi } from '@twrpo/api';
 
 import ssr from './ssr';
 import sitemap from './sitemap';
+import { authentication } from './authentication';
 
-const server = (twrpo: TWRPOApi) => {
+interface ServerOptions {
+  twrpo: TWRPOApi;
+  twitchClientId: string;
+  twitchClientSecret: string;
+  sessionSecret: string;
+  rootUrl?: string;
+}
+
+const server = ({
+  twrpo,
+  twitchClientId,
+  twitchClientSecret,
+  sessionSecret,
+  rootUrl,
+}: ServerOptions) => {
   const router = Router();
+
+  router.use(authentication({
+    twrpo,
+    twitchClientId,
+    twitchClientSecret,
+    sessionSecret,
+    callbackUrlBase: rootUrl ?? 'https://twrponly.tv'
+  }));
 
   // Index is SSR
   router.get('/', ssr(twrpo));
