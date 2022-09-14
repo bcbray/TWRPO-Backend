@@ -18,6 +18,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   hideStreamer?: boolean;
   wrapTitle?: boolean;
   noEdit?: boolean;
+  dimmed?: boolean;
 }
 
 interface StreamLinkProps {
@@ -56,6 +57,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     hideStreamer = false,
     wrapTitle = false,
     noEdit = false,
+    dimmed = true,
     ...rest
   }, ref
 ) => {
@@ -79,7 +81,11 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
 
   return (
     <div
-      className={classes(styles.container, className)}
+      className={classes(
+        styles.container,
+        dimmed && styles.dimmed,
+        className
+      )}
       ref={ref}
       style={{
         ...factionStylesForKey(segment.character?.factions[0]?.key ?? 'otherwrp'),

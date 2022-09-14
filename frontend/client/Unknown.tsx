@@ -23,6 +23,7 @@ const Unknown: React.FC<UnknownProps> = ({ data }) => {
           paginationKey='unknown'
           loadTick={0}
           noInset
+          dimPastStreams={false}
         />
       </div>
       <div>
@@ -33,6 +34,7 @@ const Unknown: React.FC<UnknownProps> = ({ data }) => {
           paginationKey='uncertain'
           loadTick={0}
           noInset
+          dimPastStreams={false}
         />
       </div>
     </div>

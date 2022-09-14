@@ -123,6 +123,7 @@ const FormContent: React.FC<OverrideSegmentModalProps & { characters: CharacterI
           segment={editedSegment}
           wrapTitle
           noEdit
+          dimmed={false}
         />
       </div>
       <div>

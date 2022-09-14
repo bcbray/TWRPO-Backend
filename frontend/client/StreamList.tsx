@@ -28,6 +28,7 @@ interface Props {
   noInset?: boolean;
   wrapTitle?: boolean;
   showLiveBadge?: boolean;
+  dimPastStreams?: boolean;
 }
 
 interface LiveItem {
@@ -63,6 +64,7 @@ const StreamList: React.FC<Props> = ({
   noInset = false,
   wrapTitle = false,
   showLiveBadge = false,
+  dimPastStreams = true,
 }) => {
   const sorted = React.useMemo(() => {
     return streams
@@ -136,6 +138,7 @@ const StreamList: React.FC<Props> = ({
                       segment={segment}
                       hideStreamer={hideStreamer}
                       wrapTitle={wrapTitle}
+                      dimmed={dimPastStreams}
                     />
                   </Crossfade>
                 </Flipped>
