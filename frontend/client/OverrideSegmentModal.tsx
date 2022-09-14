@@ -192,7 +192,7 @@ const ModalContent: React.FC<OverrideSegmentModalProps> = ({
   onHide,
 }) => {
   const [streamerLoadState] = useStreamer(streamerTwitchLogin);
-  const [segmentLoadState] = useSegment(segmentId);
+  const [segmentLoadState] = useSegment(segmentId, { skipsPreload: true });
   if (isSuccess(streamerLoadState) && isSuccess(segmentLoadState)) {
     return <FormContent
       streamer={streamerLoadState.data.streamer}
