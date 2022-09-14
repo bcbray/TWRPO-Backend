@@ -27,6 +27,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
     interface AggregateChunk {
         streamerId: string;
         characterId: number;
+        streamId: string;
         streamStartDate: Date;
         firstSeenDate: Date;
         lastSeenDate: Date;
@@ -39,6 +40,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         .createQueryBuilder()
         .select('recent_chunk.streamer_id', 'streamerId')
         .addSelect('recent_chunk.character_id', 'characterId')
+        .addSelect('recent_chunk.stream_id', 'streamId')
         .addSelect('recent_chunk.stream_start_date', 'streamStartDate')
         .addSelect('recent_chunk.first_seen_date', 'firstSeenDate')
         .addSelect('recent_chunk.last_seen_date', 'lastSeenDate')
@@ -110,6 +112,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                     characterInfo.lastSeenLive = chunk.lastSeenDate.toISOString();
                     characterInfo.lastSeenTitle = chunk.spans[0]?.title;
                     characterInfo.lastSeenVideoThumbnailUrl = chunk.videoThumbnailUrl ?? undefined;
+                    characterInfo.lastSeenStreamId = chunk.streamId;
                     if (chunk.videoUrl) {
                         characterInfo.lastSeenVideoUrl = videoUrlOffset(chunk.videoUrl, chunk.streamStartDate, chunk.firstSeenDate);
                     }

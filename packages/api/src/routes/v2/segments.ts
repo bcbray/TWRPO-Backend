@@ -45,6 +45,7 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
         character: segment.characterId ? characterLookup[segment.characterId] : undefined,
         characterUncertain: segment.characterUncertain,
         liveInfo,
+        streamId: segment.streamId,
     };
 };
 

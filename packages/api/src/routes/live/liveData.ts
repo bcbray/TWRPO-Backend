@@ -1076,6 +1076,7 @@ export const getWrpLive = async (
                     interface AggregateChunk {
                         streamerId: string;
                         characterId: number;
+                        streamId: string;
                         streamStartDate: Date;
                         firstSeenDate: Date;
                         lastSeenDate: Date;
@@ -1088,6 +1089,7 @@ export const getWrpLive = async (
                         .createQueryBuilder()
                         .select('recent_chunk.streamer_id', 'streamerId')
                         .addSelect('recent_chunk.character_id', 'characterId')
+                        .addSelect('recent_chunk.stream_id', 'streamId')
                         .addSelect('recent_chunk.stream_start_date', 'streamStartDate')
                         .addSelect('recent_chunk.first_seen_date', 'firstSeenDate')
                         .addSelect('recent_chunk.last_seen_date', 'lastSeenDate')
@@ -1139,6 +1141,7 @@ export const getWrpLive = async (
                             lastSeenTitle: chunk.spans[0]?.title,
                             lastSeenVideoUrl: videoUrl ?? undefined,
                             lastSeenVideoThumbnailUrl: chunk.videoThumbnailUrl ?? undefined,
+                            lastSeenStreamId: chunk.streamId,
                         });
                     });
                 } catch (error) {

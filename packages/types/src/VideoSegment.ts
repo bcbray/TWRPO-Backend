@@ -10,5 +10,6 @@ export default interface VideoSegment {
     endDate: string;
     character?: CharacterInfo;
     characterUncertain: boolean;
+    streamId: string;
     liveInfo?: Stream;
 }
