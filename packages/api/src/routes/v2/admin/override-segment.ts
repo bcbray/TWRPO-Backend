@@ -1,4 +1,5 @@
 import { Router, Request } from 'express';
+import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
 import parseurl from 'parseurl';
 import { OverrideSegmentRequest } from '@twrpo/types';
@@ -7,8 +8,9 @@ import { User, UserRole } from '../../../db/entity/User';
 import { StreamChunk } from '../../../db/entity/StreamChunk';
 import { SessionUser } from '../../../SessionUser';
 import { wrpCharacters } from '../../../data/characters';
+import { getWrpLive } from '../../live/liveData';
 
-const buildRouter = (dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
     router.post('/', async (req: Request<any, any, OverrideSegmentRequest>, res) => {
@@ -72,6 +74,9 @@ const buildRouter = (dataSource: DataSource): Router => {
             }));
             return res.status(500).send({ success: false, errors: [{ message: 'Unable to update segment' }] });
         }
+
+        // Force a fetch to use the new data
+        await getWrpLive(apiClient, dataSource, {}, true);
 
         return res.send({ success: true });
     });
