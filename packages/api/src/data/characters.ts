@@ -134,7 +134,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 46, name: 'Red Stag' },
         { id: 47, name: 'Walter Cross' },
         { id: 48, name: 'Wechugue Wechugue' },
-        { id: 49, name: 'Zhang Wei' }, // TODO: Add Tai Pan faction
+        { id: 49, name: 'Zhang Wei', factions: ['Taipan'] },
     ],
     aureliawrites: [
         { id: 50, name: 'Lena Phipps' },
@@ -409,7 +409,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 176, name: 'Aleister Reid' },
     ],
     cruddycheese: [
-        { id: 177, name: 'Donald McMuffin' },
+        { id: 177, name: 'Donald McMuffin' }, // Taipan? (It's in some stream titles, but a quick skim of past streams isn't clear)
     ],
     CyboargTV: [
         { id: 178, name: 'Porter ONeill' },
@@ -1724,7 +1724,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     split_uni: [
         { id: 1007, name: 'Koho ?', nicknames: ['Fox'], factions: ['Summers Gang'] },
-        { id: 1033, name: 'Bai Li' },
+        { id: 1033, name: 'Bai Li', factions: ['Taipan'] },
     ],
     sporkerific: [
         { id: 776, name: 'Rosamaria Sandoval' },

@@ -27,6 +27,7 @@ export const wrpFactionsRegex = {
     law: noLater(noFormer(/\b(?:deputy|cadet|detective|sheriff|scsd)\b/i)),
     rangers: noFormer(/\brangers?\b/i),
     dicenzofamiglia: noFormer(/\bdicenzos?\b/i),
+    taipan: noFormer(/\btai[\s|-]*pan\b/i),
     medical: noLater(/(?<!then\b.*|!)(?:doctor|medic|paramedic|therapist|psychologist|\b(?:dr(?!(?:\s*pepper|\s+will\s+see\s+you))|em[st]|scdh)\b)/i),
     onelife: /\bperma-?thon|\bperma\s*character|\b(?:one|1)[\s\-_.]*life/i,
 } as { [key in WrpFactionsRegexKeys]: RegExp };
@@ -91,6 +92,7 @@ export const useColorsDark = { // #ff77ff #FAA0A0 #FA0B42
     thehumblebunch: '#A87C2D',
     coltons: '#a35231',
     summersgang: '#A076D8',
+    taipan: '#74A1D3',
     development: '#718093',
     law: '#0abde3',
     rangers: '#0984e3',
@@ -122,6 +124,7 @@ export const useColorsLight: { [key in FactionColorsMini]: string } = {
     thehumblebunch: '#A87C2D',
     coltons: '#a35231',
     summersgang: '#5c16c5',
+    taipan: '#2B5586',
     development: '#718093',
     law: '#0a0de3',
     rangers: '#1080d6',
