@@ -64,6 +64,12 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 characterUncertain: req.body.characterUncertain,
                 isOverridden: true,
             });
+
+            const liveData = await getWrpLive(apiClient, dataSource);
+            if (liveData.streams.some(s => s.segmentId === req.body.segmentId)) {
+                // If the segment is live, dorce a fetch to use the new data
+                await getWrpLive(apiClient, dataSource, {}, true);
+            }
         } catch (error) {
             console.error(JSON.stringify({
                 level: 'error',
@@ -74,9 +80,6 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
             }));
             return res.status(500).send({ success: false, errors: [{ message: 'Unable to update segment' }] });
         }
-
-        // Force a fetch to use the new data
-        await getWrpLive(apiClient, dataSource, {}, true);
 
         return res.send({ success: true });
     });
