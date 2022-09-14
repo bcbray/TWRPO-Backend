@@ -25,6 +25,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
     const { factions: factionInfos } = await fetchFactions(apiClient, dataSource);
 
     interface AggregateChunk {
+        mostRecentSegmentId: number;
         streamerId: string;
         characterId: number;
         streamId: string;
@@ -38,7 +39,8 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
 
     const streamChunks = await dataSource
         .createQueryBuilder()
-        .select('recent_chunk.streamer_id', 'streamerId')
+        .select('recent_chunk.id', 'mostRecentSegmentId')
+        .addSelect('recent_chunk.streamer_id', 'streamerId')
         .addSelect('recent_chunk.character_id', 'characterId')
         .addSelect('recent_chunk.stream_id', 'streamId')
         .addSelect('recent_chunk.stream_start_date', 'streamStartDate')
@@ -56,6 +58,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                 .addSelect('stream_chunk.streamId', 'stream_id')
                 .addSelect('MIN(stream_chunk.firstSeenDate)', 'first_seen_date')
                 .addSelect('MAX(stream_chunk.lastSeenDate)', 'last_seen_date')
+                .addSelect('MAX(stream_chunk.id)', 'id')
                 .addSelect(`
                     jsonb_agg(
                         jsonb_build_object(
@@ -112,7 +115,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                     characterInfo.lastSeenLive = chunk.lastSeenDate.toISOString();
                     characterInfo.lastSeenTitle = chunk.spans[0]?.title;
                     characterInfo.lastSeenVideoThumbnailUrl = chunk.videoThumbnailUrl ?? undefined;
-                    characterInfo.lastSeenStreamId = chunk.streamId;
+                    characterInfo.lastSeenSegmentId = chunk.mostRecentSegmentId;
                     if (chunk.videoUrl) {
                         characterInfo.lastSeenVideoUrl = videoUrlOffset(chunk.videoUrl, chunk.streamStartDate, chunk.firstSeenDate);
                     }

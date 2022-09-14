@@ -106,13 +106,13 @@ const StreamList: React.FC<Props> = ({
               return (
                 <Flipped
                   key={
-                    stream.characterId
-                      ? `char:${stream.characterId}`
+                    stream.segmentId
+                      ? `segment:${stream.segmentId}`
                       : `chan:${stream.channelName}`
                   }
                   flipId={
-                    stream.characterId
-                      ? `char:${stream.characterId}`
+                    stream.segmentId
+                      ? `segment:${stream.segmentId}`
                       : `chan:${stream.channelName}`
                   }>
                   <Crossfade fadeKey='live'>
@@ -153,7 +153,18 @@ const StreamList: React.FC<Props> = ({
             } else {
               const { character } = item;
               return (
-                <Flipped key={`char:${character.id}`} flipId={`char:${character.id}`}>
+                <Flipped
+                  key={
+                    character.lastSeenSegmentId
+                      ? `segment:${character.lastSeenSegmentId}`
+                      : `char:${character.id}`
+                  }
+                  flipId={
+                    character.lastSeenSegmentId
+                      ? `segment:${character.lastSeenSegmentId}`
+                      : `char:${character.id}`
+                  }
+                >
                   <Crossfade fadeKey='offline'>
                     <OfflineCharacterCard
                       className={styles.offline}

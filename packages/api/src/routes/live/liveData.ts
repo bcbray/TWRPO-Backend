@@ -1041,6 +1041,7 @@ export const getWrpLive = async (
                         .addSelect('stream_chunk.streamId', 'stream_id')
                         .addSelect('MIN(stream_chunk.firstSeenDate)', 'first_seen_date')
                         .addSelect('MAX(stream_chunk.lastSeenDate)', 'last_seen_date')
+                        .addSelect('MAX(stream_chunk.id)', 'id')
                         .addSelect(`
                             jsonb_agg(
                                 jsonb_build_object(
@@ -1074,6 +1075,7 @@ export const getWrpLive = async (
                     }
 
                     interface AggregateChunk {
+                        mostRecentSegmentId: number;
                         streamerId: string;
                         characterId: number;
                         streamId: string;
@@ -1087,7 +1089,8 @@ export const getWrpLive = async (
 
                     const recentChunks = await dataSource
                         .createQueryBuilder()
-                        .select('recent_chunk.streamer_id', 'streamerId')
+                        .select('recent_chunk.id', 'mostRecentSegmentId')
+                        .addSelect('recent_chunk.streamer_id', 'streamerId')
                         .addSelect('recent_chunk.character_id', 'characterId')
                         .addSelect('recent_chunk.stream_id', 'streamId')
                         .addSelect('recent_chunk.stream_start_date', 'streamStartDate')
@@ -1141,7 +1144,7 @@ export const getWrpLive = async (
                             lastSeenTitle: chunk.spans[0]?.title,
                             lastSeenVideoUrl: videoUrl ?? undefined,
                             lastSeenVideoThumbnailUrl: chunk.videoThumbnailUrl ?? undefined,
-                            lastSeenStreamId: chunk.streamId,
+                            lastSeenSegmentId: chunk.mostRecentSegmentId,
                         });
                     });
                 } catch (error) {
