@@ -840,13 +840,14 @@ export const getWrpLive = async (
                         }
 
                         try {
-                            const updatedChunk = await dataSource
+                            const appliedUpdate = { ...chunkUpdate };
+                            await dataSource
                                 .getRepository(StreamChunk)
-                                .save(chunkUpdate, { reload: true });
+                                .save(chunkUpdate);
 
                             updatedChunks.push({
                                 ...mostRecentStreamSegment,
-                                ...updatedChunk,
+                                ...appliedUpdate,
                             });
                             segmentId = mostRecentStreamSegment.id;
                         } catch (error) {
