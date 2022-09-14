@@ -10,7 +10,7 @@ import {
 
 import styles from './OverrideSegmentModal.module.css';
 
-import { isFailure, isSuccess } from './LoadingState';
+import { isFailure, isSuccess, fetchAndCheck } from './LoadingState';
 import Modal from './Modal';
 import Spinner from './Spinner';
 import { classes } from './utils';
@@ -48,6 +48,7 @@ const FormContent: React.FC<LoadedProps> = ({
   const { factionStylesForKey } = useFactionCss();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [hasSubmitted, setHasSubmitted] = React.useState(false);
+  const [hasError, setHasError] = React.useState(false);
 
   const [overriddenCharacter, setOverriddenCharacter] = React.useState(segment.character);
   const [overriddenCharacterUncertain, setOverriddenCharacterUncertain] = React.useState(segment.characterUncertain);
@@ -56,12 +57,13 @@ const FormContent: React.FC<LoadedProps> = ({
 
   const handleSubmit = React.useCallback(() => {
     setIsSubmitting(true);
+    setHasError(false);
     const request: OverrideSegmentRequest = {
       segmentId: segment.id,
       characterId: overriddenCharacter?.id ?? null,
       characterUncertain,
     }
-    fetch('/api/v2/admin/override-segment', {
+    fetchAndCheck('/api/v2/admin/override-segment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,6 +74,11 @@ const FormContent: React.FC<LoadedProps> = ({
       setIsSubmitting(false);
       setHasSubmitted(true);
       onHide(true);
+    })
+    .catch(() => {
+      setIsSubmitting(false);
+      setHasSubmitted(false);
+      setHasError(true);
     })
   }, [segment.id, overriddenCharacter?.id, characterUncertain, onHide]);
 
@@ -189,6 +196,11 @@ const FormContent: React.FC<LoadedProps> = ({
       </div>
     </div>
     <div className={styles.footer}>
+      {hasError &&
+        <div className={styles.alert}>
+          Unable to save changes. Please try again later.
+        </div>
+      }
       <Button
         className='button secondary'
         onClick={() => onHide(false)}

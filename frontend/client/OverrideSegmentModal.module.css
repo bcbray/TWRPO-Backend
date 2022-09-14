@@ -75,6 +75,16 @@
   margin: 0.25rem;
 }
 
+.alert {
+  background-color: var(--theme-red-100);
+  color: var(--theme-red-800);
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  position: relative;
+  flex-basis: 100%;
+}
+
 .submitSpinner {
   margin-right: 0.5rem;
 }
