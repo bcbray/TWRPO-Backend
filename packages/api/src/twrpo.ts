@@ -10,7 +10,7 @@ import {
     StreamerResponse,
     StreamersResponse,
     UnknownResponse,
-    User as UserResponse,
+    UserResponse,
     VideoSegment,
 } from '@twrpo/types';
 
@@ -20,7 +20,7 @@ import { fetchFactions } from './routes/v2/factions';
 import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
 import { fetchUnknown } from './routes/v2/unknown';
 import { fetchSegment } from './routes/v2/segments';
-import { fetchUser } from './routes/v2/admin/users';
+import { fetchSessionUser } from './routes/v2/whoami';
 import routes from './routes';
 import dataSource from './db/dataSource';
 import { SessionUser } from './SessionUser';
@@ -68,9 +68,9 @@ class Api {
         this.apiRouter.use('/v2/streamers', routes.v2StreamersRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/unknown', routes.v2UnknownRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/segments', routes.v2SegmentsRouter(this.twitchClient, this.dataSource));
+        this.apiRouter.use('/v2/whoami', routes.v2WhoamiRouter(this.dataSource));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter);
         this.apiRouter.use('/v2/admin/override-segment', routes.v2AdminOverrideSegmentRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/admin/users', routes.v2AdminUsersRouter(this.dataSource));
 
         const { liveRefreshInterval = 1000 * 60 } = options;
         this.liveRefreshInterval = liveRefreshInterval;
@@ -111,8 +111,8 @@ class Api {
         return fetchSegment(this.twitchClient, this.dataSource, id);
     }
 
-    public async fetchFrontendUser(id: number): Promise<UserResponse | null> {
-        return fetchUser(this.dataSource, id);
+    public async fetchSessionUser(sessionUser: SessionUser | undefined): Promise<UserResponse | null> {
+        return fetchSessionUser(this.dataSource, sessionUser);
     }
 
     public getSessionRepository(): Repository<Session> {

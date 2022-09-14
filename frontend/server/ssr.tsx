@@ -13,7 +13,7 @@ import {
   FactionsResponse,
   StreamerResponse,
   UnknownResponse,
-  User as UserResponse,
+  UserResponse,
   VideoSegment,
 } from '@twrpo/types';
 
@@ -123,15 +123,10 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
         if (used.usedCurrentUser) {
           needsAnotherLoad = true;
-          if (!req.user) {
-            preloadedData.currentUser = null;
-          } else {
-            const user = req.user as SessionUser;
-            const userResponse = await api.fetchFrontendUser(user.id);
-            // Hacky round-trip through JSON to make sure our types are converted the same
-            // TODO: Maybe we should just make an API call?
-            preloadedData.currentUser = JSON.parse(JSON.stringify(userResponse)) as UserResponse;
-          }
+          const userResponse = await api.fetchSessionUser(req.user as SessionUser | undefined)
+          // Hacky round-trip through JSON to make sure our types are converted the same
+          // TODO: Maybe we should just make an API call?
+          preloadedData.currentUser = JSON.parse(JSON.stringify(userResponse)) as UserResponse;
         }
 
         if (used.usedSegmentIds && used.usedSegmentIds.length) {

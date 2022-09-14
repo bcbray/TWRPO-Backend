@@ -6,8 +6,8 @@ import v2FeedbackRouter from './v2/feedback';
 import v2StreamersRouter from './v2/streamers';
 import v2UnknownRouter from './v2/unknown';
 import v2SegmentsRouter from './v2/segments';
+import v2WhoamiRouter from './v2/whoami';
 import v2AdminOverrideSegmentRouter from './v2/admin/override-segment';
-import v2AdminUsersRouter from './v2/admin/users';
 
 export default {
     liveRouter,
@@ -17,6 +17,6 @@ export default {
     v2StreamersRouter,
     v2UnknownRouter,
     v2SegmentsRouter,
+    v2WhoamiRouter,
     v2AdminOverrideSegmentRouter,
-    v2AdminUsersRouter,
 };

@@ -71,13 +71,13 @@ export const UserProvider: React.FC<{ children: React.ReactElement }> = ({ child
     };
   }, [receiveMessage]);
 
-  const user = isSuccess(loadingState) ? loadingState.data : undefined;
+  const userResponse = isSuccess(loadingState) ? loadingState.data : undefined;
 
   const info: UserInfo = React.useMemo(() => ({
-    user,
+    user: userResponse?.user ?? undefined,
     login,
     logout,
-  }), [user, login, logout]);
+  }), [userResponse?.user, login, logout]);
 
   return <UserContext.Provider value={info}>
     {children}

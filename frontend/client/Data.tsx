@@ -7,7 +7,7 @@ import {
   FactionsResponse,
   StreamerResponse,
   UnknownResponse,
-  User,
+  UserResponse,
   VideoSegment,
 } from '@twrpo/types'
 
@@ -28,7 +28,7 @@ export interface PreloadedData {
   streamers?: Record<string, StreamerResponse | null>;
   unknown?: UnknownResponse;
   segments?: Record<number, VideoSegment | null>;
-  currentUser?: User | null;
+  currentUser?: UserResponse;
 }
 
 export interface PreloadedUsed {
@@ -253,13 +253,13 @@ export const useUnknown = ({ skipsPreload = false, ...props }: PreLoadingProps<U
   return [loadState, outerOnReload, lastLoad];
 };
 
-export const useCurrentUser = ({ skipsPreload = false, ...props }: PreLoadingProps<User> = {}): LoadingResult<User> => {
+export const useCurrentUser = ({ skipsPreload = false, ...props }: PreLoadingProps<UserResponse> = {}): LoadingResult<UserResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
   if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.currentUser === undefined) {
     preloadedUsed.usedCurrentUser = true;
   }
-  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/admin/users/me', {
+  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/whoami', {
     preloaded: skipsPreload ? undefined : preloadedData.currentUser,
     ...props,
   });

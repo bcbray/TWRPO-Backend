@@ -17,6 +17,7 @@ import type UnknownResponse from './UnknownResponse';
 import type OverrideSegmentRequest from './OverrideSegmentRequest';
 import type User from './User';
 import type UserRole from './UserRole';
+import type UserResponse from './UserResponse';
 
 
 export {
@@ -39,4 +40,5 @@ export {
   OverrideSegmentRequest,
   User,
   UserRole,
+  UserResponse,
 }
