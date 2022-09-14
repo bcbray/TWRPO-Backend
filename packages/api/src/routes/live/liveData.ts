@@ -486,7 +486,7 @@ export const getWrpLive = async (
                 const wrpStreams: Stream[] = [];
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
 
-                const newChunks: Omit<StreamChunk, 'id' | 'isOverridden'>[] = [];
+                const newChunks: StreamChunk[] = [];
                 const updatedChunks: StreamChunk[] = [];
                 const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck'>[] = [];
                 const now = new Date();
@@ -815,6 +815,78 @@ export const getWrpLive = async (
 
                     if (newCharFactionSpotted) activeFactions.push('guessed');
 
+                    const chunk: Omit<StreamChunk, 'id' | 'isOverridden'> = {
+                        streamerId: helixStream.userId,
+                        characterId: possibleCharacter?.id ?? null,
+                        characterUncertain: possibleCharacter !== undefined && nowCharacter === undefined,
+                        streamId: helixStream.id,
+                        streamStartDate: helixStream.startDate,
+                        title: helixStream.title,
+                        firstSeenDate: now,
+                        lastSeenDate: now,
+                    };
+
+                    let segmentId: number | undefined;
+                    if (mostRecentStreamSegment) {
+                        const { id } = mostRecentStreamSegment;
+                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate', 'characterId' | 'characterUncertain'> = {
+                            id,
+                            lastSeenDate: now,
+                        };
+                        if (!mostRecentStreamSegment.isOverridden) {
+                            const { characterId, characterUncertain } = chunk;
+                            chunkUpdate.characterId = characterId;
+                            chunkUpdate.characterUncertain = characterUncertain;
+                        }
+
+                        try {
+                            const appliedUpdate = { ...chunkUpdate };
+                            await dataSource
+                                .getRepository(StreamChunk)
+                                .save(chunkUpdate);
+
+                            updatedChunks.push({
+                                ...mostRecentStreamSegment,
+                                ...appliedUpdate,
+                            });
+                            segmentId = mostRecentStreamSegment.id;
+                        } catch (error) {
+                            console.error(JSON.stringify({
+                                level: 'error',
+                                message: 'Failed to update chunk',
+                                chunkUpdate,
+                                error,
+                            }));
+                        }
+                    } else {
+                        try {
+                            const newChunk = await dataSource
+                                .getRepository(StreamChunk)
+                                .save(chunk);
+                            newChunks.push(newChunk);
+                            segmentId = newChunk.id;
+                        } catch (error) {
+                            console.error(JSON.stringify({
+                                level: 'error',
+                                message: 'Failed to insert chunk',
+                                chunk,
+                                error,
+                            }));
+                        }
+                    }
+
+                    if (helixStream.userId in unknownTwitchUsers) {
+                        const u = unknownTwitchUsers[helixStream.userId];
+                        delete unknownTwitchUsers[helixStream.userId];
+                        newChannels.push({
+                            twitchId: u.id,
+                            twitchLogin: u.login,
+                            displayName: u.displayName,
+                            profilePhotoUrl: u.profilePictureUrl,
+                            twitchCreatedAt: u.createdAt,
+                        });
+                    }
+
                     const stream: Stream = {
                         id: nextId,
                         ...baseStream,
@@ -829,65 +901,10 @@ export const getWrpLive = async (
                         tagFaction,
                         thumbnailUrl: helixStream.thumbnailUrl,
                         startDate: helixStream.startDate.toISOString(),
+                        segmentId,
                     };
 
                     console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
-
-                    const chunk: Omit<StreamChunk, 'id' | 'isOverridden'> = {
-                        streamerId: helixStream.userId,
-                        characterId: possibleCharacter?.id,
-                        characterUncertain: possibleCharacter !== undefined && nowCharacter === undefined,
-                        streamId: helixStream.id,
-                        streamStartDate: helixStream.startDate,
-                        title: helixStream.title,
-                        firstSeenDate: now,
-                        lastSeenDate: now,
-                    };
-
-                    if (mostRecentStreamSegment) {
-                        const { id } = mostRecentStreamSegment;
-                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate', 'characterId' | 'characterUncertain'> = {
-                            id,
-                            lastSeenDate: now,
-                        };
-                        if (!mostRecentStreamSegment.isOverridden) {
-                            const { characterId, characterUncertain } = chunk;
-                            chunkUpdate.characterId = characterId;
-                            chunkUpdate.characterUncertain = characterUncertain;
-                        }
-
-                        try {
-                            const updatedChunk = await dataSource
-                                .getRepository(StreamChunk)
-                                .save(chunkUpdate, { reload: true });
-
-                            updatedChunks.push({
-                                ...mostRecentStreamSegment,
-                                ...updatedChunk,
-                            });
-                        } catch (error) {
-                            console.error(JSON.stringify({
-                                level: 'error',
-                                message: 'Failed to update chunk',
-                                chunkUpdate,
-                                error,
-                            }));
-                        }
-                    } else {
-                        newChunks.push(chunk);
-                    }
-
-                    if (helixStream.userId in unknownTwitchUsers) {
-                        const u = unknownTwitchUsers[helixStream.userId];
-                        delete unknownTwitchUsers[helixStream.userId];
-                        newChannels.push({
-                            twitchId: u.id,
-                            twitchLogin: u.login,
-                            displayName: u.displayName,
-                            profilePhotoUrl: u.profilePictureUrl,
-                            twitchCreatedAt: u.createdAt,
-                        });
-                    }
 
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
@@ -930,23 +947,12 @@ export const getWrpLive = async (
                         count: updatedChunks.length,
                     }));
 
-                    if (newChunks.length) {
-                        const insertResult = await dataSource
-                            .getRepository(StreamChunk)
-                            .insert(newChunks);
-                        console.log(JSON.stringify({
-                            level: 'info',
-                            event: 'segment-insert',
-                            message: `Stored ${insertResult.identifiers.length} new streams to database`,
-                            count: insertResult.identifiers.length,
-                        }));
-                    } else {
-                        console.log(JSON.stringify({
-                            level: 'info',
-                            event: 'segment-insert-skip',
-                            message: 'No new streams to store',
-                        }));
-                    }
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        event: 'segment-insert',
+                        message: `Stored ${newChunks.length} new streams to database`,
+                        count: newChunks.length,
+                    }));
 
                     const liveStreamIds = allChunks.map(c => c.streamId);
 
@@ -1036,6 +1042,7 @@ export const getWrpLive = async (
                         .addSelect('stream_chunk.streamId', 'stream_id')
                         .addSelect('MIN(stream_chunk.firstSeenDate)', 'first_seen_date')
                         .addSelect('MAX(stream_chunk.lastSeenDate)', 'last_seen_date')
+                        .addSelect('MAX(stream_chunk.id)', 'id')
                         .addSelect(`
                             jsonb_agg(
                                 jsonb_build_object(
@@ -1069,8 +1076,10 @@ export const getWrpLive = async (
                     }
 
                     interface AggregateChunk {
+                        mostRecentSegmentId: number;
                         streamerId: string;
                         characterId: number;
+                        streamId: string;
                         streamStartDate: Date;
                         firstSeenDate: Date;
                         lastSeenDate: Date;
@@ -1081,8 +1090,10 @@ export const getWrpLive = async (
 
                     const recentChunks = await dataSource
                         .createQueryBuilder()
-                        .select('recent_chunk.streamer_id', 'streamerId')
+                        .select('recent_chunk.id', 'mostRecentSegmentId')
+                        .addSelect('recent_chunk.streamer_id', 'streamerId')
                         .addSelect('recent_chunk.character_id', 'characterId')
+                        .addSelect('recent_chunk.stream_id', 'streamId')
                         .addSelect('recent_chunk.stream_start_date', 'streamStartDate')
                         .addSelect('recent_chunk.first_seen_date', 'firstSeenDate')
                         .addSelect('recent_chunk.last_seen_date', 'lastSeenDate')
@@ -1134,6 +1145,7 @@ export const getWrpLive = async (
                             lastSeenTitle: chunk.spans[0]?.title,
                             lastSeenVideoUrl: videoUrl ?? undefined,
                             lastSeenVideoThumbnailUrl: chunk.videoThumbnailUrl ?? undefined,
+                            lastSeenSegmentId: chunk.mostRecentSegmentId,
                         });
                     });
                 } catch (error) {

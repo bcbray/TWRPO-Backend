@@ -2,11 +2,12 @@ import React from 'react';
 import { Routes as RouterRoutes, Route } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.min.css';
 
-import { publicRoutes, privateRoutes, redirects } from './routes';
+import { publicRoutes, privateRoutes, privateStandaloneRoutes, redirects } from './routes';
 import Structure from './Structure';
 import TrackerProvider from './TrackerProvider';
 import { FactionStyleContextProvider } from './FactionStyleProvider';
 import NotFound from './NotFound';
+import { UserProvider } from './auth';
 
 interface Props {
 
@@ -14,18 +15,21 @@ interface Props {
 
 const App: React.FC<Props> = () => {
   return (
-    <TrackerProvider>
-      <FactionStyleContextProvider>
-        <Structure>
+    <UserProvider>
+      <TrackerProvider>
+        <FactionStyleContextProvider>
           <RouterRoutes>
-            {publicRoutes}
-            {privateRoutes}
-            {redirects}
-            <Route path="*" element={<NotFound />} />
+            {privateStandaloneRoutes}
+            <Route element={<Structure />}>
+              {publicRoutes}
+              {privateRoutes}
+              {redirects}
+              <Route path="*" element={<NotFound />} />
+            </Route>
           </RouterRoutes>
-        </Structure>
-      </FactionStyleContextProvider>
-    </TrackerProvider>
+        </FactionStyleContextProvider>
+      </TrackerProvider>
+    </UserProvider>
   );
 };
 

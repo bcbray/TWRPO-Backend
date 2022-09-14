@@ -16,7 +16,7 @@ const UnknownContainer: React.FC<UnknownContainerProps> = () => {
   return (
     <div className="content">
       {isSuccess(loadState)
-        ? <Unknown data={loadState.data} />
+        ? <Unknown data={loadState.data} handleRefresh={reload} />
         : isFailure(loadState)
           ? <Error onTryAgain={reload} />
           : <Loading />

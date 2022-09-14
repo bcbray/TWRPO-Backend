@@ -21,8 +21,11 @@ export class StreamChunk {
     @Column()
     streamerId: string;
 
-    @Column({ nullable: true })
-    characterId?: number;
+    @Column({
+        type: 'int',
+        nullable: true,
+    })
+    characterId: number | null;
 
     @Column({ default: false })
     characterUncertain: boolean;

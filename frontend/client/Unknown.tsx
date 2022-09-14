@@ -8,9 +8,10 @@ import { classes } from './utils';
 
 interface UnknownProps {
   data: UnknownResponse;
+  handleRefresh: () => void;
 }
 
-const Unknown: React.FC<UnknownProps> = ({ data }) => {
+const Unknown: React.FC<UnknownProps> = ({ data, handleRefresh }) => {
   const unknown: [Streamer, VideoSegment][] = data.unknown.map(({streamer, segment}) => [streamer, segment]);
   const uncertain: [Streamer, VideoSegment][] = data.uncertain.map(({streamer, segment}) => [streamer, segment]);
   return (
@@ -19,20 +20,26 @@ const Unknown: React.FC<UnknownProps> = ({ data }) => {
         <h2>Unknown</h2>
         <StreamList
           streams={[]}
-          pastStreams={unknown}
+          segments={unknown}
           paginationKey='unknown'
           loadTick={0}
           noInset
+          dimPastStreams={false}
+          showLiveBadge
+          handleRefresh={handleRefresh}
         />
       </div>
       <div>
         <h2>Uncertain</h2>
         <StreamList
           streams={[]}
-          pastStreams={uncertain}
+          segments={uncertain}
           paginationKey='uncertain'
           loadTick={0}
           noInset
+          dimPastStreams={false}
+          showLiveBadge
+          handleRefresh={handleRefresh}
         />
       </div>
     </div>

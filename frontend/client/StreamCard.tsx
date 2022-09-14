@@ -19,6 +19,7 @@ import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 import TwitchEmbed from './TwitchEmbed';
 import Crossfade from './Crossfade';
+import OverrideSegmentButton from './OverrideSegmentButton'
 
 const cardStyles = {
   inline: styles.inline,
@@ -35,6 +36,8 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   hideStreamer?: boolean;
   wrapTitle?: boolean;
   showLiveBadge?: boolean;
+  noEdit?: boolean;
+  handleRefresh: () => void;
 }
 
 interface StreamLinkProps {
@@ -73,6 +76,8 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     hideStreamer = false,
     wrapTitle = false,
     showLiveBadge = false,
+    noEdit = false,
+    handleRefresh,
     ...rest
   }, ref
 ) => {
@@ -189,6 +194,17 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
             </div>
           }
         </div>
+        {stream.segmentId && !noEdit &&
+          <div
+              className={styles.editButton}
+          >
+            <OverrideSegmentButton
+              streamerTwitchLogin={stream.channelName.toLowerCase()}
+              segmentId={stream.segmentId}
+              handleRefresh={handleRefresh}
+            />
+          </div>
+        }
       </div>
     </div>
   )

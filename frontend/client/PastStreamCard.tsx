@@ -10,12 +10,16 @@ import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
+import OverrideSegmentButton from './OverrideSegmentButton';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   streamer: Streamer;
   segment: VideoSegment;
   hideStreamer?: boolean;
   wrapTitle?: boolean;
+  noEdit?: boolean;
+  dimmed?: boolean;
+  handleRefresh: () => void;
 }
 
 interface StreamLinkProps {
@@ -53,6 +57,9 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     style,
     hideStreamer = false,
     wrapTitle = false,
+    noEdit = false,
+    dimmed = true,
+    handleRefresh,
     ...rest
   }, ref
 ) => {
@@ -76,7 +83,11 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
 
   return (
     <div
-      className={classes(styles.container, className)}
+      className={classes(
+        styles.container,
+        dimmed && styles.dimmed,
+        className
+      )}
       ref={ref}
       style={{
         ...factionStylesForKey(segment.character?.factions[0]?.key ?? 'otherwrp'),
@@ -95,19 +106,26 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
             />
           }
         </StreamLink>
-        <Tag className={classes(styles.tag, styles.name)}>
-          <p>
-            {segment.character ? (
-              <>
-                {segment.characterUncertain && '? '}
-                {segment.character.displayInfo.displayName}
-                {segment.characterUncertain && ' ?'}
-              </>
-            ) : (
-              'WRP'
-            )}
-          </p>
-        </Tag>
+        <div className={styles.topTags}>
+          <Tag className={classes(styles.tag, styles.name)}>
+            <p>
+              {segment.character ? (
+                <>
+                  {segment.characterUncertain && '? '}
+                  {segment.character.displayInfo.displayName}
+                  {segment.characterUncertain && ' ?'}
+                </>
+              ) : (
+                'WRP'
+              )}
+            </p>
+          </Tag>
+          {segment.liveInfo &&
+            <Tag className={classes(styles.tag, styles.live)}>
+              <p>Live</p>
+            </Tag>
+          }
+        </div>
         <Tag className={classes(styles.tag, styles.viewers)}>
           <p title={fullDate}>{relativeDate}</p>
         </Tag>
@@ -142,6 +160,17 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
             </div>
           }
         </div>
+        {!noEdit &&
+          <div
+              className={styles.editButton}
+          >
+            <OverrideSegmentButton
+              streamerTwitchLogin={streamer.twitchLogin}
+              segmentId={segment.id}
+              handleRefresh={handleRefresh}
+            />
+          </div>
+        }
       </div>
     </div>
   )

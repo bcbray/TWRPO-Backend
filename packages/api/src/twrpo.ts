@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
 import cors from 'cors';
-import { ApiClient } from '@twurple/api';
+import { ApiClient, HelixUser, HelixUserData } from '@twurple/api';
 import { AuthProvider } from '@twurple/auth';
-import { DataSource } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import {
     CharactersResponse,
     FactionsResponse,
@@ -10,6 +10,8 @@ import {
     StreamerResponse,
     StreamersResponse,
     UnknownResponse,
+    User as UserResponse,
+    VideoSegment,
 } from '@twrpo/types';
 
 import { getWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
@@ -17,8 +19,14 @@ import { fetchCharacters } from './routes/v2/characters';
 import { fetchFactions } from './routes/v2/factions';
 import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
 import { fetchUnknown } from './routes/v2/unknown';
+import { fetchSegment } from './routes/v2/segments';
+import { fetchUser } from './routes/v2/admin/users';
 import routes from './routes';
 import dataSource from './db/dataSource';
+import { SessionUser } from './SessionUser';
+import { Session } from './db/entity/Session';
+import { User } from './db/entity/User';
+import { TwitchChannel } from './db/entity/TwitchChannel';
 import { startRefreshing as startRefreshingVideos } from './fetchVideos';
 
 interface ApiOptions {
@@ -59,7 +67,10 @@ class Api {
         this.apiRouter.use('/v2/factions', routes.v2FactionsRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/streamers', routes.v2StreamersRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/unknown', routes.v2UnknownRouter(this.twitchClient, this.dataSource));
+        this.apiRouter.use('/v2/segments', routes.v2SegmentsRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter);
+        this.apiRouter.use('/v2/admin/override-segment', routes.v2AdminOverrideSegmentRouter(this.twitchClient, this.dataSource));
+        this.apiRouter.use('/v2/admin/users', routes.v2AdminUsersRouter(this.dataSource));
 
         const { liveRefreshInterval = 1000 * 60 } = options;
         this.liveRefreshInterval = liveRefreshInterval;
@@ -94,6 +105,57 @@ class Api {
 
     public async fetchUnknown(): Promise<UnknownResponse> {
         return fetchUnknown(this.twitchClient, this.dataSource);
+    }
+
+    public async fetchSegment(id: number): Promise<VideoSegment | null> {
+        return fetchSegment(this.twitchClient, this.dataSource, id);
+    }
+
+    public async fetchFrontendUser(id: number): Promise<UserResponse | null> {
+        return fetchUser(this.dataSource, id);
+    }
+
+    public getSessionRepository(): Repository<Session> {
+        return this.dataSource.getRepository(Session);
+    }
+
+    public async fetchUser(id: number): Promise<User | null> {
+        const user = this.dataSource.getRepository(User).findOne({
+            where: { id },
+        });
+        return user;
+    }
+
+    public async createOrUpdateUser(accessToken: string, refreshToken: string, twitchUser: HelixUserData): Promise<SessionUser> {
+        const helixUser = new HelixUser(twitchUser, this.twitchClient);
+
+        await this.dataSource.getRepository(TwitchChannel).upsert({
+            twitchId: helixUser.id,
+            twitchLogin: helixUser.name,
+            displayName: helixUser.displayName,
+            profilePhotoUrl: helixUser.profilePictureUrl,
+            twitchCreatedAt: helixUser.creationDate,
+        }, ['twitchId']);
+
+        await this.dataSource.getRepository(User).upsert({
+            twitchId: helixUser.id,
+            twitchAccessToken: accessToken,
+            twitchRefreshToken: refreshToken,
+        }, ['twitchId']);
+
+        const twitchChannel = await this.dataSource.getRepository(TwitchChannel).findOneOrFail({
+            where: { twitchId: helixUser.id },
+        });
+
+        const user = await this.dataSource.getRepository(User).findOneOrFail({
+            where: { twitchId: helixUser.id },
+        });
+        return {
+            id: user.id,
+            profilePhotoUrl: twitchChannel.profilePhotoUrl,
+            displayName: twitchChannel.displayName,
+            twitchLogin: twitchChannel.twitchLogin,
+        };
     }
 
     public startRefreshing(): void {

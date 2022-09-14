@@ -20,7 +20,7 @@ const StreamerContainer: React.FC<StreamerContainerProps> = () => {
   return (
     <div className="content">
       {isSuccess(loadState)
-        ? <Streamer data={loadState.data} loadTick={loadTick} />
+        ? <Streamer data={loadState.data} loadTick={loadTick} handleRefresh={reload} />
         : isFailure(loadState)
           ? loadState.error instanceof NotFoundError
             ? <NotFound alreadyContent />

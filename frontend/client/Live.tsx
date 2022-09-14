@@ -18,6 +18,7 @@ interface Props {
   live: LiveResponse;
   factions: FactionsResponse;
   loadTick: number;
+  handleRefresh: () => void;
 }
 
 const offlineSort = (lhs: CharacterInfo, rhs: CharacterInfo) => {
@@ -33,7 +34,7 @@ const offlineSort = (lhs: CharacterInfo, rhs: CharacterInfo) => {
   return lhs.displayInfo.realNames.join(' ').localeCompare(rhs.displayInfo.realNames.join(' '));
 };
 
-const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
+const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
@@ -178,6 +179,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
               isLoadingMore={isLoadingMore}
               paginationKey={factionKey ?? '_no-faction_'}
               loadTick={loadTick}
+              handleRefresh={handleRefresh}
             />
           :
             <div className={classes('inset', styles.noMatches)}>
@@ -192,6 +194,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick }) => {
               offlineCharacters={otherOfflineCharacters}
               paginationKey={`${factionKey}__other` ?? '_no-faction__other_'}
               loadTick={loadTick}
+              handleRefresh={handleRefresh}
             />
           </>
         }

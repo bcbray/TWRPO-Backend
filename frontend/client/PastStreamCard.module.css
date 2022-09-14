@@ -26,12 +26,14 @@
   top: 0;
 }
 
-.thumbnail img, .thumbnail .tag {
+.dimmed .thumbnail img,
+.dimmed .thumbnail .tag {
   transition: filter ease-in-out .2s;
   filter: grayscale(0.7);
 }
 
-.thumbnail:hover img, .thumbnail:hover .tag {
+.dimmed .thumbnail:hover img,
+.dimmed .thumbnail:hover .tag {
   filter: none;
 }
 
@@ -62,13 +64,36 @@
   margin: 0.5rem;
 }
 
-.tag.name {
-  font-weight: 500;
+.topTags {
+  position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.topTags .tag {
+  position: unset;
+  margin: 0;
+}
+
+.tag.name {
+  font-weight: 500;
   text-transform: uppercase;
   color: var(--const-theme-black);
   background-color: var(--faction-color-dark);
+}
+
+.tag.live {
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--const-theme-white);
+  background-color: var(--theme-red);
 }
 
 .tag.viewers {
@@ -89,6 +114,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 0.25rem;
 }
 
 .card .info {
@@ -96,15 +122,12 @@
   padding-right: 0.5rem;
 }
 
-.pfp {
-  margin-right: 0.25rem;
-}
-
 .text {
   display: flex;
   flex-direction: column;
   line-height: 1.25em;
   min-width: 0;
+  flex-grow: 1;
 }
 
 .title p {
@@ -131,6 +154,14 @@
 .channel a:hover {
   text-decoration: none;
   color: var(--faction-color-light-hover);
+}
+
+.editButton {
+  display: none;
+}
+
+.container:hover .editButton {
+  display: block;
 }
 
 @media (prefers-color-scheme: dark) {

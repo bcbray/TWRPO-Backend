@@ -5,7 +5,7 @@ import { Stream, CharacterInfo, Streamer, VideoSegment } from '@twrpo/types';
 
 import styles from './StreamList.module.css';
 import StreamCard from './StreamCard';
-import PastStreamCard from './PastStreamCard';
+import VideoSegmentCard from './VideoSegmentCard';
 import OfflineCharacterCard from './OfflineCharacterCard';
 import { classes } from './utils';
 import Crossfade from './Crossfade';
@@ -17,7 +17,7 @@ type Order = 'asc' | 'desc';
 
 interface Props {
   streams: Stream[];
-  pastStreams?: [Streamer, VideoSegment][];
+  segments?: [Streamer, VideoSegment][];
   offlineCharacters?: CharacterInfo[];
   isLoadingMore?: boolean;
   paginationKey: string;
@@ -28,6 +28,8 @@ interface Props {
   noInset?: boolean;
   wrapTitle?: boolean;
   showLiveBadge?: boolean;
+  dimPastStreams?: boolean;
+  handleRefresh: () => void;
 }
 
 interface LiveItem {
@@ -35,8 +37,8 @@ interface LiveItem {
   stream: Stream;
 }
 
-interface PastItem {
-  type: 'past';
+interface SegmentItem {
+  type: 'segment';
   streamer: Streamer;
   segment: VideoSegment;
 }
@@ -47,12 +49,12 @@ interface OfflineItem {
 }
 
 const liveItem = (stream: Stream): LiveItem => ({ type: 'live', stream });
-const pastItem = (streamer: Streamer, segment: VideoSegment): PastItem => ({ type: 'past', streamer, segment });
+const segmentItem = (streamer: Streamer, segment: VideoSegment): SegmentItem => ({ type: 'segment', streamer, segment });
 const offlineItem = (character: CharacterInfo): OfflineItem => ({ type: 'offline', character });
 
 const StreamList: React.FC<Props> = ({
   streams,
-  pastStreams = [],
+  segments = [],
   offlineCharacters = [],
   isLoadingMore = false,
   loadTick,
@@ -63,6 +65,8 @@ const StreamList: React.FC<Props> = ({
   noInset = false,
   wrapTitle = false,
   showLiveBadge = false,
+  dimPastStreams = true,
+  handleRefresh,
 }) => {
   const sorted = React.useMemo(() => {
     return streams
@@ -85,10 +89,10 @@ const StreamList: React.FC<Props> = ({
   const allItems = React.useMemo(() => (
     [
       ...sorted.map(liveItem),
-      ...pastStreams.map(([streamer, segment]) => pastItem(streamer, segment)),
+      ...segments.map(([streamer, segment]) => segmentItem(streamer, segment)),
       ...offlineCharacters.map(offlineItem),
     ]
-  ), [sorted, pastStreams, offlineCharacters]);
+  ), [sorted, segments, offlineCharacters]);
 
   const [visibleItems, loadMoreTrigger] = usePaginated(allItems, { key: paginationKey });
 
@@ -102,13 +106,13 @@ const StreamList: React.FC<Props> = ({
               return (
                 <Flipped
                   key={
-                    stream.characterId
-                      ? `char:${stream.characterId}`
+                    stream.segmentId
+                      ? `segment:${stream.segmentId}`
                       : `chan:${stream.channelName}`
                   }
                   flipId={
-                    stream.characterId
-                      ? `char:${stream.characterId}`
+                    stream.segmentId
+                      ? `segment:${stream.segmentId}`
                       : `chan:${stream.channelName}`
                   }>
                   <Crossfade fadeKey='live'>
@@ -119,11 +123,12 @@ const StreamList: React.FC<Props> = ({
                       hideStreamer={hideStreamer}
                       wrapTitle={wrapTitle}
                       showLiveBadge={showLiveBadge}
+                      handleRefresh={handleRefresh}
                     />
                   </Crossfade>
                 </Flipped>
               );
-            } else if (item.type === 'past' ) {
+            } else if (item.type === 'segment' ) {
               const { streamer, segment } = item;
               return (
                 <Flipped
@@ -131,11 +136,16 @@ const StreamList: React.FC<Props> = ({
                   flipId={`segment:${segment.id}`}
                 >
                   <Crossfade fadeKey='past'>
-                    <PastStreamCard
+                    <VideoSegmentCard
                       streamer={streamer}
                       segment={segment}
+                      loadTick={loadTick}
+                      embed={isMobile() ? false : 'hover'}
                       hideStreamer={hideStreamer}
                       wrapTitle={wrapTitle}
+                      canDim={dimPastStreams}
+                      canShowLiveBadge={showLiveBadge}
+                      handleRefresh={handleRefresh}
                     />
                   </Crossfade>
                 </Flipped>
@@ -143,7 +153,18 @@ const StreamList: React.FC<Props> = ({
             } else {
               const { character } = item;
               return (
-                <Flipped key={`char:${character.id}`} flipId={`char:${character.id}`}>
+                <Flipped
+                  key={
+                    character.lastSeenSegmentId
+                      ? `segment:${character.lastSeenSegmentId}`
+                      : `char:${character.id}`
+                  }
+                  flipId={
+                    character.lastSeenSegmentId
+                      ? `segment:${character.lastSeenSegmentId}`
+                      : `char:${character.id}`
+                  }
+                >
                   <Crossfade fadeKey='offline'>
                     <OfflineCharacterCard
                       className={styles.offline}

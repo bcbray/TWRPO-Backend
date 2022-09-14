@@ -7,6 +7,7 @@ import styles from './Nav.module.css';
 import { classes } from './utils';
 import ThemeToggle from './ThemeToggle';
 import { Collapse } from './Transitions';
+import UserDropdown from './UserDropdown';
 
 const Nav: React.FC<{}> = () => {
   const [collapsed, setCollapsed] = React.useState(true);
@@ -44,6 +45,7 @@ const Nav: React.FC<{}> = () => {
               <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/'>Live</NavLink>
               <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/characters'>Characters</NavLink>
               <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/multistream'>Multistream</NavLink>
+              <UserDropdown />
             </div>
           </div>
         </Collapse>

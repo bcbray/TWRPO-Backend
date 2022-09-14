@@ -1,0 +1,20 @@
+.menu input, .menu input:focus {
+  border-width: 0;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px var(--theme-gray-200) solid;
+  border-radius: 0;
+}
+
+.menu input:focus {
+  box-shadow: none;
+}
+
+.menu .noMatches {
+  margin: 0;
+  padding: 0.25rem 1rem;
+  width: 100%;
+  font-style: italic;
+  color: var(--theme-gray-600);
+}

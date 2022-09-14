@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { createRoutesFromChildren, RouteObject } from "react-router";
 
-import TWRPOApi from '@twrpo/api';
+import { TWRPOApi } from '@twrpo/api';
 
 import { publicRoutes } from '../client/routes';
 

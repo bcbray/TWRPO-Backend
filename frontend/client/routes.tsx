@@ -8,6 +8,8 @@ import ColorHelperContainer from  './ColorHelperContainer';
 import CrossfadeHelper from  './CrossfadeHelper';
 import UnknownContainer from  './UnknownContainer';
 import Redirect from './Redirect';
+import { AuthComplete } from './auth';
+import Login from './Login';
 
 export const publicRoutes = <>
   <Route path="/" element={<LiveContainer />} />
@@ -20,9 +22,15 @@ export const publicRoutes = <>
 </>;
 
 export const privateRoutes = <>
+  <Route path="/login" element={<Login />} />
   <Route path="/utils/colors" element={<ColorHelperContainer />} />
   <Route path="/utils/crossfade" element={<CrossfadeHelper />} />
   <Route path="/utils/unknown" element={<UnknownContainer />} />
+</>;
+
+export const privateStandaloneRoutes = <>
+  <Route path="/auth/success" element={<AuthComplete success />} />
+  <Route path="/auth/failure" element={<AuthComplete success={false} />} />
 </>;
 
 export const redirects = <>
