@@ -8,6 +8,7 @@ import {
   StreamerResponse,
   UnknownResponse,
   User,
+  VideoSegment,
 } from '@twrpo/types'
 
 import {
@@ -26,6 +27,7 @@ export interface PreloadedData {
   characters?: CharactersResponse;
   streamers?: Record<string, StreamerResponse | null>;
   unknown?: UnknownResponse;
+  segments?: Record<number, VideoSegment | null>;
   currentUser?: User | null;
 }
 
@@ -38,6 +40,7 @@ export interface PreloadedUsed {
   usedFactionCss?: boolean;
   usedUnknown?: boolean;
   usedCurrentUser?: boolean;
+  usedSegmentIds?: number[];
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
@@ -268,3 +271,31 @@ export const useCurrentUser = ({ skipsPreload = false, ...props }: PreLoadingPro
 
   return [loadState, outerOnReload, lastLoad];
 };
+
+export const useSegment = (id: number, { skipsPreload = false, ...props }: PreLoadingProps<VideoSegment> = {}): LoadingResult<VideoSegment> => {
+  const preloadedData = React.useContext(PreloadedDataContext);
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.segments?.[id] === undefined) {
+    if (!preloadedUsed.usedSegmentIds) {
+      preloadedUsed.usedSegmentIds = [];
+    }
+    preloadedUsed.usedSegmentIds.push(id);
+  }
+  const preloaded = skipsPreload
+    ? undefined
+    : preloadedData.segments?.[id];
+  const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/segments/${id}`, {
+    preloaded,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    if (!preloadedData.segments) {
+      preloadedData.segments = {};
+    }
+    preloadedData.segments[id] = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+}

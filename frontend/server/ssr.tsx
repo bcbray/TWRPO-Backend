@@ -14,6 +14,7 @@ import {
   StreamerResponse,
   UnknownResponse,
   User as UserResponse,
+  VideoSegment,
 } from '@twrpo/types';
 
 import App from '../client/App';
@@ -130,6 +131,19 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
             preloadedData.currentUser = JSON.parse(JSON.stringify(userResponse)) as UserResponse;
+          }
+        }
+
+        if (used.usedSegmentIds && used.usedSegmentIds.length) {
+          needsAnotherLoad = true;
+          if (!preloadedData.segments) {
+            preloadedData.segments = {};
+          }
+          for (const id of used.usedSegmentIds) {
+            const segmentResponse = await api.fetchSegment(id);
+            // Hacky round-trip through JSON to make sure our types are converted the same
+            // TODO: Maybe we should just make an API call?
+            preloadedData.segments[id] = JSON.parse(JSON.stringify(segmentResponse)) as VideoSegment | null;
           }
         }
 
