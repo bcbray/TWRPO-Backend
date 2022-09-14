@@ -54,6 +54,17 @@ export class NotFoundError extends Error {
 
 export type LoadingResult<T> = [LoadingState<T, Error>, () => void, number];
 
+export async function fetchAndCheck<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
+  const response = await fetch(input, init);
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new NotFoundError(await response.json());
+    }
+    throw Error(response.statusText);
+  }
+  return await response.json() as T;
+}
+
 export function useLoading<T>(
   input: RequestInfo,
   props: LoadingProps<T> = {}
@@ -93,19 +104,9 @@ export function useLoading<T>(
     if (loadCount === lastLoadCount && input === lastInput) {
       return;
     }
-    async function fetchAndCheck(): Promise<T> {
-      const response = await fetch(input);
-      if (!response.ok) {
-        if (response.status === 404) {
-          throw new NotFoundError(await response.json());
-        }
-        throw Error(response.statusText);
-      }
-      return await response.json() as T;
-    }
     async function performFetch(isReloadFromSuccess: boolean, isReloadFromFailure: boolean) {
       try {
-        const result = await fetchAndCheck();
+        const result = await fetchAndCheck<T>(input);
         if (isReloadFromSuccess || isReloadFromFailure) {
           onReloadSuccess?.();
         }
