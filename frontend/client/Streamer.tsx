@@ -19,6 +19,7 @@ import FeedbackModal from './FeedbackModal';
 interface StreamerProps {
   data: StreamerResponse;
   loadTick: number;
+  handleRefresh: () => void;
 }
 
 interface StreamerLinkProps {
@@ -46,7 +47,7 @@ const StreamerLink: React.FC<StreamerLinkProps> = ({ streamer, className, style,
   </OutboundLink>
 );
 
-const Streamer: React.FC<StreamerProps> = ({ data, loadTick }) => {
+const Streamer: React.FC<StreamerProps> = ({ data, loadTick, handleRefresh }) => {
   const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
   const handleShowFeedback = React.useCallback(<T,>(e: React.MouseEvent<T>) => {
     setShowingFeedbackModal(true);
@@ -124,6 +125,7 @@ const Streamer: React.FC<StreamerProps> = ({ data, loadTick }) => {
               noInset
               wrapTitle
               showLiveBadge
+              handleRefresh={handleRefresh}
             />
           ) : (
             <p>{`We don’t have any past streams tracked for ${data.streamer.displayName}.`}</p>

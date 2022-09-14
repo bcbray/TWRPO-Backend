@@ -15,6 +15,7 @@ interface VideoSegmentCardProps {
   noEdit?: boolean;
   canDim?: boolean;
   canShowLiveBadge?: boolean;
+  handleRefresh: () => void;
 }
 
 const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>((
@@ -29,6 +30,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
     noEdit,
     canDim,
     canShowLiveBadge,
+    handleRefresh,
   }, ref
 ) => {
   if (segment.liveInfo) {
@@ -43,6 +45,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
         wrapTitle={wrapTitle}
         noEdit={noEdit}
         showLiveBadge={canShowLiveBadge}
+        handleRefresh={handleRefresh}
       />
     );
   } else {
@@ -56,6 +59,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
         wrapTitle={wrapTitle}
         noEdit={noEdit}
         dimmed={canDim}
+        handleRefresh={handleRefresh}
       />
     );
   }

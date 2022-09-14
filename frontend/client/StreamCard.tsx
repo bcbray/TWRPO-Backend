@@ -37,6 +37,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   wrapTitle?: boolean;
   showLiveBadge?: boolean;
   noEdit?: boolean;
+  handleRefresh: () => void;
 }
 
 interface StreamLinkProps {
@@ -76,6 +77,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     wrapTitle = false,
     showLiveBadge = false,
     noEdit = false,
+    handleRefresh,
     ...rest
   }, ref
 ) => {
@@ -199,6 +201,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
             <OverrideSegmentButton
               streamerTwitchLogin={stream.channelName.toLowerCase()}
               segmentId={stream.segmentId}
+              handleRefresh={handleRefresh}
             />
           </div>
         }

@@ -87,7 +87,7 @@ const LiveContainer: React.FC = () => {
       </Helmet>
       <div className="content">
         {isSuccess(liveLoadingState) && isSuccess(factionsLoadingState)
-          ? <Live live={liveLoadingState.data} factions={factionsLoadingState.data} loadTick={lastLoad} />
+          ? <Live live={liveLoadingState.data} factions={factionsLoadingState.data} loadTick={lastLoad} handleRefresh={reloadLive} />
           : isFailure(liveLoadingState) || isFailure(factionsLoadingState)
             ? <Error onTryAgain={reloadLive} />
             : <Loading />

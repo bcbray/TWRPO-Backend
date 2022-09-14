@@ -64,7 +64,7 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
       </div>
       <div>
         <div>
-          <StreamCard stream={fakeStream} />
+          <StreamCard stream={fakeStream} handleRefresh={() => {}} />
         </div>
       </div>
     </div>

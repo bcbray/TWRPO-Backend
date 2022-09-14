@@ -131,6 +131,7 @@ const FormContent: React.FC<LoadedProps> = ({
           wrapTitle
           noEdit
           canDim={false}
+          handleRefresh={() => {}}
         />
       </div>
       <div>

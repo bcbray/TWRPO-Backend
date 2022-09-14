@@ -105,6 +105,7 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
             className={styles.online}
             stream={fakeStream}
             loadTick={tick}
+            handleRefresh={() => {}}
           />
         )}
       </Crossfade>

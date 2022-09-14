@@ -29,6 +29,7 @@ interface Props {
   wrapTitle?: boolean;
   showLiveBadge?: boolean;
   dimPastStreams?: boolean;
+  handleRefresh: () => void;
 }
 
 interface LiveItem {
@@ -65,6 +66,7 @@ const StreamList: React.FC<Props> = ({
   wrapTitle = false,
   showLiveBadge = false,
   dimPastStreams = true,
+  handleRefresh,
 }) => {
   const sorted = React.useMemo(() => {
     return streams
@@ -121,6 +123,7 @@ const StreamList: React.FC<Props> = ({
                       hideStreamer={hideStreamer}
                       wrapTitle={wrapTitle}
                       showLiveBadge={showLiveBadge}
+                      handleRefresh={handleRefresh}
                     />
                   </Crossfade>
                 </Flipped>
@@ -142,6 +145,7 @@ const StreamList: React.FC<Props> = ({
                       wrapTitle={wrapTitle}
                       canDim={dimPastStreams}
                       canShowLiveBadge={showLiveBadge}
+                      handleRefresh={handleRefresh}
                     />
                   </Crossfade>
                 </Flipped>

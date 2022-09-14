@@ -13,12 +13,14 @@ interface OverrideSegmentButtonProps {
   className?: string;
   streamerTwitchLogin: string;
   segmentId: number;
+  handleRefresh: () => void;
 }
 
 const OverrideSegmentButton: React.FC<OverrideSegmentButtonProps> = ({
   className,
   streamerTwitchLogin,
   segmentId,
+  handleRefresh,
 }) => {
   const [showingModal, setShowingModal] = React.useState(false);
   const canOverride = useAuthorization({
@@ -26,7 +28,7 @@ const OverrideSegmentButton: React.FC<OverrideSegmentButtonProps> = ({
     twitchId: streamerTwitchLogin,
   });
   const showSavedToast = React.useCallback(() => (
-    toast.info('Segment edited! It will be updated in the next refresh (within 1 minute)')
+    toast.info('Stream updated!')
   ), []);
 
   if (!canOverride) {
@@ -50,6 +52,7 @@ const OverrideSegmentButton: React.FC<OverrideSegmentButtonProps> = ({
       onHide={(saved) => {
         if (saved) {
           showSavedToast();
+          handleRefresh();
         }
         setShowingModal(false);
       }}

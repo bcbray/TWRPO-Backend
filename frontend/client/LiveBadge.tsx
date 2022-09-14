@@ -27,6 +27,8 @@ const LiveBadge: React.FC<LiveBadgeProps> = ({ stream, className }) => (
           stream={stream}
           cardStyle='card'
           embed
+          noEdit
+          handleRefresh={() => {}}
         />
       </div>
     )}
