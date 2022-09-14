@@ -84,7 +84,7 @@ export const UserProvider: React.FC<{ children: React.ReactElement }> = ({ child
   </UserContext.Provider>
 }
 
-export const useAuth = (): UserInfo => {
+export const useAuthentication = (): UserInfo => {
   const userInfo = React.useContext(UserContext);
   if (!userInfo) {
     console.error('Missing UserProvider');

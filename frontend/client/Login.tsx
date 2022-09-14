@@ -4,7 +4,7 @@ import { Twitch } from 'react-bootstrap-icons';
 
 import styles from './Login.module.css';
 
-import { useAuth } from './auth';
+import { useAuthentication } from './auth';
 import { classes } from './utils';
 
 interface LoginProps {
@@ -12,7 +12,7 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = () => {
-  const { user, login, logout } = useAuth();
+  const { user, login, logout } = useAuthentication();
 
   return (
     <div

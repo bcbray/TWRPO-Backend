@@ -3,14 +3,14 @@ import { Button } from '@restart/ui';
 
 import styles from './UserDropdown.module.css';
 
-import { useAuth } from './auth';
+import { useAuthentication } from './auth';
 import ProfilePhoto from './ProfilePhoto';
 
 interface UserDropdownProps {
 }
 
 const UserDropdown: React.FC<UserDropdownProps> = () => {
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuthentication();
   if (!user) return null;
 
   return (
