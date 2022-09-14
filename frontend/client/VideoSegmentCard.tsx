@@ -5,6 +5,7 @@ import StreamCard from './StreamCard';
 import PastStreamCard from './PastStreamCard';
 
 interface VideoSegmentCardProps {
+  className?: string;
   streamer: Streamer;
   segment: VideoSegment;
   loadTick?: number;
@@ -18,6 +19,7 @@ interface VideoSegmentCardProps {
 
 const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>((
   {
+    className,
     streamer,
     segment,
     loadTick,
@@ -33,11 +35,13 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
     return (
       <StreamCard
         ref={ref}
+        className={className}
         stream={segment.liveInfo}
         loadTick={loadTick}
         embed={embed}
         hideStreamer={hideStreamer}
         wrapTitle={wrapTitle}
+        noEdit={noEdit}
         showLiveBadge={canShowLiveBadge}
       />
     );
@@ -45,6 +49,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
     return (
       <PastStreamCard
         ref={ref}
+        className={className}
         streamer={streamer}
         segment={segment}
         hideStreamer={hideStreamer}

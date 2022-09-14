@@ -11,7 +11,7 @@ import { classes } from './utils';
 import { useStreamer, useSegment } from './Data';
 import { FancyDropdown, LineItem } from './FancyDropdown'
 import DropdownItem from './DropdownItem';
-import PastStreamCard from './PastStreamCard'
+import VideoSegmentCard from './VideoSegmentCard'
 import Tag from './Tag'
 import { useFactionCss } from './FactionStyleProvider';
 
@@ -124,13 +124,13 @@ const FormContent: React.FC<LoadedProps> = ({
     </div>
     <div className={styles.body}>
       <div>
-        <PastStreamCard
+        <VideoSegmentCard
           className={styles.card}
           streamer={streamer}
           segment={editedSegment}
           wrapTitle
           noEdit
-          dimmed={false}
+          canDim={false}
         />
       </div>
       <div>
