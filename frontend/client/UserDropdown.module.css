@@ -1,0 +1,39 @@
+.userButton {
+  background: none;
+  border: none;
+  padding: 0.75rem 0 0.5rem 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  color: hsla(0,0%,100%,.55);
+  margin-top: 0.25rem;
+  border-top: hsla(0,0%,100%,.25) 1px solid;
+}
+
+.userButton:hover {
+  color: hsla(0,0%,100%,.75);
+}
+
+.userButton:hover .pfp {
+  opacity: 0.8;
+}
+
+.name {
+  display: unset;
+}
+
+@media (min-width: 576px) {
+  .userButton {
+    background: none;
+    border: none;
+    padding: 0 0.5rem;
+    margin-top: 0;
+    border-top: none;
+  }
+
+  .name {
+    display: none;
+  }
+}
