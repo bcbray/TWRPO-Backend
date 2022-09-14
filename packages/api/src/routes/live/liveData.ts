@@ -486,7 +486,7 @@ export const getWrpLive = async (
                 const wrpStreams: Stream[] = [];
                 const factionCount: FactionCount = mapObj(wrpFactions, () => 0);
 
-                const newChunks: Omit<StreamChunk, 'id' | 'isOverridden'>[] = [];
+                const newChunks: StreamChunk[] = [];
                 const updatedChunks: StreamChunk[] = [];
                 const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck'>[] = [];
                 const now = new Date();
@@ -815,24 +815,6 @@ export const getWrpLive = async (
 
                     if (newCharFactionSpotted) activeFactions.push('guessed');
 
-                    const stream: Stream = {
-                        id: nextId,
-                        ...baseStream,
-                        rpServer: serverName,
-                        characterName: possibleCharacter?.name ?? null,
-                        characterId: possibleCharacter?.id ?? null,
-                        nicknameLookup: possibleCharacter?.nicknames ? possibleCharacter.nicknames.map(nick => parseLookup(nick)).join(' _-_ ') : null,
-                        faction: activeFactions[0],
-                        factions: activeFactions,
-                        factionsMap: Object.assign({}, ...activeFactions.map(faction => ({ [faction]: true }))),
-                        tagText,
-                        tagFaction,
-                        thumbnailUrl: helixStream.thumbnailUrl,
-                        startDate: helixStream.startDate.toISOString(),
-                    };
-
-                    console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
-
                     const chunk: Omit<StreamChunk, 'id' | 'isOverridden'> = {
                         streamerId: helixStream.userId,
                         characterId: possibleCharacter?.id ?? null,
@@ -844,6 +826,7 @@ export const getWrpLive = async (
                         lastSeenDate: now,
                     };
 
+                    let segmentId: number | undefined;
                     if (mostRecentStreamSegment) {
                         const { id } = mostRecentStreamSegment;
                         const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate', 'characterId' | 'characterUncertain'> = {
@@ -865,6 +848,7 @@ export const getWrpLive = async (
                                 ...mostRecentStreamSegment,
                                 ...updatedChunk,
                             });
+                            segmentId = mostRecentStreamSegment.id;
                         } catch (error) {
                             console.error(JSON.stringify({
                                 level: 'error',
@@ -874,7 +858,20 @@ export const getWrpLive = async (
                             }));
                         }
                     } else {
-                        newChunks.push(chunk);
+                        try {
+                            const newChunk = await dataSource
+                                .getRepository(StreamChunk)
+                                .save(chunk);
+                            newChunks.push(newChunk);
+                            segmentId = newChunk.id;
+                        } catch (error) {
+                            console.error(JSON.stringify({
+                                level: 'error',
+                                message: 'Failed to insert chunk',
+                                chunk,
+                                error,
+                            }));
+                        }
                     }
 
                     if (helixStream.userId in unknownTwitchUsers) {
@@ -888,6 +885,25 @@ export const getWrpLive = async (
                             twitchCreatedAt: u.createdAt,
                         });
                     }
+
+                    const stream: Stream = {
+                        id: nextId,
+                        ...baseStream,
+                        rpServer: serverName,
+                        characterName: possibleCharacter?.name ?? null,
+                        characterId: possibleCharacter?.id ?? null,
+                        nicknameLookup: possibleCharacter?.nicknames ? possibleCharacter.nicknames.map(nick => parseLookup(nick)).join(' _-_ ') : null,
+                        faction: activeFactions[0],
+                        factions: activeFactions,
+                        factionsMap: Object.assign({}, ...activeFactions.map(faction => ({ [faction]: true }))),
+                        tagText,
+                        tagFaction,
+                        thumbnailUrl: helixStream.thumbnailUrl,
+                        startDate: helixStream.startDate.toISOString(),
+                        segmentId,
+                    };
+
+                    console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
 
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
@@ -930,23 +946,12 @@ export const getWrpLive = async (
                         count: updatedChunks.length,
                     }));
 
-                    if (newChunks.length) {
-                        const insertResult = await dataSource
-                            .getRepository(StreamChunk)
-                            .insert(newChunks);
-                        console.log(JSON.stringify({
-                            level: 'info',
-                            event: 'segment-insert',
-                            message: `Stored ${insertResult.identifiers.length} new streams to database`,
-                            count: insertResult.identifiers.length,
-                        }));
-                    } else {
-                        console.log(JSON.stringify({
-                            level: 'info',
-                            event: 'segment-insert-skip',
-                            message: 'No new streams to store',
-                        }));
-                    }
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        event: 'segment-insert',
+                        message: `Stored ${newChunks.length} new streams to database`,
+                        count: newChunks.length,
+                    }));
 
                     const liveStreamIds = allChunks.map(c => c.streamId);
 
