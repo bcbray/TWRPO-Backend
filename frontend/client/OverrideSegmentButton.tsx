@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from '@restart/ui';
 import { PencilFill } from 'react-bootstrap-icons';
 import { toast } from 'react-toastify';
-import { Streamer, VideoSegment } from '@twrpo/types';
 
 import styles from './OverrideSegmentButton.module.css';
 
@@ -12,19 +11,19 @@ import { classes } from './utils';
 
 interface OverrideSegmentButtonProps {
   className?: string;
-  streamer: Streamer;
-  segment: VideoSegment;
+  streamerTwitchLogin: string;
+  segmentId: number;
 }
 
 const OverrideSegmentButton: React.FC<OverrideSegmentButtonProps> = ({
   className,
-  streamer,
-  segment,
+  streamerTwitchLogin,
+  segmentId,
 }) => {
   const [showingModal, setShowingModal] = React.useState(false);
   const canOverride = useAuthorization({
     type: 'overide-segment',
-    twitchId: streamer.twitchId,
+    twitchId: streamerTwitchLogin,
   });
   const showSavedToast = React.useCallback(() => (
     toast.info('Segment edited! It will be updated in the next refresh (within 1 minute)')
@@ -45,8 +44,8 @@ const OverrideSegmentButton: React.FC<OverrideSegmentButtonProps> = ({
       <PencilFill />
     </Button>
     <OverrideSegmentModal
-      streamer={streamer}
-      segment={segment}
+      streamerTwitchLogin={streamerTwitchLogin}
+      segmentId={segmentId}
       show={showingModal}
       onHide={(saved) => {
         if (saved) {

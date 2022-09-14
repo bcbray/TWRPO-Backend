@@ -8,7 +8,7 @@ import { isFailure, isSuccess } from './LoadingState';
 import Modal from './Modal';
 import Spinner from './Spinner';
 import { classes } from './utils';
-import { useStreamer } from './Data';
+import { useStreamer, useSegment } from './Data';
 import { FancyDropdown, LineItem } from './FancyDropdown'
 import DropdownItem from './DropdownItem';
 import PastStreamCard from './PastStreamCard'
@@ -16,9 +16,16 @@ import Tag from './Tag'
 import { useFactionCss } from './FactionStyleProvider';
 
 interface OverrideSegmentModalProps {
+  streamerTwitchLogin: string;
+  segmentId: number;
+  show: boolean;
+  onHide: (overridden: boolean) => void;
+}
+
+interface LoadedProps {
   streamer: Streamer;
   segment: VideoSegment;
-  show: boolean;
+  characters: CharacterInfo[];
   onHide: (overridden: boolean) => void;
 }
 
@@ -26,7 +33,7 @@ interface CharacterLineItem extends LineItem {
   character?: CharacterInfo;
 }
 
-const FormContent: React.FC<OverrideSegmentModalProps & { characters: CharacterInfo[] }> = ({
+const FormContent: React.FC<LoadedProps> = ({
     streamer,
     segment,
     characters,
@@ -178,12 +185,20 @@ const FormContent: React.FC<OverrideSegmentModalProps & { characters: CharacterI
   </>;
 }
 
-const ModalContent: React.FC<OverrideSegmentModalProps> = (props) => {
-  const [streamerLoadState] = useStreamer(props.streamer.twitchLogin);
-  if (isSuccess(streamerLoadState)) {
+const ModalContent: React.FC<OverrideSegmentModalProps> = ({
+  streamerTwitchLogin,
+  segmentId,
+  show,
+  onHide,
+}) => {
+  const [streamerLoadState] = useStreamer(streamerTwitchLogin);
+  const [segmentLoadState] = useSegment(segmentId);
+  if (isSuccess(streamerLoadState) && isSuccess(segmentLoadState)) {
     return <FormContent
+      streamer={streamerLoadState.data.streamer}
+      segment={segmentLoadState.data}
       characters={streamerLoadState.data.characters}
-      {...props}
+      onHide={onHide}
     />
   }
   if (isFailure(streamerLoadState)) {

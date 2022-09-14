@@ -156,8 +156,8 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
               className={styles.editButton}
           >
             <OverrideSegmentButton
-              streamer={streamer}
-              segment={segment}
+              streamerTwitchLogin={streamer.twitchLogin}
+              segmentId={segment.id}
             />
           </div>
         }
