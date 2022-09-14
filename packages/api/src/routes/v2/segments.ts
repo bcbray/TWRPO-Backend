@@ -3,6 +3,7 @@ import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
 import { VideoSegment } from '@twrpo/types';
 
+import { getWrpLive } from '../live/liveData';
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { videoUrlOffset } from '../../utils';
 import { fetchCharacters } from './characters';
@@ -22,6 +23,9 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
         return null;
     }
 
+    const liveData = await getWrpLive(apiClient, dataSource);
+    const liveInfo = liveData.streams.find(s => s.segmentId === segment.id);
+
     const characters = await fetchCharacters(apiClient, dataSource);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
@@ -40,6 +44,7 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
         endDate: segment.lastSeenDate.toISOString(),
         character: segment.characterId ? characterLookup[segment.characterId] : undefined,
         characterUncertain: segment.characterUncertain,
+        liveInfo,
     };
 };
 
