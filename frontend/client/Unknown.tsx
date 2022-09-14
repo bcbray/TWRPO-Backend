@@ -19,22 +19,24 @@ const Unknown: React.FC<UnknownProps> = ({ data }) => {
         <h2>Unknown</h2>
         <StreamList
           streams={[]}
-          pastStreams={unknown}
+          segments={unknown}
           paginationKey='unknown'
           loadTick={0}
           noInset
           dimPastStreams={false}
+          showLiveBadge
         />
       </div>
       <div>
         <h2>Uncertain</h2>
         <StreamList
           streams={[]}
-          pastStreams={uncertain}
+          segments={uncertain}
           paginationKey='uncertain'
           loadTick={0}
           noInset
           dimPastStreams={false}
+          showLiveBadge
         />
       </div>
     </div>

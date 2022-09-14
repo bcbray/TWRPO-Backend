@@ -36,6 +36,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   hideStreamer?: boolean;
   wrapTitle?: boolean;
   showLiveBadge?: boolean;
+  noEdit?: boolean;
 }
 
 interface StreamLinkProps {
@@ -74,6 +75,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     hideStreamer = false,
     wrapTitle = false,
     showLiveBadge = false,
+    noEdit = false,
     ...rest
   }, ref
 ) => {
@@ -190,7 +192,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
             </div>
           }
         </div>
-        {stream.segmentId &&
+        {stream.segmentId && !noEdit &&
           <div
               className={styles.editButton}
           >
