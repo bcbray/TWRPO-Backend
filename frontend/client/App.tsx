@@ -18,14 +18,14 @@ const App: React.FC<Props> = () => {
     <UserProvider>
       <TrackerProvider>
         <FactionStyleContextProvider>
-          <Structure>
-            <RouterRoutes>
+          <RouterRoutes>
+            <Route element={<Structure />}>
               {publicRoutes}
               {privateRoutes}
               {redirects}
               <Route path="*" element={<NotFound />} />
-            </RouterRoutes>
-          </Structure>
+            </Route>
+          </RouterRoutes>
         </FactionStyleContextProvider>
       </TrackerProvider>
     </UserProvider>

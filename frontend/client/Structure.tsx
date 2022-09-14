@@ -1,20 +1,17 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import { useMedia } from 'react-use';
+import { Outlet } from 'react-router';
 
 import Nav from './Nav';
 import Footer from './Footer';
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const Structure: React.FC<Props> = ({ children }) => {
+const Structure: React.FC = () => {
   const isDark = useMedia('(prefers-color-scheme: dark)', false);
   return (
     <>
       <Nav />
-      {children}
+      <Outlet />
       <Footer />
       <ToastContainer
         theme={isDark ? 'dark' : 'light'}
