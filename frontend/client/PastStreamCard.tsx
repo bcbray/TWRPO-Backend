@@ -10,12 +10,14 @@ import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
+import OverrideSegmentButton from './OverrideSegmentButton';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   streamer: Streamer;
   segment: VideoSegment;
   hideStreamer?: boolean;
   wrapTitle?: boolean;
+  noEdit?: boolean;
 }
 
 interface StreamLinkProps {
@@ -53,6 +55,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     style,
     hideStreamer = false,
     wrapTitle = false,
+    noEdit = false,
     ...rest
   }, ref
 ) => {
@@ -142,6 +145,16 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
             </div>
           }
         </div>
+        {!noEdit &&
+          <div
+              className={styles.editButton}
+          >
+            <OverrideSegmentButton
+              streamer={streamer}
+              segment={segment}
+            />
+          </div>
+        }
       </div>
     </div>
   )
