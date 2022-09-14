@@ -1,6 +1,12 @@
 import React from 'react';
 import { Button } from '@restart/ui';
-import { Streamer, VideoSegment, CharacterInfo, OverrideSegmentRequest } from '@twrpo/types';
+import {
+  Streamer,
+  VideoSegment,
+  CharacterInfo,
+  OverrideSegmentRequest,
+  Stream,
+} from '@twrpo/types';
 
 import styles from './OverrideSegmentModal.module.css';
 
@@ -109,12 +115,34 @@ const FormContent: React.FC<LoadedProps> = ({
     const {
       character: oldCharacter,
       characterUncertain: oldCharacterUncertain,
+      liveInfo: oldLiveInfo,
       ...rest
     } = segment;
+    let liveInfo: Stream | undefined;
+    if (oldLiveInfo) {
+      const {
+        tagText: oldTagText,
+        tagFaction: oldTagFaction,
+        ...rest
+      } = oldLiveInfo;
+      const tagText = overriddenCharacter
+        ? characterUncertain
+          ? `? ${overriddenCharacter.displayInfo.displayName} ?`
+          : overriddenCharacter.displayInfo.displayName
+        : 'WRP';
+      liveInfo = {
+        tagText,
+        tagFaction: overriddenCharacter
+          ? overriddenCharacter.factions[0]?.key ?? 'independent'
+          : 'otherwrp',
+        ...rest,
+      }
+    }
     return {
       ...rest,
       character: overriddenCharacter,
       characterUncertain,
+      liveInfo,
     }
   }, [segment, overriddenCharacter, characterUncertain]);
 
