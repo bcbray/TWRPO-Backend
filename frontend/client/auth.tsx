@@ -96,6 +96,24 @@ export const useAuthentication = (): UserInfo => {
   return userInfo;
 }
 
+interface OverrideSegmentAuthorization {
+  type: 'overide-segment';
+  twitchId: string;
+}
+
+type AuthorizationType = OverrideSegmentAuthorization;
+
+export const useAuthorization = (type: AuthorizationType): boolean => {
+  const { user } = useAuthentication();
+  if (!user) {
+    return false;
+  }
+  if (type.type === 'overide-segment') {
+    return user.globalRole === 'admin' || user.globalRole === 'editor';
+  }
+  return user.globalRole === 'admin';
+}
+
 interface AuthCompleteMessage {
   isa: 'auth-message';
   type: 'auth-complete';
