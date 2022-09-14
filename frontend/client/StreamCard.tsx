@@ -19,6 +19,7 @@ import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 import TwitchEmbed from './TwitchEmbed';
 import Crossfade from './Crossfade';
+import OverrideSegmentButton from './OverrideSegmentButton'
 
 const cardStyles = {
   inline: styles.inline,
@@ -189,6 +190,16 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
             </div>
           }
         </div>
+        {stream.segmentId &&
+          <div
+              className={styles.editButton}
+          >
+            <OverrideSegmentButton
+              streamerTwitchLogin={stream.channelName.toLowerCase()}
+              segmentId={stream.segmentId}
+            />
+          </div>
+        }
       </div>
     </div>
   )
