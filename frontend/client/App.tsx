@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes as RouterRoutes, Route } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.min.css';
 
-import { publicRoutes, privateRoutes, redirects } from './routes';
+import { publicRoutes, privateRoutes, privateStandaloneRoutes, redirects } from './routes';
 import Structure from './Structure';
 import TrackerProvider from './TrackerProvider';
 import { FactionStyleContextProvider } from './FactionStyleProvider';
@@ -19,6 +19,7 @@ const App: React.FC<Props> = () => {
       <TrackerProvider>
         <FactionStyleContextProvider>
           <RouterRoutes>
+            {privateStandaloneRoutes}
             <Route element={<Structure />}>
               {publicRoutes}
               {privateRoutes}

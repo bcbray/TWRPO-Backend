@@ -53,16 +53,9 @@ export function authentication({
 
   router.get('/auth/twitch', passport.authenticate('twitch'));
   router.get('/auth/twitch/callback', passport.authenticate('twitch', {
-    // TODO: Use a real route here
-    failureRedirect: '/',
+    failureRedirect: '/auth/failure',
   }), (_req, res) => {
-    // TODO: Use a real route here
-    res.redirect('/auth/session');
-  });
-
-  // FIXME: Temp endpoint to inspect the session. Remove this.
-  router.get('/auth/session', (req, res) => {
-    return res.send({ s: req.session, u: req.user });
+    res.redirect('/auth/success');
   });
 
   router.post('/auth/logout', (req, res, next) => {

@@ -44,3 +44,16 @@ export const useAuth = (): UserInfo => {
   }
   return userInfo;
 }
+
+export const AuthComplete: React.FC<{ success: boolean }> = ({ success }) => {
+  return (
+    <div className={styles.container}>
+      {success ? (
+        <h2>Sign in complete</h2>
+      ) : (
+        <h2>Sign in failed</h2>
+      )}
+      <p>This window will close automatically.</p>
+    </div>
+  );
+};
