@@ -104,19 +104,26 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
             />
           }
         </StreamLink>
-        <Tag className={classes(styles.tag, styles.name)}>
-          <p>
-            {segment.character ? (
-              <>
-                {segment.characterUncertain && '? '}
-                {segment.character.displayInfo.displayName}
-                {segment.characterUncertain && ' ?'}
-              </>
-            ) : (
-              'WRP'
-            )}
-          </p>
-        </Tag>
+        <div className={styles.topTags}>
+          <Tag className={classes(styles.tag, styles.name)}>
+            <p>
+              {segment.character ? (
+                <>
+                  {segment.characterUncertain && '? '}
+                  {segment.character.displayInfo.displayName}
+                  {segment.characterUncertain && ' ?'}
+                </>
+              ) : (
+                'WRP'
+              )}
+            </p>
+          </Tag>
+          {segment.liveInfo &&
+            <Tag className={classes(styles.tag, styles.live)}>
+              <p>Live</p>
+            </Tag>
+          }
+        </div>
         <Tag className={classes(styles.tag, styles.viewers)}>
           <p title={fullDate}>{relativeDate}</p>
         </Tag>
