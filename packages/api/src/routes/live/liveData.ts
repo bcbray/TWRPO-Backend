@@ -372,29 +372,8 @@ interface BaseStream {
 
 type FactionCount = { [key in FactionMini]: number };
 
-interface InjectionConfiguration {
-    targetElementSelector: string;
-    hopsToMainAncestor: number;
-    channelNameElementSelector: string;
-    liveBadgeElementSelector: string;
-    liveBadgeContentElementSelector: string;
-    viewersBadgeElementSelector: string;
-
-    mainScrollSelector: string;
-
-    settingsTargetElementSelector: string;
-    hopsToSettingsContainerAncestor: number;
-
-    insertionElementSelector: string;
-}
-
-interface ExtensionLiveResponse extends LiveResponse {
-    baseHtml: string;
-    injectionConfiguration: InjectionConfiguration;
-}
-
-const cachedResults: { [key: string]: ExtensionLiveResponse | undefined } = {};
-const wrpStreamsPromise: { [key: string]: Promise<ExtensionLiveResponse> | undefined } = {};
+const cachedResults: { [key: string]: LiveResponse | undefined } = {};
+const wrpStreamsPromise: { [key: string]: Promise<LiveResponse> | undefined } = {};
 
 const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podcast) => {
     const nameAll = [podcast.name];
@@ -422,7 +401,7 @@ const getWrpLive = async (
     override = false,
     endpoint = '<no-endpoint>',
     useActivePromise = false
-): Promise<ExtensionLiveResponse> => {
+): Promise<LiveResponse> => {
     if (!isObjEmpty(baseOptions)) log(`${endpoint}: options -`, JSON.stringify(baseOptions));
 
     const options: LiveOptions = {
@@ -455,7 +434,7 @@ const getWrpLive = async (
     console.log(JSON.stringify({ traceID: fetchID, event: 'start' }));
 
     if (wrpStreamsPromise[optionsStr] === undefined || override) {
-        wrpStreamsPromise[optionsStr] = new Promise<ExtensionLiveResponse>(async (resolve, reject) => {
+        wrpStreamsPromise[optionsStr] = new Promise<LiveResponse>(async (resolve, reject) => {
             try {
                 log(`${endpoint}: Fetching streams data...`);
 
@@ -1164,31 +1143,12 @@ const getWrpLive = async (
 
                 // log(filterFactions);
 
-                // Includes npManual, _ORDER_, _TITLE_, _VIEWERS_, _PFP_, _CHANNEL1_, _CHANNEL2_
-                // eslint-disable-next-line max-len
-                const baseHtml = '<div class="tno-stream" id="tno-stream-_TNOID_" data-target="" style="order: _ORDER_;"><div class="Layout-sc-nxg1ff-0 cUYIUW"><div><div class="Layout-sc-nxg1ff-0"><article data-a-target="card-4" data-a-id="card-_CHANNEL1_" class="Layout-sc-nxg1ff-0 frepDF"><div class="Layout-sc-nxg1ff-0 ggozbG"><div class="Layout-sc-nxg1ff-0 kTkZWx"><div class="ScTextWrapper-sc-14f6evl-1 fejGga"><div class="ScTextMargin-sc-14f6evl-2 biJSak"><a data-test-selector="TitleAndChannel" data-a-target="preview-card-channel-link" aria-label="_TITLE_" class="ScCoreLink-sc-udwpw5-0 cmQKL tw-link" href="/_CHANNEL1_/videos"><h3 title="_TITLE_" class="CoreText-sc-cpl358-0 hjONlz">_TITLE_</h3><p data-a-target="preview-card-channel-link" tabindex="-1" title="_CHANNEL2_" class="CoreText-sc-cpl358-0 eyuUlK">_CHANNEL2_</p></a></div><div class="Layout-sc-nxg1ff-0 dRKpYM"><div class="InjectLayout-sc-588ddc-0 eXNwOD"><div class="InjectLayout-sc-588ddc-0 beXCOC"><button class="ScTag-sc-xzp4i-0 iKNvdP tw-tag" aria-describedby="9449931af8bd9bbdff3c67df6755f045" aria-label="English" data-a-target="English"><div class="ScTagContent-sc-xzp4i-1 gONNWj"><div class="ScTagText-sc-xzp4i-2 eMoqSY"><span>English</span></div></div></button></div></div></div></div><div class="ScImageWrapper-sc-14f6evl-0 jISSAW"><a data-a-target="card-4" data-a-id="card-_CHANNEL1_" data-test-selector="preview-card-avatar" tabindex="-1" class="ScCoreLink-sc-udwpw5-0 ktfxqP tw-link" href="/_CHANNEL1_/videos"><div class="ScAspectRatio-sc-1sw3lwy-1 eQcihY tw-aspect"><div class="ScAspectSpacer-sc-1sw3lwy-0 dsswUS"></div><figure aria-label="_CHANNEL1_" class="ScAvatar-sc-12nlgut-0 bmqpYD tw-avatar"><img class="InjectLayout-sc-588ddc-0 iDjrEF tw-image tw-image-avatar" alt="_CHANNEL1_" src="_PFP_"></figure></div></a></div></div></div><div class="ScWrapper-sc-uo2e2v-0 sqjWZ tw-hover-accent-effect"><div class="ScTransformWrapper-sc-uo2e2v-1 ScCornerTop-sc-uo2e2v-2 lmjSRR gaYszF"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ScCornerBottom-sc-uo2e2v-3 gEIaFB fGRgGA"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ScEdgeLeft-sc-uo2e2v-4 eTyELd eRrHBW"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ScEdgeBottom-sc-uo2e2v-5 kocUMp cWOxay"></div><div class="ScTransformWrapper-sc-uo2e2v-1 ghrhyx"><a data-a-target="preview-card-image-link" tabindex="-1" class="ScCoreLink-sc-udwpw5-0 ktfxqP preview-card-image-link tw-link" href="/_CHANNEL1_"><div class="Layout-sc-nxg1ff-0 fjGGXR"><div class="ScAspectRatio-sc-1sw3lwy-1 kPofwJ tw-aspect"><div class="ScAspectSpacer-sc-1sw3lwy-0 kECpQh"></div><img alt="_TITLE_ - _CHANNEL1_" class="tw-image" src="https://static-cdn.jtvnw.net/previews-ttv/live_user__CHANNEL1_-440x248.jpg_TIMEID_"></div><div class="ScPositionCorner-sc-1iiybo2-1 gtpTmt"><div class="ScChannelStatusTextIndicator-sc-1f5ghgf-0 gfqupx tw-channel-status-text-indicator" font-size="font-size-6"><p class="CoreText-sc-cpl358-0 duTViv">LIVE</p></div></div><div class="ScPositionCorner-sc-1iiybo2-1 eHqCXd"><div class="ScMediaCardStatWrapper-sc-1ncw7wk-0 jluyAA tw-media-card-stat">_VIEWERS_ viewers</div></div></div></a></div></div></article></div></div></div></div>';
-
-                const injection: InjectionConfiguration = {
-                    targetElementSelector: 'article',
-                    hopsToMainAncestor: 4,
-                    channelNameElementSelector: 'p[data-a-target="preview-card-channel-link"]',
-                    liveBadgeElementSelector: '.tw-channel-status-text-indicator',
-                    liveBadgeContentElementSelector: 'p',
-                    viewersBadgeElementSelector: '.tw-media-card-stat',
-                    mainScrollSelector: 'div.root-scrollable.scrollable-area > div.simplebar-scroll-content',
-                    settingsTargetElementSelector: '[data-test-selector="follow-game-button-component"]',
-                    hopsToSettingsContainerAncestor: 2,
-                    insertionElementSelector: '[data-target="directory-first-item"]',
-                };
-
-                const result: ExtensionLiveResponse = {
+                const result: LiveResponse = {
                     ...includedData,
                     factionCount,
                     filterFactions,
                     streams: wrpStreams,
-                    baseHtml,
                     tick: nowTime,
-                    injectionConfiguration: injection,
                     recentOfflineCharacters: recentlyOnlineCharacters.length
                         ? recentlyOnlineCharacters
                         : undefined,
@@ -1237,9 +1197,9 @@ const getWrpLive = async (
     return cachedResults[optionsStr]!;
 };
 
-export const getUnfilteredWrpLive = getWrpLive;
+export const getRawWrpLive = getWrpLive;
 
-export const getFilteredWrpLive = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<ExtensionLiveResponse> => {
+export const getFilteredWrpLive = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<LiveResponse> => {
     const { streams, ...rest } = await getWrpLive(apiClient, dataSource);
     const isEditor = isGlobalEditor(currentUser);
     return {

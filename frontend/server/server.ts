@@ -38,7 +38,7 @@ const server = ({
   // Redirect /live to /api/v1/live
   const redirectRouter = Router();
   redirectRouter.use(cors());
-  redirectRouter.get('/', (_req, res) => res.redirect('/api/v1/live'));
+  redirectRouter.get('/', (_req, res) => res.redirect('/api/v1/live/extension'));
   router.use('/live', redirectRouter);
 
   // API
