@@ -96,6 +96,26 @@
   background-color: var(--theme-red);
 }
 
+.hiddenOverlay {
+  color: var(--const-theme-white);
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hiddenOverlay svg {
+  color: rgba(255,255,255,0.5);
+  display: block;
+  margin: auto;
+  width: auto;
+  height: 50%;
+  aspect-ratio: 1;
+}
+
 .tag.viewers {
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;

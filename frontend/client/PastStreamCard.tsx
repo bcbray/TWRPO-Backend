@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { EyeSlashFill } from 'react-bootstrap-icons';
 import { VideoSegment, Streamer } from '@twrpo/types';
 
 import styles from './PastStreamCard.module.css';
@@ -132,6 +133,11 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
         <Tag className={classes(styles.tag, styles.runtime)}>
           <p>{formatDuration(startDate, endDate)}</p>
         </Tag>
+        {segment.isHidden &&
+          <div className={styles.hiddenOverlay}>
+            <EyeSlashFill />
+          </div>
+        }
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
         {!hideStreamer &&
