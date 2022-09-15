@@ -3,7 +3,7 @@ import { ApiClient } from '@twurple/api';
 import { DataSource, IsNull, Not } from 'typeorm';
 import { UnknownResponse, SegmentAndStreamer, UserResponse } from '@twrpo/types';
 
-import { getWrpLive } from '../live/liveData';
+import { getFilteredWrpLive } from '../live/liveData';
 import { fetchCharacters } from './characters';
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { videoUrlOffset } from '../../utils';
@@ -12,12 +12,12 @@ import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
 
 export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource, userResponse: UserResponse): Promise<UnknownResponse> => {
-    const liveData = await getWrpLive(apiClient, dataSource);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
     const liveDataLookup = Object.fromEntries(liveData.streams
         .filter(s => s.segmentId)
         .map(s => [s.segmentId!, s]));
 
-    const characters = await fetchCharacters(apiClient, dataSource);
+    const characters = await fetchCharacters(apiClient, dataSource, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );

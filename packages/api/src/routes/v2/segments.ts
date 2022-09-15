@@ -1,14 +1,16 @@
 import { Router } from 'express';
 import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
-import { VideoSegment } from '@twrpo/types';
+import { VideoSegment, UserResponse } from '@twrpo/types';
 
-import { getWrpLive } from '../live/liveData';
+import { getFilteredWrpLive } from '../live/liveData';
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { videoUrlOffset } from '../../utils';
 import { fetchCharacters } from './characters';
+import { fetchSessionUser } from './whoami';
+import { SessionUser } from '../../SessionUser';
 
-export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource, id: number): Promise<VideoSegment | null> => {
+export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource, id: number, currentUser: UserResponse): Promise<VideoSegment | null> => {
     const segment = await dataSource
         .getRepository(StreamChunk)
         .findOne({
@@ -23,10 +25,10 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
         return null;
     }
 
-    const liveData = await getWrpLive(apiClient, dataSource);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
     const liveInfo = liveData.streams.find(s => s.segmentId === segment.id);
 
-    const characters = await fetchCharacters(apiClient, dataSource);
+    const characters = await fetchCharacters(apiClient, dataSource, currentUser);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
@@ -61,7 +63,8 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 .status(400)
                 .send({ success: false, errors: [{ message: `'${idString}' is not a valid id` }] });
         }
-        const response = await fetchSegment(apiClient, dataSource, id);
+        const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        const response = await fetchSegment(apiClient, dataSource, id, userResponse);
         if (!response) {
             return res
                 .status(404)

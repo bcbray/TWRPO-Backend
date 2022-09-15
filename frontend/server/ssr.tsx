@@ -76,7 +76,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
         if (used.usedLive) {
           needsAnotherLoad = true;
-          const liveResponse = await api.fetchLive();
+          const liveResponse = await api.fetchLive(userResponse);
           // Hacky round-trip through JSON to make sure our types are converted the same
           // TODO: Maybe we should just make an API call?
           preloadedData.live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
@@ -87,7 +87,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           if (used.usedFactions) {
             needsAnotherLoad = true;
           }
-          const factionsResponse = await api.fetchFactions();
+          const factionsResponse = await api.fetchFactions(userResponse);
           // Hacky round-trip through JSON to make sure our types are converted the same
           // TODO: Maybe we should just make an API call?
           preloadedData.factions = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
@@ -95,7 +95,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
         if (used.usedCharacters) {
           needsAnotherLoad = true;
-          const charactersResponse = await api.fetchCharacters();
+          const charactersResponse = await api.fetchCharacters(userResponse);
           // Hacky round-trip through JSON to make sure our types are converted the same
           // TODO: Maybe we should just make an API call?
           preloadedData.characters = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
@@ -135,7 +135,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
             preloadedData.segments = {};
           }
           for (const id of used.usedSegmentIds) {
-            const segmentResponse = await api.fetchSegment(id);
+            const segmentResponse = await api.fetchSegment(id, userResponse);
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
             preloadedData.segments[id] = JSON.parse(JSON.stringify(segmentResponse)) as VideoSegment | null;

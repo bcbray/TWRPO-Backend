@@ -1,28 +1,30 @@
 import { Router } from 'express';
 import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
-import { CharactersResponse } from '@twrpo/types';
+import { CharactersResponse, UserResponse } from '@twrpo/types';
 
 import { wrpCharacters } from '../../data/characters';
-import { getWrpLive } from '../live/liveData';
+import { getFilteredWrpLive } from '../live/liveData';
 import { getCharacterInfo } from '../../characterUtils';
 import { getKnownTwitchUsers } from '../../pfps';
 import { fetchFactions } from './factions';
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { Video } from '../../db/entity/Video';
 import { videoUrlOffset } from '../../utils';
+import { fetchSessionUser } from './whoami';
+import { SessionUser } from '../../SessionUser';
 
 export interface CharactersRequest {
     limit?: number;
     page?: number;
 }
 
-export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource): Promise<CharactersResponse> => {
+export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<CharactersResponse> => {
     const knownUsers = await getKnownTwitchUsers(apiClient, dataSource);
 
-    const liveData = await getWrpLive(apiClient, dataSource);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
 
-    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource);
+    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, currentUser);
 
     interface AggregateChunk {
         mostRecentSegmentId: number;
@@ -135,8 +137,9 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
-    router.get('/', async (_, res) => {
-        const response = await fetchCharacters(apiClient, dataSource);
+    router.get('/', async (req, res) => {
+        const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        const response = await fetchCharacters(apiClient, dataSource, userResponse);
         return res.send(response);
     });
 

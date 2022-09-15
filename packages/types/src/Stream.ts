@@ -21,4 +21,5 @@ export default interface Stream {
   thumbnailUrl?: string;
   startDate: string;
   segmentId?: number;
+  isHidden: boolean;
 }

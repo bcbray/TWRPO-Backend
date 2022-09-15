@@ -4,25 +4,22 @@ import { DataSource } from 'typeorm';
 import parseurl from 'parseurl';
 import { OverrideSegmentRequest } from '@twrpo/types';
 
-import { User, UserRole } from '../../../db/entity/User';
 import { StreamChunk } from '../../../db/entity/StreamChunk';
 import { SessionUser } from '../../../SessionUser';
 import { wrpCharacters } from '../../../data/characters';
-import { getWrpLive } from '../../live/liveData';
+import { getFilteredWrpLive, forceWrpLiveRefresh } from '../../live/liveData';
+import { fetchSessionUser } from '../whoami';
+import { isEditorForTwitchId } from '../../../userUtils';
 
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
     router.post('/', async (req: Request<any, any, OverrideSegmentRequest>, res) => {
+        const currentUser = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        if (!currentUser.user) {
+            return res.status(403).send({ success: false, errors: [{ message: 'Unauthorized' }] });
+        }
         if (!req.user) {
-            return res.status(403).send({ success: false, errors: [{ message: 'Unauthorized' }] });
-        }
-        const sessionUser: SessionUser = req.user as any;
-        const user = await dataSource.getRepository(User).findOneBy({ id: sessionUser.id });
-        if (!user) {
-            return res.status(403).send({ success: false, errors: [{ message: 'Unauthorized' }] });
-        }
-        if (user.globalRole !== UserRole.ADMIN && user.globalRole !== UserRole.EDITOR) {
             return res.status(403).send({ success: false, errors: [{ message: 'Unauthorized' }] });
         }
 
@@ -40,6 +37,10 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
             });
             if (!segment || !segment.channel) {
                 return res.status(400).send({ success: false, errors: [{ message: 'Unknown `segmentId`' }] });
+            }
+
+            if (!isEditorForTwitchId(segment.channel.twitchId, currentUser)) {
+                return res.status(403).send({ success: false, errors: [{ message: 'Unauthorized' }] });
             }
 
             if (req.body.characterId === undefined && req.body.characterUncertain === undefined && req.body.isHidden === undefined) {
@@ -86,10 +87,10 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 ...update,
             });
 
-            const liveData = await getWrpLive(apiClient, dataSource);
+            const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
             if (req.body.isHidden === false || liveData.streams.some(s => s.segmentId === req.body.segmentId)) {
                 // If the segment is live (or if we've just unhidden a segment), force a fetch to use the new data
-                await getWrpLive(apiClient, dataSource, {}, true);
+                await forceWrpLiveRefresh(apiClient, dataSource);
             }
         } catch (error) {
             console.error(JSON.stringify({

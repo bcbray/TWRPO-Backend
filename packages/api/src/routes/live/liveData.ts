@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from '@twurple/api';
 import { DataSource } from 'typeorm';
-import { LiveResponse, Stream, CharacterInfo } from '@twrpo/types';
+import { LiveResponse, Stream, CharacterInfo, UserResponse } from '@twrpo/types';
 
 import {
     log, cloneDeepJson, filterObj, mapObj, parseParam,
@@ -27,6 +27,7 @@ import {
 } from '../../data/factions';
 import { wrpPodcasts } from '../../data/podcasts';
 import { fetchVideosForUser, fetchMissingThumbnailsForVideoIds } from '../../fetchVideos';
+import { isGlobalEditor } from '../../userUtils';
 
 import type { RecordGen } from '../../utils';
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from '../../data/meta';
@@ -414,7 +415,7 @@ const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podc
     return { podcast, reg };
 });
 
-export const getWrpLive = async (
+const getWrpLive = async (
     apiClient: ApiClient,
     dataSource: DataSource,
     baseOptions = {},
@@ -604,6 +605,7 @@ export const getWrpLive = async (
                             // keepCase: true,
                             thumbnailUrl: helixStream.thumbnailUrl,
                             startDate: helixStream.startDate.toISOString(),
+                            isHidden: false,
                         };
 
                         nextId++;
@@ -902,6 +904,7 @@ export const getWrpLive = async (
                         thumbnailUrl: helixStream.thumbnailUrl,
                         startDate: helixStream.startDate.toISOString(),
                         segmentId,
+                        isHidden: mostRecentStreamSegment?.isHidden ?? false,
                     };
 
                     console.log(JSON.stringify({
@@ -912,18 +915,6 @@ export const getWrpLive = async (
                         channel: channelName,
                         stream,
                     }));
-
-                    // Don’t include the stream if we’ve manually hidden this segment
-                    if (mostRecentStreamSegment && mostRecentStreamSegment.isHidden) {
-                        console.log(JSON.stringify({
-                            level: 'info',
-                            event: 'stream-hidden',
-                            message: `Excluded ${channelName} because of manually hidden segment`,
-                            channel: channelName,
-                            stream,
-                        }));
-                        continue;
-                    }
 
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;
@@ -1244,6 +1235,22 @@ export const getWrpLive = async (
     log(`${endpoint}: Got data!`);
 
     return cachedResults[optionsStr]!;
+};
+
+export const getUnfilteredWrpLive = getWrpLive;
+
+export const getFilteredWrpLive = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<ExtensionLiveResponse> => {
+    const { streams, ...rest } = await getWrpLive(apiClient, dataSource);
+    const isEditor = isGlobalEditor(currentUser);
+    return {
+        streams: streams
+            .filter(s => !s.isHidden || isEditor),
+        ...rest,
+    };
+};
+
+export const forceWrpLiveRefresh = async (apiClient: ApiClient, dataSource: DataSource): Promise<void> => {
+    await getWrpLive(apiClient, dataSource, {}, true);
 };
 
 export const getWrpStreams = async (apiClient: ApiClient, dataSource: DataSource, baseOptions = {}, override = false): Promise<Stream[]> => {

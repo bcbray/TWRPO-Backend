@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm';
 import { StreamersResponse, StreamerResponse, UserResponse } from '@twrpo/types';
 
 import { wrpCharacters } from '../../data/characters';
-import { getWrpLive } from '../live/liveData';
+import { getFilteredWrpLive } from '../live/liveData';
 import { getCharacterInfo } from '../../characterUtils';
 import { fetchFactions } from './factions';
 import { TwitchChannel } from '../../db/entity/TwitchChannel';
@@ -20,8 +20,8 @@ const charactersLookup = Object.fromEntries(
     Object.entries(wrpCharacters).map(([s, c]) => [s.toLowerCase(), c])
 );
 
-export const fetchStreamers = async (apiClient: ApiClient, dataSource: DataSource): Promise<StreamersResponse> => {
-    const liveData = await getWrpLive(apiClient, dataSource);
+export const fetchStreamers = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<StreamersResponse> => {
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
 
     const liveDataLookup = Object.fromEntries(liveData.streams
         .map(s => [s.channelName.toLowerCase(), s]));
@@ -101,12 +101,12 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         return null;
     }
 
-    const liveData = await getWrpLive(apiClient, dataSource);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
 
     const liveInfo = liveData.streams.find(s =>
         s.channelName === channel.displayName);
 
-    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource);
+    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, currentUser);
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
 
     const channelInfo: TwitchUser = {
@@ -248,8 +248,9 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
-    router.get('/', async (_, res) => {
-        const response = await fetchStreamers(apiClient, dataSource);
+    router.get('/', async (req, res) => {
+        const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        const response = await fetchStreamers(apiClient, dataSource, userResponse);
         return res.send(response);
     });
 

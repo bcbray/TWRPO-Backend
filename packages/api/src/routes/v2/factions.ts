@@ -1,13 +1,15 @@
 import { Router } from 'express';
 import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
-import { FactionsResponse } from '@twrpo/types';
+import { FactionsResponse, UserResponse } from '@twrpo/types';
 
-import { getWrpLive } from '../live/liveData';
+import { getFilteredWrpLive } from '../live/liveData';
 import { getFactionInfos } from '../../factionUtils';
+import { fetchSessionUser } from './whoami';
+import { SessionUser } from '../../SessionUser';
 
-export const fetchFactions = async (apiClient: ApiClient, dataSource: DataSource): Promise<FactionsResponse> => {
-    const liveData = await getWrpLive(apiClient, dataSource);
+export const fetchFactions = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<FactionsResponse> => {
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
 
     return {
         factions: getFactionInfos(liveData.factionCount),
@@ -17,8 +19,9 @@ export const fetchFactions = async (apiClient: ApiClient, dataSource: DataSource
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
-    router.get('/', async (_, res) => {
-        const response = await fetchFactions(apiClient, dataSource);
+    router.get('/', async (req, res) => {
+        const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        const response = await fetchFactions(apiClient, dataSource, userResponse);
         return res.send(response);
     });
 

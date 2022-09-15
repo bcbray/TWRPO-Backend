@@ -183,9 +183,9 @@ const changeFrequencyTag = (page: string): string => {
 };
 
 
-const sitemap = (api: TWRPOApi): RequestHandler => async (req, res, next) => {
-  const factions = await api.fetchFactions();
-  const streamers = await api.fetchStreamers();
+const sitemap = (api: TWRPOApi): RequestHandler => async (req, res) => {
+  const factions = await api.fetchFactions({ user: null });
+  const streamers = await api.fetchStreamers({ user: null });
   const allPages = pages({
     'factionKey': factions.factions.flatMap(f =>
       !f.hideInFilter && f.hasCharacters ? [f.key] : []

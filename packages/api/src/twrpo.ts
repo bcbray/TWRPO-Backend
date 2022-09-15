@@ -14,7 +14,7 @@ import {
     VideoSegment,
 } from '@twrpo/types';
 
-import { getWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
+import { getFilteredWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
 import { fetchCharacters } from './routes/v2/characters';
 import { fetchFactions } from './routes/v2/factions';
 import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
@@ -83,32 +83,32 @@ class Api {
         await this.dataSource.initialize();
     }
 
-    public async fetchLive(): Promise<LiveResponse> {
-        return getWrpLive(this.twitchClient, this.dataSource);
+    public async fetchLive(currentUser: UserResponse): Promise<LiveResponse> {
+        return getFilteredWrpLive(this.twitchClient, this.dataSource, currentUser);
     }
 
-    public async fetchFactions(): Promise<FactionsResponse> {
-        return fetchFactions(this.twitchClient, this.dataSource);
+    public async fetchFactions(currentUser: UserResponse): Promise<FactionsResponse> {
+        return fetchFactions(this.twitchClient, this.dataSource, currentUser);
     }
 
-    public async fetchCharacters(): Promise<CharactersResponse> {
-        return fetchCharacters(this.twitchClient, this.dataSource);
+    public async fetchCharacters(currentUser: UserResponse): Promise<CharactersResponse> {
+        return fetchCharacters(this.twitchClient, this.dataSource, currentUser);
     }
 
     public async fetchStreamer(name: string, currentUser: UserResponse): Promise<StreamerResponse | null> {
         return fetchStreamer(this.twitchClient, this.dataSource, name, currentUser);
     }
 
-    public async fetchStreamers(): Promise<StreamersResponse> {
-        return fetchStreamers(this.twitchClient, this.dataSource);
+    public async fetchStreamers(currentUser: UserResponse): Promise<StreamersResponse> {
+        return fetchStreamers(this.twitchClient, this.dataSource, currentUser);
     }
 
     public async fetchUnknown(currentUser: UserResponse): Promise<UnknownResponse> {
         return fetchUnknown(this.twitchClient, this.dataSource, currentUser);
     }
 
-    public async fetchSegment(id: number): Promise<VideoSegment | null> {
-        return fetchSegment(this.twitchClient, this.dataSource, id);
+    public async fetchSegment(id: number, currentUser: UserResponse): Promise<VideoSegment | null> {
+        return fetchSegment(this.twitchClient, this.dataSource, id, currentUser);
     }
 
     public async fetchSessionUser(sessionUser: SessionUser | undefined): Promise<UserResponse> {

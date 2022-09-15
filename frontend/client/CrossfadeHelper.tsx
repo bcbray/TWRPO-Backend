@@ -67,7 +67,8 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
     thumbnailUrl: secondImage
       ? '/images/example-live-thumbnail-2.jpeg'
       : '/images/example-live-thumbnail.jpeg',
-    startDate
+    startDate,
+    isHidden: false,
   };
 
   return (

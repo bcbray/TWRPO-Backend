@@ -45,7 +45,8 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
     tagText: 'Sam',
     tagFaction: faction.key,
     thumbnailUrl: '/images/example-live-thumbnail.jpeg',
-    startDate
+    startDate,
+    isHidden: false,
   };
   return (
     <div className={styles.card} style={style}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useIntersection, useHoverDirty } from 'react-use';
 import { Link } from 'react-router-dom';
+import { EyeSlashFill } from 'react-bootstrap-icons';
 import { Stream } from '@twrpo/types';
 
 import styles from './StreamCard.module.css';
@@ -169,6 +170,11 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
         <Tag className={classes(styles.tag, styles.runtime)}>
           <p>{formatDuration(startDate, now)}</p>
         </Tag>
+        {stream.isHidden &&
+          <div className={styles.hiddenOverlay}>
+            <EyeSlashFill />
+          </div>
+        }
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
         {!hideStreamer &&
