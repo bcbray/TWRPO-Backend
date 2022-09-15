@@ -241,6 +241,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
                         ? liveInfo
                         : undefined,
                     streamId: segment.streamId,
+                    isHidden: segment.isHidden,
                 };
             }),
     };
