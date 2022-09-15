@@ -5,7 +5,7 @@ import { UserResponse } from '@twrpo/types';
 import { User } from '../../db/entity/User';
 import { SessionUser } from '../../SessionUser';
 
-export const fetchSessionUser = async (dataSource: DataSource, sessionUser: SessionUser | undefined): Promise<UserResponse | null> => {
+export const fetchSessionUser = async (dataSource: DataSource, sessionUser: SessionUser | undefined): Promise<UserResponse> => {
     if (!sessionUser) {
         return { user: null };
     }

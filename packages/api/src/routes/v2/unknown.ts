@@ -1,14 +1,17 @@
 import { Router } from 'express';
 import { ApiClient } from '@twurple/api';
 import { DataSource, IsNull, Not } from 'typeorm';
-import { UnknownResponse, SegmentAndStreamer } from '@twrpo/types';
+import { UnknownResponse, SegmentAndStreamer, UserResponse } from '@twrpo/types';
 
 import { getWrpLive } from '../live/liveData';
 import { fetchCharacters } from './characters';
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { videoUrlOffset } from '../../utils';
+import { isEditorForTwitchId } from '../../userUtils';
+import { fetchSessionUser } from './whoami';
+import { SessionUser } from '../../SessionUser';
 
-export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource): Promise<UnknownResponse> => {
+export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource, userResponse: UserResponse): Promise<UnknownResponse> => {
     const liveData = await getWrpLive(apiClient, dataSource);
     const liveDataLookup = Object.fromEntries(liveData.streams
         .filter(s => s.segmentId)
@@ -71,9 +74,11 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource)
     return {
         unknown: unknownSegments
             .filter(s => s.channel)
+            .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
             .map(segmentAndStreamer),
         uncertain: uncertainSegments
             .filter(s => s.channel)
+            .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
             .map(segmentAndStreamer),
     };
 };
@@ -81,8 +86,9 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource)
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
-    router.get('/', async (_, res) => {
-        const response = await fetchUnknown(apiClient, dataSource);
+    router.get('/', async (req, res) => {
+        const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        const response = await fetchUnknown(apiClient, dataSource, userResponse);
         return res.send(response);
     });
 

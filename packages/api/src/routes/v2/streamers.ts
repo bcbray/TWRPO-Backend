@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
-import { StreamersResponse, StreamerResponse } from '@twrpo/types';
+import { StreamersResponse, StreamerResponse, UserResponse } from '@twrpo/types';
 
 import { wrpCharacters } from '../../data/characters';
 import { getWrpLive } from '../live/liveData';
@@ -12,6 +12,9 @@ import { StreamChunk } from '../../db/entity/StreamChunk';
 import { Video } from '../../db/entity/Video';
 import { TwitchUser } from '../../pfps';
 import { videoUrlOffset } from '../../utils';
+import { isEditorForTwitchId } from '../../userUtils';
+import { fetchSessionUser } from './whoami';
+import { SessionUser } from '../../SessionUser';
 
 const charactersLookup = Object.fromEntries(
     Object.entries(wrpCharacters).map(([s, c]) => [s.toLowerCase(), c])
@@ -46,14 +49,7 @@ export const fetchStreamers = async (apiClient: ApiClient, dataSource: DataSourc
     };
 };
 
-export interface FetchStreamerOptions {
-    includeHiddenSegments?: boolean;
-}
-
-export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource, login: string, options: FetchStreamerOptions = {}): Promise<StreamerResponse | null> => {
-    const {
-        includeHiddenSegments = false,
-    } = options;
+export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource, login: string, currentUser: UserResponse): Promise<StreamerResponse | null> => {
     const channel = await dataSource
         .getRepository(TwitchChannel)
         .findOne({ where: { twitchLogin: login.toLowerCase() } });
@@ -77,6 +73,8 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         // If we only have explicitly-ignored characters, ignore this streamer
         return null;
     }
+
+    const includeHiddenSegments = isEditorForTwitchId(channel.twitchId, currentUser);
 
     const allSegments = await dataSource
         .getRepository(StreamChunk)
@@ -256,8 +254,9 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     });
 
     router.get('/:login', async (req, res) => {
+        const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
         const { login } = req.params;
-        const response = await fetchStreamer(apiClient, dataSource, login);
+        const response = await fetchStreamer(apiClient, dataSource, login, userResponse);
         if (!response) {
             return res
                 .status(404)

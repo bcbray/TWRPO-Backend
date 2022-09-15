@@ -95,23 +95,23 @@ class Api {
         return fetchCharacters(this.twitchClient, this.dataSource);
     }
 
-    public async fetchStreamer(name: string): Promise<StreamerResponse | null> {
-        return fetchStreamer(this.twitchClient, this.dataSource, name);
+    public async fetchStreamer(name: string, currentUser: UserResponse): Promise<StreamerResponse | null> {
+        return fetchStreamer(this.twitchClient, this.dataSource, name, currentUser);
     }
 
     public async fetchStreamers(): Promise<StreamersResponse> {
         return fetchStreamers(this.twitchClient, this.dataSource);
     }
 
-    public async fetchUnknown(): Promise<UnknownResponse> {
-        return fetchUnknown(this.twitchClient, this.dataSource);
+    public async fetchUnknown(currentUser: UserResponse): Promise<UnknownResponse> {
+        return fetchUnknown(this.twitchClient, this.dataSource, currentUser);
     }
 
     public async fetchSegment(id: number): Promise<VideoSegment | null> {
         return fetchSegment(this.twitchClient, this.dataSource, id);
     }
 
-    public async fetchSessionUser(sessionUser: SessionUser | undefined): Promise<UserResponse | null> {
+    public async fetchSessionUser(sessionUser: SessionUser | undefined): Promise<UserResponse> {
         return fetchSessionUser(this.dataSource, sessionUser);
     }
 

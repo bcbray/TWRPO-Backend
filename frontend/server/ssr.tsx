@@ -33,6 +33,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
       encoding: 'utf8',
     });
 
+    const userResponse = await api.fetchSessionUser(req.user as SessionUser | undefined);
     const now = new Date();
 
     const {
@@ -106,7 +107,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
             preloadedData.streamers = {};
           }
           for (const name of used.usedStreamerNames) {
-            const streamerResponse = await api.fetchStreamer(name);
+            const streamerResponse = await api.fetchStreamer(name, userResponse);
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
             preloadedData.streamers[name.toLowerCase()] = JSON.parse(JSON.stringify(streamerResponse)) as StreamerResponse | null;
@@ -115,7 +116,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
         if (used.usedUnknown) {
           needsAnotherLoad = true;
-          const unknownResponse = await api.fetchUnknown();
+          const unknownResponse = await api.fetchUnknown(userResponse);
           // Hacky round-trip through JSON to make sure our types are converted the same
           // TODO: Maybe we should just make an API call?
           preloadedData.unknown = JSON.parse(JSON.stringify(unknownResponse)) as UnknownResponse;
@@ -123,7 +124,6 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
         if (used.usedCurrentUser) {
           needsAnotherLoad = true;
-          const userResponse = await api.fetchSessionUser(req.user as SessionUser | undefined)
           // Hacky round-trip through JSON to make sure our types are converted the same
           // TODO: Maybe we should just make an API call?
           preloadedData.currentUser = JSON.parse(JSON.stringify(userResponse)) as UserResponse;
