@@ -946,7 +946,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 421, name: 'Houston Gray' },
         { id: 422, name: 'Patch "Patches" Twine' },
         { id: 1061, name: 'Phineas "Fin" Faith' },
-        { id: 1089, name: 'Rubert Romano' },
+        { id: 1089, name: 'Rupert Romano' },
     ],
     J0J0: [
         { id: 423, name: 'Delilah Kane' },
