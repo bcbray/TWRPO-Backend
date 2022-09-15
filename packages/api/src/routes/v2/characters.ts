@@ -70,6 +70,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                 .distinctOn(['stream_chunk.characterId'])
                 .where('stream_chunk.characterId IS NOT NULL')
                 .andWhere('stream_chunk.characterUncertain = false')
+                .andWhere('stream_chunk.isHidden = false')
                 .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
                 .groupBy('stream_chunk.streamerId')
                 .addGroupBy('stream_chunk.streamId')

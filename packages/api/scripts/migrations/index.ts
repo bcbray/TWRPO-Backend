@@ -10,6 +10,7 @@ import { RemoveChunkConstraints1663028654972 } from './1663028654972-RemoveChunk
 import { StreamChunkOverride1663040662484 } from './1663040662484-StreamChunkOverride';
 import { SessionAndUser1663053255966 } from './1663053255966-SessionAndUser';
 import { UserRole1663063450785 } from './1663063450785-UserRole';
+import { StreamChunkHidden1663189972049 } from './1663189972049-StreamChunkHidden';
 
 export default [
     Initial1660336359134,
@@ -24,4 +25,5 @@ export default [
     StreamChunkOverride1663040662484,
     SessionAndUser1663053255966,
     UserRole1663063450785,
+    StreamChunkHidden1663189972049,
 ];

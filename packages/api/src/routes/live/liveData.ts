@@ -815,7 +815,7 @@ export const getWrpLive = async (
 
                     if (newCharFactionSpotted) activeFactions.push('guessed');
 
-                    const chunk: Omit<StreamChunk, 'id' | 'isOverridden'> = {
+                    const chunk: Omit<StreamChunk, 'id' | 'isOverridden' | 'isHidden'> = {
                         streamerId: helixStream.userId,
                         characterId: possibleCharacter?.id ?? null,
                         characterUncertain: possibleCharacter !== undefined && nowCharacter === undefined,
@@ -904,7 +904,26 @@ export const getWrpLive = async (
                         segmentId,
                     };
 
-                    console.log(JSON.stringify({ traceID: fetchID, event: 'stream', channel: channelName, stream }));
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        event: 'stream',
+                        traceID: fetchID,
+                        message: `Found stream for ${channelName} with tag "${stream.tagText}"`,
+                        channel: channelName,
+                        stream,
+                    }));
+
+                    // Don’t include the stream if we’ve manually hidden this segment
+                    if (mostRecentStreamSegment && mostRecentStreamSegment.isHidden) {
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            event: 'stream-hidden',
+                            message: `Excluded ${channelName} because of manually hidden segment`,
+                            channel: channelName,
+                            stream,
+                        }));
+                        continue;
+                    }
 
                     nextId++;
                     for (const faction of activeFactions) factionCount[faction]++;

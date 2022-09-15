@@ -48,6 +48,9 @@ export class StreamChunk {
     @Column({ default: false })
     isOverridden: boolean;
 
+    @Column({ default: false })
+    isHidden: boolean;
+
     @ManyToOne(() => Video, video => video.streamChunks)
     @JoinColumn({ name: 'streamId', referencedColumnName: 'streamId' })
     video?: Video;

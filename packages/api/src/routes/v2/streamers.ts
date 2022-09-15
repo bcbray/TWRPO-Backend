@@ -46,7 +46,14 @@ export const fetchStreamers = async (apiClient: ApiClient, dataSource: DataSourc
     };
 };
 
-export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource, login: string): Promise<StreamerResponse | null> => {
+export interface FetchStreamerOptions {
+    includeHiddenSegments?: boolean;
+}
+
+export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource, login: string, options: FetchStreamerOptions = {}): Promise<StreamerResponse | null> => {
+    const {
+        includeHiddenSegments = false,
+    } = options;
     const channel = await dataSource
         .getRepository(TwitchChannel)
         .findOne({ where: { twitchLogin: login.toLowerCase() } });
@@ -74,7 +81,10 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
     const allSegments = await dataSource
         .getRepository(StreamChunk)
         .find({
-            where: { streamerId: channel.twitchId },
+            where: {
+                streamerId: channel.twitchId,
+                isHidden: includeHiddenSegments ? undefined : false,
+            },
             relations: { video: true },
             order: {
                 lastSeenDate: 'desc',
@@ -134,8 +144,8 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         .addSelect('recent_chunk.spans', 'spans')
         .addSelect('video.url', 'videoUrl')
         .addSelect('video.thumbnailUrl', 'videoThumbnailUrl')
-        .from(qb =>
-            qb.subQuery()
+        .from((qb) => {
+            const subQuery = qb.subQuery()
                 .from(StreamChunk, 'stream_chunk')
                 .select('stream_chunk.streamerId', 'streamer_id')
                 .addSelect('stream_chunk.characterId', 'character_id')
@@ -162,7 +172,14 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
                 .addGroupBy('stream_chunk.characterId')
                 .addGroupBy('stream_chunk.streamStartDate')
                 .orderBy('character_id', 'ASC')
-                .addOrderBy('last_seen_date', 'DESC'), 'recent_chunk')
+                .addOrderBy('last_seen_date', 'DESC');
+
+            if (!includeHiddenSegments) {
+                subQuery.andWhere('stream_chunk.isHidden = false');
+            }
+
+            return subQuery;
+        }, 'recent_chunk')
         .leftJoin(Video, 'video', 'video.streamId = recent_chunk.stream_id')
         .execute() as AggregateChunk[];
 
