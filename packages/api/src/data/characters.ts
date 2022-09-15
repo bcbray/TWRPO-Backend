@@ -799,9 +799,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1015, name: 'Harold Roach' },
     ],
     GrammTheGibbon: [
+        { id: 363, name: 'Jimothy Little', nicknames: ['Little Jimothy', 'LJ', 'Kid', 'Soldier'], displayName: 3 }, // Former Dead End Kid
         { id: 361, name: 'Herbert Parker', nicknames: ['Herb', 'Cowboy', 'Young'] }, // Kettleman hangaround
         { id: 362, name: '[Detective] Homer Carnes', factions: ['Law'], nicknames: ['Cop'] },
-        { id: 363, name: '"LJ" Little Jimothy', nicknames: ['Kid', 'Soldier'] }, // Former Dead End Kid
         { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'] }, // Dead. Considered to be the one and only leader of the Kettleman Gang
     ],
     GraveGamerTV: [
