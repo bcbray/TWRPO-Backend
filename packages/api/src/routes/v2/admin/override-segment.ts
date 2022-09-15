@@ -42,8 +42,12 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 return res.status(400).send({ success: false, errors: [{ message: 'Unknown `segmentId`' }] });
             }
 
+            if (req.body.characterId === undefined && req.body.characterUncertain === undefined && req.body.isHidden === undefined) {
+                return res.send({ success: true, message: 'No changes.' });
+            }
+
             // Check that it's a valid character ID for the streamer of this chunk
-            if (req.body.characterId !== null) {
+            if (req.body.characterId !== undefined && req.body.characterId !== null) {
                 const loginLower = segment.channel.displayName.toLowerCase();
                 const entry = Object.entries(wrpCharacters)
                     .find(([streamer]) => streamer.toLowerCase() === loginLower);
@@ -58,16 +62,29 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 }
             }
 
+            const update: Partial<Pick<StreamChunk, 'characterId' | 'characterUncertain' | 'isOverridden' | 'isHidden'>> = {};
+
+            if (req.body.characterUncertain !== undefined) {
+                update.characterUncertain = req.body.characterUncertain;
+                update.isOverridden = true;
+            }
+
+            if (req.body.characterId !== undefined) {
+                if (req.body.characterId === null) {
+                    update.characterUncertain = false;
+                }
+                update.characterId = req.body.characterId;
+                update.isOverridden = true;
+            }
+
             await dataSource.getRepository(StreamChunk).save({
-                id: req.body.segmentId,
-                characterId: req.body.characterId,
-                characterUncertain: req.body.characterUncertain,
-                isOverridden: true,
+                id: segment.id,
+                ...update,
             });
 
             const liveData = await getWrpLive(apiClient, dataSource);
             if (liveData.streams.some(s => s.segmentId === req.body.segmentId)) {
-                // If the segment is live, dorce a fetch to use the new data
+                // If the segment is live, force a fetch to use the new data
                 await getWrpLive(apiClient, dataSource, {}, true);
             }
         } catch (error) {

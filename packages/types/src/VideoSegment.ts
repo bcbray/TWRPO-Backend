@@ -8,7 +8,7 @@ export default interface VideoSegment {
     thumbnailUrl?: string;
     startDate: string;
     endDate: string;
-    character?: CharacterInfo;
+    character: CharacterInfo | null;
     characterUncertain: boolean;
     streamId: string;
     isHidden?: boolean;

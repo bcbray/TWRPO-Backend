@@ -235,7 +235,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
                     thumbnailUrl: segment.video?.thumbnailUrl,
                     startDate: segment.firstSeenDate.toISOString(),
                     endDate: segment.lastSeenDate.toISOString(),
-                    character: segment.characterId ? characterLookup[segment.characterId] : undefined,
+                    character: segment.characterId ? characterLookup[segment.characterId] : null,
                     characterUncertain: segment.characterUncertain,
                     liveInfo: liveInfo && liveInfo.streamId === segment.streamId && idx === 0
                         ? liveInfo

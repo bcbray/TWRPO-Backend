@@ -50,18 +50,18 @@ const FormContent: React.FC<LoadedProps> = ({
   const [hasSubmitted, setHasSubmitted] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
 
-  const [overriddenCharacter, setOverriddenCharacter] = React.useState(segment.character);
-  const [overriddenCharacterUncertain, setOverriddenCharacterUncertain] = React.useState(segment.characterUncertain);
-
-  const characterUncertain = overriddenCharacter !== undefined && overriddenCharacterUncertain;
+  const [overriddenCharacter, setOverriddenCharacter] = React.useState<CharacterInfo | null | undefined>(undefined);
+  const [overriddenCharacterUncertain, setOverriddenCharacterUncertain] = React.useState<boolean | undefined>(undefined);
 
   const handleSubmit = React.useCallback(() => {
     setIsSubmitting(true);
     setHasError(false);
     const request: OverrideSegmentRequest = {
       segmentId: segment.id,
-      characterId: overriddenCharacter?.id ?? null,
-      characterUncertain,
+      characterId: overriddenCharacter !== undefined
+        ? overriddenCharacter?.id ?? null
+        : undefined,
+      characterUncertain: overriddenCharacterUncertain,
     }
     fetchAndCheck('/api/v2/admin/override-segment', {
       method: 'POST',
@@ -80,7 +80,17 @@ const FormContent: React.FC<LoadedProps> = ({
       setHasSubmitted(false);
       setHasError(true);
     })
-  }, [segment.id, overriddenCharacter?.id, characterUncertain, onHide]);
+  }, [segment.id, overriddenCharacter, overriddenCharacterUncertain, onHide]);
+
+  const displayedSelectedCharacter = overriddenCharacter === undefined
+    ? segment.character
+    : overriddenCharacter;
+  const canBeUncertain = displayedSelectedCharacter !== null;
+  const displayedCharacterUncertain = !canBeUncertain
+    ? false
+    : overriddenCharacterUncertain === undefined
+      ? segment.characterUncertain
+      : overriddenCharacterUncertain;
 
   const characterLineItems: CharacterLineItem[] = React.useMemo(() => [
     {
@@ -90,7 +100,7 @@ const FormContent: React.FC<LoadedProps> = ({
         key={'meta-none'}
         onClick={(e) => e.preventDefault()}
         eventKey={'meta-none'}
-        active={overriddenCharacter === undefined}
+        active={displayedSelectedCharacter === undefined}
       >
         No character
       </DropdownItem>
@@ -103,7 +113,7 @@ const FormContent: React.FC<LoadedProps> = ({
         key={character.id}
         onClick={(e) => e.preventDefault()}
         eventKey={character.id}
-        active={character.id === overriddenCharacter?.id}
+        active={character.id === displayedSelectedCharacter?.id}
       >
         <Tag
           as='span'
@@ -116,9 +126,9 @@ const FormContent: React.FC<LoadedProps> = ({
         {character.displayInfo.realNames.join(' ')}
       </DropdownItem>
     }))
-  ], [characters, factionStylesForKey, overriddenCharacter]);
+  ], [characters, factionStylesForKey, displayedSelectedCharacter]);
 
-  const editedSegment = React.useMemo(() => {
+  const editedSegment: VideoSegment = React.useMemo(() => {
     const {
       character: oldCharacter,
       characterUncertain: oldCharacterUncertain,
@@ -132,26 +142,26 @@ const FormContent: React.FC<LoadedProps> = ({
         tagFaction: oldTagFaction,
         ...rest
       } = oldLiveInfo;
-      const tagText = overriddenCharacter
-        ? characterUncertain
-          ? `? ${overriddenCharacter.displayInfo.displayName} ?`
-          : overriddenCharacter.displayInfo.displayName
+      const tagText = displayedSelectedCharacter
+        ? displayedCharacterUncertain
+          ? `? ${displayedSelectedCharacter.displayInfo.displayName} ?`
+          : displayedSelectedCharacter.displayInfo.displayName
         : 'WRP';
       liveInfo = {
         tagText,
-        tagFaction: overriddenCharacter
-          ? overriddenCharacter.factions[0]?.key ?? 'independent'
+        tagFaction: displayedSelectedCharacter
+          ? displayedSelectedCharacter.factions[0]?.key ?? 'independent'
           : 'otherwrp',
         ...rest,
       }
     }
     return {
       ...rest,
-      character: overriddenCharacter,
-      characterUncertain,
+      character: displayedSelectedCharacter,
+      characterUncertain: displayedCharacterUncertain,
       liveInfo,
     }
-  }, [segment, overriddenCharacter, characterUncertain]);
+  }, [segment, displayedSelectedCharacter, displayedCharacterUncertain]);
 
   return <>
     <div className={styles.header}>
@@ -173,7 +183,7 @@ const FormContent: React.FC<LoadedProps> = ({
         <FancyDropdown
           className={styles.characterDropdown}
           buttonClassName={styles.characterDropdownButton}
-          title={overriddenCharacter?.displayInfo.realNames.join(' ') ?? 'No character'}
+          title={displayedSelectedCharacter?.displayInfo.realNames.join(' ') ?? 'No character'}
           items={characterLineItems}
           onSelect={item => setOverriddenCharacter(item?.character)}
         />
@@ -181,13 +191,13 @@ const FormContent: React.FC<LoadedProps> = ({
       <div>
         <label
           className={classes(
-            overriddenCharacter === undefined && styles.disabled
+            !canBeUncertain && styles.disabled
           )}
         >
           <input
             type='checkbox'
-            checked={characterUncertain}
-            disabled={overriddenCharacter === undefined}
+            checked={displayedCharacterUncertain}
+            disabled={!canBeUncertain}
             onChange={e => setOverriddenCharacterUncertain(e.target.checked)}
           />
           {' '}
@@ -229,7 +239,6 @@ const FormContent: React.FC<LoadedProps> = ({
 const ModalContent: React.FC<OverrideSegmentModalProps> = ({
   streamerTwitchLogin,
   segmentId,
-  show,
   onHide,
 }) => {
   const [streamerLoadState] = useStreamer(streamerTwitchLogin);
