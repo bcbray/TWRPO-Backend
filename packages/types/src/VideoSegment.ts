@@ -11,6 +11,6 @@ export default interface VideoSegment {
     character: CharacterInfo | null;
     characterUncertain: boolean;
     streamId: string;
-    isHidden?: boolean;
+    isHidden: boolean;
     liveInfo?: Stream;
 }

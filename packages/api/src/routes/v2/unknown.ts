@@ -63,6 +63,7 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource)
                 characterUncertain: segment.characterUncertain,
                 liveInfo: liveDataLookup[segment.id],
                 streamId: segment.streamId,
+                isHidden: segment.isHidden,
             },
         };
     };

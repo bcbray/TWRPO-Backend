@@ -46,6 +46,7 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
         characterUncertain: segment.characterUncertain,
         liveInfo,
         streamId: segment.streamId,
+        isHidden: segment.isHidden,
     };
 };
 

@@ -52,6 +52,7 @@ const FormContent: React.FC<LoadedProps> = ({
 
   const [overriddenCharacter, setOverriddenCharacter] = React.useState<CharacterInfo | null | undefined>(undefined);
   const [overriddenCharacterUncertain, setOverriddenCharacterUncertain] = React.useState<boolean | undefined>(undefined);
+  const [overriddenIsHidden, setOverriddenIsHidden] = React.useState<boolean | undefined>(undefined);
 
   const handleSubmit = React.useCallback(() => {
     setIsSubmitting(true);
@@ -62,6 +63,7 @@ const FormContent: React.FC<LoadedProps> = ({
         ? overriddenCharacter?.id ?? null
         : undefined,
       characterUncertain: overriddenCharacterUncertain,
+      isHidden: overriddenIsHidden,
     }
     fetchAndCheck('/api/v2/admin/override-segment', {
       method: 'POST',
@@ -80,7 +82,7 @@ const FormContent: React.FC<LoadedProps> = ({
       setHasSubmitted(false);
       setHasError(true);
     })
-  }, [segment.id, overriddenCharacter, overriddenCharacterUncertain, onHide]);
+  }, [segment.id, overriddenCharacter, overriddenCharacterUncertain, overriddenIsHidden, onHide]);
 
   const displayedSelectedCharacter = overriddenCharacter === undefined
     ? segment.character
@@ -91,6 +93,10 @@ const FormContent: React.FC<LoadedProps> = ({
     : overriddenCharacterUncertain === undefined
       ? segment.characterUncertain
       : overriddenCharacterUncertain;
+
+  const displayedIsHidden = overriddenIsHidden === undefined
+        ? segment.isHidden ?? false
+        : overriddenIsHidden;
 
   const characterLineItems: CharacterLineItem[] = React.useMemo(() => [
     {
@@ -202,6 +208,17 @@ const FormContent: React.FC<LoadedProps> = ({
           />
           {' '}
           Uncertain
+        </label>
+      </div>
+      <div>
+        <label>
+          <input
+            type='checkbox'
+            checked={displayedIsHidden}
+            onChange={e => setOverriddenIsHidden(e.target.checked)}
+          />
+          {' '}
+          Hide segment
         </label>
       </div>
     </div>

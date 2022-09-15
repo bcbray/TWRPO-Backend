@@ -77,14 +77,18 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 update.isOverridden = true;
             }
 
+            if (req.body.isHidden !== undefined) {
+                update.isHidden = req.body.isHidden;
+            }
+
             await dataSource.getRepository(StreamChunk).save({
                 id: segment.id,
                 ...update,
             });
 
             const liveData = await getWrpLive(apiClient, dataSource);
-            if (liveData.streams.some(s => s.segmentId === req.body.segmentId)) {
-                // If the segment is live, force a fetch to use the new data
+            if (req.body.isHidden === false || liveData.streams.some(s => s.segmentId === req.body.segmentId)) {
+                // If the segment is live (or if we've just unhidden a segment), force a fetch to use the new data
                 await getWrpLive(apiClient, dataSource, {}, true);
             }
         } catch (error) {
