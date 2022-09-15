@@ -1268,7 +1268,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1028, name: 'Russell Woods' },
     ],
     MinksOfMars: [
-        { id: 566, name: 'Irene "Peaches" Corvus', nicknames: ['Forbidden Fruit'], factions: ['The Unhung', 'Hagen'] }, // Former Sam's Club
+        { id: 566, name: 'Irene "Peaches" Corvus', nicknames: ['Forbidden Fruit'], factions: ['Hagen'] }, // Former Sam's Club
         { id: 567, name: 'Ana Stravinski' },
         { id: 568, name: 'Willow Wisp' },
     ],
