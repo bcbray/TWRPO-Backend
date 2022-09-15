@@ -11,6 +11,7 @@ import { StreamChunkOverride1663040662484 } from './1663040662484-StreamChunkOve
 import { SessionAndUser1663053255966 } from './1663053255966-SessionAndUser';
 import { UserRole1663063450785 } from './1663063450785-UserRole';
 import { StreamChunkHidden1663189972049 } from './1663189972049-StreamChunkHidden';
+import { StreamChunkLastViewerCount1663278969808 } from './1663278969808-StreamChunkLastViewerCount';
 
 export default [
     Initial1660336359134,
@@ -26,4 +27,5 @@ export default [
     SessionAndUser1663053255966,
     UserRole1663063450785,
     StreamChunkHidden1663189972049,
+    StreamChunkLastViewerCount1663278969808,
 ];

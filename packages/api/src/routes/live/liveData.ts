@@ -805,14 +805,17 @@ const getWrpLive = async (
                         title: helixStream.title,
                         firstSeenDate: now,
                         lastSeenDate: now,
+                        lastViewerCount: helixStream.viewers,
                     };
 
                     let segmentId: number | undefined;
                     if (mostRecentStreamSegment) {
                         const { id } = mostRecentStreamSegment;
-                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate', 'characterId' | 'characterUncertain'> = {
+                        const { lastSeenDate, lastViewerCount } = chunk;
+                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate' | 'lastViewerCount', 'characterId' | 'characterUncertain'> = {
                             id,
-                            lastSeenDate: now,
+                            lastSeenDate,
+                            lastViewerCount,
                         };
                         if (!mostRecentStreamSegment.isOverridden) {
                             const { characterId, characterUncertain } = chunk;

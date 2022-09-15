@@ -45,6 +45,9 @@ export class StreamChunk {
     @Column()
     lastSeenDate: Date;
 
+    @Column({ default: 0 })
+    lastViewerCount: number;
+
     @Column({ default: false })
     isOverridden: boolean;
 
