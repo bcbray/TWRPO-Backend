@@ -1,53 +1,64 @@
 import React from 'react';
-import { SegmentAndStreamer } from '@twrpo/types';
+import { useUpdateEffect } from 'react-use';
 
 import { useStreams } from './Data';
 import { isSuccess } from './LoadingState';
 import StreamList from './StreamList';
-import { LoadTrigger } from './hooks';
+import { LoadTrigger, useInitialRender } from './hooks';
 
 interface StreamsProps {
 
 }
 
 const usePaginatedStreams = () => {
-  const [streams, setStreams] = React.useState<SegmentAndStreamer[]>([]);
   const [currentCursor, setCurrentCursor] = React.useState<string | undefined>();
-  const [nextCursor, setNextCursor] = React.useState<string | undefined>();
-  const [hasMore, setHasMore] = React.useState<boolean>(true);
+  const nextCursorRef = React.useRef<string | undefined>(undefined);
+  const hasMoreRef = React.useRef(true);
   const [loadState, reload, loadTick] = useStreams(
     currentCursor,
-    { needsLoad: hasMore }
+    { needsLoad: hasMoreRef.current }
+  );
+  const isInitialRender = useInitialRender();
+
+  const [streams, setStreams] = React.useState(
+    isInitialRender && isSuccess(loadState)
+      ? loadState.data.streams
+      : []
   );
 
-  React.useEffect(() => {
+  if (isInitialRender && isSuccess(loadState)) {
+    nextCursorRef.current = loadState.data.nextCursor;
+    hasMoreRef.current = loadState.data.nextCursor !== undefined;
+  }
+
+  useUpdateEffect(() => {
     if (isSuccess(loadState)) {
+      nextCursorRef.current = loadState.data.nextCursor;
+      hasMoreRef.current = loadState.data.nextCursor !== undefined;
       setStreams(streams => [...streams, ...loadState.data.streams]);
-      setNextCursor(loadState.data.nextCursor);
-      setHasMore(loadState.data.nextCursor !== undefined);
     }
   }, [loadState])
 
   const outerReload = React.useCallback(() => {
+    nextCursorRef.current = undefined;
+    hasMoreRef.current = true;
     setCurrentCursor(undefined);
-    setNextCursor(undefined);
-    setHasMore(true);
     reload();
   }, [reload]);
 
   const loadMore = React.useCallback(() => {
-    if (nextCursor) {
-      setCurrentCursor(nextCursor);
+    if (nextCursorRef.current) {
+      setCurrentCursor(nextCursorRef.current);
     }
-  }, [nextCursor]);
+  }, []);
 
   return {
     streams,
     reload: outerReload,
     loadTick,
-    hasMore,
+    hasMore: hasMoreRef.current,
     loadMore,
-    loadKey: nextCursor ?? '',
+    loadKey: nextCursorRef.current ?? '',
   };
 }
 
