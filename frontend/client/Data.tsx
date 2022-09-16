@@ -339,9 +339,7 @@ export const useRecentStreams = (cursor?: string, { skipsPreload = false, ...pro
   const preloaded = skipsPreload
     ? undefined
     : preloadedData.recentStreams?.[cursor ?? ''];
-  const url = `/api/v2/streams/recent${cursor ? `?cursor=${cursor}` : ''}`;
-  React.useMemo(() => console.log(url), [url]);
-  const [loadState, outerOnReload, lastLoad] = useLoading(url, {
+  const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/streams/recent${cursor ? `?cursor=${cursor}` : ''}`, {
     preloaded,
     ...props,
   });
