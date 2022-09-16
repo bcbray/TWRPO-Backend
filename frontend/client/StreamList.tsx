@@ -30,6 +30,7 @@ interface Props {
   wrapTitle?: boolean;
   showLiveBadge?: boolean;
   pastStreamStyle?: 'vivid' | 'blurred' | 'dimmed';
+  pastStreamTimeDisplay?: 'start' | 'end';
   handleRefresh: () => void;
 }
 
@@ -68,6 +69,7 @@ const StreamList: React.FC<Props> = ({
   wrapTitle = false,
   showLiveBadge = false,
   pastStreamStyle = 'dimmed',
+  pastStreamTimeDisplay = 'start',
   handleRefresh,
 }) => {
   const sorted = React.useMemo(() => {
@@ -146,6 +148,7 @@ const StreamList: React.FC<Props> = ({
                       hideStreamer={hideStreamer}
                       wrapTitle={wrapTitle}
                       pastStreamStyle={pastStreamStyle}
+                      pastStreamTimeDisplay={pastStreamTimeDisplay}
                       canShowLiveBadge={showLiveBadge}
                       handleRefresh={handleRefresh}
                     />

@@ -14,6 +14,7 @@ interface VideoSegmentCardProps {
   wrapTitle?: boolean;
   noEdit?: boolean;
   pastStreamStyle?: 'vivid' | 'blurred' | 'dimmed';
+  pastStreamTimeDisplay?: 'start' | 'end';
   canShowLiveBadge?: boolean;
   handleRefresh: () => void;
 }
@@ -29,6 +30,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
     wrapTitle,
     noEdit,
     pastStreamStyle = 'dimmed',
+    pastStreamTimeDisplay = 'start',
     canShowLiveBadge,
     handleRefresh,
   }, ref
@@ -59,6 +61,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
         wrapTitle={wrapTitle}
         noEdit={noEdit}
         thumbnailStyle={pastStreamStyle}
+        timeDisplay={pastStreamTimeDisplay}
         handleRefresh={handleRefresh}
       />
     );

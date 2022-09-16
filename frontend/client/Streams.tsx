@@ -67,9 +67,10 @@ const Streams: React.FC<StreamsProps> = () => {
         streams={[]}
         segments={streams}
         loadTick={loadTick}
-        paginationKey={'live'}
+        paginationKey='live'
         handleRefresh={() => reload}
-        pastStreamStyle={'blurred'}
+        pastStreamStyle='blurred'
+        pastStreamTimeDisplay='end'
         isLoadingMore={hasMore}
         loadMoreTrigger={
           streams.length > 0 && hasMore

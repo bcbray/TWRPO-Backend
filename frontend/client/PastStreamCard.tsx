@@ -20,6 +20,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   wrapTitle?: boolean;
   noEdit?: boolean;
   thumbnailStyle?: 'vivid' | 'blurred' | 'dimmed';
+  timeDisplay?: 'end' | 'start';
   handleRefresh: () => void;
 }
 
@@ -60,6 +61,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     wrapTitle = false,
     noEdit = false,
     thumbnailStyle = 'dimmed',
+    timeDisplay = 'start',
     handleRefresh,
     ...rest
   }, ref
@@ -69,7 +71,9 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
   const startDate = React.useMemo(() => new Date(segment.startDate), [segment.startDate])
   const endDate = React.useMemo(() => new Date(segment.endDate), [segment.endDate])
 
-  const { full: fullDate, relative: relativeDate } = useRelativeDate(startDate);
+  const { full: fullDate, relative: relativeDate } = useRelativeDate(
+    timeDisplay === 'start' ? startDate : endDate
+  );
 
   const thumbnailUrl = React.useMemo(() => {
     if (!segment.thumbnailUrl) return undefined;
