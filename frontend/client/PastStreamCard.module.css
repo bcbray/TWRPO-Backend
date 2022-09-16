@@ -13,6 +13,10 @@
   -webkit-transform: translate3d(0, 0, 0);
 }
 
+.thumbnail.hasThumbnail {
+  background-color: unset;
+}
+
 .thumbnail > a {
   display: block;
   width: 100%;
@@ -27,15 +31,93 @@
 }
 
 .dimmed .thumbnail img,
-.dimmed .thumbnail .tag {
+.container:not(.vivid) .thumbnail .tag {
   transition: filter ease-in-out .2s;
   filter: grayscale(0.7);
 }
 
 .dimmed .thumbnail:hover img,
-.dimmed .thumbnail:hover .tag {
+.container:not(.vivid) .thumbnail:hover .tag {
   filter: none;
 }
+
+
+
+
+.blurred .thumbnailBlurOverlay,
+.blurred .thumbnailColorOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+
+  /* Hacky fix for overflow: hidden not being respected during transitions */
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+.blurred .thumbnailBlurOverlay {
+  transition: backdrop-filter ease-in-out .2s;
+  backdrop-filter: blur(4px);
+}
+
+.blurred .thumbnailColorOverlay {
+  transition: opacity ease-in-out .2s;
+  opacity: 0.5;
+  background-color: var(--theme-gray-050);
+}
+
+.blurred .thumbnail:hover .thumbnailBlurOverlay {
+  backdrop-filter: none;
+}
+
+.blurred .thumbnail:hover .thumbnailColorOverlay {
+  opacity: 0;
+}
+
+.blurred .thumbnail:hover .lastStreamThumbnail {
+  opacity: 1;
+  filter: grayscale(0.0);
+}
+
+
+.blurred .thumbnail .offline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  position: absolute;
+}
+
+.blurred .thumbnail.hasThumbnail:hover .offline {
+  opacity: 0;
+}
+
+.blurred .thumbnail.hasThumbnail .offline {
+  transition: ease-in-out .2s;
+}
+
+.blurred .thumbnail .offline p {
+  margin: 0;
+  color: var(--theme-gray-100);
+  text-align: center;
+  font-size: 3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.blurred .thumbnail.hasThumbnail .offline p {
+  color: var(--theme-gray-100);
+}
+
+
+
 
 .thumbnail iframe {
   pointer-events: none;
@@ -137,6 +219,14 @@
   gap: 0.25rem;
 }
 
+.container:not(.vivid) .info {
+  filter: grayscale(0.7);
+}
+
+.container:not(.vivid):has(.thumbnail:hover) .info {
+  filter: grayscale(0.0);
+}
+
 .card .info {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -202,6 +292,10 @@
     box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
   }
 
+  :root:not(:global(.light)):not(:global(.dark)) .blurred .thumbnailColorOverlay {
+    background-color: var(--theme-gray-500);
+  }
+
   :root:not(:global(.light)):not(:global(.dark)) .channel a {
     color: var(--faction-color-dark);
   }
@@ -226,6 +320,10 @@
 
 :root:global(.dark) .pfsp {
   box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+:root:global(.dark) .blurred .thumbnailColorOverlay {
+  background-color: var(--theme-gray-500);
 }
 
 :root:global(.dark) .channel a {

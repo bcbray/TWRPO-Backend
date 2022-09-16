@@ -22,7 +22,7 @@ const Unknown: React.FC<UnknownProps> = ({ data, handleRefresh }) => {
           paginationKey='unknown'
           loadTick={0}
           noInset
-          dimPastStreams={false}
+          pastStreamStyle={'vivid'}
           showLiveBadge
           handleRefresh={handleRefresh}
         />
@@ -35,7 +35,7 @@ const Unknown: React.FC<UnknownProps> = ({ data, handleRefresh }) => {
           paginationKey='uncertain'
           loadTick={0}
           noInset
-          dimPastStreams={false}
+          pastStreamStyle={'vivid'}
           showLiveBadge
           handleRefresh={handleRefresh}
         />

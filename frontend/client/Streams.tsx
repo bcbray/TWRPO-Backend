@@ -74,6 +74,7 @@ const Streams: React.FC<StreamsProps> = () => {
           reloadLive();
           reloadRecent();
         }}
+        pastStreamStyle={'blurred'}
         isLoadingMore={recentHasMore}
         loadMoreTrigger={
           isSuccess(liveLoadState) && recent.length > 0 && recentHasMore

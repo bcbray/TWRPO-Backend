@@ -19,7 +19,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   hideStreamer?: boolean;
   wrapTitle?: boolean;
   noEdit?: boolean;
-  dimmed?: boolean;
+  thumbnailStyle?: 'vivid' | 'blurred' | 'dimmed';
   handleRefresh: () => void;
 }
 
@@ -59,7 +59,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     hideStreamer = false,
     wrapTitle = false,
     noEdit = false,
-    dimmed = true,
+    thumbnailStyle = 'dimmed',
     handleRefresh,
     ...rest
   }, ref
@@ -86,7 +86,9 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     <div
       className={classes(
         styles.container,
-        dimmed && styles.dimmed,
+        thumbnailStyle === 'vivid' && styles.vivid,
+        thumbnailStyle === 'dimmed' && styles.dimmed,
+        thumbnailStyle === 'blurred' && styles.blurred,
         className
       )}
       ref={ref}
@@ -96,15 +98,36 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
       }}
       {...rest}
     >
-      <div className={classes(styles.thumbnail, !segment.url && styles.noLink)}>
+      <div
+        className={classes(
+          styles.thumbnail,
+          !segment.url && styles.noLink,
+          loadedThumbnailUrl && styles.hasThumbnail
+        )}
+      >
         <StreamLink streamer={streamer} segment={segment}>
           {loadedThumbnailUrl &&
-            <img
-              className={styles.lastStreamThumbnail}
-              src={loadedThumbnailUrl}
-              alt={`${streamer.displayName} video thumbnail`}
-              loading='lazy'
-            />
+            <>
+              <img
+                className={styles.lastStreamThumbnail}
+                src={loadedThumbnailUrl}
+                alt={`${streamer.displayName} video thumbnail`}
+                loading='lazy'
+              />
+              {thumbnailStyle === 'blurred' &&
+                <>
+                  <div className={styles.thumbnailBlurOverlay} />
+                  <div className={styles.thumbnailColorOverlay} />
+                </>
+              }
+            </>
+          }
+          {thumbnailStyle === 'blurred' &&
+            <>
+              <div className={styles.offline}>
+                <p>Offline</p>
+              </div>
+            </>
           }
         </StreamLink>
         <div className={styles.topTags}>

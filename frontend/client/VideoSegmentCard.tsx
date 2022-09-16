@@ -13,7 +13,7 @@ interface VideoSegmentCardProps {
   hideStreamer?: boolean;
   wrapTitle?: boolean;
   noEdit?: boolean;
-  canDim?: boolean;
+  pastStreamStyle?: 'vivid' | 'blurred' | 'dimmed';
   canShowLiveBadge?: boolean;
   handleRefresh: () => void;
 }
@@ -28,7 +28,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
     hideStreamer,
     wrapTitle,
     noEdit,
-    canDim,
+    pastStreamStyle = 'dimmed',
     canShowLiveBadge,
     handleRefresh,
   }, ref
@@ -58,7 +58,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
         hideStreamer={hideStreamer}
         wrapTitle={wrapTitle}
         noEdit={noEdit}
-        dimmed={canDim}
+        thumbnailStyle={pastStreamStyle}
         handleRefresh={handleRefresh}
       />
     );

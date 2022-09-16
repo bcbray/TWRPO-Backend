@@ -181,7 +181,7 @@ const FormContent: React.FC<LoadedProps> = ({
           segment={editedSegment}
           wrapTitle
           noEdit
-          canDim={false}
+          pastStreamStyle={'vivid'}
           handleRefresh={() => {}}
         />
       </div>

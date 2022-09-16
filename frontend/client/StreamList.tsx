@@ -29,7 +29,7 @@ interface Props {
   noInset?: boolean;
   wrapTitle?: boolean;
   showLiveBadge?: boolean;
-  dimPastStreams?: boolean;
+  pastStreamStyle?: 'vivid' | 'blurred' | 'dimmed';
   handleRefresh: () => void;
 }
 
@@ -67,7 +67,7 @@ const StreamList: React.FC<Props> = ({
   noInset = false,
   wrapTitle = false,
   showLiveBadge = false,
-  dimPastStreams = true,
+  pastStreamStyle = 'dimmed',
   handleRefresh,
 }) => {
   const sorted = React.useMemo(() => {
@@ -145,7 +145,7 @@ const StreamList: React.FC<Props> = ({
                       embed={isMobile() ? false : 'hover'}
                       hideStreamer={hideStreamer}
                       wrapTitle={wrapTitle}
-                      canDim={dimPastStreams}
+                      pastStreamStyle={pastStreamStyle}
                       canShowLiveBadge={showLiveBadge}
                       handleRefresh={handleRefresh}
                     />
