@@ -152,7 +152,8 @@ export const fetchRecentStreams = async (apiClient: ApiClient, dataSource: DataS
                 .addSelect('stream_chunk.isHidden', 'isHidden')
                 .distinctOn(['stream_chunk.characterId'])
                 .where('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
-                .orderBy('stream_chunk.characterId', 'ASC');
+                .orderBy('stream_chunk.characterId', 'ASC')
+                .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
             if (liveCharacterIds.length) {
                 subQuery.andWhere('stream_chunk.characterId NOT IN (:...liveCharacterIds)', { liveCharacterIds });
             }
