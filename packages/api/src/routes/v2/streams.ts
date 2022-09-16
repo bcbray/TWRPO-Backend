@@ -278,9 +278,7 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
         } = await fetchRecentStreams(apiClient, dataSource, cursor, userResponse, DEFAULT_LIMIT - streams.length);
         streams.push(...recentStreams);
         nextCursor = recentNextCursor;
-    }
-
-    if (nextCursor === undefined) {
+    } else {
         nextCursor = serializeRecentStreamsCursor({ before: now });
     }
 
