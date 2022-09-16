@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes as RouterRoutes, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import { publicRoutes, privateRoutes, privateStandaloneRoutes, redirects } from './routes';
@@ -14,7 +15,10 @@ interface Props {
 }
 
 const App: React.FC<Props> = () => {
-  return (
+  return (<>
+    <Helmet>
+      <title>Twitch WildRP Only</title>
+    </Helmet>
     <UserProvider>
       <TrackerProvider>
         <FactionStyleContextProvider>
@@ -30,7 +34,7 @@ const App: React.FC<Props> = () => {
         </FactionStyleContextProvider>
       </TrackerProvider>
     </UserProvider>
-  );
+  </>);
 };
 
 export default App;
