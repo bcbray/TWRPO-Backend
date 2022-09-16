@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useInterval, useGetSet } from 'react-use';
 
 interface Idle_ {
@@ -84,14 +84,14 @@ export function useLoading<T>(
       : Idle
   );
   const [loadCount, setLoadCount] = useState(0);
-  const [lastLoadCount, setLastLoadCount] = useState<number | undefined>(undefined);
   const [lastLoad, setLastLoad] = useState<Date | null>(null);
-  const [lastInput, setLastInput] = useState<RequestInfo>(input);
+  const lastLoadCountRef = useRef<number | undefined>(undefined);
+  const lastInputRef = useRef<RequestInfo>(input);
   useEffect(() => {
     if (!needsLoad) {
       return;
     }
-    if (preloaded !== undefined && loadCount === 0 && input === lastInput) {
+    if (preloaded !== undefined && loadCount === 0 && input === lastInputRef.current) {
       if (isIdle(getState())) {
         if (preloaded === null) {
           setState(Failure(new NotFoundError()));
@@ -101,7 +101,7 @@ export function useLoading<T>(
       }
       return;
     }
-    if (loadCount === lastLoadCount && input === lastInput) {
+    if (loadCount === lastLoadCountRef.current && input === lastInputRef.current) {
       return;
     }
     async function performFetch(isReloadFromSuccess: boolean, isReloadFromFailure: boolean) {
@@ -121,16 +121,16 @@ export function useLoading<T>(
       }
       setLastLoad(new Date());
     }
-    const isInitialLoad = loadCount === 0 || input !== lastInput;
+    const isInitialLoad = loadCount === 0 || input !== lastInputRef.current;
     const isReloadFromSuccess = !isInitialLoad && isSuccess(getState());
     const isReloadFromFailure = !isInitialLoad && isFailure(getState());
     if (!isReloadFromSuccess && !isReloadFromFailure) {
       setState(Loading);
     }
-    setLastInput(input);
-    setLastLoadCount(loadCount);
+    lastInputRef.current = input;
+    lastLoadCountRef.current = loadCount;
     performFetch(isReloadFromSuccess, isReloadFromFailure);
-  }, [input, lastInput, loadCount, getState, setState, lastLoadCount, needsLoad, ignoreReloadFailures, onReloadFailed, onReloadSuccess, preloaded]);
+  }, [input, loadCount, getState, setState, needsLoad, ignoreReloadFailures, onReloadFailed, onReloadSuccess, preloaded]);
 
   return [getState(), () => setLoadCount(c => c + 1), lastLoad?.getTime() || 0];
 }
