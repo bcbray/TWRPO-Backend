@@ -1579,7 +1579,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 695, name: 'Poppy Pascal' },
     ],
     SalsaRage: [
-        { id: 696, name: 'Norman McCain' },
+        { id: 696, name: 'Norman McCain', factions: ['DiCenzo Group 2'] },
         { id: 697, name: 'Bitt McGee' },
     ],
     Sammyyyyyyy: [
@@ -1855,7 +1855,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Tasara22: [
         { id: 819, name: '[Sr. Deputy] Jane Ripley', factions: ['Law'] },
-        { id: 820, name: 'Elizabeth "Betty" Butcher' },
+        { id: 820, name: 'Elizabeth "Betty" Butcher' }, // Former DiCenzo (group 2)
         { id: 821, name: 'Madame Milena' },
         { id: 822, name: 'Monica Peach' },
         { id: 823, name: 'Oneida Zonta' },
