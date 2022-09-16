@@ -15,6 +15,7 @@ import {
   UnknownResponse,
   UserResponse,
   VideoSegment,
+  StreamsResponse,
 } from '@twrpo/types';
 
 import App from '../client/App';
@@ -139,6 +140,27 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
             preloadedData.segments[id] = JSON.parse(JSON.stringify(segmentResponse)) as VideoSegment | null;
+          }
+        }
+
+        if (used.usedLiveStreams) {
+          needsAnotherLoad = true;
+          const liveStreamsResponse = await api.fetchLiveStreams(userResponse);
+          // Hacky round-trip through JSON to make sure our types are converted the same
+          // TODO: Maybe we should just make an API call?
+          preloadedData.liveStreams = JSON.parse(JSON.stringify(liveStreamsResponse)) as StreamsResponse;
+        }
+
+        if (used.usedRecentStreamsCursors && used.usedRecentStreamsCursors.length) {
+          needsAnotherLoad = true;
+          if (!preloadedData.recentStreams) {
+            preloadedData.recentStreams = {};
+          }
+          for (const cursor of used.usedRecentStreamsCursors) {
+            const streamsResponse = await api.fetchRecentStreams(cursor === '' ? undefined : cursor, userResponse);
+            // Hacky round-trip through JSON to make sure our types are converted the same
+            // TODO: Maybe we should just make an API call?
+            preloadedData.recentStreams[cursor] = JSON.parse(JSON.stringify(streamsResponse)) as StreamsResponse;
           }
         }
 

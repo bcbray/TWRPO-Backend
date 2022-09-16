@@ -9,6 +9,7 @@ import {
   UnknownResponse,
   UserResponse,
   VideoSegment,
+  StreamsResponse,
 } from '@twrpo/types'
 
 import {
@@ -28,6 +29,8 @@ export interface PreloadedData {
   streamers?: Record<string, StreamerResponse | null>;
   unknown?: UnknownResponse;
   segments?: Record<number, VideoSegment | null>;
+  liveStreams?: StreamsResponse;
+  recentStreams?: Record<string, StreamsResponse>;
   currentUser?: UserResponse;
 }
 
@@ -41,6 +44,8 @@ export interface PreloadedUsed {
   usedUnknown?: boolean;
   usedCurrentUser?: boolean;
   usedSegmentIds?: number[];
+  usedLiveStreams?: boolean;
+  usedRecentStreamsCursors?: string[];
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
@@ -295,6 +300,58 @@ export const useSegment = (id: number, { skipsPreload = false, ...props }: PreLo
       preloadedData.segments = {};
     }
     preloadedData.segments[id] = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+}
+
+export const useLiveStreams = ({ skipsPreload = false, ...props }: PreLoadingProps<StreamsResponse> = {}): LoadingResult<StreamsResponse> => {
+  const preloadedData = React.useContext(PreloadedDataContext);
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.liveStreams === undefined) {
+    preloadedUsed.usedLiveStreams = true;
+  }
+  const preloaded = skipsPreload
+    ? undefined
+    : preloadedData.liveStreams;
+  const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/streams/live`, {
+    preloaded,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    preloadedData.liveStreams = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+};
+
+export const useRecentStreams = (cursor?: string, { skipsPreload = false, ...props }: PreLoadingProps<StreamsResponse> = {}): LoadingResult<StreamsResponse> => {
+  const preloadedData = React.useContext(PreloadedDataContext);
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.recentStreams?.[cursor ?? ''] === undefined) {
+    if (preloadedUsed.usedRecentStreamsCursors === undefined) {
+      preloadedUsed.usedRecentStreamsCursors = [];
+    }
+    preloadedUsed.usedRecentStreamsCursors.push(cursor ?? '');
+  }
+  const preloaded = skipsPreload
+    ? undefined
+    : preloadedData.recentStreams?.[cursor ?? ''];
+  const url = `/api/v2/streams/recent${cursor ? `?cursor=${cursor}` : ''}`;
+  React.useMemo(() => console.log(url), [url]);
+  const [loadState, outerOnReload, lastLoad] = useLoading(url, {
+    preloaded,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    if (preloadedData.recentStreams === undefined) {
+      preloadedData.recentStreams = {};
+    }
+    preloadedData.recentStreams[cursor ?? ''] = loadState.data;
   }
 
   return [loadState, outerOnReload, lastLoad];
