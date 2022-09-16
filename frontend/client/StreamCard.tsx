@@ -11,7 +11,7 @@ import {
   useOneWayBoolean,
   useDelayed,
   useWindowFocus,
-  useImageUrlOnceLoaded,
+  useUpdatedImageUrlOnceLoaded,
 } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import { useNow } from './Data';
@@ -118,7 +118,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     }${loadTick ? `?${loadTick}` : ''}`
   }, [stream.thumbnailUrl, loadTick]);
 
-  const { url: loadedThumbnailUrl } = useImageUrlOnceLoaded(thumbnailUrl);
+  const { url: loadedThumbnailUrl } = useUpdatedImageUrlOnceLoaded(thumbnailUrl);
 
   return (
     <div

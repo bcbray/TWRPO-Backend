@@ -209,12 +209,55 @@ export function useShortDate(date: Date): string {
 
 /**
  * Delays image URLs until the image has been loaded once (and thus is cached).
+ *
+ * In the case on an error, any previous URL will continue to be returned, as
+ * well as the `failed` (until a subsequent load succeeded).
+ */
+export function useImageUrlOnceLoaded<T extends (string | undefined)>(url: T): { url: T | undefined, loading: boolean, failed: boolean} {
+  const [loadedUrl, setLoadedUrl] = useState<T | undefined>(undefined);
+  const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  const onload = useCallback(() => {
+    setLoadedUrl(url);
+    setLoading(false);
+    setFailed(false);
+  }, [url]);
+
+  const onerror = useCallback(() => {
+    setLoading(false);
+    setFailed(true);
+  }, []);
+
+  useEffect(() => {
+    if (!url || !document) {
+      setLoading(false);
+      setFailed(false);
+      setLoadedUrl(url);
+      return;
+    }
+    setLoading(true);
+    const image = new Image();
+    image.addEventListener('load', onload);
+    image.addEventListener('error', onerror);
+    image.src = url;
+    return () => {
+      image.removeEventListener('load', onload);
+      image.removeEventListener('error', onerror);
+    }
+  }, [url, onload, onerror]);
+
+  return { url: loadedUrl, loading, failed };
+}
+
+/**
+ * Delays image URLs until the image has been loaded once (and thus is cached).
  * The initial URL will be returned immediately and no pre-loading will occur.
  *
  * In the case on an error, the previous URL will continue to be returned, as
  * well as the `failed` (until a subsequent load succeeded).
  */
-export function useImageUrlOnceLoaded<T extends (string | undefined)>(url: T): { url: T, loading: boolean, failed: boolean} {
+export function useUpdatedImageUrlOnceLoaded<T extends (string | undefined)>(url: T): { url: T, loading: boolean, failed: boolean} {
   const [loadedUrl, setLoadedUrl] = useState(url);
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
