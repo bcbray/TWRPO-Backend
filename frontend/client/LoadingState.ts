@@ -91,7 +91,7 @@ export function useLoading<T>(
     if (!needsLoad) {
       return;
     }
-    if (preloaded !== undefined && loadCount === 0) {
+    if (preloaded !== undefined && loadCount === 0 && input === lastInput) {
       if (isIdle(getState())) {
         if (preloaded === null) {
           setState(Failure(new NotFoundError()));
