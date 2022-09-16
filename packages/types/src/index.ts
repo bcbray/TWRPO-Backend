@@ -18,6 +18,7 @@ import type OverrideSegmentRequest from './OverrideSegmentRequest';
 import type User from './User';
 import type UserRole from './UserRole';
 import type UserResponse from './UserResponse';
+import type StreamsResponse from './StreamsResponse';
 
 
 export {
@@ -41,4 +42,5 @@ export {
   User,
   UserRole,
   UserResponse,
+  StreamsResponse,
 }

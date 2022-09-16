@@ -12,6 +12,7 @@ import {
     UnknownResponse,
     UserResponse,
     VideoSegment,
+    StreamsResponse,
 } from '@twrpo/types';
 
 import { getFilteredWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
@@ -20,6 +21,7 @@ import { fetchFactions } from './routes/v2/factions';
 import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
 import { fetchUnknown } from './routes/v2/unknown';
 import { fetchSegment } from './routes/v2/segments';
+import { fetchLiveStreams, fetchRecentStreams, deserializeRecentStreamsCursor } from './routes/v2/streams';
 import { fetchSessionUser } from './routes/v2/whoami';
 import routes from './routes';
 import dataSource from './db/dataSource';
@@ -68,6 +70,7 @@ class Api {
         this.apiRouter.use('/v2/streamers', routes.v2StreamersRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/unknown', routes.v2UnknownRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/segments', routes.v2SegmentsRouter(this.twitchClient, this.dataSource));
+        this.apiRouter.use('/v2/streams', routes.v2StreamsRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/whoami', routes.v2WhoamiRouter(this.dataSource));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter);
         this.apiRouter.use('/v2/admin/override-segment', routes.v2AdminOverrideSegmentRouter(this.twitchClient, this.dataSource));
@@ -109,6 +112,19 @@ class Api {
 
     public async fetchSegment(id: number, currentUser: UserResponse): Promise<VideoSegment | null> {
         return fetchSegment(this.twitchClient, this.dataSource, id, currentUser);
+    }
+
+    public async fetchLiveStreams(currentUser: UserResponse): Promise<StreamsResponse> {
+        return fetchLiveStreams(this.twitchClient, this.dataSource, currentUser);
+    }
+
+    public async fetchRecentStreams(cursor: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
+        const deserializedCursor = cursor ? deserializeRecentStreamsCursor(cursor) : undefined;
+        if (deserializedCursor === null) {
+            console.error('Invalid cursor');
+            return { streams: [] };
+        }
+        return fetchRecentStreams(this.twitchClient, this.dataSource, deserializedCursor, currentUser);
     }
 
     public async fetchSessionUser(sessionUser: SessionUser | undefined): Promise<UserResponse> {

@@ -7,6 +7,7 @@ import v2StreamersRouter from './v2/streamers';
 import v2UnknownRouter from './v2/unknown';
 import v2SegmentsRouter from './v2/segments';
 import v2WhoamiRouter from './v2/whoami';
+import v2StreamsRouter from './v2/streams';
 import v2AdminOverrideSegmentRouter from './v2/admin/override-segment';
 
 export default {
@@ -18,5 +19,6 @@ export default {
     v2UnknownRouter,
     v2SegmentsRouter,
     v2WhoamiRouter,
+    v2StreamsRouter,
     v2AdminOverrideSegmentRouter,
 };
