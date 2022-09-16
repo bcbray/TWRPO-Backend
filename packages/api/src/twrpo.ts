@@ -21,7 +21,7 @@ import { fetchFactions } from './routes/v2/factions';
 import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
 import { fetchUnknown } from './routes/v2/unknown';
 import { fetchSegment } from './routes/v2/segments';
-import { fetchLiveStreams, fetchRecentStreams, fetchStreams, deserializeRecentStreamsCursor } from './routes/v2/streams';
+import { fetchLiveStreams, fetchRecentStreams, fetchStreams, fetchUnknownStreams, deserializeRecentStreamsCursor } from './routes/v2/streams';
 import { fetchSessionUser } from './routes/v2/whoami';
 import routes from './routes';
 import dataSource from './db/dataSource';
@@ -134,6 +134,15 @@ class Api {
             return { streams: [] };
         }
         return fetchStreams(this.twitchClient, this.dataSource, deserializedCursor, currentUser);
+    }
+
+    public async fetchUnknownStreams(cursor: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
+        const deserializedCursor = cursor ? deserializeRecentStreamsCursor(cursor) : undefined;
+        if (deserializedCursor === null) {
+            console.error('Invalid cursor');
+            return { streams: [] };
+        }
+        return fetchUnknownStreams(this.twitchClient, this.dataSource, deserializedCursor, currentUser);
     }
 
     public async fetchSessionUser(sessionUser: SessionUser | undefined): Promise<UserResponse> {

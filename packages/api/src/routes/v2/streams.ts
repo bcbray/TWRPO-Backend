@@ -285,6 +285,143 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
     return { streams, nextCursor };
 };
 
+export const fetchUnknownStreams = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    cursor: RecentStreamsCursor | undefined,
+    userResponse: UserResponse
+): Promise<StreamsResponse> => {
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
+    const liveDataLookup = Object.fromEntries(liveData.streams
+        .filter(s => s.segmentId)
+        .map(s => [s.segmentId!, s]));
+
+    const characters = await fetchCharacters(apiClient, dataSource, userResponse);
+    const characterLookup = Object.fromEntries(
+        characters.characters.map(c => [c.id, c])
+    );
+
+    const queryBuilder = dataSource
+        .createQueryBuilder()
+        .select('*')
+        .from((qb) => {
+            const subQuery = qb
+                .subQuery()
+                .from(StreamChunk, 'stream_chunk')
+                .select('stream_chunk.id', 'id')
+                .addSelect('stream_chunk.characterId', 'characterId')
+                .addSelect('stream_chunk.characterUncertain', 'characterUncertain')
+                .addSelect('stream_chunk.streamerId', 'streamerId')
+                .addSelect('stream_chunk.streamId', 'streamId')
+                .addSelect('stream_chunk.streamStartDate', 'streamStartDate')
+                .addSelect('stream_chunk.title', 'title')
+                .addSelect('stream_chunk.firstSeenDate', 'firstSeenDate')
+                .addSelect('stream_chunk.lastSeenDate', 'lastSeenDate')
+                .addSelect('stream_chunk.lastViewerCount', 'lastViewerCount')
+                .addSelect('stream_chunk.isOverridden', 'isOverridden')
+                .addSelect('stream_chunk.isHidden', 'isHidden')
+                .where('(stream_chunk.characterId IS NULL OR (stream_chunk.characterId IS NOT NULL AND stream_chunk.characterUncertain = true))')
+                .orderBy('stream_chunk.lastSeenDate', 'DESC');
+            if (!isGlobalEditor(userResponse)) {
+                subQuery
+                    .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+                    .andWhere('stream_chunk.isHidden = false');
+            }
+            return subQuery;
+        }, 'recent_chunk')
+        .orderBy('"lastSeenDate"', 'DESC')
+        .limit(DEFAULT_LIMIT);
+
+    if (cursor) {
+        queryBuilder
+            .andWhere('"lastSeenDate" < :before::timestamp without time zone', { before: cursor.before });
+    }
+
+    const sameLastDateQueryBuilder = queryBuilder.clone();
+
+    const rawSegments: Raw<StreamChunk>[] = await queryBuilder.execute();
+    const lastSegment = rawSegments.length > 0 ? rawSegments[rawSegments.length - 1] : undefined;
+    if (lastSegment) {
+        // Fetch any additional segments that share the same lastSeenDate with
+        // the final segment from the primary query (otherwise they’ll be skipped)
+        // when we fetch the next segment (where we’ll only include items
+        // _before_ that final lastSeenDate)
+        sameLastDateQueryBuilder
+            .andWhere('"lastSeenDate" = :lastSegmentLastSeenDate::timestamp without time zone', { lastSegmentLastSeenDate: lastSegment.lastSeenDate })
+            .andWhere('"id" NOT IN (:...alreadyFetchedStreamIds)', { alreadyFetchedStreamIds: rawSegments.map(s => s.id) });
+        const sameDateRawSegments = await sameLastDateQueryBuilder.execute();
+        rawSegments.push(...sameDateRawSegments);
+    }
+
+    const streamerIds = rawSegments.map(s => s.streamerId);
+    const channels = streamerIds.length > 0
+        ? await dataSource.getRepository(TwitchChannel).findBy({
+            twitchId: In(streamerIds),
+        })
+        : [];
+    const channelLookup = Object.fromEntries(channels.map(c => [c.twitchId, c]));
+
+    const streamIds = rawSegments.map(s => s.streamId);
+    const videos = streamIds.length > 0
+        ? await dataSource.getRepository(Video).findBy({
+            streamId: In(streamIds),
+        })
+        : [];
+    const videoLookup = Object.fromEntries(videos.map(v => [v.streamId, v]));
+
+    const rawToReal = (raw: Raw<StreamChunk>): StreamChunk => {
+        const { streamStartDate, firstSeenDate, lastSeenDate, ...rest } = raw;
+        return {
+            channel: channelLookup[rest.streamerId],
+            video: videoLookup[rest.streamId],
+            streamStartDate: new Date(streamStartDate),
+            firstSeenDate: new Date(firstSeenDate),
+            lastSeenDate: new Date(lastSeenDate),
+            ...rest,
+        };
+    };
+
+    const segments = rawSegments.map(rawToReal);
+
+    const segmentAndStreamer = (segment: StreamChunk): SegmentAndStreamer => {
+        const url = segment.video
+            ? videoUrlOffset(segment.video.url, segment.streamStartDate, segment.firstSeenDate)
+            : undefined;
+        return {
+            streamer: {
+                twitchId: segment.channel!.twitchId,
+                twitchLogin: segment.channel!.twitchLogin,
+                displayName: segment.channel!.displayName,
+                profilePhotoUrl: segment.channel!.profilePhotoUrl,
+            },
+            segment: {
+                id: segment.id,
+                title: segment.title,
+                url,
+                thumbnailUrl: segment.video?.thumbnailUrl,
+                startDate: segment.firstSeenDate.toISOString(),
+                endDate: segment.lastSeenDate.toISOString(),
+                character: segment.characterId ? characterLookup[segment.characterId] : null,
+                characterUncertain: segment.characterUncertain,
+                liveInfo: liveDataLookup[segment.id],
+                streamId: segment.streamId,
+                isHidden: segment.isHidden,
+            },
+        };
+    };
+
+    const streams = segments
+        .filter(s => s.channel)
+        .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
+        .map(segmentAndStreamer);
+
+    const nextCursor = rawSegments.length
+        ? serializeRecentStreamsCursor({ before: new Date(rawSegments[rawSegments.length - 1].lastSeenDate) })
+        : undefined;
+
+    return { streams, nextCursor };
+};
+
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
@@ -323,6 +460,22 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
         const response = await fetchRecentStreams(apiClient, dataSource, cursor, userResponse);
+        return res.send(response);
+    });
+
+    router.get('/unknown', async (req, res) => {
+        const { cursor: cursorString } = req.query;
+        if (cursorString !== undefined && typeof cursorString !== 'string') {
+            return res.status(400).send({ success: false, message: '`cursor` parameter must be a string' });
+        }
+        const cursor = cursorString
+            ? deserializeRecentStreamsCursor(cursorString)
+            : undefined;
+        if (cursor === null) {
+            return res.status(400).send({ success: false, message: `"${cursorString}" is an invalid cursor` });
+        }
+        const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        const response = await fetchUnknownStreams(apiClient, dataSource, cursor, userResponse);
         return res.send(response);
     });
 

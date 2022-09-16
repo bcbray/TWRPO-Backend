@@ -1,20 +1,23 @@
 import React from 'react';
 import { useUpdateEffect } from 'react-use';
+import { StreamsResponse } from '@twrpo/types';
 
-import { useStreams } from './Data';
-import { isSuccess } from './LoadingState';
+import { useStreams, useUnknwonStreams, PreLoadingProps } from './Data';
+import { isSuccess, LoadingResult } from './LoadingState';
 import StreamList from './StreamList';
 import { LoadTrigger, useInitialRender } from './hooks';
 
 interface StreamsProps {
-
+  type?: 'live' | 'unknown'
 }
 
-const usePaginatedStreams = () => {
+const usePaginatedStreams = (
+  loader: (cursor: string | undefined, props: PreLoadingProps<StreamsResponse>) => LoadingResult<StreamsResponse>
+) => {
   const [currentCursor, setCurrentCursor] = React.useState<string | undefined>();
   const nextCursorRef = React.useRef<string | undefined>(undefined);
   const hasMoreRef = React.useRef(true);
-  const [loadState, reload, loadTick] = useStreams(
+  const [loadState, reload, loadTick] = loader(
     currentCursor,
     { needsLoad: hasMoreRef.current }
   );
@@ -62,7 +65,9 @@ const usePaginatedStreams = () => {
   };
 }
 
-const Streams: React.FC<StreamsProps> = () => {
+const Streams: React.FC<StreamsProps> = ({
+  type = 'live',
+}) => {
   const {
     streams,
     reload,
@@ -70,7 +75,11 @@ const Streams: React.FC<StreamsProps> = () => {
     hasMore,
     loadMore,
     loadKey,
-  } = usePaginatedStreams();
+  } = usePaginatedStreams(
+    type === 'live'
+      ? useStreams
+      : useUnknwonStreams,
+  );
 
   return (
     <div className='content inset'>
@@ -80,7 +89,12 @@ const Streams: React.FC<StreamsProps> = () => {
         loadTick={loadTick}
         paginationKey='live'
         handleRefresh={() => reload}
-        pastStreamStyle='blurred'
+        pastStreamStyle={
+          type === 'live'
+            ? 'blurred'
+            : 'vivid'
+        }
+        showLiveBadge={type === 'unknown'}
         pastStreamTimeDisplay='end'
         isLoadingMore={hasMore}
         loadMoreTrigger={

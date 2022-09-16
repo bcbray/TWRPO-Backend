@@ -28,6 +28,7 @@ export const privateRoutes = <>
   <Route path="/utils/crossfade" element={<CrossfadeHelper />} />
   <Route path="/utils/unknown" element={<UnknownContainer />} />
   <Route path="/utils/streams" element={<Streams />} />
+  <Route path="/utils/streams/unknown" element={<Streams type='unknown' />} />
 </>;
 
 export const privateStandaloneRoutes = <>
