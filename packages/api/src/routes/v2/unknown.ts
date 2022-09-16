@@ -10,6 +10,7 @@ import { videoUrlOffset } from '../../utils';
 import { isEditorForTwitchId } from '../../userUtils';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
+import { chunkIsShorterThanMinimum, chunkIsRecent } from '../../segmentUtils';
 
 export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource, userResponse: UserResponse): Promise<UnknownResponse> => {
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
@@ -67,6 +68,7 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource,
                 liveInfo: liveDataLookup[segment.id],
                 streamId: segment.streamId,
                 isHidden: segment.isHidden,
+                isTooShort: chunkIsShorterThanMinimum(segment) && !chunkIsRecent(segment),
             },
         };
     };
@@ -74,12 +76,12 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource,
     return {
         unknown: unknownSegments
             .filter(s => s.channel)
-            .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
-            .map(segmentAndStreamer),
+            .map(segmentAndStreamer)
+            .filter(({ streamer, segment }) => (!segment.isHidden && !segment.isTooShort) || isEditorForTwitchId(streamer.twitchId, userResponse)),
         uncertain: uncertainSegments
             .filter(s => s.channel)
-            .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
-            .map(segmentAndStreamer),
+            .map(segmentAndStreamer)
+            .filter(({ streamer, segment }) => (!segment.isHidden && !segment.isTooShort) || isEditorForTwitchId(streamer.twitchId, userResponse)),
     };
 };
 

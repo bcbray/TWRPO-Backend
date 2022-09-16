@@ -134,6 +134,11 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
             </>
           }
         </StreamLink>
+        {segment.isHidden &&
+          <div className={styles.hiddenOverlay}>
+            <EyeSlashFill title='Segment is hidden' />
+          </div>
+        }
         <div className={styles.topTags}>
           <Tag className={classes(styles.tag, styles.name)}>
             <p>
@@ -157,14 +162,23 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
         <Tag className={classes(styles.tag, styles.viewers)}>
           <p title={fullDate}>{relativeDate}</p>
         </Tag>
-        <Tag className={classes(styles.tag, styles.runtime)}>
-          <p>{formatDuration(startDate, endDate)}</p>
+        <Tag
+          className={classes(
+            styles.tag,
+            styles.runtime,
+            segment.isTooShort && styles.tooShort
+          )}
+          title={segment.isTooShort ? 'Segment is excluded due to being too short' : undefined}
+        >
+          <p>
+            {segment.isTooShort &&
+              <span className={styles.icon}>
+                <EyeSlashFill />
+              </span>
+            }
+            {formatDuration(startDate, endDate)}
+          </p>
         </Tag>
-        {segment.isHidden &&
-          <div className={styles.hiddenOverlay}>
-            <EyeSlashFill />
-          </div>
-        }
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
         {!hideStreamer &&

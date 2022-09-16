@@ -15,6 +15,7 @@ import { videoUrlOffset } from '../../utils';
 import { isEditorForTwitchId } from '../../userUtils';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
+import { minimumSegmentLengthMinutes, chunkIsShorterThanMinimum, chunkIsRecent } from '../../segmentUtils';
 
 const charactersLookup = Object.fromEntries(
     Object.entries(wrpCharacters).map(([s, c]) => [s.toLowerCase(), c])
@@ -90,11 +91,12 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
             take: 24,
         });
 
-    const now = new Date();
-
-    const validSegments = allSegments.filter(chunk =>
-        chunk.lastSeenDate.getTime() - chunk.firstSeenDate.getTime() > 1000 * 60 * 3
-        || now.getTime() - chunk.lastSeenDate.getTime() < 1000 * 60 * 4);
+    const validSegments = allSegments
+        .map(chunk => ({
+            ...chunk,
+            isTooShort: chunkIsShorterThanMinimum(chunk) && !chunkIsRecent(chunk),
+        }))
+        .filter(chunk => includeHiddenSegments || !chunk.isTooShort);
 
     if (rawCharacters.length === 0 && validSegments.length === 0) {
         // If we have neither characters nor videos, ignore this streamer
@@ -164,7 +166,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
                 .where('stream_chunk.characterId IS NOT NULL')
                 .andWhere('stream_chunk.streamerId = :streamerId', { streamerId: channel.twitchId })
                 .andWhere('stream_chunk.characterUncertain = false')
-                .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+                .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate >= make_interval(mins => :minimumSegmentLengthMinutes)', { minimumSegmentLengthMinutes })
                 .groupBy('stream_chunk.streamerId')
                 .addGroupBy('stream_chunk.streamId')
                 .addGroupBy('stream_chunk.characterId')
@@ -240,6 +242,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
                         : undefined,
                     streamId: segment.streamId,
                     isHidden: segment.isHidden,
+                    isTooShort: segment.isTooShort,
                 };
             }),
     };

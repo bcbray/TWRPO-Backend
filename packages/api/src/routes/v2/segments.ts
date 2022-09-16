@@ -9,6 +9,7 @@ import { videoUrlOffset } from '../../utils';
 import { fetchCharacters } from './characters';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
+import { chunkIsShorterThanMinimum } from '../../segmentUtils';
 
 export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource, id: number, currentUser: UserResponse): Promise<VideoSegment | null> => {
     const segment = await dataSource
@@ -49,6 +50,7 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
         liveInfo,
         streamId: segment.streamId,
         isHidden: segment.isHidden,
+        isTooShort: chunkIsShorterThanMinimum(segment),
     };
 };
 

@@ -12,6 +12,7 @@ import { videoUrlOffset } from '../../utils';
 import { isEditorForTwitchId, isGlobalEditor } from '../../userUtils';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
+import { minimumSegmentLengthMinutes, chunkIsShorterThanMinimum } from '../../segmentUtils';
 
 export const fetchLiveStreams = async (apiClient: ApiClient, dataSource: DataSource, userResponse: UserResponse): Promise<StreamsResponse> => {
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
@@ -64,6 +65,7 @@ export const fetchLiveStreams = async (apiClient: ApiClient, dataSource: DataSou
                 liveInfo: liveDataLookup[segment.id],
                 streamId: segment.streamId,
                 isHidden: segment.isHidden,
+                isTooShort: false, // Live streams are never excluded for length
             },
         };
     };
@@ -158,14 +160,16 @@ export const fetchRecentStreams = async (
                 .addSelect('stream_chunk.isOverridden', 'isOverridden')
                 .addSelect('stream_chunk.isHidden', 'isHidden')
                 .distinctOn(['stream_chunk.characterId'])
-                .where('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+                .where('true')
                 .orderBy('stream_chunk.characterId', 'ASC')
                 .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
             if (liveCharacterIds.length) {
                 subQuery.andWhere('stream_chunk.characterId NOT IN (:...liveCharacterIds)', { liveCharacterIds });
             }
             if (!isGlobalEditor(userResponse)) {
-                subQuery.andWhere('stream_chunk.isHidden = false');
+                subQuery
+                    .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate >= make_interval(mins => :minimumSegmentLengthMinutes)', { minimumSegmentLengthMinutes })
+                    .andWhere('stream_chunk.isHidden = false');
             }
             return subQuery;
         }, 'recent_chunk')
@@ -245,6 +249,7 @@ export const fetchRecentStreams = async (
                 characterUncertain: segment.characterUncertain,
                 streamId: segment.streamId,
                 isHidden: segment.isHidden,
+                isTooShort: chunkIsShorterThanMinimum(segment),
             },
         };
     };
@@ -292,6 +297,7 @@ export const fetchUnknownStreams = async (
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
+    const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
     const liveDataLookup = Object.fromEntries(liveData.streams
         .filter(s => s.segmentId)
         .map(s => [s.segmentId!, s]));
@@ -323,9 +329,20 @@ export const fetchUnknownStreams = async (
                 .where('(stream_chunk.characterId IS NULL OR (stream_chunk.characterId IS NOT NULL AND stream_chunk.characterUncertain = true))')
                 .orderBy('stream_chunk.lastSeenDate', 'DESC');
             if (!isGlobalEditor(userResponse)) {
-                subQuery
-                    .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
-                    .andWhere('stream_chunk.isHidden = false');
+                subQuery.andWhere('stream_chunk.isHidden = false');
+                if (liveSegmentIds.length) {
+                    subQuery
+                        .andWhere(
+                            '(stream_chunk.lastSeenDate - stream_chunk.firstSeenDate >= make_interval(mins => :minimumSegmentLengthMinutes) OR stream_chunk.id IN (:...liveSegmentIds))',
+                            { minimumSegmentLengthMinutes, liveSegmentIds }
+                        );
+                } else {
+                    subQuery
+                        .andWhere(
+                            'stream_chunk.lastSeenDate - stream_chunk.firstSeenDate >= make_interval(mins => :minimumSegmentLengthMinutes)',
+                            { minimumSegmentLengthMinutes }
+                        );
+                }
             }
             return subQuery;
         }, 'recent_chunk')
@@ -406,6 +423,7 @@ export const fetchUnknownStreams = async (
                 liveInfo: liveDataLookup[segment.id],
                 streamId: segment.streamId,
                 isHidden: segment.isHidden,
+                isTooShort: chunkIsShorterThanMinimum(segment),
             },
         };
     };
