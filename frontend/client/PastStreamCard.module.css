@@ -220,10 +220,11 @@
 }
 
 .container:not(.vivid) .info {
+  transition: filter ease-in-out .2s;
   filter: grayscale(0.7);
 }
 
-.container:not(.vivid):has(.thumbnail:hover) .info {
+.container:not(.vivid):hover .info {
   filter: grayscale(0.0);
 }
 
