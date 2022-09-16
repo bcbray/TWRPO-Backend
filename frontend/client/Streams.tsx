@@ -1,7 +1,7 @@
 import React from 'react';
 import { SegmentAndStreamer } from '@twrpo/types';
 
-import { useLiveStreams, useRecentStreams } from './Data';
+import { useStreams } from './Data';
 import { isSuccess } from './LoadingState';
 import StreamList from './StreamList';
 import { LoadTrigger } from './hooks';
@@ -10,12 +10,12 @@ interface StreamsProps {
 
 }
 
-const usePaginatedRecentStreams = () => {
+const usePaginatedStreams = () => {
   const [streams, setStreams] = React.useState<SegmentAndStreamer[]>([]);
   const [currentCursor, setCurrentCursor] = React.useState<string | undefined>();
   const [nextCursor, setNextCursor] = React.useState<string | undefined>();
   const [hasMore, setHasMore] = React.useState<boolean>(true);
-  const [loadState, reload, loadTick] = useRecentStreams(
+  const [loadState, reload, loadTick] = useStreams(
     currentCursor,
     { needsLoad: hasMore }
   );
@@ -52,33 +52,28 @@ const usePaginatedRecentStreams = () => {
 }
 
 const Streams: React.FC<StreamsProps> = () => {
-  const [liveLoadState, reloadLive, liveLoadTick] = useLiveStreams();
   const {
-    streams: recent,
-    reload: reloadRecent,
-    loadTick: recentLoadTick,
-    hasMore: recentHasMore,
-    loadMore: loadMoreRecent,
-    loadKey: recentLoadKey,
-  } = usePaginatedRecentStreams();
+    streams,
+    reload,
+    loadTick,
+    hasMore,
+    loadMore,
+    loadKey,
+  } = usePaginatedStreams();
 
-  const live = isSuccess(liveLoadState) ? liveLoadState.data.streams : [];
   return (
     <div className='content inset'>
       <StreamList
         streams={[]}
-        segments={[...live, ...recent]}
-        loadTick={liveLoadTick + recentLoadTick}
+        segments={streams}
+        loadTick={loadTick}
         paginationKey={'live'}
-        handleRefresh={() => {
-          reloadLive();
-          reloadRecent();
-        }}
+        handleRefresh={() => reload}
         pastStreamStyle={'blurred'}
-        isLoadingMore={recentHasMore}
+        isLoadingMore={hasMore}
         loadMoreTrigger={
-          isSuccess(liveLoadState) && recent.length > 0 && recentHasMore
-            ? <LoadTrigger key={recentLoadKey} loadMore={loadMoreRecent} />
+          streams.length > 0 && hasMore
+            ? <LoadTrigger key={loadKey} loadMore={loadMore} />
             : undefined
         }
       />
