@@ -88,6 +88,7 @@ const Streams: React.FC<StreamsProps> = () => {
             ? <LoadTrigger key={loadKey} loadMore={loadMore} />
             : undefined
         }
+        noInset
       />
     </div>
   );
