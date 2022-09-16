@@ -47,7 +47,15 @@ const StreamerLink: React.FC<StreamerLinkProps> = ({ streamer, className, style,
   </OutboundLink>
 );
 
-const Streamer: React.FC<StreamerProps> = ({ data, loadTick, handleRefresh }) => {
+const Streamer: React.FC<StreamerProps> = ({
+  data: {
+    streamer,
+    characters,
+    recentSegments,
+  },
+  loadTick,
+  handleRefresh
+}) => {
   const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
   const handleShowFeedback = React.useCallback(<T,>(e: React.MouseEvent<T>) => {
     setShowingFeedbackModal(true);
@@ -60,25 +68,25 @@ const Streamer: React.FC<StreamerProps> = ({ data, loadTick, handleRefresh }) =>
   return (
     <>
       <Helmet>
-        <title>Twitch WildRP Only - {data.streamer.displayName} WildRP Streams & Characters</title>
+        <title>Twitch WildRP Only - {streamer.displayName} WildRP Streams & Characters</title>
         <meta
           name='description'
-          content={`${data.streamer.displayName} WildRP streams and character information.`}
+          content={`${streamer.displayName} WildRP streams and character information.`}
         />
       </Helmet>
-      <div className={classes('inset', styles.content, data.characters.length === 0 && styles.noCharacters)}>
+      <div className={classes('inset', styles.content, characters.length === 0 && styles.noCharacters)}>
         <div className={styles.streamer}>
           <h2>
           <StreamerLink
             className={styles.channelLink}
-            streamer={data.streamer}
+            streamer={streamer}
           >
             <ProfilePhoto
               channelInfo={{
-                id: data.streamer.twitchId,
-                login: data.streamer.twitchLogin,
-                displayName: data.streamer.displayName,
-                profilePictureUrl: data.streamer.profilePhotoUrl,
+                id: streamer.twitchId,
+                login: streamer.twitchLogin,
+                displayName: streamer.displayName,
+                profilePictureUrl: streamer.profilePhotoUrl,
               }}
               size='lg'
               style={{
@@ -86,7 +94,7 @@ const Streamer: React.FC<StreamerProps> = ({ data, loadTick, handleRefresh }) =>
               }}
             />
             <span>
-              {data.streamer.displayName}
+              {streamer.displayName}
               {' '}
               <Twitch className={styles.twitchLogo} />
             </span>
@@ -97,9 +105,9 @@ const Streamer: React.FC<StreamerProps> = ({ data, loadTick, handleRefresh }) =>
           <h3>
             Characters
           </h3>
-          {data.characters.length > 0 ? (
+          {characters.length > 0 ? (
             <CharactersTable
-              characters={data.characters}
+              characters={characters}
               factionDestination='streams'
               hideStreamer
               noInset
@@ -108,18 +116,18 @@ const Streamer: React.FC<StreamerProps> = ({ data, loadTick, handleRefresh }) =>
             />
           ) : (
             <p>
-              {`We don’t know about characters for ${data.streamer.displayName}. `}
+              {`We don’t know about characters for ${streamer.displayName}. `}
               If you do, please <Button as='span' className='linkish' onClick={handleShowFeedback}>suggest one</Button>.
             </p>
           )}
         </div>
         <div className={styles.recentStreams}>
           <h3>Recent Streams</h3>
-          {data.streamer.liveInfo !== undefined || data.recentSegments.length > 0 ? (
+          {streamer.liveInfo !== undefined || recentSegments.length > 0 ? (
             <StreamList
               streams={[]}
-              segments={data.recentSegments.map(segment => ({ streamer: data.streamer, segment }))}
-              paginationKey={data.streamer.twitchId}
+              segments={recentSegments.map(segment => ({ streamer, segment }))}
+              paginationKey={streamer.twitchId}
               loadTick={loadTick}
               hideStreamer
               noInset
@@ -128,7 +136,7 @@ const Streamer: React.FC<StreamerProps> = ({ data, loadTick, handleRefresh }) =>
               handleRefresh={handleRefresh}
             />
           ) : (
-            <p>{`We don’t have any past streams tracked for ${data.streamer.displayName}.`}</p>
+            <p>{`We don’t have any past streams tracked for ${streamer.displayName}.`}</p>
           )}
         </div>
       </div>
