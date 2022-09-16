@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import isMobile from 'is-mobile';
-import { Stream, CharacterInfo, Streamer, VideoSegment } from '@twrpo/types';
+import { Stream, CharacterInfo, Streamer, VideoSegment, SegmentAndStreamer } from '@twrpo/types';
 
 import styles from './StreamList.module.css';
 import StreamCard from './StreamCard';
@@ -17,7 +17,7 @@ type Order = 'asc' | 'desc';
 
 interface Props {
   streams: Stream[];
-  segments?: [Streamer, VideoSegment][];
+  segments?: SegmentAndStreamer[];
   offlineCharacters?: CharacterInfo[];
   isLoadingMore?: boolean;
   paginationKey: string;
@@ -89,7 +89,7 @@ const StreamList: React.FC<Props> = ({
   const allItems = React.useMemo(() => (
     [
       ...sorted.map(liveItem),
-      ...segments.map(([streamer, segment]) => segmentItem(streamer, segment)),
+      ...segments.map(({ streamer, segment }) => segmentItem(streamer, segment)),
       ...offlineCharacters.map(offlineItem),
     ]
   ), [sorted, segments, offlineCharacters]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UnknownResponse, Streamer, VideoSegment } from '@twrpo/types';
+import { UnknownResponse } from '@twrpo/types';
 
 import styles from './Unknown.module.css';
 
@@ -12,15 +12,13 @@ interface UnknownProps {
 }
 
 const Unknown: React.FC<UnknownProps> = ({ data, handleRefresh }) => {
-  const unknown: [Streamer, VideoSegment][] = data.unknown.map(({streamer, segment}) => [streamer, segment]);
-  const uncertain: [Streamer, VideoSegment][] = data.uncertain.map(({streamer, segment}) => [streamer, segment]);
   return (
     <div className={classes('inset', styles.container)}>
       <div>
         <h2>Unknown</h2>
         <StreamList
           streams={[]}
-          segments={unknown}
+          segments={data.unknown}
           paginationKey='unknown'
           loadTick={0}
           noInset
@@ -33,7 +31,7 @@ const Unknown: React.FC<UnknownProps> = ({ data, handleRefresh }) => {
         <h2>Uncertain</h2>
         <StreamList
           streams={[]}
-          segments={uncertain}
+          segments={data.uncertain}
           paginationKey='uncertain'
           loadTick={0}
           noInset

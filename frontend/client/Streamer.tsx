@@ -118,7 +118,7 @@ const Streamer: React.FC<StreamerProps> = ({ data, loadTick, handleRefresh }) =>
           {data.streamer.liveInfo !== undefined || data.recentSegments.length > 0 ? (
             <StreamList
               streams={[]}
-              segments={data.recentSegments.map(s => [data.streamer, s])}
+              segments={data.recentSegments.map(segment => ({ streamer: data.streamer, segment }))}
               paginationKey={data.streamer.twitchId}
               loadTick={loadTick}
               hideStreamer
