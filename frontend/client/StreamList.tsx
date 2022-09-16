@@ -20,6 +20,7 @@ interface Props {
   segments?: SegmentAndStreamer[];
   offlineCharacters?: CharacterInfo[];
   isLoadingMore?: boolean;
+  loadMoreTrigger?: React.ReactElement;
   paginationKey: string;
   loadTick: number;
   sort?: SortBy;
@@ -57,6 +58,7 @@ const StreamList: React.FC<Props> = ({
   segments = [],
   offlineCharacters = [],
   isLoadingMore = false,
+  loadMoreTrigger,
   loadTick,
   paginationKey,
   sort = 'viewers',
@@ -94,7 +96,7 @@ const StreamList: React.FC<Props> = ({
     ]
   ), [sorted, segments, offlineCharacters]);
 
-  const [visibleItems, loadMoreTrigger] = usePaginated(allItems, { key: paginationKey });
+  const [visibleItems, innerLoadMoreTrigger] = usePaginated(allItems, { key: paginationKey });
 
   return (
     <Flipper flipKey={loadTick}>
@@ -179,7 +181,7 @@ const StreamList: React.FC<Props> = ({
           })}
           {isLoadingMore && <div className={styles.spinnerCard}><Spinner /></div>}
         </div>
-        {loadMoreTrigger}
+        {innerLoadMoreTrigger ?? loadMoreTrigger}
       </div>
     </Flipper>
   );
