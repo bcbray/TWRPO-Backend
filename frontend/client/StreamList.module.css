@@ -6,7 +6,7 @@
 .grid .items {
   display: grid;
   grid-gap: var(--grid-gutter-y);
-  grid-template-columns: [start] 1fr [end];
+  grid-template-columns: [start] repeat(auto-fill, minmax(268px, 1fr)) [end];
 }
 
 .spinnerCard {
@@ -15,34 +15,4 @@
   justify-content: center;
   grid-column: start / end;
   margin: 1.5rem;
-}
-
-@media (min-width: 576px) {
-  .grid .items:not(.empty) {
-    grid-template-columns: [start] repeat(2, 1fr) [end];
-  }
-}
-
-@media (min-width: 768px) {
-  .grid .items:not(.empty) {
-    grid-template-columns: [start] repeat(3, 1fr) [end];
-  }
-}
-
-@media (min-width: 992px) {
-  .grid .items:not(.empty) {
-    grid-template-columns: [start] repeat(4, 1fr) [end];
-  }
-}
-
-@media (min-width: 1200px) {
-  .grid .items:not(.empty) {
-    grid-template-columns: [start] repeat(4, 1fr) [end];
-  }
-}
-
-@media (min-width: 1400px) {
-  .grid .items:not(.empty) {
-    grid-template-columns: [start] repeat(5, 1fr) [end];
-  }
 }
