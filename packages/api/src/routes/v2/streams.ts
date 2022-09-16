@@ -165,14 +165,28 @@ export const fetchRecentStreams = async (apiClient: ApiClient, dataSource: DataS
             return subQuery;
         }, 'recent_chunk')
         .orderBy('"lastSeenDate"', 'DESC')
-        .limit(limit + 1);
+        .limit(limit);
 
     if (cursor) {
         queryBuilder
             .andWhere('"lastSeenDate" < :before::timestamp without time zone', { before: cursor.before });
     }
 
+    const sameLastDateQueryBuilder = queryBuilder.clone();
+
     const rawSegments: Raw<StreamChunk>[] = await queryBuilder.execute();
+    const lastSegment = rawSegments.length > 0 ? rawSegments[rawSegments.length - 1] : undefined;
+    if (lastSegment) {
+        // Fetch any additional segments that share the same lastSeenDate with
+        // the final segment from the primary query (otherwise they’ll be skipped)
+        // when we fetch the next segment (where we’ll only include items
+        // _before_ that final lastSeenDate)
+        sameLastDateQueryBuilder
+            .andWhere('"lastSeenDate" = :lastSegmentLastSeenDate::timestamp without time zone', { lastSegmentLastSeenDate: lastSegment.lastSeenDate })
+            .andWhere('"id" NOT IN (:...alreadyFetchedStreamIds)', { alreadyFetchedStreamIds: rawSegments.map(s => s.id) });
+        const sameDateRawSegments = await sameLastDateQueryBuilder.execute();
+        rawSegments.push(...sameDateRawSegments);
+    }
 
     const streamerIds = rawSegments.map(s => s.streamerId);
     const channels = streamerIds.length > 0
@@ -230,14 +244,13 @@ export const fetchRecentStreams = async (apiClient: ApiClient, dataSource: DataS
         };
     };
 
-    const allStreams = segments
+    const streams = segments
         .filter(s => s.channel)
         .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
         .map(segmentAndStreamer);
-    const streams = allStreams.slice(0, limit);
 
-    const nextCursor = allStreams.length > streams.length
-        ? serializeRecentStreamsCursor({ before: segments[segments.length - 1].lastSeenDate })
+    const nextCursor = rawSegments.length
+        ? serializeRecentStreamsCursor({ before: new Date(rawSegments[rawSegments.length - 1].lastSeenDate) })
         : undefined;
 
     return { streams, nextCursor };
