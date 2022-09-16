@@ -266,15 +266,12 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
     const streams: SegmentAndStreamer[] = [];
     let nextCursor: string | undefined;
 
-    console.log('CURSOR', cursor);
     if (cursor === undefined) {
-        console.log('FETCHING LIVE');
         const { streams: liveStreams } = await fetchLiveStreams(apiClient, dataSource, userResponse);
         streams.push(...liveStreams);
     }
 
     if (streams.length < DEFAULT_LIMIT) {
-        console.log('FETCHING RECENT', DEFAULT_LIMIT - streams.length);
         const {
             streams: recentStreams,
             nextCursor: recentNextCursor,
@@ -286,7 +283,6 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
     if (nextCursor === undefined) {
         nextCursor = serializeRecentStreamsCursor({ before: now });
     }
-    console.log('NEXT CURSOR', nextCursor);
 
     return { streams, nextCursor };
 };
