@@ -31,6 +31,7 @@ export interface PreloadedData {
   segments?: Record<number, VideoSegment | null>;
   liveStreams?: StreamsResponse;
   recentStreams?: Record<string, StreamsResponse>;
+  streams?: Record<string, StreamsResponse>;
   currentUser?: UserResponse;
 }
 
@@ -46,6 +47,7 @@ export interface PreloadedUsed {
   usedSegmentIds?: number[];
   usedLiveStreams?: boolean;
   usedRecentStreamsCursors?: string[];
+  usedStreamsCursors?: string[];
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
@@ -350,6 +352,34 @@ export const useRecentStreams = (cursor?: string, { skipsPreload = false, ...pro
       preloadedData.recentStreams = {};
     }
     preloadedData.recentStreams[cursor ?? ''] = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+}
+
+export const useStreams = (cursor?: string, { skipsPreload = false, ...props }: PreLoadingProps<StreamsResponse> = {}): LoadingResult<StreamsResponse> => {
+  const preloadedData = React.useContext(PreloadedDataContext);
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.streams?.[cursor ?? ''] === undefined) {
+    if (preloadedUsed.usedStreamsCursors === undefined) {
+      preloadedUsed.usedStreamsCursors = [];
+    }
+    preloadedUsed.usedStreamsCursors.push(cursor ?? '');
+  }
+  const preloaded = skipsPreload
+    ? undefined
+    : preloadedData.streams?.[cursor ?? ''];
+  const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/streams${cursor ? `?cursor=${cursor}` : ''}`, {
+    preloaded,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    if (preloadedData.streams === undefined) {
+      preloadedData.streams = {};
+    }
+    preloadedData.streams[cursor ?? ''] = loadState.data;
   }
 
   return [loadState, outerOnReload, lastLoad];

@@ -121,7 +121,15 @@ type Raw<Type> = {
     [Property in keyof Type]: Type[Property] extends Date ? string : Type[Property];
 };
 
-export const fetchRecentStreams = async (apiClient: ApiClient, dataSource: DataSource, cursor: RecentStreamsCursor | undefined, userResponse: UserResponse): Promise<StreamsResponse> => {
+const DEFAULT_LIMIT = 24;
+
+export const fetchRecentStreams = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    cursor: RecentStreamsCursor | undefined,
+    userResponse: UserResponse,
+    limit: number = DEFAULT_LIMIT
+): Promise<StreamsResponse> => {
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
     const liveCharacterIds = liveData.streams.flatMap(s => (s.characterId ? [s.characterId] : []));
 
@@ -130,7 +138,6 @@ export const fetchRecentStreams = async (apiClient: ApiClient, dataSource: DataS
         characters.characters.map(c => [c.id, c])
     );
 
-    const limit = 24;
     const queryBuilder = dataSource
         .createQueryBuilder()
         .select('*')
@@ -254,8 +261,54 @@ export const fetchRecentStreams = async (apiClient: ApiClient, dataSource: DataS
     return { streams, nextCursor };
 };
 
+export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource, cursor: RecentStreamsCursor | undefined, userResponse: UserResponse): Promise<StreamsResponse> => {
+    const now = new Date();
+    const streams: SegmentAndStreamer[] = [];
+    let nextCursor: string | undefined;
+
+    console.log('CURSOR', cursor);
+    if (cursor === undefined) {
+        console.log('FETCHING LIVE');
+        const { streams: liveStreams } = await fetchLiveStreams(apiClient, dataSource, userResponse);
+        streams.push(...liveStreams);
+    }
+
+    if (streams.length < DEFAULT_LIMIT) {
+        console.log('FETCHING RECENT', DEFAULT_LIMIT - streams.length);
+        const {
+            streams: recentStreams,
+            nextCursor: recentNextCursor,
+        } = await fetchRecentStreams(apiClient, dataSource, cursor, userResponse, DEFAULT_LIMIT - streams.length);
+        streams.push(...recentStreams);
+        nextCursor = recentNextCursor;
+    }
+
+    if (nextCursor === undefined) {
+        nextCursor = serializeRecentStreamsCursor({ before: now });
+    }
+    console.log('NEXT CURSOR', nextCursor);
+
+    return { streams, nextCursor };
+};
+
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
+
+    router.get('/', async (req, res) => {
+        const { cursor: cursorString } = req.query;
+        if (cursorString !== undefined && typeof cursorString !== 'string') {
+            return res.status(400).send({ success: false, message: '`cursor` parameter must be a string' });
+        }
+        const cursor = cursorString
+            ? deserializeRecentStreamsCursor(cursorString)
+            : undefined;
+        if (cursor === null) {
+            return res.status(400).send({ success: false, message: `"${cursorString}" is an invalid cursor` });
+        }
+        const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        const response = await fetchStreams(apiClient, dataSource, cursor, userResponse);
+        return res.send(response);
+    });
 
     router.get('/live', async (req, res) => {
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
