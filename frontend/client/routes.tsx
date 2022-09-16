@@ -10,6 +10,7 @@ import UnknownContainer from  './UnknownContainer';
 import Redirect from './Redirect';
 import { AuthComplete } from './auth';
 import Login from './Login';
+import Streams from './Streams';
 
 export const publicRoutes = <>
   <Route path="/" element={<LiveContainer />} />
@@ -26,6 +27,7 @@ export const privateRoutes = <>
   <Route path="/utils/colors" element={<ColorHelperContainer />} />
   <Route path="/utils/crossfade" element={<CrossfadeHelper />} />
   <Route path="/utils/unknown" element={<UnknownContainer />} />
+  <Route path="/utils/streams" element={<Streams />} />
 </>;
 
 export const privateStandaloneRoutes = <>
