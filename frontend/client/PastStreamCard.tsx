@@ -75,8 +75,8 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     if (!segment.thumbnailUrl) return undefined;
     return `${
       segment.thumbnailUrl
-        ?.replace('%{width}', '440')
-        .replace('%{height}', '248')
+        ?.replace(/%?{width}/, '440')
+        .replace(/%?{height}/, '248')
     }`
   }, [segment.thumbnailUrl]);
 
