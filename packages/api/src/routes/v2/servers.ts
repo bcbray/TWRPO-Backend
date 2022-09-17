@@ -43,7 +43,7 @@ export const fetchServers = async (apiClient: ApiClient, dataSource: DataSource,
             name,
             key: key ?? undefined,
             isVisible,
-            regexes: regexes.map(({ regex, isCaseSensitive }) => ({ regex, isCaseSensitive })),
+            regexes: regexes.map(({ id: rid, regex, isCaseSensitive }) => ({ id: rid, regex, isCaseSensitive })),
             liveCount: liveDataLookup[id]?.length ?? 0,
         })),
     };
