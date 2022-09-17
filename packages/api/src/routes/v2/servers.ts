@@ -28,6 +28,7 @@ export const fetchServers = async (apiClient: ApiClient, dataSource: DataSource,
         .leftJoinAndSelect('server.regexes', 'regex')
         .where('true')
         .orderBy('server.sortOrder', 'ASC', 'NULLS LAST')
+        .addOrderBy('server.isVisible', 'DESC')
         .addOrderBy('server.name');
 
     if (!isGlobalAdmin(currentUser)) {
