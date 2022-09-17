@@ -1,0 +1,26 @@
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notVisible {
+  color: var(--theme-gray-400);
+}
+
+.liveCount {
+  font-size: .75em;
+  color: var(--theme-gray-400);
+}
+
+.regex {
+  color: var(--theme-gray-600);
+}
+
+.notVisible .regex {
+  color: var(--theme-gray-300);
+}

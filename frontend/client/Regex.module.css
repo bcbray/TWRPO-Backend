@@ -1,0 +1,13 @@
+.regex {
+  font-weight: 500;
+}
+
+.open, .close {
+  opacity: 0.4;
+  /* color: var(--theme-gray-400); */
+}
+
+.flags {
+  opacity: 0.4;
+  /* color: var(--theme-gray-400) */
+}
