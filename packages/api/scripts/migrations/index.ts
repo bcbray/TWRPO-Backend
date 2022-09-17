@@ -12,6 +12,7 @@ import { SessionAndUser1663053255966 } from './1663053255966-SessionAndUser';
 import { UserRole1663063450785 } from './1663063450785-UserRole';
 import { StreamChunkHidden1663189972049 } from './1663189972049-StreamChunkHidden';
 import { StreamChunkLastViewerCount1663278969808 } from './1663278969808-StreamChunkLastViewerCount';
+import { Server1663372521826 } from './1663372521826-Server';
 
 export default [
     Initial1660336359134,
@@ -28,4 +29,5 @@ export default [
     UserRole1663063450785,
     StreamChunkHidden1663189972049,
     StreamChunkLastViewerCount1663278969808,
+    Server1663372521826,
 ];
