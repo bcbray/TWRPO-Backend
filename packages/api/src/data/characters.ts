@@ -23,7 +23,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1101
+// Next ID: 1102
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -82,6 +82,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AlwayStayBlack: [
         { id: 23, name: 'Shaggy McRaggzzah' },
+        { id: 1101, name: 'Caveman' },
     ],
     alyssajeanaf: [
         { id: 24, name: 'Dahlia Malone', nicknames: ['Songbird'] }, // Dicenzo hangaround? (not in the restructure tho). Former Sam's Club
