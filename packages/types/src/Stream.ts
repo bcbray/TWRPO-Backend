@@ -8,6 +8,7 @@ export default interface Stream {
   id: number;
   streamId: string;
   rpServer: string | null;
+  serverId: number | null;
   characterName: string | null;
   characterId: number | null;
   nicknameLookup: string | null;

@@ -36,6 +36,7 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
     id: 0,
     streamId: '0',
     rpServer: 'WRP',
+    serverId: 1,
     characterName: 'Sam Baas',
     characterId: 1,
     nicknameLookup: null,

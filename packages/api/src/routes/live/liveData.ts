@@ -535,6 +535,7 @@ const getWrpLive = async (
                     let onOtherPos = -1;
                     let onOtherIncluded = false;
                     let serverName = '';
+                    let matchedServer: ParsedServer | null = null;
 
                     // log(channelName, '>>>', titleParsed);
 
@@ -546,6 +547,7 @@ const getWrpLive = async (
                                 if (onOtherPos > -1) {
                                     onOther = true;
                                     serverName = otherServer.name;
+                                    matchedServer = otherServer;
                                     if (otherServer.isVisible) onOtherIncluded = true;
                                     break servers; // eslint-disable-line no-labels
                                 }
@@ -574,6 +576,7 @@ const getWrpLive = async (
                                 onNp = true;
                                 onOther = false;
                                 onOtherIncluded = false;
+                                matchedServer = wrpServer;
                                 break;
                             }
                         } catch (error) {
@@ -650,6 +653,7 @@ const getWrpLive = async (
                             id: nextId,
                             ...baseStream,
                             rpServer: serverName.length ? serverName : null,
+                            serverId: matchedServer?.id ?? null,
                             characterName: null,
                             characterId: null,
                             nicknameLookup: null,
@@ -952,6 +956,7 @@ const getWrpLive = async (
                         id: nextId,
                         ...baseStream,
                         rpServer: serverName,
+                        serverId: wrpServer.id,
                         characterName: possibleCharacter?.name ?? null,
                         characterId: possibleCharacter?.id ?? null,
                         nicknameLookup: possibleCharacter?.nicknames ? possibleCharacter.nicknames.map(nick => parseLookup(nick)).join(' _-_ ') : null,
