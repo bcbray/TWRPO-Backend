@@ -12,7 +12,6 @@ import { getKnownTwitchUsers } from '../../pfps';
 
 import { getCharacterInfo } from '../../characterUtils';
 import { getFactionInfos } from '../../factionUtils';
-import { regOthers, regWrp } from '../../data/settings';
 import settingsParsed from '../../data/settingsParsed';
 import factionsParsed from '../../data/factionsParsed';
 import { wrpFactions } from '../../data/meta';
@@ -39,6 +38,7 @@ import type { TwitchUser } from '../../pfps';
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { Video } from '../../db/entity/Video';
 import { TwitchChannel } from '../../db/entity/TwitchChannel';
+import { Server } from '../../db/entity/Server';
 
 const includedData = Object.assign(
     {},
@@ -394,6 +394,36 @@ const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podc
     return { podcast, reg };
 });
 
+interface ParsedServer extends Omit<Server, 'regexes'> {
+    regexes: RegExp[];
+}
+
+const parseServer = (server: Server): ParsedServer => {
+    const { regexes: dbRegexes, ...rest } = server;
+    const regexes: RegExp[] = [];
+    for (const dbRegex of dbRegexes) {
+        try {
+            regexes.push(new RegExp(dbRegex.regex, dbRegex.isCaseSensitive ? undefined : 'i'));
+        } catch (error) {
+            if (error instanceof SyntaxError) {
+                console.error(JSON.stringify({
+                    level: 'error',
+                    message: 'Failed construct regex for server',
+                    server,
+                    regex: dbRegex,
+                    error,
+                }));
+            } else {
+                throw error;
+            }
+        }
+    }
+    return {
+        regexes,
+        ...rest,
+    };
+};
+
 const getWrpLive = async (
     apiClient: ApiClient,
     dataSource: DataSource,
@@ -471,6 +501,19 @@ const getWrpLive = async (
                 const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck'>[] = [];
                 const now = new Date();
 
+                const wrpServer = parseServer(await dataSource.getRepository(Server).findOneOrFail({
+                    where: { key: 'wrp' },
+                    relations: { regexes: true },
+                }));
+
+                const otherServers = (await dataSource
+                    .getRepository(Server)
+                    .createQueryBuilder('server')
+                    .select()
+                    .leftJoinAndSelect('server.regexes', 'regex')
+                    .where('server.key IS NULL OR server.key != :key', { key: 'wrp' })
+                    .getMany()).map(parseServer);
+
                 for (const helixStream of gtaStreams) {
                     const { userDisplayName: channelName, title, viewers } = helixStream;
 
@@ -495,23 +538,57 @@ const getWrpLive = async (
 
                     // log(channelName, '>>>', titleParsed);
 
-                    for (let i = 0; i < regOthers.length; i++) {
-                        const regOther = regOthers[i];
-                        onOtherPos = title.indexOfRegex(regOther.reg);
-                        if (onOtherPos > -1) {
-                            onOther = true;
-                            serverName = regOther.name;
-                            if (regOther.include) onOtherIncluded = true;
-                            break;
+                    servers: // eslint-disable-line no-labels
+                    for (const otherServer of otherServers) {
+                        for (const otherRegex of otherServer.regexes) {
+                            try {
+                                onOtherPos = title.indexOfRegex(otherRegex);
+                                if (onOtherPos > -1) {
+                                    onOther = true;
+                                    serverName = otherServer.name;
+                                    if (otherServer.isVisible) onOtherIncluded = true;
+                                    break servers; // eslint-disable-line no-labels
+                                }
+                            } catch (error) {
+                                if (error instanceof SyntaxError) {
+                                    console.error(JSON.stringify({
+                                        level: 'error',
+                                        message: 'Failed construct regex for server match',
+                                        server: otherServer,
+                                        regex: otherRegex,
+                                        error,
+                                    }));
+                                } else {
+                                    throw error;
+                                }
+                            }
                         }
                     }
 
                     let onNp = false;
-                    const onNpPos = title.indexOfRegex(regWrp);
-                    if (onNpPos > -1 && (onOther === false || onNpPos < onOtherPos)) {
-                        onNp = true;
-                        onOther = false;
-                        onOtherIncluded = false;
+                    let onNpPos = -1;
+                    for (const wrpRegex of wrpServer.regexes) {
+                        try {
+                            onNpPos = title.indexOfRegex(wrpRegex);
+                            if (onNpPos > -1 && (onOther === false || onNpPos < onOtherPos)) {
+                                onNp = true;
+                                onOther = false;
+                                onOtherIncluded = false;
+                                break;
+                            }
+                        } catch (error) {
+                            if (error instanceof SyntaxError) {
+                                console.error(JSON.stringify({
+                                    level: 'error',
+                                    message: 'Failed construct regex for server match',
+                                    server: wrpServer,
+                                    regex: wrpRegex,
+                                    error,
+                                }));
+                            } else {
+                                throw error;
+                            }
+                        }
                     }
 
                     const characters = wrpCharacters[channelNameLower] as WrpCharacter | undefined;
