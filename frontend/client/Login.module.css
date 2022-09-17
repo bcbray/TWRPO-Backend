@@ -4,12 +4,3 @@
   align-items: center;
   text-align: center;
 }
-
-.twitchLogin {
-  color: var(--const-theme-white);
-  background-color: #9146FF;
-}
-
-.twitchLogin:hover {
-  background-color: #772CE8;
-}

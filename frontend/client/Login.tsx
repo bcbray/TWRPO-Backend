@@ -1,18 +1,18 @@
 import React from 'react';
 import { Button } from '@restart/ui';
-import { Twitch } from 'react-bootstrap-icons';
 
 import styles from './Login.module.css';
 
 import { useAuthentication } from './auth';
 import { classes } from './utils';
+import LoginButton from './LoginButton';
 
 interface LoginProps {
 
 }
 
 const Login: React.FC<LoginProps> = () => {
-  const { user, login, logout } = useAuthentication();
+  const { user, logout } = useAuthentication();
 
   return (
     <div
@@ -36,15 +36,7 @@ const Login: React.FC<LoginProps> = () => {
         <>
           <h2>Sign in</h2>
           <p>If you’re not sure why you’re here you won’t get much out of this.</p>
-          <Button
-            className={classes(
-              'button',
-              styles.twitchLogin
-            )}
-            onClick={login}
-          >
-            <Twitch /> Sign in with Twitch
-          </Button>
+          <LoginButton />
         </>
       )}
     </div>
