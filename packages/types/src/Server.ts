@@ -6,4 +6,5 @@ export default interface Server {
     key?: string;
     isVisible: boolean;
     regexes: Regex[];
+    liveCount: number;
 }

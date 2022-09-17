@@ -79,7 +79,7 @@ class Api {
         this.apiRouter.use('/v2/unknown', routes.v2UnknownRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/segments', routes.v2SegmentsRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/streams', routes.v2StreamsRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/servers', routes.v2ServersRouter(this.dataSource));
+        this.apiRouter.use('/v2/servers', routes.v2ServersRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/whoami', routes.v2WhoamiRouter(this.dataSource));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter);
         this.apiRouter.use('/v2/admin/override-segment', routes.v2AdminOverrideSegmentRouter(this.twitchClient, this.dataSource));
@@ -155,7 +155,7 @@ class Api {
     }
 
     public async fetchServers(currentUser: UserResponse): Promise<ServersResponse> {
-        return fetchServers(this.dataSource, currentUser);
+        return fetchServers(this.twitchClient, this.dataSource, currentUser);
     }
 
     public async fetchSessionUser(sessionUser: SessionUser | undefined): Promise<UserResponse> {
