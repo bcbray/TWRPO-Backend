@@ -10,6 +10,7 @@ import v2WhoamiRouter from './v2/whoami';
 import v2StreamsRouter from './v2/streams';
 import v2ServersRouter from './v2/servers';
 import v2AdminOverrideSegmentRouter from './v2/admin/override-segment';
+import v2AdminReorderServersRouter from './v2/admin/reorder-servers';
 
 export default {
     liveRouter,
@@ -23,4 +24,5 @@ export default {
     v2StreamsRouter,
     v2ServersRouter,
     v2AdminOverrideSegmentRouter,
+    v2AdminReorderServersRouter,
 };
