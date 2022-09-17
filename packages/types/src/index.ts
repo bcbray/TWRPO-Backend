@@ -19,6 +19,9 @@ import type User from './User';
 import type UserRole from './UserRole';
 import type UserResponse from './UserResponse';
 import type StreamsResponse from './StreamsResponse';
+import type Server from './Server';
+import type Regex from './Regex';
+import type ServersResponse from './ServersResponse';
 
 
 export {
@@ -43,4 +46,7 @@ export {
   UserRole,
   UserResponse,
   StreamsResponse,
+  Server,
+  Regex,
+  ServersResponse,
 }

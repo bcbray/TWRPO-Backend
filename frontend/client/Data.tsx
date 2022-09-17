@@ -10,6 +10,7 @@ import {
   UserResponse,
   VideoSegment,
   StreamsResponse,
+  ServersResponse,
 } from '@twrpo/types'
 
 import {
@@ -34,6 +35,7 @@ export interface PreloadedData {
   streams?: Record<string, StreamsResponse>;
   unknownStreams?: Record<string, StreamsResponse>;
   currentUser?: UserResponse;
+  servers?: ServersResponse;
 }
 
 export interface PreloadedUsed {
@@ -50,6 +52,7 @@ export interface PreloadedUsed {
   usedRecentStreamsCursors?: string[];
   usedStreamsCursors?: string[];
   usedUnknownStreamsCursors?: string[];
+  usedServers?: boolean;
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
@@ -414,3 +417,22 @@ export const useUnknwonStreams = (cursor?: string, { skipsPreload = false, ...pr
 
   return [loadState, outerOnReload, lastLoad];
 }
+
+export const useServers = ({ skipsPreload = false, ...props }: PreLoadingProps<ServersResponse> = {}): LoadingResult<ServersResponse> => {
+  const preloadedData = React.useContext(PreloadedDataContext);
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.servers === undefined) {
+    preloadedUsed.usedServers = true;
+  }
+  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/servers', {
+    preloaded: skipsPreload ? undefined : preloadedData.servers,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    preloadedData.servers = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+};

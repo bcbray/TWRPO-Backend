@@ -13,6 +13,7 @@ import {
     UserResponse,
     VideoSegment,
     StreamsResponse,
+    ServersResponse,
 } from '@twrpo/types';
 
 import { getFilteredWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
@@ -21,7 +22,14 @@ import { fetchFactions } from './routes/v2/factions';
 import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
 import { fetchUnknown } from './routes/v2/unknown';
 import { fetchSegment } from './routes/v2/segments';
-import { fetchLiveStreams, fetchRecentStreams, fetchStreams, fetchUnknownStreams, deserializeRecentStreamsCursor } from './routes/v2/streams';
+import {
+    fetchLiveStreams,
+    fetchRecentStreams,
+    fetchStreams,
+    fetchUnknownStreams,
+    deserializeRecentStreamsCursor,
+} from './routes/v2/streams';
+import { fetchServers } from './routes/v2/servers';
 import { fetchSessionUser } from './routes/v2/whoami';
 import routes from './routes';
 import dataSource from './db/dataSource';
@@ -71,6 +79,7 @@ class Api {
         this.apiRouter.use('/v2/unknown', routes.v2UnknownRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/segments', routes.v2SegmentsRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/streams', routes.v2StreamsRouter(this.twitchClient, this.dataSource));
+        this.apiRouter.use('/v2/servers', routes.v2ServersRouter(this.dataSource));
         this.apiRouter.use('/v2/whoami', routes.v2WhoamiRouter(this.dataSource));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter);
         this.apiRouter.use('/v2/admin/override-segment', routes.v2AdminOverrideSegmentRouter(this.twitchClient, this.dataSource));
@@ -143,6 +152,10 @@ class Api {
             return { streams: [] };
         }
         return fetchUnknownStreams(this.twitchClient, this.dataSource, deserializedCursor, currentUser);
+    }
+
+    public async fetchServers(currentUser: UserResponse): Promise<ServersResponse> {
+        return fetchServers(this.dataSource, currentUser);
     }
 
     public async fetchSessionUser(sessionUser: SessionUser | undefined): Promise<UserResponse> {
