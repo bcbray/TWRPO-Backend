@@ -484,7 +484,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Demorga_: [
         { id: 1043, name: 'Avery Hobbs', displayName: 2 },
-        { id: 1120, name: 'Cassius Renata' },
+        { id: 1120, name: 'Cassius Renata', factions: ['Sisika Guard'] },
     ],
     DeneeSays: [
         { id: 205, name: 'Brooke "Babs" Burns' }, // DiCenzo hangaround? (Not in the restructure tho)
