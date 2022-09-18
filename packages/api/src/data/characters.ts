@@ -1117,7 +1117,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 483, name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
         { id: 484, name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang'] },
         { id: 1031, name: 'Archie "Little Cheese" Small', factions: ['One Life'] },
-        { id: 1118, name: '? "Bro" ?' },
+        { id: 1118, name: '? "The Bro" ?' },
     ],
     KYCaffiend: [
         { id: 485, name: 'Emerson Cain' },
@@ -2141,7 +2141,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 922, name: 'Bazz Kerrigan', factions: ['Kettleman Gang'] }, // leader of Kerrigan Ranch. Dead.
         { id: 923, name: 'Clarence McCloud' },
         { id: 1109, name: 'Richard Eastwick' },
-        { id: 1117, name: 'Steve "Dude" McAnderson' },
+        { id: 1117, name: 'Steve "The Dude" McAnderson' },
     ],
     Viviana: [
         { id: 924, name: 'Mary Anne LeStrange' },
