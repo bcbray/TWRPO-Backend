@@ -23,7 +23,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1120
+// Next ID: 1121
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -484,6 +484,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Demorga_: [
         { id: 1043, name: 'Avery Hobbs', displayName: 2 },
+        { id: 1120, name: 'Cassius Renata' },
     ],
     DeneeSays: [
         { id: 205, name: 'Brooke "Babs" Burns' }, // DiCenzo hangaround? (Not in the restructure tho)
