@@ -39,7 +39,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 6, name: 'Sheppard Dutton' },
     ],
     '893SHIRO': [
-        { id: 7, name: 'Mitsuhide Nagahama' },
+        { id: 7, name: 'Mitsuhide Nagahama', nicknames: ['Mitsu'] },
     ],
     AaronOnAir: [
         { id: 8, name: 'Dylan Texler' },
