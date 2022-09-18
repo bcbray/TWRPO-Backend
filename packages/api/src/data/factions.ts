@@ -29,6 +29,8 @@ export const wrpFactionsRegex = {
     dicenzofamiglia: noFormer(/\bdicenzos?\b/i),
     taipan: noFormer(/\btai[\s|-]*pan\b/i),
     medical: noLater(/(?<!then\b.*|!)(?:doctor|medic|paramedic|therapist|psychologist|\b(?:dr(?!(?:\s*pepper|\s+will\s+see\s+you))|em[st]|scdh)\b)/i),
+    lifer: noLater(/\blifer\b|\blife\W*sentence\b/i),
+    sisikaguard: noLater(noFormer(/\bsisika\W*guard\b/i)),
     onelife: /\bperma-?thon|\bperma\s*character|\b(?:one|1)[\s\-_.]*life/i,
 } as { [key in WrpFactionsRegexKeys]: RegExp };
 
@@ -173,6 +175,7 @@ export const filterRename: { [key in FactionMini]?: string } = {
     allwildrp: 'All WildRP (Default)',
     alltwitch: 'All Twitch (No Filtering)',
     law: 'Law',
+    lifer: 'Sisika Lifer',
     thehumblebunch: 'Unnamed (The Humble Bunch)',
     dicenzofamiglia: 'DiCenzo Famiglia (Group 1)',
     dicenzogroup2: 'DiCenzo Famiglia (Group 2)',

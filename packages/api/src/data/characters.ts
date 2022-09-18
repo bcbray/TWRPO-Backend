@@ -885,7 +885,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 393, name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'] },
         { id: 394, name: '[Cadet] Miles Gyles', factions: ['Law'] },
         { id: 1063, name: '[Deputy] Thomas Hooper', factions: ['Law'] },
-        { id: 1102, name: 'Mickey Doyle' }, // Sisika Guard
+        { id: 1102, name: 'Mickey Doyle', factions: ['Sisika Guard'] },
     ],
     Hoss: [
         { id: 395, name: 'Buck Cherry' },

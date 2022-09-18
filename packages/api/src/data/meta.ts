@@ -17,6 +17,8 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     law: 'Law',
     medical: 'Medical',
     conductors: 'Conductors',
+    sisikaguard: 'Sisika Guard',
+    lifer: 'Lifer',
     independent: 'Independent',
     otherfaction: 'Other Faction',
     other: 'Other',
