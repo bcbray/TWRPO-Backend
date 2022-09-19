@@ -36,7 +36,7 @@ export const wrpCharacters: WrpCharacters = {
     '2hands2thumbs': [
         { id: 4, name: 'Ernest Dooly' },
         { id: 5, name: 'Maverik Stone' },
-        { id: 6, name: 'Sheppard Dutton' },
+        { id: 6, name: '[Ranger] Sheppard Dutton', factions: ['Rangers'] },
     ],
     '52chains': [
         { id: 1122, name: 'Eduardo "Slimy" Guavera' },
