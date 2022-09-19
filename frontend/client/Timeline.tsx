@@ -229,6 +229,7 @@ const Timeline: React.FC<TimelineProps> = () => {
   const isFirstRender = useInitialRender();
   const isToday = React.useMemo(() => !isFirstRender && isWithinInterval(now, day), [isFirstRender, now, day]);
 
+  const [isCompact, setIsCompact] = React.useState(false);
   const { factionStylesForKey } = useFactionCss();
 
   const previous = React.useCallback(() => {
@@ -369,9 +370,27 @@ const Timeline: React.FC<TimelineProps> = () => {
   }), [grouped, day, pixelsPerSecond]);
 
   return (
-    <div className={classes('content', 'inset', styles.content)}>
+    <div className={classes(
+      'content',
+      'inset',
+      styles.content,
+      isCompact && styles.compact,
+    )}>
       <div className={styles.header}>
         <h3>{formattedDate}</h3>
+        <div className={styles.compactSetting}>
+          <input
+            type='checkbox'
+            id='compactCheckbox'
+            checked={isCompact}
+            onChange={e => setIsCompact(e.target.checked)}
+          />
+          <label
+            htmlFor='compactCheckbox'
+          >
+            Compact
+          </label>
+        </div>
         <Button className='button secondary' onClick={previous}>Previous</Button>
         <Button className='button secondary' onClick={next} disabled={isToday}>Next</Button>
       </div>

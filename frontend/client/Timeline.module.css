@@ -203,6 +203,21 @@
   flex-shrink: 1;
 }
 
+.compact .streamer,
+.compact .streamerRow {
+  height: 2.25rem;
+}
+
+.compact .info {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.compactSetting label {
+  margin-left: 0.25rem;
+}
+
 .tags {
   display: flex;
   flex-direction: row;
