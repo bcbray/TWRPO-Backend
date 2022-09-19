@@ -152,29 +152,29 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           preloadedData.liveStreams = JSON.parse(JSON.stringify(liveStreamsResponse)) as StreamsResponse;
         }
 
-        if (used.usedRecentStreamsCursors && used.usedRecentStreamsCursors.length) {
+        if (used.usedRecentStreamsQueries && used.usedRecentStreamsQueries.length) {
           needsAnotherLoad = true;
           if (!preloadedData.recentStreams) {
             preloadedData.recentStreams = {};
           }
-          for (const cursor of used.usedRecentStreamsCursors) {
-            const streamsResponse = await api.fetchRecentStreams(cursor === '' ? undefined : cursor, userResponse);
+          for (const query of used.usedRecentStreamsQueries) {
+            const streamsResponse = await api.fetchRecentStreamsWithQuery(query, userResponse);
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
-            preloadedData.recentStreams[cursor] = JSON.parse(JSON.stringify(streamsResponse)) as StreamsResponse;
+            preloadedData.recentStreams[query] = JSON.parse(JSON.stringify(streamsResponse)) as StreamsResponse;
           }
         }
 
-        if (used.usedStreamsCursors && used.usedStreamsCursors.length) {
+        if (used.usedStreamsQueries && used.usedStreamsQueries.length) {
           needsAnotherLoad = true;
           if (!preloadedData.streams) {
             preloadedData.streams = {};
           }
-          for (const cursor of used.usedStreamsCursors) {
-            const streamsResponse = await api.fetchStreams(cursor === '' ? undefined : cursor, userResponse);
+          for (const query of used.usedStreamsQueries) {
+            const streamsResponse = await api.fetchStreamsWithQuery(query, userResponse)
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
-            preloadedData.streams[cursor] = JSON.parse(JSON.stringify(streamsResponse)) as StreamsResponse;
+            preloadedData.streams[query] = JSON.parse(JSON.stringify(streamsResponse)) as StreamsResponse;
           }
         }
 

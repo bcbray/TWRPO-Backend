@@ -28,6 +28,8 @@ import {
     fetchStreams,
     fetchUnknownStreams,
     deserializeRecentStreamsCursor,
+    StreamsParams,
+    parseStreamsQuery,
 } from './routes/v2/streams';
 import { fetchServers } from './routes/v2/servers';
 import { fetchSessionUser } from './routes/v2/whoami';
@@ -128,29 +130,39 @@ class Api {
         return fetchLiveStreams(this.twitchClient, this.dataSource, currentUser);
     }
 
-    public async fetchRecentStreams(cursor: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
-        const deserializedCursor = cursor ? deserializeRecentStreamsCursor(cursor) : undefined;
-        if (deserializedCursor === null) {
-            console.error('Invalid cursor');
-            return { streams: [] };
+    public async fetchRecentStreamsWithQuery(query: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
+        const params = parseStreamsQuery(new URLSearchParams(query));
+        if ('error' in params) {
+            console.error('Invalid query');
+            return { streams: [], lastRefreshTime: new Date().toISOString() };
         }
-        return fetchRecentStreams(this.twitchClient, this.dataSource, deserializedCursor, currentUser);
+        const result = this.fetchRecentStreams(params, currentUser);
+        return result;
     }
 
-    public async fetchStreams(cursor: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
-        const deserializedCursor = cursor ? deserializeRecentStreamsCursor(cursor) : undefined;
-        if (deserializedCursor === null) {
-            console.error('Invalid cursor');
-            return { streams: [] };
+    public async fetchRecentStreams(params: StreamsParams | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
+        return fetchRecentStreams(this.twitchClient, this.dataSource, params, currentUser);
+    }
+
+    public async fetchStreamsWithQuery(query: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
+        const params = parseStreamsQuery(new URLSearchParams(query));
+        if ('error' in params) {
+            console.error('Invalid query');
+            return { streams: [], lastRefreshTime: new Date().toISOString() };
         }
-        return fetchStreams(this.twitchClient, this.dataSource, deserializedCursor, currentUser);
+        const result = this.fetchStreams(params, currentUser);
+        return result;
+    }
+
+    public async fetchStreams(params: StreamsParams | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
+        return fetchStreams(this.twitchClient, this.dataSource, params, currentUser);
     }
 
     public async fetchUnknownStreams(cursor: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
         const deserializedCursor = cursor ? deserializeRecentStreamsCursor(cursor) : undefined;
         if (deserializedCursor === null) {
             console.error('Invalid cursor');
-            return { streams: [] };
+            return { streams: [], lastRefreshTime: new Date().toISOString() };
         }
         return fetchUnknownStreams(this.twitchClient, this.dataSource, deserializedCursor, currentUser);
     }

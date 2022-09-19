@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request } from 'express';
 import { ApiClient } from '@twurple/api';
 import { DataSource, In } from 'typeorm';
 import { StreamsResponse, SegmentAndStreamer, UserResponse } from '@twrpo/types';
@@ -86,6 +86,15 @@ export interface RecentStreamsCursor {
     before: Date;
 }
 
+export interface StreamsParams {
+    live?: boolean;
+    startBefore?: Date;
+    startAfter?: Date;
+    endBefore?: Date;
+    endAfter?: Date;
+    cursor?: RecentStreamsCursor;
+}
+
 export const serializeRecentStreamsCursor = (cursor: RecentStreamsCursor): string =>
     btoa(
         JSON.stringify(cursor)
@@ -132,12 +141,22 @@ const DEFAULT_LIMIT = 24;
 export const fetchRecentStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
-    cursor: RecentStreamsCursor | undefined,
+    params: StreamsParams = {},
     userResponse: UserResponse,
     limit: number = DEFAULT_LIMIT
 ): Promise<StreamsResponse> => {
+    const {
+        startBefore,
+        startAfter,
+        endBefore,
+        endAfter,
+        cursor,
+    } = params;
+
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
     const liveCharacterIds = liveData.streams.flatMap(s => (s.characterId ? [s.characterId] : []));
+    const liveDataTwitchUserIdLookup = Object.fromEntries(liveData.streams
+        .map(s => [s.channelName.toLowerCase(), s]));
 
     const characters = await fetchCharacters(apiClient, dataSource, userResponse);
     const characterLookup = Object.fromEntries(
@@ -182,7 +201,27 @@ export const fetchRecentStreams = async (
 
     if (cursor) {
         queryBuilder
-            .andWhere('"lastSeenDate" < :before::timestamp without time zone', { before: cursor.before });
+            .andWhere('"lastSeenDate" < :cursorBefore::timestamp without time zone', { cursorBefore: cursor.before });
+    }
+
+    if (startBefore) {
+        queryBuilder
+            .andWhere('"firstSeenDate" < :startBefore::timestamp without time zone', { startBefore });
+    }
+
+    if (startAfter) {
+        queryBuilder
+            .andWhere('"firstSeenDate" > :startAfter::timestamp without time zone', { startAfter });
+    }
+
+    if (endBefore) {
+        queryBuilder
+            .andWhere('"lastSeenDate" < :endBefore::timestamp without time zone', { endBefore });
+    }
+
+    if (endAfter) {
+        queryBuilder
+            .andWhere('"lastSeenDate" > :endAfter::timestamp without time zone', { endAfter });
     }
 
     const sameLastDateQueryBuilder = queryBuilder.clone();
@@ -273,22 +312,43 @@ export const fetchRecentStreams = async (
     return { streams, nextCursor, lastRefreshTime };
 };
 
-export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource, cursor: RecentStreamsCursor | undefined, userResponse: UserResponse): Promise<StreamsResponse> => {
+export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource, params: StreamsParams = {}, userResponse: UserResponse): Promise<StreamsResponse> => {
     const now = new Date();
-    const streams: SegmentAndStreamer[] = [];
+    const {
+        live,
+        startBefore,
+        startAfter,
+        endBefore,
+        cursor,
+    } = params;
     let nextCursor: string | undefined;
+
+    const streams: SegmentAndStreamer[] = [];
 
     const { streams: liveStreams, lastRefreshTime } = await fetchLiveStreams(apiClient, dataSource, userResponse);
 
-    if (cursor === undefined) {
-        streams.push(...liveStreams);
+    const includeLive = cursor === undefined
+        && live !== false
+        && (endBefore === undefined || endBefore.getTime() < new Date(lastRefreshTime).getTime())
+        && (startAfter === undefined || startAfter.getTime() < new Date(lastRefreshTime).getTime());
+
+    if (includeLive) {
+        if (startBefore || startAfter) {
+            streams.push(...liveStreams.filter(({ segment }) => {
+                const start = new Date(segment.startDate);
+                return (startBefore === undefined || start.getTime() < startBefore.getTime())
+                    && (startAfter === undefined || start.getTime() > startAfter.getTime());
+            }));
+        } else {
+            streams.push(...liveStreams);
+        }
     }
 
     if (streams.length < DEFAULT_LIMIT) {
         const {
             streams: recentStreams,
             nextCursor: recentNextCursor,
-        } = await fetchRecentStreams(apiClient, dataSource, cursor, userResponse, DEFAULT_LIMIT - streams.length);
+        } = await fetchRecentStreams(apiClient, dataSource, params, userResponse, DEFAULT_LIMIT - streams.length);
         streams.push(...recentStreams);
         nextCursor = recentNextCursor;
     } else {
@@ -445,25 +505,81 @@ export const fetchUnknownStreams = async (
         ? serializeRecentStreamsCursor({ before: new Date(rawSegments[rawSegments.length - 1].lastSeenDate) })
         : undefined;
 
-    return { streams, nextCursor };
+    const lastRefreshTime = new Date(liveData.tick).toISOString();
+
+    return { streams, nextCursor, lastRefreshTime };
+};
+
+class ParamError extends Error {
+    constructor(public message: string) {
+        super();
+    }
+}
+
+const queryParamString = (query: Request['query'] | URLSearchParams, name: string): undefined | string => {
+    const param = query instanceof URLSearchParams
+        ? query.get(name)
+        : query[name];
+    if (param === undefined || param === null) {
+        return undefined;
+    }
+    if (typeof param !== 'string') {
+        throw new ParamError(`'${name}' parameter must be a string`);
+    }
+    return param;
+};
+
+const queryParamDate = (query: Request['query'] | URLSearchParams, name: string): undefined | Date => {
+    const stringParam = queryParamString(query, name);
+    if (stringParam === undefined) {
+        return undefined;
+    }
+    const date = new Date(stringParam);
+    if (Number.isNaN(date.getTime())) {
+        throw new ParamError(`'${stringParam}' is not a valid date for '${name}'. Must use ISO 8601 format.`);
+    }
+    return date;
+};
+
+export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): StreamsParams | { error: string } => {
+    const params: StreamsParams = {};
+    try {
+        const liveString = queryParamString(query, 'live');
+        if (liveString !== undefined) {
+            params.live = Boolean(queryParamString(query, 'live'));
+        }
+        params.startBefore = queryParamDate(query, 'startBefore');
+        params.startAfter = queryParamDate(query, 'startAfter');
+        params.endBefore = queryParamDate(query, 'endBefore');
+        params.endAfter = queryParamDate(query, 'endAfter');
+        const cursorString = queryParamString(query, 'cursor');
+        const cursor = cursorString
+            ? deserializeRecentStreamsCursor(cursorString)
+            : undefined;
+        if (cursor === null) {
+            return { error: `"${cursorString}" is an invalid cursor` };
+        }
+        params.cursor = cursor;
+    } catch (error) {
+        if (error instanceof ParamError) {
+            return { error: '`cursor` parameter must be a string' };
+        }
+        throw error;
+    }
+    return params;
 };
 
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
-        const { cursor: cursorString } = req.query;
-        if (cursorString !== undefined && typeof cursorString !== 'string') {
-            return res.status(400).send({ success: false, message: '`cursor` parameter must be a string' });
-        }
-        const cursor = cursorString
-            ? deserializeRecentStreamsCursor(cursorString)
-            : undefined;
-        if (cursor === null) {
-            return res.status(400).send({ success: false, message: `"${cursorString}" is an invalid cursor` });
+        const params = parseStreamsQuery(req.query);
+        if ('error' in params) {
+            const { error } = params;
+            return res.status(400).send({ success: false, error });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchStreams(apiClient, dataSource, cursor, userResponse);
+        const response = await fetchStreams(apiClient, dataSource, params, userResponse);
         return res.send(response);
     });
 
@@ -474,18 +590,13 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     });
 
     router.get('/recent', async (req, res) => {
-        const { cursor: cursorString } = req.query;
-        if (cursorString !== undefined && typeof cursorString !== 'string') {
-            return res.status(400).send({ success: false, message: '`cursor` parameter must be a string' });
-        }
-        const cursor = cursorString
-            ? deserializeRecentStreamsCursor(cursorString)
-            : undefined;
-        if (cursor === null) {
-            return res.status(400).send({ success: false, message: `"${cursorString}" is an invalid cursor` });
+        const params = parseStreamsQuery(req.query);
+        if ('error' in params) {
+            const { error } = params;
+            return res.status(400).send({ success: false, error });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchRecentStreams(apiClient, dataSource, cursor, userResponse);
+        const response = await fetchRecentStreams(apiClient, dataSource, params, userResponse);
         return res.send(response);
     });
 

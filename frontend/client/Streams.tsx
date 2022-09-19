@@ -2,7 +2,7 @@ import React from 'react';
 import { useUpdateEffect } from 'react-use';
 import { StreamsResponse } from '@twrpo/types';
 
-import { useStreams, useUnknwonStreams, PreLoadingProps } from './Data';
+import { useStreams, useUnknownStreams, PreLoadingProps, StreamsParams } from './Data';
 import { isSuccess, LoadingResult } from './LoadingState';
 import StreamList from './StreamList';
 import { LoadTrigger, useInitialRender } from './hooks';
@@ -11,14 +11,15 @@ interface StreamsProps {
   type?: 'live' | 'unknown'
 }
 
-const usePaginatedStreams = (
-  loader: (cursor: string | undefined, props: PreLoadingProps<StreamsResponse>) => LoadingResult<StreamsResponse>
+export const usePaginatedStreams = (
+  loader: (params: StreamsParams | undefined, props: PreLoadingProps<StreamsResponse>) => LoadingResult<StreamsResponse>,
+  params: Omit<StreamsParams, 'cursor'> = {}
 ) => {
   const [currentCursor, setCurrentCursor] = React.useState<string | undefined>();
   const nextCursorRef = React.useRef<string | undefined>(undefined);
   const hasMoreRef = React.useRef(true);
   const [loadState, reload, loadTick] = loader(
-    currentCursor,
+    { ...params, cursor: currentCursor },
     { needsLoad: hasMoreRef.current }
   );
   const isInitialRender = useInitialRender();
@@ -29,6 +30,12 @@ const usePaginatedStreams = (
       : []
   );
 
+  const lastRefreshRef = React.useRef(
+    isInitialRender && isSuccess(loadState)
+      ? new Date(loadState.data.lastRefreshTime)
+      : undefined
+  );
+
   if (isInitialRender && isSuccess(loadState)) {
     nextCursorRef.current = loadState.data.nextCursor;
     hasMoreRef.current = loadState.data.nextCursor !== undefined;
@@ -36,6 +43,9 @@ const usePaginatedStreams = (
 
   useUpdateEffect(() => {
     if (isSuccess(loadState)) {
+      if (lastRefreshRef.current === undefined) {
+        lastRefreshRef.current = new Date(loadState.data.lastRefreshTime);
+      }
       nextCursorRef.current = loadState.data.nextCursor;
       hasMoreRef.current = loadState.data.nextCursor !== undefined;
       setStreams(streams => [...streams, ...loadState.data.streams]);
@@ -43,9 +53,11 @@ const usePaginatedStreams = (
   }, [loadState])
 
   const outerReload = React.useCallback(() => {
+    lastRefreshRef.current = undefined;
     nextCursorRef.current = undefined;
     hasMoreRef.current = true;
     setCurrentCursor(undefined);
+    setStreams([]);
     reload();
   }, [reload]);
 
@@ -57,6 +69,7 @@ const usePaginatedStreams = (
 
   return {
     streams,
+    lastRefresh: lastRefreshRef.current,
     reload: outerReload,
     loadTick,
     hasMore: hasMoreRef.current,
@@ -78,7 +91,7 @@ const Streams: React.FC<StreamsProps> = ({
   } = usePaginatedStreams(
     type === 'live'
       ? useStreams
-      : useUnknwonStreams,
+      : useUnknownStreams,
   );
 
   return (
