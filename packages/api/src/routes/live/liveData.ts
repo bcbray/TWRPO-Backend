@@ -1041,16 +1041,21 @@ const getWrpLive = async (
                     const liveStreamIds = allChunks.map(c => c.streamId);
 
                     // Fetch any missing thumbnails from streams that just went offline
-                    const recentVideosMissingThumbnails = await dataSource.getRepository(Video)
+                    const recentVideosMissingThumbnailsQueryBuilder = dataSource.getRepository(Video)
                         .createQueryBuilder('video')
                         .select()
                         .distinctOn(['video.videoId'])
                         .innerJoin(StreamChunk, 'stream_chunk', 'video.streamId = stream_chunk.streamId')
                         .where('stream_chunk.lastSeenDate >= :cutoff', { cutoff: new Date(now.getTime() - 1000 * 60 * 10) })
                         .andWhere('video.thumbnailUrl IS NULL')
-                        .andWhere('stream_chunk.streamId NOT IN (:...liveStreamIds)', { liveStreamIds })
-                        .orderBy('video.videoId', 'ASC')
-                        .getMany();
+                        .orderBy('video.videoId', 'ASC');
+
+                    if (liveStreamIds.length > 0) {
+                        recentVideosMissingThumbnailsQueryBuilder
+                            .andWhere('stream_chunk.streamId NOT IN (:...liveStreamIds)', { liveStreamIds });
+                    }
+                    const recentVideosMissingThumbnails = await recentVideosMissingThumbnailsQueryBuilder.getMany();
+
                     if (recentVideosMissingThumbnails.length) {
                         await fetchMissingThumbnailsForVideoIds(apiClient, dataSource, recentVideosMissingThumbnails.map(v => v.videoId));
                     } else {
@@ -1062,16 +1067,20 @@ const getWrpLive = async (
                     }
 
                     // Fetch videos for users who just went offline
-                    const chunksToFetch = await dataSource.getRepository(StreamChunk)
+                    const chunksToFetchQueryBuilder = dataSource.getRepository(StreamChunk)
                         .createQueryBuilder('stream_chunk')
                         .select()
                         .distinctOn(['stream_chunk.streamId'])
                         .leftJoin(Video, 'video', 'video.streamId = stream_chunk.streamId')
                         .where('video.id IS NULL')
                         .andWhere('stream_chunk.lastSeenDate >= :cutoff', { cutoff: new Date(now.getTime() - 1000 * 60 * 10) })
-                        .andWhere('stream_chunk.streamId NOT IN (:...liveStreamIds)', { liveStreamIds })
-                        .orderBy('stream_chunk.streamId', 'ASC')
-                        .getMany();
+                        .orderBy('stream_chunk.streamId', 'ASC');
+                    if (liveStreamIds.length > 0) {
+                        chunksToFetchQueryBuilder
+                            .andWhere('stream_chunk.streamId NOT IN (:...liveStreamIds)', { liveStreamIds });
+                    }
+
+                    const chunksToFetch = await chunksToFetchQueryBuilder.getMany();
 
                     const streamIds = new Set(chunksToFetch.map(c => c.streamId));
                     const streamerIds = [...new Set(chunksToFetch.map(c => c.streamerId))];
