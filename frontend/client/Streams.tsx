@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUpdateEffect } from 'react-use';
+import { useUpdateEffect, useDeepCompareEffect, useFirstMountState } from 'react-use';
 import { StreamsResponse } from '@twrpo/types';
 
 import { useStreams, useUnknownStreams, PreLoadingProps, StreamsParams } from './Data';
@@ -18,6 +18,7 @@ export const usePaginatedStreams = (
   const [currentCursor, setCurrentCursor] = React.useState<string | undefined>();
   const nextCursorRef = React.useRef<string | undefined>(undefined);
   const hasMoreRef = React.useRef(true);
+  const resetOnNextLoadRef = React.useRef(false);
   const [loadState, reload, loadTick] = loader(
     { ...params, cursor: currentCursor },
     { needsLoad: hasMoreRef.current }
@@ -48,18 +49,35 @@ export const usePaginatedStreams = (
       }
       nextCursorRef.current = loadState.data.nextCursor;
       hasMoreRef.current = loadState.data.nextCursor !== undefined;
-      setStreams(streams => [...streams, ...loadState.data.streams]);
+      if (resetOnNextLoadRef.current) {
+        setStreams(loadState.data.streams);
+      } else {
+        setStreams(streams => [...streams, ...loadState.data.streams]);
+      }
+      resetOnNextLoadRef.current = false;
     }
   }, [loadState])
 
-  const outerReload = React.useCallback(() => {
+  const reset = React.useCallback(() => {
+    resetOnNextLoadRef.current = true;
     lastRefreshRef.current = undefined;
     nextCursorRef.current = undefined;
     hasMoreRef.current = true;
     setCurrentCursor(undefined);
-    setStreams([]);
+  }, []);
+
+  const isFirstMount = useFirstMountState();
+
+  useDeepCompareEffect(() => {
+    if (!isFirstMount) {
+      reset();
+    }
+  }, [params]);
+
+  const outerReload = React.useCallback(() => {
+    reset();
     reload();
-  }, [reload]);
+  }, [reset, reload]);
 
   const loadMore = React.useCallback(() => {
     if (nextCursorRef.current) {
