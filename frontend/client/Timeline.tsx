@@ -17,6 +17,7 @@ import {
 } from 'date-fns';
 import { useUpdateEffect, useMeasure } from 'react-use';
 import { Button } from '@restart/ui';
+import useMergedRefs from '@restart/hooks/useMergedRefs';
 import { SegmentAndStreamer, VideoSegment } from '@twrpo/types';
 
 import styles from './Timeline.module.css';
@@ -27,7 +28,8 @@ import ProfilePhoto from './ProfilePhoto';
 import { classes } from './utils';
 import SegmentTitleTag from './SegmentTitleTag'
 import Tag from './Tag';
-import { useImageUrlOnceLoaded } from './hooks';
+import { useImageUrlOnceLoaded, useWrappedRefWithWarning } from './hooks';
+import Loading from './Loading';
 
 interface TimelineProps {
 }
@@ -55,7 +57,6 @@ const useIntervalStreams = (interval: Interval): {
 
   React.useEffect(() => {
     if (!hasMore) {
-      console.log('length is zero, setting complete');
       setIsComplete(true);
       return;
     }
@@ -203,6 +204,17 @@ const Timeline: React.FC<TimelineProps> = () => {
   const day = useDay(target);
   const { streams, lastRefresh } = useIntervalStreams(day);
   const { start, end } = day;
+  const [hasScrolled, setHasScrolled] = React.useState(false);
+
+  const previous = React.useCallback(() => {
+    setHasScrolled(false);
+    setOffset(o => o - 1);
+  }, []);
+
+  const next = React.useCallback(() => {
+    setHasScrolled(false);
+    setOffset(o => o + 1);
+  }, []);
 
   const nowToShow = lastRefresh ?? now;
 
@@ -222,7 +234,12 @@ const Timeline: React.FC<TimelineProps> = () => {
 
   const totalLength = differenceInSeconds(end, start);
 
-  const [ref, measure] = useMeasure<HTMLDivElement>();
+  const [measureRef, measure] = useMeasure<HTMLDivElement>();
+  const scrollRef = React.useRef<HTMLDivElement>();
+  const ref = useMergedRefs<unknown>(
+    scrollRef,
+    useWrappedRefWithWarning(measureRef, 'Timeline')
+  );
 
   const formattedDate = React.useMemo(() => format(start, 'PP'), [start]);
 
@@ -281,6 +298,23 @@ const Timeline: React.FC<TimelineProps> = () => {
     );
   }
 
+  React.useEffect(() => {
+    if (hasScrolled) {
+      return;
+    }
+    if (measure.width === 0) {
+      return;
+    }
+    if (grouped.length > 0 && isWithinInterval(nowToShow, day)) {
+      const offsetSec = differenceInSeconds(nowToShow, start);
+      const offset = offsetSec * pixelsPerSecond;
+      scrollRef.current?.scrollTo({
+        left: offset - measure.width + 20
+      });
+      setHasScrolled(true);
+    }
+  }, [grouped, hasScrolled, measure, nowToShow, day, start, pixelsPerSecond]);
+
   const timelineRows = React.useMemo(() => grouped.map((streams) => {
     const { streamer } = streams[0];
     return (
@@ -304,30 +338,34 @@ const Timeline: React.FC<TimelineProps> = () => {
     <div className={classes('content', 'inset', styles.content)}>
       <div className={styles.header}>
         <h3>{formattedDate}</h3>
-        <Button className='button secondary' onClick={() => setOffset(o => o - 1)}>Previous</Button>
-        <Button className='button secondary' onClick={() => setOffset(o => o + 1)}>Next</Button>
+        <Button className='button secondary' onClick={previous}>Previous</Button>
+        <Button className='button secondary' onClick={next}>Next</Button>
       </div>
-      <div
-        className={styles.container}
-      >
-        <div>
-          <div className={classes(styles.streamerContainer, styles.rows)}>
-            {streamerRows}
-          </div>
-          <div ref={ref} className={styles.timelineContainer}>
-            <div className={styles.hourBars} style={{ width: `${width}px`}}>
-              {hourBars}
+      {grouped.length === 0 ? (
+        <Loading />
+      ) : (
+        <div
+          className={styles.container}
+        >
+          <div>
+            <div className={classes(styles.streamerContainer, styles.rows)}>
+              {streamerRows}
             </div>
-            <div className={styles.rows} style={{ width: `${width}px` }}>
-              <HoursHeader
-                visibleInterval={day}
-                pixelsPerSecond={pixelsPerSecond}
-              />
-              {timelineRows}
+            <div ref={ref} className={styles.timelineContainer}>
+              <div className={styles.hourBars} style={{ width: `${width}px`}}>
+                {hourBars}
+              </div>
+              <div className={styles.rows} style={{ width: `${width}px` }}>
+                <HoursHeader
+                  visibleInterval={day}
+                  pixelsPerSecond={pixelsPerSecond}
+                />
+                {timelineRows}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
