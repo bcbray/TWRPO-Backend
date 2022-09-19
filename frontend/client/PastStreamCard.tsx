@@ -12,6 +12,7 @@ import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 import OverrideSegmentButton from './OverrideSegmentButton';
+import SegmentTitleTag from './SegmentTitleTag';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   streamer: Streamer;
@@ -140,19 +141,10 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
           </div>
         }
         <div className={styles.topTags}>
-          <Tag className={classes(styles.tag, styles.name)}>
-            <p>
-              {segment.character ? (
-                <>
-                  {segment.characterUncertain && '? '}
-                  {segment.character.displayInfo.displayName}
-                  {segment.characterUncertain && ' ?'}
-                </>
-              ) : (
-                'WRP'
-              )}
-            </p>
-          </Tag>
+          <SegmentTitleTag
+            className={classes(styles.tag, styles.name)}
+            segment={segment}
+          />
           {segment.liveInfo &&
             <Tag className={classes(styles.tag, styles.live)}>
               <p>Live</p>

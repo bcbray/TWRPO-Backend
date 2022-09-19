@@ -173,13 +173,6 @@
   margin: 0;
 }
 
-.tag.name {
-  font-weight: 500;
-  text-transform: uppercase;
-  color: var(--const-theme-black);
-  background-color: var(--faction-color-dark);
-}
-
 .tag.live {
   font-weight: 500;
   text-transform: uppercase;
