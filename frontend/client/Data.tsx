@@ -362,7 +362,7 @@ const queryStringForParams = (params: StreamsParams): string => {
     searchParams.set('live', live ? 'true' : 'false');
   }
   if (distinctCharacters !== undefined) {
-    searchParams.set('distinctCharacters', live ? 'true' : 'false');
+    searchParams.set('distinctCharacters', distinctCharacters ? 'true' : 'false');
   }
   if (startBefore !== undefined) {
     searchParams.set('startBefore', startBefore.toISOString());
