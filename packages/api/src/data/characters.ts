@@ -313,7 +313,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 127, name: 'Dakota Ellis' },
     ],
     Caffine5: [
-        { id: 128, name: 'Billy Falco', nicknames: ['Billy Blasters', 'Billy Blunders'] }, // Former Danger Gang
+        { id: 128, name: 'Billy Falco', nicknames: ['Billy Blasters', 'Billy Blunders'], factions: ['Independent', 'Guarma'] }, // Former Danger Gang
         { id: 129, name: 'Vincenzo Struzzo' },
     ],
     calibriggs: [
@@ -600,7 +600,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 255, name: 'Lawrence "The Major" Stirling' },
         { id: 256, name: 'Isaac "Dr. Creed" Creed' }, // Leader of The Ward
         { id: 257, name: 'Reginald "Reggie" Richardson' },
-        { id: 258, name: 'Cullen Vane' },
+        { id: 258, name: 'Cullen Vane', factions: ['Independent', 'Guarma'] },
     ],
     Dwoalin: [
         { id: 259, name: 'Jeff "Smed" Smedley' },
@@ -676,7 +676,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 287, name: 'Alfonso Bonucci', nicknames: ['Coach Al', 'Al'], displayName: 4 }, // Former DiCenzo? Not in the DiCenzo restructure.
     ],
     extralivia: [
-        { id: 288, name: 'Lydia Spade' },
+        { id: 288, name: 'Lydia Spade', factions: ['Independent', 'Guarma'] },
         { id: 289, name: 'Aria Monroe' },
     ],
     Eyebyte: [
@@ -863,7 +863,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 383, name: 'Matt Dursk' },
     ],
     Heikima: [
-        { id: 989, name: 'Kaifeng Mi' },
+        { id: 989, name: 'Kaifeng Mi', factions: ['Independent', 'Guarma'] },
         { id: 1054, name: 'Pocky Ma' },
     ],
     HerbtheNerd: [
@@ -972,7 +972,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 422, name: 'Patch "Patches" Twine' },
         { id: 1061, name: 'Phineas "Fin" Faith' },
         { id: 1089, name: 'Rupert Romano' },
-        { id: 1124, name: 'Dynamo Barbarosa' }, // Character last name Dolton but goes by Barbarosa
+        { id: 1124, name: 'Dynamo Barbarosa', factions: ['Independent', 'Guarma'] }, // Character last name Dolton but goes by Barbarosa
     ],
     J0J0: [
         { id: 423, name: 'Delilah Kane' },
@@ -1398,7 +1398,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 608, name: 'Seymour Humphries' },
     ],
     NouieMan: [
-        { id: 609, name: 'James Henderson' },
+        { id: 609, name: 'James Henderson', factions: ['Independent', 'Guarma'] },
         { id: 610, name: 'Jim Fandango' },
         { id: 611, name: 'John Tatum' },
         { id: 612, name: 'Leviticus Starr' },
