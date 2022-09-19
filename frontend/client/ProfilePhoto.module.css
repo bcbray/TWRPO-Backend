@@ -2,6 +2,7 @@
   background-color: var(--bs-gray-200);
   overflow: hidden;
   aspect-ratio: 1/1;
+  border-radius: 50%;
 }
 
 .pfp.hasPfp {
