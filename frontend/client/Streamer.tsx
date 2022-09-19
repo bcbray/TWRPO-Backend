@@ -82,12 +82,7 @@ const Streamer: React.FC<StreamerProps> = ({
             streamer={streamer}
           >
             <ProfilePhoto
-              channelInfo={{
-                id: streamer.twitchId,
-                login: streamer.twitchLogin,
-                displayName: streamer.displayName,
-                profilePictureUrl: streamer.profilePhotoUrl,
-              }}
+              channelInfo={streamer}
               size='lg'
               style={{
                 display: 'inline-block'

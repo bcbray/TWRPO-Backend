@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChannelInfo } from '@twrpo/types';
+import { ChannelInfo, Streamer } from '@twrpo/types';
 
 import styles from './ProfilePhoto.module.css';
 import { classes } from './utils';
@@ -8,7 +8,7 @@ import { useDevicePixelRatio } from './hooks';
 type ProfilePhotoSize = 'sm' | 'md' | 'lg' | number;
 
 interface ProfilePhotoProps {
-  channelInfo: ChannelInfo | null | undefined;
+  channelInfo: ChannelInfo | Streamer | null | undefined;
   size?: ProfilePhotoSize;
 }
 
@@ -42,6 +42,12 @@ export const ProfilePhoto = React.forwardRef<
 ) => {
   const scale = useDevicePixelRatio();
 
+  const profilePhotoUrl = channelInfo
+    ? 'profilePictureUrl' in channelInfo
+      ? channelInfo.profilePictureUrl
+      : channelInfo.profilePhotoUrl
+    : undefined;
+
   const sizePx =
     size === 'sm' ? 30
     : size === 'md' ? 60
@@ -59,21 +65,20 @@ export const ProfilePhoto = React.forwardRef<
       style={{
         width: `${sizePx}px`,
         height: `${sizePx}px`,
-        borderRadius: `${sizePx/2}px`,
         ...style,
       }}
       ref={ref}
       {...rest}
     >
-      {channelInfo &&
+      {channelInfo && profilePhotoUrl &&
         <img
-          src={resizedProfileUrl(channelInfo.profilePictureUrl, sizePx, scale)}
+          src={resizedProfileUrl(profilePhotoUrl, sizePx, scale)}
           alt={channelInfo.displayName}
           loading={loading}
         />
       }
     </div>
-  )
+  );
 });
 
 export default ProfilePhoto;

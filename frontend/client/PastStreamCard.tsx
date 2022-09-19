@@ -185,10 +185,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
           <Link to={`/streamer/${streamer.twitchLogin}`}>
             <ProfilePhotos
               className={styles.pfp}
-              channelInfo={{
-                displayName: streamer.displayName,
-                profilePictureUrl: streamer.profilePhotoUrl,
-              }}
+              channelInfo={streamer}
               size='sm'
             />
           </Link>
