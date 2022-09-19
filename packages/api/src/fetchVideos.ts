@@ -60,7 +60,7 @@ export const fetchVideosForUser = async (
         console.log(JSON.stringify({
             level: 'warning',
             message: `Failed to fetch page “${11 - pages}” for ${userId}`,
-            event: 'video-fetch-failed',
+            event: 'twitch-video-fetch-failed',
             error,
         }));
     }
@@ -85,38 +85,47 @@ export const fetchMissingThumbnailsForVideoIds = async (
     const fetchStart = process.hrtime.bigint();
     let foundThumbnails = 0;
 
-    while (toFetchVideoIds.length > 0) {
-        const thisSearch = toFetchVideoIds.splice(0, fetchLimit);
-        const videos = await apiClient.videos.getVideosByIds(thisSearch);
-        for (const video of videos) {
-            if (video.thumbnailUrl) {
-                await dataSource.getRepository(Video)
-                    .update(
-                        { videoId: video.id },
-                        { thumbnailUrl: video.thumbnailUrl }
-                    );
-                console.log(JSON.stringify({
-                    level: 'info',
-                    message: `Found thumbnail for “${video.title}” for ${video.userDisplayName}`,
-                    event: 'video-thumbnail-found',
-                    channel: video.userDisplayName,
-                    title: video.title,
-                }));
-                foundThumbnails += 1;
+    try {
+        while (toFetchVideoIds.length > 0) {
+            const thisSearch = toFetchVideoIds.splice(0, fetchLimit);
+            const videos = await apiClient.videos.getVideosByIds(thisSearch);
+            for (const video of videos) {
+                if (video.thumbnailUrl) {
+                    await dataSource.getRepository(Video)
+                        .update(
+                            { videoId: video.id },
+                            { thumbnailUrl: video.thumbnailUrl }
+                        );
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        message: `Found thumbnail for “${video.title}” for ${video.userDisplayName}`,
+                        event: 'video-thumbnail-found',
+                        channel: video.userDisplayName,
+                        title: video.title,
+                    }));
+                    foundThumbnails += 1;
+                }
             }
         }
+
+        const fetchEnd = process.hrtime.bigint();
+
+        console.log(JSON.stringify({
+            level: 'info',
+            message: `Fetched thumbnails for ${videoIds.length} videos, found ${foundThumbnails} thumbnails`,
+            event: 'video-thumbnail-end',
+            videoCount: toFetchVideoIds.length,
+            foundThumbnails,
+            totalTime: Number((fetchEnd - fetchStart) / BigInt(1e+6)),
+        }));
+    } catch (error) {
+        console.log(JSON.stringify({
+            level: 'warning',
+            message: 'Failed to fetch missing thumbnails',
+            event: 'twitch-video-fetch-failed',
+            error,
+        }));
     }
-
-    const fetchEnd = process.hrtime.bigint();
-
-    console.log(JSON.stringify({
-        level: 'info',
-        message: `Fetched thumbnails for ${videoIds.length} videos, found ${foundThumbnails} thumbnails`,
-        event: 'video-thumbnail-end',
-        videoCount: toFetchVideoIds.length,
-        foundThumbnails,
-        totalTime: Number((fetchEnd - fetchStart) / BigInt(1e+6)),
-    }));
 };
 
 export const fetchMissingThumbnails = async (

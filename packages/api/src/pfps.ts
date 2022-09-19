@@ -29,10 +29,9 @@ export const getKnownTwitchUsers = async (apiClient: ApiClient, dataSource: Data
     }
 
     existingPromise = new Promise<TwitchUser[]>(async (resolve, reject) => {
+        const toSearch = Object.keys(wrpCharacters);
+        let allUsers: TwitchUser[] = [];
         try {
-            const toSearch = Object.keys(wrpCharacters);
-            let allUsers: TwitchUser[] = [];
-
             log(`Starting known users fetch for ${toSearch.length} users`);
 
             while (toSearch.length > 0) {
@@ -79,7 +78,14 @@ export const getKnownTwitchUsers = async (apiClient: ApiClient, dataSource: Data
 
             resolve(allUsers);
         } catch (err) {
-            log('Failed to fetch user data:', err);
+            console.log(JSON.stringify({
+                level: 'warning',
+                message: 'Failed to fetch known users',
+                event: 'twitch-user-fetch-failed',
+                fetchedCount: allUsers.length,
+                toFetchCount: toSearch.length,
+                error: err,
+            }));
             reject(err);
         }
     });

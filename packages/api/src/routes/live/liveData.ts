@@ -301,50 +301,60 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
     const gtaStreamsObj: { [key: string]: HelixStream } = {};
     const gtaStreams: HelixStream[] = [];
     let after;
-    while (searchNum > 0) {
-        const limitNow = Math.min(searchNum, bigLimit);
-        searchNum -= limitNow;
-        const gtaStreamsNow: HelixPaginatedResult<HelixStream> = await apiClient.streams.getStreams({
-            game,
-            // language: optionsParsed.international ? undefined : language,
-            language: languages,
-            limit: limitNow,
-            type: streamType,
-            after,
-        });
+    try {
+        while (searchNum > 0) {
+            const limitNow = Math.min(searchNum, bigLimit);
+            searchNum -= limitNow;
+            const gtaStreamsNow: HelixPaginatedResult<HelixStream> = await apiClient.streams.getStreams({
+                game,
+                // language: optionsParsed.international ? undefined : language,
+                language: languages,
+                limit: limitNow,
+                type: streamType,
+                after,
+            });
 
-        if (gtaStreamsNow.data.length === 0) {
-            log(`${endpoint}: Search ended (limit: ${limitNow})`, gtaStreamsNow);
-            break;
-        }
-
-        const lookupStreams = [];
-        for (const helixStream of gtaStreamsNow.data) {
-            const { userId } = helixStream;
-            if (gtaStreamsObj[userId]) continue;
-            gtaStreamsObj[userId] = helixStream;
-            gtaStreams.push(helixStream);
-            if (knownPfps[userId] === undefined) {
-                lookupStreams.push(userId);
+            if (gtaStreamsNow.data.length === 0) {
+                log(`${endpoint}: Search ended (limit: ${limitNow})`, gtaStreamsNow);
+                break;
             }
-        }
 
-        if (lookupStreams.length > 0) {
-            log(`${endpoint}: Looking up pfp for ${lookupStreams.length} users after...`);
-            const foundUsers = await apiClient.users.getUsersByIds(lookupStreams);
-            for (const helixUser of foundUsers) {
-                knownPfps[helixUser.id] = helixUser.profilePictureUrl.replace('-300x300.', '-50x50.');
-                unknownTwitchUsers[helixUser.id] = {
-                    id: helixUser.id,
-                    login: helixUser.name,
-                    displayName: helixUser.displayName,
-                    profilePictureUrl: helixUser.profilePictureUrl,
-                    createdAt: helixUser.creationDate,
-                };
+            const lookupStreams = [];
+            for (const helixStream of gtaStreamsNow.data) {
+                const { userId } = helixStream;
+                if (gtaStreamsObj[userId]) continue;
+                gtaStreamsObj[userId] = helixStream;
+                gtaStreams.push(helixStream);
+                if (knownPfps[userId] === undefined) {
+                    lookupStreams.push(userId);
+                }
             }
-        }
 
-        after = gtaStreamsNow.cursor;
+            if (lookupStreams.length > 0) {
+                log(`${endpoint}: Looking up pfp for ${lookupStreams.length} users after...`);
+                const foundUsers = await apiClient.users.getUsersByIds(lookupStreams);
+                for (const helixUser of foundUsers) {
+                    knownPfps[helixUser.id] = helixUser.profilePictureUrl.replace('-300x300.', '-50x50.');
+                    unknownTwitchUsers[helixUser.id] = {
+                        id: helixUser.id,
+                        login: helixUser.name,
+                        displayName: helixUser.displayName,
+                        profilePictureUrl: helixUser.profilePictureUrl,
+                        createdAt: helixUser.creationDate,
+                    };
+                }
+            }
+
+            after = gtaStreamsNow.cursor;
+        }
+    } catch (error) {
+        console.log(JSON.stringify({
+            level: 'warning',
+            message: 'Failed to fetch streams',
+            event: 'twitch-stream-fetch-failed',
+            error,
+        }));
+        return [];
     }
 
     return gtaStreams;
@@ -1069,7 +1079,16 @@ const getWrpLive = async (
                     if (streamerIds.length) {
                         let foundVideos = 0;
                         for (const streamerId of streamerIds) {
-                            foundVideos += await fetchVideosForUser(apiClient, dataSource, streamerId, streamIds);
+                            try {
+                                foundVideos += await fetchVideosForUser(apiClient, dataSource, streamerId, streamIds);
+                            } catch (error) {
+                                console.error(JSON.stringify({
+                                    level: 'warning',
+                                    message: `Failed to fetch videos for user ${streamerId}`,
+                                    event: 'twitch-user-video-fetch',
+                                    error,
+                                }));
+                            }
                         }
                         console.log(JSON.stringify({
                             level: 'info',
