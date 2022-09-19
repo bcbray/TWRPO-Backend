@@ -5,6 +5,7 @@ import useTimeout from '@restart/hooks/useTimeout';
 import Waypoint from '@restart/ui/Waypoint';
 import { WaypointEvent, Position } from '@restart/ui/useWaypoint';
 import _ from 'lodash';
+import { isSameDay, subDays } from 'date-fns';
 
 import { useNow } from './Data';
 
@@ -203,6 +204,13 @@ export function useShortDate(date: Date): string {
     timeZone: isFirstRender ? 'utc' : undefined,
     timeZoneName: isFirstRender ? 'short' : undefined,
   }), [isFirstRender]);
+
+  if (!isFirstRender && isSameDay(date, now)) {
+    return 'Today'
+  }
+  if (!isFirstRender && isSameDay(date, subDays(now, 1))) {
+    return 'Yesterday'
+  }
 
   return shortDate(date, now, locale, formatOptions);
 }

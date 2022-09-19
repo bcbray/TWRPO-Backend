@@ -13,7 +13,6 @@ import {
   formatISO,
   intlFormat,
   toDate,
-  format,
 } from 'date-fns';
 import { useUpdateEffect, useMeasure } from 'react-use';
 import { Button } from '@restart/ui';
@@ -28,7 +27,7 @@ import ProfilePhoto from './ProfilePhoto';
 import { classes } from './utils';
 import SegmentTitleTag from './SegmentTitleTag'
 import Tag from './Tag';
-import { useImageUrlOnceLoaded, useWrappedRefWithWarning } from './hooks';
+import { useImageUrlOnceLoaded, useWrappedRefWithWarning, useShortDate, useInitialRender } from './hooks';
 import Loading from './Loading';
 
 interface TimelineProps {
@@ -42,6 +41,7 @@ const useDay = (date: Date): Interval => React.useMemo(() => ({
 const useIntervalStreams = (interval: Interval): {
   streams: SegmentAndStreamer[],
   lastRefresh: Date | null,
+  hasMore: Boolean,
 } => {
   const {
     streams,
@@ -82,7 +82,11 @@ const useIntervalStreams = (interval: Interval): {
     })
   ), [loadedStreams, interval]);
 
-  return { streams: overlappingStreams, lastRefresh: lastRefresh ?? null };
+  return {
+    streams: overlappingStreams,
+    lastRefresh: lastRefresh ?? null,
+    hasMore,
+  };
 }
 
 interface TimelineSegmentProps {
@@ -208,9 +212,11 @@ const Timeline: React.FC<TimelineProps> = () => {
   const [offset, setOffset] = React.useState(0);
   const target = React.useMemo(() => addDays(now, offset), [now, offset])
   const day = useDay(target);
-  const { streams, lastRefresh } = useIntervalStreams(day);
+  const { streams, lastRefresh, hasMore } = useIntervalStreams(day);
   const { start, end } = day;
   const [hasScrolled, setHasScrolled] = React.useState(false);
+  const isFirstRender = useInitialRender();
+  const isToday = React.useMemo(() => !isFirstRender && isWithinInterval(now, day), [isFirstRender, now, day]);
 
   const previous = React.useCallback(() => {
     setHasScrolled(false);
@@ -247,7 +253,7 @@ const Timeline: React.FC<TimelineProps> = () => {
     useWrappedRefWithWarning(measureRef, 'Timeline')
   );
 
-  const formattedDate = React.useMemo(() => format(start, 'PP'), [start]);
+  const formattedDate = useShortDate(toDate(start));
 
   const idealPerHourWidth = React.useMemo(() => {
     const totalHours = totalLength / 60 / 60;
@@ -345,10 +351,15 @@ const Timeline: React.FC<TimelineProps> = () => {
       <div className={styles.header}>
         <h3>{formattedDate}</h3>
         <Button className='button secondary' onClick={previous}>Previous</Button>
-        <Button className='button secondary' onClick={next}>Next</Button>
+        <Button className='button secondary' onClick={next} disabled={isToday}>Next</Button>
       </div>
-      {grouped.length === 0 ? (
+      {grouped.length === 0 ? hasMore ? (
         <Loading />
+      ) : (
+        <>
+          <h4>No streams</h4>
+          <p>There aren’t any recorded streams during this timeframe.</p>
+        </>
       ) : (
         <div
           className={styles.container}

@@ -113,33 +113,33 @@
 
 .segmentContent {
   position: relative;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   gap: 0.5rem;
   height: 100%;
 }
 
 .thumbnail {
-  border-radius: 0.1rem;
+  border-radius: 0.125rem;
   overflow: hidden;
-  height: calc(100% - 0.5rem);
-  aspect-ratio: 16/9;
+  height: 100%;
+  aspect-ratio: 1/1;
   flex-shrink: 0;
 }
 
 .thumbnail img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  gap: 0.25rem;
+  justify-content: space-between;
   flex-shrink: 1;
 }
 
