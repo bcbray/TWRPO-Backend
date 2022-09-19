@@ -336,6 +336,7 @@ export const useLiveStreams = ({ skipsPreload = false, ...props }: PreLoadingPro
 
 export interface StreamsParams {
   live?: boolean;
+  distinctCharacters?: boolean;
   startBefore?: Date;
   startAfter?: Date;
   endBefore?: Date;
@@ -346,6 +347,7 @@ export interface StreamsParams {
 const queryStringForParams = (params: StreamsParams): string => {
   const {
     live,
+    distinctCharacters,
     startBefore,
     startAfter,
     endBefore,
@@ -356,6 +358,9 @@ const queryStringForParams = (params: StreamsParams): string => {
   const searchParams = new URLSearchParams();
   if (live !== undefined) {
     searchParams.set('live', live ? 'true' : 'false');
+  }
+  if (distinctCharacters !== undefined) {
+    searchParams.set('distinctCharacters', live ? 'true' : 'false');
   }
   if (startBefore !== undefined) {
     searchParams.set('startBefore', startBefore.toISOString());

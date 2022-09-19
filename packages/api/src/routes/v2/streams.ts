@@ -88,6 +88,7 @@ export interface RecentStreamsCursor {
 
 export interface StreamsParams {
     live?: boolean;
+    distinctCharacters?: boolean;
     startBefore?: Date;
     startAfter?: Date;
     endBefore?: Date;
@@ -146,6 +147,7 @@ export const fetchRecentStreams = async (
     limit: number = DEFAULT_LIMIT
 ): Promise<StreamsResponse> => {
     const {
+        distinctCharacters = true,
         startBefore,
         startAfter,
         endBefore,
@@ -154,6 +156,7 @@ export const fetchRecentStreams = async (
     } = params;
 
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
+    const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
     const liveCharacterIds = liveData.streams.flatMap(s => (s.characterId ? [s.characterId] : []));
     const liveDataTwitchUserIdLookup = Object.fromEntries(liveData.streams
         .map(s => [s.channelName.toLowerCase(), s]));
@@ -182,13 +185,19 @@ export const fetchRecentStreams = async (
                 .addSelect('stream_chunk.lastViewerCount', 'lastViewerCount')
                 .addSelect('stream_chunk.isOverridden', 'isOverridden')
                 .addSelect('stream_chunk.isHidden', 'isHidden')
-                .distinctOn(['stream_chunk.characterId'])
                 .where('true')
                 .orderBy('stream_chunk.characterId', 'ASC')
                 .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
-            if (liveCharacterIds.length) {
-                subQuery.andWhere('stream_chunk.characterId NOT IN (:...liveCharacterIds)', { liveCharacterIds });
+
+            if (distinctCharacters) {
+                subQuery.distinctOn(['stream_chunk.characterId']);
+                if (liveCharacterIds.length) {
+                    subQuery.andWhere('stream_chunk.characterId NOT IN (:...liveCharacterIds)', { liveCharacterIds });
+                }
+            } else if (liveSegmentIds.length) {
+                subQuery.andWhere('stream_chunk.id NOT IN (:...liveSegmentIds)', { liveSegmentIds });
             }
+
             if (!isGlobalEditor(userResponse)) {
                 subQuery
                     .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate >= make_interval(mins => :minimumSegmentLengthMinutes)', { minimumSegmentLengthMinutes })
@@ -315,7 +324,7 @@ export const fetchRecentStreams = async (
 export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource, params: StreamsParams = {}, userResponse: UserResponse): Promise<StreamsResponse> => {
     const now = new Date();
     const {
-        live,
+        live = true,
         startBefore,
         startAfter,
         endBefore,
@@ -328,7 +337,7 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
     const { streams: liveStreams, lastRefreshTime } = await fetchLiveStreams(apiClient, dataSource, userResponse);
 
     const includeLive = cursor === undefined
-        && live !== false
+        && live
         && (endBefore === undefined || endBefore.getTime() < new Date(lastRefreshTime).getTime())
         && (startAfter === undefined || startAfter.getTime() < new Date(lastRefreshTime).getTime());
 
@@ -541,13 +550,25 @@ const queryParamDate = (query: Request['query'] | URLSearchParams, name: string)
     return date;
 };
 
+const queryParamBoolean = (query: Request['query'] | URLSearchParams, name: string): undefined | boolean => {
+    const stringParam = queryParamString(query, name);
+    if (stringParam === undefined) {
+        return undefined;
+    }
+    if (stringParam === 'true') {
+        return true;
+    }
+    if (stringParam === 'false') {
+        return false;
+    }
+    throw new ParamError(`'${stringParam}' is not a valid boolean for '${name}'. Must be "true" or "false".`);
+};
+
 export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): StreamsParams | { error: string } => {
     const params: StreamsParams = {};
     try {
-        const liveString = queryParamString(query, 'live');
-        if (liveString !== undefined) {
-            params.live = Boolean(queryParamString(query, 'live'));
-        }
+        params.live = queryParamBoolean(query, 'live');
+        params.distinctCharacters = queryParamBoolean(query, 'distinctCharacters');
         params.startBefore = queryParamDate(query, 'startBefore');
         params.startAfter = queryParamDate(query, 'startAfter');
         params.endBefore = queryParamDate(query, 'endBefore');

@@ -50,6 +50,7 @@ const useIntervalStreams = (interval: Interval): {
     loadMore,
     reload,
   } = usePaginatedStreams(useStreams, {
+    distinctCharacters: false,
     endAfter: toDate(interval.start),
     startBefore: toDate(interval.end),
   });
