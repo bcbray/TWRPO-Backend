@@ -17,9 +17,11 @@ import { minimumSegmentLengthMinutes, chunkIsShorterThanMinimum } from '../../se
 export const fetchLiveStreams = async (apiClient: ApiClient, dataSource: DataSource, userResponse: UserResponse): Promise<StreamsResponse> => {
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
     const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
-    const liveDataLookup = Object.fromEntries(liveData.streams
+    const liveDataSegmentIdLookup = Object.fromEntries(liveData.streams
         .filter(s => s.segmentId)
         .map(s => [s.segmentId!, s]));
+    const liveDataTwitchUserIdLookup = Object.fromEntries(liveData.streams
+        .map(s => [s.channelName.toLowerCase(), s]));
 
     const characters = await fetchCharacters(apiClient, dataSource, userResponse);
     const characterLookup = Object.fromEntries(
@@ -52,17 +54,18 @@ export const fetchLiveStreams = async (apiClient: ApiClient, dataSource: DataSou
                 twitchLogin: segment.channel!.twitchLogin,
                 displayName: segment.channel!.displayName,
                 profilePhotoUrl: segment.channel!.profilePhotoUrl,
+                liveInfo: liveDataTwitchUserIdLookup[segment.channel!.displayName.toLowerCase()],
             },
             segment: {
                 id: segment.id,
                 title: segment.title,
                 url,
-                thumbnailUrl: liveDataLookup[segment.id]?.thumbnailUrl ?? segment.video?.thumbnailUrl,
+                thumbnailUrl: liveDataSegmentIdLookup[segment.id]?.thumbnailUrl ?? segment.video?.thumbnailUrl,
                 startDate: segment.firstSeenDate.toISOString(),
                 endDate: segment.lastSeenDate.toISOString(),
                 character: segment.characterId ? characterLookup[segment.characterId] : null,
                 characterUncertain: segment.characterUncertain,
-                liveInfo: liveDataLookup[segment.id],
+                liveInfo: liveDataSegmentIdLookup[segment.id],
                 streamId: segment.streamId,
                 isHidden: segment.isHidden,
                 isTooShort: false, // Live streams are never excluded for length
@@ -238,6 +241,7 @@ export const fetchRecentStreams = async (
                 twitchLogin: segment.channel!.twitchLogin,
                 displayName: segment.channel!.displayName,
                 profilePhotoUrl: segment.channel!.profilePhotoUrl,
+                liveInfo: liveDataTwitchUserIdLookup[segment.channel!.displayName.toLowerCase()],
             },
             segment: {
                 id: segment.id,
