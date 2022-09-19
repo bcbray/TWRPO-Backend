@@ -12,6 +12,7 @@ import { AuthComplete } from './auth';
 import Login from './Login';
 import Streams from './Streams';
 import { ServersContainer } from './Servers';
+import { TimelineContainer } from './Timeline';
 
 export const publicRoutes = <>
   <Route path="/" element={<LiveContainer />} />
@@ -30,6 +31,7 @@ export const privateRoutes = <>
   <Route path="/utils/unknown" element={<UnknownContainer />} />
   <Route path="/utils/streams" element={<Streams />} />
   <Route path="/utils/streams/unknown" element={<Streams type='unknown' />} />
+  <Route path="/utils/timeline" element={<TimelineContainer />} />
 
   <Route path="/admin/servers" element={<ServersContainer />} />
 </>;
