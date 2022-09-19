@@ -54,6 +54,8 @@ const useIntervalStreams = (interval: Interval): {
     endAfter: toDate(interval.start),
     startBefore: toDate(interval.end),
     limit: 100,
+  }, {
+    skipsPreload: true,
   });
   const [isComplete, setIsComplete] = React.useState(false);
 

@@ -13,7 +13,8 @@ interface StreamsProps {
 
 export const usePaginatedStreams = (
   loader: (params: StreamsParams | undefined, props: PreLoadingProps<StreamsResponse>) => LoadingResult<StreamsResponse>,
-  params: Omit<StreamsParams, 'cursor'> = {}
+  params: Omit<StreamsParams, 'cursor'> = {},
+  { needsLoad: propsNeedsLoad = true, ...props}: PreLoadingProps<StreamsResponse> = {}
 ) => {
   const [currentCursor, setCurrentCursor] = React.useState<string | undefined>();
   const nextCursorRef = React.useRef<string | undefined>(undefined);
@@ -21,7 +22,7 @@ export const usePaginatedStreams = (
   const resetOnNextLoadRef = React.useRef(false);
   const [loadState, reload, loadTick] = loader(
     { ...params, cursor: currentCursor },
-    { needsLoad: hasMoreRef.current }
+    { ...props, needsLoad: propsNeedsLoad && hasMoreRef.current }
   );
   const isInitialRender = useInitialRender();
 
