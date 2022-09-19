@@ -17,6 +17,7 @@ import {
 import { useUpdateEffect, useMeasure } from 'react-use';
 import { Button } from '@restart/ui';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
+import { EyeSlashFill } from 'react-bootstrap-icons';
 import { SegmentAndStreamer, VideoSegment } from '@twrpo/types';
 
 import styles from './Timeline.module.css';
@@ -131,6 +132,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
         !isEqual(clampStart, streamStart) && styles.overlapLeft,
         !isEqual(clampEnd, streamEnd) && styles.overlapRight,
         segment.liveInfo && styles.live,
+        segment.isHidden && styles.hidden,
       )}
       style={{
         left: `${Math.round(startOffsetSec * pixelsPerSecond)}px`,
@@ -140,9 +142,16 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
       } as React.CSSProperties}
     >
       <div className={styles.segmentContent}>
-        {loadedThumbnailUrl &&
+        {(loadedThumbnailUrl || segment.isHidden) &&
           <div className={styles.thumbnail}>
-            <img alt='Stream thumbnail' src={loadedThumbnailUrl} />
+            {loadedThumbnailUrl &&
+              <img alt='Stream thumbnail' src={loadedThumbnailUrl} />
+            }
+            {segment.isHidden &&
+              <div className={styles.hiddenOverlay}>
+                <EyeSlashFill title='Segment is hidden' />
+              </div>
+            }
           </div>
         }
         <div className={styles.info}>

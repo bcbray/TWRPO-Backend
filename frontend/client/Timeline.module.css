@@ -111,6 +111,10 @@
   border-bottom-right-radius: 0;
 }
 
+.segment.hidden .segmentContent {
+  opacity: 0.6;
+}
+
 .segmentContent {
   position: relative;
   padding: 0.5rem;
@@ -122,6 +126,7 @@
 }
 
 .thumbnail {
+  position: relative;
   border-radius: 0.125rem;
   overflow: hidden;
   height: 100%;
@@ -133,6 +138,27 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.hiddenOverlay {
+  color: var(--const-theme-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hiddenOverlay svg {
+  color: rgba(255,255,255,0.5);
+  display: block;
+  margin: auto;
+  width: auto;
+  height: 75%;
+  aspect-ratio: 1;
 }
 
 .info {
