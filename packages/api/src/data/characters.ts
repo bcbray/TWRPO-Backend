@@ -600,7 +600,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 255, name: 'Lawrence "The Major" Stirling' },
         { id: 256, name: 'Isaac "Dr. Creed" Creed' }, // Leader of The Ward
         { id: 257, name: 'Reginald "Reggie" Richardson' },
-        { id: 258, name: 'Cullen Vane', factions: ['Independent', 'Guarma'] },
+        { id: 258, name: 'Cullen Vane', nicknames: ['The Doctor'], factions: ['Independent', 'Guarma'] },
     ],
     Dwoalin: [
         { id: 259, name: 'Jeff "Smed" Smedley' },
