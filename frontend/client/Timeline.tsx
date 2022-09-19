@@ -14,6 +14,7 @@ import {
   intlFormat,
   toDate,
 } from 'date-fns';
+import { Link } from 'react-router-dom';
 import { useUpdateEffect, useMeasure } from 'react-use';
 import { Button } from '@restart/ui';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
@@ -30,6 +31,7 @@ import SegmentTitleTag from './SegmentTitleTag'
 import Tag from './Tag';
 import { useImageUrlOnceLoaded, useWrappedRefWithWarning, useShortDate, useInitialRender } from './hooks';
 import Loading from './Loading';
+import { useFactionCss } from './FactionStyleProvider';
 
 interface TimelineProps {
 }
@@ -227,6 +229,8 @@ const Timeline: React.FC<TimelineProps> = () => {
   const isFirstRender = useInitialRender();
   const isToday = React.useMemo(() => !isFirstRender && isWithinInterval(now, day), [isFirstRender, now, day]);
 
+  const { factionStylesForKey } = useFactionCss();
+
   const previous = React.useCallback(() => {
     setHasScrolled(false);
     setOffset(o => o - 1);
@@ -269,23 +273,32 @@ const Timeline: React.FC<TimelineProps> = () => {
     return measure.width / totalHours;
   }, [measure.width, totalLength]);
 
-  const minPerHourWidth = 100;
+  const minPerHourWidth = 10;
   const perHourWidth = idealPerHourWidth < minPerHourWidth ? minPerHourWidth : idealPerHourWidth;
   const width = Math.ceil(perHourWidth * totalLength / 60 / 60);
   const pixelsPerSecond = width / totalLength;
 
   const streamerRows = React.useMemo(() => grouped.map((streams) => {
-    const { streamer } = streams[0];
+    const { segment, streamer } = streams[0];
     return (
       <div
         key={streamer.twitchId}
         className={styles.streamer}
+        style={factionStylesForKey(segment.liveInfo?.tagFaction ?? segment.character?.factions.at(0)?.key)}
       >
-        <ProfilePhoto channelInfo={streamer} />
-        {streamer.displayName}
+        <Link to={`/streamer/${streamer.twitchLogin}`}>
+          <ProfilePhoto channelInfo={streamer} />
+        </Link>
+        <div className={styles.name}>
+          <p>
+            <Link to={`/streamer/${streamer.twitchLogin}`}>
+              {streamer.displayName}
+            </Link>
+          </p>
+        </div>
       </div>
     );
-  }), [grouped]);
+  }), [grouped, factionStylesForKey]);
 
   const hours = eachHourOfInterval(day);
   const hourBars = [...hours, end].map((hour) => {
