@@ -75,6 +75,7 @@ export const fetchLiveStreams = async (apiClient: ApiClient, dataSource: DataSou
             .filter(s => s.channel)
             .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
             .map(segmentAndStreamer),
+        lastRefreshTime: new Date(liveData.tick).toISOString(),
     };
 };
 
@@ -263,7 +264,9 @@ export const fetchRecentStreams = async (
         ? serializeRecentStreamsCursor({ before: new Date(rawSegments[rawSegments.length - 1].lastSeenDate) })
         : undefined;
 
-    return { streams, nextCursor };
+    const lastRefreshTime = new Date(liveData.tick).toISOString();
+
+    return { streams, nextCursor, lastRefreshTime };
 };
 
 export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource, cursor: RecentStreamsCursor | undefined, userResponse: UserResponse): Promise<StreamsResponse> => {
@@ -271,8 +274,9 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
     const streams: SegmentAndStreamer[] = [];
     let nextCursor: string | undefined;
 
+    const { streams: liveStreams, lastRefreshTime } = await fetchLiveStreams(apiClient, dataSource, userResponse);
+
     if (cursor === undefined) {
-        const { streams: liveStreams } = await fetchLiveStreams(apiClient, dataSource, userResponse);
         streams.push(...liveStreams);
     }
 
@@ -287,7 +291,7 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
         nextCursor = serializeRecentStreamsCursor({ before: now });
     }
 
-    return { streams, nextCursor };
+    return { streams, nextCursor, lastRefreshTime };
 };
 
 export const fetchUnknownStreams = async (

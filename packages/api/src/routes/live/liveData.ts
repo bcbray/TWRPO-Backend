@@ -473,7 +473,8 @@ const getWrpLive = async (
                 } = options;
                 const allowOthersNow = allowOthers || factionName === 'other';
 
-                const nowTime = +new Date();
+                const now = new Date();
+                const nowTime = +now;
 
                 const gtaStreams: (HelixStream)[] = await getStreams(apiClient, dataSource,
                     { searchNum, international }, endpoint);
@@ -499,7 +500,6 @@ const getWrpLive = async (
                 const newChunks: StreamChunk[] = [];
                 const updatedChunks: StreamChunk[] = [];
                 const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck'>[] = [];
-                const now = new Date();
 
                 const wrpServer = parseServer(await dataSource.getRepository(Server).findOneOrFail({
                     where: { key: 'wrp' },
