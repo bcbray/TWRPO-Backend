@@ -27,7 +27,6 @@ import {
     fetchRecentStreams,
     fetchStreams,
     fetchUnknownStreams,
-    deserializeRecentStreamsCursor,
     StreamsParams,
     parseStreamsQuery,
 } from './routes/v2/streams';
@@ -158,13 +157,17 @@ class Api {
         return fetchStreams(this.twitchClient, this.dataSource, params, currentUser);
     }
 
-    public async fetchUnknownStreams(cursor: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
-        const deserializedCursor = cursor ? deserializeRecentStreamsCursor(cursor) : undefined;
-        if (deserializedCursor === null) {
-            console.error('Invalid cursor');
+    public async fetchUnknownStreamsWithQuery(query: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
+        const params = parseStreamsQuery(new URLSearchParams(query));
+        if ('error' in params) {
+            console.error('Invalid query');
             return { streams: [], lastRefreshTime: new Date().toISOString() };
         }
-        return fetchUnknownStreams(this.twitchClient, this.dataSource, deserializedCursor, currentUser);
+        return this.fetchUnknownStreams(params, currentUser);
+    }
+
+    public async fetchUnknownStreams(params: StreamsParams | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
+        return fetchUnknownStreams(this.twitchClient, this.dataSource, params, currentUser);
     }
 
     public async fetchServers(currentUser: UserResponse): Promise<ServersResponse> {

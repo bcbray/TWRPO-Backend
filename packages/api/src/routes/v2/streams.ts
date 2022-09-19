@@ -410,7 +410,12 @@ export const fetchRecentStreams = async (
     return { streams, nextCursor, lastRefreshTime };
 };
 
-export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource, params: StreamsParams = {}, userResponse: UserResponse): Promise<StreamsResponse> => {
+export const fetchStreams = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    params: StreamsParams = {},
+    userResponse: UserResponse
+): Promise<StreamsResponse> => {
     const now = new Date();
     const {
         live = true,
@@ -460,19 +465,60 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
 export const fetchUnknownStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
-    cursor: RecentStreamsCursor | undefined,
+    params: StreamsParams = {},
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
+    const {
+        live,
+        startBefore,
+        startAfter,
+        endBefore,
+        endAfter,
+        search,
+        factionKey,
+        cursor,
+        limit = DEFAULT_LIMIT,
+    } = params;
+
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
     const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
     const liveDataLookup = Object.fromEntries(liveData.streams
         .filter(s => s.segmentId)
         .map(s => [s.segmentId!, s]));
+    const lastRefreshTime = new Date(liveData.tick).toISOString();
 
     const characters = await fetchCharacters(apiClient, dataSource, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
+
+    const searchRegex = search
+        ? new RegExp(
+            RegExp.escape(search)
+                .replaceAll(/['‘’]/g, '[‘’\']')
+                .replaceAll(/["“”]/g, '[“”"]'),
+            'i'
+        )
+        : undefined;
+
+    const filteredCharacterIds = factionKey
+        ? characters.characters.filter(c => c.factions.some(f => f.key === factionKey)).map(c => c.id)
+        : undefined;
+
+    if (filteredCharacterIds && filteredCharacterIds.length === 0) {
+        return { streams: [], nextCursor: undefined, lastRefreshTime };
+    }
+
+    const searchCharacterIds = searchRegex
+        ? characters.characters
+            .filter(character =>
+                searchRegex.test(character.channelName)
+                || searchRegex.test(character.name)
+                // TODO: nicknameLookup
+                || character.displayInfo.nicknames.some(n => searchRegex.test(n))
+                || character.factions.some(f => searchRegex.test(f.name)))
+            .map(c => c.id)
+        : undefined;
 
     const queryBuilder = dataSource
         .createQueryBuilder()
@@ -495,6 +541,26 @@ export const fetchUnknownStreams = async (
                 .addSelect('stream_chunk.isHidden', 'isHidden')
                 .where('(stream_chunk.characterId IS NULL OR (stream_chunk.characterId IS NOT NULL AND stream_chunk.characterUncertain = true))')
                 .orderBy('stream_chunk.lastSeenDate', 'DESC');
+
+            if (live === true) {
+                subQuery.andWhere('stream_chunk.id IN (:...liveSegmentIds)', { liveSegmentIds });
+            } else if (live === false) {
+                subQuery.andWhere('stream_chunk.id NOT IN (:...liveSegmentIds)', { liveSegmentIds });
+            }
+
+            if (filteredCharacterIds) {
+                subQuery.andWhere('stream_chunk.characterId IS NOT NULL AND stream_chunk.characterId IN (:...filteredCharacterIds)', { filteredCharacterIds });
+            }
+
+            if (searchRegex) {
+                const searchRegexSource = searchRegex.source;
+                if (searchCharacterIds && searchCharacterIds.length > 0) {
+                    subQuery.andWhere('(stream_chunk.characterId IN (:...searchCharacterIds) OR stream_chunk.title ~* :searchRegexSource)', { searchCharacterIds, searchRegexSource });
+                } else {
+                    subQuery.andWhere('stream_chunk.title ~* :searchRegexSource', { searchRegexSource });
+                }
+            }
+
             if (!isGlobalEditor(userResponse)) {
                 subQuery.andWhere('stream_chunk.isHidden = false');
                 if (liveSegmentIds.length) {
@@ -514,11 +580,31 @@ export const fetchUnknownStreams = async (
             return subQuery;
         }, 'recent_chunk')
         .orderBy('"lastSeenDate"', 'DESC')
-        .limit(DEFAULT_LIMIT);
+        .limit(limit);
 
     if (cursor) {
         queryBuilder
             .andWhere('"lastSeenDate" < :before::timestamp without time zone', { before: cursor.before });
+    }
+
+    if (startBefore) {
+        queryBuilder
+            .andWhere('"firstSeenDate" < :startBefore::timestamp without time zone', { startBefore });
+    }
+
+    if (startAfter) {
+        queryBuilder
+            .andWhere('"firstSeenDate" > :startAfter::timestamp without time zone', { startAfter });
+    }
+
+    if (endBefore) {
+        queryBuilder
+            .andWhere('"lastSeenDate" < :endBefore::timestamp without time zone', { endBefore });
+    }
+
+    if (endAfter) {
+        queryBuilder
+            .andWhere('"lastSeenDate" > :endAfter::timestamp without time zone', { endAfter });
     }
 
     const sameLastDateQueryBuilder = queryBuilder.clone();
@@ -603,8 +689,6 @@ export const fetchUnknownStreams = async (
     const nextCursor = rawSegments.length
         ? serializeRecentStreamsCursor({ before: new Date(rawSegments[rawSegments.length - 1].lastSeenDate) })
         : undefined;
-
-    const lastRefreshTime = new Date(liveData.tick).toISOString();
 
     return { streams, nextCursor, lastRefreshTime };
 };
@@ -734,18 +818,13 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     });
 
     router.get('/unknown', async (req, res) => {
-        const { cursor: cursorString } = req.query;
-        if (cursorString !== undefined && typeof cursorString !== 'string') {
-            return res.status(400).send({ success: false, message: '`cursor` parameter must be a string' });
-        }
-        const cursor = cursorString
-            ? deserializeRecentStreamsCursor(cursorString)
-            : undefined;
-        if (cursor === null) {
-            return res.status(400).send({ success: false, message: `"${cursorString}" is an invalid cursor` });
+        const params = parseStreamsQuery(req.query);
+        if ('error' in params) {
+            const { error } = params;
+            return res.status(400).send({ success: false, error });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchUnknownStreams(apiClient, dataSource, cursor, userResponse);
+        const response = await fetchUnknownStreams(apiClient, dataSource, params, userResponse);
         return res.send(response);
     });
 

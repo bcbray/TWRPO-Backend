@@ -178,16 +178,16 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           }
         }
 
-        if (used.usedUnknownStreamsCursors && used.usedUnknownStreamsCursors.length) {
+        if (used.usedUnknownStreamsQueries && used.usedUnknownStreamsQueries.length) {
           needsAnotherLoad = true;
           if (!preloadedData.unknownStreams) {
             preloadedData.unknownStreams = {};
           }
-          for (const cursor of used.usedUnknownStreamsCursors) {
-            const streamsResponse = await api.fetchUnknownStreams(cursor === '' ? undefined : cursor, userResponse);
+          for (const query of used.usedUnknownStreamsQueries) {
+            const streamsResponse = await api.fetchUnknownStreamsWithQuery(query, userResponse);
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
-            preloadedData.unknownStreams[cursor] = JSON.parse(JSON.stringify(streamsResponse)) as StreamsResponse;
+            preloadedData.unknownStreams[query] = JSON.parse(JSON.stringify(streamsResponse)) as StreamsResponse;
           }
         }
 

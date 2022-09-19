@@ -51,7 +51,7 @@ export interface PreloadedUsed {
   usedLiveStreams?: boolean;
   usedRecentStreamsQueries?: string[];
   usedStreamsQueries?: string[];
-  usedUnknownStreamsCursors?: string[];
+  usedUnknownStreamsQueries?: string[];
   usedServers?: boolean;
 }
 
@@ -454,20 +454,19 @@ export const useStreams = (params: StreamsParams = {}, { skipsPreload = false, .
 }
 
 export const useUnknownStreams = (params: StreamsParams = {}, { skipsPreload = false, ...props }: PreLoadingProps<StreamsResponse> = {}): LoadingResult<StreamsResponse> => {
-  const { cursor } = params ?? {};
-
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.unknownStreams?.[cursor ?? ''] === undefined) {
-    if (preloadedUsed.usedUnknownStreamsCursors === undefined) {
-      preloadedUsed.usedUnknownStreamsCursors = [];
+  const query = queryStringForParams(params);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.unknownStreams?.[query] === undefined) {
+    if (preloadedUsed.usedUnknownStreamsQueries === undefined) {
+      preloadedUsed.usedUnknownStreamsQueries = [];
     }
-    preloadedUsed.usedUnknownStreamsCursors.push(cursor ?? '');
+    preloadedUsed.usedUnknownStreamsQueries.push(query);
   }
   const preloaded = skipsPreload
     ? undefined
-    : preloadedData.unknownStreams?.[cursor ?? ''];
-  const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/streams/unknown${cursor ? `?cursor=${cursor}` : ''}`, {
+    : preloadedData.unknownStreams?.[query];
+  const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/streams/unknown${query ? `?${query}` : ''}`, {
     preloaded,
     ...props,
   });
@@ -477,7 +476,7 @@ export const useUnknownStreams = (params: StreamsParams = {}, { skipsPreload = f
     if (preloadedData.unknownStreams === undefined) {
       preloadedData.unknownStreams = {};
     }
-    preloadedData.unknownStreams[cursor ?? ''] = loadState.data;
+    preloadedData.unknownStreams[query] = loadState.data;
   }
 
   return [loadState, outerOnReload, lastLoad];
