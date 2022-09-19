@@ -93,6 +93,7 @@ export interface StreamsParams {
     startAfter?: Date;
     endBefore?: Date;
     endAfter?: Date;
+    limit?: number;
     cursor?: RecentStreamsCursor;
 }
 
@@ -143,8 +144,7 @@ export const fetchRecentStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
     params: StreamsParams = {},
-    userResponse: UserResponse,
-    limit: number = DEFAULT_LIMIT
+    userResponse: UserResponse
 ): Promise<StreamsResponse> => {
     const {
         distinctCharacters = true,
@@ -153,6 +153,7 @@ export const fetchRecentStreams = async (
         endBefore,
         endAfter,
         cursor,
+        limit = DEFAULT_LIMIT,
     } = params;
 
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
@@ -329,6 +330,7 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
         startAfter,
         endBefore,
         cursor,
+        limit = DEFAULT_LIMIT,
     } = params;
     let nextCursor: string | undefined;
 
@@ -357,7 +359,7 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
         const {
             streams: recentStreams,
             nextCursor: recentNextCursor,
-        } = await fetchRecentStreams(apiClient, dataSource, params, userResponse, DEFAULT_LIMIT - streams.length);
+        } = await fetchRecentStreams(apiClient, dataSource, { ...params, limit: limit - streams.length }, userResponse);
         streams.push(...recentStreams);
         nextCursor = recentNextCursor;
     } else {
@@ -564,6 +566,18 @@ const queryParamBoolean = (query: Request['query'] | URLSearchParams, name: stri
     throw new ParamError(`'${stringParam}' is not a valid boolean for '${name}'. Must be "true" or "false".`);
 };
 
+const queryParamInteger = (query: Request['query'] | URLSearchParams, name: string): undefined | number => {
+    const stringParam = queryParamString(query, name);
+    if (stringParam === undefined) {
+        return undefined;
+    }
+    const num = Number(stringParam);
+    if (!Number.isInteger(num) || String(num) !== stringParam) {
+        throw new ParamError(`'${stringParam}' is not a valid valie for '${name}'.`);
+    }
+    return num;
+};
+
 export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): StreamsParams | { error: string } => {
     const params: StreamsParams = {};
     try {
@@ -581,6 +595,9 @@ export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): St
             return { error: `"${cursorString}" is an invalid cursor` };
         }
         params.cursor = cursor;
+
+        const limit = queryParamInteger(query, 'limit');
+        params.limit = limit && limit > 100 ? 100 : limit;
     } catch (error) {
         if (error instanceof ParamError) {
             return { error: '`cursor` parameter must be a string' };

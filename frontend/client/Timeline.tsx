@@ -53,6 +53,7 @@ const useIntervalStreams = (interval: Interval): {
     distinctCharacters: false,
     endAfter: toDate(interval.start),
     startBefore: toDate(interval.end),
+    limit: 100,
   });
   const [isComplete, setIsComplete] = React.useState(false);
 

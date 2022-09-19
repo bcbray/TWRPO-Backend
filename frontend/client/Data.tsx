@@ -341,6 +341,7 @@ export interface StreamsParams {
   startAfter?: Date;
   endBefore?: Date;
   endAfter?: Date;
+  limit?: number;
   cursor?: string;
 }
 
@@ -352,6 +353,7 @@ const queryStringForParams = (params: StreamsParams): string => {
     startAfter,
     endBefore,
     endAfter,
+    limit,
     cursor,
   } = params;
 
@@ -373,6 +375,9 @@ const queryStringForParams = (params: StreamsParams): string => {
   }
   if (endAfter !== undefined) {
     searchParams.set('endAfter', endAfter.toISOString());
+  }
+  if (limit !== undefined) {
+    searchParams.set('limit', `${limit|0}`);
   }
   if (cursor !== undefined) {
     searchParams.set('cursor', cursor);
