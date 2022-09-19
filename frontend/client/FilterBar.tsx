@@ -17,6 +17,7 @@ interface Props {
   onChangeSearchText: (text: string) => void;
   allHref?: string;
   factionHref?: (faction: FactionInfo) => string;
+  noInset?: boolean;
 }
 
 const FilterBar: React.FC<Props> = ({
@@ -28,6 +29,7 @@ const FilterBar: React.FC<Props> = ({
   onChangeSearchText,
   allHref,
   factionHref,
+  noInset = false,
 }) => {
   const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
   const handleShowFeedback = React.useCallback(<T,>(e: React.MouseEvent<T>) => {
@@ -60,7 +62,7 @@ const FilterBar: React.FC<Props> = ({
 
   return (
     <>
-      <div className={classes(styles.container, 'inset')}>
+      <div className={classes(styles.container, !noInset && 'inset')}>
         <FactionDropdown
           className={styles.factionsDropdown}
           factions={factions}

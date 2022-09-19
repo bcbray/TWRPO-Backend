@@ -13,7 +13,7 @@ const isBrowser = typeof window !== 'undefined';
 
 export const useSingleSearchParam = (name: string): [string, ((value: string, options?: NavigateOptions) => void)] => {
   const [params, setParams] = useSearchParams();
-  const setParam = (value: string, options?: NavigateOptions) => {
+  const setParam = useCallback((value: string, options?: NavigateOptions) => {
     var newParams = new URLSearchParams(params);
     if (value.length > 0) {
       newParams.set(name, value);
@@ -21,7 +21,7 @@ export const useSingleSearchParam = (name: string): [string, ((value: string, op
       newParams.delete(name);
     }
     setParams(newParams, options);
-  }
+  }, [name, params, setParams]);
 
   const param = params.get(name) ?? '';
   return [param, setParam];

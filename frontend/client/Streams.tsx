@@ -1,11 +1,18 @@
 import React from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useUpdateEffect, useDeepCompareEffect, useFirstMountState } from 'react-use';
-import { StreamsResponse } from '@twrpo/types';
+import { StreamsResponse, FactionInfo } from '@twrpo/types';
 
-import { useStreams, useUnknownStreams, PreLoadingProps, StreamsParams } from './Data';
+import { useStreams, useFactions, useUnknownStreams, PreLoadingProps, StreamsParams } from './Data';
 import { isSuccess, LoadingResult } from './LoadingState';
 import StreamList from './StreamList';
-import { LoadTrigger, useInitialRender } from './hooks';
+import {
+  useSingleSearchParam,
+  useDebouncedValue,
+  LoadTrigger,
+  useInitialRender,
+} from './hooks';
+import FilterBar from './FilterBar'
 
 interface StreamsProps {
   type?: 'live' | 'unknown'
@@ -100,6 +107,13 @@ export const usePaginatedStreams = (
 const Streams: React.FC<StreamsProps> = ({
   type = 'live',
 }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const params = useParams();
+  const { factionKey } = params;
+  const [filterText, setFilterText] = useSingleSearchParam('search');
+  const debouncedFilterText = useDebouncedValue(filterText.trim(), 200);
+
   const {
     streams,
     reload,
@@ -111,10 +125,57 @@ const Streams: React.FC<StreamsProps> = ({
     type === 'live'
       ? useStreams
       : useUnknownStreams,
+    {
+      search: debouncedFilterText.length > 0 ? debouncedFilterText : undefined,
+      factionKey
+    }
   );
+
+  const search = React.useCallback((text: string) => {
+    setFilterText(text, { replace: true });
+  }, [setFilterText]);
+
+  const selectFaction = React.useCallback((faction: FactionInfo | null) => {
+    navigate(`/utils/streams${faction ? `/faction/${faction.key}` : ''}${location.search}`);
+  }, [navigate, location.search]);
+
+
+  // TODO: Update with live count somehow (auto-reload or pull from streams response)
+  const [factionLoadState] = useFactions();
+
+  const factionInfos = React.useMemo(() => (
+    isSuccess(factionLoadState)
+      ? factionLoadState.data.factions
+      : []
+  ), [factionLoadState]);
+
+  const filterFactions = React.useMemo(() => (
+    [...factionInfos]
+      .filter(f => f.hasCharacters === true)
+      .filter(f => f.hideInFilter !== true)
+      .sort((lhs, rhs) => {
+        if (lhs.isLive === rhs.isLive) return 0;
+        if (lhs.isLive) return -1;
+        return 1;
+      })
+  ), [factionInfos]);
+
+  const selectedFaction = React.useMemo(() => (
+    factionKey ? factionInfos.find(f => f.key === factionKey) : undefined
+  ), [factionKey, factionInfos]);
 
   return (
     <div className='content inset'>
+      <FilterBar
+        factions={filterFactions}
+        selectedFaction={selectedFaction}
+        onSelectFaction={selectFaction}
+        searchText={filterText}
+        onChangeSearchText={search}
+        allHref={'/'}
+        factionHref={(f) => `/utils/streams/faction/${f.key}`}
+        noInset
+      />
       <StreamList
         streams={[]}
         segments={streams}
