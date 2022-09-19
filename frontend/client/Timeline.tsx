@@ -99,6 +99,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
   const clampEnd = clamp(streamEnd, visibleInterval);
 
   const duration = differenceInSeconds(streamEnd, clampStart);
+  const clampedDuration = differenceInSeconds(clampEnd, clampStart);
 
   const startOffsetSec = differenceInSeconds(clampStart, visibleInterval.start);
   const endOffsetSec = differenceInSeconds(visibleInterval.end, clampEnd);
@@ -127,6 +128,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
         left: `${Math.round(startOffsetSec * pixelsPerSecond)}px`,
         right: `${Math.round(endOffsetSec * pixelsPerSecond)}px`,
         '--duration-width':  `${Math.round(duration * pixelsPerSecond)}px`,
+        '--clamped-duration-width':  `${Math.round(clampedDuration * pixelsPerSecond)}px`,
       } as React.CSSProperties}
     >
       <div className={styles.segmentContent}>

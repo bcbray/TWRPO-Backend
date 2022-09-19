@@ -72,7 +72,7 @@
   color: var(--theme-gray-600);
   border-radius: 0.25rem;
   overflow: hidden;
-  min-width: var(--duration-width);
+  min-width: var(--clamped-duration-width);
   transition: transform ease-in-out .2s;
 }
 
