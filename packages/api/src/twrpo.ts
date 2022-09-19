@@ -127,7 +127,7 @@ class Api {
     }
 
     public async fetchLiveStreams(currentUser: UserResponse): Promise<StreamsResponse> {
-        return fetchLiveStreams(this.twitchClient, this.dataSource, currentUser);
+        return fetchLiveStreams(this.twitchClient, this.dataSource, {}, currentUser);
     }
 
     public async fetchRecentStreamsWithQuery(query: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {

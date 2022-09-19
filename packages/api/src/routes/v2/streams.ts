@@ -14,13 +14,57 @@ import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
 import { minimumSegmentLengthMinutes, chunkIsShorterThanMinimum } from '../../segmentUtils';
 
-export const fetchLiveStreams = async (apiClient: ApiClient, dataSource: DataSource, userResponse: UserResponse): Promise<StreamsResponse> => {
+export const fetchLiveStreams = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    params: Pick<StreamsParams, 'search' | 'factionKey'> = {},
+    userResponse: UserResponse
+): Promise<StreamsResponse> => {
+    const {
+        factionKey,
+        search,
+    } = params;
+
+    const searchRegex = search
+        ? new RegExp(
+            RegExp.escape(search)
+                .replaceAll(/['‘’]/g, '[‘’\']')
+                .replaceAll(/["“”]/g, '[“”"]'),
+            'i'
+        )
+        : undefined;
+
+    const searchTextLookup = search
+        ? search
+            .replace(/^\W+|\W+$|[^\w\s]+/g, ' ')
+            .replace(/\s+/g, ' ')
+            .toLowerCase()
+            .trim()
+        : undefined;
+
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
-    const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
-    const liveDataSegmentIdLookup = Object.fromEntries(liveData.streams
+
+    const streams = searchRegex || factionKey
+        ? liveData.streams.filter(stream =>
+            ((searchRegex
+                && (
+                    searchRegex.test(stream.tagText)
+                    || (stream.characterName && searchRegex.test(stream.characterName))
+                    || (searchTextLookup && stream.nicknameLookup && stream.nicknameLookup.includes(searchTextLookup))
+                    || searchRegex.test(stream.channelName)
+                    || searchRegex.test(stream.title)
+                    || stream.factions.some(f => searchRegex.test(f))
+                )
+            ) || !searchRegex)
+            && ((factionKey && stream.factionsMap[factionKey])
+                || !factionKey))
+        : liveData.streams;
+
+    const liveSegmentIds = streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
+    const liveDataSegmentIdLookup = Object.fromEntries(streams
         .filter(s => s.segmentId)
         .map(s => [s.segmentId!, s]));
-    const liveDataTwitchUserIdLookup = Object.fromEntries(liveData.streams
+    const liveDataTwitchUserIdLookup = Object.fromEntries(streams
         .map(s => [s.channelName.toLowerCase(), s]));
 
     const characters = await fetchCharacters(apiClient, dataSource, userResponse);
@@ -89,6 +133,8 @@ export interface RecentStreamsCursor {
 export interface StreamsParams {
     live?: boolean;
     distinctCharacters?: boolean;
+    search?: string;
+    factionKey?: string;
     startBefore?: Date;
     startAfter?: Date;
     endBefore?: Date;
@@ -148,6 +194,8 @@ export const fetchRecentStreams = async (
 ): Promise<StreamsResponse> => {
     const {
         distinctCharacters = true,
+        factionKey,
+        search,
         startBefore,
         startAfter,
         endBefore,
@@ -161,11 +209,40 @@ export const fetchRecentStreams = async (
     const liveCharacterIds = liveData.streams.flatMap(s => (s.characterId ? [s.characterId] : []));
     const liveDataTwitchUserIdLookup = Object.fromEntries(liveData.streams
         .map(s => [s.channelName.toLowerCase(), s]));
+    const lastRefreshTime = new Date(liveData.tick).toISOString();
 
     const characters = await fetchCharacters(apiClient, dataSource, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
+
+    const searchRegex = search
+        ? new RegExp(
+            RegExp.escape(search)
+                .replaceAll(/['‘’]/g, '[‘’\']')
+                .replaceAll(/["“”]/g, '[“”"]'),
+            'i'
+        )
+        : undefined;
+
+    const filteredCharacterIds = factionKey
+        ? characters.characters.filter(c => c.factions.some(f => f.key === factionKey)).map(c => c.id)
+        : undefined;
+
+    if (filteredCharacterIds && filteredCharacterIds.length === 0) {
+        return { streams: [], nextCursor: undefined, lastRefreshTime };
+    }
+
+    const searchCharacterIds = searchRegex
+        ? characters.characters
+            .filter(character =>
+                searchRegex.test(character.channelName)
+                || searchRegex.test(character.name)
+                // TODO: nicknameLookup
+                || character.displayInfo.nicknames.some(n => searchRegex.test(n))
+                || character.factions.some(f => searchRegex.test(f.name)))
+            .map(c => c.id)
+        : undefined;
 
     const queryBuilder = dataSource
         .createQueryBuilder()
@@ -197,6 +274,19 @@ export const fetchRecentStreams = async (
                 }
             } else if (liveSegmentIds.length) {
                 subQuery.andWhere('stream_chunk.id NOT IN (:...liveSegmentIds)', { liveSegmentIds });
+            }
+
+            if (filteredCharacterIds) {
+                subQuery.andWhere('stream_chunk.characterId IS NOT NULL AND stream_chunk.characterId IN (:...filteredCharacterIds)', { filteredCharacterIds });
+            }
+
+            if (searchRegex) {
+                const searchRegexSource = searchRegex.source;
+                if (searchCharacterIds && searchCharacterIds.length > 0) {
+                    subQuery.andWhere('(stream_chunk.characterId IN (:...searchCharacterIds) OR stream_chunk.title ~* :searchRegexSource)', { searchCharacterIds, searchRegexSource });
+                } else {
+                    subQuery.andWhere('stream_chunk.title ~* :searchRegexSource', { searchRegexSource });
+                }
             }
 
             if (!isGlobalEditor(userResponse)) {
@@ -317,8 +407,6 @@ export const fetchRecentStreams = async (
         ? serializeRecentStreamsCursor({ before: new Date(rawSegments[rawSegments.length - 1].lastSeenDate) })
         : undefined;
 
-    const lastRefreshTime = new Date(liveData.tick).toISOString();
-
     return { streams, nextCursor, lastRefreshTime };
 };
 
@@ -336,7 +424,7 @@ export const fetchStreams = async (apiClient: ApiClient, dataSource: DataSource,
 
     const streams: SegmentAndStreamer[] = [];
 
-    const { streams: liveStreams, lastRefreshTime } = await fetchLiveStreams(apiClient, dataSource, userResponse);
+    const { streams: liveStreams, lastRefreshTime } = await fetchLiveStreams(apiClient, dataSource, params, userResponse);
 
     const includeLive = cursor === undefined
         && live
@@ -583,6 +671,8 @@ export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): St
     try {
         params.live = queryParamBoolean(query, 'live');
         params.distinctCharacters = queryParamBoolean(query, 'distinctCharacters');
+        params.factionKey = queryParamString(query, 'factionKey');
+        params.search = queryParamString(query, 'search');
         params.startBefore = queryParamDate(query, 'startBefore');
         params.startAfter = queryParamDate(query, 'startAfter');
         params.endBefore = queryParamDate(query, 'endBefore');
@@ -622,8 +712,13 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     });
 
     router.get('/live', async (req, res) => {
+        const params = parseStreamsQuery(req.query);
+        if ('error' in params) {
+            const { error } = params;
+            return res.status(400).send({ success: false, error });
+        }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchLiveStreams(apiClient, dataSource, userResponse);
+        const response = await fetchLiveStreams(apiClient, dataSource, params, userResponse);
         return res.send(response);
     });
 
