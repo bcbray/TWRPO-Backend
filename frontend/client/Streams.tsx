@@ -181,7 +181,7 @@ const Streams: React.FC<StreamsProps> = ({
         segments={streams}
         loadTick={loadTick}
         paginationKey='live'
-        handleRefresh={() => reload}
+        handleRefresh={reload}
         pastStreamStyle={
           type === 'live'
             ? 'blurred'
