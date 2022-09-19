@@ -86,6 +86,7 @@ export function useLoading<T>(
   const [loadCount, setLoadCount] = useState(0);
   const [lastLoad, setLastLoad] = useState<Date | null>(null);
   const lastLoadCountRef = useRef<number | undefined>(undefined);
+  const loadingInputRef = useRef<RequestInfo>(input);
   const lastInputRef = useRef<RequestInfo>(input);
   useEffect(() => {
     if (!needsLoad) {
@@ -106,7 +107,11 @@ export function useLoading<T>(
     }
     async function performFetch(isReloadFromSuccess: boolean, isReloadFromFailure: boolean) {
       try {
+        loadingInputRef.current = input;
         const result = await fetchAndCheck<T>(input);
+        if (loadingInputRef.current !== input) {
+          return;
+        }
         if (isReloadFromSuccess || isReloadFromFailure) {
           onReloadSuccess?.();
         }
