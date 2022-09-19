@@ -101,7 +101,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1068, name: 'Allison Gator', nicknames: ['Swamp Witch'], displayName: 3 },
     ],
     andromedastarry: [
-        { id: 29, name: 'Andi Walker' },
+        { id: 29, name: 'Andi Walker', assume: 'assumeOther' },
         { id: 30, name: 'Quinn Connolly' },
         { id: 31, name: 'Gabriella Gonzales' },
     ],
