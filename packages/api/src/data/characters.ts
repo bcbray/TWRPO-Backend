@@ -2016,7 +2016,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheGeneralSmokey: [
         { id: 861, name: 'Edwin Braithwaite', nicknames: ['Eddie'], factions: ['Dead End Kids'] }, // Former Dead End Kid (maybe back?). Former Kettleman
-        { id: 1140, name: '? "The Chef" ?', nicknames: ['Prisoner 462503', '462503', 'The Chef'], factions: ['Lifer'] },
     ],
     TheGoochTV: [
         { id: 862, name: 'Becker Lang' },
