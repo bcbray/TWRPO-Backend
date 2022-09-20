@@ -16,11 +16,6 @@
   margin-right: auto;
 }
 
-.container {
-  max-height: 100%;
-  overflow-y: scroll;
-}
-
 .container > div {
   display: flex;
   flex-direction: row;
@@ -29,7 +24,6 @@
 .streamerContainer {
   border-right: 1px solid var(--theme-gray-600);
   padding-top: 2.5rem;
-  padding-right: 0.5rem;
 }
 
 .timelineContainer {
@@ -55,8 +49,14 @@
   white-space: nowrap;
 }
 
-.streamer, .streamerRow {
+.streamer,
+.streamerRow {
   height: 4rem;
+}
+
+.streamer.hovered,
+.streamerRow.hovered {
+  background-color: rgba(var(--theme-black-rgb), 0.025);
 }
 
 .streamer {
@@ -64,6 +64,9 @@
   flex-direction: row;
   gap: 0.5rem;
   align-items: center;
+  margin-left: -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .streamer .name {
@@ -248,6 +251,12 @@
   :root:not(:global(.light)):not(:global(.dark)) .streamer .name a:hover {
     color: var(--faction-color-dark-hover);
   }
+
+  :root:not(:global(.light)):not(:global(.dark)) .streamer.hovered,
+  :root:not(:global(.light)):not(:global(.dark)) .streamerRow.hovered {
+    background-color: rgba(var(--theme-black-rgb), 0.075);
+  }
+
 }
 
 :root:global(.dark) .streamer .name a {
@@ -256,6 +265,11 @@
 
 :root:global(.dark) .streamer .name a:hover {
   color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .streamer.hovered,
+:root:global(.dark) .streamerRow.hovered {
+  background-color: rgba(var(--theme-black-rgb), 0.075);
 }
 
 

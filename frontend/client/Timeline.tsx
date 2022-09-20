@@ -252,6 +252,7 @@ const Timeline: React.FC<TimelineProps> = () => {
 
   const [isCompact, setIsCompact] = React.useState(false);
   const { factionStylesForKey } = useFactionCss();
+  const [hoveredStreamerId, setHoveredStreamerId] = React.useState<string | null>(null);
 
   const previous = React.useCallback(() => {
     setHasScrolled(false);
@@ -305,11 +306,19 @@ const Timeline: React.FC<TimelineProps> = () => {
     return (
       <div
         key={streamer.twitchId}
-        className={styles.streamer}
+        className={classes(
+          styles.streamer,
+          hoveredStreamerId === streamer.twitchId && styles.hovered
+        )}
         style={factionStylesForKey(segment.liveInfo?.tagFaction ?? segment.character?.factions.at(0)?.key)}
+        onMouseEnter={() => setHoveredStreamerId(streamer.twitchId)}
+        onMouseLeave={() => setHoveredStreamerId(s => (s === streamer.twitchId ? null : s))}
       >
         <Link to={`/streamer/${streamer.twitchLogin}`}>
-          <ProfilePhoto channelInfo={streamer} />
+          <ProfilePhoto
+            channelInfo={streamer}
+            size={isCompact ? 24 : 'sm'}
+          />
         </Link>
         <div className={styles.name}>
           <p>
@@ -320,7 +329,7 @@ const Timeline: React.FC<TimelineProps> = () => {
         </div>
       </div>
     );
-  }), [grouped, factionStylesForKey]);
+  }), [grouped, factionStylesForKey, isCompact, hoveredStreamerId]);
 
   const hours = eachHourOfInterval(day);
   const hourBars = [...hours, end].map((hour) => {
@@ -376,7 +385,12 @@ const Timeline: React.FC<TimelineProps> = () => {
     return (
       <div
         key={streamer.twitchId}
-        className={styles.streamerRow}
+        className={classes(
+          styles.streamerRow,
+          hoveredStreamerId === streamer.twitchId && styles.hovered
+        )}
+        onMouseEnter={() => setHoveredStreamerId(streamer.twitchId)}
+        onMouseLeave={() => setHoveredStreamerId(s => (s === streamer.twitchId ? null : s))}
       >
         {streams.map(({ streamer, segment }) =>
           <TimelineSegment
@@ -389,7 +403,7 @@ const Timeline: React.FC<TimelineProps> = () => {
         )}
       </div>
     );
-  }), [grouped, day, pixelsPerSecond]);
+  }), [grouped, day, pixelsPerSecond, hoveredStreamerId]);
 
   return (
     <div className={classes(

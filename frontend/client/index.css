@@ -1,6 +1,8 @@
 :root {
   --const-theme-white: #fff;
   --const-theme-black: #000;
+  --const-theme-white-rgb: 255,255,255;
+  --const-theme-black-rgb: 0,0,0;
   --const-theme-gray-050: #f8f9fa;
   --const-theme-gray-100: #f8f9fa;
   --const-theme-gray-200: #e9ecef;
@@ -18,6 +20,8 @@
 :root {
   --theme-white: var(--const-theme-white);
   --theme-black: var(--const-theme-black);
+  --theme-white-rgb: var(--const-theme-white-rgb);
+  --theme-black-rgb: var(--const-theme-black-rgb);
   --theme-gray-050: var(--const-theme-gray-050);
   --theme-gray-100: var(--const-theme-gray-100);
   --theme-gray-200: var(--const-theme-gray-200);
@@ -54,6 +58,8 @@
   :root:not(.light):not(.dark) {
     --theme-white: var(--const-theme-black);
     --theme-black: var(--const-theme-white);
+    --theme-white-rgb: var(--const-theme-black-rgb);
+    --theme-black-rgb: var(--const-theme-white-rgb);
     --theme-gray-050: var(--const-theme-gray-950);
     --theme-gray-100: var(--const-theme-gray-900);
     --theme-gray-200: var(--const-theme-gray-800);
@@ -90,6 +96,8 @@
 :root.dark {
   --theme-white: var(--const-theme-black);
   --theme-black: var(--const-theme-white);
+  --theme-white-rgb: var(--const-theme-black-rgb);
+  --theme-black-rgb: var(--const-theme-white-rgb);
   --theme-gray-050: var(--const-theme-gray-950);
   --theme-gray-100: var(--const-theme-gray-900);
   --theme-gray-200: var(--const-theme-gray-800);
