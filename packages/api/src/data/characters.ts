@@ -1272,7 +1272,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 556, name: 'Dan Gerous' },
     ],
     MattRP: [
-        { id: 1085, name: 'Guy Newman' },
+        { id: 1085, name: 'Guy Newman', displayName: 0 },
     ],
     MatttyP92: [
         { id: 1046, name: 'Benito "Beni" Salvatore' },
