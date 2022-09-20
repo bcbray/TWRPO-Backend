@@ -47,6 +47,7 @@ const useIntervalStreams = (interval: Interval): {
   streams: SegmentAndStreamer[],
   lastRefresh: Date | null,
   hasMore: Boolean,
+  reload: () => void,
 } => {
   const {
     streams,
@@ -87,10 +88,16 @@ const useIntervalStreams = (interval: Interval): {
     })
   ), [loadedStreams, interval]);
 
+  const ourReload = React.useCallback(() => {
+    setIsComplete(false);
+    reload();
+  }, [reload]);
+
   return {
     streams: overlappingStreams,
     lastRefresh: lastRefresh ?? null,
     hasMore,
+    reload: ourReload,
   };
 }
 
@@ -99,6 +106,7 @@ interface TimelineSegmentProps {
   streamer: Streamer;
   visibleInterval: Interval;
   pixelsPerSecond: number;
+  handleRefresh: () => void;
 }
 
 const TimelineSegment: React.FC<TimelineSegmentProps> = ({
@@ -106,6 +114,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
   streamer,
   visibleInterval,
   pixelsPerSecond,
+  handleRefresh,
 }) => {
   const streamStart = new Date(segment.startDate);
   const streamEnd = new Date(segment.endDate);
@@ -140,7 +149,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
           <VideoSegmentCard
             streamer={streamer}
             segment={segment}
-            handleRefresh={() => {}}
+            handleRefresh={handleRefresh}
             cardStyle={'card'}
             pastStreamStyle={'vivid'}
             canShowLiveBadge
@@ -246,7 +255,7 @@ const Timeline: React.FC<TimelineProps> = () => {
   const [offset, setOffset] = React.useState(0);
   const target = React.useMemo(() => addDays(now, offset), [now, offset])
   const day = useDay(target);
-  const { streams, lastRefresh, hasMore } = useIntervalStreams(day);
+  const { streams, lastRefresh, hasMore, reload } = useIntervalStreams(day);
   const { start, end } = day;
   const [hasScrolled, setHasScrolled] = React.useState(false);
   const isFirstRender = useInitialRender();
@@ -402,11 +411,12 @@ const Timeline: React.FC<TimelineProps> = () => {
             streamer={streamer}
             visibleInterval={day}
             pixelsPerSecond={pixelsPerSecond}
+            handleRefresh={reload}
           />
         )}
       </div>
     );
-  }), [grouped, day, pixelsPerSecond, hoveredStreamerId]);
+  }), [grouped, day, pixelsPerSecond, reload, hoveredStreamerId]);
 
   return (
     <div className={classes(
