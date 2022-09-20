@@ -23,12 +23,13 @@ export const usePaginatedStreams = (
   params: Omit<StreamsParams, 'cursor'> = {},
   { needsLoad: propsNeedsLoad = true, ...props}: PreLoadingProps<StreamsResponse> = {}
 ) => {
+  const [usedParams, setUsedParams] = React.useState(params);
   const [currentCursor, setCurrentCursor] = React.useState<string | undefined>();
   const nextCursorRef = React.useRef<string | undefined>(undefined);
   const hasMoreRef = React.useRef(true);
   const resetOnNextLoadRef = React.useRef(false);
   const [loadState, reload, loadTick] = loader(
-    { ...params, cursor: currentCursor },
+    { ...usedParams, cursor: currentCursor },
     { ...props, needsLoad: propsNeedsLoad && hasMoreRef.current }
   );
   const isInitialRender = useInitialRender();
@@ -79,6 +80,7 @@ export const usePaginatedStreams = (
   useDeepCompareEffect(() => {
     if (!isFirstMount) {
       reset();
+      setUsedParams(params);
     }
   }, [params]);
 
