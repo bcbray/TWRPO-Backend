@@ -15,7 +15,7 @@ import {
   toDate,
 } from 'date-fns';
 import { Link } from 'react-router-dom';
-import { useUpdateEffect, useMeasure } from 'react-use';
+import { useUpdateEffect, useMeasure, useLocalStorage } from 'react-use';
 import { Button } from '@restart/ui';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import { EyeSlashFill } from 'react-bootstrap-icons';
@@ -252,7 +252,8 @@ const Timeline: React.FC<TimelineProps> = () => {
   const isFirstRender = useInitialRender();
   const isToday = React.useMemo(() => !isFirstRender && isWithinInterval(now, day), [isFirstRender, now, day]);
 
-  const [isCompact, setIsCompact] = React.useState(false);
+  const [isCompact, setIsCompact] = useLocalStorage('timeline-compact', false);
+
   const { factionStylesForKey } = useFactionCss();
   const [hoveredStreamerId, setHoveredStreamerId] = React.useState<string | null>(null);
 
