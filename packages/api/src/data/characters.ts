@@ -1699,7 +1699,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 730, name: 'Twitch Cooper' },
     ],
     Sidkriken: [
-        { id: 731, name: 'Dane Swan', factions: ['Independent', 'Guarma'] }, // Former Law
+        { id: 731, name: 'Dane Swan', displayName: 2, factions: ['Independent', 'Guarma'] }, // Former Law
         { id: 732, name: 'Gator Weaver' },
         { id: 733, name: 'Odysseus Kain' },
         { id: 734, name: 'Mr. White', displayName: 0 }, // TODO: Don't know first name
