@@ -1399,7 +1399,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 608, name: 'Seymour Humphries' },
     ],
     NouieMan: [
-        { id: 609, name: 'James Henderson', factions: ['Independent', 'Guarma'] },
+        { id: 609, name: 'James Henderson', nicknames: ['Captain Henderson', 'Captain James Henderson'], displayName: 3, factions: ['Independent', 'Guarma'] },
         { id: 610, name: 'Jim Fandango' },
         { id: 611, name: 'John Tatum' },
         { id: 612, name: 'Leviticus Starr' },
