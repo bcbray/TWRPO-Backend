@@ -1174,7 +1174,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 509, name: 'Tantallia Tippins' },
     ],
     leoDOTmae: [
-        { id: 510, name: 'Eleanor Cain' },
+        { id: 510, name: '[Deputy] Eleanor Cain', factions: ['Law'] },
     ],
     LetterJaye: [
         { id: 511, name: 'Wisteria Snowdon' },
