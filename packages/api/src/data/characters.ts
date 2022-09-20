@@ -77,7 +77,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 20, name: 'Holt MacMillan' },
     ],
     aJimmy: [
-        { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], factions: ['Kettleman Gang'] }, // Briefly led Kelly Gang
+        { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], displayName: 0, factions: ['Kettleman Gang'] }, // Briefly led Kelly Gang
         { id: 1029, name: 'Kenny Kingston' },
     ],
     Altrah: [
