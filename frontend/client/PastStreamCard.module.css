@@ -37,7 +37,7 @@
   top: 0;
 }
 
-.dimmed .thumbnail img,
+.container:not(.vivid) .thumbnail img,
 .container:not(.vivid) .thumbnail .tag {
   transition: filter ease-in-out .2s;
   filter: grayscale(0.7);
