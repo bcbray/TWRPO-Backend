@@ -600,7 +600,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 255, name: 'Lawrence "The Major" Stirling' },
         { id: 256, name: 'Isaac "Dr. Creed" Creed' }, // Leader of The Ward
         { id: 257, name: 'Reginald "Reggie" Richardson' },
-        { id: 258, name: 'Cullen Vane', nicknames: ['The Doctor'], factions: ['Independent', 'Guarma'] },
+        { id: 258, name: 'Cullen Vane', displayName: 2, factions: ['Independent', 'Guarma'] },
     ],
     Dwoalin: [
         { id: 259, name: 'Jeff "Smed" Smedley' },
@@ -972,7 +972,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 422, name: 'Patch "Patches" Twine' },
         { id: 1061, name: 'Phineas "Fin" Faith' },
         { id: 1089, name: 'Rupert Romano' },
-        { id: 1124, name: 'Dynamo Barbarosa', factions: ['Independent', 'Guarma'] }, // Character last name Dolton but goes by Barbarosa
+        { id: 1124, name: 'Dynamo Barbarosa', nicknames: ['The Doctor'], factions: ['Independent', 'Guarma'] }, // Character last name Dolton but goes by Barbarosa
     ],
     J0J0: [
         { id: 423, name: 'Delilah Kane' },
