@@ -14,6 +14,11 @@ import OutboundLink from './OutboundLink';
 import OverrideSegmentButton from './OverrideSegmentButton';
 import SegmentTitleTag from './SegmentTitleTag';
 
+const cardStyles = {
+  inline: styles.inline,
+  card: styles.card,
+}
+
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   streamer: Streamer;
   segment: VideoSegment;
@@ -23,6 +28,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   thumbnailStyle?: 'vivid' | 'blurred' | 'dimmed';
   timeDisplay?: 'end' | 'start';
   handleRefresh: () => void;
+  cardStyle?: 'card' | 'inline';
 }
 
 interface StreamLinkProps {
@@ -64,6 +70,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     thumbnailStyle = 'dimmed',
     timeDisplay = 'start',
     handleRefresh,
+    cardStyle = 'inline',
     ...rest
   }, ref
 ) => {
@@ -94,7 +101,8 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
         thumbnailStyle === 'vivid' && styles.vivid,
         thumbnailStyle === 'dimmed' && styles.dimmed,
         thumbnailStyle === 'blurred' && styles.blurred,
-        className
+        className,
+        cardStyles[cardStyle],
       )}
       ref={ref}
       style={{

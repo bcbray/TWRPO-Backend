@@ -19,7 +19,7 @@ import { useUpdateEffect, useMeasure } from 'react-use';
 import { Button } from '@restart/ui';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import { EyeSlashFill } from 'react-bootstrap-icons';
-import { SegmentAndStreamer, VideoSegment } from '@twrpo/types';
+import { SegmentAndStreamer, VideoSegment, Streamer } from '@twrpo/types';
 
 import styles from './Timeline.module.css';
 
@@ -32,6 +32,8 @@ import Tag from './Tag';
 import { useImageUrlOnceLoaded, useWrappedRefWithWarning, useShortDate, useInitialRender } from './hooks';
 import Loading from './Loading';
 import { useFactionCss } from './FactionStyleProvider';
+import OverlayTrigger from './OverlayTrigger'
+import VideoSegmentCard from './VideoSegmentCard'
 
 interface TimelineProps {
 }
@@ -94,12 +96,14 @@ const useIntervalStreams = (interval: Interval): {
 
 interface TimelineSegmentProps {
   segment: VideoSegment;
+  streamer: Streamer;
   visibleInterval: Interval;
   pixelsPerSecond: number;
 }
 
 const TimelineSegment: React.FC<TimelineSegmentProps> = ({
   segment,
+  streamer,
   visibleInterval,
   pixelsPerSecond,
 }) => {
@@ -127,48 +131,65 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
 
   const { url: loadedThumbnailUrl } = useImageUrlOnceLoaded(thumbnailUrl);
   return (
-    <div
-      key={segment.id}
-      className={classes(
-        styles.segment,
-        !isEqual(clampStart, streamStart) && styles.overlapLeft,
-        !isEqual(clampEnd, streamEnd) && styles.overlapRight,
-        segment.liveInfo && styles.live,
-        segment.isHidden && styles.hidden,
+    <OverlayTrigger
+      placement='top-mouse'
+      flip
+      delay={{ show: 250, hide: 100 }}
+      overlay={({ placement, arrowProps, show: _show, popper, ...props }) => (
+        <div className={styles.streamPopover} {...props}>
+          <VideoSegmentCard
+            streamer={streamer}
+            segment={segment}
+            handleRefresh={() => {}}
+            cardStyle={'card'}
+            pastStreamStyle={'vivid'}
+          />
+        </div>
       )}
-      style={{
-        left: `${Math.round(startOffsetSec * pixelsPerSecond)}px`,
-        right: `${Math.round(endOffsetSec * pixelsPerSecond)}px`,
-        '--duration-width':  `${Math.round(duration * pixelsPerSecond)}px`,
-        '--clamped-duration-width':  `${Math.round(clampedDuration * pixelsPerSecond)}px`,
-      } as React.CSSProperties}
     >
-      <div className={styles.segmentContent}>
-        {(loadedThumbnailUrl || segment.isHidden) &&
-          <div className={styles.thumbnail}>
-            {loadedThumbnailUrl &&
-              <img alt='Stream thumbnail' src={loadedThumbnailUrl} />
-            }
-            {segment.isHidden &&
-              <div className={styles.hiddenOverlay}>
-                <EyeSlashFill title='Segment is hidden' />
-              </div>
-            }
+      <div
+        key={segment.id}
+        className={classes(
+          styles.segment,
+          !isEqual(clampStart, streamStart) && styles.overlapLeft,
+          !isEqual(clampEnd, streamEnd) && styles.overlapRight,
+          segment.liveInfo && styles.live,
+          segment.isHidden && styles.hidden,
+        )}
+        style={{
+          left: `${Math.round(startOffsetSec * pixelsPerSecond)}px`,
+          right: `${Math.round(endOffsetSec * pixelsPerSecond)}px`,
+          '--duration-width':  `${Math.round(duration * pixelsPerSecond)}px`,
+          '--clamped-duration-width':  `${Math.round(clampedDuration * pixelsPerSecond)}px`,
+        } as React.CSSProperties}
+      >
+        <div className={styles.segmentContent}>
+          {(loadedThumbnailUrl || segment.isHidden) &&
+            <div className={styles.thumbnail}>
+              {loadedThumbnailUrl &&
+                <img alt='Stream thumbnail' src={loadedThumbnailUrl} />
+              }
+              {segment.isHidden &&
+                <div className={styles.hiddenOverlay}>
+                  <EyeSlashFill title='Segment is hidden' />
+                </div>
+              }
+            </div>
+          }
+          <div className={styles.info}>
+            <div className={styles.tags}>
+              <SegmentTitleTag className={styles.tag} segment={segment} />
+              {segment.liveInfo &&
+                <Tag className={classes(styles.tag, styles.live)}>
+                  <p>Live</p>
+                </Tag>
+              }
+            </div>
+            <p title={segment.title}>{segment.title}</p>
           </div>
-        }
-        <div className={styles.info}>
-          <div className={styles.tags}>
-            <SegmentTitleTag className={styles.tag} segment={segment} />
-            {segment.liveInfo &&
-              <Tag className={classes(styles.tag, styles.live)}>
-                <p>Live</p>
-              </Tag>
-            }
-          </div>
-          <p title={segment.title}>{segment.title}</p>
         </div>
       </div>
-    </div>
+    </OverlayTrigger>
   );
 }
 
@@ -357,10 +378,11 @@ const Timeline: React.FC<TimelineProps> = () => {
         key={streamer.twitchId}
         className={styles.streamerRow}
       >
-        {streams.map(({ segment }) =>
+        {streams.map(({ streamer, segment }) =>
           <TimelineSegment
             key={segment.id}
             segment={segment}
+            streamer={streamer}
             visibleInterval={day}
             pixelsPerSecond={pixelsPerSecond}
           />

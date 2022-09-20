@@ -37,6 +37,7 @@ const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, 
           </Tag>
           <OverlayTrigger
             placement="bottom"
+            flip
             overlay={
               <Tooltip id="focus-tooltip" className={styles.tooltip} innerClassName={styles.inner} arrowClassName={styles.arrow}>
                 {focused ? 'Mute audio' : 'Focus audio'}
@@ -54,6 +55,7 @@ const CharacterCard: React.FC<Props> = ({ stream, factionInfo, focused = false, 
           </OverlayTrigger>
           <OverlayTrigger
             placement="bottom"
+            flip
             overlay={
               <Tooltip id="remove-tooltip" className={styles.tooltip} innerClassName={styles.inner} arrowClassName={styles.arrow}>
                 Remove stream

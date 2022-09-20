@@ -16,6 +16,7 @@ interface LiveBadgeProps {
 const LiveBadge: React.FC<LiveBadgeProps> = ({ stream, className }) => (
   <OverlayTrigger
     placement='bottom-start'
+    flip
     delay={{ show: 250, hide: 100 }}
     overlay={({ placement, arrowProps, show: _show, popper, ...props }) => (
       <div className={styles.streamPopover} {...props}>

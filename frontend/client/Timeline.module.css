@@ -115,31 +115,13 @@
   color: var(--theme-white);
 }
 
-.segment:hover {
-  right: auto !important;
-  background-color: var(--segment-overflow-background-color);
-  transform: scale(1.01) translate3d(0px, -1px, 0px);
-  box-shadow: 0 15px 20px rgba(0,0,0,.01), 0 0 5px rgba(0,0,0,.1);
-  z-index: 10;
-}
-
-.segment:hover:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  background-color: var(--segment-background-color);
-  width: var(--duration-width);
-}
-
 .segment.overlapLeft {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.segment:not(:hover).overlapRight,
-.segment:not(:hover).live {
+.segment.overlapRight,
+.segment.live {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -274,4 +256,12 @@
 
 :root:global(.dark) .streamer .name a:hover {
   color: var(--faction-color-dark-hover);
+}
+
+
+.streamPopover {
+  position: absolute;
+  width: 300px;
+  padding: 6px 0;
+  transition: opacity 0.15s linear;
 }

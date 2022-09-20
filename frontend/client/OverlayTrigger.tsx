@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Overlay } from '@restart/ui';
+import { Overlay, OverlayProps } from '@restart/ui';
 import { OverlayInjectedProps } from '@restart/ui/Overlay';
 import { Placement } from '@restart/ui/usePopper';
-import useMergedRefs from '@restart/hooks/useMergedRefs';
+import useMergedRefs, { mergeRefs } from '@restart/hooks/useMergedRefs';
 import useTimeout from '@restart/hooks/useTimeout';
 import { useUncontrolledProp } from 'uncontrollable';
+import { useMouseHovered, useMeasure } from 'react-use';
 
 import { Fade } from './Transitions';
 
@@ -25,7 +26,8 @@ export interface OverlayTriggerProps {
   children:
     | React.ReactElement
     | ((props: OverlayTriggerRenderProps) => React.ReactNode);
-  placement: Placement;
+  placement: Placement | 'top-mouse';
+  flip?: boolean;
   delay?: OverlayDelay;
   show?: boolean;
   onToggle?: (nextShow: boolean) => void;
@@ -54,7 +56,8 @@ function normalizeDelay(delay?: OverlayDelay) {
 
 const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
   children,
-  placement,
+  placement: propsPacement,
+  flip,
   delay: propsDelay,
   show: propsShow,
   defaultShow = false,
@@ -74,6 +77,9 @@ const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
   const [show, setShow] = useUncontrolledProp<boolean>(propsShow, defaultShow, onToggle);
 
   const delay = normalizeDelay(propsDelay);
+
+  const { elX } = useMouseHovered(triggerNodeRef, { whenHovered: true });
+  const [measureRef, measure] = useMeasure();
 
   const attachRef = (r: React.ComponentClass | Element | null | undefined) => {
     mergedRef(safeFindDOMNode(r));
@@ -134,6 +140,16 @@ const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
     triggerProps.onMouseOut = handleHide;
   }
 
+  const placement: Placement = propsPacement === 'top-mouse'
+    ? 'top-start'
+    : propsPacement;
+  const offset: OverlayProps['offset'] = propsPacement === 'top-mouse'
+    ? [elX - measure.width / 2, 0]
+    : undefined;
+  const popperConfig = propsPacement === 'top-mouse'
+    ? { modifiers: { flip: { options: { fallbackPlacements: 'bottom-start' } } } }
+    : undefined;
+
   return (
     <>
       {typeof children === 'function'
@@ -143,15 +159,24 @@ const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
         {...props}
         show={show}
         placement={placement}
-        flip
+        flip={flip}
         target={triggerNodeRef.current}
         transition={Fade as any}
+        offset={offset}
+        popperConfig={popperConfig as any}
       >
-        {({style, ...overlayInjectedProps}, { arrowProps }) => {
+        {({style, ref, ...overlayInjectedProps}, { arrowProps }) => {
+          const mergedRef = mergeRefs(
+            ref,
+            measureRef as any,
+          );
+
           const props: any = {
+            ref: mergedRef,
             arrowProps,
             style: {
               zIndex: 1050,
+              position: 'absolute',
               ...style
             },
             ...overlayInjectedProps

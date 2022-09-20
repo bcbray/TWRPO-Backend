@@ -4,6 +4,8 @@ import { VideoSegment, Streamer } from '@twrpo/types';
 import StreamCard from './StreamCard';
 import PastStreamCard from './PastStreamCard';
 
+export type CardStyle = 'card' | 'inline';
+
 interface VideoSegmentCardProps {
   className?: string;
   streamer: Streamer;
@@ -17,6 +19,7 @@ interface VideoSegmentCardProps {
   pastStreamTimeDisplay?: 'start' | 'end';
   canShowLiveBadge?: boolean;
   handleRefresh: () => void;
+  cardStyle?: CardStyle;
 }
 
 const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>((
@@ -33,6 +36,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
     pastStreamTimeDisplay = 'start',
     canShowLiveBadge,
     handleRefresh,
+    cardStyle,
   }, ref
 ) => {
   if (segment.liveInfo) {
@@ -48,6 +52,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
         noEdit={noEdit}
         showLiveBadge={canShowLiveBadge}
         handleRefresh={handleRefresh}
+        cardStyle={cardStyle}
       />
     );
   } else {
@@ -63,6 +68,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
         thumbnailStyle={pastStreamStyle}
         timeDisplay={pastStreamTimeDisplay}
         handleRefresh={handleRefresh}
+        cardStyle={cardStyle}
       />
     );
   }
