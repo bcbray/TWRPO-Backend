@@ -274,7 +274,7 @@ const Timeline: React.FC<TimelineProps> = () => {
     return measure.width / totalHours;
   }, [measure.width, totalLength]);
 
-  const minPerHourWidth = 10;
+  const minPerHourWidth = 50;
   const perHourWidth = idealPerHourWidth < minPerHourWidth ? minPerHourWidth : idealPerHourWidth;
   const width = Math.ceil(perHourWidth * totalLength / 60 / 60);
   const pixelsPerSecond = width / totalLength;
