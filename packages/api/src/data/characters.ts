@@ -239,7 +239,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BlitzyNation: [
         { id: 94, name: 'Charlie Walker' },
-        { id: 95, name: 'Craig the Wizard' },
+        { id: 95, name: 'Craig ?', nicknames: ['Craig the Wizard'] },
         { id: 96, name: 'Howi Bennet' },
         { id: 97, name: 'James Wayne Twin' },
         { id: 98, name: 'Juan Diego Moralez' },
