@@ -10,9 +10,6 @@
   transition: ease-in-out .2s;
   aspect-ratio: 16/9;
   background-color: var(--theme-gray-300);
-
-  /* Hacky fix for overflow: hidden not being respected during transitions */
-  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .thumbnail.hasThumbnail {
@@ -34,9 +31,6 @@
   height: 100%;
   border-radius: 6px;
   overflow: hidden;
-
-  /* Hacky fix for overflow: hidden not being respected during transitions */
-  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .thumbnailBlurOverlay {
