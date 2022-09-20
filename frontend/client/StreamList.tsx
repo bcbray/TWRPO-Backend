@@ -182,9 +182,13 @@ const StreamList: React.FC<Props> = ({
               );
             }
           })}
-          {isLoadingMore && <div className={styles.spinnerCard}><Spinner /></div>}
+          {(isLoadingMore || innerLoadMoreTrigger || loadMoreTrigger) &&
+            <div className={styles.spinnerCard}>
+              {innerLoadMoreTrigger ?? loadMoreTrigger}
+              {isLoadingMore && <Spinner />}
+            </div>
+          }
         </div>
-        {innerLoadMoreTrigger ?? loadMoreTrigger}
       </div>
     </Flipper>
   );
