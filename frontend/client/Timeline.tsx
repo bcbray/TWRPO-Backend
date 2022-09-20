@@ -134,7 +134,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
     <OverlayTrigger
       placement='top-mouse'
       flip
-      delay={{ show: 250, hide: 100 }}
+      delay={{ show: 500, hide: 100 }}
       overlay={({ placement, arrowProps, show: _show, popper, ...props }) => (
         <div className={styles.streamPopover} {...props}>
           <VideoSegmentCard
@@ -143,6 +143,8 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
             handleRefresh={() => {}}
             cardStyle={'card'}
             pastStreamStyle={'vivid'}
+            canShowLiveBadge
+            embed
           />
         </div>
       )}
