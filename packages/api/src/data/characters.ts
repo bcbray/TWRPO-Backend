@@ -23,7 +23,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1155
+// Next ID: 1156
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -1452,6 +1452,7 @@ export const wrpCharacters: WrpCharacters = {
     nziech: [
         { id: 618, name: 'Kuniklo', factions: ['Kettleman Gang'] },
         { id: 619, name: 'Orpheus "Buck" Buck', factions: ['Half Wits'] },
+        { id: 1155, name: '? "Moneybags ?' },
     ],
     OBreezzy_21: [
         // Uses “WildRP” while playing RDR2 Story Mode
