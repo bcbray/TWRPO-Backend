@@ -180,6 +180,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 66, name: 'Solomon Kray' },
         { id: 67, name: 'Thomas Ethan', nicknames: ['The Kid'] },
     ],
+    b0xya: [
+        { id: 913, name: 'Roman Blanco' },
+        { id: 914, name: 'Teddy Graves' },
+    ],
     B3UDown: [
         { id: 68, name: 'Zip Quil', factions: ['Kettleman Gang'] },
     ],
@@ -2158,10 +2162,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 910, name: 'Gertrude Cockburn' },
         { id: 911, name: 'Razormouth' },
         { id: 912, name: 'Terry Hogan' },
-    ],
-    upfl0w: [
-        { id: 913, name: 'Roman Blanco' },
-        { id: 914, name: 'Teddy Graves' },
     ],
     valenam: [
         { id: 915, name: 'Laura Flores' },
