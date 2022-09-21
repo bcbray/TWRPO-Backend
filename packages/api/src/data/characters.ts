@@ -899,9 +899,6 @@ export const wrpCharacters: WrpCharacters = {
     HerbtheNerd: [
         { id: 384, name: 'Charles Kane' },
     ],
-    HeroMexii: [
-        { id: 385, name: 'George Shaffer' },
-    ],
     Hibblejaybob: [
         { id: 386, name: 'Astrið Aleksdóttir', factions: ['Medical'] },
     ],
@@ -1320,6 +1317,9 @@ export const wrpCharacters: WrpCharacters = {
     MEKABEAR: [
         { id: 561, name: '[Deputy] Audrey Dusk', factions: ['Law'] },
         { id: 562, name: 'Goldie Fisher', factions: ['Dead End Kids'] }, // Former Kettleman.
+    ],
+    MexiTheHero: [
+        { id: 385, name: 'George Shaffer' },
     ],
     Mhaple_: [
         { id: 564, name: 'Morgan Lee', factions: ['Summers Gang'] }, // Unconfirmed, but he's at least riding with them
