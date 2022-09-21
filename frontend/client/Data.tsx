@@ -26,7 +26,7 @@ export interface PreloadedData {
   now?: string;
   live?: LiveResponse;
   factions?: FactionsResponse;
-  characters?: CharactersResponse;
+  characters?: Record<string, CharactersResponse>;
   streamers?: Record<string, StreamerResponse | null>;
   unknown?: UnknownResponse;
   segments?: Record<number, VideoSegment | null>;
@@ -42,7 +42,7 @@ export interface PreloadedUsed {
   usedNow?: boolean;
   usedLive?: boolean;
   usedFactions?: boolean;
-  usedCharacters?: boolean;
+  usedCharactersQueries?: string[];
   usedStreamerNames?: string[];
   usedFactionCss?: boolean;
   usedUnknown?: boolean;
@@ -119,21 +119,59 @@ export interface PreAutoReloadingProps<T> extends AutoReloadingProps<T> {
   skipsPreload?: boolean;
 }
 
-export const useCharacters = ({ skipsPreload = false, ...props }: PreLoadingProps<CharactersResponse> = {}): LoadingResult<CharactersResponse> => {
+export interface CharactersParams {
+  live?: boolean;
+  search?: string;
+  factionKey?: string;
+  channelTwitchId?: string;
+}
+
+const queryStringForCharactersParams = (params: CharactersParams): string => {
+  const {
+    live,
+    search,
+    factionKey,
+    channelTwitchId,
+  } = params;
+
+  const searchParams = new URLSearchParams();
+  if (live !== undefined) {
+    searchParams.set('live', live ? 'true' : 'false');
+  }
+  if (factionKey !== undefined) {
+    searchParams.set('factionKey', factionKey);
+  }
+  if (search !== undefined) {
+    searchParams.set('search', search);
+  }
+  if (channelTwitchId !== undefined) {
+    searchParams.set('channelTwitchId', channelTwitchId);
+  }
+  return searchParams.toString();
+};
+
+export const useCharacters = (params: CharactersParams = {}, { skipsPreload = false, ...props }: PreLoadingProps<CharactersResponse> = {}): LoadingResult<CharactersResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.characters === undefined) {
-    preloadedUsed.usedCharacters = true;
+  const query = queryStringForCharactersParams(params);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.characters?.[query] === undefined) {
+    if (preloadedUsed.usedCharactersQueries === undefined) {
+      preloadedUsed.usedCharactersQueries = [];
+    }
+    preloadedUsed.usedCharactersQueries.push(query);
   }
 
-  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/characters', {
-    preloaded: skipsPreload ? undefined : preloadedData.characters,
+  const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/characters${query ? `?${query}` : ''}`, {
+    preloaded: skipsPreload ? undefined : preloadedData.characters?.[query],
     ...props,
   });
 
   // Update the context so we don't get stuck with stale data later
   if (isSuccess(loadState)) {
-    preloadedData.characters = loadState.data;
+    if (preloadedData.characters === undefined) {
+      preloadedData.characters = {};
+    }
+    preloadedData.characters[query] = loadState.data;
   }
 
   return [loadState, outerOnReload, lastLoad];
@@ -348,7 +386,7 @@ export interface StreamsParams {
   cursor?: string;
 }
 
-const queryStringForParams = (params: StreamsParams): string => {
+const queryStringForStreamsParams = (params: StreamsParams): string => {
   const {
     live,
     distinctCharacters,
@@ -403,7 +441,7 @@ const queryStringForParams = (params: StreamsParams): string => {
 export const useRecentStreams = (params: StreamsParams = {}, { skipsPreload = false, ...props }: PreLoadingProps<StreamsResponse> = {}): LoadingResult<StreamsResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  const query = queryStringForParams(params);
+  const query = queryStringForStreamsParams(params);
   if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.recentStreams?.[query] === undefined) {
     if (preloadedUsed.usedRecentStreamsQueries === undefined) {
       preloadedUsed.usedRecentStreamsQueries = [];
@@ -432,7 +470,7 @@ export const useRecentStreams = (params: StreamsParams = {}, { skipsPreload = fa
 export const useStreams = (params: StreamsParams = {}, { skipsPreload = false, ...props }: PreLoadingProps<StreamsResponse> = {}): LoadingResult<StreamsResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  const query = queryStringForParams(params);
+  const query = queryStringForStreamsParams(params);
   if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.streams?.[query] === undefined) {
     if (preloadedUsed.usedStreamsQueries === undefined) {
       preloadedUsed.usedStreamsQueries = [];
@@ -461,7 +499,7 @@ export const useStreams = (params: StreamsParams = {}, { skipsPreload = false, .
 export const useUnknownStreams = (params: StreamsParams = {}, { skipsPreload = false, ...props }: PreLoadingProps<StreamsResponse> = {}): LoadingResult<StreamsResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  const query = queryStringForParams(params);
+  const query = queryStringForStreamsParams(params);
   if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.unknownStreams?.[query] === undefined) {
     if (preloadedUsed.usedUnknownStreamsQueries === undefined) {
       preloadedUsed.usedUnknownStreamsQueries = [];

@@ -18,7 +18,7 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource,
         .filter(s => s.segmentId)
         .map(s => [s.segmentId!, s]));
 
-    const characters = await fetchCharacters(apiClient, dataSource, userResponse);
+    const characters = await fetchCharacters(apiClient, dataSource, {}, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );

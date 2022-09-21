@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request } from 'express';
 import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
 import { CharactersResponse, UserResponse } from '@twrpo/types';
@@ -13,13 +13,28 @@ import { Video } from '../../db/entity/Video';
 import { videoUrlOffset } from '../../utils';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
+import {
+    queryParamBoolean,
+    queryParamString,
+    ParamError,
+} from '../../queryParams';
 
-export interface CharactersRequest {
-    limit?: number;
-    page?: number;
+export interface CharactersParams {
+    live?: boolean;
+    search?: string;
+    factionKey?: string;
+    channelTwitchId?: string;
 }
 
-export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<CharactersResponse> => {
+export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource, params: CharactersParams = {}, currentUser: UserResponse): Promise<CharactersResponse> => {
+    const {
+        live,
+        search,
+        factionKey,
+        channelTwitchId,
+    } = params;
+    console.log(params);
+
     const knownUsers = await getKnownTwitchUsers(apiClient, dataSource);
 
     const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
@@ -96,7 +111,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
 
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
 
-    const characterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) => {
+    const allCharacterInfos = Object.entries(wrpCharacters).flatMap(([streamer, characters]) => {
         const channelInfo = knownUsers.find(u =>
             u.displayName.toLowerCase() === streamer.toLowerCase()
             || u.login.toLowerCase() == streamer.toLowerCase());
@@ -128,18 +143,74 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
             });
     });
 
+    // live,
+    // search,
+    // factionKey,
+    // channelTwitchId,
+    // cursor,
+    // limit = DEFAULT_LIMIT,
+
+    const searchRegex = search
+        ? new RegExp(
+            RegExp.escape(search)
+                .replaceAll(/['‘’]/g, '[‘’\']')
+                .replaceAll(/["“”]/g, '[“”"]'),
+            'i'
+        )
+        : undefined;
+
+    const filteredCharacterInfos = live || searchRegex || factionKey || channelTwitchId
+        ? allCharacterInfos
+            .filter(character =>
+                ((live && character.liveInfo) || !live)
+                    && ((searchRegex
+                        && (searchRegex.test(character.channelName)
+                            || searchRegex.test(character.name)
+                            // TODO: nicknameLookup
+                            || character.displayInfo.nicknames.some(n => searchRegex.test(n))
+                            || character.factions.some(f => searchRegex.test(f.name)))
+                    ) || !searchRegex)
+                    && ((factionKey
+                        && (character.factions.some(faction => faction.key === factionKey))
+                    ) || !factionKey)
+                    && ((channelTwitchId
+                        && (character.channelInfo && character.channelInfo.id === channelTwitchId)
+                    ) || !channelTwitchId))
+        : allCharacterInfos;
+
     return {
         factions: factionInfos,
-        characters: characterInfos,
+        characters: filteredCharacterInfos,
     };
+};
+
+export const parseCharactersQuery = (query: Request['query'] | URLSearchParams): CharactersParams | { error: string } => {
+    const params: CharactersParams = {};
+    try {
+        params.live = queryParamBoolean(query, 'live');
+        params.factionKey = queryParamString(query, 'factionKey');
+        params.channelTwitchId = queryParamString(query, 'channelTwitchId');
+        params.search = queryParamString(query, 'search');
+    } catch (error) {
+        if (error instanceof ParamError) {
+            return { error: '`cursor` parameter must be a string' };
+        }
+        throw error;
+    }
+    return params;
 };
 
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
+        const params = parseCharactersQuery(req.query);
+        if ('error' in params) {
+            const { error } = params;
+            return res.status(400).send({ success: false, error });
+        }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchCharacters(apiClient, dataSource, userResponse);
+        const response = await fetchCharacters(apiClient, dataSource, params, userResponse);
         return res.send(response);
     });
 

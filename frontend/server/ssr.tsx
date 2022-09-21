@@ -95,12 +95,18 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           preloadedData.factions = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
         }
 
-        if (used.usedCharacters) {
+        if (used.usedCharactersQueries && used.usedCharactersQueries.length) {
           needsAnotherLoad = true;
-          const charactersResponse = await api.fetchCharacters(userResponse);
-          // Hacky round-trip through JSON to make sure our types are converted the same
-          // TODO: Maybe we should just make an API call?
-          preloadedData.characters = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
+          if (!preloadedData.characters) {
+            preloadedData.characters = {};
+          }
+          for (const query of used.usedCharactersQueries) {
+            const charactersResponse = await api.fetchCharactersWithQuery(query, userResponse);
+            // const streamsResponse = await api.fetchRecentStreams(cursor === '' ? undefined : cursor, userResponse);
+            // Hacky round-trip through JSON to make sure our types are converted the same
+            // TODO: Maybe we should just make an API call?
+            preloadedData.characters[query] = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
+          }
         }
 
         if (used.usedStreamerNames && used.usedStreamerNames.length) {

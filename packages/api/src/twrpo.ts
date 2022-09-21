@@ -17,7 +17,7 @@ import {
 } from '@twrpo/types';
 
 import { getFilteredWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
-import { fetchCharacters } from './routes/v2/characters';
+import { fetchCharacters, parseCharactersQuery, CharactersParams } from './routes/v2/characters';
 import { fetchFactions } from './routes/v2/factions';
 import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
 import { fetchUnknown } from './routes/v2/unknown';
@@ -105,8 +105,17 @@ class Api {
         return fetchFactions(this.twitchClient, this.dataSource, currentUser);
     }
 
-    public async fetchCharacters(currentUser: UserResponse): Promise<CharactersResponse> {
-        return fetchCharacters(this.twitchClient, this.dataSource, currentUser);
+    public async fetchCharactersWithQuery(query: string | undefined, currentUser: UserResponse): Promise<CharactersResponse> {
+        const params = parseCharactersQuery(new URLSearchParams(query));
+        if ('error' in params) {
+            console.error('Invalid query');
+            return { characters: [], factions: [] };
+        }
+        return this.fetchCharacters(params, currentUser);
+    }
+
+    public async fetchCharacters(params: CharactersParams | undefined, currentUser: UserResponse): Promise<CharactersResponse> {
+        return fetchCharacters(this.twitchClient, this.dataSource, params, currentUser);
     }
 
     public async fetchStreamer(name: string, currentUser: UserResponse): Promise<StreamerResponse | null> {

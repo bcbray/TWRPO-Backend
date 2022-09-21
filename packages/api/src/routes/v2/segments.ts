@@ -29,7 +29,7 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
     const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
     const liveInfo = liveData.streams.find(s => s.segmentId === segment.id);
 
-    const characters = await fetchCharacters(apiClient, dataSource, currentUser);
+    const characters = await fetchCharacters(apiClient, dataSource, {}, currentUser);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );

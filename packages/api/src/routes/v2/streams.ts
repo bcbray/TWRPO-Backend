@@ -13,6 +13,13 @@ import { isEditorForTwitchId, isGlobalEditor } from '../../userUtils';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
 import { minimumSegmentLengthMinutes, chunkIsShorterThanMinimum } from '../../segmentUtils';
+import {
+    queryParamBoolean,
+    queryParamDate,
+    queryParamString,
+    queryParamInteger,
+    ParamError,
+} from '../../queryParams';
 
 export const fetchLiveStreams = async (
     apiClient: ApiClient,
@@ -72,7 +79,7 @@ export const fetchLiveStreams = async (
     const liveDataTwitchUserIdLookup = Object.fromEntries(streams
         .map(s => [s.channelTwitchId, s]));
 
-    const characters = await fetchCharacters(apiClient, dataSource, userResponse);
+    const characters = await fetchCharacters(apiClient, dataSource, {}, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
@@ -218,7 +225,7 @@ export const fetchRecentStreams = async (
         .map(s => [s.channelTwitchId, s]));
     const lastRefreshTime = new Date(liveData.tick).toISOString();
 
-    const characters = await fetchCharacters(apiClient, dataSource, userResponse);
+    const characters = await fetchCharacters(apiClient, dataSource, {}, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
@@ -499,7 +506,7 @@ export const fetchUnknownStreams = async (
         .map(s => [s.segmentId!, s]));
     const lastRefreshTime = new Date(liveData.tick).toISOString();
 
-    const characters = await fetchCharacters(apiClient, dataSource, userResponse);
+    const characters = await fetchCharacters(apiClient, dataSource, {}, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
@@ -707,63 +714,6 @@ export const fetchUnknownStreams = async (
         : undefined;
 
     return { streams, nextCursor, lastRefreshTime };
-};
-
-class ParamError extends Error {
-    constructor(public message: string) {
-        super();
-    }
-}
-
-const queryParamString = (query: Request['query'] | URLSearchParams, name: string): undefined | string => {
-    const param = query instanceof URLSearchParams
-        ? query.get(name)
-        : query[name];
-    if (param === undefined || param === null) {
-        return undefined;
-    }
-    if (typeof param !== 'string') {
-        throw new ParamError(`'${name}' parameter must be a string`);
-    }
-    return param;
-};
-
-const queryParamDate = (query: Request['query'] | URLSearchParams, name: string): undefined | Date => {
-    const stringParam = queryParamString(query, name);
-    if (stringParam === undefined) {
-        return undefined;
-    }
-    const date = new Date(stringParam);
-    if (Number.isNaN(date.getTime())) {
-        throw new ParamError(`'${stringParam}' is not a valid date for '${name}'. Must use ISO 8601 format.`);
-    }
-    return date;
-};
-
-const queryParamBoolean = (query: Request['query'] | URLSearchParams, name: string): undefined | boolean => {
-    const stringParam = queryParamString(query, name);
-    if (stringParam === undefined) {
-        return undefined;
-    }
-    if (stringParam === 'true') {
-        return true;
-    }
-    if (stringParam === 'false') {
-        return false;
-    }
-    throw new ParamError(`'${stringParam}' is not a valid boolean for '${name}'. Must be "true" or "false".`);
-};
-
-const queryParamInteger = (query: Request['query'] | URLSearchParams, name: string): undefined | number => {
-    const stringParam = queryParamString(query, name);
-    if (stringParam === undefined) {
-        return undefined;
-    }
-    const num = Number(stringParam);
-    if (!Number.isInteger(num) || String(num) !== stringParam) {
-        throw new ParamError(`'${stringParam}' is not a valid valie for '${name}'.`);
-    }
-    return num;
 };
 
 export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): StreamsParams | { error: string } => {

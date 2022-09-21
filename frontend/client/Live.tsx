@@ -46,7 +46,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
   const showOlderOfflineCharacters = filterRegex !== undefined
     || (factionKey !== undefined && factionKey !== 'independent');
 
-  const [charactersLoadingState] = useCharacters({
+  const [charactersLoadingState] = useCharacters({}, {
     needsLoad: showOlderOfflineCharacters,
     skipsPreload: true,
   });
