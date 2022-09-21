@@ -1156,7 +1156,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 483, name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
         { id: 484, name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang'] },
         { id: 1031, name: 'Archie "Little Cheese" Small', factions: ['One Life'] },
-        { id: 1118, name: '? "The Bro" ?' },
+        { id: 1118, name: 'James "The Bro" McAllister' },
     ],
     KYCaffiend: [
         { id: 485, name: 'Emerson Cain' },
