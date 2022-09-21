@@ -1064,7 +1064,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     JoeFudge: [
         { id: 450, name: 'Ronald Mayfair' },
-        { id: 451, name: 'Jackie ?' },
+        { id: 451, name: 'Jackie Laguna' },
     ],
     johnnyblamz: [
         { id: 452, name: 'Gavin Summers', factions: ['Summers Gang'], leader: true },
