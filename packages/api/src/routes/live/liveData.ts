@@ -192,7 +192,7 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
             return miniFaction;
         });
         const primaryFaction = char.factions[0];
-        if (displayNameNum === undefined) displayNameNum = displayNameDefault[primaryFaction] ?? 0;
+        if (displayNameNum === undefined) displayNameNum = displayNameDefault[primaryFaction] ?? 1;
 
         const displayNameTitle = titles.length ? `《${titles.join(' ')}》` : '';
         let displayNameChar = '';
