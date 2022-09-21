@@ -1546,6 +1546,9 @@ export const wrpCharacters: WrpCharacters = {
     Pinkfie: [
         { id: 651, name: 'Abigail Burke' },
     ],
+    PissyAtTheDisco: [
+        { id: 658, name: 'Oscar Caraballo' },
+    ],
     Point1985: [
         { id: 652, name: 'Joe Jackson' },
     ],
@@ -1559,9 +1562,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ProJB: [
         { id: 657, name: 'Odin Borr' },
-    ],
-    Psikage: [
-        { id: 658, name: 'Oscar Caraballo' },
     ],
     PuckNatorGaming: [
         { id: 659, name: 'Ernest Thorton' },
