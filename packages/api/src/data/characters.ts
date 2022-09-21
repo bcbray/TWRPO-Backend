@@ -958,7 +958,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1058, name: '[Cadet] Judah Payne', factions: ['Law'] },
     ],
     ImagesOfBrokenLight: [
-        { id: 1114, name: 'Cailin ?' },
+        { id: 1114, name: 'Cailin O’Connor', nicknames: ['Petal'] },
     ],
     IMeMine30: [
         { id: 408, name: 'Angelo Clemente', factions: ['DiCenzo Group 2'] },
