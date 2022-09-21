@@ -1827,7 +1827,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 770, name: '[Deputy] Andrew Hamilton', factions: ['Law'] },
         { id: 771, name: 'Emmet Gray' },
         { id: 772, name: 'James Parker' },
-        { id: 773, name: 'Archie ?' }, // Last name maybe “Richardson”?
+        { id: 773, name: 'Archie Richardson' },
     ],
     spicybackpain: [
         { id: 774, name: 'Pepper Jackson' },
