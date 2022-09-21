@@ -1289,7 +1289,7 @@ export const wrpCharacters: WrpCharacters = {
     MannersMaketh_: [
         { id: 551, name: 'Horatio Hudson' },
     ],
-    MartyO248: [
+    Marty__O: [
         { id: 552, name: 'Bobby Brampton' },
         { id: 553, name: 'Dmitri Crenshaw' },
         { id: 554, name: 'Marty Hanes' },
