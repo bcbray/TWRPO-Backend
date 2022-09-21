@@ -15,11 +15,12 @@ import OutboundLink from './OutboundLink';
 import CharactersTable from './CharactersTable';
 import StreamList from './StreamList'
 import FeedbackModal from './FeedbackModal';
+import { useStreams } from './Data';
+import { usePaginatedStreams } from './Streams';
+import { LoadTrigger } from './hooks';
 
 interface StreamerProps {
   data: StreamerResponse;
-  loadTick: number;
-  handleRefresh: () => void;
 }
 
 interface StreamerLinkProps {
@@ -51,10 +52,7 @@ const Streamer: React.FC<StreamerProps> = ({
   data: {
     streamer,
     characters,
-    recentSegments,
   },
-  loadTick,
-  handleRefresh
 }) => {
   const [showingFeedbackModal, setShowingFeedbackModal] = React.useState<boolean>(false);
   const handleShowFeedback = React.useCallback(<T,>(e: React.MouseEvent<T>) => {
@@ -64,6 +62,18 @@ const Streamer: React.FC<StreamerProps> = ({
   const handleCloseFeedback = React.useCallback(() => (
     setShowingFeedbackModal(false)
   ), []);
+
+  const {
+    streams,
+    hasMore,
+    loadMore,
+    loadTick,
+    loadKey,
+    reload,
+  } = usePaginatedStreams(useStreams, {
+    channelTwitchId: streamer.twitchId,
+    distinctCharacters: false,
+  });
 
   return (
     <>
@@ -118,17 +128,23 @@ const Streamer: React.FC<StreamerProps> = ({
         </div>
         <div className={styles.recentStreams}>
           <h3>Recent Streams</h3>
-          {streamer.liveInfo !== undefined || recentSegments.length > 0 ? (
+          {streams.length > 0 || hasMore ? (
             <StreamList
               streams={[]}
-              segments={recentSegments.map(segment => ({ streamer, segment }))}
+              segments={streams}
               paginationKey={streamer.twitchId}
               loadTick={loadTick}
+              isLoadingMore={hasMore}
+              loadMoreTrigger={
+                streams.length > 0 && hasMore
+                  ? <LoadTrigger key={loadKey} loadMore={loadMore} />
+                  : undefined
+              }
               hideStreamer
               noInset
               wrapTitle
               showLiveBadge
-              handleRefresh={handleRefresh}
+              handleRefresh={reload}
             />
           ) : (
             <p>{`We don’t have any past streams tracked for ${streamer.displayName}.`}</p>

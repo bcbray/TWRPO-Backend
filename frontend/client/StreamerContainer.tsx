@@ -15,12 +15,12 @@ interface StreamerContainerProps {
 const StreamerContainer: React.FC<StreamerContainerProps> = () => {
   const params = useParams();
   const { streamerName } = params;
-  const [loadState, reload, loadTick] = useStreamer(streamerName ?? '');
+  const [loadState, reload] = useStreamer(streamerName ?? '');
 
   return (
     <div className="content">
       {isSuccess(loadState)
-        ? <Streamer data={loadState.data} loadTick={loadTick} handleRefresh={reload} />
+        ? <Streamer data={loadState.data} />
         : isFailure(loadState)
           ? loadState.error instanceof NotFoundError
             ? <NotFound alreadyContent />
