@@ -45,6 +45,7 @@ interface ApiOptions {
     postgresUrl: string;
     liveRefreshInterval?: number;
     videoRefreshInterval?: number;
+    databaseStatsLogInterval?: number
 }
 
 class Api {
@@ -63,6 +64,10 @@ class Api {
     private videoRefreshInitialTimeout: IntervalTimeout | null;
 
     private videoRefreshTimeout: IntervalTimeout | null;
+
+    private databaseStatsLogInterval: number;
+
+    private databaseStatsLogTimeout: IntervalTimeout | null;
 
     constructor(options: ApiOptions) {
         this.twitchClient = new ApiClient({
@@ -91,10 +96,14 @@ class Api {
 
         const { videoRefreshInterval = 1000 * 60 * 10 } = options;
         this.videoRefreshInterval = videoRefreshInterval;
+
+        const { databaseStatsLogInterval = 1000 * 60 * 20 } = options;
+        this.databaseStatsLogInterval = databaseStatsLogInterval;
     }
 
     public async initialize(): Promise<void> {
         await this.dataSource.initialize();
+        this.startLoggingDatabaseCounts();
     }
 
     public async fetchLive(currentUser: UserResponse): Promise<LiveResponse> {
@@ -255,6 +264,61 @@ class Api {
             clearTimeout(this.videoRefreshInitialTimeout);
             this.videoRefreshInitialTimeout = null;
         }
+    }
+
+    startLoggingDatabaseCounts(): void {
+        if (this.databaseStatsLogTimeout) {
+            this.stopLoggingDatabaseCounts();
+        }
+        this.logDatabaseCounts();
+        this.databaseStatsLogTimeout = setInterval(() => {
+            this.logDatabaseCounts();
+        }, this.databaseStatsLogInterval);
+    }
+
+    stopLoggingDatabaseCounts(): void {
+        if (this.databaseStatsLogTimeout) {
+            clearInterval(this.databaseStatsLogTimeout);
+            this.databaseStatsLogTimeout = null;
+        }
+    }
+
+    async logDatabaseCounts(): Promise<void> {
+        const counts: Record<string, number> = {};
+        for (const metadata of this.dataSource.entityMetadatas) {
+            const estimateResults: { estimate: string | null }[] = await this.dataSource.query(`
+                SELECT (CASE WHEN c.reltuples < 0 THEN NULL       -- never vacuumed
+                             WHEN c.relpages = 0 THEN float8 '0'  -- empty table
+                             ELSE c.reltuples / c.relpages END
+                     * (pg_catalog.pg_relation_size(c.oid)
+                      / pg_catalog.current_setting('block_size')::int)
+                       )::bigint as estimate
+                FROM   pg_catalog.pg_class c
+                WHERE  c.oid = '${metadata.tableName}'::regclass;      -- schema-qualified table here
+            `);
+            if (estimateResults.length === 0) {
+                continue;
+            }
+            const { estimate } = estimateResults[0];
+            if (estimate === null) {
+                const exactResults: { exact: string }[] = await this.dataSource.query(`
+                    SELECT count(*) AS exact FROM "${metadata.tableName}";
+                `);
+                if (exactResults.length === 0) {
+                    continue;
+                }
+                const { exact } = exactResults[0];
+                counts[metadata.tableName] = Number.parseInt(exact, 10);
+            } else {
+                counts[metadata.tableName] = Number.parseInt(estimate, 10);
+            }
+        }
+        console.log(JSON.stringify({
+            level: 'info',
+            event: 'database-stats',
+            tableCounts: counts,
+            totalCount: Object.values(counts).reduce((sum, count) => sum + count),
+        }));
     }
 }
 
