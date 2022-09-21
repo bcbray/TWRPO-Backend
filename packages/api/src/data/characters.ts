@@ -939,7 +939,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 401, name: 'Hugo Teach' },
     ],
     IBabaganoosh: [
-        { id: 402, name: 'Chuck ?' },
+        { id: 402, name: 'Chuck Morris' },
     ],
     IboonI: [
         { id: 403, name: 'Elias Boon' }, // Emerald Ranch
