@@ -4,8 +4,8 @@ import { DataSource } from 'typeorm';
 import { LiveResponse, Stream, CharacterInfo, UserResponse } from '@twrpo/types';
 
 import {
-    log, cloneDeepJson, filterObj, mapObj, parseParam,
-    isObjEmpty, parseLookup, videoUrlOffset,
+    log, cloneDeepJson, mapObj,
+    parseLookup, videoUrlOffset,
 } from '../../utils';
 
 import { getKnownTwitchUsers } from '../../pfps';
@@ -28,7 +28,6 @@ import { wrpPodcasts } from '../../data/podcasts';
 import { fetchVideosForUser, fetchMissingThumbnailsForVideoIds } from '../../fetchVideos';
 import { isGlobalEditor } from '../../userUtils';
 
-import type { RecordGen } from '../../utils';
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from '../../data/meta';
 import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther } from '../../data/characters';
 import type { WrpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } from '../../data/factions';
@@ -90,10 +89,7 @@ const game = '493959' as const;
 const languages: string[] = ['en', 'hi', 'no', 'pt']; // https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 const streamType: HelixStreamType = 'live';
 const bigLimit = 100 as const;
-// const maxPages = 5 as const;
 const searchNumDefault = 2000;
-const searchNumMax = 5000;
-// const updateCacheMs = 1000 * 60;
 
 const toFactionMini = (faction: string) => faction.toLowerCase().replaceAll(' ', '');
 
@@ -107,23 +103,9 @@ const toFactionMini = (faction: string) => faction.toLowerCase().replaceAll(' ',
 
 for (const [streamer, characters] of Object.entries(wrpCharacters)) {
     const streamerLower = streamer.toLowerCase();
-
-    /* if (characters.length > 0) {
-        // const usuallyWl = !characters[0].assumeServer || characters[0].assumeServer === 'whitelist';
-        const permathonCharDefault = {
-            name: '? "< One-Life Character >" ?',
-            nicknames: ['Permathon', 'Perma?thon', '/\\bone[\\s-]life/'],
-            // assumeServer: 'whitelist',
-        } as Character;
-        // const permathonCharPublic = { ...permathonCharWl, assumeServer: 'public' } as Character;
-        // const permathonCharInternational = { ...permathonCharWl, assumeServer: 'international' } as Character;
-        characters.push(permathonCharDefault); // '/\\bone[\\s-]life[\\s-]charac/'
-    } */
-
     const foundOthers: { [key in AssumeOther]?: boolean } = {};
 
-    // eslint-disable-next-line no-loop-func
-    characters.forEach((char, charIdx) => {
+    characters.forEach((char) => {
         const charOld = char as unknown as CharacterOld;
         const names = charOld.name.split(/\s+/);
         const nameRegAll = [];
@@ -199,7 +181,7 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
                     }
                 }
             });
-        } // testing commit identity
+        }
 
         const fullFactions: FactionRealFull[] = charOld.factions?.length ? charOld.factions : ['Independent'];
         char.factionsObj = {};
@@ -210,7 +192,7 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
             return miniFaction;
         });
         const primaryFaction = char.factions[0];
-        if (displayNameNum === undefined) displayNameNum = displayNameDefault[primaryFaction] ?? 1;
+        if (displayNameNum === undefined) displayNameNum = displayNameDefault[primaryFaction] ?? 0;
 
         const displayNameTitle = titles.length ? `《${titles.join(' ')}》` : '';
         let displayNameChar = '';
@@ -225,8 +207,6 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
             parsedNames.push(RegExp.escape(`${displayNameChar.toLowerCase()}s`));
         }
         char.displayName = `${char.leader ? `♛${displayNameTitle ? '' : ' '}` : ''}${displayNameTitle}${displayNameChar}`.trim();
-
-        // console.log(char.displayName);
 
         nameRegAll.push(`\\b(?:${parsedNames.join('|')})\\b`);
         if (char.factions.includes('development') && streamerLower !== 'dwjft') { // Include regex for dev faction
@@ -279,25 +259,15 @@ const knownPfps: { [key: string]: string } = {};
 const knownTwitchUsers: { [key: string]: TwitchUser } = {};
 let unknownTwitchUsers: { [key: string]: TwitchUser } = {};
 
-interface GetStreamsOptions { searchNum?: number; international?: boolean }
-type GetStreamsOptionsRequired = Required<GetStreamsOptions>;
-const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options: GetStreamsOptions, endpoint = '<no-endpoint>'): Promise<HelixStream[]> => {
-    const optionsParsed: GetStreamsOptionsRequired = {
-        searchNum: searchNumDefault,
-        international: false,
-        ...filterObj(options, v => v !== undefined),
-    };
-
+const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise<HelixStream[]> => {
     const knownUsers = await getKnownTwitchUsers(apiClient, dataSource);
     knownUsers.forEach((user) => {
         knownPfps[user.id] = user.profilePictureUrl.replace('-300x300.', '-50x50.');
         knownTwitchUsers[user.id] = user;
     });
 
-    let { searchNum } = optionsParsed;
-    searchNum = Math.min(searchNum, searchNumMax);
+    let searchNum = searchNumDefault;
 
-    // const gtaGame = await apiClient.helix.games.getGameById(game);
     const gtaStreamsObj: { [key: string]: HelixStream } = {};
     const gtaStreams: HelixStream[] = [];
     let after;
@@ -307,7 +277,6 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
             searchNum -= limitNow;
             const gtaStreamsNow: HelixPaginatedResult<HelixStream> = await apiClient.streams.getStreams({
                 game,
-                // language: optionsParsed.international ? undefined : language,
                 language: languages,
                 limit: limitNow,
                 type: streamType,
@@ -315,7 +284,7 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
             });
 
             if (gtaStreamsNow.data.length === 0) {
-                log(`${endpoint}: Search ended (limit: ${limitNow})`, gtaStreamsNow);
+                log(`Search ended (limit: ${limitNow})`, gtaStreamsNow);
                 break;
             }
 
@@ -331,7 +300,7 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
             }
 
             if (lookupStreams.length > 0) {
-                log(`${endpoint}: Looking up pfp for ${lookupStreams.length} users after...`);
+                log(`Looking up pfp for ${lookupStreams.length} users after...`);
                 const foundUsers = await apiClient.users.getUsersByIds(lookupStreams);
                 for (const helixUser of foundUsers) {
                     knownPfps[helixUser.id] = helixUser.profilePictureUrl.replace('-300x300.', '-50x50.');
@@ -360,23 +329,13 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, options:
     return gtaStreams;
 };
 
-export interface LiveOptions {
-    factionName: FactionMini;
-    filterEnabled: boolean;
-    allowPublic: boolean;
-    allowInternational: boolean;
-    allowOthers: boolean;
-    darkMode: boolean;
-    international: boolean;
-    searchNum?: number;
-}
-
 type BaseStream = Pick<Stream, 'channelName' | 'channelTwitchId' | 'title' | 'viewers' | 'profileUrl' | 'streamId'>;
 
 type FactionCount = { [key in FactionMini]: number };
 
-const cachedResults: { [key: string]: LiveResponse | undefined } = {};
-const wrpStreamsPromise: { [key: string]: Promise<LiveResponse> | undefined } = {};
+let cachedResults: LiveResponse | undefined;
+
+let wrpStreamsPromise: Promise<LiveResponse> | undefined;
 
 const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podcast) => {
     const nameAll = [podcast.name];
@@ -430,71 +389,31 @@ const parseServer = (server: Server): ParsedServer => {
 const getWrpLive = async (
     apiClient: ApiClient,
     dataSource: DataSource,
-    baseOptions = {},
-    override = false,
-    endpoint = '<no-endpoint>',
-    useActivePromise = false
+    override = false
 ): Promise<LiveResponse> => {
-    if (!isObjEmpty(baseOptions)) log(`${endpoint}: options -`, JSON.stringify(baseOptions));
-
-    const options: LiveOptions = {
-        factionName: 'allwildrp',
-        filterEnabled: true,
-        allowPublic: true,
-        allowInternational: true,
-        allowOthers: true,
-        international: false,
-        darkMode: true,
-        ...filterObj(
-            mapObj(baseOptions as RecordGen, (v, k) => {
-                const value = parseParam(v as any);
-                if (k === 'factionName') return toFactionMini(value);
-                return value;
-            }),
-            v => v !== undefined
-        ),
-    };
-
-    const optionsStr = JSON.stringify(options);
-
-    if (!override && cachedResults[optionsStr] !== undefined && !useActivePromise) {
-        log(`${endpoint}: Returning cached results.`);
-        return cachedResults[optionsStr]!;
+    if (!override && cachedResults !== undefined) {
+        log('Returning cached results.');
+        return cachedResults;
     }
 
     const fetchID = randomUUID();
     const fetchStart = process.hrtime.bigint();
     console.log(JSON.stringify({ traceID: fetchID, event: 'start' }));
 
-    if (wrpStreamsPromise[optionsStr] === undefined || override) {
-        wrpStreamsPromise[optionsStr] = new Promise<LiveResponse>(async (resolve, reject) => {
+    if (wrpStreamsPromise === undefined || override) {
+        wrpStreamsPromise = new Promise<LiveResponse>(async (resolve, reject) => {
             try {
-                log(`${endpoint}: Fetching streams data...`);
-
-                const {
-                    factionName, filterEnabled, allowOthers, searchNum, international,
-                } = options;
-                const allowOthersNow = allowOthers || factionName === 'other';
+                log('Fetching streams data...');
 
                 const now = new Date();
                 const nowTime = +now;
 
-                const gtaStreams: (HelixStream)[] = await getStreams(apiClient, dataSource,
-                    { searchNum, international }, endpoint);
+                const gtaStreams: HelixStream[] = await getStreams(apiClient, dataSource);
 
                 const fetchEnd = process.hrtime.bigint();
                 console.log(JSON.stringify({ traceID: fetchID, event: 'fetched', fetchTime: Number((fetchEnd - fetchStart) / BigInt(1e+6)) }));
 
-                log(`${endpoint}: Fetched streams! Now processing data...`);
-
-                // log(gtaStreams.length);
-
-                // const useTextColor = '#000';
-                // const useColors = darkMode ? useColorsDark : useColorsLight;
-                const metaFactions: FactionMini[] = ['allwildrp', 'alltwitch'];
-                const isMetaFaction = metaFactions.includes(factionName);
-                // const isNpMetaFaction = npMetaFactions.includes(factionName);
-                // const minViewersUse = isNpMetaFaction ? minViewers : 3;
+                log('Fetched streams! Now processing data...');
 
                 let nextId = 0;
                 const wrpStreams: Stream[] = [];
@@ -524,13 +443,10 @@ const getWrpLive = async (
                         channelName,
                         channelTwitchId: helixStream.userId,
                         title,
-                        // tagIds: helixStream.tagIds,
                         viewers,
                         profileUrl: knownPfps[helixStream.userId],
                         streamId: helixStream.id,
-                    }; // rpServer, characterName, faction, tagText, tagFaction
-
-                    // let noOthersInclude = true; // INV: Still being used?
+                    };
 
                     const titleParsed = title.toLowerCase().replace(/\./g, ' ');
                     const channelNameLower = channelName.toLowerCase();
@@ -540,8 +456,6 @@ const getWrpLive = async (
                     let onOtherIncluded = false;
                     let serverName = '';
                     let matchedServer: ParsedServer | null = null;
-
-                    // log(channelName, '>>>', titleParsed);
 
                     servers: // eslint-disable-line no-labels
                     for (const otherServer of otherServers) {
@@ -601,7 +515,7 @@ const getWrpLive = async (
                     const characters = wrpCharacters[channelNameLower] as WrpCharacter | undefined;
 
                     if (characters && characters.assumeOther === ASTATES.neverNp) {
-                        console.log('Excluded', channelName, 'because of "neverNp"');
+                        console.log(`Excluded ${channelName} because of "neverNp"`);
                         continue;
                     }
 
@@ -610,49 +524,24 @@ const getWrpLive = async (
                     const onMainOther = !onNp && mainsOther;
                     const npStreamer = onNp || characters;
 
-                    const nowFilterEnabled = filterEnabled && factionName !== 'alltwitch';
-
-                    // log(title, '>>>', onNp);
-
                     let streamState; // remove, mark-np, mark-other
-                    if (nowFilterEnabled) {
-                        // If filtering streams is enabled
-                        if ((npStreamer && !mainsOther && !keepNp && onOther)) {
-                            // If is-including-others and streamer on another server, or it's an NP streamer playing another server
-                            streamState = FSTATES.other;
-                        } else if ((onOtherIncluded || onMainOther || (npStreamer && onOther))) {
-                            if (allowOthersNow) {
-                                streamState = FSTATES.other;
-                                // noOthersInclude = false;
-                            } else {
-                                continue;
-                            }
-                        } else if (npStreamer && !onMainOther && !onOther) {
-                            // If NoPixel streamer that isn't on another server
-                            streamState = FSTATES.nopixel;
-                            serverName = 'WRP';
-                        } else {
-                            continue;
-                        }
+                    if ((npStreamer && !mainsOther && !keepNp && onOther)) {
+                        // If is-including-others and streamer on another server, or it's an NP streamer playing another server
+                        streamState = FSTATES.other;
+                    } else if ((onOtherIncluded || onMainOther || (npStreamer && onOther))) {
+                        streamState = FSTATES.other;
                     } else if (npStreamer && !onMainOther && !onOther) {
                         // If NoPixel streamer that isn't on another server
                         streamState = FSTATES.nopixel;
                         serverName = 'WRP';
                     } else {
-                        streamState = FSTATES.other;
+                        continue;
                     }
-
-                    // log(streamState);
 
                     const hasCharacters = characters && characters.length;
 
                     if (streamState === FSTATES.other) {
                         // Other included RP servers
-                        const allowStream = isMetaFaction;
-                        if (allowStream === false) {
-                            continue;
-                        }
-
                         const stream: Stream = {
                             id: nextId,
                             ...baseStream,
@@ -666,7 +555,6 @@ const getWrpLive = async (
                             factionsMap: { other: true },
                             tagText: serverName.length > 0 ? `::${serverName}::` : '::Other Server::',
                             tagFaction: 'other',
-                            // keepCase: true,
                             thumbnailUrl: helixStream.thumbnailUrl,
                             startDate: helixStream.startDate.toISOString(),
                             isHidden: false,
@@ -697,8 +585,6 @@ const getWrpLive = async (
                     }
 
                     const isOverridden = mostRecentStreamSegment !== null && mostRecentStreamSegment.isOverridden;
-
-                    // streamState === FSTATES.nopixel
 
                     let nowCharacter: Character | undefined;
 
@@ -746,7 +632,6 @@ const getWrpLive = async (
                     const factionsInTitle: FactionRealMini[] = [];
                     let newCharFactionSpotted = false;
 
-                    // if (nowCharacter === undefined) {
                     interface FactionObj {
                         rank1: number;
                         rank2: number;
@@ -794,30 +679,10 @@ const getWrpLive = async (
                     } else if (factionObjects.length) {
                         factionObjects.sort((a, b) => a.rank1 - b.rank1 || a.rank2 - b.rank2 || a.rank3 - b.rank3 || a.index - b.index);
                         if (factionObjects[0].character && !isOverridden) nowCharacter = factionObjects[0].character; // Sorted by has-character
-                        // factionNames = factionObjects[0].factions;
                         factionNames = factionObjects.map(factionObj => factionObj.factions).flat(1);
                     }
-                    // }
 
                     const hasFactions = factionNames.length;
-
-                    // log(nowCharacter);
-
-                    let allowStream = isMetaFaction;
-                    if (allowStream === false) {
-                        if (factionName === 'otherwrp') {
-                            allowStream = !nowCharacter && !hasFactions && !hasCharacters;
-                        } else {
-                            // eslint-disable-next-line no-lonely-if
-                            if (nowCharacter) {
-                                allowStream = factionName in nowCharacter.factionsObj;
-                            } else if (hasFactions) {
-                                allowStream = (factionNames as string[]).includes(factionName);
-                            } else if (hasCharacters) {
-                                allowStream = factionName in characters[0].factionsObj;
-                            }
-                        }
-                    }
 
                     let possibleCharacter = nowCharacter;
                     if (!isOverridden && !nowCharacter && !hasFactions && hasCharacters) {
@@ -844,13 +709,6 @@ const getWrpLive = async (
                         }
                     }
 
-                    // log(allowStream === false, (onNpPublic && factionName !== 'publicnp' && allowPublic == false));
-
-                    if (allowStream === false) {
-                        continue;
-                    }
-
-                    // let keepCase = false;
                     let activeFactions: FactionMini[];
                     let tagFaction: FactionColorsMini;
                     let tagText;
@@ -873,7 +731,6 @@ const getWrpLive = async (
                         tagFaction = possibleCharacter.factionUse;
                         tagText = `? ${possibleCharacter.displayName} ?`;
                     } else {
-                        // keepCase = true;
                         activeFactions = ['otherwrp'];
                         tagFaction = 'otherwrp';
                         tagText = `${serverName}`;
@@ -1264,8 +1121,8 @@ const getWrpLive = async (
 
                 // console.log('npStreamsFb', npStreamsFb);
 
-                cachedResults[optionsStr] = result;
-                log(`${endpoint}: Done fetching streams data!`);
+                cachedResults = result;
+                log('Done fetching streams data!');
                 const parseEnd = process.hrtime.bigint();
                 console.log(JSON.stringify({
                     traceID: fetchID,
@@ -1290,22 +1147,20 @@ const getWrpLive = async (
             } catch (err) {
                 const parseEnd = process.hrtime.bigint();
                 console.log(JSON.stringify({ traceID: fetchID, event: 'failed', error: err, totalTime: Number((parseEnd - fetchStart) / BigInt(1e+6)) }));
-                log(`${endpoint}: Failed to fetch streams data:`, err);
+                log('Failed to fetch streams data:', err);
                 reject(err);
             }
         });
     } else {
-        log(`${endpoint}: Waiting for wrpStreamsPromise...`);
+        log('Waiting for wrpStreamsPromise...');
     }
 
-    await wrpStreamsPromise[optionsStr]!;
+    await wrpStreamsPromise;
 
-    log(`${endpoint}: Got data!`);
+    log('Got data!');
 
-    return cachedResults[optionsStr]!;
+    return cachedResults!;
 };
-
-export const getRawWrpLive = getWrpLive;
 
 export const getFilteredWrpLive = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<LiveResponse> => {
     const { streams, ...rest } = await getWrpLive(apiClient, dataSource);
@@ -1318,11 +1173,11 @@ export const getFilteredWrpLive = async (apiClient: ApiClient, dataSource: DataS
 };
 
 export const forceWrpLiveRefresh = async (apiClient: ApiClient, dataSource: DataSource): Promise<void> => {
-    await getWrpLive(apiClient, dataSource, {}, true);
+    await getWrpLive(apiClient, dataSource, true);
 };
 
-export const getWrpStreams = async (apiClient: ApiClient, dataSource: DataSource, baseOptions = {}, override = false): Promise<Stream[]> => {
-    const live = await getWrpLive(apiClient, dataSource, baseOptions, override, '/streams');
+export const getWrpStreams = async (apiClient: ApiClient, dataSource: DataSource, override = false): Promise<Stream[]> => {
+    const live = await getWrpLive(apiClient, dataSource, override);
     return live.streams;
 };
 
@@ -1332,16 +1187,11 @@ export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, in
     getWrpLive(apiClient, dataSource);
 
     return setInterval(async () => {
-        const cachedResultsKeys = Object.keys(cachedResults);
-        if (!cachedResultsKeys.length) {
+        if (cachedResults === undefined) {
             log('Not refreshing cache...');
             return;
         }
         log('Refreshing cache...');
-        for (const optionsStr of cachedResultsKeys) {
-            log('Refreshing optionStr');
-            const optionsObj = JSON.parse(optionsStr);
-            await getWrpLive(apiClient, dataSource, optionsObj, true);
-        }
+        await getWrpLive(apiClient, dataSource, true);
     }, intervalMs);
 };

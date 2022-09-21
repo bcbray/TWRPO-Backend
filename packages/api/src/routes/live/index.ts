@@ -5,13 +5,10 @@ import { ApiClient } from '@twurple/api';
 import { LiveResponse } from '@twrpo/types';
 import { DataSource } from 'typeorm';
 
-import { mapObjKeys, log } from '../../utils';
-import { getFilteredWrpLive, getRawWrpLive } from './liveData';
+import { log } from '../../utils';
+import { getFilteredWrpLive } from './liveData';
 import { fetchSessionUser } from '../v2/whoami';
 import { SessionUser } from '../../SessionUser';
-import { isGlobalEditor } from '../../userUtils';
-
-import type { RecordGen } from '../../utils';
 
 interface InjectionConfiguration {
     targetElementSelector: string;
@@ -44,14 +41,11 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     });
 
     router.get('/extension', async (req, res) => {
-        const { streams, ...rest } = await getRawWrpLive(
+        const currentUser = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        const live = await getFilteredWrpLive(
             apiClient,
             dataSource,
-            mapObjKeys(req.query as RecordGen, ((_v, k) => {
-                if (k === 'faction') return 'factionName';
-                return k;
-            })),
-            undefined, '/live'
+            currentUser
         );
 
         // Includes npManual, _ORDER_, _TITLE_, _VIEWERS_, _PFP_, _CHANNEL1_, _CHANNEL2_
@@ -79,13 +73,8 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
             insertionElementSelector: '[data-target="directory-first-item"]',
         };
 
-        const currentUser = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-
         const response: ExtensionLiveResponse = {
-            ...rest,
-            streams: isGlobalEditor(currentUser)
-                ? streams
-                : streams.filter(s => !s.isHidden),
+            ...live,
             baseHtml,
             injectionConfiguration,
         };
