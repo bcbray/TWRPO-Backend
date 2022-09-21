@@ -17,11 +17,12 @@ import { minimumSegmentLengthMinutes, chunkIsShorterThanMinimum } from '../../se
 export const fetchLiveStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
-    params: Pick<StreamsParams, 'search' | 'factionKey'> = {},
+    params: Pick<StreamsParams, 'search' | 'factionKey' | 'channelTwitchId'> = {},
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
     const {
         factionKey,
+        channelTwitchId,
         search,
     } = params;
 
@@ -44,9 +45,12 @@ export const fetchLiveStreams = async (
 
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
 
-    const streams = searchRegex || factionKey
+    const streams = searchRegex || factionKey || channelTwitchId
         ? liveData.streams.filter(stream =>
-            ((searchRegex
+            ((channelTwitchId
+                && stream.channelTwitchId === channelTwitchId
+            ) || !channelTwitchId)
+            && ((searchRegex
                 && (
                     searchRegex.test(stream.tagText)
                     || (stream.characterName && searchRegex.test(stream.characterName))
@@ -56,8 +60,9 @@ export const fetchLiveStreams = async (
                     || stream.factions.some(f => searchRegex.test(f))
                 )
             ) || !searchRegex)
-            && ((factionKey && stream.factionsMap[factionKey])
-                || !factionKey))
+            && ((factionKey
+                && stream.factionsMap[factionKey]
+            ) || !factionKey))
         : liveData.streams;
 
     const liveSegmentIds = streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
@@ -65,7 +70,7 @@ export const fetchLiveStreams = async (
         .filter(s => s.segmentId)
         .map(s => [s.segmentId!, s]));
     const liveDataTwitchUserIdLookup = Object.fromEntries(streams
-        .map(s => [s.channelName.toLowerCase(), s]));
+        .map(s => [s.channelTwitchId, s]));
 
     const characters = await fetchCharacters(apiClient, dataSource, userResponse);
     const characterLookup = Object.fromEntries(
@@ -98,7 +103,7 @@ export const fetchLiveStreams = async (
                 twitchLogin: segment.channel!.twitchLogin,
                 displayName: segment.channel!.displayName,
                 profilePhotoUrl: segment.channel!.profilePhotoUrl,
-                liveInfo: liveDataTwitchUserIdLookup[segment.channel!.displayName.toLowerCase()],
+                liveInfo: liveDataTwitchUserIdLookup[segment.channel!.twitchId],
             },
             segment: {
                 id: segment.id,
@@ -135,6 +140,7 @@ export interface StreamsParams {
     distinctCharacters?: boolean;
     search?: string;
     factionKey?: string;
+    channelTwitchId?: string;
     startBefore?: Date;
     startAfter?: Date;
     endBefore?: Date;
@@ -195,6 +201,7 @@ export const fetchRecentStreams = async (
     const {
         distinctCharacters = true,
         factionKey,
+        channelTwitchId,
         search,
         startBefore,
         startAfter,
@@ -208,7 +215,7 @@ export const fetchRecentStreams = async (
     const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
     const liveCharacterIds = liveData.streams.flatMap(s => (s.characterId ? [s.characterId] : []));
     const liveDataTwitchUserIdLookup = Object.fromEntries(liveData.streams
-        .map(s => [s.channelName.toLowerCase(), s]));
+        .map(s => [s.channelTwitchId, s]));
     const lastRefreshTime = new Date(liveData.tick).toISOString();
 
     const characters = await fetchCharacters(apiClient, dataSource, userResponse);
@@ -278,6 +285,10 @@ export const fetchRecentStreams = async (
 
             if (filteredCharacterIds) {
                 subQuery.andWhere('stream_chunk.characterId IS NOT NULL AND stream_chunk.characterId IN (:...filteredCharacterIds)', { filteredCharacterIds });
+            }
+
+            if (channelTwitchId) {
+                subQuery.andWhere('stream_chunk.streamerId = :channelTwitchId', { channelTwitchId });
             }
 
             if (searchRegex) {
@@ -380,7 +391,7 @@ export const fetchRecentStreams = async (
                 twitchLogin: segment.channel!.twitchLogin,
                 displayName: segment.channel!.displayName,
                 profilePhotoUrl: segment.channel!.profilePhotoUrl,
-                liveInfo: liveDataTwitchUserIdLookup[segment.channel!.displayName.toLowerCase()],
+                liveInfo: liveDataTwitchUserIdLookup[segment.channel!.twitchId],
             },
             segment: {
                 id: segment.id,
@@ -476,6 +487,7 @@ export const fetchUnknownStreams = async (
         endAfter,
         search,
         factionKey,
+        channelTwitchId,
         cursor,
         limit = DEFAULT_LIMIT,
     } = params;
@@ -550,6 +562,10 @@ export const fetchUnknownStreams = async (
 
             if (filteredCharacterIds) {
                 subQuery.andWhere('stream_chunk.characterId IS NOT NULL AND stream_chunk.characterId IN (:...filteredCharacterIds)', { filteredCharacterIds });
+            }
+
+            if (channelTwitchId) {
+                subQuery.andWhere('stream_chunk.streamerId = :channelTwitchId', { channelTwitchId });
             }
 
             if (searchRegex) {
@@ -756,6 +772,7 @@ export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): St
         params.live = queryParamBoolean(query, 'live');
         params.distinctCharacters = queryParamBoolean(query, 'distinctCharacters');
         params.factionKey = queryParamString(query, 'factionKey');
+        params.channelTwitchId = queryParamString(query, 'channelTwitchId');
         params.search = queryParamString(query, 'search');
         params.startBefore = queryParamDate(query, 'startBefore');
         params.startAfter = queryParamDate(query, 'startAfter');

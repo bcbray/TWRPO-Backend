@@ -50,6 +50,7 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
   }
   const fakeStream: Stream = {
     channelName: 'Ssaab',
+    channelTwitchId: '1234',
     title: 'Sam Baas | WildRP',
     viewers: 1432,
     profileUrl: '/images/example-live-pfp.png',

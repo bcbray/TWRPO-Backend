@@ -30,6 +30,7 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
   const startDate = React.useMemo(() => (new Date(new Date().getTime() - 5241000)).toString() ,[]);
   const fakeStream: Stream = {
     channelName: 'Ssaab',
+    channelTwitchId: '1234',
     title: 'Sam Baas | WildRP',
     viewers: 1432,
     profileUrl: '/images/example-live-pfp.png',

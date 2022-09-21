@@ -371,14 +371,7 @@ export interface LiveOptions {
     searchNum?: number;
 }
 
-interface BaseStream {
-    channelName: string;
-    title: string;
-    // tagIds: string[];
-    viewers: number;
-    profileUrl: string;
-    streamId: string;
-}
+type BaseStream = Pick<Stream, 'channelName' | 'channelTwitchId' | 'title' | 'viewers' | 'profileUrl' | 'streamId'>;
 
 type FactionCount = { [key in FactionMini]: number };
 
@@ -529,6 +522,7 @@ const getWrpLive = async (
 
                     const baseStream: BaseStream = {
                         channelName,
+                        channelTwitchId: helixStream.userId,
                         title,
                         // tagIds: helixStream.tagIds,
                         viewers,

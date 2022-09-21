@@ -2,6 +2,7 @@ import FactionKey from './FactionKey';
 
 export default interface Stream {
   channelName: string;
+  channelTwitchId: string;
   title: string;
   viewers: number;
   profileUrl: string;
