@@ -312,6 +312,14 @@ class Api {
             } else {
                 counts[metadata.tableName] = Number.parseInt(estimate, 10);
             }
+            console.log(JSON.stringify({
+                level: 'info',
+                event: 'database-table-stats',
+                tableStats: {
+                    table: metadata.tableName,
+                    count: counts[metadata.tableName],
+                },
+            }));
         }
         console.log(JSON.stringify({
             level: 'info',
