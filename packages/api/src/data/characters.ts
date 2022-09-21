@@ -1018,7 +1018,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 429, name: 'Jezrael King' },
         { id: 430, name: 'Maria Gonzales' }, // Former Bloody Hood
         { id: 431, name: 'Widow Fan' },
-        { id: 976, name: 'Sabina ?' },
+        { id: 976, name: 'Sabina Demeter' },
     ],
     jakeyp0o: [
         { id: 432, name: 'Danner Wynn' },
