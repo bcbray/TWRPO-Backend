@@ -439,6 +439,26 @@ const getWrpLive = async (
                 for (const helixStream of gtaStreams) {
                     const { userDisplayName: channelName, title, viewers } = helixStream;
 
+                    let mostRecentStreamSegment = await dataSource.getRepository(StreamChunk)
+                        .findOne({
+                            where: {
+                                streamerId: helixStream.userId,
+                                streamId: helixStream.id,
+                            },
+                            order: {
+                                lastSeenDate: 'desc',
+                            },
+                        });
+
+                    // This is done here not as a WHERE clause so that we always
+                    // compare against the most-recent segment, not just the
+                    // most-recent segment with a matching title
+                    if (mostRecentStreamSegment && mostRecentStreamSegment.title !== title) {
+                        mostRecentStreamSegment = null;
+                    }
+
+                    const isOverridden = mostRecentStreamSegment !== null && mostRecentStreamSegment.isOverridden;
+
                     const baseStream: BaseStream = {
                         channelName,
                         channelTwitchId: helixStream.userId,
@@ -452,62 +472,87 @@ const getWrpLive = async (
                     const channelNameLower = channelName.toLowerCase();
 
                     let onOther = false;
-                    let onOtherPos = -1;
                     let onOtherIncluded = false;
                     let serverName = '';
                     let matchedServer: ParsedServer | null = null;
 
-                    servers: // eslint-disable-line no-labels
-                    for (const otherServer of otherServers) {
-                        for (const otherRegex of otherServer.regexes) {
+                    let onNp = false;
+
+                    if (mostRecentStreamSegment && isOverridden) {
+                        if (mostRecentStreamSegment.serverId === wrpServer.id) {
+                            matchedServer = wrpServer;
+                            onNp = true;
+                        } else {
+                            const overriddenServer = otherServers.find(server => server.id === mostRecentStreamSegment!.serverId);
+                            if (overriddenServer) {
+                                onOther = true;
+                                serverName = overriddenServer.name;
+                                matchedServer = overriddenServer;
+                                if (overriddenServer.isVisible) onOtherIncluded = true;
+                            } else {
+                                console.warn(JSON.stringify({
+                                    level: 'error',
+                                    message: 'Found overriden server but unable to find matching server in databse',
+                                    segment: mostRecentStreamSegment,
+                                    wrpServer,
+                                    otherServers,
+                                }));
+                                continue;
+                            }
+                        }
+                    } else {
+                        let onOtherPos = -1;
+
+                        servers: // eslint-disable-line no-labels
+                        for (const otherServer of otherServers) {
+                            for (const otherRegex of otherServer.regexes) {
+                                try {
+                                    onOtherPos = title.indexOfRegex(otherRegex);
+                                    if (onOtherPos > -1) {
+                                        onOther = true;
+                                        serverName = otherServer.name;
+                                        matchedServer = otherServer;
+                                        if (otherServer.isVisible) onOtherIncluded = true;
+                                        break servers; // eslint-disable-line no-labels
+                                    }
+                                } catch (error) {
+                                    if (error instanceof SyntaxError) {
+                                        console.error(JSON.stringify({
+                                            level: 'error',
+                                            message: 'Failed construct regex for server match',
+                                            server: otherServer,
+                                            regex: otherRegex,
+                                            error,
+                                        }));
+                                    } else {
+                                        throw error;
+                                    }
+                                }
+                            }
+                        }
+
+                        for (const wrpRegex of wrpServer.regexes) {
                             try {
-                                onOtherPos = title.indexOfRegex(otherRegex);
-                                if (onOtherPos > -1) {
-                                    onOther = true;
-                                    serverName = otherServer.name;
-                                    matchedServer = otherServer;
-                                    if (otherServer.isVisible) onOtherIncluded = true;
-                                    break servers; // eslint-disable-line no-labels
+                                const onNpPos = title.indexOfRegex(wrpRegex);
+                                if (onNpPos > -1 && (onOther === false || onNpPos < onOtherPos)) {
+                                    onNp = true;
+                                    onOther = false;
+                                    onOtherIncluded = false;
+                                    matchedServer = wrpServer;
+                                    break;
                                 }
                             } catch (error) {
                                 if (error instanceof SyntaxError) {
                                     console.error(JSON.stringify({
                                         level: 'error',
                                         message: 'Failed construct regex for server match',
-                                        server: otherServer,
-                                        regex: otherRegex,
+                                        server: wrpServer,
+                                        regex: wrpRegex,
                                         error,
                                     }));
                                 } else {
                                     throw error;
                                 }
-                            }
-                        }
-                    }
-
-                    let onNp = false;
-                    let onNpPos = -1;
-                    for (const wrpRegex of wrpServer.regexes) {
-                        try {
-                            onNpPos = title.indexOfRegex(wrpRegex);
-                            if (onNpPos > -1 && (onOther === false || onNpPos < onOtherPos)) {
-                                onNp = true;
-                                onOther = false;
-                                onOtherIncluded = false;
-                                matchedServer = wrpServer;
-                                break;
-                            }
-                        } catch (error) {
-                            if (error instanceof SyntaxError) {
-                                console.error(JSON.stringify({
-                                    level: 'error',
-                                    message: 'Failed construct regex for server match',
-                                    server: wrpServer,
-                                    regex: wrpRegex,
-                                    error,
-                                }));
-                            } else {
-                                throw error;
                             }
                         }
                     }
@@ -534,15 +579,20 @@ const getWrpLive = async (
                         // If NoPixel streamer that isn't on another server
                         streamState = FSTATES.nopixel;
                         serverName = 'WRP';
+                        matchedServer = wrpServer;
                     } else {
                         continue;
                     }
 
                     const hasCharacters = characters && characters.length;
 
+                    let stream: Omit<Stream, 'segmentId'>;
+                    let characterId: number | null;
+                    let characterUncertain: boolean;
+
                     if (streamState === FSTATES.other) {
                         // Other included RP servers
-                        const stream: Stream = {
+                        stream = {
                             id: nextId,
                             ...baseStream,
                             rpServer: serverName.length ? serverName : null,
@@ -559,190 +609,209 @@ const getWrpLive = async (
                             startDate: helixStream.startDate.toISOString(),
                             isHidden: false,
                         };
+                        characterId = null;
+                        characterUncertain = false;
 
-                        nextId++;
                         factionCount.other++;
-                        wrpStreams.push(stream);
-                        continue;
-                    }
+                    } else {
+                        let nowCharacter: Character | undefined;
 
-                    let mostRecentStreamSegment = await dataSource.getRepository(StreamChunk)
-                        .findOne({
-                            where: {
-                                streamerId: helixStream.userId,
-                                streamId: helixStream.id,
-                            },
-                            order: {
-                                lastSeenDate: 'desc',
-                            },
-                        });
-
-                    // This is done here not as a WHERE clause so that we always
-                    // compare against the most-recent segment, not just the
-                    // most-recent segment with a matching title
-                    if (mostRecentStreamSegment && mostRecentStreamSegment.title !== title) {
-                        mostRecentStreamSegment = null;
-                    }
-
-                    const isOverridden = mostRecentStreamSegment !== null && mostRecentStreamSegment.isOverridden;
-
-                    let nowCharacter: Character | undefined;
-
-                    if (hasCharacters) {
-                        if (isOverridden) {
-                            if (mostRecentStreamSegment?.characterId) {
-                                nowCharacter = characters.find(c => c.id === mostRecentStreamSegment?.characterId);
-                            }
-                            console.log(JSON.stringify({
-                                level: 'info',
-                                event: 'stream-override',
-                                message: `Found override for ${channelName} to character ${nowCharacter ? `"${nowCharacter.name}"` : '(NULL)'}`,
-                                channel: channelName,
-                                title,
-                                character: nowCharacter?.name ?? null,
-                            }));
-                        } else {
-                            let lowestPos = Infinity;
-                            let maxResults = -1;
-                            let maxSize = -1;
-                            for (const char of characters) {
-                                const matchPositions = [...titleParsed.matchAll(char.nameReg)];
-                                const numResults = matchPositions.length;
-                                const resSize = numResults > 0 ? matchPositions[0][0].length : -1; // Could use all matches, but more expensive
-                                const devFactionWeight = char.factions[0] === 'development' ? 2e4 : 0;
-                                const lowIndex = numResults ? matchPositions[0].index! + devFactionWeight : -1;
-                                if (lowIndex > -1 && (
-                                    lowIndex < lowestPos
-                                    || (lowIndex === lowestPos && numResults > maxResults)
-                                    || (lowIndex === lowestPos && numResults === maxResults && resSize > maxSize)
-                                )) {
-                                    lowestPos = lowIndex;
-                                    maxResults = numResults;
-                                    maxSize = resSize;
-                                    nowCharacter = char;
+                        if (hasCharacters) {
+                            if (isOverridden) {
+                                if (mostRecentStreamSegment?.characterId) {
+                                    nowCharacter = characters.find(c => c.id === mostRecentStreamSegment?.characterId);
+                                }
+                                console.log(JSON.stringify({
+                                    level: 'info',
+                                    event: 'stream-override',
+                                    message: `Found override for ${channelName} to character ${nowCharacter ? `"${nowCharacter.name}"` : '(NULL)'}`,
+                                    channel: channelName,
+                                    title,
+                                    character: nowCharacter?.name ?? null,
+                                }));
+                            } else {
+                                let lowestPos = Infinity;
+                                let maxResults = -1;
+                                let maxSize = -1;
+                                for (const char of characters) {
+                                    const matchPositions = [...titleParsed.matchAll(char.nameReg)];
+                                    const numResults = matchPositions.length;
+                                    const resSize = numResults > 0 ? matchPositions[0][0].length : -1; // Could use all matches, but more expensive
+                                    const devFactionWeight = char.factions[0] === 'development' ? 2e4 : 0;
+                                    const lowIndex = numResults ? matchPositions[0].index! + devFactionWeight : -1;
+                                    if (lowIndex > -1 && (
+                                        lowIndex < lowestPos
+                                        || (lowIndex === lowestPos && numResults > maxResults)
+                                        || (lowIndex === lowestPos && numResults === maxResults && resSize > maxSize)
+                                    )) {
+                                        lowestPos = lowIndex;
+                                        maxResults = numResults;
+                                        maxSize = resSize;
+                                        nowCharacter = char;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    const takeoverFactions: FactionMini[] = ['podcast', 'watchparty'];
-                    let hasTitleTakeoverFaction = false;
+                        const takeoverFactions: FactionMini[] = ['podcast', 'watchparty'];
+                        let hasTitleTakeoverFaction = false;
 
-                    let factionNames: FactionRealMini[] = [];
-                    const factionsInTitle: FactionRealMini[] = [];
-                    let newCharFactionSpotted = false;
+                        let factionNames: FactionRealMini[] = [];
+                        const factionsInTitle: FactionRealMini[] = [];
+                        let newCharFactionSpotted = false;
 
-                    interface FactionObj {
-                        rank1: number;
-                        rank2: number;
-                        rank3: number;
-                        index: number;
-                        factions: FactionRealMini[];
-                        character?: Character;
-                    }
-                    const factionObjects: FactionObj[] = [];
+                        interface FactionObj {
+                            rank1: number;
+                            rank2: number;
+                            rank3: number;
+                            index: number;
+                            factions: FactionRealMini[];
+                            character?: Character;
+                        }
+                        const factionObjects: FactionObj[] = [];
 
-                    for (const [faction, regex] of wrpFactionsRegexEntries) {
-                        const matchPos = title.indexOfRegex(regex);
-                        if (matchPos > -1) {
-                            const isTakeoverFaction = takeoverFactions.includes(faction);
-                            if (isTakeoverFaction && !isOverridden) {
-                                hasTitleTakeoverFaction = true;
-                            }
-                            if (nowCharacter && !isTakeoverFaction) {
-                                factionsInTitle.push(faction);
-                            } else {
-                                const factionCharacter = characters && characters.find(char => char.factionsObj[faction]);
-                                const factionObj: FactionObj = {
-                                    rank1: greaterFactions[faction] ? 0 : 1,
-                                    rank2: factionCharacter ? 0 : 1,
-                                    rank3: !lesserFactions[faction] ? 0 : 1,
-                                    index: matchPos,
-                                    factions: factionCharacter ? factionCharacter.factions : [faction],
-                                    character: factionCharacter,
-                                };
-                                factionObjects.push(factionObj);
+                        for (const [faction, regex] of wrpFactionsRegexEntries) {
+                            const matchPos = title.indexOfRegex(regex);
+                            if (matchPos > -1) {
+                                const isTakeoverFaction = takeoverFactions.includes(faction);
+                                if (isTakeoverFaction && !isOverridden) {
+                                    hasTitleTakeoverFaction = true;
+                                }
+                                if (nowCharacter && !isTakeoverFaction) {
+                                    factionsInTitle.push(faction);
+                                } else {
+                                    const factionCharacter = characters && characters.find(char => char.factionsObj[faction]);
+                                    const factionObj: FactionObj = {
+                                        rank1: greaterFactions[faction] ? 0 : 1,
+                                        rank2: factionCharacter ? 0 : 1,
+                                        rank3: !lesserFactions[faction] ? 0 : 1,
+                                        index: matchPos,
+                                        factions: factionCharacter ? factionCharacter.factions : [faction],
+                                        character: factionCharacter,
+                                    };
+                                    factionObjects.push(factionObj);
+                                }
                             }
                         }
-                    }
 
-                    if (nowCharacter && !hasTitleTakeoverFaction) {
-                        if (factionsInTitle.length > 0) {
-                            const charFactionsMap = Object.assign({}, ...nowCharacter.factions.map(faction => ({ [faction]: true })));
-                            for (const faction of factionsInTitle) {
-                                if (!charFactionsMap[faction] && !(charFactionsMap.medical)) {
-                                    newCharFactionSpotted = true;
+                        if (nowCharacter && !hasTitleTakeoverFaction) {
+                            if (factionsInTitle.length > 0) {
+                                const charFactionsMap = Object.assign({}, ...nowCharacter.factions.map(faction => ({ [faction]: true })));
+                                for (const faction of factionsInTitle) {
+                                    if (!charFactionsMap[faction] && !(charFactionsMap.medical)) {
+                                        newCharFactionSpotted = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        } else if (factionObjects.length) {
+                            factionObjects.sort((a, b) => a.rank1 - b.rank1 || a.rank2 - b.rank2 || a.rank3 - b.rank3 || a.index - b.index);
+                            if (factionObjects[0].character && !isOverridden) nowCharacter = factionObjects[0].character; // Sorted by has-character
+                            factionNames = factionObjects.map(factionObj => factionObj.factions).flat(1);
+                        }
+
+                        const hasFactions = factionNames.length;
+
+                        let possibleCharacter = nowCharacter;
+                        if (!isOverridden && !nowCharacter && !hasFactions && hasCharacters) {
+                            if (characters.assumeChar) {
+                                nowCharacter = characters.assumeChar;
+                                possibleCharacter = nowCharacter;
+                            } else {
+                                possibleCharacter = characters[0];
+                            }
+                        }
+
+                        if (hasTitleTakeoverFaction || (isOverridden && mostRecentStreamSegment?.characterUncertain)) {
+                            possibleCharacter = nowCharacter;
+                            nowCharacter = undefined;
+                        }
+
+                        let hasFactionsTagText;
+                        if (!isOverridden && !nowCharacter && hasFactions && factionNames[0] in wrpFactionsSubRegex) {
+                            for (const [tagText, tagReg] of wrpFactionsSubRegex[factionNames[0]]!) {
+                                if (tagReg.test(title)) {
+                                    hasFactionsTagText = tagText;
                                     break;
                                 }
                             }
                         }
-                    } else if (factionObjects.length) {
-                        factionObjects.sort((a, b) => a.rank1 - b.rank1 || a.rank2 - b.rank2 || a.rank3 - b.rank3 || a.index - b.index);
-                        if (factionObjects[0].character && !isOverridden) nowCharacter = factionObjects[0].character; // Sorted by has-character
-                        factionNames = factionObjects.map(factionObj => factionObj.factions).flat(1);
-                    }
 
-                    const hasFactions = factionNames.length;
+                        let activeFactions: FactionMini[];
+                        let tagFaction: FactionColorsMini;
+                        let tagText;
 
-                    let possibleCharacter = nowCharacter;
-                    if (!isOverridden && !nowCharacter && !hasFactions && hasCharacters) {
-                        if (characters.assumeChar) {
-                            nowCharacter = characters.assumeChar;
-                            possibleCharacter = nowCharacter;
-                        } else {
-                            possibleCharacter = characters[0];
-                        }
-                    }
-
-                    if (hasTitleTakeoverFaction || (isOverridden && mostRecentStreamSegment?.characterUncertain)) {
-                        possibleCharacter = nowCharacter;
-                        nowCharacter = undefined;
-                    }
-
-                    let hasFactionsTagText;
-                    if (!isOverridden && !nowCharacter && hasFactions && factionNames[0] in wrpFactionsSubRegex) {
-                        for (const [tagText, tagReg] of wrpFactionsSubRegex[factionNames[0]]!) {
-                            if (tagReg.test(title)) {
-                                hasFactionsTagText = tagText;
-                                break;
+                        if (nowCharacter) {
+                            activeFactions = [...nowCharacter.factions];
+                            tagFaction = nowCharacter.factionUse;
+                            tagText = nowCharacter.displayName;
+                        } else if (hasFactions && !isOverridden) {
+                            activeFactions = [...factionNames, 'guessed'];
+                            tagFaction = isFactionColor(factionNames[0]) ? factionNames[0] : 'independent';
+                            const factionNameFull = fullFactionMap[factionNames[0]] || factionNames[0];
+                            tagText = hasFactionsTagText ? `〈${hasFactionsTagText}〉` : `〈${factionNameFull}〉`;
+                            if (tagFaction === 'podcast' || tagFaction === 'watchparty') {
+                                const podcast = wrpPodcastReg.find(({ reg }) => reg.test(title))?.podcast;
+                                tagText = `《${factionNameFull}》${podcast ? podcast.name : channelName}`;
                             }
+                        } else if (possibleCharacter) {
+                            activeFactions = [...possibleCharacter.factions, 'guessed'];
+                            tagFaction = possibleCharacter.factionUse;
+                            tagText = `? ${possibleCharacter.displayName} ?`;
+                        } else {
+                            activeFactions = ['otherwrp'];
+                            tagFaction = 'otherwrp';
+                            tagText = `${serverName}`;
                         }
+
+                        if (newCharFactionSpotted) activeFactions.push('guessed');
+
+                        stream = {
+                            id: nextId,
+                            ...baseStream,
+                            rpServer: serverName,
+                            serverId: wrpServer.id,
+                            characterName: possibleCharacter?.name ?? null,
+                            characterId: possibleCharacter?.id ?? null,
+                            nicknameLookup: possibleCharacter?.nicknames ? possibleCharacter.nicknames.map(nick => parseLookup(nick)).join(' _-_ ') : null,
+                            faction: activeFactions[0],
+                            factions: activeFactions,
+                            factionsMap: Object.assign({}, ...activeFactions.map(faction => ({ [faction]: true }))),
+                            tagText,
+                            tagFaction,
+                            thumbnailUrl: helixStream.thumbnailUrl,
+                            startDate: helixStream.startDate.toISOString(),
+                            isHidden: mostRecentStreamSegment?.isHidden ?? false,
+                        };
+                        characterId = possibleCharacter?.id ?? null;
+                        characterUncertain = possibleCharacter !== undefined && nowCharacter === undefined;
+
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            event: 'stream',
+                            traceID: fetchID,
+                            message: `Found stream for ${channelName} with tag "${stream.tagText}"`,
+                            channel: channelName,
+                            stream,
+                        }));
+
+                        for (const faction of activeFactions) factionCount[faction]++;
+                        factionCount.allwildrp++;
                     }
 
-                    let activeFactions: FactionMini[];
-                    let tagFaction: FactionColorsMini;
-                    let tagText;
-
-                    if (nowCharacter) {
-                        activeFactions = [...nowCharacter.factions];
-                        tagFaction = nowCharacter.factionUse;
-                        tagText = nowCharacter.displayName;
-                    } else if (hasFactions && !isOverridden) {
-                        activeFactions = [...factionNames, 'guessed'];
-                        tagFaction = isFactionColor(factionNames[0]) ? factionNames[0] : 'independent';
-                        const factionNameFull = fullFactionMap[factionNames[0]] || factionNames[0];
-                        tagText = hasFactionsTagText ? `〈${hasFactionsTagText}〉` : `〈${factionNameFull}〉`;
-                        if (tagFaction === 'podcast' || tagFaction === 'watchparty') {
-                            const podcast = wrpPodcastReg.find(({ reg }) => reg.test(title))?.podcast;
-                            tagText = `《${factionNameFull}》${podcast ? podcast.name : channelName}`;
-                        }
-                    } else if (possibleCharacter) {
-                        activeFactions = [...possibleCharacter.factions, 'guessed'];
-                        tagFaction = possibleCharacter.factionUse;
-                        tagText = `? ${possibleCharacter.displayName} ?`;
-                    } else {
-                        activeFactions = ['otherwrp'];
-                        tagFaction = 'otherwrp';
-                        tagText = `${serverName}`;
+                    if (!matchedServer) {
+                        console.error(JSON.stringify({
+                            level: 'error',
+                            message: 'Got a stream without a matched server',
+                            stream,
+                        }));
+                        continue;
                     }
-
-                    if (newCharFactionSpotted) activeFactions.push('guessed');
-
                     const chunk: Omit<StreamChunk, 'id' | 'isOverridden' | 'isHidden'> = {
-                        serverId: wrpServer.id,
+                        serverId: matchedServer.id,
                         streamerId: helixStream.userId,
-                        characterId: possibleCharacter?.id ?? null,
-                        characterUncertain: possibleCharacter !== undefined && nowCharacter === undefined,
+                        characterId,
+                        characterUncertain,
                         streamId: helixStream.id,
                         streamStartDate: helixStream.startDate,
                         title: helixStream.title,
@@ -751,7 +820,7 @@ const getWrpLive = async (
                         lastViewerCount: helixStream.viewers,
                     };
 
-                    let segmentId: number | undefined;
+                    let segmentId: number;
                     if (mostRecentStreamSegment) {
                         const { id } = mostRecentStreamSegment;
                         const { lastSeenDate, lastViewerCount } = chunk;
@@ -761,9 +830,8 @@ const getWrpLive = async (
                             lastViewerCount,
                         };
                         if (!mostRecentStreamSegment.isOverridden) {
-                            const { characterId, characterUncertain } = chunk;
-                            chunkUpdate.characterId = characterId;
-                            chunkUpdate.characterUncertain = characterUncertain;
+                            chunkUpdate.characterId = chunk.characterId;
+                            chunkUpdate.characterUncertain = chunk.characterUncertain;
                         }
 
                         try {
@@ -784,6 +852,7 @@ const getWrpLive = async (
                                 chunkUpdate,
                                 error,
                             }));
+                            continue;
                         }
                     } else {
                         try {
@@ -799,6 +868,7 @@ const getWrpLive = async (
                                 chunk,
                                 error,
                             }));
+                            continue;
                         }
                     }
 
@@ -814,38 +884,9 @@ const getWrpLive = async (
                         });
                     }
 
-                    const stream: Stream = {
-                        id: nextId,
-                        ...baseStream,
-                        rpServer: serverName,
-                        serverId: wrpServer.id,
-                        characterName: possibleCharacter?.name ?? null,
-                        characterId: possibleCharacter?.id ?? null,
-                        nicknameLookup: possibleCharacter?.nicknames ? possibleCharacter.nicknames.map(nick => parseLookup(nick)).join(' _-_ ') : null,
-                        faction: activeFactions[0],
-                        factions: activeFactions,
-                        factionsMap: Object.assign({}, ...activeFactions.map(faction => ({ [faction]: true }))),
-                        tagText,
-                        tagFaction,
-                        thumbnailUrl: helixStream.thumbnailUrl,
-                        startDate: helixStream.startDate.toISOString(),
-                        segmentId,
-                        isHidden: mostRecentStreamSegment?.isHidden ?? false,
-                    };
-
-                    console.log(JSON.stringify({
-                        level: 'info',
-                        event: 'stream',
-                        traceID: fetchID,
-                        message: `Found stream for ${channelName} with tag "${stream.tagText}"`,
-                        channel: channelName,
-                        stream,
-                    }));
-
                     nextId++;
-                    for (const faction of activeFactions) factionCount[faction]++;
-                    factionCount.allwildrp++;
-                    wrpStreams.push(stream);
+                    const fullStream: Stream = { ...stream, segmentId };
+                    wrpStreams.push(fullStream);
                 }
 
                 const allChunks = [...newChunks, ...updatedChunks];
@@ -991,6 +1032,7 @@ const getWrpLive = async (
                         .getRepository(StreamChunk)
                         .createQueryBuilder('stream_chunk')
                         .select('stream_chunk.streamerId', 'streamer_id')
+                        .addSelect('stream_chunk.serverId', 'server_id')
                         .addSelect('stream_chunk.characterId', 'character_id')
                         .addSelect('stream_chunk.streamStartDate', 'stream_start_date')
                         .addSelect('stream_chunk.streamId', 'stream_id')
@@ -1005,7 +1047,7 @@ const getWrpLive = async (
                                   'end', stream_chunk.lastSeenDate)
                               )
                         `, 'spans')
-                        .distinctOn(['stream_chunk.characterId'])
+                        .distinctOn(['stream_chunk.serverId', 'stream_chunk.characterId'])
                         .where('stream_chunk.characterId IS NOT NULL')
                         .andWhere('stream_chunk.characterUncertain = false')
                         .andWhere(
@@ -1014,11 +1056,13 @@ const getWrpLive = async (
                         .andWhere(
                             'stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)'
                         )
-                        .groupBy('stream_chunk.streamerId')
+                        .groupBy('stream_chunk.serverId')
+                        .addGroupBy('stream_chunk.streamerId')
                         .addGroupBy('stream_chunk.streamId')
                         .addGroupBy('stream_chunk.characterId')
                         .addGroupBy('stream_chunk.streamStartDate')
-                        .orderBy('character_id', 'ASC')
+                        .orderBy('server_id', 'ASC')
+                        .addOrderBy('character_id', 'ASC')
                         .addOrderBy('last_seen_date', 'DESC');
 
                     const liveCharacterIds = allChunks.flatMap(c => (c.characterId ? [c.characterId] : []));
@@ -1031,6 +1075,7 @@ const getWrpLive = async (
 
                     interface AggregateChunk {
                         mostRecentSegmentId: number;
+                        serverId: number;
                         streamerId: string;
                         characterId: number;
                         streamId: string;
@@ -1045,6 +1090,7 @@ const getWrpLive = async (
                     const recentChunks = await dataSource
                         .createQueryBuilder()
                         .select('recent_chunk.id', 'mostRecentSegmentId')
+                        .addSelect('recent_chunk.server_id', 'serverId')
                         .addSelect('recent_chunk.streamer_id', 'streamerId')
                         .addSelect('recent_chunk.character_id', 'characterId')
                         .addSelect('recent_chunk.stream_id', 'streamId')
@@ -1056,7 +1102,9 @@ const getWrpLive = async (
                         .addSelect('video.thumbnailUrl', 'videoThumbnailUrl')
                         .from(`(${distinctCharacters.getQuery()})`, 'recent_chunk')
                         .leftJoin(Video, 'video', 'video.streamId = recent_chunk.stream_id')
+                        .innerJoin(Server, 'server', 'server.id = recent_chunk.server_id')
                         .setParameters(distinctCharacters.getParameters())
+                        .where('server.key = \'wrp\'')
                         .orderBy('recent_chunk.last_seen_date', 'DESC')
                         .addOrderBy('recent_chunk.streamer_id')
                         .execute() as AggregateChunk[];

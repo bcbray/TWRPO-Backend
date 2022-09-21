@@ -49,6 +49,7 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
     thumbnailUrl: '/images/example-live-thumbnail.jpeg',
     startDate,
     isHidden: false,
+    segmentId: 0,
   };
   return (
     <div className={styles.card} style={style}>

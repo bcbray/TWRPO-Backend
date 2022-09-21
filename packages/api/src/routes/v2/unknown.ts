@@ -24,7 +24,10 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource,
     );
     const unknownSegments = await dataSource.getRepository(StreamChunk)
         .find({
-            where: { characterId: IsNull() },
+            where: {
+                characterId: IsNull(),
+                server: { key: 'wrp' },
+            },
             order: { lastSeenDate: 'desc' },
             take: 24,
             relations: {

@@ -15,10 +15,10 @@ export const chunkIsShorterThanMinimum = (chunk: StreamChunk): boolean =>
     chunk.lastSeenDate.getTime() - chunk.firstSeenDate.getTime() < minimumSegmentLengthMilliseconds;
 
 export const segmentIsRecent = (segment: VideoSegment): boolean => {
-        const now = new Date();
-        const end = new Date(segment.endDate);
-        return now.getTime() - end.getTime() < minimumSegmentLengthMilliseconds / 2;
-    };
+    const now = new Date();
+    const end = new Date(segment.endDate);
+    return now.getTime() - end.getTime() < minimumSegmentLengthMilliseconds / 2;
+};
 
 export const chunkIsRecent = (chunk: StreamChunk): boolean =>
     (new Date()).getTime() - chunk.lastSeenDate.getTime() < minimumSegmentLengthMilliseconds / 2;

@@ -71,6 +71,7 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
       : '/images/example-live-thumbnail.jpeg',
     startDate,
     isHidden: false,
+    segmentId: 0,
   };
 
   return (

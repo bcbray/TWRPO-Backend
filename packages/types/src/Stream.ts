@@ -22,6 +22,6 @@ export default interface Stream {
   videoUrl?: string;
   thumbnailUrl?: string;
   startDate: string;
-  segmentId?: number;
+  segmentId: number;
   isHidden: boolean;
 }

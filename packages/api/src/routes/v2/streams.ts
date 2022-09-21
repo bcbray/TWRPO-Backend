@@ -8,6 +8,7 @@ import { fetchCharacters } from './characters';
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { TwitchChannel } from '../../db/entity/TwitchChannel';
 import { Video } from '../../db/entity/Video';
+import { Server } from '../../db/entity/Server';
 import { videoUrlOffset } from '../../utils';
 import { isEditorForTwitchId, isGlobalEditor } from '../../userUtils';
 import { fetchSessionUser } from './whoami';
@@ -88,6 +89,7 @@ export const fetchLiveStreams = async (
             .find({
                 where: {
                     id: In(liveSegmentIds),
+                    server: { key: 'wrp' },
                 },
                 order: {
                     lastViewerCount: 'desc',
@@ -266,6 +268,7 @@ export const fetchRecentStreams = async (
                 .subQuery()
                 .from(StreamChunk, 'stream_chunk')
                 .select('stream_chunk.id', 'id')
+                .addSelect('stream_chunk.serverId', 'serverId')
                 .addSelect('stream_chunk.characterId', 'characterId')
                 .addSelect('stream_chunk.characterUncertain', 'characterUncertain')
                 .addSelect('stream_chunk.streamerId', 'streamerId')
@@ -277,12 +280,14 @@ export const fetchRecentStreams = async (
                 .addSelect('stream_chunk.lastViewerCount', 'lastViewerCount')
                 .addSelect('stream_chunk.isOverridden', 'isOverridden')
                 .addSelect('stream_chunk.isHidden', 'isHidden')
-                .where('true')
-                .orderBy('stream_chunk.characterId', 'ASC')
+                .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
+                .where('server.key = \'wrp\'')
+                .orderBy('stream_chunk.serverId', 'ASC')
+                .addOrderBy('stream_chunk.characterId', 'ASC')
                 .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
 
             if (distinctCharacters) {
-                subQuery.distinctOn(['stream_chunk.characterId']);
+                subQuery.distinctOn(['stream_chunk.serverId', 'stream_chunk.characterId']);
                 if (liveCharacterIds.length) {
                     subQuery.andWhere('stream_chunk.characterId NOT IN (:...liveCharacterIds)', { liveCharacterIds });
                 }
@@ -548,6 +553,7 @@ export const fetchUnknownStreams = async (
                 .from(StreamChunk, 'stream_chunk')
                 .select('stream_chunk.id', 'id')
                 .addSelect('stream_chunk.characterId', 'characterId')
+                .addSelect('stream_chunk.serverId', 'serverId')
                 .addSelect('stream_chunk.characterUncertain', 'characterUncertain')
                 .addSelect('stream_chunk.streamerId', 'streamerId')
                 .addSelect('stream_chunk.streamId', 'streamId')
@@ -558,7 +564,9 @@ export const fetchUnknownStreams = async (
                 .addSelect('stream_chunk.lastViewerCount', 'lastViewerCount')
                 .addSelect('stream_chunk.isOverridden', 'isOverridden')
                 .addSelect('stream_chunk.isHidden', 'isHidden')
-                .where('(stream_chunk.characterId IS NULL OR (stream_chunk.characterId IS NOT NULL AND stream_chunk.characterUncertain = true))')
+                .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
+                .where('server.key = \'wrp\'')
+                .andWhere('(stream_chunk.characterId IS NULL OR (stream_chunk.characterId IS NOT NULL AND stream_chunk.characterUncertain = true))')
                 .orderBy('stream_chunk.lastSeenDate', 'DESC');
 
             if (live === true) {

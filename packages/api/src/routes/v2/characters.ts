@@ -10,6 +10,7 @@ import { getKnownTwitchUsers } from '../../pfps';
 import { fetchFactions } from './factions';
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { Video } from '../../db/entity/Video';
+import { Server } from '../../db/entity/Server';
 import { videoUrlOffset } from '../../utils';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
@@ -43,6 +44,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
 
     interface AggregateChunk {
         mostRecentSegmentId: number;
+        serverId: number;
         streamerId: string;
         characterId: number;
         streamId: string;
@@ -57,6 +59,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
     const streamChunks = await dataSource
         .createQueryBuilder()
         .select('recent_chunk.id', 'mostRecentSegmentId')
+        .addSelect('recent_chunk.server_id', 'serverId')
         .addSelect('recent_chunk.streamer_id', 'streamerId')
         .addSelect('recent_chunk.character_id', 'characterId')
         .addSelect('recent_chunk.stream_id', 'streamId')
@@ -70,6 +73,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
             qb.subQuery()
                 .from(StreamChunk, 'stream_chunk')
                 .select('stream_chunk.streamerId', 'streamer_id')
+                .addSelect('stream_chunk.serverId', 'server_id')
                 .addSelect('stream_chunk.characterId', 'character_id')
                 .addSelect('stream_chunk.streamStartDate', 'stream_start_date')
                 .addSelect('stream_chunk.streamId', 'stream_id')
@@ -84,18 +88,22 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                           'end', stream_chunk.lastSeenDate)
                       )
                 `, 'spans')
-                .distinctOn(['stream_chunk.characterId'])
+                .distinctOn(['stream_chunk.serverId', 'stream_chunk.characterId'])
                 .where('stream_chunk.characterId IS NOT NULL')
                 .andWhere('stream_chunk.characterUncertain = false')
                 .andWhere('stream_chunk.isHidden = false')
                 .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
-                .groupBy('stream_chunk.streamerId')
+                .groupBy('stream_chunk.serverId')
+                .addGroupBy('stream_chunk.streamerId')
                 .addGroupBy('stream_chunk.streamId')
                 .addGroupBy('stream_chunk.characterId')
                 .addGroupBy('stream_chunk.streamStartDate')
-                .orderBy('character_id', 'ASC')
+                .orderBy('server_id', 'ASC')
+                .addOrderBy('character_id', 'ASC')
                 .addOrderBy('last_seen_date', 'DESC'), 'recent_chunk')
         .leftJoin(Video, 'video', 'video.streamId = recent_chunk.stream_id')
+        .innerJoin(Server, 'server', 'server.id = recent_chunk.server_id')
+        .where('server.key = \'wrp\'')
         .execute() as AggregateChunk[];
 
     const seen: Record<string, Record<number, AggregateChunk>> = {};
