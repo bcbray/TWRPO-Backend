@@ -882,6 +882,7 @@ const getWrpLive = async (
                     if (newCharFactionSpotted) activeFactions.push('guessed');
 
                     const chunk: Omit<StreamChunk, 'id' | 'isOverridden' | 'isHidden'> = {
+                        serverId: wrpServer.id,
                         streamerId: helixStream.userId,
                         characterId: possibleCharacter?.id ?? null,
                         characterUncertain: possibleCharacter !== undefined && nowCharacter === undefined,

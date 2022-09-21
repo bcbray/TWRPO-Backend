@@ -11,6 +11,7 @@ import {
 
 import { Video } from './Video';
 import { TwitchChannel } from './TwitchChannel';
+import { Server } from './Server';
 
 @Entity()
 export class StreamChunk {
@@ -20,6 +21,9 @@ export class StreamChunk {
     @Index()
     @Column()
     streamerId: string;
+
+    @Column({ nullable: false })
+    serverId: number;
 
     @Column({
         type: 'int',
@@ -53,6 +57,10 @@ export class StreamChunk {
 
     @Column({ default: false })
     isHidden: boolean;
+
+    @ManyToOne(() => Server, server => server.streamChunks)
+    @JoinColumn({ name: 'serverId', referencedColumnName: 'id' })
+    server?: Server;
 
     @ManyToOne(() => Video, video => video.streamChunks)
     @JoinColumn({ name: 'streamId', referencedColumnName: 'streamId' })

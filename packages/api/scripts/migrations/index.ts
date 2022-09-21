@@ -13,6 +13,7 @@ import { UserRole1663063450785 } from './1663063450785-UserRole';
 import { StreamChunkHidden1663189972049 } from './1663189972049-StreamChunkHidden';
 import { StreamChunkLastViewerCount1663278969808 } from './1663278969808-StreamChunkLastViewerCount';
 import { Server1663372521826 } from './1663372521826-Server';
+import { StreamChunkServer1663745985991 } from './1663745985991-StreamChunkServer';
 
 export default [
     Initial1660336359134,
@@ -30,4 +31,5 @@ export default [
     StreamChunkHidden1663189972049,
     StreamChunkLastViewerCount1663278969808,
     Server1663372521826,
+    StreamChunkServer1663745985991,
 ];

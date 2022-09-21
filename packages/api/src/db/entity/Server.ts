@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 
 import { ServerRegex } from './ServerRegex';
+import { StreamChunk } from './StreamChunk';
 
 @Entity()
 export class Server {
@@ -37,4 +38,7 @@ export class Server {
 
     @OneToMany(() => ServerRegex, regex => regex.server)
     regexes: ServerRegex[];
+
+    @OneToMany(() => StreamChunk, chunk => chunk.video)
+    streamChunks?: StreamChunk[];
 }
