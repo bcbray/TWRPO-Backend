@@ -16,4 +16,6 @@ export default interface CharacterInfo {
   lastSeenVideoUrl?: string;
   lastSeenVideoThumbnailUrl?: string;
   lastSeenSegmentId?: number;
+  totalSeenDuration?: number;
+  firstSeenLive?: string;
 }

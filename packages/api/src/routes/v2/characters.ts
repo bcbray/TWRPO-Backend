@@ -9,11 +9,11 @@ import { getCharacterInfo } from '../../characterUtils';
 import { getKnownTwitchUsers } from '../../pfps';
 import { fetchFactions } from './factions';
 import { StreamChunk } from '../../db/entity/StreamChunk';
-import { Video } from '../../db/entity/Video';
 import { Server } from '../../db/entity/Server';
 import { videoUrlOffset } from '../../utils';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
+import { isGlobalEditor } from '../../userUtils';
 import {
     queryParamBoolean,
     queryParamString,
@@ -42,72 +42,31 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
 
     const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, currentUser);
 
-    interface AggregateChunk {
-        mostRecentSegmentId: number;
-        serverId: number;
-        streamerId: string;
-        characterId: number;
-        streamId: string;
-        streamStartDate: Date;
-        firstSeenDate: Date;
-        lastSeenDate: Date;
-        spans: { title: string, start: string, end: string }[];
-        videoUrl: string | null;
-        videoThumbnailUrl: string | null;
+    const includeHiddenSegments = isGlobalEditor(currentUser);
+
+    const recentSegmentsQueryBuilder = dataSource
+        .getRepository(StreamChunk)
+        .createQueryBuilder('stream_chunk')
+        .distinctOn(['stream_chunk.serverId', 'stream_chunk.streamerId', 'stream_chunk.characterId'])
+        .leftJoinAndSelect('stream_chunk.video', 'video')
+        .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
+        .where('server.key = \'wrp\'')
+        .andWhere('stream_chunk.characterId IS NOT NULL')
+        .andWhere('stream_chunk.characterUncertain = false')
+        .orderBy('stream_chunk.serverId', 'ASC')
+        .addOrderBy('stream_chunk.streamerId', 'ASC')
+        .addOrderBy('stream_chunk.characterId', 'ASC');
+
+    if (!includeHiddenSegments) {
+        recentSegmentsQueryBuilder
+            .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+            .andWhere('stream_chunk.isHidden = false');
     }
 
-    const streamChunks = await dataSource
-        .createQueryBuilder()
-        .select('recent_chunk.id', 'mostRecentSegmentId')
-        .addSelect('recent_chunk.server_id', 'serverId')
-        .addSelect('recent_chunk.streamer_id', 'streamerId')
-        .addSelect('recent_chunk.character_id', 'characterId')
-        .addSelect('recent_chunk.stream_id', 'streamId')
-        .addSelect('recent_chunk.stream_start_date', 'streamStartDate')
-        .addSelect('recent_chunk.first_seen_date', 'firstSeenDate')
-        .addSelect('recent_chunk.last_seen_date', 'lastSeenDate')
-        .addSelect('recent_chunk.spans', 'spans')
-        .addSelect('video.url', 'videoUrl')
-        .addSelect('video.thumbnailUrl', 'videoThumbnailUrl')
-        .from(qb =>
-            qb.subQuery()
-                .from(StreamChunk, 'stream_chunk')
-                .select('stream_chunk.streamerId', 'streamer_id')
-                .addSelect('stream_chunk.serverId', 'server_id')
-                .addSelect('stream_chunk.characterId', 'character_id')
-                .addSelect('stream_chunk.streamStartDate', 'stream_start_date')
-                .addSelect('stream_chunk.streamId', 'stream_id')
-                .addSelect('MIN(stream_chunk.firstSeenDate)', 'first_seen_date')
-                .addSelect('MAX(stream_chunk.lastSeenDate)', 'last_seen_date')
-                .addSelect('MAX(stream_chunk.id)', 'id')
-                .addSelect(`
-                    jsonb_agg(
-                        jsonb_build_object(
-                          'title', stream_chunk.title,
-                          'start', stream_chunk.firstSeenDate,
-                          'end', stream_chunk.lastSeenDate)
-                      )
-                `, 'spans')
-                .distinctOn(['stream_chunk.serverId', 'stream_chunk.characterId'])
-                .where('stream_chunk.characterId IS NOT NULL')
-                .andWhere('stream_chunk.characterUncertain = false')
-                .andWhere('stream_chunk.isHidden = false')
-                .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
-                .groupBy('stream_chunk.serverId')
-                .addGroupBy('stream_chunk.streamerId')
-                .addGroupBy('stream_chunk.streamId')
-                .addGroupBy('stream_chunk.characterId')
-                .addGroupBy('stream_chunk.streamStartDate')
-                .orderBy('server_id', 'ASC')
-                .addOrderBy('character_id', 'ASC')
-                .addOrderBy('last_seen_date', 'DESC'), 'recent_chunk')
-        .leftJoin(Video, 'video', 'video.streamId = recent_chunk.stream_id')
-        .innerJoin(Server, 'server', 'server.id = recent_chunk.server_id')
-        .where('server.key = \'wrp\'')
-        .execute() as AggregateChunk[];
+    const recentSegments = await recentSegmentsQueryBuilder.getMany();
 
-    const seen: Record<string, Record<number, AggregateChunk>> = {};
-    streamChunks.forEach((streamChunk) => {
+    const seen: Record<string, Record<number, StreamChunk>> = {};
+    recentSegments.forEach((streamChunk) => {
         if (!streamChunk.characterId) {
             return;
         }
@@ -115,6 +74,42 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
             seen[streamChunk.streamerId] = {};
         }
         seen[streamChunk.streamerId][streamChunk.characterId] = streamChunk;
+    });
+
+    interface CharacterDuration {
+        streamerId: string,
+        serverId: number;
+        characterId: number;
+        duration: number;
+        firstSeenDate: Date;
+    }
+
+    const durations: CharacterDuration[] = await dataSource
+        .getRepository(StreamChunk)
+        .createQueryBuilder('stream_chunk')
+        .select('stream_chunk.streamerId', 'streamerId')
+        .addSelect('stream_chunk.serverId', 'serverId')
+        .addSelect('stream_chunk.characterId', 'characterId')
+        .addSelect('EXTRACT(\'epoch\' FROM SUM(stream_chunk.lastSeenDate - stream_chunk.firstSeenDate))', 'duration')
+        .addSelect('MIN(stream_chunk.firstSeenDate)', 'firstSeenDate')
+        .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
+        .where('server.key = \'wrp\'')
+        .andWhere('stream_chunk.isHidden = false')
+        .andWhere('stream_chunk.characterId IS NOT NULL')
+        .andWhere('stream_chunk.characterUncertain = false')
+        .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+        .groupBy('stream_chunk.serverId')
+        .addGroupBy('stream_chunk.characterId')
+        .addGroupBy('stream_chunk.streamerId')
+        .orderBy('duration', 'DESC')
+        .execute();
+
+    const durationLookup: Record<string, Record<number, CharacterDuration>> = {};
+    durations.forEach((duration) => {
+        if (!durationLookup[duration.streamerId]) {
+            durationLookup[duration.streamerId] = {};
+        }
+        durationLookup[duration.streamerId][duration.characterId] = duration;
     });
 
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
@@ -139,12 +134,21 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                 ) {
                     const chunk = seen[channelInfo?.id][character.id];
                     characterInfo.lastSeenLive = chunk.lastSeenDate.toISOString();
-                    characterInfo.lastSeenTitle = chunk.spans[0]?.title;
-                    characterInfo.lastSeenVideoThumbnailUrl = chunk.videoThumbnailUrl ?? undefined;
-                    characterInfo.lastSeenSegmentId = chunk.mostRecentSegmentId;
-                    if (chunk.videoUrl) {
-                        characterInfo.lastSeenVideoUrl = videoUrlOffset(chunk.videoUrl, chunk.streamStartDate, chunk.firstSeenDate);
+                    characterInfo.lastSeenTitle = chunk.title;
+                    characterInfo.lastSeenVideoThumbnailUrl = chunk.video?.thumbnailUrl;
+                    characterInfo.lastSeenSegmentId = chunk.id;
+                    if (chunk.video?.url) {
+                        characterInfo.lastSeenVideoUrl = videoUrlOffset(chunk.video.url, chunk.streamStartDate, chunk.firstSeenDate);
                     }
+                }
+
+                if (channelInfo?.id
+                    && durationLookup[channelInfo?.id]
+                    && durationLookup[channelInfo?.id][character.id]
+                ) {
+                    const { duration, firstSeenDate } = durationLookup[channelInfo?.id][character.id];
+                    characterInfo.totalSeenDuration = duration;
+                    characterInfo.firstSeenLive = firstSeenDate.toISOString();
                 }
 
                 return characterInfo;
