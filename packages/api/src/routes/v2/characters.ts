@@ -55,7 +55,13 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         .andWhere('stream_chunk.characterUncertain = false')
         .orderBy('stream_chunk.serverId', 'ASC')
         .addOrderBy('stream_chunk.streamerId', 'ASC')
-        .addOrderBy('stream_chunk.characterId', 'ASC');
+        .addOrderBy('stream_chunk.characterId', 'ASC')
+        .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
+
+    if (channelTwitchId) {
+        recentSegmentsQueryBuilder
+            .andWhere('stream_chunk.streamerId = :channelTwitchId', { channelTwitchId });
+    }
 
     if (!includeHiddenSegments) {
         recentSegmentsQueryBuilder
@@ -84,7 +90,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         firstSeenDate: Date;
     }
 
-    const durations: CharacterDuration[] = await dataSource
+    const durationsQueryBuilder = dataSource
         .getRepository(StreamChunk)
         .createQueryBuilder('stream_chunk')
         .select('stream_chunk.streamerId', 'streamerId')
@@ -94,15 +100,24 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         .addSelect('MIN(stream_chunk.firstSeenDate)', 'firstSeenDate')
         .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
         .where('server.key = \'wrp\'')
-        .andWhere('stream_chunk.isHidden = false')
         .andWhere('stream_chunk.characterId IS NOT NULL')
         .andWhere('stream_chunk.characterUncertain = false')
-        .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
         .groupBy('stream_chunk.serverId')
         .addGroupBy('stream_chunk.characterId')
-        .addGroupBy('stream_chunk.streamerId')
-        .orderBy('duration', 'DESC')
-        .execute();
+        .addGroupBy('stream_chunk.streamerId');
+
+    if (channelTwitchId) {
+        durationsQueryBuilder
+            .andWhere('stream_chunk.streamerId = :channelTwitchId', { channelTwitchId });
+    }
+
+    if (!includeHiddenSegments) {
+        durationsQueryBuilder
+            .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+            .andWhere('stream_chunk.isHidden = false');
+    }
+
+    const durations: CharacterDuration[] = await durationsQueryBuilder.execute();
 
     const durationLookup: Record<string, Record<number, CharacterDuration>> = {};
     durations.forEach((duration) => {
@@ -130,7 +145,6 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                 if (channelInfo?.id
                     && seen[channelInfo?.id]
                     && seen[channelInfo?.id][character.id]
-                    && seen[channelInfo?.id][character.id].lastSeenDate.getTime() - seen[channelInfo?.id][character.id].firstSeenDate.getTime() > 1000 * 60 * 10
                 ) {
                     const chunk = seen[channelInfo?.id][character.id];
                     characterInfo.lastSeenLive = chunk.lastSeenDate.toISOString();

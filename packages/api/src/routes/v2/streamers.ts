@@ -129,7 +129,8 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         .andWhere('stream_chunk.characterUncertain = false')
         .orderBy('stream_chunk.serverId', 'ASC')
         .addOrderBy('stream_chunk.streamerId', 'ASC')
-        .addOrderBy('stream_chunk.characterId', 'ASC');
+        .addOrderBy('stream_chunk.characterId', 'ASC')
+        .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
 
     if (!includeHiddenSegments) {
         recentSegmentsQueryBuilder
@@ -164,8 +165,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         .andWhere('stream_chunk.characterUncertain = false')
         .groupBy('stream_chunk.serverId')
         .addGroupBy('stream_chunk.characterId')
-        .addGroupBy('stream_chunk.streamerId')
-        .orderBy('duration', 'DESC');
+        .addGroupBy('stream_chunk.streamerId');
 
     if (!includeHiddenSegments) {
         durationsQueryBuilder
