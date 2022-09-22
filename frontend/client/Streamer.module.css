@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   gap: 3rem;
   justify-content: center;
+  align-items: center;
 }
 
 .content.noCharacters {
@@ -17,6 +18,7 @@
 .characters, .recentStreams {
   flex-grow: 1;
   max-width: 100%;
+  align-self: flex-start;
 }
 
 .recentStreams {
