@@ -113,6 +113,7 @@ const Streamer: React.FC<StreamerProps> = ({
           {characters.length > 0 ? (
             <CharactersTable
               characters={characters}
+              defaultSort={['duration', 'desc']}
               factionDestination='streams'
               hideStreamer
               noInset

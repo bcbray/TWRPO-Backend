@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, useLocation } from "react-router-dom";
-import { CharacterInfo } from '@twrpo/types';
+import { Link, useLocation } from 'react-router-dom';
+import { CharacterInfo, FactionInfo } from '@twrpo/types';
 
 import styles from './CharactersTable.module.css';
 import LiveBadge from './LiveBadge';
@@ -9,6 +9,9 @@ import { classes, formatDuration } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
 import { useRelativeDateMaybe } from './hooks';
 
+type Sort = 'streamer' | 'title' | 'name' | 'nickname' | 'faction' | 'lastSeen' | 'duration';
+type Order = 'asc' | 'desc';
+
 interface Props {
   characters: CharacterInfo[];
   hideStreamer?: boolean;
@@ -16,6 +19,7 @@ interface Props {
   noStreamerLink?: boolean;
   noHover?: boolean;
   factionDestination?: 'characters' | 'streams';
+  defaultSort?: [Sort, Order];
 };
 
 interface RowProps {
@@ -25,6 +29,11 @@ interface RowProps {
   factionDestination: 'characters' | 'streams';
 }
 
+const visibleFactions = (factions: FactionInfo[]) =>
+  factions.length === 1 && factions[0].key === 'independent'
+    ? []
+    : factions;
+
 const CharacterRow: React.FC<RowProps> = ({
   character,
   hideStreamer,
@@ -33,9 +42,7 @@ const CharacterRow: React.FC<RowProps> = ({
 }) => {
   const location = useLocation();
   const { factionStyles } = useFactionCss();
-  const factionsToShow = character.factions.length === 1 && character.factions[0].key === 'independent'
-    ? []
-    : character.factions;
+  const factionsToShow = visibleFactions(character.factions);
   const lastSeenLiveDate = React.useMemo(() => {
       if (!character.lastSeenLive) return undefined;
       const date = new Date(character.lastSeenLive);
@@ -146,6 +153,136 @@ const CharacterRow: React.FC<RowProps> = ({
   );
 }
 
+type Comparator<T> = (lhs: T, rhs: T) => number;
+
+type OrderedComparator<T> = (order: Order) => Comparator<T>;
+
+const orderMultiplier = (order: Order) => order === 'asc' ? 1 : -1;
+
+const characterStreamerComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) =>
+  lhs.channelName.localeCompare(rhs.channelName) * orderMultiplier(order);
+
+const characterTitleComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) => {
+  if (lhs.displayInfo.titles.length > 0 && rhs.displayInfo.titles.length > 0) {
+    return lhs.displayInfo.titles.join(',').localeCompare(rhs.displayInfo.titles.join(',')) * orderMultiplier(order);
+  } else if (lhs.displayInfo.titles.length > 0) {
+    return -1;
+  } else if (rhs.displayInfo.titles.length > 0) {
+    return 1;
+  }
+  return 0;
+}
+
+const characterNameComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) =>
+  lhs.displayInfo.realNames.join(' ').localeCompare(rhs.displayInfo.realNames.join(' ')) * orderMultiplier(order)
+
+const characterNicknameComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) => {
+  if (lhs.displayInfo.nicknames.length > 0 && rhs.displayInfo.nicknames.length > 0) {
+    return lhs.displayInfo.nicknames.join(',').localeCompare(rhs.displayInfo.nicknames.join(',')) * orderMultiplier(order);
+  } else if (lhs.displayInfo.nicknames.length > 0) {
+    return -1;
+  } else if (rhs.displayInfo.nicknames.length > 0) {
+    return 1;
+  }
+  return 0;
+}
+
+const characterFactionComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) => {
+  const lhsVisible = visibleFactions(lhs.factions);
+  const rhsVisible = visibleFactions(rhs.factions);
+  if (lhsVisible.length > 0 && rhsVisible.length > 0) {
+    return lhsVisible.map(f => f.name).join(',').localeCompare(rhsVisible.map(f => f.name).join(',')) * orderMultiplier(order)
+  } else if (lhsVisible.length > 0) {
+    return -1;
+  } else if (rhsVisible.length > 0) {
+    return 1;
+  }
+  return 0;
+}
+
+const characterLastSeenComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) => {
+  if (lhs.lastSeenLive !== undefined && rhs.lastSeenLive !== undefined) {
+    return lhs.lastSeenLive.localeCompare(rhs.lastSeenLive) * -1 * orderMultiplier(order)
+  } else if (lhs.lastSeenLive !== undefined) {
+    return -1;
+  } else if (rhs.lastSeenLive !== undefined) {
+    return 1;
+  }
+  return 0;
+}
+
+const characterDurationComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) => {
+  if (lhs.totalSeenDuration !== undefined && rhs.totalSeenDuration !== undefined) {
+    return (lhs.totalSeenDuration - rhs.totalSeenDuration) * orderMultiplier(order);
+  } else if (lhs.totalSeenDuration !== undefined) {
+    return -1;
+  } else if (rhs.totalSeenDuration !== undefined) {
+    return 1;
+  }
+  return 0;
+}
+
+const combinedComparator = (comparators: Comparator<CharacterInfo>[]): Comparator<CharacterInfo> =>
+  comparators.reduce((combined, comparator) => (lhs: CharacterInfo, rhs: CharacterInfo) =>
+    combined(lhs, rhs) || comparator(lhs, rhs)
+  )
+
+const characterComparator = (sort: Sort, order: Order): Comparator<CharacterInfo> => {
+  if (sort === 'streamer') {
+    return combinedComparator([
+      characterStreamerComparator(order),
+      characterNameComparator(order),
+    ]);
+  }
+  if (sort === 'title') {
+    return combinedComparator([
+      characterTitleComparator(order),
+      characterNameComparator(order),
+      characterStreamerComparator(order),
+    ]);
+  }
+  if (sort === 'name') {
+    return combinedComparator([
+      characterNameComparator(order),
+      characterStreamerComparator(order),
+    ]);
+  }
+  if (sort === 'nickname') {
+    return combinedComparator([
+      characterNicknameComparator(order),
+      characterNameComparator(order),
+      characterStreamerComparator(order),
+    ]);
+  }
+  if (sort === 'faction') {
+    return combinedComparator([
+      characterFactionComparator(order),
+      characterNameComparator(order),
+      characterStreamerComparator(order),
+    ]);
+  }
+  if (sort === 'lastSeen') {
+    return combinedComparator([
+      characterLastSeenComparator(order),
+      characterStreamerComparator(order),
+      characterNameComparator(order),
+    ]);
+  }
+  if (sort === 'duration') {
+    return combinedComparator([
+      characterDurationComparator(order),
+      characterStreamerComparator(swapOrder(order)),
+      characterNameComparator(swapOrder(order)),
+    ]);
+  }
+
+  // Not reachable, but just for a valid function…
+  return characterStreamerComparator(order);
+}
+
+const defaultOrderForSort = (sort: Sort) => sort === 'duration' ? 'desc' : 'asc';
+const swapOrder = (order: Order) => order === 'asc' ? 'desc' : 'asc';
+
 const CharactersTable: React.FunctionComponent<Props> = ({
   characters,
   hideStreamer = false,
@@ -153,7 +290,47 @@ const CharactersTable: React.FunctionComponent<Props> = ({
   noStreamerLink = false,
   noHover = false,
   factionDestination = 'characters',
+  defaultSort: [defaultSort, defaultOrder] = ['streamer', 'asc'],
 }) => {
+  const [sort, setSort] = React.useState<Sort>(defaultSort);
+  const [order, setOrder] = React.useState<Order>(defaultOrder);
+
+  const sortedCharacters = React.useMemo(() => (
+    [...characters]
+      .sort(characterComparator(sort, order))
+  ), [characters, sort, order]);
+
+  const handleSort = React.useCallback((newSort: Sort) => () => {
+    if (sort === newSort) {
+      setOrder(o => (o === 'desc' ? 'asc' : 'desc'));
+    } else {
+      setSort(newSort);
+      setOrder(defaultOrderForSort(newSort));
+    }
+  }, [sort]);
+
+  const SortableHeader: React.FC<{ sort: Sort, children: React.ReactNode }> = React.useCallback(({ sort: thisSort, children }) => (
+    sortedCharacters.length > 1
+      ? (
+        <span
+          onClick={handleSort(thisSort)}
+          className={classes(
+            styles.sortableHeader,
+            sort === thisSort && styles.current,
+            ((sort === thisSort && order === 'desc')
+              || (sort !== thisSort && defaultOrderForSort(thisSort) === 'desc'))
+                && styles.desc,
+            ((sort === thisSort && order === 'asc')
+                || (sort !== thisSort && defaultOrderForSort(thisSort) === 'asc'))
+                  && styles.asc,
+          )}
+        >
+          {children}
+        </span>
+      )
+      : <>{children}</>
+  ), [sort, order, handleSort, sortedCharacters]);
+
   return (
     <div
       className={classes(
@@ -164,35 +341,61 @@ const CharactersTable: React.FunctionComponent<Props> = ({
       <table className={classes(styles.table, noHover && styles.noHover)}>
         <thead>
           <tr>
-          {!hideStreamer && <th style={{ width: '20%' }}>Streamer</th>}
-          <th style={{ width: '10%' }}>Titles</th>
-          <th style={{ width: '20%' }}>Name</th>
-          <th style={{ width: '25%' }}>
-            <span
-              style={{
-                textDecoration: 'underline dotted',
-              }}
-              title="Nicknames are not only names that characters go by, but also names used in stream titles to identify which character is being played."
-            >
-              Nicknames
-            </span>
+          {!hideStreamer &&
+            <th style={{ width: '20%' }}>
+              <SortableHeader sort='streamer'>
+                Streamer
+              </SortableHeader>
+            </th>
+          }
+          <th style={{ width: '10%' }}>
+            <SortableHeader sort='title'>
+              Titles
+            </SortableHeader>
           </th>
-          <th style={{ width: '10%' }}>Factions</th>
-          <th style={{ width: '20%' }}>Last Seen</th>
           <th style={{ width: '20%' }}>
-            <span
-              style={{
-                textDecoration: 'underline dotted',
-              }}
-              title="The total amount of time we’ve seen this character streamed. Hover over a duration to see when we started tracking this character."
-            >
-              Total
-            </span>
+            <SortableHeader sort='name'>
+              Name
+            </SortableHeader>
+          </th>
+          <th style={{ width: '20%' }}>
+            <SortableHeader sort='nickname'>
+              <span
+                style={{
+                  textDecoration: 'underline dotted',
+                }}
+                title="Nicknames are not only names that characters go by, but also names used in stream titles to identify which character is being played."
+              >
+                Nicknames
+              </span>
+            </SortableHeader>
+          </th>
+          <th style={{ width: '10%' }}>
+            <SortableHeader sort='faction'>
+              Factions
+            </SortableHeader>
+          </th>
+          <th style={{ width: '10%' }}>
+            <SortableHeader sort='lastSeen'>
+              Last Seen
+            </SortableHeader>
+          </th>
+          <th style={{ width: '10%' }}>
+            <SortableHeader sort='duration'>
+              <span
+                style={{
+                  textDecoration: 'underline dotted',
+                }}
+                title="The total amount of time we’ve seen this character streamed. Hover over a duration to see when we started tracking this character."
+              >
+                Total
+              </span>
+            </SortableHeader>
           </th>
           </tr>
         </thead>
         <tbody>
-          {characters && characters.map(character =>
+          {sortedCharacters && sortedCharacters.map(character =>
             <CharacterRow
               key={`${character.id}`}
               character={character}

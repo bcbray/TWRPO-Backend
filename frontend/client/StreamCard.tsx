@@ -6,7 +6,7 @@ import { Stream } from '@twrpo/types';
 
 import styles from './StreamCard.module.css';
 import { channelInfo } from './types';
-import { formatViewers, formatDuration, classes } from './utils';
+import { formatViewers, formatInterval, classes } from './utils';
 import {
   useOneWayBoolean,
   useDelayed,
@@ -168,7 +168,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
           <p>{formatViewers(stream.viewers)}</p>
         </Tag>
         <Tag className={classes(styles.tag, styles.runtime)}>
-          <p>{formatDuration(startDate, now)}</p>
+          <p>{formatInterval(startDate, now)}</p>
         </Tag>
         {stream.isHidden &&
           <div className={styles.hiddenOverlay}>

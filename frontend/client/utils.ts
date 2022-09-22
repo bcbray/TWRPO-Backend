@@ -94,17 +94,28 @@ export function createChainedFunction<Args extends any[], This>(
     }, () => {});
 }
 
-export const formatDuration = (start: Date, end: Date): string => {
-  const totalSeconds = (end.getTime() - start.getTime()) / 1000;
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
+export const formatInterval = (start: Date, end: Date, options: DurationFormatOptions = {}): string =>
+  formatDuration((end.getTime() - start.getTime()) / 1000, options);
 
-  if (hours === 0) {
-    return `${minutes}m`;
-  } else {
-    return `${hours}h ${minutes}m`;
-  }
+export interface DurationFormatOptions {
+  includeDays?: boolean;
 }
+
+export const formatDuration = (seconds: number, options: DurationFormatOptions = {}): string => {
+  const { includeDays } = options;
+  const days =  includeDays ? Math.floor(seconds / 86400) : 0;
+  const hours = includeDays ? Math.floor((seconds % 86400) / 3600) : Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+
+  if (days === 0 && hours === 0) {
+    return `${minutes}m`;
+  } else if (days === 0) {
+    return `${hours}h ${minutes}m`;
+  } else {
+    return `${days}d ${hours}h ${minutes}m`;
+  }
+};
+
 
 /*
     cyrb53 (c) 2018 bryc (github.com/bryc)

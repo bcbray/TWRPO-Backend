@@ -5,7 +5,7 @@ import { VideoSegment, Streamer } from '@twrpo/types';
 
 import styles from './PastStreamCard.module.css';
 
-import { formatDuration, classes } from './utils';
+import { formatInterval, classes } from './utils';
 import { useImageUrlOnceLoaded, useRelativeDate } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
@@ -176,7 +176,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
                 <EyeSlashFill />
               </span>
             }
-            {formatDuration(startDate, endDate)}
+            {formatInterval(startDate, endDate)}
           </p>
         </Tag>
       </div>
