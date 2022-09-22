@@ -388,7 +388,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
                 }}
                 title="The total amount of time we’ve seen this character streamed. Hover over a duration to see when we started tracking this character."
               >
-                Total
+                Time streamed
               </span>
             </SortableHeader>
           </th>
