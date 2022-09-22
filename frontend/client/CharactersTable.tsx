@@ -5,7 +5,7 @@ import { CharacterInfo } from '@twrpo/types';
 import styles from './CharactersTable.module.css';
 import LiveBadge from './LiveBadge';
 import ProfilePhoto from './ProfilePhoto';
-import { classes } from './utils';
+import { classes, formatDuration } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
 import { useRelativeDateMaybe } from './hooks';
 
@@ -43,7 +43,22 @@ const CharacterRow: React.FC<RowProps> = ({
       return date;
     }, [character.lastSeenLive]);
 
+  const firstSeenLiveDate = React.useMemo(() => {
+      if (!character.firstSeenLive) return undefined;
+      const date = new Date(character.firstSeenLive);
+      if (isNaN(date.getTime())) return undefined;
+      return date;
+    }, [character.firstSeenLive]);
+
   const lastSeenLive = useRelativeDateMaybe(lastSeenLiveDate);
+  const firstSeenLive = useRelativeDateMaybe(firstSeenLiveDate);
+
+  const totalDuration = React.useMemo(() => {
+    if (!character.totalSeenDuration) {
+      return undefined;
+    }
+    return formatDuration(character.totalSeenDuration);
+  }, [character.totalSeenDuration]);
 
   return (
     <tr className={styles.characterRow}>
@@ -122,6 +137,11 @@ const CharacterRow: React.FC<RowProps> = ({
             <span title={lastSeenLive.full}>{lastSeenLive.relative}</span>
         )}
       </td>
+      <td className={styles.totalSeen}>
+        {totalDuration && firstSeenLive &&
+          <span title={`This character has been streamed for ${totalDuration} since we first saw them ${firstSeenLive.relative}`}>{totalDuration}</span>
+        }
+      </td>
     </tr>
   );
 }
@@ -159,6 +179,16 @@ const CharactersTable: React.FunctionComponent<Props> = ({
           </th>
           <th style={{ width: '10%' }}>Factions</th>
           <th style={{ width: '20%' }}>Last Seen</th>
+          <th style={{ width: '20%' }}>
+            <span
+              style={{
+                textDecoration: 'underline dotted',
+              }}
+              title="The total amount of time we’ve seen this character streamed. Hover over a duration to see when we started tracking this character."
+            >
+              Total
+            </span>
+          </th>
           </tr>
         </thead>
         <tbody>

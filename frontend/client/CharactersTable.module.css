@@ -43,7 +43,7 @@
   opacity: 1.0;
 }
 
-.channelName, .name, .lastSeen {
+.channelName, .name, .lastSeen, .totalSeen {
   white-space: nowrap;
 }
 
