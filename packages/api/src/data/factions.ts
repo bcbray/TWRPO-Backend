@@ -79,7 +79,6 @@ wrpFactionsRealMini.forEach((faction) => {
         } else {
             regStr = `\\b${regStr}`;
         }
-        console.log(faction);
         wrpFactionsRegex[faction] = new RegExp(regStr, 'i');
     }
 });
