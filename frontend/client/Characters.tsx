@@ -3,8 +3,10 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 import { CharactersResponse, CharacterInfo } from '@twrpo/types';
 
-import { useSingleSearchParam, useDebouncedValue, useFilterRegex } from './hooks';
+import styles from './Characters.module.css';
 
+import { useSingleSearchParam, useDebouncedValue, useFilterRegex } from './hooks';
+import { classes } from './utils'
 import CharactersTable from './CharactersTable';
 import FilterBar from './FilterBar';
 import NotFound from './NotFound';
@@ -31,7 +33,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
     }, {} as {[key: string]: CharacterInfo[]})
   }, [data.characters])
 
-  const characters = React.useMemo(() => {
+  const factionCharacters = React.useMemo(() => {
     return factionKey === undefined
       ? data.characters
       : charactersByFaction[factionKey] ?? [];
@@ -39,17 +41,26 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
 
   const filterRegex = useFilterRegex(debouncedFilterText.trim());
 
-  const filteredCharacters = React.useMemo(() => {
+  const [filteredCharacters, otherFactionCharacters] = React.useMemo(() => {
     const filtered = filterRegex === undefined
-      ? characters
-      : characters.filter(character =>
+      ? factionCharacters
+      : factionCharacters.filter(character =>
           filterRegex.test(character.channelName)
             || filterRegex.test(character.name)
             || character.displayInfo.nicknames.some(n => filterRegex.test(n))
             || character.factions.some(f => filterRegex.test(f.name))
-        )
-      return filtered;
-  }, [characters, filterRegex]);
+        );
+
+      const other = filterRegex === undefined || filtered.length > 0
+        ? []
+        : data.characters.filter(character =>
+            filterRegex.test(character.channelName)
+              || filterRegex.test(character.name)
+              || character.displayInfo.nicknames.some(n => filterRegex.test(n))
+              || character.factions.some(f => filterRegex.test(f.name))
+          );
+      return [filtered, other];
+  }, [factionCharacters, data.characters, filterRegex]);
 
   const selectedFaction = React.useMemo(() => {
     return factionKey ? data.factions.find(info => info.key === factionKey) : undefined;
@@ -79,7 +90,21 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
         allHref={'/characters'}
         factionHref={(f) => `/characters/faction/${f.key}`}
       />
-      <CharactersTable characters={filteredCharacters} />
+      {filteredCharacters.length > 0 ? (
+        <CharactersTable characters={filteredCharacters} />
+      ) : (
+          <>
+              <div className={classes('inset', styles.noMatches)}>
+                <p>{`No characters${debouncedFilterText ? ` matching “${debouncedFilterText}”` : ''}${selectedFaction ? ` from ${selectedFaction.name}` : ''}.`}</p>
+              </div>
+              {otherFactionCharacters.length > 0 &&
+                <>
+                  <h2 className={classes('inset', styles.otherMatchesHeader)}>Matches from other factions</h2>
+                  <CharactersTable characters={otherFactionCharacters} />
+                </>
+              }
+          </>
+      )}
     </>
   )
 }
