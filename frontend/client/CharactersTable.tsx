@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useDatadogRum } from 'react-datadog';
 import { CharacterInfo, FactionInfo } from '@twrpo/types';
 
 import styles from './CharactersTable.module.css';
@@ -294,6 +295,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
 }) => {
   const [sort, setSort] = React.useState<Sort>(defaultSort);
   const [order, setOrder] = React.useState<Order>(defaultOrder);
+  const rum = useDatadogRum();
 
   const sortedCharacters = React.useMemo(() => (
     [...characters]
@@ -301,13 +303,17 @@ const CharactersTable: React.FunctionComponent<Props> = ({
   ), [characters, sort, order]);
 
   const handleSort = React.useCallback((newSort: Sort) => () => {
-    if (sort === newSort) {
-      setOrder(o => (o === 'desc' ? 'asc' : 'desc'));
-    } else {
-      setSort(newSort);
-      setOrder(defaultOrderForSort(newSort));
-    }
-  }, [sort]);
+    const newOrder = sort === newSort
+      ? order === 'desc' ? 'asc' : 'desc'
+      : defaultOrderForSort(newSort);
+    setSort(newSort);
+    setOrder(newOrder);
+    rum.addAction(`Change character table sort to ${newSort} ${newOrder}`, {
+      type: 'character-sort-change',
+      order: newOrder,
+      sort: newSort,
+    });
+  }, [sort, order, rum]);
 
   const SortableHeader: React.FC<{ sort: Sort, children: React.ReactNode }> = React.useCallback(({ sort: thisSort, children }) => (
     sortedCharacters.length > 1
