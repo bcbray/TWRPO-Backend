@@ -96,7 +96,7 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         .select('stream_chunk.streamerId', 'streamerId')
         .addSelect('stream_chunk.serverId', 'serverId')
         .addSelect('stream_chunk.characterId', 'characterId')
-        .addSelect('EXTRACT(\'epoch\' FROM SUM(stream_chunk.lastSeenDate - stream_chunk.firstSeenDate))', 'duration')
+        .addSelect('EXTRACT(\'epoch\' FROM SUM(stream_chunk.lastSeenDate - stream_chunk.firstSeenDate))::int', 'duration')
         .addSelect('MIN(stream_chunk.firstSeenDate)', 'firstSeenDate')
         .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
         .where('server.key = \'wrp\'')

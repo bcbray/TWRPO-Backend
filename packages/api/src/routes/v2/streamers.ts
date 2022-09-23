@@ -158,7 +158,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         .select('stream_chunk.streamerId', 'streamerId')
         .addSelect('stream_chunk.serverId', 'serverId')
         .addSelect('stream_chunk.characterId', 'characterId')
-        .addSelect('EXTRACT(\'epoch\' FROM SUM(stream_chunk.lastSeenDate - stream_chunk.firstSeenDate))', 'duration')
+        .addSelect('EXTRACT(\'epoch\' FROM SUM(stream_chunk.lastSeenDate - stream_chunk.firstSeenDate))::int', 'duration')
         .addSelect('MIN(stream_chunk.firstSeenDate)', 'firstSeenDate')
         .where('stream_chunk.streamerId = :streamerId', { streamerId: channel.twitchId })
         .andWhere('stream_chunk.characterId IS NOT NULL')
@@ -178,6 +178,29 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
     const durationLookup: Record<number, CharacterDuration> = Object.fromEntries(
         durations.map(duration => [duration.characterId, duration])
     );
+
+    interface StreamStats {
+        avgStreamStartTimeOffest: number;
+    }
+
+    const averageStartTimeQueryBuilder = dataSource
+        .getRepository(StreamChunk)
+        .createQueryBuilder('stream_chunk')
+        .select('ROUND(EXTRACT(\'epoch\' FROM AVG(stream_chunk.streamStartDate ::time)))::int', 'avgStreamStartTimeOffest')
+        .where('stream_chunk.streamerId = :streamerId', { streamerId: channel.twitchId })
+        .groupBy('stream_chunk.streamerId');
+
+    if (!includeHiddenSegments) {
+        averageStartTimeQueryBuilder
+            .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+            .andWhere('stream_chunk.isHidden = false');
+    }
+
+    const averageStartTime: StreamStats[] = await averageStartTimeQueryBuilder.execute();
+
+    const averageStreamStartTimeOffset = averageStartTime.length > 0
+        ? averageStartTime[0].avgStreamStartTimeOffest
+        : undefined;
 
     const characterInfos = rawCharacters
         .map((character) => {
@@ -213,6 +236,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
             displayName: channel.displayName,
             profilePhotoUrl: channel.profilePhotoUrl,
             liveInfo,
+            averageStreamStartTimeOffset,
         },
         characters: characterInfos,
         recentSegments: validSegments

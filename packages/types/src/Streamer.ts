@@ -6,4 +6,6 @@ export default interface Streamer {
     displayName: string;
     profilePhotoUrl: string;
     liveInfo?: Stream;
+    /** Average time (in seconds from midnight, UTC) of known stream’s starting */
+    averageStreamStartTimeOffset?: number;
 }
