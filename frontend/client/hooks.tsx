@@ -136,10 +136,14 @@ export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult
   const locale = isFirstRenderFromSSR ? 'en-US' : undefined;
 
   // Similarly, use UTC for the first render then fall back to client time zone.
-  const formatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
+  const dateFormatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
     timeZone: isFirstRenderFromSSR ? 'utc' : undefined,
-    timeZoneName: isFirstRenderFromSSR ? 'short' : undefined,
   }), [isFirstRenderFromSSR]);
+
+  const fullFormatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
+    ...dateFormatOptions,
+    timeZoneName: isFirstRenderFromSSR ? 'short' : undefined,
+  }), [dateFormatOptions, isFirstRenderFromSSR]);
 
   const formatter = useMemo(() => (
     new Intl.RelativeTimeFormat(locale, { numeric: 'auto' })
@@ -147,7 +151,7 @@ export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult
 
   return useMemo(() => {
     if (!date) return undefined;
-    const full = date.toLocaleString(locale, formatOptions);
+    const full = date.toLocaleString(locale, fullFormatOptions);
     let relative: string;
     const diffSeconds = (date.getTime() - now.getTime()) / 1000;
     const diffMinutes = diffSeconds / 60;
@@ -165,11 +169,11 @@ export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult
     } else if (Math.abs(diffWeeks) < 2) {
       relative = formatter.format(Math.round(diffDays), 'days');
     } else {
-      relative = shortDate(date, now, locale, formatOptions);
+      relative = shortDate(date, now, locale, dateFormatOptions);
     }
 
     return { relative, full }
-  }, [now, date, formatter, locale, formatOptions]);
+  }, [now, date, formatter, locale, fullFormatOptions, dateFormatOptions]);
 }
 
 export function useRelativeDate(date: Date): RelativeDateResult {
@@ -203,7 +207,6 @@ export function useShortDate(date: Date): string {
   // Similarly, use UTC for the first render then fall back to client time zone.
   const formatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
     timeZone: isFirstRenderFromSSR ? 'utc' : undefined,
-    timeZoneName: isFirstRenderFromSSR ? 'short' : undefined,
   }), [isFirstRenderFromSSR]);
 
   if (!isFirstRenderFromSSR && isSameDay(date, now)) {
