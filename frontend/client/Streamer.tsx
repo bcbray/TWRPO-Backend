@@ -20,6 +20,7 @@ import { useStreams } from './Data';
 import { usePaginatedStreams } from './Streams';
 import { LoadTrigger, useIsMobile } from './hooks';
 import StreamerTimeline from './StreamerTimeline';
+import Loading from './Loading';
 
 interface StreamerProps {
   data: StreamerResponse;
@@ -161,16 +162,20 @@ const Streamer: React.FC<StreamerProps> = ({
           </div>
           {streams.length > 0 || hasMore ? (
             streamsView === 'timeline' ? (
-              <>
-              <StreamerTimeline
-                streamer={streamer}
-                segments={streams.map(({ segment }) => segment)}
-                lastLoadTime={lastRefresh}
-              />
-              {streams.length > 0 && hasMore &&
-                  <LoadTrigger key={loadKey} loadMore={loadMore} />
-              }
-              </>
+              streams.length > 0 ? (
+                <>
+                <StreamerTimeline
+                  streamer={streamer}
+                  segments={streams.map(({ segment }) => segment)}
+                  lastLoadTime={lastRefresh}
+                />
+                {streams.length > 0 && hasMore &&
+                    <LoadTrigger key={loadKey} loadMore={loadMore} />
+                }
+                </>
+              ) : (
+                <Loading />
+              )
             ) : (
               <StreamList
                 streams={[]}
