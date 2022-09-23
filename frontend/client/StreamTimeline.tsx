@@ -15,11 +15,11 @@ import { SegmentAndStreamer } from '@twrpo/types';
 
 import styles from './StreamTimeline.module.css';
 
-import { useStreams, useNow } from './Data';
+import { useStreams, useNow, useIsFirstRenderFromSSR } from './Data';
 import { usePaginatedStreams } from './Streams';
 import ProfilePhoto from './ProfilePhoto';
 import { classes } from './utils';
-import { useShortDate, useInitialRender } from './hooks';
+import { useShortDate } from './hooks';
 import Loading from './Loading';
 import { useFactionCss } from './FactionStyleProvider';
 import Timeline from './Timeline'
@@ -101,7 +101,7 @@ const StreamTimeline: React.FC<StreamTimelineProps> = () => {
   const target = React.useMemo(() => addDays(now, offset), [now, offset])
   const day = useDay(target);
   const { streams, lastRefresh, hasMore, reload } = useIntervalStreams(day);
-  const isFirstRender = useInitialRender();
+  const isFirstRender = useIsFirstRenderFromSSR();
   const isToday = React.useMemo(() => !isFirstRender && isWithinInterval(now, day), [isFirstRender, now, day]);
   const [isCompact, setIsCompact] = useLocalStorage('timeline-compact', false);
   const { factionStylesForKey } = useFactionCss();
