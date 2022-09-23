@@ -59,7 +59,7 @@ const DaySidebarItem: React.FC<{ date: Date }> = ({ date }) => {
 const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments, lastLoadTime }) => {
   const now = React.useMemo(() => lastLoadTime ?? new Date(), [lastLoadTime]);
   const timezone = useTimezone();
-  const earliestStartRef = React.useRef<TimeInterval | undefined>();
+  const earliestStartRef = React.useRef<TimeInterval & { timezone: string } | undefined>();
   const daySeconds = hoursToSeconds(24);
   const maxLength = daySeconds - 1;
   const groups: TimelineDay[]  = React.useMemo(() => {
@@ -67,7 +67,7 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments,
       return [];
     }
     let earliestStart: TimeInterval | undefined;
-    if (earliestStartRef.current !== undefined) {
+    if (earliestStartRef.current !== undefined && earliestStartRef.current.timezone === timezone) {
       earliestStart = earliestStartRef.current;
     } else {
       const averageStart = streamer.averageStreamStartTimeOffset !== undefined
@@ -81,7 +81,7 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments,
       const averageStartHour = startOfHour(addSeconds(startOfToday, averageStart));
       const averageStartHourOffset = differenceInSeconds(averageStartHour, startOfToday);
       earliestStart = { start: averageStartHourOffset, end: averageStartHourOffset + maxLength };
-      earliestStartRef.current = earliestStart;
+      earliestStartRef.current = { ...earliestStart, timezone };
     }
 
     if (earliestStart === undefined) {
