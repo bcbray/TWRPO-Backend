@@ -6,6 +6,7 @@ import {
 } from '@twrpo/types';
 import { Twitch, Calendar2RangeFill, Grid3x3GapFill } from 'react-bootstrap-icons';
 import { useLocalStorage } from 'react-use';
+import { useDatadogRum } from 'react-datadog';
 import { Button } from '@restart/ui';
 
 import styles from './Streamer.module.css';
@@ -70,6 +71,25 @@ const Streamer: React.FC<StreamerProps> = ({
     'streamer-streams-view-style',
     isMobile ? 'cards' : 'timeline'
   );
+  const rum = useDatadogRum();
+
+  const viewTimeliine = React.useCallback(() => {
+    setStreamsView('timeline');
+    rum.addAction(`Change streamer view to timeline`, {
+      type: 'streamer-stream-view-change',
+      view: 'timeline',
+      streamer: streamer.displayName,
+    });
+  }, [setStreamsView, rum, streamer]);
+
+  const viewCards = React.useCallback(() => {
+    setStreamsView('cards');
+    rum.addAction(`Change streamer view to cards`, {
+      type: 'streamer-stream-view-change',
+      view: 'cards',
+      streamer: streamer.displayName,
+    });
+  }, [setStreamsView, rum, streamer]);
 
   const {
     streams,
@@ -145,7 +165,7 @@ const Streamer: React.FC<StreamerProps> = ({
                   styles.streamsStyleButton,
                   streamsView === 'timeline' && styles.active
                 )}
-                onClick={() => setStreamsView('timeline')}
+                onClick={viewTimeliine}
               >
                 <Calendar2RangeFill size={18} />
               </Button>
@@ -154,7 +174,7 @@ const Streamer: React.FC<StreamerProps> = ({
                   styles.streamsStyleButton,
                   streamsView === 'cards' && styles.active
                 )}
-                onClick={() => setStreamsView('cards')}
+                onClick={viewCards}
               >
                 <Grid3x3GapFill size={18} />
               </Button>
