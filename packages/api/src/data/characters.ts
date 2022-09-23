@@ -1920,7 +1920,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 801, name: 'Mason Memphis' },
     ],
     sulley_cs: [
-        { id: 1164, name: 'Ray-Ray ?', factions: ['Conductors'] },
+        { id: 1164, name: 'Raylan "Ray-Ray" Goggins', factions: ['Conductors'] },
     ],
     Sveo0: [
         { id: 1133, name: 'Miguel Garcia' },
