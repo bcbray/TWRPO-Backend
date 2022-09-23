@@ -131,13 +131,14 @@ export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult
   const now = useNow();
   const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
 
-  // Use en-US and UTC for the first render so we're consistent between SSR and the
-  // first client-side render. Then immediately swap in client local.
+  // Use en-US for the first render so we're consistent between SSR and the
+  // first client-side render. Then immediately swap in client locale.
   const locale = isFirstRenderFromSSR ? 'en-US' : undefined;
 
-  // Similarly, use UTC for the first render then fall back to client time zone.
+  // Similarly, use America/New_York for the first render then fall back to
+  // client time zone.
   const dateFormatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
-    timeZone: isFirstRenderFromSSR ? 'utc' : undefined,
+    timeZone: isFirstRenderFromSSR ? 'America/New_York' : undefined,
   }), [isFirstRenderFromSSR]);
 
   const fullFormatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
@@ -200,13 +201,14 @@ export function useShortDate(date: Date): string {
   const now = useNow();
   const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
 
-  // Use en-US and UTC for the first render so we're consistent between SSR and the
-  // first client-side render. Then immediately swap in client local.
+  // Use en-US for the first render so we're consistent between SSR and the
+  // first client-side render. Then immediately swap in client locale.
   const locale = isFirstRenderFromSSR ? 'en-US' : undefined;
 
-  // Similarly, use UTC for the first render then fall back to client time zone.
+  // Similarly, use America/New_York for the first render then fall back to
+  // client time zone.
   const formatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
-    timeZone: isFirstRenderFromSSR ? 'utc' : undefined,
+    timeZone: isFirstRenderFromSSR ? 'America/New_York' : undefined,
   }), [isFirstRenderFromSSR]);
 
   if (!isFirstRenderFromSSR && isSameDay(date, now)) {
