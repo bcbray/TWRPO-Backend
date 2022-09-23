@@ -21,12 +21,20 @@ import TimelineSegment from './TimelineSegment';
 import { useIsFirstRenderFromSSR } from './Data';
 import Loading from './Loading';
 
-export interface TimelineRow {
+export interface TimelineSegmentsRow {
   key: string;
-  sidebarItem?: React.ReactNode
+  sidebarItem?: React.ReactNode;
   interval: Interval;
   segments: SegmentAndStreamer[];
 }
+
+export interface TimelineInfoRow {
+  key: string;
+  info: React.ReactNode;
+  sidebarItem?: React.ReactNode;
+}
+
+export type TimelineRow = TimelineSegmentsRow | TimelineInfoRow;
 
 export interface TimelineProps {
   hoursInterval?: Interval;
@@ -103,7 +111,11 @@ const Timeline: React.FC<TimelineProps> = ({
   handleReload,
 }) => {
 
-  const sidebarItems = rows.map(row => ({ key: row.key, item: row.sidebarItem }))
+  const sidebarItems = rows.map(row => ({
+    key: row.key,
+    item: row.sidebarItem,
+    isInfo: !('segments' in row),
+  }))
   const hasSidebar = sidebarItems.some(({ item }) => item !== undefined);
 
   const [hasAutoScrolled, setHasAutoScrolled] = React.useState(false);
@@ -117,6 +129,9 @@ const Timeline: React.FC<TimelineProps> = ({
   const [hoveredRowKey, setHoveredRowKey] = React.useState<string | null>(null);
 
   const totalTimeSeconds = rows.reduce((maxTime, row) => {
+    if (!('interval' in row)) {
+      return maxTime;
+    }
     const time = differenceInSeconds(row.interval.end, row.interval.start);
     if (time > maxTime) {
       return time;
@@ -199,11 +214,11 @@ const Timeline: React.FC<TimelineProps> = ({
   }, [hoursInterval, pixelsPerSecond, now]);
 
   const sidebarRows = React.useMemo(() => (
-    sidebarItems.map(({ key, item }) =>
+    sidebarItems.map(({ key, item, isInfo }) =>
       <div
         key={key}
         className={classes(
-          styles.sidebarRow,
+          isInfo ? styles.sidebarInfoRow : styles.sidebarRow,
           hoveredRowKey === key && styles.hovered
         )}
         onMouseEnter={() => setHoveredRowKey(key)}
@@ -215,32 +230,52 @@ const Timeline: React.FC<TimelineProps> = ({
   ), [sidebarItems, hoveredRowKey]);
 
   const timelineRows = React.useMemo(() => (
-    rows.map(({ key, interval, segments }) => {
-      return (
-        <div
-          key={key}
-          className={classes(
-            styles.timelineRow,
-            hoveredRowKey === key && styles.hovered
-          )}
-          onMouseEnter={() => setHoveredRowKey(key)}
-          onMouseLeave={() => setHoveredRowKey(k => (k === key ? null : k))}
-        >
-          <div>
-            {segments.map(({ segment, streamer}) =>
-              <TimelineSegment
-                key={segment.id}
-                segment={segment}
-                streamer={streamer}
-                visibleInterval={interval}
-                pixelsPerSecond={pixelsPerSecond}
-                compact={isCompact}
-                handleRefresh={handleReload ?? (() => {})}
-              />
+    rows.map((row) => {
+      if ('interval' in row) {
+        const { key, interval, segments } = row;
+        return (
+          <div
+            key={key}
+            className={classes(
+              styles.timelineRow,
+              hoveredRowKey === key && styles.hovered
             )}
+            onMouseEnter={() => setHoveredRowKey(key)}
+            onMouseLeave={() => setHoveredRowKey(k => (k === key ? null : k))}
+          >
+            <div>
+              {segments.map(({ segment, streamer}) =>
+                <TimelineSegment
+                  key={segment.id}
+                  segment={segment}
+                  streamer={streamer}
+                  visibleInterval={interval}
+                  pixelsPerSecond={pixelsPerSecond}
+                  compact={isCompact}
+                  handleRefresh={handleReload ?? (() => {})}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      )
+        )
+      } else {
+        const { key, info } = row;
+        return (
+          <div
+            key={key}
+            className={classes(
+              styles.timelineInfoRow,
+              hoveredRowKey === key && styles.hovered
+            )}
+            onMouseEnter={() => setHoveredRowKey(key)}
+            onMouseLeave={() => setHoveredRowKey(k => (k === key ? null : k))}
+          >
+            <div>
+              {info}
+            </div>
+          </div>
+        );
+      }
     })
   ), [rows, hoveredRowKey, isCompact, handleReload, pixelsPerSecond]);
 

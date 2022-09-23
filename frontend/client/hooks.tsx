@@ -197,7 +197,15 @@ function shortDate(date: Date, now: Date, locale: string | undefined, formatOpti
   })
 }
 
-export function useShortDate(date: Date): string {
+export interface ShortDateOptions {
+  /** Use dates like “yesterday” and “today”. Default true */
+  canUseRelative?: boolean;
+}
+
+export function useShortDate(date: Date, options: ShortDateOptions = {}): string {
+  const {
+    canUseRelative = true,
+  } = options;
   const now = useNow();
   const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
 
@@ -211,10 +219,10 @@ export function useShortDate(date: Date): string {
     timeZone: isFirstRenderFromSSR ? 'America/New_York' : undefined,
   }), [isFirstRenderFromSSR]);
 
-  if (!isFirstRenderFromSSR && isSameDay(date, now)) {
+  if (canUseRelative && !isFirstRenderFromSSR && isSameDay(date, now)) {
     return 'Today'
   }
-  if (!isFirstRenderFromSSR && isSameDay(date, subDays(now, 1))) {
+  if (canUseRelative && !isFirstRenderFromSSR && isSameDay(date, subDays(now, 1))) {
     return 'Yesterday'
   }
 

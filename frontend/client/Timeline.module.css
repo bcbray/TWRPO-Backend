@@ -15,6 +15,11 @@
   height: 5rem;
 }
 
+.sidebarInfoRow,
+.timelineInfoRow {
+  height: 1.5rem;
+}
+
 .compact .sidebarRow,
 .compact .timelineRow {
   height: 3.25rem;
@@ -30,6 +35,8 @@
   padding: 0.5rem 0;
 }
 
+.sidebarInfoRow > div,
+.timelineInfoRow > div,
 .sidebarRow > div,
 .timelineRow > div {
   position: relative;

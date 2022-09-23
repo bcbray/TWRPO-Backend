@@ -15,13 +15,14 @@ import {
   toDate,
   subDays,
   minutesToSeconds,
+  isAfter,
 } from 'date-fns';
 import { getTimezoneOffset } from 'date-fns-tz';
 import { Streamer, VideoSegment } from '@twrpo/types';
 
 import styles from './StreamerTimeline.module.css';
 
-import Timeline from './Timeline'
+import Timeline, { TimelineRow } from './Timeline'
 import { useShortDate, useTimezone } from './hooks';
 
 
@@ -53,6 +54,20 @@ const DaySidebarItem: React.FC<{ date: Date }> = ({ date }) => {
   return (
     <div className={styles.timelineDate}>
       <p>{shortDate}</p>
+    </div>
+  )
+}
+
+const GapInfoItem: React.FC<{ start: Date, end: Date }> = ({ start, end }) => {
+  const shortStart = useShortDate(start, { canUseRelative: false });
+  const shortEnd = useShortDate(end, { canUseRelative: false });
+  return (
+    <div className={styles.gapRow}>
+      {start.getTime() !== end.getTime() ? (
+        <p>{`No streams ${shortStart}–${shortEnd}`}</p>
+      ) : (
+        <p>{`No streams ${shortStart}`}</p>
+      )}
     </div>
   )
 }
@@ -181,23 +196,48 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments,
     return { visibleInterval, hoursInterval };
   }, [groups]);
 
-  if (intervals === null) {
+  const data = React.useMemo(() => {
+    if (intervals === null) {
+      return null;
+    }
+
+    const { visibleInterval, hoursInterval } = intervals;
+
+    const rows: TimelineRow[] = [];
+    let previousRowStart: Date | undefined;
+    for (const group of groups) {
+      const start = addSeconds(startOfDay(group.interval.start), visibleInterval.start);
+      const nextStart = addDays(start, 1);
+      if (previousRowStart && isAfter(previousRowStart, nextStart)) {
+        const gapEnd = subDays(previousRowStart, 1);
+        rows.push({
+          key: `${formatISO(group.interval.start)}-info`,
+          info: <GapInfoItem start={nextStart} end={gapEnd} />
+        })
+      }
+      rows.push({
+        key: formatISO(group.interval.start),
+        sidebarItem: <DaySidebarItem date={toDate(group.interval.start)} />,
+        interval: {
+          start: start,
+          end: addSeconds(startOfDay(group.interval.start), visibleInterval.end),
+        },
+        segments: group.segments.map(segment => ({ segment: segment.segment, streamer }))
+      });
+      previousRowStart = start;
+    }
+    return { rows, hoursInterval };
+  }, [groups, intervals, streamer]);
+
+  if (data === null) {
     return null;
   }
-  const { visibleInterval, hoursInterval } = intervals;
+  const { hoursInterval, rows } = data;
 
   return (
     <Timeline
       hoursInterval={hoursInterval}
-      rows={groups.map((group) => ({
-        key: formatISO(group.interval.start),
-        sidebarItem: <DaySidebarItem date={toDate(group.interval.start)} />,
-        interval: {
-          start: addSeconds(startOfDay(group.interval.start), visibleInterval.start),
-          end: addSeconds(startOfDay(group.interval.start), visibleInterval.end),
-        },
-        segments: group.segments.map(segment => ({ segment: segment.segment, streamer }))
-      }))}
+      rows={rows}
       now={now}
       autoscrollToTime='now'
     />

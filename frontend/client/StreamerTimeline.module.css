@@ -10,3 +10,10 @@
   margin: 0;
   white-space: nowrap;
 }
+
+.gapRow {
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  color: var(--theme-gray-600);
+}
