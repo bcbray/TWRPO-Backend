@@ -23,7 +23,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1176
+// Next ID: 1177
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -1421,6 +1421,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 594, name: 'Cooper Garret' },
         { id: 595, name: 'Jack Woulfe' },
         { id: 596, name: 'Pikup Dropov' },
+        { id: 1176, name: 'Ira Claymore' },
     ],
     Nakkida: [
         { id: 597, name: 'Lyra Woods' },
