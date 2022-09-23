@@ -723,7 +723,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 290, name: 'Amarillo Marnen' },
         { id: 291, name: 'Edbert Trunk' },
         { id: 292, name: 'Norman Hatt' },
-        { id: 293, name: 'Rutherford Peabody' },
+        { id: 293, name: 'Rutherford Peabody', factions: ['Conductors'] },
     ],
     famousivan: [
         { id: 294, name: 'Raul Dominguez' },
