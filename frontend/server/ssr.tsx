@@ -52,6 +52,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
     } = await (async () => {
       const preloadedData: PreloadedData = {
         now: JSON.stringify(now),
+        isSSR: true,
       }
 
       let routingContext: SSRRouting = {};

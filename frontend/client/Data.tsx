@@ -13,6 +13,7 @@ import {
   ServersResponse,
 } from '@twrpo/types'
 
+import { useInitialRender } from './hooks';
 import {
   useLoading,
   useAutoReloading,
@@ -36,6 +37,7 @@ export interface PreloadedData {
   unknownStreams?: Record<string, StreamsResponse>;
   currentUser?: UserResponse;
   servers?: ServersResponse;
+  isSSR: boolean;
 }
 
 export interface PreloadedUsed {
@@ -57,7 +59,7 @@ export interface PreloadedUsed {
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
 
-export const PreloadedDataContext = React.createContext<PreloadedData>({});
+export const PreloadedDataContext = React.createContext<PreloadedData>({ isSSR: false });
 
 export const PreloadedUsedContext = React.createContext<PreloadedUsed>({});
 
@@ -82,19 +84,26 @@ export const ClientPreloadedDataProvider: React.FC<{ children: React.ReactElemen
     console.error('ClientPreloadedDataProvider should not be used on the server');
   }
 
-  const data = React.useMemo(() => {
+  const { isSSR, ...data } = React.useMemo(() => {
     return preloadedDataKey in window
       ? (window as any)[preloadedDataKey] as PreloadedData
-      : {};
+      : { isSSR: false };
   }, []);
 
+  const isFirstRender = useInitialRender();
+
   return (
-    <PreloadedDataContext.Provider value={data}>
+    <PreloadedDataContext.Provider value={{ ...data, isSSR: isSSR && isFirstRender }}>
       <PreloadedUsedContext.Provider value={{}}>
         {children}
       </PreloadedUsedContext.Provider>
     </PreloadedDataContext.Provider>
   )
+}
+
+export const useIsFirstRenderFromSSR = (): boolean => {
+  const { isSSR } = React.useContext(PreloadedDataContext);
+  return isSSR;
 }
 
 export const useNow = (intervalMs: number = 1000): Date => {
