@@ -373,6 +373,15 @@ export const useFilterRegex = (filterText: string | undefined) => {
   }, [filterText]);
 }
 
+export const useTimezone = (): string => {
+  const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
+  if (isFirstRenderFromSSR) {
+    return 'America/New_York';
+  } else {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  }
+}
+
 export interface ServerHookData {
   userAgent: IsMobileOptions['ua'];
 }

@@ -15,12 +15,13 @@ import {
   toDate,
   subDays,
 } from 'date-fns';
+import { getTimezoneOffset } from 'date-fns-tz';
 import { Streamer, VideoSegment } from '@twrpo/types';
 
 import styles from './StreamerTimeline.module.css';
 
 import Timeline from './Timeline'
-import { useShortDate } from './hooks';
+import { useShortDate, useTimezone } from './hooks';
 
 
 interface StreamerTimelineProps {
@@ -57,25 +58,31 @@ const DaySidebarItem: React.FC<{ date: Date }> = ({ date }) => {
 
 const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments, lastLoadTime }) => {
   const now = React.useMemo(() => lastLoadTime ?? new Date(), [lastLoadTime]);
+  const timezone = useTimezone();
   const earliestStartRef = React.useRef<TimeInterval | undefined>();
   const daySeconds = hoursToSeconds(24);
   const maxLength = daySeconds - 1;
   const groups: TimelineDay[]  = React.useMemo(() => {
-    const earliestStart = earliestStartRef.current
-      ?? segments.reduce((earliest, segment) => {
-        const start = new Date(segment.startDate);
-        const startHour = startOfHour(start);
-        const startOffset = differenceInSeconds(startHour, startOfDay(start));
-        const endOffset = startOffset + maxLength;
-        if (earliest === undefined || startOffset < earliest.start) {
-          return {
-            start: startOffset,
-            end: endOffset,
-          };
-        }
-        return earliest;
-      }, undefined as TimeInterval | undefined);
-    earliestStartRef.current = earliestStart
+    if (segments.length === 0) {
+      return [];
+    }
+    let earliestStart: TimeInterval | undefined;
+    if (earliestStartRef.current !== undefined) {
+      earliestStart = earliestStartRef.current;
+    } else {
+      const averageStart = streamer.averageStreamStartTimeOffset !== undefined
+        ? streamer.averageStreamStartTimeOffset + (getTimezoneOffset(timezone) / 1000)
+        : segments.map((segment) => {
+          const start = new Date(segment.streamStartDate);
+          const startOffset = differenceInSeconds(start, startOfDay(start));
+          return startOffset;
+        }).reduce((sum, offset) => sum + offset) / segments.length;
+      const startOfToday = startOfDay(now);
+      const averageStartHour = startOfHour(addSeconds(startOfToday, averageStart));
+      const averageStartHourOffset = differenceInSeconds(averageStartHour, startOfToday);
+      earliestStart = { start: averageStartHourOffset, end: averageStartHourOffset + maxLength };
+      earliestStartRef.current = earliestStart;
+    }
 
     if (earliestStart === undefined) {
       return [];
@@ -137,7 +144,7 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments,
     return Object.entries(groups)
       .sort(([lhsDay], [rhsDay]) => lhsDay.localeCompare(rhsDay) * -1)
       .map(([_, day]) => day);
-  }, [segments, maxLength]);
+  }, [segments, maxLength, now, timezone, streamer.averageStreamStartTimeOffset]);
 
   const intervals = React.useMemo(() => {
     let start: number | undefined;
