@@ -18,6 +18,8 @@ import styles from './Timeline.module.css';
 import { classes } from './utils';
 import { useWrappedRefWithWarning } from './hooks';
 import TimelineSegment from './TimelineSegment';
+import { useIsFirstRenderFromSSR } from './Data';
+import Loading from './Loading';
 
 export interface TimelineRow {
   key: string;
@@ -241,6 +243,11 @@ const Timeline: React.FC<TimelineProps> = ({
       )
     })
   ), [rows, hoveredRowKey, isCompact, handleReload, pixelsPerSecond]);
+
+  const isInitialRenderFromSSR = useIsFirstRenderFromSSR();
+  if (isInitialRenderFromSSR) {
+    return <Loading />;
+  }
 
   return (
     <div
