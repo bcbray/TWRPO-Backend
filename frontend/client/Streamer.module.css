@@ -59,6 +59,103 @@ a:hover .twitchLogo {
   max-width: 100%;
 }
 
+.streamsHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.streamsHeader h3 {
+  margin-right: auto;
+  margin-bottom: 0;
+}
+
+.streamsStyleControl {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.streamsStyleButton {
+  background: none;
+  border: none;
+  color: var(--theme-white);
+  background-color: var(--theme-gray-400);
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.streamsStyleButton svg {
+  display: block;
+}
+
+.streamsStyleButton:nth-child(1) {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.streamsStyleButton:nth-last-child(1) {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.streamsStyleButton.active {
+  color: var(--theme-white);
+  background-color: var(--theme-gray-600);
+}
+
+.streamsStyleButton:not(.active):hover {
+  color: var(--theme-white);
+  background-color: var(--theme-gray-500);
+}
+
+.streamsStyleButton:not(.active):active {
+  color: var(--theme-white);
+  background-color: var(--theme-gray-700);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(:global(.light)):not(:global(.dark)) .streamsStyleButton {
+    color: var(--theme-gray-400);
+    background-color: var(--theme-gray-200);
+  }
+  :root:not(:global(.light)):not(:global(.dark)) .streamsStyleButton.active {
+    color: var(--theme-black);
+    background-color: var(--theme-gray-400);
+  }
+  :root:not(:global(.light)):not(:global(.dark)) .streamsStyleButton:not(.active):hover {
+    color: var(--theme-gray-600);
+    background-color: var(--theme-gray-300);
+  }
+  :root:not(:global(.light)):not(:global(.dark)) .streamsStyleButton:not(.active):active {
+    color: var(--theme-black);
+    background-color: var(--theme-gray-400);
+  }
+}
+
+:root:global(.dark) .streamsStyleButton {
+  color: var(--theme-gray-400);
+  background-color: var(--theme-gray-200);
+}
+
+:root:global(.dark) .streamsStyleButton.active {
+  color: var(--theme-black);
+  background-color: var(--theme-gray-400);
+}
+
+:root:global(.dark) .streamsStyleButton:not(.active):hover {
+  color: var(--theme-gray-600);
+  background-color: var(--theme-gray-300);
+}
+
+:root:global(.dark) .streamsStyleButton:not(.active):active {
+  color: var(--theme-black);
+  background-color: var(--theme-gray-400);
+}
+
 .segment {
   display: flex;
   align-items: baseline;
