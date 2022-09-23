@@ -13,6 +13,7 @@ import {
   hoursToSeconds,
   endOfHour,
   toDate,
+  subDays,
 } from 'date-fns';
 import { Streamer, VideoSegment } from '@twrpo/types';
 
@@ -56,22 +57,26 @@ const DaySidebarItem: React.FC<{ date: Date }> = ({ date }) => {
 
 const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments, lastLoadTime }) => {
   const now = React.useMemo(() => lastLoadTime ?? new Date(), [lastLoadTime]);
+  const earliestStartRef = React.useRef<TimeInterval | undefined>();
   const daySeconds = hoursToSeconds(24);
   const maxLength = daySeconds - 1;
   const groups: TimelineDay[]  = React.useMemo(() => {
-    const earliestStart = segments.reduce((earliest, segment) => {
-      const start = new Date(segment.startDate);
-      const startHour = startOfHour(start);
-      const startOffset = differenceInSeconds(startHour, startOfDay(start));
-      const endOffset = startOffset + maxLength;
-      if (earliest === undefined || startOffset < earliest.start) {
-        return {
-          start: startOffset,
-          end: endOffset,
-        };
-      }
-      return earliest;
-    }, undefined as TimeInterval | undefined);
+    const earliestStart = earliestStartRef.current
+      ?? segments.reduce((earliest, segment) => {
+        const start = new Date(segment.startDate);
+        const startHour = startOfHour(start);
+        const startOffset = differenceInSeconds(startHour, startOfDay(start));
+        const endOffset = startOffset + maxLength;
+        if (earliest === undefined || startOffset < earliest.start) {
+          return {
+            start: startOffset,
+            end: endOffset,
+          };
+        }
+        return earliest;
+      }, undefined as TimeInterval | undefined);
+    earliestStartRef.current = earliestStart
+
     if (earliestStart === undefined) {
       return [];
     }
@@ -89,6 +94,14 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments,
       let days: Date[] = [];
 
       let day = startOfDay(start)
+
+      // If we’re using a start time that puts this segment on the “previous”
+      // day, be sure and include the first day
+      if (isBefore(start, addSeconds(day, earliestStart.start))) {
+        day = subDays(day, 1);
+      }
+
+      // Include all days that this segment spans
       while (isBefore(addSeconds(day, earliestStart.start), end)) {
         days.push(day);
         day = addDays(day, 1);
