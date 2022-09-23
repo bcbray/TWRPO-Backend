@@ -14,6 +14,7 @@ import {
   endOfHour,
   toDate,
   subDays,
+  minutesToSeconds,
 } from 'date-fns';
 import { getTimezoneOffset } from 'date-fns-tz';
 import { Streamer, VideoSegment } from '@twrpo/types';
@@ -77,8 +78,13 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments,
           const startOffset = differenceInSeconds(start, startOfDay(start));
           return startOffset;
         }).reduce((sum, offset) => sum + offset) / segments.length;
+      // Back up just a bit before flooring to the hour just to make sure
+      // we don’t trim off too many segments if the average is just _barely_
+      // into a new hour
+      const adjustedAverageStart = averageStart - minutesToSeconds(20);
+      // Floor the adjusted average time to the start of the hour
       const startOfToday = startOfDay(now);
-      const averageStartHour = startOfHour(addSeconds(startOfToday, averageStart));
+      const averageStartHour = startOfHour(addSeconds(startOfToday, adjustedAverageStart));
       const averageStartHourOffset = differenceInSeconds(averageStartHour, startOfToday);
       earliestStart = { start: averageStartHourOffset, end: averageStartHourOffset + maxLength };
       earliestStartRef.current = { ...earliestStart, timezone };
