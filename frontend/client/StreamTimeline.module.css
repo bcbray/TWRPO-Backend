@@ -1,0 +1,84 @@
+.content {
+  flex-shrink: 1;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.header h3 {
+  margin: 0;
+  margin-right: auto;
+}
+
+.streamer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  padding-right: 0.5rem;
+}
+
+.streamer .name {
+  display: none;
+}
+
+.streamer .name p {
+  margin: 0;
+}
+
+.streamer .name a {
+  text-decoration: none;
+  color: var(--faction-color-light);
+}
+
+.streamer .name a:hover {
+  text-decoration: none;
+  color: var(--faction-color-light-hover);
+}
+
+@media (min-width: 576px) {
+  .streamer .name {
+    display: block;
+  }
+}
+
+.compactSetting label {
+  margin-left: 0.25rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(:global(.light)):not(:global(.dark)) .streamer .name a {
+    color: var(--faction-color-dark);
+  }
+
+  :root:not(:global(.light)):not(:global(.dark)) .streamer .name a:hover {
+    color: var(--faction-color-dark-hover);
+  }
+
+  :root:not(:global(.light)):not(:global(.dark)) .streamer.hovered,
+  :root:not(:global(.light)):not(:global(.dark)) .streamerRow.hovered {
+    background-color: rgba(var(--theme-black-rgb), 0.075);
+  }
+
+}
+
+:root:global(.dark) .streamer .name a {
+  color: var(--faction-color-dark);
+}
+
+:root:global(.dark) .streamer .name a:hover {
+  color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .streamer.hovered,
+:root:global(.dark) .streamerRow.hovered {
+  background-color: rgba(var(--theme-black-rgb), 0.075);
+}

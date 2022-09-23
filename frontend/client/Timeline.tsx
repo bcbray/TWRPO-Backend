@@ -1,207 +1,49 @@
 import React from 'react';
+import { useMeasure } from 'react-use';
+import useMergedRefs from '@restart/hooks/useMergedRefs';
 import {
   Interval,
-  startOfDay,
-  endOfDay,
   differenceInSeconds,
-  addDays,
-  areIntervalsOverlapping,
-  clamp,
-  isEqual,
   eachHourOfInterval,
-  isWithinInterval,
   formatISO,
   intlFormat,
-  toDate,
+  isWithinInterval,
+  startOfDay,
+  isEqual,
 } from 'date-fns';
-import { Link } from 'react-router-dom';
-import { useUpdateEffect, useMeasure, useLocalStorage } from 'react-use';
-import { Button } from '@restart/ui';
-import useMergedRefs from '@restart/hooks/useMergedRefs';
-import { EyeSlashFill } from 'react-bootstrap-icons';
-import { SegmentAndStreamer, VideoSegment, Streamer } from '@twrpo/types';
+import { SegmentAndStreamer } from '@twrpo/types';
 
 import styles from './Timeline.module.css';
 
-import { useStreams } from './Data';
-import { usePaginatedStreams } from './Streams';
-import ProfilePhoto from './ProfilePhoto';
 import { classes } from './utils';
-import SegmentTitleTag from './SegmentTitleTag'
-import Tag from './Tag';
-import { useImageUrlOnceLoaded, useWrappedRefWithWarning, useShortDate, useInitialRender } from './hooks';
-import Loading from './Loading';
-import { useFactionCss } from './FactionStyleProvider';
-import OverlayTrigger from './OverlayTrigger'
-import VideoSegmentCard from './VideoSegmentCard'
+import { useWrappedRefWithWarning } from './hooks';
+import TimelineSegment from './TimelineSegment';
 
-interface TimelineProps {
+export interface TimelineRow {
+  key: string;
+  sidebarItem?: React.ReactNode
+  interval: Interval;
+  segments: SegmentAndStreamer[];
 }
 
-const useDay = (date: Date): Interval => React.useMemo(() => ({
-  start: startOfDay(date),
-  end: endOfDay(date),
-}), [date]);
+export interface TimelineProps {
+  hoursInterval?: Interval;
+  rows: TimelineRow[];
 
-const useIntervalStreams = (interval: Interval): {
-  streams: SegmentAndStreamer[],
-  lastRefresh: Date | null,
-  hasMore: Boolean,
-  reload: () => void,
-} => {
-  const {
-    streams,
-    lastRefresh,
-    hasMore,
-    loadMore,
-    reload,
-  } = usePaginatedStreams(useStreams, {
-    distinctCharacters: false,
-    endAfter: toDate(interval.start),
-    startBefore: toDate(interval.end),
-    limit: 100,
-  }, {
-    skipsPreload: true,
-  });
-  const [isComplete, setIsComplete] = React.useState(false);
+  /**
+    If provided, a line indicating “now” will be drawn.
+    Requires providing `hoursInterval`.
+  */
+  now?: Date;
 
-  React.useEffect(() => {
-    if (!hasMore) {
-      setIsComplete(true);
-      return;
-    }
-    loadMore();
-  }, [streams, loadMore, hasMore]);
+  /**
+    Scrolls to the given time on first load.
+    Requires providing `hoursInterval`. The 'now' value requires providing `now`.
+  */
+  autoscrollToTime?: 'now' | Date;
 
-  useUpdateEffect(() => {
-    setIsComplete(false);
-    reload();
-  }, [interval.start, interval.end]);
-
-  const loadedStreams = React.useMemo(() => isComplete ? streams : [], [isComplete, streams]);
-
-  const overlappingStreams = React.useMemo(() => (
-    loadedStreams.filter(({ segment }) => {
-      const start = new Date(segment.startDate);
-      const end = new Date(segment.endDate);
-      return areIntervalsOverlapping(interval, { start, end });
-    })
-  ), [loadedStreams, interval]);
-
-  const ourReload = React.useCallback(() => {
-    setIsComplete(false);
-    reload();
-  }, [reload]);
-
-  return {
-    streams: overlappingStreams,
-    lastRefresh: lastRefresh ?? null,
-    hasMore,
-    reload: ourReload,
-  };
-}
-
-interface TimelineSegmentProps {
-  segment: VideoSegment;
-  streamer: Streamer;
-  visibleInterval: Interval;
-  pixelsPerSecond: number;
-  handleRefresh: () => void;
-}
-
-const TimelineSegment: React.FC<TimelineSegmentProps> = ({
-  segment,
-  streamer,
-  visibleInterval,
-  pixelsPerSecond,
-  handleRefresh,
-}) => {
-  const streamStart = new Date(segment.startDate);
-  const streamEnd = new Date(segment.endDate);
-
-  const clampStart = clamp(streamStart, visibleInterval);
-  const clampEnd = clamp(streamEnd, visibleInterval);
-
-  const duration = differenceInSeconds(streamEnd, clampStart);
-  const clampedDuration = differenceInSeconds(clampEnd, clampStart);
-
-  const startOffsetSec = differenceInSeconds(clampStart, visibleInterval.start);
-  const endOffsetSec = differenceInSeconds(visibleInterval.end, clampEnd);
-
-  const thumbnailUrl = React.useMemo(() => {
-    const thumbnailUrl = segment.liveInfo?.thumbnailUrl ?? segment.thumbnailUrl;
-    if (!thumbnailUrl) return undefined;
-    return `${
-      thumbnailUrl
-        ?.replace(/%?{width}/, '440')
-        .replace(/%?{height}/, '248')
-    }`
-  }, [segment]);
-
-  const { url: loadedThumbnailUrl } = useImageUrlOnceLoaded(thumbnailUrl);
-  return (
-    <OverlayTrigger
-      placement='top-mouse'
-      flip
-      delay={{ show: 500, hide: 100 }}
-      overlay={({ placement, arrowProps, show: _show, popper, ...props }) => (
-        <div className={styles.streamPopover} {...props}>
-          <VideoSegmentCard
-            streamer={streamer}
-            segment={segment}
-            handleRefresh={handleRefresh}
-            cardStyle={'card'}
-            pastStreamStyle={'vivid'}
-            canShowLiveBadge
-            embed
-          />
-        </div>
-      )}
-    >
-      <div
-        key={segment.id}
-        className={classes(
-          styles.segment,
-          !isEqual(clampStart, streamStart) && styles.overlapLeft,
-          !isEqual(clampEnd, streamEnd) && styles.overlapRight,
-          segment.liveInfo && styles.live,
-          segment.isHidden && styles.hidden,
-        )}
-        style={{
-          left: `${Math.round(startOffsetSec * pixelsPerSecond)}px`,
-          right: `${Math.round(endOffsetSec * pixelsPerSecond)}px`,
-          '--duration-width':  `${Math.round(duration * pixelsPerSecond)}px`,
-          '--clamped-duration-width':  `${Math.round(clampedDuration * pixelsPerSecond)}px`,
-        } as React.CSSProperties}
-      >
-        <div className={styles.segmentContent}>
-          {(loadedThumbnailUrl || segment.isHidden) &&
-            <div className={styles.thumbnail}>
-              {loadedThumbnailUrl &&
-                <img alt='Stream thumbnail' src={loadedThumbnailUrl} />
-              }
-              {segment.isHidden &&
-                <div className={styles.hiddenOverlay}>
-                  <EyeSlashFill title='Segment is hidden' />
-                </div>
-              }
-            </div>
-          }
-          <div className={styles.info}>
-            <div className={styles.tags}>
-              <SegmentTitleTag className={styles.tag} segment={segment} />
-              {segment.liveInfo &&
-                <Tag className={classes(styles.tag, styles.live)}>
-                  <p>Live</p>
-                </Tag>
-              }
-            </div>
-            <p title={segment.title}>{segment.title}</p>
-          </div>
-        </div>
-      </div>
-    </OverlayTrigger>
-  );
+  isCompact?: boolean;
+  handleReload?: () => void;
 }
 
 interface HoursHeaderProps {
@@ -250,234 +92,191 @@ const HoursHeader: React.FC<HoursHeaderProps> = ({
   );
 }
 
-const Timeline: React.FC<TimelineProps> = () => {
-  const now = React.useMemo(() => new Date(), []);
-  const [offset, setOffset] = React.useState(0);
-  const target = React.useMemo(() => addDays(now, offset), [now, offset])
-  const day = useDay(target);
-  const { streams, lastRefresh, hasMore, reload } = useIntervalStreams(day);
-  const { start, end } = day;
-  const [hasScrolled, setHasScrolled] = React.useState(false);
-  const isFirstRender = useInitialRender();
-  const isToday = React.useMemo(() => !isFirstRender && isWithinInterval(now, day), [isFirstRender, now, day]);
+const Timeline: React.FC<TimelineProps> = ({
+  hoursInterval,
+  rows,
+  now,
+  autoscrollToTime,
+  isCompact = false,
+  handleReload,
+}) => {
 
-  const [isCompact, setIsCompact] = useLocalStorage('timeline-compact', false);
+  const sidebarItems = rows.map(row => ({ key: row.key, item: row.sidebarItem }))
+  const hasSidebar = sidebarItems.some(({ item }) => item !== undefined);
 
-  const { factionStylesForKey } = useFactionCss();
-  const [hoveredStreamerId, setHoveredStreamerId] = React.useState<string | null>(null);
-
-  const previous = React.useCallback(() => {
-    setHasScrolled(false);
-    setOffset(o => o - 1);
-  }, []);
-
-  const next = React.useCallback(() => {
-    setHasScrolled(false);
-    setOffset(o => o + 1);
-  }, []);
-
-  const nowToShow = lastRefresh ?? now;
-
-  const grouped = React.useMemo(() => {
-    const groups: Record<string, SegmentAndStreamer[]> = {};
-    streams.forEach((stream) => {
-      if (!groups[stream.streamer.twitchId]) {
-        groups[stream.streamer.twitchId] = [];
-      }
-      groups[stream.streamer.twitchId].push(stream);
-    });
-    return Object.values(groups)
-      .sort((lhs, rhs) =>
-        lhs[0].streamer.displayName.localeCompare(rhs[0].streamer.displayName)
-      );
-  }, [streams]);
-
-  const totalLength = differenceInSeconds(end, start);
-
+  const [hasAutoScrolled, setHasAutoScrolled] = React.useState(false);
   const [measureRef, measure] = useMeasure<HTMLDivElement>();
-  const scrollRef = React.useRef<HTMLDivElement>();
+  const scrollRef = React.useRef<HTMLDivElement>(null);
   const ref = useMergedRefs<unknown>(
     scrollRef,
     useWrappedRefWithWarning(measureRef, 'Timeline')
   );
 
-  const formattedDate = useShortDate(toDate(start));
+  const [hoveredRowKey, setHoveredRowKey] = React.useState<string | null>(null);
+
+  const totalTimeSeconds = rows.reduce((maxTime, row) => {
+    const time = differenceInSeconds(row.interval.end, row.interval.start);
+    if (time > maxTime) {
+      return time;
+    }
+    return maxTime;
+  }, 0);
 
   const idealPerHourWidth = React.useMemo(() => {
-    const totalHours = totalLength / 60 / 60;
+    if (totalTimeSeconds <= 0) {
+      return 0;
+    }
+    const totalHours = totalTimeSeconds / 60 / 60;
     return measure.width / totalHours;
-  }, [measure.width, totalLength]);
+  }, [measure.width, totalTimeSeconds]);
 
   const minPerHourWidth = 50;
   const perHourWidth = idealPerHourWidth < minPerHourWidth ? minPerHourWidth : idealPerHourWidth;
-  const width = Math.ceil(perHourWidth * totalLength / 60 / 60);
-  const pixelsPerSecond = width / totalLength;
-
-  const streamerRows = React.useMemo(() => grouped.map((streams) => {
-    const { segment, streamer } = streams[0];
-    return (
-      <div
-        key={streamer.twitchId}
-        className={classes(
-          styles.streamer,
-          hoveredStreamerId === streamer.twitchId && styles.hovered
-        )}
-        style={factionStylesForKey(segment.liveInfo?.tagFaction ?? segment.character?.factions.at(0)?.key)}
-        onMouseEnter={() => setHoveredStreamerId(streamer.twitchId)}
-        onMouseLeave={() => setHoveredStreamerId(s => (s === streamer.twitchId ? null : s))}
-      >
-        <Link to={`/streamer/${streamer.twitchLogin}`}>
-          <ProfilePhoto
-            channelInfo={streamer}
-            size={isCompact ? 24 : 'sm'}
-          />
-        </Link>
-        <div className={styles.name}>
-          <p>
-            <Link to={`/streamer/${streamer.twitchLogin}`}>
-              {streamer.displayName}
-            </Link>
-          </p>
-        </div>
-      </div>
-    );
-  }), [grouped, factionStylesForKey, isCompact, hoveredStreamerId]);
-
-  const hours = eachHourOfInterval(day);
-  const hourBars = [...hours, end].map((hour) => {
-    const offsetSec = differenceInSeconds(hour, start);
-    return (
-      <div
-        key={formatISO(hour)}
-        className={classes(
-          styles.hourBar,
-        )}
-        style={{
-          right: `${Math.round(offsetSec * pixelsPerSecond)}px`,
-        }}
-      />
-    );
-  })
-
-  if (isWithinInterval(nowToShow, day)) {
-    const offsetSec = differenceInSeconds(nowToShow, start);
-    hourBars.push(
-      <div
-        key='now'
-        className={classes(
-          styles.hourBar,
-          styles.now,
-        )}
-        style={{
-          left: `${Math.round(offsetSec * pixelsPerSecond)}px`,
-        }}
-      />
-    );
-  }
+  const width = Math.ceil(perHourWidth * totalTimeSeconds / 60 / 60);
+  const pixelsPerSecond = width / totalTimeSeconds;
 
   React.useEffect(() => {
-    if (hasScrolled) {
+    if (hasAutoScrolled) {
       return;
     }
     if (measure.width === 0) {
       return;
     }
-    if (grouped.length > 0 && isWithinInterval(nowToShow, day)) {
-      const offsetSec = differenceInSeconds(nowToShow, start);
+    const autoscrollTimeToUse = autoscrollToTime === 'now' ? now : autoscrollToTime;
+    if (hoursInterval === undefined || autoscrollTimeToUse === undefined) {
+      return;
+    }
+    if (rows.length > 0 && isWithinInterval(autoscrollTimeToUse, hoursInterval)) {
+      const offsetSec = differenceInSeconds(autoscrollTimeToUse, hoursInterval.start);
       const offset = offsetSec * pixelsPerSecond;
       scrollRef.current?.scrollTo({
         left: offset - measure.width + 20
       });
-      setHasScrolled(true);
+      setHasAutoScrolled(true);
     }
-  }, [grouped, hasScrolled, measure, nowToShow, day, start, pixelsPerSecond]);
+  }, [rows, hasAutoScrolled, hoursInterval, measure, pixelsPerSecond, autoscrollToTime, now]);
 
-  const timelineRows = React.useMemo(() => grouped.map((streams) => {
-    const { streamer } = streams[0];
-    return (
-      <div
-        key={streamer.twitchId}
-        className={classes(
-          styles.streamerRow,
-          hoveredStreamerId === streamer.twitchId && styles.hovered
-        )}
-        onMouseEnter={() => setHoveredStreamerId(streamer.twitchId)}
-        onMouseLeave={() => setHoveredStreamerId(s => (s === streamer.twitchId ? null : s))}
-      >
-        {streams.map(({ streamer, segment }) =>
-          <TimelineSegment
-            key={segment.id}
-            segment={segment}
-            streamer={streamer}
-            visibleInterval={day}
-            pixelsPerSecond={pixelsPerSecond}
-            handleRefresh={reload}
-          />
-        )}
-      </div>
-    );
-  }), [grouped, day, pixelsPerSecond, reload, hoveredStreamerId]);
-
-  return (
-    <div className={classes(
-      'content',
-      'inset',
-      styles.content,
-      isCompact && styles.compact,
-    )}>
-      <div className={styles.header}>
-        <h3>{formattedDate}</h3>
-        <div className={styles.compactSetting}>
-          <input
-            type='checkbox'
-            id='compactCheckbox'
-            checked={isCompact}
-            onChange={e => setIsCompact(e.target.checked)}
-          />
-          <label
-            htmlFor='compactCheckbox'
-          >
-            Compact
-          </label>
-        </div>
-        <Button className='button secondary' onClick={previous}>Previous</Button>
-        <Button className='button secondary' onClick={next} disabled={isToday}>Next</Button>
-      </div>
-      {grouped.length === 0 ? hasMore ? (
-        <Loading />
-      ) : (
-        <>
-          <h4>No streams</h4>
-          <p>There aren’t any recorded streams during this timeframe.</p>
-        </>
-      ) : (
+  const hourBars = React.useMemo(() => {
+    if (hoursInterval === undefined) {
+      return undefined;
+    }
+    const hours = eachHourOfInterval(hoursInterval);
+    const bars = hours.slice(1).map((hour) => {
+      const offsetSec = differenceInSeconds(hour, hoursInterval.start);
+      return (
         <div
-          className={styles.container}
+          key={formatISO(hour)}
+          className={classes(
+            styles.hourBar,
+            isEqual(hour, startOfDay(hour)) && styles.midnight,
+          )}
+          style={{
+            left: `${Math.round(offsetSec * pixelsPerSecond)}px`,
+          }}
+        />
+      );
+    });
+
+    if (now && isWithinInterval(now, hoursInterval)) {
+      const offsetSec = differenceInSeconds(now, hoursInterval.start);
+      bars.push(
+        <div
+          key='now'
+          className={classes(
+            styles.hourBar,
+            styles.now,
+          )}
+          style={{
+            left: `${Math.round(offsetSec * pixelsPerSecond)}px`,
+          }}
+        />
+      );
+    }
+
+    return bars;
+  }, [hoursInterval, pixelsPerSecond, now]);
+
+  const sidebarRows = React.useMemo(() => (
+    sidebarItems.map(({ key, item }) =>
+      <div
+        key={key}
+        className={classes(
+          styles.sidebarRow,
+          hoveredRowKey === key && styles.hovered
+        )}
+        onMouseEnter={() => setHoveredRowKey(key)}
+        onMouseLeave={() => setHoveredRowKey(k => (k === key ? null : k))}
+      >
+        <div>{item}</div>
+      </div>
+    )
+  ), [sidebarItems, hoveredRowKey]);
+
+  const timelineRows = React.useMemo(() => (
+    rows.map(({ key, interval, segments }) => {
+      return (
+        <div
+          key={key}
+          className={classes(
+            styles.timelineRow,
+            hoveredRowKey === key && styles.hovered
+          )}
+          onMouseEnter={() => setHoveredRowKey(key)}
+          onMouseLeave={() => setHoveredRowKey(k => (k === key ? null : k))}
         >
           <div>
-            <div className={classes(styles.streamerContainer, styles.rows)}>
-              {streamerRows}
-            </div>
-            <div ref={ref} className={styles.timelineContainer}>
-              <div className={styles.hourBars} style={{ width: `${width}px`}}>
-                {hourBars}
-              </div>
-              <div className={styles.rows} style={{ width: `${width}px` }}>
-                <HoursHeader
-                  visibleInterval={day}
-                  pixelsPerSecond={pixelsPerSecond}
-                />
-                {timelineRows}
-              </div>
-            </div>
+            {segments.map(({ segment, streamer}) =>
+              <TimelineSegment
+                key={segment.id}
+                segment={segment}
+                streamer={streamer}
+                visibleInterval={interval}
+                pixelsPerSecond={pixelsPerSecond}
+                compact={isCompact}
+                handleRefresh={handleReload ?? (() => {})}
+              />
+            )}
           </div>
         </div>
+      )
+    })
+  ), [rows, hoveredRowKey, isCompact, handleReload, pixelsPerSecond]);
+
+  return (
+    <div
+      className={classes(
+        styles.content,
+        isCompact && styles.compact
       )}
+    >
+      <div className={styles.container} >
+        {hasSidebar &&
+          <div
+            className={classes(
+              styles.sidebar,
+              hourBars && styles.hasHourHeader
+            )}
+          >
+            {sidebarRows}
+          </div>
+        }
+        <div ref={ref} className={styles.timelineContainer}>
+          <div className={styles.rows} style={{ width: `${width}px` }}>
+            <>
+              {hourBars}
+              {hoursInterval &&
+                <HoursHeader
+                  visibleInterval={hoursInterval}
+                  pixelsPerSecond={pixelsPerSecond}
+                />
+              }
+              {timelineRows}
+            </>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
-
-export const TimelineContainer: React.FC = () =>
-  <Timeline />
 
 export default Timeline;
