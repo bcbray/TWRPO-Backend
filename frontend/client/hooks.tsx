@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { isSameDay, subDays } from 'date-fns';
 import isMobile, { IsMobileOptions } from 'is-mobile';
 
-import { useNow } from './Data';
+import { useNow, useIsFirstRenderFromSSR } from './Data';
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -129,17 +129,17 @@ export interface RelativeDateResult {
 
 export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult | undefined {
   const now = useNow();
-  const isFirstRender = useInitialRender();
+  const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
 
   // Use en-US and UTC for the first render so we're consistent between SSR and the
   // first client-side render. Then immediately swap in client local.
-  const locale = isFirstRender ? 'en-US' : undefined;
+  const locale = isFirstRenderFromSSR ? 'en-US' : undefined;
 
   // Similarly, use UTC for the first render then fall back to client time zone.
   const formatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
-    timeZone: isFirstRender ? 'utc' : undefined,
-    timeZoneName: isFirstRender ? 'short' : undefined,
-  }), [isFirstRender]);
+    timeZone: isFirstRenderFromSSR ? 'utc' : undefined,
+    timeZoneName: isFirstRenderFromSSR ? 'short' : undefined,
+  }), [isFirstRenderFromSSR]);
 
   const formatter = useMemo(() => (
     new Intl.RelativeTimeFormat(locale, { numeric: 'auto' })
@@ -194,22 +194,22 @@ function shortDate(date: Date, now: Date, locale: string | undefined, formatOpti
 
 export function useShortDate(date: Date): string {
   const now = useNow();
-  const isFirstRender = useInitialRender();
+  const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
 
   // Use en-US and UTC for the first render so we're consistent between SSR and the
   // first client-side render. Then immediately swap in client local.
-  const locale = isFirstRender ? 'en-US' : undefined;
+  const locale = isFirstRenderFromSSR ? 'en-US' : undefined;
 
   // Similarly, use UTC for the first render then fall back to client time zone.
   const formatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
-    timeZone: isFirstRender ? 'utc' : undefined,
-    timeZoneName: isFirstRender ? 'short' : undefined,
-  }), [isFirstRender]);
+    timeZone: isFirstRenderFromSSR ? 'utc' : undefined,
+    timeZoneName: isFirstRenderFromSSR ? 'short' : undefined,
+  }), [isFirstRenderFromSSR]);
 
-  if (!isFirstRender && isSameDay(date, now)) {
+  if (!isFirstRenderFromSSR && isSameDay(date, now)) {
     return 'Today'
   }
-  if (!isFirstRender && isSameDay(date, subDays(now, 1))) {
+  if (!isFirstRenderFromSSR && isSameDay(date, subDays(now, 1))) {
     return 'Yesterday'
   }
 
