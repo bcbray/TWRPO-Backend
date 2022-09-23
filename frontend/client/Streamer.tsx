@@ -170,7 +170,10 @@ const Streamer: React.FC<StreamerProps> = ({
                   lastLoadTime={lastRefresh}
                 />
                 {streams.length > 0 && hasMore &&
-                    <LoadTrigger key={loadKey} loadMore={loadMore} />
+                    <>
+                      <LoadTrigger key={loadKey} loadMore={loadMore} />
+                      <Loading />
+                    </>
                 }
                 </>
               ) : (
