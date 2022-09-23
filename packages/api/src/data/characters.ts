@@ -2272,7 +2272,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 940, name: 'Nash' }, // Former Kettleman. Dead.
         { id: 1014, name: 'Clay Dempsey' },
         { id: 1022, name: 'Hannibal ?' },
-        { id: 1115, name: 'Noland Kemper?' }, // Unconfirmed but pretty sure it's Wombax. Also might have the wrong last name
+        { id: 1115, name: 'Nolan Kemp', factions: ['Guarma'] },
     ],
     woplotomo: [
         { id: 941, name: '? ?', assume: 'neverNp' },
