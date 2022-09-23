@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo, createContext, useContext } from 'react';
 import { useSearchParams, NavigateOptions } from 'react-router-dom';
 import { useDebounce, usePreviousDistinct, useUpdateEffect } from 'react-use';
 import useTimeout from '@restart/hooks/useTimeout';
@@ -6,6 +6,7 @@ import Waypoint from '@restart/ui/Waypoint';
 import { WaypointEvent, Position } from '@restart/ui/useWaypoint';
 import _ from 'lodash';
 import { isSameDay, subDays } from 'date-fns';
+import isMobile, { IsMobileOptions } from 'is-mobile';
 
 import { useNow } from './Data';
 
@@ -365,4 +366,28 @@ export const useFilterRegex = (filterText: string | undefined) => {
 
     return new RegExp(escapedFilter, 'i');
   }, [filterText]);
+}
+
+export interface ServerHookData {
+  userAgent: IsMobileOptions['ua'];
+}
+
+export const ServerHookContext = createContext<Partial<ServerHookData>>({});
+
+export const ServerHookDataProvider: React.FC<{
+  data: ServerHookData,
+  children: React.ReactElement
+}>  = ({
+  data,
+  children,
+}) => (
+  <ServerHookContext.Provider value={data}>
+    {children}
+  </ServerHookContext.Provider>
+);
+
+
+export const useIsMobile = () => {
+  const { userAgent } = useContext(ServerHookContext);
+  return useMemo(() => isMobile({ ua: userAgent }), [userAgent]);
 }

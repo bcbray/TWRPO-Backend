@@ -28,6 +28,7 @@ import {
   preloadedDataKey,
 } from '../client/Data';
 import { rootFactionStylesheetContents } from '../client/FactionStyleProvider';
+import { ServerHookDataProvider, ServerHookData } from '../client/hooks'
 
 const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
   try {
@@ -37,6 +38,10 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
     const userResponse = await api.fetchSessionUser(req.user as SessionUser | undefined);
     const now = new Date();
+
+    const hookContext: ServerHookData = {
+      userAgent: req
+    };
 
     const {
       appHtml,
@@ -61,17 +66,19 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
         const used: PreloadedUsed = {};
 
         appHtml = ReactDOMServer.renderToString(
-          <ServerPreloadedDataProvider data={preloadedData} used={used}>
-            <SSRProvider>
-              <SSRRoutingProvider value={routingContext}>
-                <HelmetProvider context={helmetContext} >
-                  <StaticRouter location={req.url}>
-                    <App />
-                  </StaticRouter>
-                </HelmetProvider>
-              </SSRRoutingProvider>
-            </SSRProvider>
-          </ServerPreloadedDataProvider>
+          <ServerHookDataProvider data={hookContext}>
+            <ServerPreloadedDataProvider data={preloadedData} used={used}>
+              <SSRProvider>
+                <SSRRoutingProvider value={routingContext}>
+                  <HelmetProvider context={helmetContext} >
+                    <StaticRouter location={req.url}>
+                      <App />
+                    </StaticRouter>
+                  </HelmetProvider>
+                </SSRRoutingProvider>
+              </SSRProvider>
+            </ServerPreloadedDataProvider>
+          </ServerHookDataProvider>
         );
 
         let needsAnotherLoad = false;
