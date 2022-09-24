@@ -815,11 +815,7 @@ const getWrpLive = async (
                     }
 
                     if (!matchedServer) {
-                        console.error(JSON.stringify({
-                            level: 'error',
-                            message: 'Got a stream without a matched server',
-                            stream,
-                        }));
+                        // Can get here because of assumeOther
                         continue;
                     }
                     const chunk: Omit<StreamChunk, 'id' | 'isOverridden' | 'isHidden'> = {
