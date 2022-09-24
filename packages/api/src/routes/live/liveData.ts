@@ -1242,8 +1242,19 @@ export const getWrpStreams = async (apiClient: ApiClient, dataSource: DataSource
 
 export type IntervalTimeout = ReturnType<typeof setInterval>;
 
+const logAPIStats = (apiClient: ApiClient) =>
+    console.log(JSON.stringify({
+        level: 'info',
+        event: 'twitch-api-stats',
+        message: `${apiClient.lastKnownRemainingRequests} remaining requests until ${apiClient.lastKnownResetDate} with a limit of ${apiClient.lastKnownLimit}`,
+        now: new Date(),
+        limit: apiClient.lastKnownLimit,
+        requests: apiClient.lastKnownRemainingRequests,
+        resetDate: apiClient.lastKnownResetDate,
+    }));
+
 export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, intervalMs: number): IntervalTimeout => {
-    getWrpLive(apiClient, dataSource);
+    getWrpLive(apiClient, dataSource).then(() => logAPIStats(apiClient));
 
     return setInterval(async () => {
         if (cachedResults === undefined) {
@@ -1252,5 +1263,6 @@ export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, in
         }
         log('Refreshing cache...');
         await getWrpLive(apiClient, dataSource, true);
+        logAPIStats(apiClient);
     }, intervalMs);
 };
