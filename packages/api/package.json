@@ -13,6 +13,7 @@
         "bootstrap-db": "node dist/scripts/bootstrap-db.js"
     },
     "dependencies": {
+        "@d-fischer/logger": "^4.0.0",
         "@twrpo/types": "1.0.0",
         "@twurple/api": "^5.2.3",
         "@twurple/auth": "^5.2.3",

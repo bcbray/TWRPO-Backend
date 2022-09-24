@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import cors from 'cors';
 import { ApiClient, HelixUser, HelixUserData } from '@twurple/api';
 import { AuthProvider } from '@twurple/auth';
+import { LogLevel } from '@d-fischer/logger';
 import { DataSource, Repository } from 'typeorm';
 import {
     CharactersResponse,
@@ -48,6 +49,15 @@ interface ApiOptions {
     databaseStatsLogInterval?: number
 }
 
+const twurpleLogRemap: Record<LogLevel, string> = {
+    [LogLevel.CRITICAL]: 'critical',
+    [LogLevel.ERROR]: 'error',
+    [LogLevel.WARNING]: 'warning',
+    [LogLevel.INFO]: 'info',
+    [LogLevel.DEBUG]: 'debug',
+    [LogLevel.TRACE]: 'debug',
+};
+
 class Api {
     twitchClient: ApiClient;
 
@@ -71,6 +81,16 @@ class Api {
 
     constructor(options: ApiOptions) {
         this.twitchClient = new ApiClient({
+            logger: {
+                minLevel: LogLevel.DEBUG,
+                custom: (level, message) => {
+                    console.log(JSON.stringify({
+                        level: twurpleLogRemap[level],
+                        event: 'twitch-api-log',
+                        message,
+                    }));
+                },
+            },
             authProvider: options.twitchAuthProvider,
         });
         this.dataSource = dataSource(options.postgresUrl);
