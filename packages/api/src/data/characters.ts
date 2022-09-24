@@ -1604,7 +1604,7 @@ export const wrpCharacters: WrpCharacters = {
     Question_Box: [
         { id: 665, name: 'Lydia Lewis' }, // Former Sheriff
         { id: 666, name: 'Blaire Turner' },
-        { id: 993, name: 'Opal Davis' }, // Deputy hopeful
+        { id: 993, name: '[Deputy] Opal Davis', factions: ['Law'] },
     ],
     Quip_TV: [
         { id: 667, name: '[Deputy] Dove Hopkins', factions: ['Law'] },
