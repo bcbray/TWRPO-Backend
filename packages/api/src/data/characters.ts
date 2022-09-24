@@ -393,7 +393,7 @@ export const wrpCharacters: WrpCharacters = {
     Chief: [
         { id: 151, name: 'Caesar Coal' },
         { id: 152, name: 'Tuuyship Áama' },
-        { id: 1142, name: 'Kinny ?', factions: ['Lifer'] },
+        { id: 1142, name: 'Kinny "Kongo" ?', factions: ['Lifer'] },
     ],
     CHUDOCKEN: [
         { id: 153, name: 'Qeljayiden', nicknames: ['Qelajayiden', 'Jaden'] },
