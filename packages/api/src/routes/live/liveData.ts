@@ -259,7 +259,7 @@ const knownPfps: { [key: string]: string } = {};
 const knownTwitchUsers: { [key: string]: TwitchUser } = {};
 let unknownTwitchUsers: { [key: string]: TwitchUser } = {};
 
-const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise<HelixStream[]> => {
+const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise<HelixStream[] | null> => {
     const knownUsers = await getKnownTwitchUsers(apiClient, dataSource);
     knownUsers.forEach((user) => {
         knownPfps[user.id] = user.profilePictureUrl.replace('-300x300.', '-50x50.');
@@ -323,7 +323,7 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise
             event: 'twitch-stream-fetch-failed',
             error,
         }));
-        return [];
+        return null;
     }
 
     return gtaStreams;
@@ -408,7 +408,22 @@ const getWrpLive = async (
                 const now = new Date();
                 const nowTime = +now;
 
-                const gtaStreams: HelixStream[] = await getStreams(apiClient, dataSource);
+                let gtaStreams: HelixStream[] | null = await getStreams(apiClient, dataSource);
+                if (gtaStreams === null) {
+                    if (cachedResults) {
+                        console.warn(JSON.stringify({
+                            level: 'notice',
+                            message: 'Failed to fetch streams, using previously-cached results',
+                        }));
+                        resolve(cachedResults);
+                        return;
+                    }
+                    console.warn(JSON.stringify({
+                        level: 'warning',
+                        message: 'Failed to fetch streams and had no cached results',
+                    }));
+                    gtaStreams = [];
+                }
 
                 const fetchEnd = process.hrtime.bigint();
                 console.log(JSON.stringify({ traceID: fetchID, event: 'fetched', fetchTime: Number((fetchEnd - fetchStart) / BigInt(1e+6)) }));
