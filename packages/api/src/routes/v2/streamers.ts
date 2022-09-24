@@ -183,20 +183,31 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         avgStreamStartTimeOffest: number;
     }
 
-    const averageStartTimeQueryBuilder = dataSource
-        .getRepository(StreamChunk)
-        .createQueryBuilder('stream_chunk')
-        .select('ROUND(EXTRACT(\'epoch\' FROM AVG(stream_chunk.streamStartDate ::time)))::int', 'avgStreamStartTimeOffest')
-        .where('stream_chunk.streamerId = :streamerId', { streamerId: channel.twitchId })
-        .groupBy('stream_chunk.streamerId');
+    // Compute the circular average start time (circular around the 24-hour clock face)
+    // Ref: https://en.wikipedia.org/wiki/Circular_mean
+    // Ref: https://rosettacode.org/wiki/Averages/Mean_time_of_day#SQL/PostgreSQL
+    const averageStartTime: StreamStats[] = await dataSource
+        .createQueryBuilder()
+        .select('(round((degrees(atan2(AVG(points.sin),AVG(points.cos)))) * (24*60*60)/360) + (24*60*60))::int % (24*60*60)', 'avgStreamStartTimeOffest')
+        .from(qb =>
+            qb.subQuery()
+                .select('cos(radians(t*360/(24*60*60)))', 'cos')
+                .addSelect('sin(radians(t*360/(24*60*60)))', 'sin')
+                .from((qb2) => {
+                    const subQuery = qb2.subQuery()
+                        .select('EXTRACT(epoch from stream_chunk.streamStartDate ::time)', 't')
+                        .from(StreamChunk, 'stream_chunk')
+                        .where('stream_chunk.streamerId = :streamerId', { streamerId: channel.twitchId });
 
-    if (!includeHiddenSegments) {
-        averageStartTimeQueryBuilder
-            .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
-            .andWhere('stream_chunk.isHidden = false');
-    }
-
-    const averageStartTime: StreamStats[] = await averageStartTimeQueryBuilder.execute();
+                    if (!includeHiddenSegments) {
+                        subQuery
+                            .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+                            .andWhere('stream_chunk.isHidden = false');
+                    }
+                    return subQuery;
+                }, 'times'),
+        'points')
+        .execute();
 
     const averageStreamStartTimeOffset = averageStartTime.length > 0
         ? averageStartTime[0].avgStreamStartTimeOffest
