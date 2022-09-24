@@ -182,23 +182,17 @@ const Streamer: React.FC<StreamerProps> = ({
           </div>
           {streams.length > 0 || hasMore ? (
             streamsView === 'timeline' ? (
-              streams.length > 0 ? (
-                <>
-                <StreamerTimeline
-                  streamer={streamer}
-                  segments={streams.map(({ segment }) => segment)}
-                  lastLoadTime={lastRefresh}
-                />
-                {streams.length > 0 && hasMore &&
-                    <>
-                      <LoadTrigger key={loadKey} loadMore={loadMore} />
-                      <Loading />
-                    </>
+              <StreamerTimeline
+                streamer={streamer}
+                segments={streams.map(({ segment }) => segment)}
+                lastLoadTime={lastRefresh}
+                isLoadingMore={hasMore}
+                loadMoreTrigger={
+                  streams.length > 0 && hasMore
+                    ? <LoadTrigger key={loadKey} loadMore={loadMore} />
+                    : undefined
                 }
-                </>
-              ) : (
-                <Loading />
-              )
+              />
             ) : (
               <StreamList
                 streams={[]}

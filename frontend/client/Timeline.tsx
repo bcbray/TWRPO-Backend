@@ -54,6 +54,9 @@ export interface TimelineProps {
 
   isCompact?: boolean;
   handleReload?: () => void;
+
+  isLoadingMore?: boolean;
+  loadMoreTrigger?: React.ReactElement;
 }
 
 interface HoursHeaderProps {
@@ -109,6 +112,8 @@ const Timeline: React.FC<TimelineProps> = ({
   autoscrollToTime,
   isCompact = false,
   handleReload,
+  isLoadingMore = false,
+  loadMoreTrigger,
 }) => {
 
   const sidebarItems = rows.map(row => ({
@@ -317,6 +322,12 @@ const Timeline: React.FC<TimelineProps> = ({
           </div>
         </div>
       </div>
+      {(isLoadingMore || loadMoreTrigger) &&
+        <div className={styles.spinnerCard}>
+          {loadMoreTrigger}
+          {isLoadingMore && <Loading />}
+        </div>
+      }
     </div>
   );
 };

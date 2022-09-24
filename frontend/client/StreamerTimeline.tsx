@@ -24,12 +24,16 @@ import styles from './StreamerTimeline.module.css';
 
 import Timeline, { TimelineRow } from './Timeline'
 import { useShortDate, useTimezone } from './hooks';
+import Loading from './Loading';
 
 
 interface StreamerTimelineProps {
   streamer: Streamer;
   segments: VideoSegment[];
   lastLoadTime?: Date;
+
+  isLoadingMore?: boolean;
+  loadMoreTrigger?: React.ReactElement;
 }
 
 interface TimeInterval {
@@ -72,7 +76,13 @@ const GapInfoItem: React.FC<{ start: Date, end: Date }> = ({ start, end }) => {
   )
 }
 
-const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments, lastLoadTime }) => {
+const StreamerTimeline: React.FC<StreamerTimelineProps> = ({
+  streamer,
+  segments,
+  lastLoadTime,
+  isLoadingMore,
+  loadMoreTrigger,
+}) => {
   const now = React.useMemo(() => lastLoadTime ?? new Date(), [lastLoadTime]);
   const timezone = useTimezone();
   const earliestStartRef = React.useRef<TimeInterval & { timezone: string } | undefined>();
@@ -230,6 +240,9 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments,
   }, [groups, intervals, streamer]);
 
   if (data === null) {
+    if (isLoadingMore) {
+      return <Loading />;
+    }
     return null;
   }
   const { hoursInterval, rows } = data;
@@ -240,6 +253,8 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({ streamer, segments,
       rows={rows}
       now={now}
       autoscrollToTime='now'
+      isLoadingMore={isLoadingMore}
+      loadMoreTrigger={loadMoreTrigger}
     />
   )
 };
