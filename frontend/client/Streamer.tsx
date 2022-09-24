@@ -21,7 +21,6 @@ import { useStreams } from './Data';
 import { usePaginatedStreams } from './Streams';
 import { LoadTrigger, useIsMobile } from './hooks';
 import StreamerTimeline from './StreamerTimeline';
-import Loading from './Loading';
 
 interface StreamerProps {
   data: StreamerResponse;
