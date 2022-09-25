@@ -481,16 +481,17 @@ const getWrpLive = async (
 
                 const rawLongestCharacters: CharacterDuration[] = await longestCharactersQueryBuilder.execute();
 
-                // ServerID -> TwitchUserID -> CharacterID[] (ordered by duration, desc)
-                const longestCharactersLookup: Record<number, Record<string, number[]>> = {};
-                for (const { serverId, streamerId, characterId } of rawLongestCharacters) {
+                // ServerID -> TwitchUserID -> CharacterDuration[] (ordered by duration, desc)
+                const longestCharactersLookup: Record<number, Record<string, CharacterDuration[]>> = {};
+                for (const duration of rawLongestCharacters) {
+                    const { serverId, streamerId } = duration;
                     if (longestCharactersLookup[serverId] === undefined) {
                         longestCharactersLookup[serverId] = {};
                     }
                     if (longestCharactersLookup[serverId][streamerId] === undefined) {
                         longestCharactersLookup[serverId][streamerId] = [];
                     }
-                    longestCharactersLookup[serverId][streamerId].push(characterId);
+                    longestCharactersLookup[serverId][streamerId].push(duration);
                 }
 
                 for (const helixStream of gtaStreams) {
@@ -777,13 +778,24 @@ const getWrpLive = async (
                             } else {
                                 // If we have one, use the most-streamed character as the guess
                                 let foundLongest = false;
-                                const longestCharacterIds = longestCharactersLookup[wrpServer.id][helixStream.userId];
-                                if (longestCharacterIds && longestCharacterIds) {
-                                    for (const longestCharacterId of longestCharacterIds) {
-                                        const char = characters.find(c => c.id === longestCharacterId);
+                                const longestCharacters = longestCharactersLookup[wrpServer.id][helixStream.userId];
+                                if (longestCharacters) {
+                                    for (const longest of longestCharacters) {
+                                        const char = characters.find(c => c.id === longest.characterId);
                                         if (char !== undefined && char.assumeChar !== false) {
                                             possibleCharacter = char;
                                             foundLongest = true;
+                                            if (char.id !== characters[0].id) {
+                                                console.log(JSON.stringify({
+                                                    level: 'info',
+                                                    event: 'longest-character-guess',
+                                                    // eslint-disable-next-line max-len
+                                                    message: `Guessing character "${char.name}" (${char.id}) instead of "${characters[0].name}" (${characters[0].id}) based on previous stream duration`,
+                                                    channel: channelName,
+                                                    title,
+                                                    longestCharacters,
+                                                }));
+                                            }
                                             break;
                                         }
                                     }
