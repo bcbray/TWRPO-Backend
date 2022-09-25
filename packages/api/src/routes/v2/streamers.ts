@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
+import { startOfDay, differenceInSeconds, secondsInDay } from 'date-fns';
 import { StreamersResponse, StreamerResponse, UserResponse } from '@twrpo/types';
 
 import { wrpCharacters } from '../../data/characters';
@@ -19,6 +20,193 @@ import { chunkIsShorterThanMinimum, chunkIsRecent } from '../../segmentUtils';
 const charactersLookup = Object.fromEntries(
     Object.entries(wrpCharacters).map(([s, c]) => [s.toLowerCase(), c])
 );
+
+interface Interval<T> {
+    start: T;
+    end: T;
+}
+
+/** Normalized interval from 0-1 */
+type NormalizedInterval = Interval<number>;
+
+/** Normalized interval with the count of overlapping intervals */
+interface NormalizedSumInterval extends NormalizedInterval {
+    count: number;
+}
+
+/** One edge of an Interval */
+interface Edge {
+    point: number;
+    type: 'start' | 'end';
+}
+
+/**
+    Turns an Interval into a NormalizedInterval using the given range
+*/
+function normalizeInterval<T>(
+    interval: Interval<T>,
+    range: Interval<T>,
+    number: (value: T) => number
+): NormalizedInterval {
+    const min = number(range.start);
+    const max = number(range.end);
+    const length = max - min;
+    const start = number(interval.start);
+    const end = number(interval.end);
+    return {
+        start: (start - min) / length,
+        end: (end - min) / length,
+    };
+}
+
+/**
+    Splits a normalized interval that falls outside of [0,1] by rotating values
+    around the normalized interval.
+
+    e.g.
+    [0.2, 1.4] turns in to [[0.2, 1], [0, 0.4]]
+    [-0.45, 0.6] turns in to [[0.55, 1], [0, 0.6]]
+    [0.8, 3.6] turns in to [[0.8, 1], [0,1], [0,1], [0, 0.6]]
+*/
+function splitIntervalIfNecessary(interval: NormalizedInterval): NormalizedInterval[] {
+    // TODO: probably handle start > 1 or end < 0
+    let { start, end } = interval;
+    const intervals: NormalizedInterval[] = [
+        { start: Math.max(0, start), end: Math.min(1, end) },
+    ];
+    while (start < 0) {
+        start += 1;
+        intervals.push({ start: Math.max(0, start), end: 1 });
+    }
+    while (end > 1) {
+        end -= 1;
+        intervals.push({ start: 0, end: Math.min(1, end) });
+    }
+    return intervals;
+}
+
+/**
+    The start and end edges of the interval
+*/
+function edges(interval: NormalizedInterval): Edge[] {
+    return [
+        { point: interval.start, type: 'start' },
+        { point: interval.end, type: 'end' },
+    ];
+}
+
+/**
+    The counts of intervals for all subdivisions of [0,1].
+
+    e.g. given a set of intervals like:
+        ```
+            [0.10, 0.30]: --••••--------------
+            [0.00, 0.20]: ••••----------------
+            [0.45, 0.75]: ---------••••••-----
+            [0.10, 0.35]: --•••••-------------
+            [0.85, 0.95]: -----------------••-
+        ```
+        returns intervals like:
+        ```
+                          11332210011111100110
+        ```
+        that is:
+        ```
+            [0.00, 0.10]: 1
+            [0.10, 0.20]: 3
+            [0.20, 0.30]: 2
+            [0.39, 0.35]: 1
+            [0.35, 0.45]: 0
+            [0.45, 0.75]: 1
+            [0.75, 0.95]: 0
+            [0.95, 1.00]: 0
+        ```
+*/
+function sum(intervals: NormalizedInterval[]): NormalizedSumInterval[] {
+    const sortedEdges = intervals
+        .flatMap(splitIntervalIfNecessary)
+        .flatMap(edges)
+        .sort((lhs, rhs) => lhs.point - rhs.point);
+    const edgesToConsider: Edge[] = [...sortedEdges, { point: 1, type: 'end' }];
+    const intervalsintervals: NormalizedSumInterval[] = [];
+    let currentSum = 0;
+    let currentPoint = 0;
+    for (const { point, type } of edgesToConsider) {
+        if (point !== currentPoint) {
+            intervalsintervals.push({
+                start: currentPoint,
+                end: point,
+                count: currentSum,
+            });
+            currentPoint = point;
+        }
+        if (type === 'start') {
+            currentSum += 1;
+        } else if (type === 'end') {
+            currentSum -= 1;
+        }
+    }
+    return intervalsintervals;
+}
+
+/**
+    Find the longest interval with the lowest count.
+
+    Note: may return an interval outside of [0,1] if the best interval wraps
+    around the normalized range.
+*/
+function bestInterval(intervals: NormalizedSumInterval[]): NormalizedSumInterval | undefined {
+    // First, move and concatenate the end interval to the start if they're equal count
+    const rotatedIntervals = [...intervals];
+    if (rotatedIntervals.length > 1) {
+        const first = rotatedIntervals[0];
+        const last = rotatedIntervals[intervals.length - 1];
+        if (first.count === last.count && first.start === 0 && last.end === 1) {
+            const { end, count } = first;
+            const { start } = last;
+            rotatedIntervals.shift();
+            rotatedIntervals.pop();
+            rotatedIntervals.unshift({
+                start: start - 1,
+                end,
+                count,
+            });
+        }
+    }
+
+    let best: NormalizedSumInterval | undefined;
+    for (const interval of rotatedIntervals) {
+        if (best === undefined) {
+            best = interval;
+        } else if (interval.count < best.count
+            || (interval.count === best.count
+                && (interval.end - interval.start) > (best.end - best.start))) {
+            best = interval;
+        }
+    }
+    return best;
+}
+
+const bestStartTimeOffset = (chunks: StreamChunk[]): number | undefined => {
+    const range = { start: 0, end: secondsInDay };
+    const intervals = chunks
+        .map((chunk) => {
+            const start = startOfDay(chunk.firstSeenDate);
+            const startOffset = differenceInSeconds(chunk.firstSeenDate, start);
+            const endOffset = differenceInSeconds(chunk.lastSeenDate, start);
+            return {
+                start: startOffset,
+                end: endOffset,
+            };
+        })
+        .map(i => normalizeInterval(i, range, v => v));
+    const summedIntervals = sum(intervals);
+    const best = bestInterval(summedIntervals);
+    if (!best) {
+        return undefined;
+    }
+    return Math.round(best.end) % secondsInDay;
+};
 
 export const fetchStreamers = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<StreamersResponse> => {
     const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
@@ -179,39 +367,19 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         durations.map(duration => [duration.characterId, duration])
     );
 
-    interface StreamStats {
-        avgStreamStartTimeOffest: number;
+    const allChunksQueryBuilder = dataSource
+        .getRepository(StreamChunk)
+        .createQueryBuilder('stream_chunk')
+        .where('stream_chunk.streamerId = :streamerId', { streamerId: channel.twitchId });
+
+    if (!includeHiddenSegments) {
+        allChunksQueryBuilder
+            .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+            .andWhere('stream_chunk.isHidden = false');
     }
 
-    // Compute the circular average start time (circular around the 24-hour clock face)
-    // Ref: https://en.wikipedia.org/wiki/Circular_mean
-    // Ref: https://rosettacode.org/wiki/Averages/Mean_time_of_day#SQL/PostgreSQL
-    const averageStartTime: StreamStats[] = await dataSource
-        .createQueryBuilder()
-        .select('(round((degrees(atan2(AVG(points.sin),AVG(points.cos)))) * (24*60*60)/360) + (24*60*60))::int % (24*60*60)', 'avgStreamStartTimeOffest')
-        .from(qb =>
-            qb.subQuery()
-                .select('cos(radians(t*360/(24*60*60)))', 'cos')
-                .addSelect('sin(radians(t*360/(24*60*60)))', 'sin')
-                .from((qb2) => {
-                    const subQuery = qb2.subQuery()
-                        .select('EXTRACT(epoch from stream_chunk.streamStartDate ::time)', 't')
-                        .from(StreamChunk, 'stream_chunk')
-                        .where('stream_chunk.streamerId = :streamerId', { streamerId: channel.twitchId });
-
-                    if (!includeHiddenSegments) {
-                        subQuery
-                            .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
-                            .andWhere('stream_chunk.isHidden = false');
-                    }
-                    return subQuery;
-                }, 'times'),
-        'points')
-        .execute();
-
-    const averageStreamStartTimeOffset = averageStartTime.length > 0
-        ? averageStartTime[0].avgStreamStartTimeOffest
-        : undefined;
+    const allChunks = await allChunksQueryBuilder.getMany();
+    const averageStreamStartTimeOffset = bestStartTimeOffset(allChunks);
 
     const characterInfos = rawCharacters
         .map((character) => {
