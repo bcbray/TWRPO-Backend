@@ -29,3 +29,19 @@ export const parseServer = (server: Server): ParsedServer => {
         ...rest,
     };
 };
+
+export const matchServer = (title: string, servers: ParsedServer[]): ParsedServer | null => {
+    let matchPos = Number.POSITIVE_INFINITY;
+    let matchedServer: ParsedServer | null = null;
+
+    for (const server of servers) {
+        for (const otherRegex of server.regexes) {
+            const thisPos = title.indexOfRegex(otherRegex);
+            if (thisPos > -1 && thisPos < matchPos) {
+                matchedServer = server;
+                matchPos = thisPos;
+            }
+        }
+    }
+    return matchedServer;
+};
