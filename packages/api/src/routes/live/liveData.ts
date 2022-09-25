@@ -451,6 +451,48 @@ const getWrpLive = async (
                     .where('server.key IS NULL OR server.key != :key', { key: 'wrp' })
                     .getMany()).map(parseServer);
 
+                interface CharacterDuration {
+                    streamerId: string,
+                    serverId: number;
+                    characterId: number;
+                    duration: number;
+                }
+
+                const longestCharactersQueryBuilder = dataSource
+                    .getRepository(StreamChunk)
+                    .createQueryBuilder('stream_chunk')
+                    .select('stream_chunk.streamerId', 'streamerId')
+                    .addSelect('stream_chunk.serverId', 'serverId')
+                    .addSelect('stream_chunk.characterId', 'characterId')
+                    .addSelect('EXTRACT(\'epoch\' FROM SUM(stream_chunk.lastSeenDate - stream_chunk.firstSeenDate))::int', 'duration')
+                    .where('stream_chunk.characterId IS NOT NULL')
+                    .andWhere('stream_chunk.characterUncertain = false')
+                    .andWhere('stream_chunk.lastSeenDate - stream_chunk.firstSeenDate > make_interval(mins => 10)')
+                    .andWhere('stream_chunk.isHidden = false')
+                    .groupBy('stream_chunk.serverId')
+                    .addGroupBy('stream_chunk.characterId')
+                    .addGroupBy('stream_chunk.streamerId')
+                    .orderBy('duration', 'DESC');
+
+                if (gtaStreams.length > 0) {
+                    longestCharactersQueryBuilder
+                        .andWhere('stream_chunk.streamerId IN (:...channelTwitchIds)', { channelTwitchIds: gtaStreams.map(s => s.userId) });
+                }
+
+                const rawLongestCharacters: CharacterDuration[] = await longestCharactersQueryBuilder.execute();
+
+                // ServerID -> TwitchUserID -> CharacterID[] (ordered by duration, desc)
+                const longestCharactersLookup: Record<number, Record<string, number[]>> = {};
+                for (const { serverId, streamerId, characterId } of rawLongestCharacters) {
+                    if (longestCharactersLookup[serverId] === undefined) {
+                        longestCharactersLookup[serverId] = {};
+                    }
+                    if (longestCharactersLookup[serverId][streamerId] === undefined) {
+                        longestCharactersLookup[serverId][streamerId] = [];
+                    }
+                    longestCharactersLookup[serverId][streamerId].push(characterId);
+                }
+
                 for (const helixStream of gtaStreams) {
                     const { userDisplayName: channelName, title, viewers } = helixStream;
 
@@ -733,7 +775,22 @@ const getWrpLive = async (
                                 nowCharacter = characters.assumeChar;
                                 possibleCharacter = nowCharacter;
                             } else {
-                                possibleCharacter = characters[0];
+                                // If we have one, use the most-streamed character as the guess
+                                let foundLongest = false;
+                                const longestCharacterIds = longestCharactersLookup[wrpServer.id][helixStream.userId];
+                                if (longestCharacterIds && longestCharacterIds) {
+                                    for (const longestCharacterId of longestCharacterIds) {
+                                        const char = characters.find(c => c.id === longestCharacterId);
+                                        if (char !== undefined && char.assumeChar !== false) {
+                                            possibleCharacter = char;
+                                            foundLongest = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!foundLongest) {
+                                    possibleCharacter = characters[0];
+                                }
                             }
                         }
 
