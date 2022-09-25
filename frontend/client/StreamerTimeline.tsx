@@ -107,9 +107,12 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({
       // we don’t trim off too many segments if the average is just _barely_
       // into a new hour
       const adjustedAverageStart = averageStart - minutesToSeconds(20);
+      // Make sure the start time is in the [0, daySeconds] range
+      const normalizedAverageStart = adjustedAverageStart / daySeconds;
+      const denormalizedAverageStart = (normalizedAverageStart - Math.floor(normalizedAverageStart)) * daySeconds;
       // Floor the adjusted average time to the start of the hour
       const startOfToday = startOfDay(now);
-      const averageStartHour = startOfHour(addSeconds(startOfToday, adjustedAverageStart));
+      const averageStartHour = startOfHour(addSeconds(startOfToday, denormalizedAverageStart));
       const averageStartHourOffset = differenceInSeconds(averageStartHour, startOfToday);
       earliestStart = { start: averageStartHourOffset, end: averageStartHourOffset + maxLength };
       earliestStartRef.current = { ...earliestStart, timezone };
@@ -175,7 +178,7 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({
     return Object.entries(groups)
       .sort(([lhsDay], [rhsDay]) => lhsDay.localeCompare(rhsDay) * -1)
       .map(([_, day]) => day);
-  }, [segments, maxLength, now, timezone, streamer.averageStreamStartTimeOffset]);
+  }, [segments, maxLength, now, timezone, streamer.averageStreamStartTimeOffset, daySeconds]);
 
   const intervals = React.useMemo(() => {
     let start: number | undefined;
