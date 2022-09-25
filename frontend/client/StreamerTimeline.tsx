@@ -18,6 +18,7 @@ import {
   isAfter,
 } from 'date-fns';
 import { getTimezoneOffset } from 'date-fns-tz';
+import { usePrevious } from 'react-use';
 import { Streamer, VideoSegment } from '@twrpo/types';
 
 import styles from './StreamerTimeline.module.css';
@@ -32,6 +33,7 @@ interface StreamerTimelineProps {
   segments: VideoSegment[];
   lastLoadTime?: Date;
 
+  loadTick?: number;
   isLoadingMore?: boolean;
   loadMoreTrigger?: React.ReactElement;
 }
@@ -80,6 +82,7 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({
   streamer,
   segments,
   lastLoadTime,
+  loadTick,
   isLoadingMore,
   loadMoreTrigger,
 }) => {
@@ -209,6 +212,8 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({
     return { visibleInterval, hoursInterval };
   }, [groups]);
 
+  const previousIntervals = usePrevious(intervals);
+
   const data = React.useMemo(() => {
     if (intervals === null) {
       return null;
@@ -221,6 +226,13 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({
     for (const group of groups) {
       const start = addSeconds(startOfDay(group.interval.start), visibleInterval.start);
       const nextStart = addDays(start, 1);
+      const end = addSeconds(startOfDay(group.interval.start), visibleInterval.end);
+      const previousStart = previousIntervals
+        ? addSeconds(startOfDay(group.interval.start), previousIntervals.visibleInterval.start)
+        : undefined;
+      const previousEnd = previousIntervals
+        ? addSeconds(startOfDay(group.interval.start), previousIntervals.visibleInterval.end)
+        : undefined;
       if (previousRowStart && isAfter(previousRowStart, nextStart)) {
         const gapEnd = subDays(previousRowStart, 1);
         rows.push({
@@ -233,14 +245,17 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({
         sidebarItem: <DaySidebarItem date={toDate(group.interval.start)} />,
         interval: {
           start: start,
-          end: addSeconds(startOfDay(group.interval.start), visibleInterval.end),
+          end: end,
         },
+        previousInterval: previousStart !== undefined && previousEnd !== undefined
+          ? { start: previousStart, end: previousEnd }
+          : undefined,
         segments: group.segments.map(segment => ({ segment: segment.segment, streamer }))
       });
       previousRowStart = start;
     }
     return { rows, hoursInterval };
-  }, [groups, intervals, streamer]);
+  }, [groups, intervals, streamer, previousIntervals]);
 
   if (data === null) {
     if (isLoadingMore) {
@@ -256,6 +271,7 @@ const StreamerTimeline: React.FC<StreamerTimelineProps> = ({
       rows={rows}
       now={now}
       autoscrollToTime='now'
+      loadTick={loadTick}
       isLoadingMore={isLoadingMore}
       loadMoreTrigger={loadMoreTrigger}
     />

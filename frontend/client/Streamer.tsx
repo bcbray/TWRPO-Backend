@@ -185,6 +185,7 @@ const Streamer: React.FC<StreamerProps> = ({
                 streamer={streamer}
                 segments={streams.map(({ segment }) => segment)}
                 lastLoadTime={lastRefresh}
+                loadTick={loadTick}
                 isLoadingMore={hasMore}
                 loadMoreTrigger={
                   streams.length > 0 && hasMore

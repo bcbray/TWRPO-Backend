@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMeasure } from 'react-use';
+import { useMeasure, usePrevious, useLocalStorage } from 'react-use';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import {
   Interval,
@@ -10,7 +10,9 @@ import {
   isWithinInterval,
   startOfDay,
   isEqual,
+  clamp,
 } from 'date-fns';
+import { Flipper, Flipped, spring } from 'react-flip-toolkit';
 import { SegmentAndStreamer } from '@twrpo/types';
 
 import styles from './Timeline.module.css';
@@ -26,6 +28,7 @@ export interface TimelineSegmentsRow {
   sidebarItem?: React.ReactNode;
   interval: Interval;
   segments: SegmentAndStreamer[];
+  previousInterval?: Interval;
 }
 
 export interface TimelineInfoRow {
@@ -55,6 +58,8 @@ export interface TimelineProps {
   isCompact?: boolean;
   handleReload?: () => void;
 
+  loadTick?: number;
+
   isLoadingMore?: boolean;
   loadMoreTrigger?: React.ReactElement;
 }
@@ -62,12 +67,21 @@ export interface TimelineProps {
 interface HoursHeaderProps {
   visibleInterval: Interval;
   pixelsPerSecond: number;
+  shouldAnimate: boolean;
 }
 
 const HoursHeader: React.FC<HoursHeaderProps> = ({
   visibleInterval,
   pixelsPerSecond,
+  shouldAnimate,
 }) => {
+  const previousVisibleInterval = usePrevious(visibleInterval);
+  const previousPixelsPerSecond = usePrevious(pixelsPerSecond);
+  const visibleIntervalRef = React.useRef(visibleInterval);
+  const pixelsPerSecondRef = React.useRef(pixelsPerSecond);
+  visibleIntervalRef.current = visibleInterval;
+  pixelsPerSecondRef.current = pixelsPerSecond;
+
   const hours = React.useMemo(() => eachHourOfInterval(visibleInterval), [visibleInterval]);
   const visibleHours = React.useMemo(() => {
     const perHourWidth = pixelsPerSecond * 60 * 60;
@@ -83,22 +97,97 @@ const HoursHeader: React.FC<HoursHeaderProps> = ({
     visibleHours.map(hour => [hour, intlFormat(hour, { hour: 'numeric' })]) as [Date, string][]
   ), [visibleHours]);
 
+  const springs = React.useRef<Record<string, ReturnType<typeof spring>>>({});
+  const removeSpring = React.useCallback((springKey: string) => {
+      if (springs.current[springKey] !== undefined) {
+        springs.current[springKey].destroy();
+        delete springs.current[springKey];
+      }
+  }, []);
+  const removing = React.useRef<Record<string, true>>({});
+
   return (
     <div className={styles.hourHeader}>
       {formattedHours.map(([hour, formatted]) => {
         const offsetSec = differenceInSeconds(hour, visibleInterval.start);
+        const appearOffsetSec = previousVisibleInterval !== undefined
+          ? differenceInSeconds(hour, previousVisibleInterval.start)
+          : offsetSec;
+        const left = Math.round(offsetSec * pixelsPerSecond);
+        const previousLeft = Math.round(appearOffsetSec * (previousPixelsPerSecond ?? pixelsPerSecond));
+        const key = formatISO(hour);
+        const flipKey = `hourLabel:${key}`;
         return (
-          <div
-            key={formatISO(hour)}
-            className={classes(
-              styles.hourLabel,
-            )}
-            style={{
-              left: `${Math.round(offsetSec * pixelsPerSecond)}px`,
+          <Flipped
+            key={key}
+            flipId={flipKey}
+            shouldFlip={() => shouldAnimate && !removing.current[flipKey]}
+            onAppear={(el) => {
+              if (!shouldAnimate) {
+                el.style.opacity = `1`;
+                return;
+              }
+              removeSpring(flipKey);
+              springs.current[flipKey] = spring({
+                values: {
+                  opacity: [0, 1],
+                  left: [previousLeft, left]
+                },
+                onUpdate: (snapshot) => {
+                  if (typeof snapshot === 'number') {
+                    return;
+                  }
+                  const { opacity, left } = snapshot;
+                  el.style.opacity = `${opacity}`;
+                  el.style.left = `${left}px`;
+                },
+                onComplete: () => removeSpring(flipKey),
+              })
+            }}
+            onStart={() => removeSpring(flipKey)}
+            onExit={(el, _, removeElement) => {
+              if (!shouldAnimate) {
+                removeElement();
+                return;
+              }
+              const nextOffsetSec = differenceInSeconds(hour, visibleIntervalRef.current.start);
+              const nextLeft = Math.round(nextOffsetSec * pixelsPerSecondRef.current);
+
+              removing.current[flipKey] = true;
+              removeSpring(flipKey);
+
+              springs.current[flipKey] = spring({
+                values: {
+                  opacity: [1, 0],
+                  left: [left, nextLeft]
+                },
+                onUpdate: (snapshot) => {
+                  if (typeof snapshot === 'number') {
+                    return;
+                  }
+                  const { opacity, left } = snapshot;
+                  el.style.opacity = `${opacity}`;
+                  el.style.left = `${left}px`;
+                },
+                onComplete: () => {
+                  removeElement();
+                  removeSpring(flipKey);
+                  delete removing.current[flipKey];
+                },
+              })
             }}
           >
-            <p>{formatted}</p>
-          </div>
+            <div
+              className={classes(
+                styles.hourLabel,
+              )}
+              style={{
+                left: `${Math.round(offsetSec * pixelsPerSecond)}px`,
+              }}
+            >
+              <p>{formatted}</p>
+            </div>
+          </Flipped>
         );
       })}
     </div>
@@ -112,9 +201,11 @@ const Timeline: React.FC<TimelineProps> = ({
   autoscrollToTime,
   isCompact = false,
   handleReload,
+  loadTick = 0,
   isLoadingMore = false,
   loadMoreTrigger,
 }) => {
+  const [shouldAnimate = false] = useLocalStorage('time-animations-enabled', false);
 
   const sidebarItems = rows.map(row => ({
     key: row.key,
@@ -157,6 +248,9 @@ const Timeline: React.FC<TimelineProps> = ({
   const width = Math.ceil(perHourWidth * totalTimeSeconds / 60 / 60);
   const pixelsPerSecond = width / totalTimeSeconds;
 
+  const previousHoursInterval = usePrevious(hoursInterval);
+  const previousPixelsPerSecond = usePrevious(pixelsPerSecond);
+
   React.useEffect(() => {
     if (hasAutoScrolled) {
       return;
@@ -178,6 +272,14 @@ const Timeline: React.FC<TimelineProps> = ({
     }
   }, [rows, hasAutoScrolled, hoursInterval, measure, pixelsPerSecond, autoscrollToTime, now]);
 
+  const springs = React.useRef<Record<string, ReturnType<typeof spring>>>({});
+  const removeSpring = React.useCallback((springKey: string) => {
+      if (springs.current[springKey] !== undefined) {
+        springs.current[springKey].destroy();
+        delete springs.current[springKey];
+      }
+  }, []);
+
   const hourBars = React.useMemo(() => {
     if (hoursInterval === undefined) {
       return undefined;
@@ -185,38 +287,108 @@ const Timeline: React.FC<TimelineProps> = ({
     const hours = eachHourOfInterval(hoursInterval);
     const bars = hours.slice(1).map((hour) => {
       const offsetSec = differenceInSeconds(hour, hoursInterval.start);
+      const appearOffsetSec = previousHoursInterval !== undefined
+        ? differenceInSeconds(hour, previousHoursInterval.start)
+        : offsetSec;
+      const left = Math.round(offsetSec * pixelsPerSecond);
+      const appearLeft = Math.round(appearOffsetSec * (previousPixelsPerSecond ?? pixelsPerSecond));
+      const key = formatISO(hour);
+      const flipKey = `hourBar:${key}`;
       return (
-        <div
-          key={formatISO(hour)}
-          className={classes(
-            styles.hourBar,
-            isEqual(hour, startOfDay(hour)) && styles.midnight,
-          )}
-          style={{
-            left: `${Math.round(offsetSec * pixelsPerSecond)}px`,
+        <Flipped
+          key={key}
+          flipId={flipKey}
+          shouldFlip={() => shouldAnimate}
+          onAppear={(el) => {
+            if (!shouldAnimate) {
+              el.style.opacity = `1`;
+              return;
+            }
+
+            removeSpring(flipKey);
+            springs.current[flipKey] = spring({
+              values: {
+                opacity: [0, 1],
+                left: [appearLeft, left]
+              },
+              onUpdate: (snapshot) => {
+                if (typeof snapshot === 'number') {
+                  return;
+                }
+                const { opacity, left } = snapshot;
+                el.style.opacity = `${opacity}`;
+                el.style.left = `${left}px`;
+              },
+              onComplete: () => removeSpring(flipKey),
+            })
           }}
-        />
+          onStart={() => removeSpring(flipKey)}
+        >
+          <div
+            className={classes(
+              styles.hourBar,
+              isEqual(hour, startOfDay(hour)) && styles.midnight,
+            )}
+            style={{
+              left: `${left}px`,
+            }}
+          />
+        </Flipped>
       );
     });
 
     if (now && isWithinInterval(now, hoursInterval)) {
       const offsetSec = differenceInSeconds(now, hoursInterval.start);
+      const appearOffsetSec = previousHoursInterval !== undefined
+        ? differenceInSeconds(now, previousHoursInterval.start)
+        : offsetSec;
+      const left = Math.round(offsetSec * pixelsPerSecond);
+      const appearLeft = Math.round(appearOffsetSec * (previousPixelsPerSecond ?? pixelsPerSecond));
       bars.push(
-        <div
+        <Flipped
           key='now'
-          className={classes(
-            styles.hourBar,
-            styles.now,
-          )}
-          style={{
-            left: `${Math.round(offsetSec * pixelsPerSecond)}px`,
+          flipId='now'
+          shouldFlip={() => shouldAnimate}
+          onAppear={(el) => {
+            if (!shouldAnimate) {
+              el.style.opacity = `1`;
+              return;
+            }
+            removeSpring('now');
+            springs.current['now'] = spring({
+              values: {
+                opacity: [0, 1],
+                left: [appearLeft, left]
+              },
+              onUpdate: (snapshot) => {
+                if (typeof snapshot === 'number') {
+                  return;
+                }
+                const { opacity, left } = snapshot;
+                el.style.opacity = `${opacity}`;
+                el.style.left = `${left}px`;
+              },
+              onComplete: () => removeSpring('now'),
+            })
           }}
-        />
+          onStart={() => removeSpring('now')}
+        >
+          <div
+            key='now'
+            className={classes(
+              styles.hourBar,
+              styles.now,
+            )}
+            style={{
+              left: `${left}px`,
+            }}
+          />
+        </Flipped>
       );
     }
 
     return bars;
-  }, [hoursInterval, pixelsPerSecond, now]);
+  }, [hoursInterval, pixelsPerSecond, now, previousPixelsPerSecond, previousHoursInterval, removeSpring, shouldAnimate]);
 
   const sidebarRows = React.useMemo(() => (
     sidebarItems.map(({ key, item, isInfo }) =>
@@ -237,7 +409,7 @@ const Timeline: React.FC<TimelineProps> = ({
   const timelineRows = React.useMemo(() => (
     rows.map((row) => {
       if ('interval' in row) {
-        const { key, interval, segments } = row;
+        const { key, interval, segments, previousInterval } = row;
         return (
           <div
             key={key}
@@ -249,17 +421,76 @@ const Timeline: React.FC<TimelineProps> = ({
             onMouseLeave={() => setHoveredRowKey(k => (k === key ? null : k))}
           >
             <div>
-              {segments.map(({ segment, streamer}) =>
-                <TimelineSegment
-                  key={segment.id}
-                  segment={segment}
-                  streamer={streamer}
-                  visibleInterval={interval}
-                  pixelsPerSecond={pixelsPerSecond}
-                  compact={isCompact}
-                  handleRefresh={handleReload ?? (() => {})}
-                />
-              )}
+              {segments.map(({ segment, streamer }) => {
+                const streamStart = new Date(segment.startDate);
+                const streamEnd = new Date(segment.endDate);
+
+                const clampStart = clamp(streamStart, interval);
+                const clampEnd = clamp(streamEnd, interval);
+
+                const startOffsetSec = differenceInSeconds(clampStart, interval.start);
+                const endOffsetSec = differenceInSeconds(interval.end, clampEnd);
+
+                const left = Math.round(startOffsetSec * pixelsPerSecond);
+                const right = Math.round(endOffsetSec * pixelsPerSecond);
+
+                const previousStartOffsetSec = differenceInSeconds(streamStart, previousInterval?.start ?? interval.start);
+                const previousEndOffsetSec = differenceInSeconds(previousInterval?.end ?? interval.end, streamEnd);
+
+                const previousLeft = Math.round(previousStartOffsetSec * (previousPixelsPerSecond ?? pixelsPerSecond));
+                const previousRight = Math.round(previousEndOffsetSec * (previousPixelsPerSecond ?? pixelsPerSecond));
+
+                const flipKey = `${key}:${segment.id}`;
+
+                return (
+                  <Flipped
+                    key={segment.id}
+                    flipId={flipKey}
+                    shouldFlip={() => shouldAnimate}
+                    onAppear={(el) => {
+                      if (!shouldAnimate) {
+                        el.style.opacity = `1`;
+                        return;
+                      }
+                      removeSpring(flipKey);
+                      springs.current[flipKey] = spring({
+                        values: {
+                          opacity: [0, 1],
+                          left: [previousLeft, left],
+                          right: [previousRight, right],
+                        },
+                        onUpdate: (snapshot) => {
+                          if (typeof snapshot === 'number') {
+                            return;
+                          }
+                          const { opacity, left, right } = snapshot;
+                          el.style.opacity = `${opacity}`;
+                          el.style.left = `${left}px`;
+                          el.style.right = `${right}px`;
+                        },
+                        onComplete: () => removeSpring(flipKey),
+                      })
+                    }}
+                    onStart={() => removeSpring(flipKey)}
+                  >
+                  {flippedProps =>
+                    <TimelineSegment
+                      segment={segment}
+                      streamer={streamer}
+                      visibleInterval={interval}
+                      pixelsPerSecond={pixelsPerSecond}
+                      compact={isCompact}
+                      handleRefresh={handleReload ?? (() => {})}
+                      style={{
+                        left: `${Math.round(startOffsetSec * pixelsPerSecond)}px`,
+                        right: `${Math.round(endOffsetSec * pixelsPerSecond)}px`,
+                      }}
+                      {...flippedProps}
+                    />
+                  }
+                  </Flipped>
+                );
+              })}
             </div>
           </div>
         )
@@ -282,7 +513,7 @@ const Timeline: React.FC<TimelineProps> = ({
         );
       }
     })
-  ), [rows, hoveredRowKey, isCompact, handleReload, pixelsPerSecond]);
+  ), [rows, hoveredRowKey, isCompact, handleReload, pixelsPerSecond, previousPixelsPerSecond, removeSpring, shouldAnimate]);
 
   const isInitialRenderFromSSR = useIsFirstRenderFromSSR();
   if (isInitialRenderFromSSR) {
@@ -290,45 +521,61 @@ const Timeline: React.FC<TimelineProps> = ({
   }
 
   return (
-    <div
-      className={classes(
-        styles.content,
-        isCompact && styles.compact
-      )}
+    <Flipper
+      flipKey={`${loadTick}:${hoursInterval?.start}:${hoursInterval?.end}`}
+      handleEnterUpdateDelete={({
+        hideEnteringElements,
+        animateExitingElements,
+        animateFlippedElements,
+        animateEnteringElements,
+      }) => {
+        hideEnteringElements();
+        animateEnteringElements();
+        animateExitingElements();
+        animateFlippedElements();
+      }}
     >
-      <div className={styles.container} >
-        {hasSidebar &&
-          <div
-            className={classes(
-              styles.sidebar,
-              hourBars && styles.hasHourHeader
-            )}
-          >
-            {sidebarRows}
+      <div
+        className={classes(
+          styles.content,
+          isCompact && styles.compact
+        )}
+      >
+        <div className={styles.container} >
+          {hasSidebar &&
+            <div
+              className={classes(
+                styles.sidebar,
+                hourBars && styles.hasHourHeader
+              )}
+            >
+              {sidebarRows}
+            </div>
+          }
+          <div ref={ref} className={styles.timelineContainer}>
+            <div className={styles.rows} style={{ width: `${width}px` }}>
+              <>
+                {hourBars}
+                {hoursInterval &&
+                  <HoursHeader
+                    visibleInterval={hoursInterval}
+                    pixelsPerSecond={pixelsPerSecond}
+                    shouldAnimate={shouldAnimate}
+                  />
+                }
+                {timelineRows}
+              </>
+            </div>
+          </div>
+        </div>
+        {(isLoadingMore || loadMoreTrigger) &&
+          <div className={styles.spinnerCard}>
+            {loadMoreTrigger}
+            {isLoadingMore && <Loading />}
           </div>
         }
-        <div ref={ref} className={styles.timelineContainer}>
-          <div className={styles.rows} style={{ width: `${width}px` }}>
-            <>
-              {hourBars}
-              {hoursInterval &&
-                <HoursHeader
-                  visibleInterval={hoursInterval}
-                  pixelsPerSecond={pixelsPerSecond}
-                />
-              }
-              {timelineRows}
-            </>
-          </div>
-        </div>
       </div>
-      {(isLoadingMore || loadMoreTrigger) &&
-        <div className={styles.spinnerCard}>
-          {loadMoreTrigger}
-          {isLoadingMore && <Loading />}
-        </div>
-      }
-    </div>
+    </Flipper>
   );
 };
 

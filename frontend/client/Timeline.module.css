@@ -6,8 +6,11 @@
 
 .hourLabel {
   position: absolute;
-  transform: translateX(-50%);
   white-space: nowrap;
+}
+
+.hourLabel p {
+  transform: translateX(-50%);
 }
 
 .sidebarRow,

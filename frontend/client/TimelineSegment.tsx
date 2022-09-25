@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   Interval,
-  differenceInSeconds,
-  clamp,
   isAfter,
   isBefore,
 } from 'date-fns';
@@ -26,6 +24,7 @@ interface TimelineSegmentProps {
   pixelsPerSecond: number;
   compact?: boolean;
   handleRefresh: () => void;
+  style?: React.CSSProperties;
 }
 
 interface StreamLinkProps {
@@ -80,18 +79,10 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
   pixelsPerSecond,
   compact,
   handleRefresh,
+  ...rest
 }) => {
   const streamStart = new Date(segment.startDate);
   const streamEnd = new Date(segment.endDate);
-
-  const clampStart = clamp(streamStart, visibleInterval);
-  const clampEnd = clamp(streamEnd, visibleInterval);
-
-  const duration = differenceInSeconds(streamEnd, clampStart);
-  const clampedDuration = differenceInSeconds(clampEnd, clampStart);
-
-  const startOffsetSec = differenceInSeconds(clampStart, visibleInterval.start);
-  const endOffsetSec = differenceInSeconds(visibleInterval.end, clampEnd);
 
   const thumbnailUrl = React.useMemo(() => {
     const thumbnailUrl = segment.liveInfo?.thumbnailUrl ?? segment.thumbnailUrl;
@@ -127,12 +118,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
         className={classes(
           styles.segmentContainer
         )}
-        style={{
-          left: `${Math.round(startOffsetSec * pixelsPerSecond)}px`,
-          right: `${Math.round(endOffsetSec * pixelsPerSecond)}px`,
-          '--duration-width':  `${Math.round(duration * pixelsPerSecond)}px`,
-          '--clamped-duration-width':  `${Math.round(clampedDuration * pixelsPerSecond)}px`,
-        } as React.CSSProperties}
+        {...rest}
       >
         <StreamLink
           streamer={streamer}
