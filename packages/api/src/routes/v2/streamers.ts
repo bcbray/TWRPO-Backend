@@ -205,7 +205,8 @@ const bestStartTimeOffset = (chunks: StreamChunk[]): number | undefined => {
     if (!best) {
         return undefined;
     }
-    return Math.round(best.end) % secondsInDay;
+    const normalizedEnd = best.end - Math.floor(best.end);
+    return Math.round(normalizedEnd * secondsInDay);
 };
 
 export const fetchStreamers = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<StreamersResponse> => {
