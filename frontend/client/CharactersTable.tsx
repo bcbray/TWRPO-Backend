@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDatadogRum } from 'react-datadog';
 import { CharacterInfo, FactionInfo } from '@twrpo/types';
 
@@ -281,6 +281,43 @@ const characterComparator = (sort: Sort, order: Order): Comparator<CharacterInfo
   return characterStreamerComparator(order);
 }
 
+const sortFromState = (state: any): Sort | undefined => {
+  if (
+    state
+    && typeof state === 'object'
+    && 'sort' in state
+    && typeof state.sort === 'string'
+    && (
+      state.sort === 'streamer'
+      || state.sort === 'title'
+      || state.sort === 'name'
+      || state.sort === 'nickname'
+      || state.sort === 'faction'
+      || state.sort === 'lastSeen'
+      || state.sort === 'duration'
+    )
+  ) {
+    return state.sort;
+  }
+  return undefined;
+};
+
+const orderFromState = (state: any): Order | undefined => {
+  if (
+    state
+    && typeof state === 'object'
+    && 'order' in state
+    && typeof state.order === 'string'
+    && (
+      state.order === 'asc'
+      || state.order === 'desc'
+    )
+  ) {
+    return state.order;
+  }
+  return undefined;
+};
+
 const defaultOrderForSort = (sort: Sort) => sort === 'duration' ? 'desc' : 'asc';
 const swapOrder = (order: Order) => order === 'asc' ? 'desc' : 'asc';
 
@@ -293,8 +330,14 @@ const CharactersTable: React.FunctionComponent<Props> = ({
   factionDestination = 'characters',
   defaultSort: [defaultSort, defaultOrder] = ['streamer', 'asc'],
 }) => {
-  const [sort, setSort] = React.useState<Sort>(defaultSort);
-  const [order, setOrder] = React.useState<Order>(defaultOrder);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const sort = React.useMemo(() => (
+    sortFromState(location.state) ?? defaultSort
+  ), [location.state, defaultSort]);
+  const order = React.useMemo(() => (
+    orderFromState(location.state) ?? defaultOrder
+  ), [location.state, defaultOrder]);
   const rum = useDatadogRum();
 
   const sortedCharacters = React.useMemo(() => (
@@ -306,14 +349,18 @@ const CharactersTable: React.FunctionComponent<Props> = ({
     const newOrder = sort === newSort
       ? order === 'desc' ? 'asc' : 'desc'
       : defaultOrderForSort(newSort);
-    setSort(newSort);
-    setOrder(newOrder);
+    navigate(location, {
+      replace: true,
+      state: {
+        order: newOrder,
+        sort: newSort
+      }});
     rum.addAction(`Change character table sort to ${newSort} ${newOrder}`, {
       type: 'character-sort-change',
       order: newOrder,
       sort: newSort,
     });
-  }, [sort, order, rum]);
+  }, [sort, order, rum, navigate, location]);
 
   const SortableHeader: React.FC<{ sort: Sort, children: React.ReactNode }> = React.useCallback(({ sort: thisSort, children }) => (
     sortedCharacters.length > 1
