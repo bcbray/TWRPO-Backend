@@ -15,6 +15,7 @@ export interface Character {
     affiliate?: boolean;
     assume?: AssumeOther;
     assumeChar?: boolean;
+    deceased?: boolean;
 }
 
 export type WrpCharacters = { [key: string]: Character[] };
@@ -43,7 +44,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1122, name: 'Eduardo "Slimy" Guavera' },
     ],
     '893SHIRO': [
-        { id: 7, name: 'Mitsuhide Nagahama', nicknames: ['Mitsu'] }, // Dead
+        { id: 7, name: 'Mitsuhide Nagahama', nicknames: ['Mitsu'], deceased: true },
         { id: 1200, name: 'Qurun Alghul' },
         { id: 1201, name: 'Thorkel Olafson' },
     ],
@@ -294,12 +295,12 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BradWOTO: [
         { id: 107, name: 'Bentley Fog' },
-        { id: 108, name: 'Rufus Lorde' }, // Dead End Kid. Summer's Gang. Dead
+        { id: 108, name: 'Rufus Lorde', deceased: true }, // Dead End Kid. Summer's Gang.
         { id: 109, name: 'Tar Sullivan' },
     ],
     Brizzo24: [
         { id: 110, name: 'Craig Johnson' }, // Former Sam's Club
-        { id: 111, name: 'Karl Feckles' }, // Dead
+        { id: 111, name: 'Karl Feckles', deceased: true },
         { id: 1016, name: 'Izaac Douglaas' },
         { id: 1080, name: 'Teddy Payne' },
     ],
@@ -550,8 +551,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 211, name: 'Clem Colton' },
     ],
     Dimoak: [
-        { id: 212, name: 'Fiddleford "Phil" Mackit' }, // Dead
-        { id: 213, name: 'Kaz Brekker' },  // Dead
+        { id: 212, name: 'Fiddleford "Phil" Mackit', deceased: true },
+        { id: 213, name: 'Kaz Brekker', deceased: true },
         { id: 214, name: 'Tommy Townsand' },
         { id: 215, name: 'Matthias Helvar' },
         { id: 216, name: 'Ramsley Gracey' },
@@ -566,7 +567,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DisbeArex: [
         { id: 221, name: 'Timmy Took' },
-        { id: 222, name: 'Dolly Dixon' }, // Dead
+        { id: 222, name: 'Dolly Dixon', deceased: true },
         { id: 223, name: 'Morgana Fay' },
         { id: 224, name: 'The Blood Witch', displayName: 0 },
     ],
@@ -607,7 +608,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 238, name: 'Byong Ho' },
     ],
     DrensWorld: [
-        { id: 239, name: 'Danny Kerrigan' }, // Kerrigan Ranch. Dead
+        { id: 239, name: 'Danny Kerrigan', deceased: true }, // Kerrigan Ranch
         { id: 240, name: 'Duncan Ladle' },
         { id: 241, name: '[Deputy] Duncan Weller', factions: ['Law'] },
         { id: 242, name: 'Darwin Howe' },
@@ -642,7 +643,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     DustMonkeyGames: [
         { id: 253, name: '[Deputy] Charles Slaughter', factions: ['Law'] },
-        { id: 254, name: 'Solomon Walker' }, // Leader of The Cut. Dead
+        { id: 254, name: 'Solomon Walker', deceased: true }, // Leader of The Cut
         { id: 255, name: 'Lawrence "The Major" Stirling' },
         { id: 256, name: 'Isaac "Dr. Creed" Creed' }, // Leader of The Ward
         { id: 257, name: 'Reginald "Reggie" Richardson' },
@@ -723,7 +724,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 998, name: 'Leven "LJ" June' },
         { id: 999, name: 'Tilly Smith' },
         { id: 1000, name: 'Parker King' },
-        { id: 1001, name: 'Finn Taytum' }, // Dead.
+        { id: 1001, name: 'Finn Taytum', deceased: true },
     ],
     ewanruss: [
         { id: 287, name: 'Alfonso Bonucci', nicknames: ['Coach Al', 'Al'], displayName: 4 }, // Former DiCenzo? Not in the DiCenzo restructure.
@@ -877,7 +878,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 363, name: 'Jimothy Little', nicknames: ['Little Jimothy', 'LJ', 'Kid', 'Soldier'], displayName: 3 }, // Former Dead End Kid
         { id: 361, name: 'Herbert Parker', nicknames: ['Herb', 'Cowboy', 'Young'] }, // Kettleman hangaround
         { id: 362, name: '[Detective] Homer Carnes', factions: ['Law'], nicknames: ['Cop'] },
-        { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'] }, // Dead. Considered to be the one and only leader of the Kettleman Gang
+        { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'], deceased: true }, // Considered to be the one and only leader of the Kettleman Gang
     ],
     GraveGamerTV: [
         { id: 365, name: 'Paulson Greer' },
@@ -951,7 +952,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Hoop: [
         { id: 391, name: 'Barry Bjornson' }, // Former Sam's Club
-        { id: 392, name: 'Clyde Davis', nicknames: ['Dusty Danger'] }, // Leader of the Danger Gang. Dead.
+        { id: 392, name: 'Clyde Davis', nicknames: ['Dusty Danger'], deceased: true }, // Leader of the Danger Gang
         { id: 393, name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'] },
         { id: 394, name: '[Cadet] Miles Gyles', factions: ['Law'] },
         { id: 1063, name: '[Deputy] Thomas Hooper', factions: ['Law'] },
@@ -1046,14 +1047,14 @@ export const wrpCharacters: WrpCharacters = {
     ],
     J0J0: [
         { id: 423, name: 'Delilah Kane' },
-        { id: 424, name: 'Effie Parker', factions: ['DiCenzo Famiglia'] }, // Former The Cut.  Membership in DiCenzo Group 1 pending conversation
+        { id: 424, name: 'Effie Parker', factions: ['DiCenzo Group 2'] }, // Former The Cut.  Membership in DiCenzo Group 1 pending conversation
         { id: 425, name: 'Katherine Dunn' },
     ],
     Jackariah: [
         { id: 426, name: 'Bo Whitmore' },
     ],
     jackiejackpot: [
-        { id: 427, name: 'Tilly Demeter', assume: 'assumeOther' }, // Dead
+        { id: 427, name: 'Tilly Demeter', assume: 'assumeOther', deceased: true },
         { id: 428, name: 'Jade Ming' },
         { id: 429, name: 'Jezrael King' },
         { id: 430, name: 'Maria Gonzales' }, // Former Bloody Hood
@@ -1664,7 +1665,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 677, name: 'Tony Moretti' }, // Former DiCenzo? Not in the DiCenzo restructure
     ],
     rosco: [
-        { id: 678, name: 'Awkward Johnson', displayName: 0 }, // Dead.
+        { id: 678, name: 'Awkward Johnson', displayName: 0, deceased: true },
         { id: 679, name: 'Frank Church' },
         { id: 680, name: 'John Hell' },
         { id: 1146, name: 'Maurice Cheeks', factions: ['Lifer'] },
@@ -1994,7 +1995,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1095, name: 'Casey Banks' },
     ],
     TankGirl: [
-        { id: 811, name: 'Effie Mae Braithwaite' }, // Dead.
+        { id: 811, name: 'Effie Mae Braithwaite', deceased: true },
         { id: 812, name: 'Gloria Bonanno' },
         { id: 1165, name: 'Hattie Booker', factions: ['Sisika Guard'] },
     ],
@@ -2268,7 +2269,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'] }, // Former Kerrigan Ranch
         { id: 920, name: 'Joey "The Wallaby Kid" Johns', nicknames: ['Richard Eastwick'], factions: ['Dead End Kids'] },
         { id: 921, name: 'Les Darcy' },
-        { id: 922, name: 'Bazz Kerrigan', factions: ['Kettleman Gang'] }, // leader of Kerrigan Ranch. Dead.
+        { id: 922, name: 'Bazz Kerrigan', factions: ['Kettleman Gang'], deceased: true }, // leader of Kerrigan Ranch
         { id: 923, name: 'Clarence McCloud' },
         { id: 1117, name: 'Steve "The Dude" McAnderson' },
     ],
@@ -2313,7 +2314,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 939, name: 'Sally Cooper-Borr' },
     ],
     Wombax: [
-        { id: 940, name: 'Nash' }, // Former Kettleman. Dead.
+        { id: 940, name: 'Nash', deceased: true }, // Former Kettleman
         { id: 1014, name: 'Clay Dempsey' },
         { id: 1022, name: 'Hannibal ?' },
         { id: 1115, name: 'Nolan Kemp', factions: ['Guarma'] },
@@ -2386,8 +2387,8 @@ export const wrpCharacters: WrpCharacters = {
     ZeusLair: [
         { id: 965, name: 'Robbie Gold' }, // Former Lang Gang.
         { id: 984, name: 'Elijah James' },
-        { id: 1004, name: 'Johnny Lambs', factions: ['One Life'] }, // Dead.
-        { id: 1003, name: 'Housten Beebors', factions: ['One Life'] }, // Dead.
+        { id: 1004, name: 'Johnny Lambs', factions: ['One Life'], deceased: true },
+        { id: 1003, name: 'Housten Beebors', factions: ['One Life'], deceased: true },
     ],
     Ziggy: [
         { id: 966, name: 'Norman Bones' },
