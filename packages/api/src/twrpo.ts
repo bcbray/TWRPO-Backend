@@ -82,7 +82,7 @@ class Api {
     constructor(options: ApiOptions) {
         this.twitchClient = new ApiClient({
             logger: {
-                minLevel: LogLevel.DEBUG,
+                minLevel: LogLevel.WARNING,
                 custom: (level, message) => {
                     console.log(JSON.stringify({
                         level: twurpleLogRemap[level],
