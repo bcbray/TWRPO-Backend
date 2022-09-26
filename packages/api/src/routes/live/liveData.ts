@@ -796,7 +796,7 @@ const getWrpLive = async (
                                 if (longestCharacters) {
                                     for (const longest of longestCharacters) {
                                         const char = characters.find(c => c.id === longest.characterId);
-                                        if (char !== undefined && char.assumeChar !== false) {
+                                        if (char !== undefined && char.assumeChar !== false && char.deceased !== true) {
                                             possibleCharacter = char;
                                             foundLongest = true;
                                             if (char.id !== characters[0].id) {
