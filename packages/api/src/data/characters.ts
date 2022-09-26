@@ -723,7 +723,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 287, name: 'Alfonso Bonucci', nicknames: ['Coach Al', 'Al'], displayName: 4 }, // Former DiCenzo? Not in the DiCenzo restructure.
     ],
     extralivia: [
-        { id: 288, name: 'Lydia Spade', factions: ['Independent', 'Guarma'] },
+        { id: 288, name: 'Lydia Spade' },
         { id: 289, name: 'Aria Monroe' },
     ],
     Eyebyte: [
