@@ -112,7 +112,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 33, name: 'Sissi Marie', factions: ['DiCenzo Famiglia'] },
     ],
     AngryPotatoChipz: [
-        { id: 34, name: 'Jamie Marlow' },
+        { id: 34, name: '[Deputy] Jamie Marlow', factions: ['Law'] },
         { id: 35, name: 'Isiah Trebuchet' },
         { id: 1174, name: 'Johannes Wolfe', factions: ['Sisika Guard'] },
     ],
