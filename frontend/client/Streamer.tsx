@@ -101,6 +101,8 @@ const Streamer: React.FC<StreamerProps> = ({
   } = usePaginatedStreams(useStreams, {
     channelTwitchId: streamer.twitchId,
     distinctCharacters: false,
+    serverKey: 'wrp',
+    gameKey: 'rdr2',
   });
 
   return (

@@ -9,6 +9,7 @@ import { StreamChunk } from '../../db/entity/StreamChunk';
 import { TwitchChannel } from '../../db/entity/TwitchChannel';
 import { Video } from '../../db/entity/Video';
 import { Server } from '../../db/entity/Server';
+import { Game } from '../../db/entity/Game';
 import { videoUrlOffset } from '../../utils';
 import { isEditorForTwitchId, isGlobalEditor } from '../../userUtils';
 import { fetchSessionUser } from './whoami';
@@ -25,13 +26,15 @@ import {
 export const fetchLiveStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
-    params: Pick<StreamsParams, 'search' | 'factionKey' | 'channelTwitchId'> = {},
+    params: Pick<StreamsParams, 'search' | 'factionKey' | 'channelTwitchId' | 'serverKey' | 'gameKey'> = {},
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
     const {
         factionKey,
         channelTwitchId,
         search,
+        serverKey = 'wrp',
+        gameKey = 'rdr2',
     } = params;
 
     const searchRegex = search
@@ -89,7 +92,8 @@ export const fetchLiveStreams = async (
             .find({
                 where: {
                     id: In(liveSegmentIds),
-                    server: { key: 'wrp' },
+                    server: serverKey ? { key: serverKey } : undefined,
+                    game: gameKey ? { key: gameKey } : undefined,
                 },
                 order: {
                     lastViewerCount: 'desc',
@@ -155,6 +159,8 @@ export interface StreamsParams {
     startAfter?: Date;
     endBefore?: Date;
     endAfter?: Date;
+    serverKey?: string;
+    gameKey?: string;
     limit?: number;
     cursor?: RecentStreamsCursor;
 }
@@ -217,6 +223,8 @@ export const fetchRecentStreams = async (
         startAfter,
         endBefore,
         endAfter,
+        serverKey = 'wrp',
+        gameKey = 'rdr2',
         cursor,
         limit = DEFAULT_LIMIT,
     } = params;
@@ -281,8 +289,7 @@ export const fetchRecentStreams = async (
                 .addSelect('stream_chunk.lastViewerCount', 'lastViewerCount')
                 .addSelect('stream_chunk.isOverridden', 'isOverridden')
                 .addSelect('stream_chunk.isHidden', 'isHidden')
-                .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
-                .where('server.key = \'wrp\'')
+                .where('true')
                 .orderBy('stream_chunk.serverId', 'ASC')
                 .addOrderBy('stream_chunk.characterId', 'ASC')
                 .addOrderBy('stream_chunk.lastSeenDate', 'DESC');
@@ -311,6 +318,18 @@ export const fetchRecentStreams = async (
                 } else {
                     subQuery.andWhere('stream_chunk.title ~* :searchRegexSource', { searchRegexSource });
                 }
+            }
+
+            if (serverKey) {
+                subQuery
+                    .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
+                    .andWhere('server.key = :serverKey', { serverKey });
+            }
+
+            if (gameKey) {
+                subQuery
+                    .innerJoin(Game, 'game', 'game.twitchId = stream_chunk.gameTwitchId')
+                    .andWhere('game.key = :gameKey', { gameKey });
             }
 
             if (!isGlobalEditor(userResponse)) {
@@ -502,6 +521,8 @@ export const fetchUnknownStreams = async (
         search,
         factionKey,
         channelTwitchId,
+        serverKey = 'wrp',
+        gameKey = 'rdr2',
         cursor,
         limit = DEFAULT_LIMIT,
     } = params;
@@ -566,9 +587,7 @@ export const fetchUnknownStreams = async (
                 .addSelect('stream_chunk.lastViewerCount', 'lastViewerCount')
                 .addSelect('stream_chunk.isOverridden', 'isOverridden')
                 .addSelect('stream_chunk.isHidden', 'isHidden')
-                .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
-                .where('server.key = \'wrp\'')
-                .andWhere('(stream_chunk.characterId IS NULL OR (stream_chunk.characterId IS NOT NULL AND stream_chunk.characterUncertain = true))')
+                .where('(stream_chunk.characterId IS NULL OR (stream_chunk.characterId IS NOT NULL AND stream_chunk.characterUncertain = true))')
                 .orderBy('stream_chunk.lastSeenDate', 'DESC');
 
             if (live === true) {
@@ -592,6 +611,18 @@ export const fetchUnknownStreams = async (
                 } else {
                     subQuery.andWhere('stream_chunk.title ~* :searchRegexSource', { searchRegexSource });
                 }
+            }
+
+            if (serverKey) {
+                subQuery
+                    .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
+                    .andWhere('server.key = :serverKey', { serverKey });
+            }
+
+            if (gameKey) {
+                subQuery
+                    .innerJoin(Game, 'game', 'game.twitchId = stream_chunk.gameTwitchId')
+                    .andWhere('game.key = :gameKey', { gameKey });
             }
 
             if (!isGlobalEditor(userResponse)) {
@@ -739,6 +770,8 @@ export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): St
         params.startAfter = queryParamDate(query, 'startAfter');
         params.endBefore = queryParamDate(query, 'endBefore');
         params.endAfter = queryParamDate(query, 'endAfter');
+        params.serverKey = queryParamString(query, 'serverKey');
+        params.gameKey = queryParamString(query, 'gameKey');
         const cursorString = queryParamString(query, 'cursor');
         const cursor = cursorString
             ? deserializeRecentStreamsCursor(cursorString)

@@ -387,6 +387,8 @@ export interface StreamsParams {
   search?: string;
   factionKey?: string;
   channelTwitchId?: string;
+  serverKey?: string;
+  gameKey?: string;
   startBefore?: Date;
   startAfter?: Date;
   endBefore?: Date;
@@ -402,6 +404,8 @@ const queryStringForStreamsParams = (params: StreamsParams): string => {
     search,
     factionKey,
     channelTwitchId,
+    serverKey,
+    gameKey,
     startBefore,
     startAfter,
     endBefore,
@@ -425,6 +429,12 @@ const queryStringForStreamsParams = (params: StreamsParams): string => {
   }
   if (channelTwitchId !== undefined) {
     searchParams.set('channelTwitchId', channelTwitchId);
+  }
+  if (serverKey !== undefined) {
+    searchParams.set('serverKey', serverKey);
+  }
+  if (gameKey !== undefined) {
+    searchParams.set('gameKey', gameKey);
   }
   if (startBefore !== undefined) {
     searchParams.set('startBefore', startBefore.toISOString());

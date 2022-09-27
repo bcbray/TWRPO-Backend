@@ -48,6 +48,8 @@ const useIntervalStreams = (interval: Interval): {
     distinctCharacters: false,
     endAfter: toDate(interval.start),
     startBefore: toDate(interval.end),
+    serverKey: 'wrp',
+    gameKey: 'rdr2',
     limit: 100,
   }, {
     skipsPreload: true,

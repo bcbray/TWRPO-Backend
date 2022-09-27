@@ -272,6 +272,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
                 streamerId: channel.twitchId,
                 isHidden: includeHiddenSegments ? undefined : false,
                 server: { key: 'wrp' },
+                game: { key: 'rdr2' },
             },
             relations: { video: true },
             order: {

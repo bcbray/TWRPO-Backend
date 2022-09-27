@@ -129,7 +129,9 @@ const Streams: React.FC<StreamsProps> = ({
       : useUnknownStreams,
     {
       search: debouncedFilterText.length > 0 ? debouncedFilterText : undefined,
-      factionKey
+      factionKey,
+      serverKey: 'wrp',
+      gameKey: 'rdr2',
     }
   );
 
