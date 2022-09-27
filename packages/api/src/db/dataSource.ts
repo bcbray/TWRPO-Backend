@@ -7,6 +7,7 @@ import { Session } from './entity/Session';
 import { User } from './entity/User';
 import { Server } from './entity/Server';
 import { ServerRegex } from './entity/ServerRegex';
+import { Game } from './entity/Game';
 
 export default function dataSource(postgresUrl: string): DataSource {
     return new DataSource({
@@ -21,6 +22,7 @@ export default function dataSource(postgresUrl: string): DataSource {
             User,
             Server,
             ServerRegex,
+            Game,
         ],
     });
 }

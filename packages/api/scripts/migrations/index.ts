@@ -16,6 +16,7 @@ import { Server1663372521826 } from './1663372521826-Server';
 import { StreamChunkServer1663745985991 } from './1663745985991-StreamChunkServer';
 import { StreamChunkGameId1664245981064 } from './1664245981064-StreamChunkGameId';
 import { TwitchChannelTracked1664248426517 } from './1664248426517-TwitchChannelTracked';
+import { Game1664259790412 } from './1664259790412-Game';
 
 export default [
     Initial1660336359134,
@@ -36,4 +37,5 @@ export default [
     StreamChunkServer1663745985991,
     StreamChunkGameId1664245981064,
     TwitchChannelTracked1664248426517,
+    Game1664259790412,
 ];
