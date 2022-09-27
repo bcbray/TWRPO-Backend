@@ -42,6 +42,9 @@ export class TwitchChannel {
     @Column({ nullable: true })
     lastVideoCheck: Date;
 
+    @Column({ default: false })
+    isTracked: boolean;
+
     @OneToMany(() => StreamChunk, chunk => chunk.channel)
     streamChunks?: StreamChunk[];
 

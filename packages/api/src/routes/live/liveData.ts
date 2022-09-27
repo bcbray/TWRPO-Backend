@@ -28,6 +28,7 @@ import { wrpPodcasts } from '../../data/podcasts';
 import { fetchVideosForUser, fetchMissingThumbnailsForVideoIds } from '../../fetchVideos';
 import { isGlobalEditor } from '../../userUtils';
 import { parseServer, matchServer } from '../../matcher/server';
+import { syncTracked } from '../../tracker';
 
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from '../../data/meta';
 import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther } from '../../data/characters';
@@ -408,7 +409,7 @@ const getWrpLive = async (
 
                 const newChunks: StreamChunk[] = [];
                 const updatedChunks: StreamChunk[] = [];
-                const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck'>[] = [];
+                const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck' | 'isTracked'>[] = [];
 
                 const wrpServer = parseServer(await dataSource.getRepository(Server).findOneOrFail({
                     where: { key: 'wrp' },
@@ -1339,7 +1340,9 @@ const logAPIStats = (apiClient: ApiClient) =>
     }));
 
 export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, intervalMs: number): IntervalTimeout => {
-    getWrpLive(apiClient, dataSource).then(() => logAPIStats(apiClient));
+    syncTracked(dataSource)
+        .then(() => getWrpLive(apiClient, dataSource))
+        .then(() => logAPIStats(apiClient));
 
     return setInterval(async () => {
         if (cachedResults === undefined) {
