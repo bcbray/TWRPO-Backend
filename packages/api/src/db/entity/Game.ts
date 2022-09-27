@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 
 import { StreamChunk } from './StreamChunk';
+import { Server } from './Server';
 
 @Entity()
 export class Game {
@@ -31,6 +32,9 @@ export class Game {
 
     @Column({ nullable: true })
     boxArtUrl?: string;
+
+    @OneToMany(() => Server, server => server.game)
+    servers?: Server[];
 
     @OneToMany(() => StreamChunk, chunk => chunk.video)
     streamChunks?: StreamChunk[];

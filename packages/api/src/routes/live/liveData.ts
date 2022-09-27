@@ -412,7 +412,10 @@ const getWrpLive = async (
                 const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck' | 'isTracked'>[] = [];
 
                 const wrpServer = parseServer(await dataSource.getRepository(Server).findOneOrFail({
-                    where: { key: 'wrp' },
+                    where: {
+                        key: 'wrp',
+                        game: { twitchId: game },
+                    },
                     relations: { regexes: true },
                 }));
 
@@ -420,8 +423,10 @@ const getWrpLive = async (
                     .getRepository(Server)
                     .createQueryBuilder('server')
                     .select()
+                    .innerJoin('server.game', 'game')
                     .leftJoinAndSelect('server.regexes', 'regex')
                     .where('server.key IS NULL OR server.key != :key', { key: 'wrp' })
+                    .andWhere('game.twitchId = :game', { game })
                     .getMany()).map(parseServer);
 
                 interface CharacterDuration {

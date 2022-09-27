@@ -7,15 +7,22 @@ import {
     CreateDateColumn,
     PrimaryGeneratedColumn,
     OneToMany,
+    ManyToOne,
+    JoinColumn,
 } from 'typeorm';
 
 import { ServerRegex } from './ServerRegex';
 import { StreamChunk } from './StreamChunk';
+import { Game } from './Game';
 
 @Entity()
 export class Server {
     @PrimaryGeneratedColumn()
     id: number;
+
+    @Index()
+    @Column()
+    gameId: number;
 
     @Index({ unique: true })
     @Column({
@@ -35,6 +42,10 @@ export class Server {
 
     @Column({ nullable: true })
     sortOrder: number;
+
+    @ManyToOne(() => Game, game => game.servers)
+    @JoinColumn({ name: 'gameId', referencedColumnName: 'id' })
+    game?: Game;
 
     @OneToMany(() => ServerRegex, regex => regex.server)
     regexes: ServerRegex[];
