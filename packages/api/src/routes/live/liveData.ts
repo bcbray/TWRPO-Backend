@@ -475,10 +475,10 @@ const getWrpLive = async (
                 for (const helixStream of gtaStreams) {
                     const { userDisplayName: channelName, title, viewers } = helixStream;
 
-                    let mostRecentStreamSegment = await dataSource.getRepository(StreamChunk)
+                    let mostRecentStreamSegment = await dataSource
+                        .getRepository(StreamChunk)
                         .findOne({
                             where: {
-                                gameTwitchId: helixStream.gameId,
                                 streamerId: helixStream.userId,
                                 streamId: helixStream.id,
                             },
@@ -490,7 +490,7 @@ const getWrpLive = async (
                     // This is done here not as a WHERE clause so that we always
                     // compare against the most-recent segment, not just the
                     // most-recent segment with a matching title
-                    if (mostRecentStreamSegment && mostRecentStreamSegment.title !== title) {
+                    if (mostRecentStreamSegment && (mostRecentStreamSegment.title !== title || mostRecentStreamSegment.gameTwitchId !== helixStream.gameId)) {
                         mostRecentStreamSegment = null;
                     }
 
