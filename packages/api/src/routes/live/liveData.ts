@@ -28,7 +28,7 @@ import { wrpPodcasts } from '../../data/podcasts';
 import { fetchVideosForUser, fetchMissingThumbnailsForVideoIds } from '../../fetchVideos';
 import { isGlobalEditor } from '../../userUtils';
 import { parseServer, matchServer } from '../../matcher/server';
-import { syncTracked } from '../../tracker';
+import { syncTracked, track } from '../../tracker';
 
 import type { FactionMini, FactionFull, FactionRealMini, FactionRealFull } from '../../data/meta';
 import type { Character as CharacterOld, WrpCharacters as WrpCharactersOld, AssumeOther } from '../../data/characters';
@@ -1344,10 +1344,15 @@ const logAPIStats = (apiClient: ApiClient) =>
         resetDate: apiClient.lastKnownResetDate,
     }));
 
+const refresh = async (apiClient: ApiClient, dataSource: DataSource, override = false): Promise<void> => {
+    const liveData = await getWrpLive(apiClient, dataSource, override);
+    await track(apiClient, dataSource, liveData.streams.map(s => s.channelTwitchId));
+    logAPIStats(apiClient);
+};
+
 export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, intervalMs: number): IntervalTimeout => {
     syncTracked(dataSource)
-        .then(() => getWrpLive(apiClient, dataSource))
-        .then(() => logAPIStats(apiClient));
+        .then(() => refresh(apiClient, dataSource));
 
     return setInterval(async () => {
         if (cachedResults === undefined) {
@@ -1355,7 +1360,6 @@ export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, in
             return;
         }
         log('Refreshing cache...');
-        await getWrpLive(apiClient, dataSource, true);
-        logAPIStats(apiClient);
+        await refresh(apiClient, dataSource, true);
     }, intervalMs);
 };
