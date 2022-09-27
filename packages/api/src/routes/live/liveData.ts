@@ -472,6 +472,7 @@ const getWrpLive = async (
                     let mostRecentStreamSegment = await dataSource.getRepository(StreamChunk)
                         .findOne({
                             where: {
+                                gameTwitchId: helixStream.gameId,
                                 streamerId: helixStream.userId,
                                 streamId: helixStream.id,
                             },
@@ -912,6 +913,7 @@ const getWrpLive = async (
                         firstSeenDate: now,
                         lastSeenDate: now,
                         lastViewerCount: helixStream.viewers,
+                        gameTwitchId: helixStream.gameId,
                     };
 
                     let segmentId: number;

@@ -23,6 +23,9 @@ export class StreamChunk {
     streamerId: string;
 
     @Column({ nullable: false })
+    gameTwitchId: string;
+
+    @Column({ nullable: false })
     serverId: number;
 
     @Column({

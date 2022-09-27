@@ -14,6 +14,7 @@ import { StreamChunkHidden1663189972049 } from './1663189972049-StreamChunkHidde
 import { StreamChunkLastViewerCount1663278969808 } from './1663278969808-StreamChunkLastViewerCount';
 import { Server1663372521826 } from './1663372521826-Server';
 import { StreamChunkServer1663745985991 } from './1663745985991-StreamChunkServer';
+import { StreamChunkGameId1664245981064 } from './1664245981064-StreamChunkGameId';
 
 export default [
     Initial1660336359134,
@@ -32,4 +33,5 @@ export default [
     StreamChunkLastViewerCount1663278969808,
     Server1663372521826,
     StreamChunkServer1663745985991,
+    StreamChunkGameId1664245981064,
 ];
