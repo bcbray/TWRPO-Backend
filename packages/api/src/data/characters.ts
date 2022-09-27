@@ -714,9 +714,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 284, name: 'Vera Helvig' },
         { id: 1013, name: 'Annabelle Martin' },
     ],
-    essvalkyrie: [
-        { id: 1203, name: 'Molina Larken' },
-    ],
     eternalsong: [
         { id: 285, name: 'Kora Vane' }, // Former Sam's Club
     ],
@@ -2034,6 +2031,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 829, name: 'Dwight Bridger', displayName: 2, factions: ['The Humble Bunch'] },
         { id: 830, name: 'Klaus Pudovkin' },
         { id: 831, name: 'Luke Colton', factions: ['Coltons'] },
+    ],
+    tessvalkyrie: [
+        { id: 1203, name: 'Molina Larken' },
     ],
     Thadrius: [
         { id: 832, name: 'Jimmy Frick' },
