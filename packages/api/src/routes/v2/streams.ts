@@ -26,7 +26,7 @@ import {
 export const fetchLiveStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
-    params: Pick<StreamsParams, 'search' | 'factionKey' | 'channelTwitchId' | 'serverKey' | 'serverId' | 'gameKey'> = {},
+    params: Pick<StreamsParams, 'search' | 'factionKey' | 'channelTwitchId' | 'serverKey' | 'serverId' | 'gameKey' | 'tempAllowNoServer'> = {},
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
     const {
@@ -35,10 +35,11 @@ export const fetchLiveStreams = async (
         search,
         serverKey: propsServerKey,
         serverId,
+        tempAllowNoServer,
         gameKey: propsGameKey,
     } = params;
     // TODO: Temporary fallback values until we’re confident old clients are longer out in the wild
-    const hasServerOrGameParam = (propsServerKey !== undefined || serverId !== undefined || propsGameKey !== undefined);
+    const hasServerOrGameParam = (tempAllowNoServer === true || propsServerKey !== undefined || serverId !== undefined || propsGameKey !== undefined);
     const serverKey = hasServerOrGameParam ? propsServerKey : 'wrp';
     const gameKey = hasServerOrGameParam ? propsGameKey : 'rdr2';
 
@@ -166,6 +167,8 @@ export interface StreamsParams {
     endAfter?: Date;
     serverKey?: string;
     serverId?: number;
+    /** Temporary flag to opt new clients out of compatibility mode */
+    tempAllowNoServer?: boolean;
     gameKey?: string;
     limit?: number;
     cursor?: RecentStreamsCursor;
@@ -232,11 +235,12 @@ export const fetchRecentStreams = async (
         serverKey: propsServerKey,
         serverId,
         gameKey: propsGameKey,
+        tempAllowNoServer,
         cursor,
         limit = DEFAULT_LIMIT,
     } = params;
     // TODO: Temporary fallback values until we’re confident old clients are longer out in the wild
-    const hasServerOrGameParam = (propsServerKey !== undefined || serverId !== undefined || propsGameKey !== undefined);
+    const hasServerOrGameParam = (tempAllowNoServer === true || propsServerKey !== undefined || serverId !== undefined || propsGameKey !== undefined);
     const serverKey = hasServerOrGameParam ? propsServerKey : 'wrp';
     const gameKey = hasServerOrGameParam ? propsGameKey : 'rdr2';
 
@@ -542,11 +546,12 @@ export const fetchUnknownStreams = async (
         serverKey: propsServerKey,
         serverId,
         gameKey: propsGameKey,
+        tempAllowNoServer,
         cursor,
         limit = DEFAULT_LIMIT,
     } = params;
     // TODO: Temporary fallback values until we’re confident old clients are longer out in the wild
-    const hasServerOrGameParam = (propsServerKey !== undefined || serverId !== undefined || propsGameKey !== undefined);
+    const hasServerOrGameParam = (tempAllowNoServer === true || propsServerKey !== undefined || serverId !== undefined || propsGameKey !== undefined);
     const serverKey = hasServerOrGameParam ? propsServerKey : 'wrp';
     const gameKey = hasServerOrGameParam ? propsGameKey : 'rdr2';
 
@@ -803,6 +808,7 @@ export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): St
         params.serverKey = queryParamString(query, 'serverKey');
         params.serverId = queryParamInteger(query, 'serverId');
         params.gameKey = queryParamString(query, 'gameKey');
+        params.tempAllowNoServer = queryParamBoolean(query, 'tempAllowNoServer');
         const cursorString = queryParamString(query, 'cursor');
         const cursor = cursorString
             ? deserializeRecentStreamsCursor(cursorString)
