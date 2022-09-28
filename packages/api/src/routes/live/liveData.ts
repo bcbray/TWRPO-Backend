@@ -592,49 +592,49 @@ const getWrpLive = async (
                                 }
                             }
                         }
+
+                        // Perform a match with the new server matcher and compare
+                        // results. If they differ, log a warning.
+                        (() => {
+                            const testMatchedServer = matchServer(title, [...otherServers]);
+                            const testOnOther = testMatchedServer !== null && testMatchedServer.id !== wrpServer.id;
+                            const testOnOtherIncluded = testOnOther && testMatchedServer.isVisible;
+                            const testServerName = testOnOther ? testMatchedServer.name : '';
+                            const testOnNp = testMatchedServer !== null && testMatchedServer.id === wrpServer.id;
+
+                            if (
+                                testMatchedServer?.id !== matchedServer?.id
+                                || testOnOther !== onOther
+                                || testOnOtherIncluded !== onOtherIncluded
+                                || testServerName !== serverName
+                                || testOnNp !== onNp
+                            ) {
+                                console.warn(JSON.stringify({
+                                    level: 'warning',
+                                    event: 'matcher-mismatch',
+                                    subevent: 'server-matcher-mismatch',
+                                    message: 'Mismatch in new server matcher',
+                                    channelName,
+                                    title,
+
+                                    testMatchedServer,
+                                    matchedServer,
+
+                                    testOnOther,
+                                    onOther,
+
+                                    testOnOtherIncluded,
+                                    onOtherIncluded,
+
+                                    testServerName,
+                                    serverName,
+
+                                    testOnNp,
+                                    onNp,
+                                }));
+                            }
+                        })();
                     }
-
-                    // Perform a match with the new server matcher and compare
-                    // results. If they differ, log a warning.
-                    (() => {
-                        const testMatchedServer = matchServer(title, [wrpServer, ...otherServers]);
-                        const testOnOther = testMatchedServer !== null && testMatchedServer.id !== wrpServer.id;
-                        const testOnOtherIncluded = testOnOther && testMatchedServer.isVisible;
-                        const testServerName = testOnOther ? testMatchedServer.name : '';
-                        const testOnNp = testMatchedServer !== null && testMatchedServer.id === wrpServer.id;
-
-                        if (
-                            testMatchedServer?.id !== matchedServer?.id
-                            || testOnOther !== onOther
-                            || testOnOtherIncluded !== onOtherIncluded
-                            || testServerName !== serverName
-                            || testOnNp !== onNp
-                        ) {
-                            console.warn(JSON.stringify({
-                                level: 'warning',
-                                event: 'matcher-mismatch',
-                                subevent: 'server-matcher-mismatch',
-                                message: 'Mismatch in new server matcher',
-                                channelName,
-                                title,
-
-                                testMatchedServer,
-                                matchedServer,
-
-                                testOnOther,
-                                onOther,
-
-                                testOnOtherIncluded,
-                                onOtherIncluded,
-
-                                testServerName,
-                                serverName,
-
-                                testOnNp,
-                                onNp,
-                            }));
-                        }
-                    })();
 
                     const characters = wrpCharacters[channelNameLower] as WrpCharacter | undefined;
 
