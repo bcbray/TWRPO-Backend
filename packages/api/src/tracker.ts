@@ -102,16 +102,19 @@ const fetchGames = async (apiClient: ApiClient, gameIds: string[]): Promise<Heli
     }
 };
 
-export const track = async (apiClient: ApiClient, dataSource: DataSource, ignoredUserIds: string[]): Promise<void> => {
+export interface MiniSegment {
+    channelTwitchId: string;
+    segmentId?: number;
+}
+
+export const track = async (apiClient: ApiClient, dataSource: DataSource, alreadyFetchedSegments: MiniSegment[]): Promise<void> => {
+    const ignoredChannelTwitchIds = alreadyFetchedSegments.map(s => s.channelTwitchId);
     const trackedChannels = await dataSource
         .getRepository(TwitchChannel)
         .findBy({
-            id: ignoredUserIds.length > 0 ? Not(In(ignoredUserIds)) : undefined,
+            id: ignoredChannelTwitchIds.length > 0 ? Not(In(ignoredChannelTwitchIds)) : undefined,
             isTracked: true,
         });
-
-    console.log(`fetching ${trackedChannels.length} streams`);
-    console.log(`excluding ${ignoredUserIds.length} streams`);
 
     const now = new Date();
 
@@ -145,6 +148,7 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, ignore
             lastSeenDate: now,
             lastViewerCount: stream.viewers,
             gameTwitchId: stream.gameId,
+            isLive: true,
         };
 
         // This is done here not as a WHERE clause so that we always
@@ -152,11 +156,12 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, ignore
         // most-recent segment with a matching title
         if (mostRecentStreamSegment && mostRecentStreamSegment.gameTwitchId === stream.gameId && mostRecentStreamSegment.title === stream.title) {
             const { id } = mostRecentStreamSegment;
-            const { lastSeenDate, lastViewerCount } = chunk;
-            const chunkUpdate: Pick<StreamChunk, 'id' | 'lastSeenDate' | 'lastViewerCount'> = {
+            const { lastSeenDate, lastViewerCount, isLive } = chunk;
+            const chunkUpdate: Pick<StreamChunk, 'id' | 'lastSeenDate' | 'lastViewerCount' | 'isLive'> = {
                 id,
                 lastSeenDate,
                 lastViewerCount,
+                isLive,
             };
 
             try {
@@ -195,6 +200,24 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, ignore
         }
     }
 
+    const allChunks = [...newChunks, ...updatedChunks];
+    const alreadyLiveSegementIds = alreadyFetchedSegments.reduce((ids, segment) => (
+        segment.segmentId ? [...ids, segment.segmentId] : ids
+    ), [] as number[]);
+    const newlyLiveSegmentIds = allChunks.map(c => c.id);
+
+    const allLiveSegmentIds = [...alreadyLiveSegementIds, ...newlyLiveSegmentIds];
+
+    const noLongerLiveResult = await dataSource
+        .getRepository(StreamChunk)
+        .update(
+            {
+                isLive: true,
+                id: allLiveSegmentIds.length > 0 ? Not(In(allLiveSegmentIds)) : undefined,
+            },
+            { isLive: false }
+        );
+
     console.log(JSON.stringify({
         level: 'info',
         event: 'user-segment-update',
@@ -207,6 +230,13 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, ignore
         event: 'user-segment-insert',
         message: `Stored ${newChunks.length} new user streams to database`,
         count: newChunks.length,
+    }));
+
+    console.log(JSON.stringify({
+        level: 'info',
+        event: 'user-segment-update-not-live',
+        message: `Updated ${noLongerLiveResult.affected ?? 0} user streams to no longer be live`,
+        count: noLongerLiveResult.affected ?? 0,
     }));
 
     const gameIds = [...new Set(streams.map(s => s.gameId))];

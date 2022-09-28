@@ -62,6 +62,9 @@ export class StreamChunk {
     @Column({ default: false })
     isHidden: boolean;
 
+    @Column({ default: false })
+    isLive: boolean;
+
     @ManyToOne(() => Server, server => server.streamChunks)
     @JoinColumn({ name: 'serverId', referencedColumnName: 'id' })
     server?: Server;

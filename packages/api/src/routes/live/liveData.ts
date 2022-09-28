@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 import { ApiClient, HelixPaginatedResult, HelixStream, HelixStreamType } from '@twurple/api';
-import { DataSource } from 'typeorm';
+import { DataSource, Not, In } from 'typeorm';
 import { LiveResponse, Stream, CharacterInfo, UserResponse } from '@twrpo/types';
 
 import {
@@ -920,16 +920,18 @@ const getWrpLive = async (
                         lastSeenDate: now,
                         lastViewerCount: helixStream.viewers,
                         gameTwitchId: helixStream.gameId,
+                        isLive: true,
                     };
 
                     let segmentId: number;
                     if (mostRecentStreamSegment) {
                         const { id } = mostRecentStreamSegment;
-                        const { lastSeenDate, lastViewerCount } = chunk;
-                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate' | 'lastViewerCount', 'characterId' | 'characterUncertain' | 'serverId'> = {
+                        const { lastSeenDate, lastViewerCount, isLive } = chunk;
+                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate' | 'lastViewerCount' | 'isLive', 'characterId' | 'characterUncertain' | 'serverId'> = {
                             id,
                             lastSeenDate,
                             lastViewerCount,
+                            isLive,
                         };
                         if (!mostRecentStreamSegment.isOverridden) {
                             chunkUpdate.serverId = chunk.serverId;
@@ -995,6 +997,39 @@ const getWrpLive = async (
                 const allChunks = [...newChunks, ...updatedChunks];
 
                 try {
+                    const liveChunkIds = allChunks.map(c => c.id);
+                    const noLongerLiveResult = await dataSource
+                        .getRepository(StreamChunk)
+                        .update(
+                            {
+                                isLive: true,
+                                id: liveChunkIds.length > 0 ? Not(In(liveChunkIds)) : undefined,
+                                gameTwitchId: game,
+                            },
+                            { isLive: false }
+                        );
+
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        event: 'segment-update',
+                        message: `Updated ${updatedChunks.length} streams in database`,
+                        count: updatedChunks.length,
+                    }));
+
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        event: 'segment-insert',
+                        message: `Stored ${newChunks.length} new streams to database`,
+                        count: newChunks.length,
+                    }));
+
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        event: 'segment-update-not-live',
+                        message: `Updated ${noLongerLiveResult.affected ?? 0} streams to no longer be live`,
+                        count: noLongerLiveResult.affected ?? 0,
+                    }));
+
                     if (newChannels.length) {
                         const result = await dataSource
                             .getRepository(TwitchChannel)
@@ -1019,20 +1054,6 @@ const getWrpLive = async (
                         );
                         unknownTwitchUsers = {};
                     }
-
-                    console.log(JSON.stringify({
-                        level: 'info',
-                        event: 'segment-update',
-                        message: `Updated ${updatedChunks.length} streams in database`,
-                        count: updatedChunks.length,
-                    }));
-
-                    console.log(JSON.stringify({
-                        level: 'info',
-                        event: 'segment-insert',
-                        message: `Stored ${newChunks.length} new streams to database`,
-                        count: newChunks.length,
-                    }));
 
                     const liveStreamIds = allChunks.map(c => c.streamId);
 
@@ -1350,7 +1371,7 @@ const logAPIStats = (apiClient: ApiClient) =>
 
 const refresh = async (apiClient: ApiClient, dataSource: DataSource, override = false): Promise<void> => {
     const liveData = await getWrpLive(apiClient, dataSource, override);
-    await track(apiClient, dataSource, liveData.streams.map(s => s.channelTwitchId));
+    await track(apiClient, dataSource, liveData.streams);
     logAPIStats(apiClient);
 };
 
