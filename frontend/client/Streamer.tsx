@@ -21,6 +21,7 @@ import { useStreams } from './Data';
 import { usePaginatedStreams } from './Streams';
 import { LoadTrigger, useIsMobile } from './hooks';
 import StreamerTimeline from './StreamerTimeline';
+import { useCurrentServer } from './CurrentServer';
 
 interface StreamerProps {
   data: StreamerResponse;
@@ -89,6 +90,7 @@ const Streamer: React.FC<StreamerProps> = ({
       streamer: streamer.displayName,
     });
   }, [setStreamsView, rum, streamer]);
+  const { server } = useCurrentServer();
 
   const {
     streams,
@@ -101,8 +103,7 @@ const Streamer: React.FC<StreamerProps> = ({
   } = usePaginatedStreams(useStreams, {
     channelTwitchId: streamer.twitchId,
     distinctCharacters: false,
-    serverKey: 'wrp',
-    gameKey: 'rdr2',
+    serverId: server.id,
   });
 
   return (

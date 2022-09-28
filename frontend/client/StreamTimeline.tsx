@@ -23,6 +23,7 @@ import { useShortDate } from './hooks';
 import Loading from './Loading';
 import { useFactionCss } from './FactionStyleProvider';
 import Timeline from './Timeline'
+import { useCurrentServer } from './CurrentServer';
 
 interface StreamTimelineProps {
 }
@@ -38,6 +39,7 @@ const useIntervalStreams = (interval: Interval): {
   hasMore: Boolean,
   reload: () => void,
 } => {
+  const { server } = useCurrentServer();
   const {
     streams,
     lastRefresh,
@@ -48,8 +50,7 @@ const useIntervalStreams = (interval: Interval): {
     distinctCharacters: false,
     endAfter: toDate(interval.start),
     startBefore: toDate(interval.end),
-    serverKey: 'wrp',
-    gameKey: 'rdr2',
+    serverId: server.id,
     limit: 100,
   }, {
     skipsPreload: true,

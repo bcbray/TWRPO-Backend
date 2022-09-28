@@ -13,6 +13,7 @@ import {
   useInitialRender,
 } from './hooks';
 import FilterBar from './FilterBar'
+import { useCurrentServer } from './CurrentServer';
 
 interface StreamsProps {
   type?: 'live' | 'unknown'
@@ -115,6 +116,7 @@ const Streams: React.FC<StreamsProps> = ({
   const { factionKey } = params;
   const [filterText, setFilterText] = useSingleSearchParam('search');
   const debouncedFilterText = useDebouncedValue(filterText.trim(), 200);
+  const { server } = useCurrentServer();
 
   const {
     streams,
@@ -130,8 +132,7 @@ const Streams: React.FC<StreamsProps> = ({
     {
       search: debouncedFilterText.length > 0 ? debouncedFilterText : undefined,
       factionKey,
-      serverKey: 'wrp',
-      gameKey: 'rdr2',
+      serverId: server.id,
     }
   );
 
