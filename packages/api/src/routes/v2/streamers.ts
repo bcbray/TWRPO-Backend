@@ -274,7 +274,11 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
                 server: { key: 'wrp' },
                 game: { key: 'rdr2' },
             },
-            relations: { video: true },
+            relations: {
+                video: true,
+                server: true,
+                game: true,
+            },
             order: {
                 lastSeenDate: 'desc',
             },
@@ -286,7 +290,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
             ...chunk,
             isTooShort: chunkIsShorterThanMinimum(chunk) && !chunkIsRecent(chunk),
         }))
-        .filter(chunk => includeHiddenSegments || !chunk.isTooShort);
+        .filter(chunk => chunk.game && (includeHiddenSegments || !chunk.isTooShort));
 
     if (rawCharacters.length === 0 && validSegments.length === 0) {
         // If we have neither characters nor videos, ignore this streamer
@@ -372,6 +376,9 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
     const allChunksQueryBuilder = dataSource
         .getRepository(StreamChunk)
         .createQueryBuilder('stream_chunk')
+        .leftJoinAndSelect('stream_chunk.video', 'video')
+        .leftJoinAndSelect('stream_chunk.server', 'server')
+        .innerJoinAndSelect('stream_chunk.game', 'game')
         .where('stream_chunk.streamerId = :streamerId', { streamerId: channel.twitchId });
 
     if (!includeHiddenSegments) {
@@ -421,7 +428,9 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         },
         characters: characterInfos,
         recentSegments: validSegments
-            .map((segment, idx) => {
+            .map((segment, idx) => [segment, idx] as [StreamChunk & { isTooShort: boolean }, number])
+            .filter(([segment]) => segment.game)
+            .map(([segment, idx]) => {
                 const url = segment.video
                     ? videoUrlOffset(segment.video.url, segment.streamStartDate, segment.firstSeenDate)
                     : undefined;
@@ -441,6 +450,19 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
                     streamId: segment.streamId,
                     isHidden: segment.isHidden,
                     isTooShort: segment.isTooShort,
+                    server: segment.server ? {
+                        id: segment.server.id,
+                        key: segment.server.key ?? undefined,
+                        name: segment.server.name,
+                        tagName: segment.server.tagName,
+                        isVisible: segment.server.isVisible,
+                        isRoleplay: segment.server.isRoleplay,
+                    } : undefined,
+                    game: {
+                        id: segment.game!.id,
+                        key: segment.game!.key ?? undefined,
+                        name: segment.game!.name,
+                    },
                 };
             }),
     };

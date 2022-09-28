@@ -1,12 +1,7 @@
+import ServerBase from "./ServerBase";
 import Regex from "./Regex";
 
-export default interface Server {
-    id: number;
-    name: string;
-    tagName?: string;
-    key?: string;
-    isVisible: boolean;
-    isRoleplay: boolean;
+export default interface Server extends ServerBase {
     regexes: Regex[];
     liveCount: number;
 }

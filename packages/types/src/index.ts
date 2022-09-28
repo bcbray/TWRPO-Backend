@@ -19,6 +19,7 @@ import type User from './User';
 import type UserRole from './UserRole';
 import type UserResponse from './UserResponse';
 import type StreamsResponse from './StreamsResponse';
+import type ServerBase from './ServerBase';
 import type Server from './Server';
 import type Regex from './Regex';
 import type ServersResponse from './ServersResponse';
@@ -48,6 +49,7 @@ export {
   UserRole,
   UserResponse,
   StreamsResponse,
+  ServerBase,
   Server,
   Regex,
   ServersResponse,

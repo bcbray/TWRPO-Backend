@@ -19,10 +19,12 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
             relations: {
                 video: true,
                 channel: true,
+                server: true,
+                game: true,
             },
         });
 
-    if (!segment) {
+    if (!segment || !segment.game) {
         return null;
     }
 
@@ -52,6 +54,18 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
         streamId: segment.streamId,
         isHidden: segment.isHidden,
         isTooShort: chunkIsShorterThanMinimum(segment),
+        server: segment.server ? {
+            id: segment.server.id,
+            name: segment.server.name,
+            tagName: segment.server.tagName,
+            isVisible: segment.server.isVisible,
+            isRoleplay: segment.server.isRoleplay,
+        } : undefined,
+        game: {
+            id: segment.game!.id,
+            key: segment.game!.key ?? undefined,
+            name: segment.game!.name,
+        },
     };
 };
 

@@ -1,5 +1,7 @@
 import Stream from './Stream';
 import CharacterInfo from './CharacterInfo';
+import ServerBase from './ServerBase';
+import Game from './Game';
 
 export default interface VideoSegment {
     id: number;
@@ -15,4 +17,6 @@ export default interface VideoSegment {
     isHidden: boolean;
     isTooShort: boolean;
     liveInfo?: Stream;
+    server?: ServerBase;
+    game: Game;
 }

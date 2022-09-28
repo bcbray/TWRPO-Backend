@@ -108,6 +108,8 @@ export const fetchLiveStreams = async (
                 relations: {
                     video: true,
                     channel: true,
+                    server: true,
+                    game: true,
                 },
             })
         : [];
@@ -138,13 +140,26 @@ export const fetchLiveStreams = async (
                 streamId: segment.streamId,
                 isHidden: segment.isHidden,
                 isTooShort: false, // Live streams are never excluded for length
+                server: segment.server ? {
+                    id: segment.server.id,
+                    key: segment.server.key ?? undefined,
+                    name: segment.server.name,
+                    tagName: segment.server.tagName,
+                    isVisible: segment.server.isVisible,
+                    isRoleplay: segment.server.isRoleplay,
+                } : undefined,
+                game: {
+                    id: segment.game!.id,
+                    key: segment.game!.key ?? undefined,
+                    name: segment.game!.name,
+                },
             },
         };
     };
 
     return {
         streams: segments
-            .filter(s => s.channel)
+            .filter(s => s.channel && s.game)
             .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
             .map(segmentAndStreamer),
         lastRefreshTime: new Date(liveData.tick).toISOString(),
@@ -293,6 +308,7 @@ export const fetchRecentStreams = async (
                 .from(StreamChunk, 'stream_chunk')
                 .select('stream_chunk.id', 'id')
                 .addSelect('stream_chunk.serverId', 'serverId')
+                .addSelect('stream_chunk.gameTwitchId', 'gameTwitchId')
                 .addSelect('stream_chunk.characterId', 'characterId')
                 .addSelect('stream_chunk.characterUncertain', 'characterUncertain')
                 .addSelect('stream_chunk.streamerId', 'streamerId')
@@ -421,11 +437,30 @@ export const fetchRecentStreams = async (
         : [];
     const videoLookup = Object.fromEntries(videos.map(v => [v.streamId, v]));
 
+    const gameTwitchIds = rawSegments.map(s => s.gameTwitchId);
+    console.log(gameTwitchIds);
+    const games = gameTwitchIds.length > 0
+        ? await dataSource.getRepository(Game).findBy({
+            twitchId: In(gameTwitchIds),
+        })
+        : [];
+    const gameLookup = Object.fromEntries(games.map(c => [c.twitchId, c]));
+
+    const serverIds = rawSegments.map(s => s.serverId);
+    const servers = serverIds.length > 0
+        ? await dataSource.getRepository(Server).findBy({
+            id: In(serverIds),
+        })
+        : [];
+    const serverLookup = Object.fromEntries(servers.map(c => [c.id, c]));
+
     const rawToReal = (raw: Raw<StreamChunk>): StreamChunk => {
         const { streamStartDate, firstSeenDate, lastSeenDate, ...rest } = raw;
         return {
             channel: channelLookup[rest.streamerId],
             video: videoLookup[rest.streamId],
+            server: serverLookup[rest.serverId],
+            game: gameLookup[rest.gameTwitchId],
             streamStartDate: new Date(streamStartDate),
             firstSeenDate: new Date(firstSeenDate),
             lastSeenDate: new Date(lastSeenDate),
@@ -460,12 +495,25 @@ export const fetchRecentStreams = async (
                 streamId: segment.streamId,
                 isHidden: segment.isHidden,
                 isTooShort: chunkIsShorterThanMinimum(segment),
+                server: segment.server ? {
+                    id: segment.server.id,
+                    key: segment.server.key ?? undefined,
+                    name: segment.server.name,
+                    tagName: segment.server.tagName,
+                    isVisible: segment.server.isVisible,
+                    isRoleplay: segment.server.isRoleplay,
+                } : undefined,
+                game: {
+                    id: segment.game!.id,
+                    key: segment.game!.key ?? undefined,
+                    name: segment.game!.name,
+                },
             },
         };
     };
 
     const streams = segments
-        .filter(s => s.channel)
+        .filter(s => s.channel && s.game)
         .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
         .map(segmentAndStreamer);
 
@@ -605,6 +653,7 @@ export const fetchUnknownStreams = async (
                 .select('stream_chunk.id', 'id')
                 .addSelect('stream_chunk.characterId', 'characterId')
                 .addSelect('stream_chunk.serverId', 'serverId')
+                .addSelect('stream_chunk.gameTwitchId', 'gameTwitchId')
                 .addSelect('stream_chunk.characterUncertain', 'characterUncertain')
                 .addSelect('stream_chunk.streamerId', 'streamerId')
                 .addSelect('stream_chunk.streamId', 'streamId')
@@ -738,11 +787,29 @@ export const fetchUnknownStreams = async (
         : [];
     const videoLookup = Object.fromEntries(videos.map(v => [v.streamId, v]));
 
+    const gameTwitchIds = rawSegments.map(s => s.gameTwitchId);
+    const games = gameTwitchIds.length > 0
+        ? await dataSource.getRepository(Game).findBy({
+            twitchId: In(gameTwitchIds),
+        })
+        : [];
+    const gameLookup = Object.fromEntries(games.map(c => [c.twitchId, c]));
+
+    const serverIds = rawSegments.map(s => s.serverId);
+    const servers = serverIds.length > 0
+        ? await dataSource.getRepository(Server).findBy({
+            id: In(serverIds),
+        })
+        : [];
+    const serverLookup = Object.fromEntries(servers.map(c => [c.id, c]));
+
     const rawToReal = (raw: Raw<StreamChunk>): StreamChunk => {
         const { streamStartDate, firstSeenDate, lastSeenDate, ...rest } = raw;
         return {
             channel: channelLookup[rest.streamerId],
             video: videoLookup[rest.streamId],
+            server: serverLookup[rest.serverId],
+            game: gameLookup[rest.gameTwitchId],
             streamStartDate: new Date(streamStartDate),
             firstSeenDate: new Date(firstSeenDate),
             lastSeenDate: new Date(lastSeenDate),
@@ -777,12 +844,25 @@ export const fetchUnknownStreams = async (
                 streamId: segment.streamId,
                 isHidden: segment.isHidden,
                 isTooShort: chunkIsShorterThanMinimum(segment),
+                server: segment.server ? {
+                    id: segment.server.id,
+                    key: segment.server.key ?? undefined,
+                    name: segment.server.name,
+                    tagName: segment.server.tagName,
+                    isVisible: segment.server.isVisible,
+                    isRoleplay: segment.server.isRoleplay,
+                } : undefined,
+                game: {
+                    id: segment.game!.id,
+                    key: segment.game!.key ?? undefined,
+                    name: segment.game!.name,
+                },
             },
         };
     };
 
     const streams = segments
-        .filter(s => s.channel)
+        .filter(s => s.channel && s.game)
         .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
         .map(segmentAndStreamer);
 

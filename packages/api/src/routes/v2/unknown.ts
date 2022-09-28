@@ -33,6 +33,8 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource,
             relations: {
                 video: true,
                 channel: true,
+                server: true,
+                game: true,
             },
         });
     const uncertainSegments = await dataSource.getRepository(StreamChunk)
@@ -46,6 +48,8 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource,
             relations: {
                 video: true,
                 channel: true,
+                server: true,
+                game: true,
             },
         });
     const segmentAndStreamer = (segment: StreamChunk): SegmentAndStreamer => {
@@ -73,17 +77,30 @@ export const fetchUnknown = async (apiClient: ApiClient, dataSource: DataSource,
                 streamId: segment.streamId,
                 isHidden: segment.isHidden,
                 isTooShort: chunkIsShorterThanMinimum(segment) && !chunkIsRecent(segment),
+                server: segment.server ? {
+                    id: segment.server.id,
+                    key: segment.server.key ?? undefined,
+                    name: segment.server.name,
+                    tagName: segment.server.tagName,
+                    isVisible: segment.server.isVisible,
+                    isRoleplay: segment.server.isRoleplay,
+                } : undefined,
+                game: {
+                    id: segment.game!.id,
+                    key: segment.game!.key ?? undefined,
+                    name: segment.game!.name,
+                },
             },
         };
     };
 
     return {
         unknown: unknownSegments
-            .filter(s => s.channel)
+            .filter(s => s.channel && s.game)
             .map(segmentAndStreamer)
             .filter(({ streamer, segment }) => (!segment.isHidden && !segment.isTooShort) || isEditorForTwitchId(streamer.twitchId, userResponse)),
         uncertain: uncertainSegments
-            .filter(s => s.channel)
+            .filter(s => s.channel && s.game)
             .map(segmentAndStreamer)
             .filter(({ streamer, segment }) => (!segment.isHidden && !segment.isTooShort) || isEditorForTwitchId(streamer.twitchId, userResponse)),
     };
