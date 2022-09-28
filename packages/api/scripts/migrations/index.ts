@@ -20,6 +20,7 @@ import { Game1664259790412 } from './1664259790412-Game';
 import { ServerGameId1664268455470 } from './1664268455470-ServerGameId';
 import { StreamChunkNullableServer1664271038075 } from './1664271038075-StreamChunkNullableServer';
 import { ServerTagName1664346800698 } from './1664346800698-ServerTagName';
+import { ServerIsRoleplay1664347051125 } from './1664347051125-ServerIsRoleplay';
 
 export default [
     Initial1660336359134,
@@ -44,4 +45,5 @@ export default [
     ServerGameId1664268455470,
     StreamChunkNullableServer1664271038075,
     ServerTagName1664346800698,
+    ServerIsRoleplay1664347051125,
 ];

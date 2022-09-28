@@ -6,6 +6,7 @@ export default interface Server {
     tagName?: string;
     key?: string;
     isVisible: boolean;
+    isRoleplay: boolean;
     regexes: Regex[];
     liveCount: number;
 }

@@ -40,6 +40,9 @@ export class Server {
     @Column({ default: false })
     isVisible: boolean;
 
+    @Column({ default: true })
+    isRoleplay: boolean;
+
     @CreateDateColumn()
     createdAt: Date;
 
