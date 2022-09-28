@@ -1070,6 +1070,9 @@ const getWrpLive = async (
                         .leftJoin(Video, 'video', 'video.streamId = stream_chunk.streamId')
                         .where('video.id IS NULL')
                         .andWhere('stream_chunk.lastSeenDate >= :cutoff', { cutoff: new Date(now.getTime() - 1000 * 60 * 10) })
+                        // Only fetch videos for the game we’re fetching. (Let
+                        // other videos get scooped up by the video fetch job)
+                        .andWhere('stream_chunk.gameTwitchId = :game', { game })
                         .orderBy('stream_chunk.streamId', 'ASC');
                     if (liveStreamIds.length > 0) {
                         chunksToFetchQueryBuilder
