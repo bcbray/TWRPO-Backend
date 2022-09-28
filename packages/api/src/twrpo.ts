@@ -15,6 +15,7 @@ import {
     VideoSegment,
     StreamsResponse,
     ServersResponse,
+    ServerResponse,
 } from '@twrpo/types';
 
 import { getFilteredWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
@@ -31,7 +32,7 @@ import {
     StreamsParams,
     parseStreamsQuery,
 } from './routes/v2/streams';
-import { fetchServers } from './routes/v2/servers';
+import { fetchServer, fetchServers } from './routes/v2/servers';
 import { fetchSessionUser } from './routes/v2/whoami';
 import routes from './routes';
 import dataSource from './db/dataSource';
@@ -206,6 +207,10 @@ class Api {
 
     public async fetchUnknownStreams(params: StreamsParams | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
         return fetchUnknownStreams(this.twitchClient, this.dataSource, params, currentUser);
+    }
+
+    public async fetchServer(key: string, currentUser: UserResponse): Promise<ServerResponse | null> {
+        return fetchServer(this.twitchClient, this.dataSource, key, currentUser);
     }
 
     public async fetchServers(currentUser: UserResponse): Promise<ServersResponse> {

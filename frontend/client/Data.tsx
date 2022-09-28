@@ -11,6 +11,7 @@ import {
   VideoSegment,
   StreamsResponse,
   ServersResponse,
+  ServerResponse,
 } from '@twrpo/types'
 
 import { useInitialRender } from './hooks';
@@ -37,6 +38,7 @@ export interface PreloadedData {
   unknownStreams?: Record<string, StreamsResponse>;
   currentUser?: UserResponse;
   servers?: ServersResponse;
+  server?: Record<string, ServerResponse | null>;
   isSSR: boolean;
 }
 
@@ -55,6 +57,7 @@ export interface PreloadedUsed {
   usedStreamsQueries?: string[];
   usedUnknownStreamsQueries?: string[];
   usedServers?: boolean;
+  usedServerKeys?: string[];
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
@@ -562,3 +565,31 @@ export const useServers = ({ skipsPreload = false, ...props }: PreLoadingProps<S
 
   return [loadState, outerOnReload, lastLoad];
 };
+
+export const useServer = (key: string, { skipsPreload = false, ...props }: PreLoadingProps<ServerResponse> = {}): LoadingResult<ServerResponse> => {
+  const preloadedData = React.useContext(PreloadedDataContext);
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.server?.[key] === undefined) {
+    if (!preloadedUsed.usedServerKeys) {
+      preloadedUsed.usedServerKeys = [];
+    }
+    preloadedUsed.usedServerKeys.push(key);
+  }
+  const preloaded = skipsPreload
+    ? undefined
+    : preloadedData.server?.[key];
+  const [loadState, outerOnReload, lastLoad] = useLoading(`/api/v2/servers/${key}`, {
+    preloaded,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    if (!preloadedData.server) {
+      preloadedData.server = {};
+    }
+    preloadedData.server[key] = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+}

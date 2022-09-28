@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import { ApiClient } from '@twurple/api';
 import { DataSource } from 'typeorm';
-import { ServersResponse, UserResponse, Stream } from '@twrpo/types';
+import { ServersResponse, ServerResponse, UserResponse, Stream } from '@twrpo/types';
 
 import { getFilteredWrpLive } from '../live/liveData';
 import { Server } from '../../db/entity/Server';
 import { SessionUser } from '../../SessionUser';
 import { fetchSessionUser } from './whoami';
 import { isGlobalAdmin } from '../../userUtils';
+import { intValue } from '../../utils';
 
 export const fetchServers = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<ServersResponse> => {
     const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
@@ -50,6 +51,68 @@ export const fetchServers = async (apiClient: ApiClient, dataSource: DataSource,
     };
 };
 
+const findServer = async (dataSource: DataSource, identifier: string): Promise<Server | null> => {
+    const id = intValue(identifier);
+    if (id !== null) {
+        const serverById = await dataSource
+            .getRepository(Server)
+            .findOne({
+                where: { id },
+                relations: {
+                    game: true,
+                    regexes: true,
+                },
+            });
+        if (serverById) {
+            return serverById;
+        }
+    }
+
+    return dataSource
+        .getRepository(Server)
+        .findOne({
+            where: { key: identifier },
+            relations: {
+                game: true,
+                regexes: true,
+            },
+        });
+};
+
+export const fetchServer = async (apiClient: ApiClient, dataSource: DataSource, identifier: string, currentUser: UserResponse): Promise<ServerResponse | null> => {
+    const server = await findServer(dataSource, identifier);
+
+    if (!server) {
+        return null;
+    }
+
+    if (!server.game) {
+        return null;
+    }
+
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+    const liveCount = liveData.streams.reduce((total, stream) => (
+        stream.serverId === server.id ? total + 1 : total
+    ), 0);
+
+    return {
+        server: {
+            id: server.id,
+            name: server.name,
+            key: server.key ?? undefined,
+            isVisible: server.isVisible,
+            regexes: server.regexes.map(({ id: rid, regex, isCaseSensitive }) => ({ id: rid, regex, isCaseSensitive })),
+            liveCount,
+        },
+        game: {
+            id: server.game.id,
+            key: server.game.key ?? undefined,
+            name: server.game.name,
+            boxArtUrl: server.game.boxArtUrl,
+        },
+    };
+};
+
 const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
     const router = Router();
 
@@ -57,6 +120,18 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
         const currentUser = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
         const result = await fetchServers(apiClient, dataSource, currentUser);
         return res.send(result);
+    });
+
+    router.get('/:identifier', async (req, res) => {
+        const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
+        const { identifier } = req.params;
+        const response = await fetchServer(apiClient, dataSource, identifier, userResponse);
+        if (!response) {
+            return res
+                .status(404)
+                .send({ success: false, errors: [{ message: `Server '${identifier}' not found` }] });
+        }
+        return res.send(response);
     });
 
     return router;

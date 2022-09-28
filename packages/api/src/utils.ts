@@ -111,3 +111,11 @@ export const videoUrlOffset = (url: string, startTime: Date, offsetTime: Date): 
     }
     return url;
 };
+
+export const intValue = (value: string): number | null => {
+    const numberValue = Math.floor(Number(value));
+    if (!Number.isFinite(numberValue) || Number.isNaN(numberValue) || String(numberValue) !== value) {
+        return null;
+    }
+    return numberValue;
+};

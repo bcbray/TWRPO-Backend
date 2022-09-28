@@ -22,6 +22,8 @@ import type StreamsResponse from './StreamsResponse';
 import type Server from './Server';
 import type Regex from './Regex';
 import type ServersResponse from './ServersResponse';
+import type Game from './Game';
+import type ServerResponse from './ServerResponse';
 
 
 export {
@@ -49,4 +51,6 @@ export {
   Server,
   Regex,
   ServersResponse,
+  Game,
+  ServerResponse,
 }
