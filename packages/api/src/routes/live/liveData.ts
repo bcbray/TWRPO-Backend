@@ -1151,7 +1151,9 @@ const getWrpLive = async (
                               )
                         `, 'spans')
                         .distinctOn(['stream_chunk.serverId', 'stream_chunk.characterId'])
-                        .where('stream_chunk.characterId IS NOT NULL')
+                        .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
+                        .where('server.key = \'wrp\'')
+                        .andWhere('stream_chunk.characterId IS NOT NULL')
                         .andWhere('stream_chunk.characterUncertain = false')
                         .andWhere(
                             'stream_chunk.lastSeenDate > (current_timestamp at time zone \'UTC\' - make_interval(hours => 12))'
@@ -1205,9 +1207,7 @@ const getWrpLive = async (
                         .addSelect('video.thumbnailUrl', 'videoThumbnailUrl')
                         .from(`(${distinctCharacters.getQuery()})`, 'recent_chunk')
                         .leftJoin(Video, 'video', 'video.streamId = recent_chunk.stream_id')
-                        .innerJoin(Server, 'server', 'server.id = recent_chunk.server_id')
                         .setParameters(distinctCharacters.getParameters())
-                        .where('server.key = \'wrp\'')
                         .orderBy('recent_chunk.last_seen_date', 'DESC')
                         .addOrderBy('recent_chunk.streamer_id')
                         .execute() as AggregateChunk[];
