@@ -328,7 +328,7 @@ export const fetchRecentStreams = async (
             if (distinctCharacters) {
                 subQuery.distinctOn(['stream_chunk.serverId', 'stream_chunk.characterId']);
                 if (liveCharacterIds.length) {
-                    subQuery.andWhere('stream_chunk.characterId NOT IN (:...liveCharacterIds)', { liveCharacterIds });
+                    subQuery.andWhere('(stream_chunk.characterId IS NULL OR stream_chunk.characterId NOT IN (:...liveCharacterIds))', { liveCharacterIds });
                 }
             } else if (liveSegmentIds.length) {
                 subQuery.andWhere('stream_chunk.id NOT IN (:...liveSegmentIds)', { liveSegmentIds });
