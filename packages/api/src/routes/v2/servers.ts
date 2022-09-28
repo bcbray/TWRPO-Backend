@@ -92,6 +92,10 @@ export const fetchServer = async (apiClient: ApiClient, dataSource: DataSource, 
         return null;
     }
 
+    if (!server.isVisible && !isGlobalAdmin(currentUser)) {
+        return null;
+    }
+
     const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
     const liveCount = liveData.streams.reduce((total, stream) => (
         stream.serverId === server.id ? total + 1 : total
