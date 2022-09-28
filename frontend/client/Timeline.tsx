@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMeasure, usePrevious, useLocalStorage } from 'react-use';
+import { useMeasure, usePrevious } from 'react-use';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import {
   Interval,
@@ -67,13 +67,11 @@ export interface TimelineProps {
 interface HoursHeaderProps {
   visibleInterval: Interval;
   pixelsPerSecond: number;
-  shouldAnimate: boolean;
 }
 
 const HoursHeader: React.FC<HoursHeaderProps> = ({
   visibleInterval,
   pixelsPerSecond,
-  shouldAnimate,
 }) => {
   const previousVisibleInterval = usePrevious(visibleInterval);
   const previousPixelsPerSecond = usePrevious(pixelsPerSecond);
@@ -121,12 +119,8 @@ const HoursHeader: React.FC<HoursHeaderProps> = ({
           <Flipped
             key={key}
             flipId={flipKey}
-            shouldFlip={() => shouldAnimate && !removing.current[flipKey]}
+            shouldFlip={() => !removing.current[flipKey]}
             onAppear={(el) => {
-              if (!shouldAnimate) {
-                el.style.opacity = `1`;
-                return;
-              }
               removeSpring(flipKey);
               springs.current[flipKey] = spring({
                 values: {
@@ -146,10 +140,6 @@ const HoursHeader: React.FC<HoursHeaderProps> = ({
             }}
             onStart={() => removeSpring(flipKey)}
             onExit={(el, _, removeElement) => {
-              if (!shouldAnimate) {
-                removeElement();
-                return;
-              }
               const nextOffsetSec = differenceInSeconds(hour, visibleIntervalRef.current.start);
               const nextLeft = Math.round(nextOffsetSec * pixelsPerSecondRef.current);
 
@@ -205,8 +195,6 @@ const Timeline: React.FC<TimelineProps> = ({
   isLoadingMore = false,
   loadMoreTrigger,
 }) => {
-  const [shouldAnimate = false] = useLocalStorage('time-animations-enabled', false);
-
   const sidebarItems = rows.map(row => ({
     key: row.key,
     item: row.sidebarItem,
@@ -298,13 +286,7 @@ const Timeline: React.FC<TimelineProps> = ({
         <Flipped
           key={key}
           flipId={flipKey}
-          shouldFlip={() => shouldAnimate}
           onAppear={(el) => {
-            if (!shouldAnimate) {
-              el.style.opacity = `1`;
-              return;
-            }
-
             removeSpring(flipKey);
             springs.current[flipKey] = spring({
               values: {
@@ -348,12 +330,7 @@ const Timeline: React.FC<TimelineProps> = ({
         <Flipped
           key='now'
           flipId='now'
-          shouldFlip={() => shouldAnimate}
           onAppear={(el) => {
-            if (!shouldAnimate) {
-              el.style.opacity = `1`;
-              return;
-            }
             removeSpring('now');
             springs.current['now'] = spring({
               values: {
@@ -388,7 +365,7 @@ const Timeline: React.FC<TimelineProps> = ({
     }
 
     return bars;
-  }, [hoursInterval, pixelsPerSecond, now, previousPixelsPerSecond, previousHoursInterval, removeSpring, shouldAnimate]);
+  }, [hoursInterval, pixelsPerSecond, now, previousPixelsPerSecond, previousHoursInterval, removeSpring]);
 
   const sidebarRows = React.useMemo(() => (
     sidebarItems.map(({ key, item, isInfo }) =>
@@ -446,12 +423,7 @@ const Timeline: React.FC<TimelineProps> = ({
                   <Flipped
                     key={segment.id}
                     flipId={flipKey}
-                    shouldFlip={() => shouldAnimate}
                     onAppear={(el) => {
-                      if (!shouldAnimate) {
-                        el.style.opacity = `1`;
-                        return;
-                      }
                       removeSpring(flipKey);
                       springs.current[flipKey] = spring({
                         values: {
@@ -513,7 +485,7 @@ const Timeline: React.FC<TimelineProps> = ({
         );
       }
     })
-  ), [rows, hoveredRowKey, isCompact, handleReload, pixelsPerSecond, previousPixelsPerSecond, removeSpring, shouldAnimate]);
+  ), [rows, hoveredRowKey, isCompact, handleReload, pixelsPerSecond, previousPixelsPerSecond, removeSpring]);
 
   const isInitialRenderFromSSR = useIsFirstRenderFromSSR();
   if (isInitialRenderFromSSR) {
@@ -560,7 +532,6 @@ const Timeline: React.FC<TimelineProps> = ({
                   <HoursHeader
                     visibleInterval={hoursInterval}
                     pixelsPerSecond={pixelsPerSecond}
-                    shouldAnimate={shouldAnimate}
                   />
                 }
                 {timelineRows}
