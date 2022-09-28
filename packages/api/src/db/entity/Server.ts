@@ -34,6 +34,9 @@ export class Server {
     @Column()
     name: string;
 
+    @Column({ nullable: true })
+    tagName?: string;
+
     @Column({ default: false })
     isVisible: boolean;
 

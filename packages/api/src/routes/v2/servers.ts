@@ -39,11 +39,12 @@ export const fetchServers = async (apiClient: ApiClient, dataSource: DataSource,
     const servers = await queryBuilder.getMany();
     return {
         servers: servers.map(({
-            id, name, key, isVisible, regexes,
+            id, key, name, tagName, isVisible, regexes,
         }) => ({
             id,
-            name,
             key: key ?? undefined,
+            name,
+            tagName,
             isVisible,
             regexes: regexes.map(({ id: rid, regex, isCaseSensitive }) => ({ id: rid, regex, isCaseSensitive })),
             liveCount: liveDataLookup[id]?.length ?? 0,
@@ -98,8 +99,9 @@ export const fetchServer = async (apiClient: ApiClient, dataSource: DataSource, 
     return {
         server: {
             id: server.id,
-            name: server.name,
             key: server.key ?? undefined,
+            name: server.name,
+            tagName: server.tagName,
             isVisible: server.isVisible,
             regexes: server.regexes.map(({ id: rid, regex, isCaseSensitive }) => ({ id: rid, regex, isCaseSensitive })),
             liveCount,
