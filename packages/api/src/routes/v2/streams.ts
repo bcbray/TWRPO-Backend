@@ -438,7 +438,6 @@ export const fetchRecentStreams = async (
     const videoLookup = Object.fromEntries(videos.map(v => [v.streamId, v]));
 
     const gameTwitchIds = rawSegments.map(s => s.gameTwitchId);
-    console.log(gameTwitchIds);
     const games = gameTwitchIds.length > 0
         ? await dataSource.getRepository(Game).findBy({
             twitchId: In(gameTwitchIds),
