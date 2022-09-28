@@ -596,7 +596,7 @@ const getWrpLive = async (
                         // Perform a match with the new server matcher and compare
                         // results. If they differ, log a warning.
                         (() => {
-                            const testMatchedServer = matchServer(title, [...otherServers]);
+                            const testMatchedServer = matchServer(title, [wrpServer, ...otherServers]);
                             const testOnOther = testMatchedServer !== null && testMatchedServer.id !== wrpServer.id;
                             const testOnOtherIncluded = testOnOther && testMatchedServer.isVisible;
                             const testServerName = testOnOther ? testMatchedServer.name : '';
