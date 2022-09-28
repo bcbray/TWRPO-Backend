@@ -22,6 +22,7 @@ import { usePaginatedStreams } from './Streams';
 import { LoadTrigger, useIsMobile } from './hooks';
 import StreamerTimeline from './StreamerTimeline';
 import { useCurrentServer } from './CurrentServer';
+import { useAuthorization } from './auth'
 
 interface StreamerProps {
   data: StreamerResponse;
@@ -90,7 +91,9 @@ const Streamer: React.FC<StreamerProps> = ({
       streamer: streamer.displayName,
     });
   }, [setStreamsView, rum, streamer]);
+  const canViewAllSegments = useAuthorization('view-all-segments');
   const { server } = useCurrentServer();
+  const [viewAllSegments, setViewAllSegments] = React.useState(false);
 
   const {
     streams,
@@ -103,7 +106,7 @@ const Streamer: React.FC<StreamerProps> = ({
   } = usePaginatedStreams(useStreams, {
     channelTwitchId: streamer.twitchId,
     distinctCharacters: false,
-    serverId: server.id,
+    serverId: viewAllSegments && canViewAllSegments ? undefined : server.id,
   });
 
   return (
@@ -160,7 +163,17 @@ const Streamer: React.FC<StreamerProps> = ({
         </div>
         <div className={styles.recentStreams}>
           <div className={styles.streamsHeader}>
-            <h3>Recent Streams</h3>
+            <div className={styles.title}>
+              <h3>Recent Streams</h3>
+              {canViewAllSegments &&
+                <Button
+                  as='a'
+                  onClick={() => setViewAllSegments(v => !v)}
+                >
+                  {viewAllSegments ? 'View WildRP only' : 'View all streams'}
+                </Button>
+              }
+            </div>
             <div className={styles.streamsStyleControl}>
               <Button
                 className={classes(

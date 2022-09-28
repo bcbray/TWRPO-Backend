@@ -103,14 +103,16 @@ interface OverrideSegmentAuthorization {
 
 type ServerEditAuthorization = 'server-edit';
 
-type AuthorizationType = OverrideSegmentAuthorization | ServerEditAuthorization;
+type ViewOtherSegmentsAuthorization = 'view-all-segments';
+
+type AuthorizationType = OverrideSegmentAuthorization | ServerEditAuthorization | ViewOtherSegmentsAuthorization;
 
 export const useAuthorization = (type: AuthorizationType): boolean => {
   const { user } = useAuthentication();
   if (!user) {
     return false;
   }
-  if (type === 'server-edit') {
+  if (type === 'server-edit' || type === 'view-all-segments') {
     return user.globalRole === 'admin';
   } else if (type.type === 'overide-segment') {
     return user.globalRole === 'admin' || user.globalRole === 'editor';
