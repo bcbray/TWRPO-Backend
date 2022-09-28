@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes as RouterRoutes, Route } from 'react-router-dom';
+import { Routes as RouterRoutes, Route, Outlet } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -9,10 +9,18 @@ import TrackerProvider from './TrackerProvider';
 import { FactionStyleContextProvider } from './FactionStyleProvider';
 import NotFound from './NotFound';
 import { UserProvider } from './auth';
+import { CurrentServerProvider } from './CurrentServer';
 
 interface Props {
 
 }
+
+const RootStructure: React.FC = () =>
+  <Structure>
+    <CurrentServerProvider identifier='wrp'>
+      <Outlet />
+    </CurrentServerProvider>
+  </Structure>;
 
 const App: React.FC<Props> = () => {
   return (<>
@@ -24,7 +32,7 @@ const App: React.FC<Props> = () => {
         <FactionStyleContextProvider>
           <RouterRoutes>
             {privateStandaloneRoutes}
-            <Route element={<Structure />}>
+            <Route element={<RootStructure />}>
               {publicRoutes}
               {privateRoutes}
               {redirects}
