@@ -4,7 +4,7 @@ import { CharacterInfo } from '@twrpo/types';
 
 import styles from './OfflineCharacterCard.module.css';
 import { classes } from './utils';
-import { useRelativeDateMaybe, useImageUrlOnceLoaded } from './hooks';
+import { useRelativeDateMaybe, useLoadStateImageUrl } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhoto from './ProfilePhoto';
@@ -64,7 +64,7 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
       .replace('%{height}', '248')
   }, [character.lastSeenVideoThumbnailUrl]);
 
-  const { url: loadedThumbnailUrl } = useImageUrlOnceLoaded(lastSeenVideoThumbnailUrl);
+  const { failed: thumbnailLoadFailed } = useLoadStateImageUrl(lastSeenVideoThumbnailUrl);
 
   return (
     <div
@@ -79,15 +79,15 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
       <div
         className={classes(
           styles.thumbnail,
-          loadedThumbnailUrl && styles.hasThumbnail
+          lastSeenVideoThumbnailUrl && !thumbnailLoadFailed && styles.hasThumbnail
         )}
       >
         <CharacterLink character={character}>
-          {loadedThumbnailUrl &&
+          {lastSeenVideoThumbnailUrl && !thumbnailLoadFailed &&
             <>
               <img
                 className={styles.lastStreamThumbnail}
-                src={loadedThumbnailUrl}
+                src={lastSeenVideoThumbnailUrl}
                 alt={`${character.channelName} stream video thumbnail`}
                 loading='lazy'
               />

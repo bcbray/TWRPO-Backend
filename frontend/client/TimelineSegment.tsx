@@ -10,7 +10,7 @@ import { VideoSegment, Streamer } from '@twrpo/types';
 import styles from './TimelineSegment.module.css';
 
 import { classes } from './utils';
-import { useImageUrlOnceLoaded } from './hooks';
+import { useLoadStateImageUrl } from './hooks';
 import OverlayTrigger from './OverlayTrigger'
 import VideoSegmentCard from './VideoSegmentCard'
 import SegmentTitleTag from './SegmentTitleTag'
@@ -94,7 +94,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
     }`
   }, [segment]);
 
-  const { url: loadedThumbnailUrl } = useImageUrlOnceLoaded(thumbnailUrl);
+  const { failed: thumbnailLoadFailed } = useLoadStateImageUrl(thumbnailUrl);
   return (
     <OverlayTrigger
       placement='top-mouse'
@@ -137,10 +137,10 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
             )}
           >
             <div className={styles.segmentContent}>
-              {(loadedThumbnailUrl || segment.isHidden) &&
+              {((thumbnailUrl && !thumbnailLoadFailed) || segment.isHidden) &&
                 <div className={styles.thumbnail}>
-                  {loadedThumbnailUrl &&
-                    <img alt='Stream thumbnail' src={loadedThumbnailUrl} />
+                  {thumbnailUrl && !thumbnailLoadFailed &&
+                    <img alt='Stream thumbnail' src={thumbnailUrl} />
                   }
                   {segment.isHidden &&
                     <div className={styles.hiddenOverlay}>

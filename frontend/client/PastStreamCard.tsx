@@ -6,7 +6,7 @@ import { VideoSegment, Streamer } from '@twrpo/types';
 import styles from './PastStreamCard.module.css';
 
 import { formatInterval, classes } from './utils';
-import { useImageUrlOnceLoaded, useRelativeDate } from './hooks';
+import { useLoadStateImageUrl, useRelativeDate } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
@@ -92,7 +92,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     }`
   }, [segment.thumbnailUrl]);
 
-  const { url: loadedThumbnailUrl } = useImageUrlOnceLoaded(thumbnailUrl);
+  const { failed: thumbnailLoadFailed } = useLoadStateImageUrl(thumbnailUrl);
 
   return (
     <div
@@ -115,15 +115,15 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
         className={classes(
           styles.thumbnail,
           !segment.url && styles.noLink,
-          loadedThumbnailUrl && styles.hasThumbnail
+          thumbnailUrl && !thumbnailLoadFailed && styles.hasThumbnail
         )}
       >
         <StreamLink streamer={streamer} segment={segment}>
-          {loadedThumbnailUrl &&
+          {thumbnailUrl && !thumbnailLoadFailed &&
             <>
               <img
                 className={styles.lastStreamThumbnail}
-                src={loadedThumbnailUrl}
+                src={thumbnailUrl}
                 alt={`${streamer.displayName} video thumbnail`}
                 loading='lazy'
               />

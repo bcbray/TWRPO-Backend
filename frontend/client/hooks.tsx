@@ -230,21 +230,16 @@ export function useShortDate(date: Date, options: ShortDateOptions = {}): string
 }
 
 /**
- * Delays image URLs until the image has been loaded once (and thus is cached).
- *
- * In the case on an error, any previous URL will continue to be returned, as
- * well as the `failed` (until a subsequent load succeeded).
+ * Passthrough the given image URL, along with loading and failed state.
  */
-export function useImageUrlOnceLoaded<T extends (string | undefined)>(url: T): { url: T | undefined, loading: boolean, failed: boolean} {
-  const [loadedUrl, setLoadedUrl] = useState<T | undefined>(undefined);
+export function useLoadStateImageUrl<T extends (string | undefined)>(url: T): { url: T | undefined, loading: boolean, failed: boolean} {
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
 
   const onload = useCallback(() => {
-    setLoadedUrl(url);
     setLoading(false);
     setFailed(false);
-  }, [url]);
+  }, []);
 
   const onerror = useCallback(() => {
     setLoading(false);
@@ -255,7 +250,6 @@ export function useImageUrlOnceLoaded<T extends (string | undefined)>(url: T): {
     if (!url || !document) {
       setLoading(false);
       setFailed(false);
-      setLoadedUrl(url);
       return;
     }
     setLoading(true);
@@ -269,7 +263,7 @@ export function useImageUrlOnceLoaded<T extends (string | undefined)>(url: T): {
     }
   }, [url, onload, onerror]);
 
-  return { url: loadedUrl, loading, failed };
+  return { url, loading, failed };
 }
 
 /**
