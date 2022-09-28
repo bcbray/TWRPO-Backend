@@ -926,12 +926,13 @@ const getWrpLive = async (
                     if (mostRecentStreamSegment) {
                         const { id } = mostRecentStreamSegment;
                         const { lastSeenDate, lastViewerCount } = chunk;
-                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate' | 'lastViewerCount', 'characterId' | 'characterUncertain'> = {
+                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate' | 'lastViewerCount', 'characterId' | 'characterUncertain' | 'serverId'> = {
                             id,
                             lastSeenDate,
                             lastViewerCount,
                         };
                         if (!mostRecentStreamSegment.isOverridden) {
+                            chunkUpdate.serverId = chunk.serverId;
                             chunkUpdate.characterId = chunk.characterId;
                             chunkUpdate.characterUncertain = chunk.characterUncertain;
                         }
