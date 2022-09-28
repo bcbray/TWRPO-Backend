@@ -26,16 +26,21 @@ import {
 export const fetchLiveStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
-    params: Pick<StreamsParams, 'search' | 'factionKey' | 'channelTwitchId' | 'serverKey' | 'gameKey'> = {},
+    params: Pick<StreamsParams, 'search' | 'factionKey' | 'channelTwitchId' | 'serverKey' | 'serverId' | 'gameKey'> = {},
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
     const {
         factionKey,
         channelTwitchId,
         search,
-        serverKey = 'wrp',
-        gameKey = 'rdr2',
+        serverKey: propsServerKey,
+        serverId,
+        gameKey: propsGameKey,
     } = params;
+    // TODO: Temporary fallback values until we’re confident old clients are longer out in the wild
+    const hasServerOrGameParam = (propsServerKey !== undefined || serverId !== undefined || propsGameKey !== undefined);
+    const serverKey = hasServerOrGameParam ? propsServerKey : 'wrp';
+    const gameKey = hasServerOrGameParam ? propsGameKey : 'rdr2';
 
     const searchRegex = search
         ? new RegExp(
@@ -92,7 +97,7 @@ export const fetchLiveStreams = async (
             .find({
                 where: {
                     id: In(liveSegmentIds),
-                    server: serverKey ? { key: serverKey } : undefined,
+                    server: serverKey || serverId ? { key: serverKey, id: serverId } : undefined,
                     game: gameKey ? { key: gameKey } : undefined,
                 },
                 order: {
@@ -160,6 +165,7 @@ export interface StreamsParams {
     endBefore?: Date;
     endAfter?: Date;
     serverKey?: string;
+    serverId?: number;
     gameKey?: string;
     limit?: number;
     cursor?: RecentStreamsCursor;
@@ -223,11 +229,16 @@ export const fetchRecentStreams = async (
         startAfter,
         endBefore,
         endAfter,
-        serverKey = 'wrp',
-        gameKey = 'rdr2',
+        serverKey: propsServerKey,
+        serverId,
+        gameKey: propsGameKey,
         cursor,
         limit = DEFAULT_LIMIT,
     } = params;
+    // TODO: Temporary fallback values until we’re confident old clients are longer out in the wild
+    const hasServerOrGameParam = (propsServerKey !== undefined || serverId !== undefined || propsGameKey !== undefined);
+    const serverKey = hasServerOrGameParam ? propsServerKey : 'wrp';
+    const gameKey = hasServerOrGameParam ? propsGameKey : 'rdr2';
 
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
     const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
@@ -320,10 +331,17 @@ export const fetchRecentStreams = async (
                 }
             }
 
-            if (serverKey) {
+            if (serverKey || serverId) {
                 subQuery
-                    .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
-                    .andWhere('server.key = :serverKey', { serverKey });
+                    .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId');
+                if (serverKey) {
+                    subQuery
+                        .andWhere('server.key = :serverKey', { serverKey });
+                }
+                if (serverId) {
+                    subQuery
+                        .andWhere('server.id = :serverId', { serverId });
+                }
             }
 
             if (gameKey) {
@@ -521,11 +539,16 @@ export const fetchUnknownStreams = async (
         search,
         factionKey,
         channelTwitchId,
-        serverKey = 'wrp',
-        gameKey = 'rdr2',
+        serverKey: propsServerKey,
+        serverId,
+        gameKey: propsGameKey,
         cursor,
         limit = DEFAULT_LIMIT,
     } = params;
+    // TODO: Temporary fallback values until we’re confident old clients are longer out in the wild
+    const hasServerOrGameParam = (propsServerKey !== undefined || serverId !== undefined || propsGameKey !== undefined);
+    const serverKey = hasServerOrGameParam ? propsServerKey : 'wrp';
+    const gameKey = hasServerOrGameParam ? propsGameKey : 'rdr2';
 
     const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
     const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
@@ -613,10 +636,17 @@ export const fetchUnknownStreams = async (
                 }
             }
 
-            if (serverKey) {
+            if (serverKey || serverId) {
                 subQuery
-                    .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId')
-                    .andWhere('server.key = :serverKey', { serverKey });
+                    .innerJoin(Server, 'server', 'server.id = stream_chunk.serverId');
+                if (serverKey) {
+                    subQuery
+                        .andWhere('server.key = :serverKey', { serverKey });
+                }
+                if (serverId) {
+                    subQuery
+                        .andWhere('server.id = :serverId', { serverId });
+                }
             }
 
             if (gameKey) {
@@ -771,6 +801,7 @@ export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): St
         params.endBefore = queryParamDate(query, 'endBefore');
         params.endAfter = queryParamDate(query, 'endAfter');
         params.serverKey = queryParamString(query, 'serverKey');
+        params.serverId = queryParamInteger(query, 'serverId');
         params.gameKey = queryParamString(query, 'gameKey');
         const cursorString = queryParamString(query, 'cursor');
         const cursor = cursorString

@@ -218,16 +218,16 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           break;
         }
 
-        if (used.usedServerKeys && used.usedServerKeys.length) {
+        if (used.usedServerIdentifiers && used.usedServerIdentifiers.length) {
           needsAnotherLoad = true;
           if (!preloadedData.server) {
             preloadedData.server = {};
           }
-          for (const key of used.usedServerKeys) {
-            const serverResponse = await api.fetchServer(key, userResponse);
+          for (const identifier of used.usedServerIdentifiers) {
+            const serverResponse = await api.fetchServer(identifier, userResponse);
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
-            preloadedData.server[key] = JSON.parse(JSON.stringify(serverResponse)) as ServerResponse | null;
+            preloadedData.server[identifier] = JSON.parse(JSON.stringify(serverResponse)) as ServerResponse | null;
           }
         }
 

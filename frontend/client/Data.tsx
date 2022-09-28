@@ -57,7 +57,7 @@ export interface PreloadedUsed {
   usedStreamsQueries?: string[];
   usedUnknownStreamsQueries?: string[];
   usedServers?: boolean;
-  usedServerKeys?: string[];
+  usedServerIdentifiers?: string[];
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
@@ -391,6 +391,7 @@ export interface StreamsParams {
   factionKey?: string;
   channelTwitchId?: string;
   serverKey?: string;
+  serverId?: number;
   gameKey?: string;
   startBefore?: Date;
   startAfter?: Date;
@@ -408,6 +409,7 @@ const queryStringForStreamsParams = (params: StreamsParams): string => {
     factionKey,
     channelTwitchId,
     serverKey,
+    serverId,
     gameKey,
     startBefore,
     startAfter,
@@ -435,6 +437,9 @@ const queryStringForStreamsParams = (params: StreamsParams): string => {
   }
   if (serverKey !== undefined) {
     searchParams.set('serverKey', serverKey);
+  }
+  if (serverId !== undefined) {
+    searchParams.set('serverId', `${serverId|0}`);
   }
   if (gameKey !== undefined) {
     searchParams.set('gameKey', gameKey);
@@ -566,14 +571,15 @@ export const useServers = ({ skipsPreload = false, ...props }: PreLoadingProps<S
   return [loadState, outerOnReload, lastLoad];
 };
 
-export const useServer = (key: string, { skipsPreload = false, ...props }: PreLoadingProps<ServerResponse> = {}): LoadingResult<ServerResponse> => {
+export const useServer = (identifier: string | number, { skipsPreload = false, ...props }: PreLoadingProps<ServerResponse> = {}): LoadingResult<ServerResponse> => {
+  const key = typeof identifier === 'string' ? identifier : `${identifier|0}`;
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
   if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.server?.[key] === undefined) {
-    if (!preloadedUsed.usedServerKeys) {
-      preloadedUsed.usedServerKeys = [];
+    if (!preloadedUsed.usedServerIdentifiers) {
+      preloadedUsed.usedServerIdentifiers = [];
     }
-    preloadedUsed.usedServerKeys.push(key);
+    preloadedUsed.usedServerIdentifiers.push(key);
   }
   const preloaded = skipsPreload
     ? undefined

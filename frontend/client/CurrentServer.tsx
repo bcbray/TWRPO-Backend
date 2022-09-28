@@ -9,7 +9,7 @@ import Loading from './Loading';
 const CurrentServerContext = React.createContext<ServerResponse | null>(null);
 
 interface CurrentServerProviderProps {
-  identifier: string;
+  identifier: string | number;
   children: React.ReactNode;
 }
 
