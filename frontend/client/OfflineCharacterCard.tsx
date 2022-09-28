@@ -79,7 +79,7 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
       <div
         className={classes(
           styles.thumbnail,
-          lastSeenVideoThumbnailUrl && styles.hasThumbnail
+          loadedThumbnailUrl && styles.hasThumbnail
         )}
       >
         <CharacterLink character={character}>
