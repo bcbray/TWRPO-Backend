@@ -1197,7 +1197,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     kono5alive: [
         { id: 1177, name: '? "Big L" ?', factions: ['Sisika Guard'] },
-        { id: 1178, name: '[Deputy] Andrew Weaver', factions: ['Law'] },
+        { id: 1178, name: '[Deputy] Andrew Weaver', factions: ['Law'], deceased: true },
     ],
     Kouts3: [
         { id: 479, name: 'Felix Colt' },
