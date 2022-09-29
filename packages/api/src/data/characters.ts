@@ -687,7 +687,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 272, name: 'Crissy "Cricket" Blitz' },
         { id: 273, name: 'Holly Frost' },
         { id: 274, name: 'Sadhbh O’Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
-        { id: 1198, name: 'Harmony Bell' },
+        { id: 1198, name: 'Harmony Bell', nicknames: ['Bellish'] },
     ],
     EmeraldElephant_: [
         { id: 1091, name: 'Jackson Connor' },
