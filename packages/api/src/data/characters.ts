@@ -157,7 +157,7 @@ export const wrpCharacters: WrpCharacters = {
     AtopDerekMountain: [
         { id: 44, name: 'Dante Valentino' },
         { id: 45, name: 'Devoghn Lowery Brown', nicknames: ['D-Lo', reg(/d(?:\-|\s*)lo/)], displayName: 4 },
-        { id: 46, name: 'Red Stag' },
+        { id: 46, name: 'Red Stag', displayName: 0 },
         { id: 47, name: 'Walter Cross' },
         { id: 48, name: 'Wechugue Wechugue' },
         { id: 49, name: 'Zhang Wei', factions: ['Taipan'] },
