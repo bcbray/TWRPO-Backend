@@ -2362,7 +2362,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 949, name: 'Adam Garica' },
     ],
     xoVESPER: [
-        { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Famiglia'] },
+        { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Famiglia'], deceased: true },
     ],
     XxAshleyxX: [
         { id: 950, name: 'Rayven Hope', nicknames: ['Rayvn'] },
