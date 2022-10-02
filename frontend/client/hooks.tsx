@@ -122,13 +122,7 @@ export function useInitialRender(): boolean {
   return firstRender;
 }
 
-export interface RelativeDateResult {
-  full: string;
-  relative: string;
-}
-
-export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult | undefined {
-  const now = useNow();
+export function useBaseDateFormattingOptions(): { dateFormatOptions: Intl.DateTimeFormatOptions, locale?: string } {
   const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
 
   // Use en-US for the first render so we're consistent between SSR and the
@@ -137,9 +131,22 @@ export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult
 
   // Similarly, use America/New_York for the first render then fall back to
   // client time zone.
-  const dateFormatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
+  const dateFormatOptions = useMemo(() => ({
     timeZone: isFirstRenderFromSSR ? 'America/New_York' : undefined,
   }), [isFirstRenderFromSSR]);
+
+  return { dateFormatOptions, locale };
+}
+
+export interface RelativeDateResult {
+  full: string;
+  relative: string;
+}
+
+export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult | undefined {
+  const now = useNow();
+  const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
+  const { dateFormatOptions, locale } = useBaseDateFormattingOptions()
 
   const fullFormatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
     ...dateFormatOptions,
@@ -198,35 +205,69 @@ function shortDate(date: Date, now: Date, locale: string | undefined, formatOpti
 }
 
 export interface ShortDateOptions {
-  /** Use dates like “yesterday” and “today”. Default true */
-  canUseRelative?: boolean;
+  showToday?: boolean;
+  showYesterday?: boolean;
 }
 
 export function useShortDate(date: Date, options: ShortDateOptions = {}): string {
   const {
-    canUseRelative = true,
+    showToday = false,
+    showYesterday = false,
   } = options;
   const now = useNow();
   const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
 
-  // Use en-US for the first render so we're consistent between SSR and the
-  // first client-side render. Then immediately swap in client locale.
-  const locale = isFirstRenderFromSSR ? 'en-US' : undefined;
+  const { dateFormatOptions, locale } = useBaseDateFormattingOptions()
 
-  // Similarly, use America/New_York for the first render then fall back to
-  // client time zone.
-  const formatOptions: Intl.DateTimeFormatOptions = useMemo(() => ({
-    timeZone: isFirstRenderFromSSR ? 'America/New_York' : undefined,
-  }), [isFirstRenderFromSSR]);
-
-  if (canUseRelative && !isFirstRenderFromSSR && isSameDay(date, now)) {
+  if (showToday && !isFirstRenderFromSSR && isSameDay(date, now)) {
     return 'Today'
   }
-  if (canUseRelative && !isFirstRenderFromSSR && isSameDay(date, subDays(now, 1))) {
+  if (showYesterday && !isFirstRenderFromSSR && isSameDay(date, subDays(now, 1))) {
     return 'Yesterday'
   }
 
-  return shortDate(date, now, locale, formatOptions);
+  return shortDate(date, now, locale, dateFormatOptions);
+}
+
+export interface ShortDateOptions {
+  /** Use dates like “yesterday” and “today”. Default true */
+  canUseRelative?: boolean;
+}
+
+export function useWeekday(
+  date: Date,
+  options: ShortDateOptions & { weekday?: Intl.DateTimeFormatOptions['weekday'] } = {}
+): string {
+  const {
+    showToday = false,
+    showYesterday = false,
+    weekday = 'long',
+  } = options;
+  const now = useNow();
+  const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
+
+  const { dateFormatOptions, locale } = useBaseDateFormattingOptions()
+
+  const formatter = useMemo(() => (
+    new Intl.DateTimeFormat(locale, {
+      ...dateFormatOptions,
+      weekday,
+    })
+  ), [locale, dateFormatOptions, weekday]);
+
+  const formatted =  useMemo(() => (
+    formatter.format(date)
+  ), [date, formatter]);
+
+  if (showToday && !isFirstRenderFromSSR && isSameDay(date, now)) {
+    return 'Today'
+  }
+
+  if (showYesterday && !isFirstRenderFromSSR && isSameDay(date, subDays(now, 1))) {
+    return 'Yesterday'
+  }
+
+  return formatted;
 }
 
 /**

@@ -24,7 +24,7 @@ import { Streamer, VideoSegment } from '@twrpo/types';
 import styles from './StreamerTimeline.module.css';
 
 import Timeline, { TimelineRow } from './Timeline'
-import { useShortDate, useTimezone } from './hooks';
+import { useShortDate, useWeekday, useTimezone } from './hooks';
 import Loading from './Loading';
 
 
@@ -56,17 +56,19 @@ interface TimelineSegment {
 }
 
 const DaySidebarItem: React.FC<{ date: Date }> = ({ date }) => {
-  const shortDate = useShortDate(date);
+  const weekday = useWeekday(date, { weekday: 'short' });
+  const shortDate = useShortDate(date, { showToday: true });
   return (
     <div className={styles.timelineDate}>
+      <p className={styles.weekday}>{weekday}</p>
       <p>{shortDate}</p>
     </div>
   )
-}
+};
 
 const GapInfoItem: React.FC<{ start: Date, end: Date }> = ({ start, end }) => {
-  const shortStart = useShortDate(start, { canUseRelative: false });
-  const shortEnd = useShortDate(end, { canUseRelative: false });
+  const shortStart = useShortDate(start);
+  const shortEnd = useShortDate(end);
   return (
     <div className={styles.gapRow}>
       {start.getTime() !== end.getTime() ? (

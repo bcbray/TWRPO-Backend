@@ -94,7 +94,7 @@ const useIntervalStreams = (interval: Interval): {
 }
 
 const DayHeader: React.FC<{ date: Date, className?: string }> = ({ date, className }) => {
-  const formattedDate = useShortDate(date);
+  const formattedDate = useShortDate(date, { showToday: true, showYesterday: true });
   return <h3 className={className}>{formattedDate}</h3>
 }
 
