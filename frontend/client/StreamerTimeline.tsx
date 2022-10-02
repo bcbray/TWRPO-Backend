@@ -56,8 +56,8 @@ interface TimelineSegment {
 }
 
 const DaySidebarItem: React.FC<{ date: Date }> = ({ date }) => {
-  const weekday = useWeekday(date, { weekday: 'short' });
-  const shortDate = useShortDate(date, { showToday: true });
+  const weekday = useWeekday(date, { weekday: 'short', showToday: true });
+  const shortDate = useShortDate(date);
   return (
     <div className={styles.timelineDate}>
       <p className={styles.weekday}>{weekday}</p>
