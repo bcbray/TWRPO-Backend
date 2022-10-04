@@ -1951,7 +1951,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1185, name: 'Monica McMonigal' },
     ],
     Ssaab: [
-        { id: 784, name: 'Sam Baas', factions: ['The Unhung'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true }, // Former Sam's Club. leader of Sam's Club
+        { id: 784, name: 'Sam Baas', factions: ['The Unhung'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true, deceased: true }, // Former Sam's Club. leader of Sam's Club
         { id: 785, name: 'Ali Baba', displayName: 0 },
         { id: 786, name: '[Deputy] Leo Slacks', nicknames: ['Golden Boy'], factions: ['Law'] },
     ],
