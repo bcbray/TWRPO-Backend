@@ -1772,7 +1772,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1036, name: 'Alish Vixen' },
     ],
     ScarletRosePlays: [
-        { id: 708, name: 'Allison Chase' },
+        { id: 708, name: 'Allison "Ally" Chase', deceased: true },
         { id: 709, name: 'Bella Baker' },
         { id: 710, name: '[Deputy] Zoe Winters', factions: ['Law'] },
         { id: 1062, name: 'Myrna Meadows' },
