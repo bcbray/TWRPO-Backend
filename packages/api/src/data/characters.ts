@@ -1397,7 +1397,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 560, name: '[Cadet] Matthew McAllister', factions: ['Law'] },
     ],
     meechy_hendrix: [
-        { id: 1211, name: 'Bobby Johnson' },
+        { id: 1211, name: 'Bobby Johnson', assume: 'assumeOther' },
     ],
     MEKABEAR: [
         { id: 561, name: '[Deputy] Audrey Dusk', factions: ['Law'] },
