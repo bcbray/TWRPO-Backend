@@ -2165,7 +2165,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 860, name: 'Cillian McCarty' },
     ],
     TheGeneralSmokey: [
-        { id: 861, name: 'Edwin Braithwaite', nicknames: ['Eddie', 'Eddie Braithwaite', 'Prisoner 462503', '462503'], displayName: 4, factions: ['Dead End Kids'] }, // Former Dead End Kid (maybe back?). Former Kettleman
+        { id: 861, name: 'Edwin Braithwaite', nicknames: ['Eddie', 'Eddie Braithwaite', 'Prisoner 462503', '462503'], factions: ['Dead End Kids'] }, // Former Dead End Kid (maybe back?). Former Kettleman
     ],
     TheGoochTV: [
         { id: 862, name: 'Becker Lang' },
