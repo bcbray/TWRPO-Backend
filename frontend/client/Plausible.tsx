@@ -27,7 +27,6 @@ export const Plausible: React.FC<React.PropsWithChildren<PlausibleOptions>> = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   React.useEffect(() => plausible.enableAutoPageviews(), [plausible]);
-  React.useEffect(() => plausible.enableAutoOutboundTracking(), [plausible]);
   return <PlausibleContext.Provider value={plausible}>
     {children}
   </PlausibleContext.Provider>;
