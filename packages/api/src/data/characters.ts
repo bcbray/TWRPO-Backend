@@ -24,7 +24,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1226
+// Next ID: 1227
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -124,6 +124,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 35, name: 'Isiah Trebuchet' },
         { id: 1174, name: 'Johannes Wolfe', factions: ['Sisika Guard'] },
         { id: 1194, name: 'Dylan Dunning' },
+        { id: 1226, name: '[Deputy] Christian Sawyer', factions: ['Law'] },
     ],
     AnthonyZ: [
         { id: 36, name: 'Antonio Corleone', nicknames: ['Tony'] }, // Former DiCenzo. Not in the DiCenzo restructure
