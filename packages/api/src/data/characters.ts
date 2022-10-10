@@ -526,7 +526,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 198, name: 'Luther Van Dam' },
     ],
     Daveybe: [
-        { id: 199, name: 'Pip Delahan', factions: ['Kettleman Gang'] },
+        { id: 199, name: 'Pip Delahan', factions: ['Kettleman Gang', 'Guarma'] },
         { id: 200, name: 'Edge Lamburg' },
         { id: 1204, name: 'Peter "Pete" Conrad', nicknames: ['Squeaky Pete'] },
     ],
@@ -920,7 +920,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 370, name: 'Wesley "Wes" Shields', factions: ['Kettleman Gang'] }, // Former Law
     ],
     grigoriypeppo: [
-        { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2 },
+        { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang', 'Guarma'], leader: true, displayName: 2 },
         { id: 372, name: 'Robert Dixon' },
         { id: 373, name: 'Manuel Diaz', nicknames: ['El Coyote', 'Coyote'], displayName: 3 },
         { id: 1170, name: 'Richard Ross' },
@@ -1246,7 +1246,7 @@ export const wrpCharacters: WrpCharacters = {
     ksinz: [
         { id: 482, name: '[Deputy] Syles MacKenna', factions: ['Law'] },
         { id: 483, name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
-        { id: 484, name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang'] },
+        { id: 484, name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang', 'Guarma'] },
         { id: 1031, name: 'Archie "Little Cheese" Small', factions: ['One Life'] },
         { id: 1118, name: 'James "The Bro" McAllister' },
     ],
@@ -1452,7 +1452,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1045, name: 'Dot Lungsford' },
     ],
     MoogieCookies: [
-        { id: 1230, name: 'Cecily Caldwell' },
+        { id: 1230, name: 'Cecily Caldwell', factions: ['Independent', 'Guarma'] },
     ],
     MrArkay: [
         { id: 570, name: 'Casper Hems' },
@@ -1551,7 +1551,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 617, name: 'Trix' },
     ],
     nziech: [
-        { id: 618, name: 'Kuniklo', factions: ['Kettleman Gang'] },
+        { id: 618, name: 'Kuniklo', factions: ['Kettleman Gang', 'Guarma'] },
         { id: 619, name: 'Orpheus "Buck" Buck', factions: ['Half Wits'] },
         { id: 1155, name: '? "Moneybags" ?' },
     ],
