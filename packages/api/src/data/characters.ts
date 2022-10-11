@@ -1032,7 +1032,7 @@ export const wrpCharacters: WrpCharacters = {
     Im_HexeD: [
         { id: 406, name: 'Ronnie Tate' },
         { id: 407, name: 'Theodore Ellis' },
-        { id: 1058, name: '[Cadet] Judah Payne', factions: ['Law'] },
+        { id: 1058, name: '[Deputy] Judah Payne', factions: ['Law'] },
     ],
     ImagesOfBrokenLight: [
         { id: 1114, name: 'Cailin O’Connor', nicknames: ['Petal'] },
