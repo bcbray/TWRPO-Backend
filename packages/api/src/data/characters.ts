@@ -1735,7 +1735,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     RookGoose: [
         { id: 681, name: 'Leto McMorris' },
-        { id: 1034, name: '[Cadet] Cleo Haelfort', factions: ['Law'], displayName: 1 },
+        { id: 1034, name: '[Deputy] Cleo Haelfort', factions: ['Law'], displayName: 1 },
     ],
     ROOOLIZ: [
         { id: 1121, name: 'Kiono Kolichiyaw' },
