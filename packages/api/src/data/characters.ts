@@ -2041,7 +2041,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1096, name: 'Robert "Rob" Banks' },
     ],
     swordofpower1: [
-        { id: 1244, name: 'Lockjaw Jim' },
+        { id: 1244, name: 'Lockjaw Jim', displayName: 0 },
     ],
     Sylasism: [
         { id: 804, name: 'Atty Windward' },
