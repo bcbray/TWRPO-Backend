@@ -326,7 +326,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 116, name: 'Butch Fairway' },
         { id: 117, name: 'Johnny Quick' },
     ],
-    Buddha: [
+    buddha: [
         { id: 118, name: 'Wu Buddha' }, // Former DiCenzo. Not in the DiCenzo restructure
     ],
     buddyandy88: [
