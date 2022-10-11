@@ -1651,7 +1651,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 645, name: 'Cid Speedwagon', nicknames: ['Highwayman'] },
     ],
     PibbJont: [
-        { id: 646, name: '[Cadet] Thatcher Mantell', factions: ['Law'] },
+        { id: 646, name: '[Deputy] Thatcher Mantell', factions: ['Law'] },
     ],
     pinkchyu: [
         { id: 647, name: 'Caroline Kroll' },
