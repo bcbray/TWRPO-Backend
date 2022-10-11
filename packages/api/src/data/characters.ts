@@ -1481,7 +1481,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 575, name: 'Orland Boggs' },
         { id: 576, name: 'Blem Jinkins' },
     ],
-    MrGoonBones: [
+    MRGOONBONES: [
         { id: 577, name: 'Goon "Goom-Boobie" Bones' },
     ],
     MrMoonsHouse: [
