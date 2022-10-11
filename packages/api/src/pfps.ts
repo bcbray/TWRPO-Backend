@@ -1,5 +1,5 @@
 import { ApiClient } from '@twurple/api';
-import { DataSource } from 'typeorm';
+import { DataSource, ILike } from 'typeorm';
 import { wrpCharacters } from './data/characters';
 import { log } from './utils';
 import { TwitchChannel } from './db/entity/TwitchChannel';
@@ -31,6 +31,7 @@ export const getKnownTwitchUsers = async (apiClient: ApiClient, dataSource: Data
     existingPromise = new Promise<TwitchUser[]>(async (resolve, reject) => {
         const toSearch = Object.keys(wrpCharacters);
         let allUsers: TwitchUser[] = [];
+        const missingUsers: string[] = [];
         try {
             log(`Starting known users fetch for ${toSearch.length} users`);
 
@@ -47,6 +48,10 @@ export const getKnownTwitchUsers = async (apiClient: ApiClient, dataSource: Data
                     createdAt: helixUser.creationDate,
                 }));
                 allUsers = [...allUsers, ...found];
+
+                const searchedChannels = new Set(thisSearch);
+                found.forEach(u => searchedChannels.delete(u.displayName));
+                missingUsers.push(...searchedChannels);
 
                 const twitchChannels: Partial<TwitchChannel>[] = found.map(u => ({
                     twitchId: u.id,
@@ -72,6 +77,44 @@ export const getKnownTwitchUsers = async (apiClient: ApiClient, dataSource: Data
                         count: updateCount,
                     }));
                 }
+            }
+
+            for (const channelName of missingUsers) {
+                const channel = await dataSource
+                    .getRepository(TwitchChannel)
+                    .findOneBy({ displayName: ILike(channelName) });
+                if (channel === null) {
+                    console.log(JSON.stringify({
+                        level: 'notice',
+                        message: `Channel "${channelName}" could not be found in database`,
+                        event: 'known-twitch-user-not-found',
+                        channel: channelName,
+                    }));
+                    continue;
+                }
+                const nowUser = await apiClient.users.getUserById(channel.twitchId);
+                if (nowUser === null) {
+                    console.log(JSON.stringify({
+                        level: 'notice',
+                        message: `Channel "${channelName}" (${channel.twitchId}) is no longer on Twitch`,
+                        event: 'known-twitch-user-removed',
+                        channel: channelName,
+                        twitchId: channel.twitchId,
+                    }));
+                    continue;
+                }
+                // Don’t update in database because we’ll need to update
+                // data/characters.ts to keep things in sync. Once Characters
+                // move to the database, we should update the db when channels
+                // are renamed (perhaps storing the previous name for redirects?)
+                console.log(JSON.stringify({
+                    level: 'warning',
+                    message: `Channel "${channelName}" has been renamed to "${nowUser.displayName}"`,
+                    event: 'known-twitch-user-renamed',
+                    previousChannel: channelName,
+                    newChannel: nowUser.displayName,
+                    twitchId: nowUser.id,
+                }));
             }
 
             cachedResults = allUsers;
