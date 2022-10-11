@@ -1384,7 +1384,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 542, name: 'William White' },
         { id: 1097, name: 'Abe Cooper' },
     ],
-    MackieLTD: [
+    Mackieltd: [
         { id: 543, name: '[Deputy] Jack Cameron', factions: ['Law'] },
         { id: 544, name: 'Scott Samuel' },
         { id: 545, name: 'Nathanial ?', nicknames: ['Smoke'] },
