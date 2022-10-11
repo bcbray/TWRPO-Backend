@@ -1821,10 +1821,6 @@ export const wrpCharacters: WrpCharacters = {
     Scriffboy: [
         { id: 712, name: 'Tane' },
     ],
-    Scwair: [
-        { id: 713, name: 'Roman Blanco' },
-        { id: 714, name: 'Teddy Graves' },
-    ],
     seakeon: [
         { id: 715, name: 'Eoghan Quinn' },
         { id: 716, name: 'Pat Campbell' },
