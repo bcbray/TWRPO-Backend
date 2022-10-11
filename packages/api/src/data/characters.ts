@@ -669,7 +669,7 @@ export const wrpCharacters: WrpCharacters = {
     Duntless_: [
         { id: 1070, name: 'Dun Lessozzo' },
     ],
-    DustMonkeyGames: [
+    DustMonkey: [
         { id: 253, name: '[Deputy] Charles Slaughter', factions: ['Law'] },
         { id: 254, name: 'Solomon Walker', deceased: true }, // Leader of The Cut
         { id: 255, name: 'Lawrence "The Major" Stirling' },
