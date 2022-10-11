@@ -1744,7 +1744,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 681, name: 'Leto McMorris' },
         { id: 1034, name: '[Deputy] Cleo Haelfort', factions: ['Law'], displayName: 1 },
     ],
-    ROOOLIZ: [
+    roooliz: [
         { id: 1121, name: 'Kiono Kolichiyaw' },
     ],
     rossthehsauce: [
