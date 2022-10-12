@@ -1029,7 +1029,7 @@ export const wrpCharacters: WrpCharacters = {
     IEDeadly: [
         { id: 1220, name: 'Jax Houston' },
     ],
-    ikittyyyy: [
+    ikitty: [
         { id: 1243, name: 'Minky Solace' },
     ],
     illwac: [
