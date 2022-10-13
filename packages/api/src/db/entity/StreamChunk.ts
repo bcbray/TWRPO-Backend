@@ -26,8 +26,11 @@ export class StreamChunk {
     @Column({ nullable: false })
     gameTwitchId: string;
 
-    @Column({ nullable: true })
-    serverId: number;
+    @Column({
+        type: 'int',
+        nullable: true,
+    })
+    serverId: number | null;
 
     @Column({
         type: 'int',

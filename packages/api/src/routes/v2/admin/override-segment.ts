@@ -43,7 +43,12 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 return res.status(403).send({ success: false, errors: [{ message: 'Unauthorized' }] });
             }
 
-            if (req.body.characterId === undefined && req.body.characterUncertain === undefined && req.body.isHidden === undefined) {
+            if (
+                req.body.characterId === undefined
+                && req.body.characterUncertain === undefined
+                && req.body.isHidden === undefined
+                && req.body.serverId === undefined
+            ) {
                 return res.send({ success: true, message: 'No changes.' });
             }
 
@@ -63,7 +68,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 }
             }
 
-            const update: Partial<Pick<StreamChunk, 'characterId' | 'characterUncertain' | 'isOverridden' | 'isHidden'>> = {};
+            const update: Partial<Pick<StreamChunk, 'characterId' | 'characterUncertain' | 'isOverridden' | 'isHidden' | 'serverId'>> = {};
 
             if (req.body.characterUncertain !== undefined) {
                 update.characterUncertain = req.body.characterUncertain;
@@ -75,6 +80,11 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                     update.characterUncertain = false;
                 }
                 update.characterId = req.body.characterId;
+                update.isOverridden = true;
+            }
+
+            if (req.body.serverId !== undefined) {
+                update.serverId = req.body.serverId;
                 update.isOverridden = true;
             }
 

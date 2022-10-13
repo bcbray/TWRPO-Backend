@@ -6,6 +6,7 @@ import {
   CharacterInfo,
   OverrideSegmentRequest,
   Stream,
+  Server,
 } from '@twrpo/types';
 
 import styles from './OverrideSegmentModal.module.css';
@@ -14,12 +15,14 @@ import { isFailure, isSuccess, fetchAndCheck } from './LoadingState';
 import Modal from './Modal';
 import Spinner from './Spinner';
 import { classes } from './utils';
-import { useStreamer, useSegment } from './Data';
+import { useStreamer, useSegment, useServers } from './Data';
 import { FancyDropdown, LineItem } from './FancyDropdown'
 import DropdownItem from './DropdownItem';
 import VideoSegmentCard from './VideoSegmentCard'
 import Tag from './Tag'
 import { useFactionCss } from './FactionStyleProvider';
+import { useCurrentServer } from './CurrentServer';
+import { useSegmentTagText } from './SegmentTitleTag';
 
 interface OverrideSegmentModalProps {
   streamerTwitchLogin: string;
@@ -32,6 +35,7 @@ interface LoadedProps {
   streamer: Streamer;
   segment: VideoSegment;
   characters: CharacterInfo[];
+  servers: Server[];
   onHide: (overridden: boolean) => void;
 }
 
@@ -39,10 +43,15 @@ interface CharacterLineItem extends LineItem {
   character?: CharacterInfo;
 }
 
+interface ServerLineItem extends LineItem {
+  server?: Server;
+}
+
 const FormContent: React.FC<LoadedProps> = ({
     streamer,
     segment,
     characters,
+    servers,
     onHide,
 }) => {
   const { factionStylesForKey } = useFactionCss();
@@ -50,20 +59,60 @@ const FormContent: React.FC<LoadedProps> = ({
   const [hasSubmitted, setHasSubmitted] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
 
+  const { server: primaryServer } = useCurrentServer();
+
   const [overriddenCharacter, setOverriddenCharacter] = React.useState<CharacterInfo | null | undefined>(undefined);
   const [overriddenCharacterUncertain, setOverriddenCharacterUncertain] = React.useState<boolean | undefined>(undefined);
+  const [overriddenServer, setOverriddenServer] = React.useState<Server | null | undefined>(undefined);
   const [overriddenIsHidden, setOverriddenIsHidden] = React.useState<boolean | undefined>(undefined);
+
+  const displayedSelectedServer = overriddenServer === undefined
+    ? segment.server
+    : overriddenServer;
+
+  const isPrimaryServer = displayedSelectedServer?.id === primaryServer.id;
+
+  const displayedSelectedCharacter = isPrimaryServer
+    ? overriddenCharacter === undefined
+      ? segment.character
+      : overriddenCharacter
+    : null;
+  const canBeUncertain = isPrimaryServer && displayedSelectedCharacter !== null;
+  const displayedCharacterUncertain = !canBeUncertain
+    ? false
+    : overriddenCharacterUncertain === undefined
+      ? segment.characterUncertain
+      : overriddenCharacterUncertain;
+
+  const displayedIsHidden = overriddenIsHidden === undefined
+    ? segment.isHidden ?? false
+    : overriddenIsHidden;
 
   const handleSubmit = React.useCallback(() => {
     setIsSubmitting(true);
     setHasError(false);
+
+    const characterId = isPrimaryServer
+      ? overriddenCharacter !== undefined
+        ? overriddenCharacter?.id ?? null
+        : undefined
+      : null;
+    const characterUncertain = isPrimaryServer
+      ? overriddenCharacterUncertain
+      : segment.characterUncertain
+        ? false
+        : undefined;
+    const serverId = overriddenServer !== undefined
+      ? overriddenServer?.id ?? null
+      : undefined;
+    const isHidden = overriddenIsHidden;
+
     const request: OverrideSegmentRequest = {
       segmentId: segment.id,
-      characterId: overriddenCharacter !== undefined
-        ? overriddenCharacter?.id ?? null
-        : undefined,
-      characterUncertain: overriddenCharacterUncertain,
-      isHidden: overriddenIsHidden,
+      characterId,
+      characterUncertain,
+      serverId,
+      isHidden,
     }
     fetchAndCheck('/api/v2/admin/override-segment', {
       method: 'POST',
@@ -82,21 +131,7 @@ const FormContent: React.FC<LoadedProps> = ({
       setHasSubmitted(false);
       setHasError(true);
     })
-  }, [segment.id, overriddenCharacter, overriddenCharacterUncertain, overriddenIsHidden, onHide]);
-
-  const displayedSelectedCharacter = overriddenCharacter === undefined
-    ? segment.character
-    : overriddenCharacter;
-  const canBeUncertain = displayedSelectedCharacter !== null;
-  const displayedCharacterUncertain = !canBeUncertain
-    ? false
-    : overriddenCharacterUncertain === undefined
-      ? segment.characterUncertain
-      : overriddenCharacterUncertain;
-
-  const displayedIsHidden = overriddenIsHidden === undefined
-        ? segment.isHidden ?? false
-        : overriddenIsHidden;
+  }, [segment.id, overriddenCharacter, overriddenCharacterUncertain, overriddenServer, overriddenIsHidden, isPrimaryServer, segment.characterUncertain, onHide]);
 
   const characterLineItems: CharacterLineItem[] = React.useMemo(() => [
     {
@@ -134,27 +169,49 @@ const FormContent: React.FC<LoadedProps> = ({
     }))
   ], [characters, factionStylesForKey, displayedSelectedCharacter]);
 
-  const editedSegment: VideoSegment = React.useMemo(() => {
+  const serverLineItems: ServerLineItem[] = React.useMemo(() => [
+    {
+      id: 'meta-none',
+      name: 'No server',
+      element: <DropdownItem
+        key={'meta-none'}
+        onClick={e => e.preventDefault()}
+        eventKey='meta-none'
+        active={displayedSelectedServer === undefined}
+      >
+        No server
+      </DropdownItem>
+    },
+    ...servers.map(server => ({
+      id: `${server.id}`,
+      server,
+      name: server.name,
+      element: <DropdownItem
+        key={server.id}
+        onClick={e => e.preventDefault()}
+        eventKey={server.id}
+        active={server.id === displayedSelectedServer?.id}
+      >
+        {server.name}
+      </DropdownItem>
+    }))
+  ], [servers, displayedSelectedServer]);
+
+  const partialEditedSegment: VideoSegment = React.useMemo(() => {
     const {
       character: oldCharacter,
       characterUncertain: oldCharacterUncertain,
       liveInfo: oldLiveInfo,
+      server: oldServer,
       ...rest
     } = segment;
     let liveInfo: Stream | undefined;
     if (oldLiveInfo) {
       const {
-        tagText: oldTagText,
         tagFaction: oldTagFaction,
         ...rest
       } = oldLiveInfo;
-      const tagText = displayedSelectedCharacter
-        ? displayedCharacterUncertain
-          ? `? ${displayedSelectedCharacter.displayInfo.displayName} ?`
-          : displayedSelectedCharacter.displayInfo.displayName
-        : 'WRP';
       liveInfo = {
-        tagText,
         tagFaction: displayedSelectedCharacter
           ? displayedSelectedCharacter.factions[0]?.key ?? 'independent'
           : 'otherwrp',
@@ -165,9 +222,34 @@ const FormContent: React.FC<LoadedProps> = ({
       ...rest,
       character: displayedSelectedCharacter,
       characterUncertain: displayedCharacterUncertain,
+      server: displayedSelectedServer ?? undefined,
       liveInfo,
     }
-  }, [segment, displayedSelectedCharacter, displayedCharacterUncertain]);
+  }, [segment, displayedSelectedCharacter, displayedCharacterUncertain, displayedSelectedServer]);
+
+  const editedTagText = useSegmentTagText(partialEditedSegment, { ignoreLiveInfo: true });
+
+  const editedSegment: VideoSegment = React.useMemo(() => {
+    const {
+      liveInfo: oldLiveInfo,
+      ...rest
+    } = partialEditedSegment;
+    let liveInfo: Stream | undefined;
+    if (oldLiveInfo) {
+      const {
+        tagText: oldTagText,
+        ...rest
+      } = oldLiveInfo;
+      liveInfo = {
+        tagText: editedTagText,
+        ...rest,
+      }
+    }
+    return {
+      ...rest,
+      liveInfo,
+    }
+  }, [partialEditedSegment, editedTagText]);
 
   return <>
     <div className={styles.header}>
@@ -187,11 +269,20 @@ const FormContent: React.FC<LoadedProps> = ({
       </div>
       <div>
         <FancyDropdown
+          className={styles.serverDropdown}
+          buttonClassName={styles.serverDropdownButton}
+          title={displayedSelectedServer?.name ?? 'No server'}
+          items={serverLineItems}
+          onSelect={item => setOverriddenServer(item?.server ?? null)}
+        />
+      </div>
+      <div>
+        <FancyDropdown
           className={styles.characterDropdown}
           buttonClassName={styles.characterDropdownButton}
           title={displayedSelectedCharacter?.displayInfo.realNames.join(' ') ?? 'No character'}
           items={characterLineItems}
-          onSelect={item => setOverriddenCharacter(item?.character)}
+          onSelect={item => setOverriddenCharacter(item?.character ?? null)}
         />
       </div>
       <div>
@@ -260,11 +351,13 @@ const ModalContent: React.FC<OverrideSegmentModalProps> = ({
 }) => {
   const [streamerLoadState] = useStreamer(streamerTwitchLogin);
   const [segmentLoadState] = useSegment(segmentId, { skipsPreload: true });
-  if (isSuccess(streamerLoadState) && isSuccess(segmentLoadState)) {
+  const [serverLoadState] = useServers();
+  if (isSuccess(streamerLoadState) && isSuccess(segmentLoadState) && isSuccess(serverLoadState)) {
     return <FormContent
       streamer={streamerLoadState.data.streamer}
       segment={segmentLoadState.data}
       characters={streamerLoadState.data.characters}
+      servers={serverLoadState.data.servers}
       onHide={onHide}
     />
   }

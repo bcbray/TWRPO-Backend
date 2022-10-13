@@ -48,6 +48,15 @@
   width: 100%;
 }
 
+.serverDropdown {
+  width: 100%;
+}
+
+.serverDropdownButton {
+  text-align: left;
+  width: 100%;
+}
+
 .body .labelContainer {
   display: flex;
   justify-content: space-between;

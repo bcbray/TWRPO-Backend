@@ -8,19 +8,20 @@ import { classes } from './utils';
 import Tag from './Tag';
 import { useCurrentServer } from './CurrentServer';
 
-interface SegmentTitleTagProps {
-  className?: string;
-  segment: VideoSegment;
+interface UseSegmentTagTextOptions {
+  ignoreLiveInfo?: boolean;
 }
 
-const SegmentTitleTag: React.FC<SegmentTitleTagProps> = ({ className, segment }) => {
-  const { factionStylesForKey } = useFactionCss();
-  const { server, game } = useCurrentServer()
+export const useSegmentTagText = (segment: VideoSegment, options: UseSegmentTagTextOptions = {}): string => {
+  const { server, game } = useCurrentServer();
+  const {
+    ignoreLiveInfo = false,
+  } = options;
 
   // TODO: Classes for other game, other server, etc
   let tagText: string;
   if (segment.server && segment.server.id === server.id) {
-    if (segment.liveInfo) {
+    if (!ignoreLiveInfo && segment.liveInfo) {
       tagText = segment.liveInfo.tagText;
     } else if (segment.character) {
       tagText = segment.character.displayInfo.displayName;
@@ -40,6 +41,17 @@ const SegmentTitleTag: React.FC<SegmentTitleTagProps> = ({ className, segment })
     // TODO: different game, has server
     tagText = `${segment.game.name}`;
   }
+  return tagText;
+}
+
+interface SegmentTitleTagProps {
+  className?: string;
+  segment: VideoSegment;
+}
+
+const SegmentTitleTag: React.FC<SegmentTitleTagProps> = ({ className, segment }) => {
+  const { factionStylesForKey } = useFactionCss();
+  const tagText = useSegmentTagText(segment);
 
   return (
     <Tag

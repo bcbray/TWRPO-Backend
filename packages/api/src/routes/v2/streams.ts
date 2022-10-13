@@ -458,7 +458,7 @@ export const fetchRecentStreams = async (
         return {
             channel: channelLookup[rest.streamerId],
             video: videoLookup[rest.streamId],
-            server: serverLookup[rest.serverId],
+            server: rest.serverId ? serverLookup[rest.serverId] : undefined,
             game: gameLookup[rest.gameTwitchId],
             streamStartDate: new Date(streamStartDate),
             firstSeenDate: new Date(firstSeenDate),
@@ -807,7 +807,7 @@ export const fetchUnknownStreams = async (
         return {
             channel: channelLookup[rest.streamerId],
             video: videoLookup[rest.streamId],
-            server: serverLookup[rest.serverId],
+            server: rest.serverId ? serverLookup[rest.serverId] : undefined,
             game: gameLookup[rest.gameTwitchId],
             streamStartDate: new Date(streamStartDate),
             firstSeenDate: new Date(firstSeenDate),
