@@ -2305,7 +2305,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 899, name: 'Adelae "Ada" Wright' },
         { id: 900, name: '[Medic] Sadie Stronge', factions: ['Medical'] },
         { id: 901, name: 'Mary Rassler', nicknames: ['Old'] },
-        { id: 1191, name: 'Odie Moore' },
+        { id: 1191, name: 'Odie "Jen" Moore' },
     ],
     topspin17: [
         { id: 1008, name: 'Archie Stonewall' },
