@@ -54,7 +54,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1200, name: 'Qurun Alghul' },
         { id: 1201, name: 'Thorkel Olafson' },
         { id: 1209, name: 'Otomo Kitano' },
-        { id: 1248, name: 'Giuseppe "il Pepe" DeMarco' },
+        { id: 1248, name: 'Giuseppe De Marco', nicknames: ['il Pepe', 'Pepe'] },
     ],
     AaronOnAir: [
         { id: 8, name: 'Dylan Texler' },
