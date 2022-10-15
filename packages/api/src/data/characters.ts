@@ -40,7 +40,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 6, name: '[Ranger] Sheppard Dutton', factions: ['Rangers'] },
         { id: 1166, name: 'Finnagan Huxley' },
     ],
-    '52chains': [
+    '52Chains': [
         { id: 1122, name: 'Eduardo "Slimy" Guavera' },
     ],
     '615time': [
