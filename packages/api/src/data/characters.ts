@@ -2311,7 +2311,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 896, name: 'Antonio Borges' },
     ],
     Tonixion: [
-        { id: 897, name: 'Howard Purdnar' },
+        { id: 897, name: 'Howard Purdnar', assume: 'assumeOther' },
         { id: 898, name: 'Samson Graves' },
     ],
     toodlehausn: [
