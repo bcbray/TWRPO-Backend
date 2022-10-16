@@ -24,7 +24,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1261
+// Next ID: 1262
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -1777,6 +1777,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 682, name: 'Forest Fish', factions: ['Guppy Gang'] },
         { id: 683, name: 'Dominic "Dom" Disouza', factions: ['DiCenzo Group 2'] },
         { id: 684, name: 'Lionel Miles' },
+        { id: 1261, name: 'Jericho Gunne' },
     ],
     RY4N: [
         { id: 685, name: 'Christine "Momma" Thomas' }, // Former Momma's Boys? Maybe leader of Momma's Boys?
