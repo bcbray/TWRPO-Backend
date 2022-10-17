@@ -415,7 +415,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Cheever7: [
         { id: 149, name: 'Aurora Rayne', factions: ['Kettleman Gang'] },
-        { id: 1241, name: '[Cadet] Maya Brooks', factions: ['Law'] },
+        { id: 1241, name: '[Deputy] Maya Brooks', factions: ['Law'] },
     ],
     ChickPenguin: [
         { id: 150, name: 'Lily Linwood', nicknames: ['Lily Fish', 'Lilly', 'Lilly Fish'], factions: ['Independent', 'Guppy Gang'] },
