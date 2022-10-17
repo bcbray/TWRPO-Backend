@@ -521,11 +521,11 @@ const getWrpLive = async (
                             onNp = true;
                         } else {
                             const overriddenServer = otherServers.find(server => server.id === mostRecentStreamSegment!.serverId);
-                            if (overriddenServer) {
+                            if (overriddenServer || mostRecentStreamSegment.serverId === null) {
                                 onOther = true;
-                                serverName = overriddenServer.name;
-                                matchedServer = overriddenServer;
-                                if (overriddenServer.isVisible) onOtherIncluded = true;
+                                serverName = overriddenServer?.name ?? '';
+                                matchedServer = overriddenServer ?? null;
+                                if (overriddenServer !== undefined && overriddenServer.isVisible) onOtherIncluded = true;
                             } else {
                                 console.warn(JSON.stringify({
                                     level: 'error',
@@ -904,12 +904,8 @@ const getWrpLive = async (
                         factionCount.allwildrp++;
                     }
 
-                    if (!matchedServer) {
-                        // Can get here because of assumeOther
-                        continue;
-                    }
                     const chunk: Omit<StreamChunk, 'id' | 'isOverridden' | 'isHidden'> = {
-                        serverId: matchedServer.id,
+                        serverId: matchedServer?.id ?? null,
                         streamerId: helixStream.userId,
                         characterId,
                         characterUncertain,
