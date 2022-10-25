@@ -1118,7 +1118,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     J0J0: [
         { id: 423, name: 'Delilah Kane' },
-        { id: 424, name: 'Effie Parker', factions: ['DiCenzo Group 2'] }, // Former The Cut.  Membership in DiCenzo Group 1 pending conversation
+        { id: 424, name: 'Effie Parker', factions: ['DiCenzo Famiglia'] }, // Former The Cut
         { id: 425, name: 'Katherine Dunn' },
     ],
     Jackariah: [
@@ -2484,7 +2484,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 949, name: 'Adam Garica' },
     ],
     xoVESPER: [
-        { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Famiglia'], deceased: true },
+        { id: 1021, name: 'Olivia McDurn', deceased: true }, // Former DiCenzo
         { id: 1233, name: 'Josie Adders', displayName: 2 },
     ],
     XxAshleyxX: [
