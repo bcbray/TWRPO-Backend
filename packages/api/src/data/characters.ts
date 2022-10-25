@@ -2531,7 +2531,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 964, name: 'Cesare DiCenzo', factions: ['DiCenzo Famiglia'], leader: true },
     ],
     ZeusLair: [
-        { id: 965, name: 'Robbie Gold' }, // Former Lang Gang.
+        { id: 965, name: 'Robbie Gold', deceased: true }, // Former Lang Gang.
         { id: 984, name: 'Elijah James' },
         { id: 1004, name: 'Johnny Lambs', factions: ['One Life'], deceased: true },
         { id: 1003, name: 'Housten Beebors', factions: ['One Life'], deceased: true },
