@@ -2485,7 +2485,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     xoVESPER: [
         { id: 1021, name: 'Olivia McDurn', deceased: true }, // Former DiCenzo
-        { id: 1233, name: 'Josie Adders', displayName: 2 },
+        { id: 1233, name: 'Josie Adders' },
     ],
     XxAshleyxX: [
         { id: 950, name: 'Rayven Hope', nicknames: ['Rayvn'] },
