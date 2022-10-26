@@ -979,7 +979,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1278, name: 'Rhys O’Felan' },
     ],
     Heikima: [
-        { id: 989, name: 'Kaifeng Mi', factions: ['Independent', 'Guarma'] },
+        { id: 989, name: 'Kaifeng Mi', factions: ['Independent', 'Guarma'], deceased: true },
         { id: 1054, name: 'Pocky Ma' },
         { id: 1173, name: 'Koxinga Zheng', nicknames: ['Mr. Ko', reg(/\bmr\.?\s+ko\b/)], displayName: 3 },
         { id: 1223, name: 'Pretty Boy Stagley', displayName: 0 },
