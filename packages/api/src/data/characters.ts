@@ -1280,7 +1280,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1017, name: 'Gideon Graves' },
     ],
     kono5alive: [
-        { id: 1177, name: '? "Big L" ?', factions: ['Sisika Guard'] },
+        { id: 1177, name: 'Lawrence "Big L" ?', factions: ['Sisika Guard'] },
         { id: 1178, name: '[Deputy] Andrew Weaver', factions: ['Law'], deceased: true },
         { id: 1292, name: '[Cadet] Benjamin "Benny" Thatcher', factions: ['Law'] },
     ],
