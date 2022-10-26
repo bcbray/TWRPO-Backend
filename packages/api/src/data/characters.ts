@@ -358,7 +358,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 127, name: 'Dakota Ellis' },
     ],
     Caffine5: [
-        { id: 128, name: 'Billy Falco', nicknames: ['Billy Blasters', 'Billy Blunders'], displayName: 3, factions: ['Independent', 'Guarma'] }, // Former Danger Gang
+        { id: 128, name: 'Billy Falco', nicknames: ['Billy Blasters', 'Billy Blunders'], displayName: 3 }, // Former Danger Gang
         { id: 129, name: 'Vincenzo Struzzo' },
         { id: 1180, name: 'Massimo Aquila' },
         { id: 1254, name: 'Henry Corvo', factions: ['Lifer'] },
@@ -540,7 +540,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 198, name: 'Luther Van Dam' },
     ],
     Daveybe: [
-        { id: 199, name: 'Pip Delahan', factions: ['Kettleman Gang', 'Guarma'] },
+        { id: 199, name: 'Pip Delahan', factions: ['Kettleman Gang'] },
         { id: 200, name: 'Edge Lamburg' },
         { id: 1204, name: 'Peter "Pete" Conrad', nicknames: ['Squeaky Pete'] },
     ],
@@ -950,7 +950,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 370, name: 'Wesley "Wes" Shields', factions: ['Kettleman Gang'] }, // Former Law
     ],
     grigoriypeppo: [
-        { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang', 'Guarma'], leader: true, displayName: 2 },
+        { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2 },
         { id: 372, name: 'Robert Dixon' },
         { id: 373, name: '[Cadet] Manuel Diaz', nicknames: ['El Coyote', 'Coyote'], displayName: 3, factions: ['Law'] },
         { id: 1170, name: 'Richard Ross' },
@@ -1111,7 +1111,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 422, name: 'Patch "Patches" Twine' },
         { id: 1061, name: 'Phineas "Fin" Faith' },
         { id: 1089, name: 'Rupert Romano' },
-        { id: 1124, name: 'Dynamo Barbarosa', nicknames: ['The Doctor'], factions: ['Independent', 'Guarma'] }, // Character last name Dolton but goes by Barbarosa
+        { id: 1124, name: 'Dynamo Barbarosa', nicknames: ['The Doctor'] }, // Character last name Dolton but goes by Barbarosa
     ],
     IzzaBugg: [
         { id: 1184, name: '[Sr. Deputy] Maisie Briar', factions: ['Law'] },
@@ -1518,7 +1518,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1045, name: 'Dot Lungsford' },
     ],
     MoogieCookies: [
-        { id: 1230, name: 'Cecily Caldwell', factions: ['Independent', 'Guarma'] },
+        { id: 1230, name: 'Cecily Caldwell' },
     ],
     MrArkay: [
         { id: 570, name: 'Casper Hems' },
@@ -1619,7 +1619,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 617, name: 'Trix' },
     ],
     nziech: [
-        { id: 618, name: 'Kuniklo', factions: ['Kettleman Gang', 'Guarma'] },
+        { id: 618, name: 'Kuniklo', factions: ['Kettleman Gang'] },
         { id: 619, name: 'Orpheus "Buck" Buck', factions: ['Half Wits'] },
         { id: 1155, name: '? "Moneybags" ?' },
         { id: 1291, name: 'Edward "Ed" Stump' },
