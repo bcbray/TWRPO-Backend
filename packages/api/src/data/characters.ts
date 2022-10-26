@@ -1597,8 +1597,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 606, name: 'Cliff Otis' },
     ],
     Nopheros: [
-        { id: 607, name: 'Robert Fisher' },
-        { id: 1050, name: '[Deputy] Brick Bagwell', factions: ['Law'] },
+        { id: 607, name: '[Deputy] Robert Fisher', factions: ['Law'] },
+        { id: 1050, name: 'Brick Bagwell' },
     ],
     NOTmackfrew: [
         { id: 608, name: 'Seymour Humphries' },
