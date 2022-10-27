@@ -36,7 +36,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     '2hands2thumbs': [
         { id: 4, name: 'Ernest Dooly' },
-        { id: 5, name: 'Maverik Stone' },
+        { id: 5, name: 'Maverik Stone', factions: ['Boons Boys'] },
         { id: 6, name: '[Ranger] Sheppard Dutton', factions: ['Rangers'] },
         { id: 1166, name: 'Finnagan Huxley' },
     ],
@@ -1039,7 +1039,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 402, name: 'Chuck Morris' },
     ],
     IboonI: [
-        { id: 403, name: 'Elias Boon' }, // Emerald Ranch
+        { id: 403, name: 'Elias Boon', factions: ['Boons Boys'] }, // Emerald Ranch
     ],
     ICoolioM: [
         { id: 404, name: 'Arie ?' },
@@ -1059,7 +1059,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Im_HexeD: [
         { id: 406, name: 'Ronnie Tate' },
-        { id: 407, name: 'Theodore Ellis', displayName: 2 },
+        { id: 407, name: 'Theodore Ellis', displayName: 2, factions: ['Boons Boys'] },
         { id: 1058, name: '[Deputy] Judah Payne', factions: ['Law'] },
     ],
     ImagesOfBrokenLight: [
@@ -1326,7 +1326,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 499, name: 'Jade Turner' },
     ],
     L00seyG005ey: [
-        { id: 500, name: 'Elijah Grayson' },
+        { id: 500, name: 'Elijah Grayson', factions: ['Boons Boys'] },
     ],
     LakunaRP: [
         { id: 501, name: 'Tavish Black' },
@@ -1405,7 +1405,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 532, name: 'Randall "Ears" ?' }, // Rhodes Ruffians
     ],
     luka_aus: [
-        { id: 533, name: 'Lukeas Winsmore' },
+        { id: 533, name: 'Lukeas Winsmore', factions: ['Boons Boys'] },
         { id: 534, name: 'Louis O’Neil' },
     ],
     Lunabee: [
