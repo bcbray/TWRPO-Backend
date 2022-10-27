@@ -952,7 +952,7 @@ export const wrpCharacters: WrpCharacters = {
     grigoriypeppo: [
         { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2 },
         { id: 372, name: 'Robert Dixon' },
-        { id: 373, name: '[Cadet] Manuel Diaz', nicknames: ['El Coyote', 'Coyote'], displayName: 3, factions: ['Law'] },
+        { id: 373, name: '[Deputy] Manuel Diaz', nicknames: ['El Coyote', 'Coyote'], displayName: 3, factions: ['Law'] },
         { id: 1170, name: 'Richard Ross' },
     ],
     gtplays: [
