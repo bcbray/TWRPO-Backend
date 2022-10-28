@@ -337,6 +337,9 @@ export const wrpCharacters: WrpCharacters = {
     buddyandy88: [
         { id: 119, name: 'Carla Johanson' },
     ],
+    Budelii: [
+        { id: 473, name: 'John Frisco', displayName: 2 },
+    ],
     Buffalo995: [
         { id: 120, name: 'Clayton Woods' },
     ],
@@ -1248,9 +1251,6 @@ export const wrpCharacters: WrpCharacters = {
     Khandur_: [
         { id: 472, name: 'Tommy Cooper' },
         { id: 1012, name: '[Deputy] Dan O’Grady', factions: ['Law'] },
-    ],
-    killboy011: [
-        { id: 473, name: 'John Frisco', displayName: 2 },
     ],
     KillrBeauty: [
         { id: 474, name: 'Deborah "Deb" VanBurton' },
