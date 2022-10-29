@@ -1169,7 +1169,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     JennyHell: [
         { id: 1224, name: 'Rebecca Lang', factions: ['The Unhung'] },
-        { id: 1225, name: '[Deputy] Molly Mills', factions: ['Law'] },
+        { id: 1225, name: '[Deputy] Molly Mills', factions: ['Law'], deceased: true },
     ],
     JesterTheRyda: [
         { id: 443, name: 'Jordin Bradley' },
