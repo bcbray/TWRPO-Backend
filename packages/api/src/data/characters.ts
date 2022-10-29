@@ -1570,7 +1570,7 @@ export const wrpCharacters: WrpCharacters = {
     Mythematic: [
         { id: 592, name: 'Ben Bealz' },
         { id: 593, name: 'Chauncy "The Barman" Charles' },
-        { id: 594, name: 'Cooper Garret' },
+        { id: 594, name: 'Cooper Garret', nicknames: ['Coop'] },
         { id: 595, name: 'Jack Woulfe' },
         { id: 596, name: 'Pikup Dropov' },
         { id: 1176, name: 'Ira Claymore' },
