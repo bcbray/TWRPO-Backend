@@ -701,7 +701,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1107, name: 'Stella Callahan' },
     ],
     DzarekK: [
-        { id: 263, name: 'Eleonor Parker' },
+        { id: 263, name: '[Cadet] Eleonor Parker', factions: ['Law'] },
     ],
     Eatindatcereal: [
         { id: 264, name: '[Sr. Deputy] Jax Sanctum', factions: ['Law'] },
