@@ -1740,7 +1740,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 658, name: 'Oscar Caraballo' },
     ],
     Point1985: [
-        { id: 652, name: 'Joe Jackson' },
+        { id: 652, name: 'Joe Jackson', nicknames: ['JJ'] },
     ],
     potsie30: [
         { id: 653, name: 'Doug Landers' },
