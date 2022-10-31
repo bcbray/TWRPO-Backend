@@ -2507,7 +2507,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1014, name: 'Clay Dempsey' },
         { id: 1022, name: 'Hannibal ?' },
         { id: 1115, name: 'Nolan Kemp', factions: ['Guarma'] },
-        { id: 1296, name: '[Deputy] Scott Wilkins', factions: ['Law'] },
+        { id: 1296, name: '[Deputy] Scott Wilkins', factions: ['Law'], deceased: true },
     ],
     woplotomo: [
         { id: 941, name: '? ?', assume: 'neverNp' },
