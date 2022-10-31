@@ -2420,7 +2420,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1026, name: 'Henry Dahlman' },
         { id: 1055, name: 'Rhett Sawyer' },
         { id: 1136, name: 'Theodore Hammond' },
-        { id: 1250, name: '[Cadet] Robert Herrera', factions: ['Law'] },
+        { id: 1250, name: '[Deputy] Robert Herrera', factions: ['Law'] },
     ],
     unstoppableLARN: [
         { id: 910, name: 'Gertrude Cockburn' },
