@@ -1708,7 +1708,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 636, name: 'Erasmus South' },
     ],
     PBandJLee: [
-        { id: 637, name: '[Trainee] Elsie Fletcher', factions: ['Medical'] }, // TODO: `factions: ['News']` maybe?
+        { id: 637, name: '[Medic] Elsie Fletcher', factions: ['Medical'] }, // TODO: `factions: ['News']` maybe?
     ],
     PeachTreeMcGee: [
         { id: 638, name: 'Charlotte Toussaint' },
