@@ -133,7 +133,7 @@ export const wrpCharacters: WrpCharacters = {
     AngryPotatoChipz: [
         { id: 34, name: '[Deputy] Jamie Marlow', factions: ['Law'] },
         { id: 35, name: 'Isiah Trebuchet' },
-        { id: 1174, name: 'Johannes Wolfe', factions: ['Sisika Guard'] },
+        { id: 1174, name: '[Guard] Johannes Wolfe', factions: ['Sisika Guard'] },
         { id: 1194, name: 'Dylan Dunning' },
         { id: 1226, name: '[Deputy] Christian Sawyer', factions: ['Law'] },
     ],
@@ -568,7 +568,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Demorga_: [
         { id: 1043, name: 'Avery Hobbs', displayName: 2 },
-        { id: 1120, name: 'Cassius Renata', factions: ['Sisika Guard'] },
+        { id: 1120, name: '[Guard] Cassius Renata', factions: ['Sisika Guard'] },
         { id: 1127, name: '[Sheriff] Sylas "Stache" Kristiansen', factions: ['Law'] },
     ],
     DeneeSays: [
@@ -673,7 +673,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 250, name: 'Duke Colt', nicknames: ['Handsome Colt'] },
         { id: 251, name: 'Charles Morgan' },
         { id: 1052, name: 'Jimmy Billiam' },
-        { id: 1181, name: 'Darren Hobbs', factions: ['Sisika Guard'] },
+        { id: 1181, name: '[Guard] Darren Hobbs', factions: ['Sisika Guard'] },
     ],
     Dunrunnin12: [
         { id: 252, name: 'Clay' },
@@ -1021,7 +1021,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 393, name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'] },
         { id: 394, name: '[Cadet] Miles Gyles', factions: ['Law'] },
         { id: 1063, name: '[Deputy] Thomas Hooper', factions: ['Law'] },
-        { id: 1102, name: 'Mickey Doyle', factions: ['Sisika Guard'] },
+        { id: 1102, name: '[Guard] Mickey Doyle', factions: ['Sisika Guard'] },
     ],
     Hoss: [
         { id: 395, name: 'Buck Cherry' },
@@ -1285,7 +1285,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1017, name: 'Gideon Graves' },
     ],
     kono5alive: [
-        { id: 1177, name: 'Lawrence "Big L" ?', factions: ['Sisika Guard'] },
+        { id: 1177, name: '[Warden] Lawrence "Big L" ?', factions: ['Sisika Guard'] },
         { id: 1178, name: '[Deputy] Andrew Weaver', factions: ['Law'], deceased: true },
         { id: 1292, name: '[Deputy] Benjamin "Benny" Thatcher', factions: ['Law'] },
     ],
@@ -2164,7 +2164,7 @@ export const wrpCharacters: WrpCharacters = {
     TankGirl: [
         { id: 811, name: 'Effie Mae Braithwaite', deceased: true },
         { id: 812, name: 'Gloria Bonanno' },
-        { id: 1165, name: 'Hattie Booker', factions: ['Sisika Guard'] },
+        { id: 1165, name: '[Guard] Hattie Booker', factions: ['Sisika Guard'], displayName: 2 },
     ],
     tanklovesyou: [
         { id: 813, name: 'Ethan Cross' },
@@ -2186,7 +2186,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 824, name: 'Precious Cargo' },
         { id: 825, name: 'Gertrude Nelson' },
         { id: 1092, name: 'Mercy Porter' },
-        { id: 1111, name: 'Angela Payne', factions: ['Sisika Guard'] },
+        { id: 1111, name: '[Guard] Angela Payne', factions: ['Sisika Guard'] },
         { id: 1129, name: 'Jasmine Baro', factions: ['Independent', 'Guarma'] },
     ],
     Tech_Otter: [
@@ -2315,7 +2315,7 @@ export const wrpCharacters: WrpCharacters = {
     TheRandomChick: [
         { id: 876, name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'] },
         { id: 877, name: 'Poppet Deveaux' },
-        { id: 1182, name: 'Mae Daye', factions: ['Sisika Guard'] },
+        { id: 1182, name: '[Guard] Mae Daye', factions: ['Sisika Guard'] },
     ],
     TheRudyDuck: [
         { id: 986, name: 'Phineas "Phi" Klein' },
