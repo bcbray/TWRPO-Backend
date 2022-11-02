@@ -212,6 +212,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 913, name: 'Roman Blanco' },
         { id: 914, name: 'Teddy Graves' },
     ],
+    b3erni: [
+        { id: 84, name: 'Noah Little' },
+    ],
     B3UDown: [
         { id: 68, name: 'Zip Quil', factions: ['Kettleman Gang'] },
     ],
@@ -255,9 +258,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BennayTee: [
         { id: 1112, name: 'Otto Orleans' },
-    ],
-    BernieIsLive: [
-        { id: 84, name: 'Noah Little' },
     ],
     BigTimmuh: [
         { id: 1039, name: 'Luke McCoy' },
