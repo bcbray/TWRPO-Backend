@@ -1367,6 +1367,12 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1128, name: 'Fern Rew' },
         { id: 1161, name: 'Myrtle Sherman', factions: ['Lifer'] },
     ],
+    Lewdicon: [
+        { id: 950, name: 'Rayven Hope', nicknames: ['Rayvn'] },
+        { id: 951, name: 'Zola Caiman' },
+        { id: 952, name: 'Noel "Leon" Taylor' },
+        { id: 1103, name: 'Carmen Fuentes' },
+    ],
     LimaZuluTango: [
         { id: 513, name: 'Henri Sinclair' },
     ],
@@ -2531,12 +2537,6 @@ export const wrpCharacters: WrpCharacters = {
     xoVESPER: [
         { id: 1021, name: 'Olivia McDurn', deceased: true }, // Former DiCenzo
         { id: 1233, name: 'Josephine "Josie" Adders' },
-    ],
-    XxAshleyxX: [
-        { id: 950, name: 'Rayven Hope', nicknames: ['Rayvn'] },
-        { id: 951, name: 'Zola Caiman' },
-        { id: 952, name: 'Noel "Leon" Taylor' },
-        { id: 1103, name: 'Carmen Fuentes' },
     ],
     YatoTheMad: [
         { id: 953, name: 'Cassius Evans' },
