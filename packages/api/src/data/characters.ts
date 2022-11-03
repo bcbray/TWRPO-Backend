@@ -109,7 +109,7 @@ export const wrpCharacters: WrpCharacters = {
     AM_Raid: [
         { id: 25, name: 'Cain Lockhart' },
         { id: 26, name: 'Clifford Buck' },
-        { id: 27, name: '[Deputy] Giorgio Santorelli', factions: ['Law'] },
+        { id: 27, name: 'Giorgio "Gio" Santorelli' }, // Former law?
         { id: 28, name: 'Raul Sanchez' },
     ],
     AmRainbowBee: [
