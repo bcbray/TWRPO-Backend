@@ -937,7 +937,7 @@ export const wrpCharacters: WrpCharacters = {
     GooseyOfficial: [
         { id: 358, name: 'Jaimie Quinn' },
         { id: 359, name: 'MaN Sauers' },
-        { id: 360, name: 'Speedy McGillagully', factions: ['Dead End Kids'] },
+        { id: 360, name: 'Joseph "Speedy" McGillagully', factions: ['Dead End Kids'] },
         { id: 1015, name: 'Harold Roach' },
     ],
     GrammTheGibbon: [
