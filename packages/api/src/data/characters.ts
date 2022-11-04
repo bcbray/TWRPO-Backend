@@ -24,7 +24,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1323
+// Next ID: 1324
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -945,6 +945,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 361, name: 'Herbert Parker', nicknames: ['Herb', 'Cowboy', 'Young'] }, // Kettleman hangaround
         { id: 362, name: '[Detective] Homer Carnes', factions: ['Law'], nicknames: ['Cop'] },
         { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'], deceased: true }, // Considered to be the one and only leader of the Kettleman Gang
+        { id: 1323, name: '[Deputy] Pop Sullivan', factions: ['Law'] },
     ],
     GraveGamerTV: [
         { id: 365, name: 'Paulson Greer' },
