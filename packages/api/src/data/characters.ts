@@ -1236,7 +1236,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 461, name: 'Billy Blood' },
     ],
     JustSam42: [
-        { id: 462, name: '[Ranger] Nathan Thompson', factions: ['Rangers'] },
+        { id: 462, name: '[Game Warden] Nathan Thompson', factions: ['Rangers'] },
     ],
     JustxJodi: [
         { id: 463, name: 'Minnie Mines' },
@@ -2037,7 +2037,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 759, name: 'Roger Thyne' },
     ],
     SomethingBees: [
-        { id: 760, name: '[Ranger] Isla White', factions: ['Rangers'] },
+        { id: 760, name: '[Game Warden] Isla White', factions: ['Rangers'] },
         { id: 761, name: 'Berdie Lloyd' },
         { id: 762, name: '[Deputy] Cait McAlister', factions: ['Law'] },
         { id: 763, name: 'Amarok' },
