@@ -1587,7 +1587,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 585, name: 'Leon Taylor' },
         { id: 586, name: 'Conny Cage' },
     ],
-    Myre: [
+    MYRE: [
         { id: 587, name: 'Benoit Baratie' },
         { id: 588, name: 'Crispin Cantabile' },
         { id: 589, name: '[Ranger] Dallas Wolf', factions: ['Rangers'] },
