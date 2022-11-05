@@ -43,6 +43,9 @@ export const privateStandaloneRoutes = <>
 </>;
 
 export const redirects = <>
+  <Route path="/streams/faction/theunhung" element={<Redirect to="/streams/faction/thebaastards" />} />
+  <Route path="/characters/faction/theunhung" element={<Redirect to="/characters/faction/thebaastards" />} />
+  <Route path="/multistream/faction/theunhung" element={<Redirect to="/multistream/faction/thebaastards" />} />
   <Route path="/streams" element={<Redirect to="/" />} />
   <Route path="/streams/faction" element={<Redirect to="/" />} />
   <Route path="/streamer" element={<Redirect to="/" />} />
