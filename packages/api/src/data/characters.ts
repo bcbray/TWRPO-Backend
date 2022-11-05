@@ -2230,7 +2230,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 831, name: 'Luke Colton', factions: ['Coltons'] },
     ],
     tessvalkyrie: [
-        { id: 1203, name: 'Molina Larken' },
+        { id: 1203, name: 'Molina Larken', assume: 'assumeOther' },
         { id: 1216, name: 'Bertha Makowitz', nicknames: ['Big Bertha'], displayName: 3 },
     ],
     Thadrius: [
