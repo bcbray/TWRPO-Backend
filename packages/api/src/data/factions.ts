@@ -19,7 +19,7 @@ const noLater = (reg: RegExp) => mergeRegex(['(?:', reg, ')', /(?!(?:[\s-_]+(?:c
 const noFormer = (reg: RegExp) => mergeRegex([/(?<!(?:\b|_)(?:vs?|versus|on|against|e?x|former|fake|wanna\s*be|fighting|clapping|with|becom\w+\s+a|for|then)(?:\s+(?:th?e|some|all|every|el|la|da))?[^a-z0-9]*|vs?)/i, '(?:', reg, ')']);
 
 export const wrpFactionsRegex = {
-    theunhung: noLater(noFormer(/\b(?:the\s+)?unhung/)),
+    thebaastards: noLater(noFormer(/\b(?:the\s+)?baastards/i)),
     halfwits: noLater(noFormer(/\bhalf\s*wits/)),
     podcast: noLater(noFormer(/\b(?:(?<!!)podcast|rp\s+theory)\b/i)),
     watchparty: noLater(noFormer(/\b(?<!!)watch[\s\-_.]*part/i)),
@@ -84,7 +84,7 @@ wrpFactionsRealMini.forEach((faction) => {
 });
 
 export const useColorsDark = { // #ff77ff #FAA0A0 #FA0B42
-    theunhung: '#e74c3c',
+    thebaastards: '#e74c3c',
     kettlemangang: '#ab5179',
     dicenzofamiglia: '#F6EE6D',
     dicenzogroup2: '#F6EE6D',
@@ -121,7 +121,7 @@ export type FactionColorsRealMini = FactionRealMini & FactionColorsMini;
 export const isFactionColor = (factionMini: FactionMini): factionMini is FactionColorsMini => factionMini in useColorsDark;
 
 export const useColorsLight: { [key in FactionColorsMini]: string } = {
-    theunhung: '#c74c3c',
+    thebaastards: '#c74c3c',
     kettlemangang: '#ab5179',
     dicenzofamiglia: '#CDC14C',
     dicenzogroup2: '#CDC14C',
@@ -164,7 +164,7 @@ const filterOrderTop: FactionMiniArr = [
     'independent',
     'law',
     'rangers',
-    'theunhung',
+    'thebaastards',
     'kettlemangang',
     'medical',
 ];

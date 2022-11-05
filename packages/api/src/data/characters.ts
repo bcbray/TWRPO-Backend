@@ -281,7 +281,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 92, name: 'Jesse Flint' },
     ],
     bldrs: [
-        { id: 93, name: 'Casey Rigsby', factions: ['The Unhung', 'Guppy Gang'] }, // Former Sam's Club
+        { id: 93, name: 'Casey Rigsby', factions: ['The Baastards', 'Guppy Gang'] }, // Former Sam's Club
     ],
     BlitzyNation: [
         { id: 94, name: 'Charlie Walker' },
@@ -842,7 +842,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1168, name: 'Amity Carrow' },
     ],
     ForeheadSkin: [
-        { id: 316, name: 'Edmund "Eddy" Reddington', factions: ['The Unhung'] }, // Former Sam's Club
+        { id: 316, name: 'Edmund "Eddy" Reddington', factions: ['The Baastards'] }, // Former Sam's Club
         { id: 317, name: 'Henry Huff' },
         { id: 318, name: 'Joseph Walters' },
         { id: 319, name: 'Morris Sterling' },
@@ -899,7 +899,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1042, name: 'Doc Ringo' },
     ],
     GeneralEmu: [
-        { id: 342, name: 'Lance Divine', factions: ['The Unhung'] },
+        { id: 342, name: 'Lance Divine', factions: ['The Baastards'] },
         { id: 343, name: '[Deputy] Jimmy Avola', nicknames: ['Two Times', 'Jimmy "Two Times"'], displayName: 4, factions: ['Law'] },
     ],
     GeorgiaBanks: [
@@ -1089,7 +1089,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1280, name: 'Jesse Price' },
     ],
     ImFromTheFuture: [
-        { id: 409, name: 'Roscoe Montana', factions: ['The Unhung'] }, // Former Sam's Club
+        { id: 409, name: 'Roscoe Montana', factions: ['The Baastards'] }, // Former Sam's Club
         { id: 1138, name: 'Jackson Diggles' },
     ],
     inkyblackdreams: [
@@ -1181,7 +1181,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 442, name: 'Gemma Middleton' },
     ],
     JennyHell: [
-        { id: 1224, name: 'Rebecca Lang', factions: ['The Unhung'] },
+        { id: 1224, name: 'Rebecca Lang', factions: ['The Baastards'] },
         { id: 1225, name: '[Deputy] Molly Mills', factions: ['Law'], deceased: true },
         { id: 1303, name: '[Deputy] Mia Bailey', factions: ['Law'] },
         { id: 1304, name: 'Missy Mee' },
@@ -1224,7 +1224,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 456, name: 'Peggy Brown' },
     ],
     Jonthebroski: [
-        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J’Baas', 'J Baas'], displayName: 5, factions: ['The Unhung'], leader: true }, // Former Sam's Club
+        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J’Baas', 'J Baas'], displayName: 5, factions: ['The Baastards'], leader: true }, // Former Sam's Club
         { id: 458, name: '[Deputy] Jaime Ruth', factions: ['Law'] },
         { id: 1010, name: 'Erik "Nose" ?', nicknames: ['Vladimir', 'Ivan'] },
         { id: 1279, name: 'Ceaser Falls' },
@@ -2102,7 +2102,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1185, name: 'Monica McMonigal' },
     ],
     Ssaab: [
-        { id: 784, name: 'Sam Baas', factions: ['The Unhung'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true, deceased: true }, // Former Sam's Club. leader of Sam's Club
+        { id: 784, name: 'Sam Baas', factions: ['The Baastards'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true, deceased: true }, // Former Sam's Club. leader of Sam's Club
         { id: 785, name: 'Ali Baba', displayName: 0 },
         { id: 786, name: '[Deputy] Leo Slacks', nicknames: ['Golden Boy'], factions: ['Law'] },
         { id: 1295, name: 'Charles "CD" Divine' },
@@ -2563,7 +2563,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 946, name: 'Morgan Calloway' },
     ],
     Xiceman: [
-        { id: 947, name: 'Michael Bayo', factions: ['The Unhung'] },
+        { id: 947, name: 'Michael Bayo', factions: ['The Baastards'] },
         { id: 948, name: '[Deputy] Andrew Kennedy', factions: ['Law'] },
     ],
     xlt588gaming: [
