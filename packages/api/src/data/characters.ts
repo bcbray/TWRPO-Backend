@@ -1608,7 +1608,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 598, name: 'Dug Dug', nicknames: ['Dug Money'] },
     ],
     NaniNerd: [
-        { id: 599, name: 'Ivy Hill' },
+        { id: 599, name: 'Ivy Hill', factions: ['Independent', 'Guarma'] },
     ],
     nawtyeagle: [
         { id: 1302, name: 'Ronnie White' },
