@@ -2214,7 +2214,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 818, name: 'Mattias Temble' },
     ],
     Tasara22: [
-        { id: 819, name: '[Sr. Deputy] Jane Ripley', factions: ['Law'] },
+        { id: 819, name: '[Sr. Deputy] Jane Ripley', factions: ['Law'], deceased: true },
         { id: 820, name: 'Elizabeth "Betty" Butcher' }, // Former DiCenzo (group 2)
         { id: 821, name: 'Madame Milena' },
         { id: 822, name: 'Monica Peach' },
