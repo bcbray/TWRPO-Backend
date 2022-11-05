@@ -1356,7 +1356,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 981, name: 'Jim Walker' },
     ],
     LEAH: [
-        { id: 503, name: '[Ranger] Francesca "Frankie" Bright', factions: ['Rangers'], displayName: 2 },
+        { id: 503, name: '[Deputy] Francesca "Frankie" Bright', factions: ['Law'] },
         { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Summers Gang'] },
         { id: 505, name: 'Brie Haviour' },
         { id: 506, name: 'Ruthie Samuels' },
