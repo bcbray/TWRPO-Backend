@@ -2580,7 +2580,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 956, name: 'Alexander Williams' },
     ],
     yeka221: [
-        { id: 957, name: 'Tabitha "Tibbit" Birch' },
+        { id: 957, name: '[Recruit] Tabitha "Tibbit" Birch', factions: ['Rangers'] },
         { id: 977, name: '[Deputy] Harley Bolton', factions: ['Law'] },
     ],
     Yorkoh: [
