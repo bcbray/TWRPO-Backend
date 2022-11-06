@@ -834,7 +834,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 310, name: 'Cade Cross' },
     ],
     Flickerclad: [
-        { id: 311, name: 'Evangeline Thorne', factions: ['Summers Gang'] },
+        { id: 311, name: 'Evangeline Thorne', factions: ['Red Water'] }, // Former Summers Gang
         { id: 312, name: 'Frankie Czepanski' },
         { id: 313, name: '[Sheriff] Rabbit Windward', factions: ['Law'] },
         { id: 314, name: 'Saskia "Fang" Wolf' },
@@ -950,7 +950,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GraveGamerTV: [
         { id: 365, name: 'Paulson Greer' },
-        { id: 366, name: 'Peter Gray', nicknames: ['Pete'], factions: ['Summers Gang'] },
+        { id: 366, name: 'Peter Gray', nicknames: ['Pete'] }, // Former Summers Gang
         { id: 367, name: 'Balter Duncans' },
         { id: 368, name: 'Paz Ferrer' },
     ],
@@ -1217,7 +1217,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 451, name: 'Jackie Laguna' },
     ],
     johnnyblamz: [
-        { id: 452, name: 'Gavin Summers', factions: ['Summers Gang'], leader: true },
+        { id: 452, name: 'Gavin Summers' }, // Former Summers Gang. Leader of Summers Gang
         { id: 453, name: 'Jody Quinn' },
         { id: 454, name: 'Logan Miller' },
         { id: 455, name: 'Avery Woods' },
@@ -1357,7 +1357,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     LEAH: [
         { id: 503, name: '[Deputy] Francesca "Frankie" Bright', factions: ['Law'] },
-        { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Summers Gang'] },
+        { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'] }, // Former Summers Gang
         { id: 505, name: 'Brie Haviour' },
         { id: 506, name: 'Ruthie Samuels' },
     ],
@@ -1513,7 +1513,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 385, name: 'George Shaffer' },
     ],
     Mhaple_: [
-        { id: 564, name: 'Morgan Lee', factions: ['Summers Gang'] }, // Unconfirmed, but he's at least riding with them
+        { id: 564, name: 'Morgan Lee', factions: ['Red Water'] }, // Former Summers Gang
     ],
     Mick: [
         { id: 565, name: 'Gladys Berry' },
@@ -2080,7 +2080,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 775, name: 'Tormund Kray' },
     ],
     split_uni: [
-        { id: 1007, name: 'Koho ?', nicknames: ['Fox'], factions: ['Summers Gang'] },
+        { id: 1007, name: 'Koho ?', nicknames: ['Fox'], factions: ['Red Water'] }, // Former Summers Gang
         { id: 1033, name: 'Bai Li', factions: ['Taipan'], displayName: 0 },
         { id: 1076, name: 'Gabriel Gashade', displayName: 2 },
         { id: 1208, name: 'Payton Bell' },
@@ -2093,7 +2093,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     spriteleah: [
         { id: 778, name: '[Ranger] Francesca "Frankie" Bright', factions: ['Rangers'], displayName: 2 },
-        { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Summers Gang'] },
+        { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'] }, // Former Summers Gang
         { id: 780, name: 'Brie Haviour' },
         { id: 781, name: 'Ruthie Samuels' },
     ],
@@ -2528,7 +2528,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     WANTED_MANIAC: [
         { id: 929, name: 'Brian Wright' }, // Former Senior Deputy
-        { id: 930, name: 'Taylor Hicks', factions: ['Summers Gang'] },
+        { id: 930, name: 'Taylor Hicks', factions: ['Red Water'] }, // Former Summers Gang
         { id: 931, name: 'William "Bill" Carver' },
         { id: 932, name: 'Benji Bell' },
     ],
