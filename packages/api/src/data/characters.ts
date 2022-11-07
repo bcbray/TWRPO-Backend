@@ -1317,7 +1317,7 @@ export const wrpCharacters: WrpCharacters = {
     ksinz: [
         { id: 482, name: '[Deputy] Syles MacKenna', factions: ['Law'] },
         { id: 483, name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
-        { id: 484, name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang', 'Guarma'] },
+        { id: 484, name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang'] },
         { id: 1031, name: 'Archie "Little Cheese" Small', factions: ['One Life'] },
         { id: 1118, name: 'James "The Bro" McAllister' },
         { id: 1271, name: 'John Hancock', nicknames: ['Unnamed & Unattested', 'Terry Frost'], displayName: 0 },
@@ -1616,7 +1616,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 598, name: 'Dug Dug', nicknames: ['Dug Money'] },
     ],
     NaniNerd: [
-        { id: 599, name: 'Ivy Hill', factions: ['Independent', 'Guarma'] },
+        { id: 599, name: 'Ivy Hill' },
     ],
     nawtyeagle: [
         { id: 1302, name: 'Ronnie White' },
