@@ -1486,7 +1486,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MattRP: [
         { id: 1085, name: 'Guy Newman', displayName: 0 },
-        { id: 1310, name: 'Jebediah Ripley' }, // Aspiring Law
+        { id: 1310, name: '[Cadet] Jebediah Ripley', factions: ['Law'] }, // Aspiring Law
     ],
     MatttyP92: [
         { id: 1046, name: 'Benito "Beni" Salvatore' },
@@ -1592,7 +1592,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 585, name: 'Leon Taylor' },
         { id: 586, name: 'Conny Cage' },
     ],
-    MYRE: [
+    Myre: [
         { id: 587, name: 'Benoit Baratie' },
         { id: 588, name: 'Crispin Cantabile' },
         { id: 589, name: '[Ranger] Dallas Wolf', factions: ['Rangers'] },
