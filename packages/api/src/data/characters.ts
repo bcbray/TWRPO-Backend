@@ -1671,7 +1671,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 618, name: 'Kuniklo', factions: ['Kettleman Gang'] },
         { id: 619, name: 'Orpheus "Buck" Buck', factions: ['Half Wits'] },
         { id: 1155, name: '? "Moneybags" ?' },
-        { id: 1291, name: 'Edward "Ed" Stump' },
+        { id: 1291, name: '[Cadet] Edward "Ed" Stump', factions: ['Law'] },
     ],
     OBreezzy_21: [
         // Uses “WildRP” while playing RDR2 Story Mode
