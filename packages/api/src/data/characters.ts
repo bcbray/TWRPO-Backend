@@ -467,7 +467,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1032, name: 'Shamus McConnell', factions: ['One Life'] },
     ],
     ConnorCronus: [
-        { id: 167, name: '[Deputy] Rip Riley', factions: ['Law'] },
+        { id: 167, name: '[Sr. Deputy] Rip Riley', factions: ['Law'] },
         { id: 168, name: 'Isaac Smith' },
         { id: 169, name: 'Karlias Drex' },
         { id: 170, name: 'Richard Sionis' },
