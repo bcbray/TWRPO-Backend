@@ -104,7 +104,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1101, name: 'Caveman' },
     ],
     alyssajeanaf: [
-        { id: 24, name: 'Dahlia Malone', nicknames: ['Songbird'] }, // Dicenzo hangaround? (not in the restructure tho). Former Sam's Club
+        { id: 24, name: 'Dahlia Malone', nicknames: ['Songbird'], factions: ['Fantoni Crew'] }, // Former Sam's Club
         { id: 1099, name: 'Evelyn Salvatore' },
     ],
     AM_Raid: [
@@ -126,7 +126,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AngelKnivez: [
         { id: 32, name: 'Renni Bradshaw', nicknames: ['Rimmy'] }, // Former Danger Gang. Briefly Kelly Gang
-        { id: 33, name: 'Sissi Marie', factions: ['DiCenzo Famiglia'] },
+        { id: 33, name: 'Sissilina "Sissi" Marie', factions: ['DiCenzo Famiglia'] },
     ],
     AngerMike: [
         { id: 1231, name: 'Virgil Fox' },
@@ -139,7 +139,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1226, name: '[Deputy] Christian Sawyer', factions: ['Law'] },
     ],
     AnthonyZ: [
-        { id: 36, name: 'Antonio Corleone', nicknames: ['Tony'] }, // Former DiCenzo. Not in the DiCenzo restructure
+        { id: 36, name: 'Antonio Corleone', nicknames: ['Tony'], factions: ['DiCenzo Famiglia'] }, // Inactive DiCenzo
     ],
     APPLESHAMPOO: [
         { id: 37, name: 'Kenny Kidman' },
@@ -186,7 +186,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 55, name: 'Kitty LaRoux' },
     ],
     Avioto_: [
-        { id: 56, name: 'Amadeo Moretti', factions: ['DiCenzo Group 2'] },
+        { id: 56, name: 'Amadeo Moretti', factions: ['Moretti Crew'], leader: true },
         { id: 57, name: 'Mo Tengfei' },
     ],
     AwaBeats: [
@@ -334,7 +334,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 117, name: 'Johnny Quick' },
     ],
     buddha: [
-        { id: 118, name: 'Wu Buddha' }, // Former DiCenzo. Not in the DiCenzo restructure
+        { id: 118, name: 'Wu Buddha', factions: ['DiCenzo Famiglia'] }, // Inactive DiCenzo
     ],
     buddyandy88: [
         { id: 119, name: 'Carla Johanson' },
@@ -575,7 +575,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1127, name: '[Sheriff] Sylas "Stache" Kristiansen', factions: ['Law'] },
     ],
     DeneeSays: [
-        { id: 205, name: 'Brooke "Babs" Burns' }, // DiCenzo hangaround? (Not in the restructure tho)
+        { id: 205, name: 'Brooke "Babs" Burns', factions: ['DiCenzo Famiglia'] },
     ],
     Deputy_Games: [
         { id: 206, name: 'Sam Rosco' }, // Former The Cut
@@ -714,7 +714,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Eatindatcereal: [
         { id: 264, name: '[Sr. Deputy] Jax Sanctum', factions: ['Law'] },
-        { id: 265, name: 'Al Lombardo' },
+        { id: 265, name: 'Al Lombardo', factions: ['DiCenzo Famiglia'] }, // Inactive DiCenzo
     ],
     EctoSpectrum: [
         { id: 1150, name: 'Ginette "Netty" Margreit' },
@@ -779,7 +779,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1001, name: 'Finn Taytum', deceased: true },
     ],
     ewanruss: [
-        { id: 287, name: 'Alfonso Bonucci', nicknames: ['Coach Al', 'Al'], displayName: 4 }, // Former DiCenzo? Not in the DiCenzo restructure.
+        { id: 287, name: 'Alfonso Bonucci', nicknames: ['Coach Al', 'Al'], displayName: 4, factions: ['DiCenzo Famiglia'] }, // Inactive DiCenzo
     ],
     extralivia: [
         { id: 288, name: 'Lydia Spade' },
@@ -862,7 +862,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Freumont: [
         { id: 324, name: 'Edward Shaw' },
-        { id: 325, name: 'Leonardo E. "Leo" Fantoni', factions: ['DiCenzo Group 2'], leader: true },
+        { id: 325, name: 'Leonardo E. "Leo" Fantoni', factions: ['Fantoni Crew'], leader: true },
     ],
     friendly_chick: [
         { id: 326, name: 'Angelica "Angel" Ward', nicknames: ['Angle'], factions: ['Conductors'] },
@@ -1085,7 +1085,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1114, name: 'Cailin O’Connor', nicknames: ['Petal'] },
     ],
     IMeMine30: [
-        { id: 408, name: 'Angelo Clemente', factions: ['DiCenzo Group 2'] },
+        { id: 408, name: 'Angelo Clemente', factions: ['Fantoni Crew'] },
         { id: 563, name: 'Walt McGrath' },
         { id: 1280, name: 'Jesse Price' },
     ],
@@ -1203,7 +1203,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1274, name: 'Callie ?' },
     ],
     JillardSZN: [
-        { id: 1139, name: 'Jilly Rizzo' },
+        { id: 1139, name: 'Jilly Rizzo', factions: ['Fantoni Crew'] },
     ],
     jobyonekanobi: [
         { id: 446, name: 'Clint Gunther' },
@@ -1309,7 +1309,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1299, name: 'Welshie Bruiser' },
     ],
     KripkeyTV: [
-        { id: 480, name: 'Sergio Scarpatti', nicknames: ['Scarpo'], factions: ['DiCenzo Famiglia'] },
+        { id: 480, name: 'Sergio "Scarpo" Scarpatti', factions: ['DiCenzo Famiglia'] },
     ],
     KristoferYee: [
         { id: 481, name: 'Posie Tiv' },
@@ -1825,7 +1825,7 @@ export const wrpCharacters: WrpCharacters = {
     Quip_TV: [
         { id: 667, name: '[Deputy] Dove Hopkins', factions: ['Law'] },
         { id: 668, name: 'Sally Higgins', nicknames: ['Shotgun'] },
-        { id: 669, name: 'Sofia Sherman', factions: ['DiCenzo Group 2'] },
+        { id: 669, name: 'Sofia Sherman', factions: ['Moretti Crew'] },
     ],
     RaddRema: [
         { id: 670, name: 'Bonnie Sunn' },
@@ -1849,13 +1849,13 @@ export const wrpCharacters: WrpCharacters = {
     ],
     RickMongoLIVE: [
         { id: 675, name: 'Cole Dalton' },
-        { id: 676, name: 'Furio Bonanno' },
+        { id: 676, name: 'Furio Bonanno', factions: ['DiCenzo Famiglia'] }, // Inactive DiCenzo
     ],
     RiftImpy: [
         { id: 1247, name: 'Bartholomew "Barty" Brue' },
     ],
     Roach_tm: [
-        { id: 677, name: 'Tony Moretti' }, // Former DiCenzo? Not in the DiCenzo restructure
+        { id: 677, name: 'Tony Moretti', factions: ['DiCenzo Famiglia'] }, // Inactive DiCenzo
     ],
     rosco: [
         { id: 678, name: 'Awkward Johnson', displayName: 0, deceased: true },
@@ -1873,7 +1873,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     rossthehsauce: [
         { id: 682, name: 'Forest Fish', factions: ['Guppy Gang'] },
-        { id: 683, name: 'Dominic "Dom" Disouza', factions: ['DiCenzo Group 2'] },
+        { id: 683, name: 'Dominic "Dom" Disouza', factions: ['DiCenzo Famiglia'] }, // Inactive DiCenzo
         { id: 684, name: 'Lionel Miles' },
         { id: 1261, name: 'Jericho Gunne' },
     ],
@@ -1902,7 +1902,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1130, name: 'Louise Loveless', factions: ['Lifer'] },
     ],
     SalsaRage: [
-        { id: 696, name: 'Norman McCain', factions: ['DiCenzo Group 2'] },
+        { id: 696, name: 'Norman McCain', factions: ['Moretti Crew'] },
         { id: 697, name: 'Bitt McGee' },
     ],
     Sammyyyyyyy: [
@@ -2507,7 +2507,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1284, name: 'Alice Jinks' },
     ],
     VersaLK: [
-        { id: 918, name: 'Carlo Marciano', factions: ['DiCenzo Group 2'] },
+        { id: 918, name: 'Carlo Marciano', factions: ['Fantoni Crew'] },
     ],
     VERTiiGOGAMING: [
         { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'] }, // Former Kerrigan Ranch
@@ -2584,7 +2584,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 949, name: 'Adam Garica' },
     ],
     xoVESPER: [
-        { id: 1021, name: 'Olivia McDurn', deceased: true }, // Former DiCenzo
+        { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Famiglia'], deceased: true }, // Former DiCenzo
         { id: 1233, name: 'Josephine "Josie" Adders' },
     ],
     YatoTheMad: [
