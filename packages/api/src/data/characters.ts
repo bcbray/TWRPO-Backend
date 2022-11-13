@@ -125,7 +125,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 31, name: 'Gabriella Gonzales' },
     ],
     AngelKnivez: [
-        { id: 32, name: 'Renni Bradshaw', nicknames: ['Rimmy'] }, // Former Danger Gang. Briefly Kelly Gang
+        { id: 32, name: 'Renni Bradshaw', factions: ['Dead End Kids'] }, // Former Danger Gang. Briefly Kelly Gang
         { id: 33, name: 'Sissilina "Sissi" Marie', factions: ['DiCenzo Famiglia'] },
     ],
     AngerMike: [
@@ -550,7 +550,7 @@ export const wrpCharacters: WrpCharacters = {
     Daveybe: [
         { id: 199, name: 'Pip Delahan', factions: ['Kettleman Gang'] },
         { id: 200, name: 'Edge Lamburg' },
-        { id: 1204, name: 'Peter "Pete" Conrad', nicknames: ['Squeaky Pete'] },
+        { id: 1204, name: 'Peter "Pete" Conrad', nicknames: ['Squeaky Pete'], factions: ['Dead End Kids'] },
     ],
     DDPeter: [
         { id: 1245, name: 'Pete "Mudbutt" Rotunda' },
@@ -1185,7 +1185,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1224, name: 'Rebecca Lang', factions: ['The Baastards'] },
         { id: 1225, name: '[Deputy] Molly Mills', factions: ['Law'], deceased: true },
         { id: 1303, name: '[Deputy] Mia Bailey', factions: ['Law'] },
-        { id: 1304, name: 'Missy Mee' },
+        { id: 1304, name: 'Missy Mee', factions: ['Dead End Kids'] },
     ],
     JesterTheRyda: [
         { id: 443, name: 'Jordin Bradley' },
