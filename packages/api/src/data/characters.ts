@@ -877,7 +877,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 331, name: 'Clint Brimshaw', assumeChar: true },
     ],
     Gallethril: [
-        { id: 332, name: 'Annabel Barnes' },
+        { id: 332, name: 'Annabel Barnes', assume: 'assumeOther' },
         { id: 333, name: 'Claire Marsh' },
     ],
     GameBaked: [
