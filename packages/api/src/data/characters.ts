@@ -1185,7 +1185,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1224, name: 'Rebecca Lang', factions: ['The Baastards'] },
         { id: 1225, name: '[Deputy] Molly Mills', factions: ['Law'], deceased: true },
         { id: 1303, name: '[Deputy] Mia Bailey', factions: ['Law'] },
-        { id: 1304, name: 'Missy Mee', factions: ['Dead End Gang'] },
+        { id: 1304, name: 'Missy Mee', factions: ['Dead End Gang'], deceased: true },
     ],
     JesterTheRyda: [
         { id: 443, name: 'Jordin Bradley' },
