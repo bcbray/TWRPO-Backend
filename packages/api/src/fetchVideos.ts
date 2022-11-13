@@ -90,7 +90,7 @@ export const fetchMissingThumbnailsForVideoIds = async (
             const thisSearch = toFetchVideoIds.splice(0, fetchLimit);
             const videos = await apiClient.videos.getVideosByIds(thisSearch);
             for (const video of videos) {
-                if (video.thumbnailUrl) {
+                if (video.thumbnailUrl && !video.thumbnailUrl.includes('_404/404_processing_')) {
                     await dataSource.getRepository(Video)
                         .update(
                             { videoId: video.id },
