@@ -129,7 +129,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 33, name: 'Sissilina "Sissi" Marie', factions: ['DiCenzo Famiglia'] },
     ],
     AngerMike: [
-        { id: 1231, name: 'Virgil Fox' },
+        { id: 1231, name: 'Virgil Fox', factions: ['The Ring'] },
     ],
     AngryPotatoChipz: [
         { id: 34, name: '[Deputy] Jamie Marlow', factions: ['Law'] },
@@ -1524,7 +1524,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 52, name: 'Mickey Toolin' },
     ],
     MightyMoonBear: [
-        { id: 1028, name: 'Russell Woods' },
+        { id: 1028, name: 'Russell Woods', factions: ['The Ring'] },
         { id: 1253, name: 'Nvdo Kali Yona' },
     ],
     MinksOfMars: [
@@ -1852,7 +1852,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 676, name: 'Furio Bonanno', factions: ['DiCenzo Famiglia'] }, // Inactive DiCenzo
     ],
     RiftImpy: [
-        { id: 1247, name: 'Bartholomew "Barty" Brue' },
+        { id: 1247, name: 'Bartholomew "Barty" Brue', factions: ['The Ring'] },
     ],
     Roach_tm: [
         { id: 677, name: 'Tony Moretti', factions: ['DiCenzo Famiglia'] }, // Inactive DiCenzo
@@ -1935,7 +1935,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 710, name: '[Deputy] Zoe Winters', factions: ['Law'] },
         { id: 1062, name: 'Myrna Meadows' },
         { id: 1157, name: 'Posie Hart', nicknames: ['Kimberly', 'Kimberly Taylor'], displayName: 3 },
-        { id: 1228, name: 'Ashley Sky' },
+        { id: 1228, name: 'Ashley Sky', factions: ['The Ring'] },
     ],
     SciFri: [
         { id: 985, name: 'Pat Hetic' },
@@ -2027,7 +2027,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 745, name: 'Billy Joe Barber', nicknames: ['Billy Joe', 'BJB'], displayName: 4, factions: ['The Nameless'] },
         { id: 746, name: 'Lefty Lone' },
         { id: 747, name: 'Reidar Hagen' },
-        { id: 1172, name: 'Frank Gilbani' },
+        { id: 1172, name: 'Frank Gilbani', factions: ['The Ring'] },
     ],
     SLiMt: [
         { id: 748, name: 'Jimmy "Slim Jim" Slimper' },
@@ -2131,7 +2131,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 789, name: 'Edie Barlowe' },
     ],
     start_vx: [
-        { id: 1238, name: 'Garneesh Tandoori' },
+        { id: 1238, name: 'Garneesh Tandoori', factions: ['The Ring'] },
     ],
     SteelRain27: [
         { id: 790, name: 'Moses Maddox' },
