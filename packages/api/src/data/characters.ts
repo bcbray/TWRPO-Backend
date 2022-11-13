@@ -125,7 +125,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 31, name: 'Gabriella Gonzales' },
     ],
     AngelKnivez: [
-        { id: 32, name: 'Renni Bradshaw', factions: ['Dead End Kids'] }, // Former Danger Gang. Briefly Kelly Gang
+        { id: 32, name: 'Renni Bradshaw', factions: ['Dead End Gang'] }, // Former Danger Gang. Briefly Kelly Gang
         { id: 33, name: 'Sissilina "Sissi" Marie', factions: ['DiCenzo Famiglia'] },
     ],
     AngerMike: [
@@ -550,7 +550,7 @@ export const wrpCharacters: WrpCharacters = {
     Daveybe: [
         { id: 199, name: 'Pip Delahan', factions: ['Kettleman Gang'] },
         { id: 200, name: 'Edge Lamburg' },
-        { id: 1204, name: 'Peter "Pete" Conrad', nicknames: ['Squeaky Pete'], factions: ['Dead End Kids'] },
+        { id: 1204, name: 'Peter "Pete" Conrad', nicknames: ['Squeaky Pete'], factions: ['Dead End Gang'] },
     ],
     DDPeter: [
         { id: 1245, name: 'Pete "Mudbutt" Rotunda' },
@@ -939,7 +939,7 @@ export const wrpCharacters: WrpCharacters = {
     GooseyOfficial: [
         { id: 358, name: 'Jaimie Quinn' },
         { id: 359, name: 'MaN Sauers' },
-        { id: 360, name: 'Joseph "Speedy" McGillagully', factions: ['Dead End Kids'] },
+        { id: 360, name: 'Joseph "Speedy" McGillagully', factions: ['Dead End Gang'] },
         { id: 1015, name: 'Harold Roach' },
     ],
     GrammTheGibbon: [
@@ -1185,7 +1185,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1224, name: 'Rebecca Lang', factions: ['The Baastards'] },
         { id: 1225, name: '[Deputy] Molly Mills', factions: ['Law'], deceased: true },
         { id: 1303, name: '[Deputy] Mia Bailey', factions: ['Law'] },
-        { id: 1304, name: 'Missy Mee', factions: ['Dead End Kids'] },
+        { id: 1304, name: 'Missy Mee', factions: ['Dead End Gang'] },
     ],
     JesterTheRyda: [
         { id: 443, name: 'Jordin Bradley' },
@@ -1506,7 +1506,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MEKABEAR: [
         { id: 561, name: '[Deputy] Audrey Dusk', factions: ['Law'] },
-        { id: 562, name: 'Goldie Fisher', factions: ['Dead End Kids'] }, // Former Kettleman.
+        { id: 562, name: 'Goldie Fisher', factions: ['Dead End Gang'] }, // Former Kettleman.
     ],
     MelanieMint: [
         { id: 1272, name: 'Lula Foster' },
@@ -1754,7 +1754,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 638, name: 'Charlotte Toussaint' },
     ],
     peachycoaster: [
-        { id: 639, name: 'Chrissy Snow', factions: ['Dead End Kids'] },
+        { id: 639, name: 'Chrissy Snow', factions: ['Dead End Gang'] },
         { id: 640, name: 'Toosie Loo' }, // Kettleman hangaround? I would consider her Kettleman, but Jack doesn't
         { id: 641, name: 'Kipper O’Neil' },
     ],
@@ -2323,7 +2323,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 860, name: 'Cillian McCarty' },
     ],
     TheGeneralSmokey: [
-        { id: 861, name: 'Edwin Braithwaite', nicknames: ['Eddie', 'Eddie Braithwaite', 'Prisoner 462503', '462503'], factions: ['Dead End Kids'] }, // Former Dead End Kid (maybe back?). Former Kettleman
+        { id: 861, name: 'Edwin Braithwaite', nicknames: ['Eddie', 'Eddie Braithwaite', 'Prisoner 462503', '462503'], factions: ['Dead End Gang'] }, // Former Kettleman
     ],
     TheGoldenDunsparce: [
         { id: 1317, name: 'Ngu Daeng' },
@@ -2511,7 +2511,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     VERTiiGOGAMING: [
         { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'] }, // Former Kerrigan Ranch
-        { id: 920, name: 'Richard "The Wallaby Kid" Eastwick', nicknames: ['Joey Johns'], factions: ['Dead End Kids'] },
+        { id: 920, name: 'Richard "The Wallaby Kid" Eastwick', nicknames: ['Joey Johns'], factions: ['Dead End Gang'] },
         { id: 921, name: 'Les Darcy' },
         { id: 922, name: 'Bazz Kerrigan', factions: ['Kettleman Gang'], deceased: true }, // leader of Kerrigan Ranch
         { id: 923, name: 'Clarence McCloud' },
