@@ -80,7 +80,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1071, name: 'Finley Burton' },
     ],
     Aero_Films: [
-        { id: 16, name: 'Skeeter Carlisle' },
+        { id: 16, name: 'Skeeter Carlisle', telegram: 'WJ178' },
     ],
     Aestannar: [
         { id: 17, name: 'Arthur Jones' },
