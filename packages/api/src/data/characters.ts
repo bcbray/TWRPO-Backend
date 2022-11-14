@@ -2088,7 +2088,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 765, name: 'Jean Rivers' },
     ],
     SpaceAndromeda: [
-        { id: 766, name: '[Sr. Deputy] Aoife McCarthy', factions: ['Law'] },
+        { id: 766, name: '[Sr. Deputy] Aoife McCarthy', factions: ['Law'], telegram: 'UU547' },
         { id: 767, name: 'Clarabelle Manson' },
         { id: 768, name: 'Cora Crow' },
     ],
