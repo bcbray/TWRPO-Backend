@@ -1177,7 +1177,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 435, name: 'Jane Pebbleswood' },
     ],
     JarlOfGoats: [
-        { id: 436, name: 'Gabriel Lenihan' },
+        { id: 436, name: 'Gabriel Lenihan', telegram: 'VR309' }, // [Father] Preacher
         { id: 1090, name: 'Ellis Cameron' },
     ],
     JayBritton: [
