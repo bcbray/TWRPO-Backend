@@ -2571,7 +2571,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Wrighty: [
         { id: 942, name: 'Jack Reed' },
-        { id: 943, name: '[Marshal] Logan Monroe', factions: ['Law'], telegram: 'AC843' }, // Deputy Marshal
+        { id: 943, name: '[Marshal] Logan Monroe', factions: ['Law'], telegram: 'AC843', deceased: true }, // Deputy Marshal
         { id: 944, name: 'Roscoe Riggs' },
         { id: 945, name: 'Joseph Carter' },
     ],
