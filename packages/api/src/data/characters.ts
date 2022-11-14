@@ -1024,7 +1024,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 387, name: 'Rico Kanto' },
     ],
     highkingfrazzal: [
-        { id: 388, name: 'James Delany' },
+        { id: 388, name: 'James Delany', telegram: 'OR036' },
         { id: 1087, name: 'Jack Graves' },
     ],
     Highpriest999: [
