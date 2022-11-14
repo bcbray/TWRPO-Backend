@@ -1845,7 +1845,7 @@ export const wrpCharacters: WrpCharacters = {
     RaddRema: [
         { id: 670, name: 'Bonnie Sunn' },
         { id: 1108, name: 'Riley Fitzgerald' },
-        { id: 1343, name: 'Florence "Flo" Grant' },
+        { id: 1343, name: 'Florence "Flo" Grant', telegram: 'MZ214' },
     ],
     Rayormy: [
         { id: 671, name: 'Adelaide Henry' },
