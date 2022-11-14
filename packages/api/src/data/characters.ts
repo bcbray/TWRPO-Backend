@@ -1141,7 +1141,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1124, name: 'Dynamo Barbarosa', nicknames: ['The Doctor'] }, // Character last name Dolton but goes by Barbarosa
     ],
     IzzaBugg: [
-        { id: 1184, name: '[Sheriff] Maisie Briar', factions: ['Law'], telegram: 'ZE633' },
+        { id: 1184, name: '[Sheriff] Maisie Briar', factions: ['Law'], telegram: 'ZE633', deceased: true },
         { id: 1213, name: '[Trainee] Arlie Everett', factions: ['Medical'] },
     ],
     J0J0: [
