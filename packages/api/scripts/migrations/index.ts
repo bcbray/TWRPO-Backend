@@ -23,6 +23,7 @@ import { ServerTagName1664346800698 } from './1664346800698-ServerTagName';
 import { ServerIsRoleplay1664347051125 } from './1664347051125-ServerIsRoleplay';
 import { StreamChunkIsLive1664395881280 } from './1664395881280-StreamChunkIsLive';
 import { RemoveProcessingThumbnails1668363387900 } from './1668363387900-RemoveProcessingThumbnails';
+import { RemoveProcessingThumbnailsAgain1668442450700 } from './1668442450700-RemoveProcessingThumbnailsAgain';
 
 export default [
     Initial1660336359134,
@@ -50,4 +51,5 @@ export default [
     ServerIsRoleplay1664347051125,
     StreamChunkIsLive1664395881280,
     RemoveProcessingThumbnails1668363387900,
+    RemoveProcessingThumbnailsAgain1668442450700,
 ];

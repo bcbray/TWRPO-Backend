@@ -36,7 +36,9 @@ export const fetchVideosForUser = async (
                         streamCreatedDate: video.creationDate,
                         streamPublishedDate: video.publishDate,
                         url: video.url,
-                        thumbnailUrl: video.thumbnailUrl.length ? video.thumbnailUrl : undefined,
+                        thumbnailUrl: video.thumbnailUrl.length && !video.thumbnailUrl.includes('_404/404_processing_')
+                            ? video.thumbnailUrl
+                            : undefined,
                         title: video.title,
                         duration: video.duration,
                     });
