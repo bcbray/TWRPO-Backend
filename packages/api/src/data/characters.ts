@@ -323,7 +323,7 @@ export const wrpCharacters: WrpCharacters = {
     Brizzo24: [
         { id: 110, name: 'Craig Johnson' }, // Former Sam's Club
         { id: 111, name: 'Karl Feckles', deceased: true },
-        { id: 1016, name: 'Izaac Douglass' },
+        { id: 1016, name: 'Izaac Douglass', telegram: 'BF174' },
         { id: 1080, name: 'Teddy Payne' },
     ],
     BrutalBri: [
