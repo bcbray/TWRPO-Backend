@@ -847,7 +847,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1168, name: 'Amity Carrow' },
     ],
     ForeheadSkin: [
-        { id: 316, name: 'Edmund "Eddy" Reddington', factions: ['The Baastards'] }, // Former Sam's Club
+        { id: 316, name: 'Edmund "Eddy" Reddington', factions: ['The Baastards'], deceased: true }, // Former Sam's Club
         { id: 317, name: 'Henry Huff' },
         { id: 318, name: 'Joseph Walters' },
         { id: 319, name: 'Morris Sterling' },
