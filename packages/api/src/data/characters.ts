@@ -1383,7 +1383,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     LEAH: [
         { id: 503, name: '[Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190' },
-        { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'] }, // Former Summers Gang
+        { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256' }, // Former Summers Gang
         { id: 505, name: 'Brie Haviour' },
         { id: 506, name: 'Ruthie Samuels' },
         { id: 1330, name: 'Ally Ramsey' },
