@@ -868,7 +868,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 322, name: 'Sean Mercer' },
     ],
     FoxryGaming: [
-        { id: 1265, name: 'William Teer', nicknames: ['Bluecoat', 'Blue Coat'] },
+        { id: 1265, name: 'William Teer', nicknames: ['Bluecoat', 'Blue Coat'], telegram: 'VU248' },
         { id: 1346, name: 'Nathanael Greene', telegram: 'NL215' },
     ],
     FrankTheTank5494: [
