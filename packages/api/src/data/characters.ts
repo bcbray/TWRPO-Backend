@@ -1356,7 +1356,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 488, name: 'Ren Solo' },
     ],
     Kyltrex: [
-        { id: 489, name: 'Jackson "Dead-Eye Jack" Pryde', nicknames: ['#1'] }, // Former leader of the Bloody Hoods
+        { id: 489, name: 'Jackson "Dead-Eye Jack" Pryde', nicknames: ['#1'], telegram: 'MV535' }, // Former leader of the Bloody Hoods
         { id: 490, name: 'Louis "Louie" Lancaster' },
         { id: 491, name: 'Luther Von Brandt' },
         { id: 1282, name: 'Daryl Dalton' },
