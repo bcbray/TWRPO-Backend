@@ -2230,7 +2230,7 @@ export const wrpCharacters: WrpCharacters = {
     TacticalGH0STT: [
         { id: 808, name: 'Beaux Carter' },
         { id: 1210, name: 'Odell Simmons', factions: ['Lifer'] },
-        { id: 1267, name: 'Germain Cyr' },
+        { id: 1267, name: 'Germain Cyr', displayName: 2, telegram: 'PF391' },
     ],
     TaintedRUMBLER: [
         { id: 809, name: 'Drew Peters', assume: 'assumeOther' },
