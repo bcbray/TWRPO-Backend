@@ -13,6 +13,7 @@ import {
   useWindowFocus,
   useUpdatedImageUrlOnceLoaded,
 } from './hooks';
+import { useAuthorization } from './auth';
 import { useFactionCss } from './FactionStyleProvider';
 import { useNow } from './Data';
 import Tag from './Tag';
@@ -120,6 +121,11 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
 
   const { url: loadedThumbnailUrl } = useUpdatedImageUrlOnceLoaded(thumbnailUrl);
 
+  const canEdit = useAuthorization({
+    type: 'overide-segment',
+    twitchId: stream.channelName.toLowerCase(),
+  });
+
   return (
     <div
       className={classes(styles.container, className, cardStyles[cardStyle])}
@@ -200,7 +206,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
             </div>
           }
         </div>
-        {stream.segmentId && !noEdit &&
+        {stream.segmentId && canEdit && !noEdit &&
           <div
               className={styles.editButton}
           >

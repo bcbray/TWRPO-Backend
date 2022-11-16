@@ -8,6 +8,7 @@ import styles from './PastStreamCard.module.css';
 import { formatInterval, classes } from './utils';
 import { useLoadStateImageUrl, useRelativeDate } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
+import { useAuthorization } from './auth';
 import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
@@ -75,6 +76,11 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
   }, ref
 ) => {
   const { factionStylesForKey } = useFactionCss();
+
+  const canEdit = useAuthorization({
+    type: 'overide-segment',
+    twitchId: streamer.twitchLogin,
+  });
 
   const startDate = React.useMemo(() => new Date(segment.startDate), [segment.startDate])
   const endDate = React.useMemo(() => new Date(segment.endDate), [segment.endDate])
@@ -204,7 +210,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
             </div>
           }
         </div>
-        {!noEdit &&
+        {canEdit && !noEdit &&
           <div
               className={styles.editButton}
           >
