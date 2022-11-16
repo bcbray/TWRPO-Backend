@@ -1158,7 +1158,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     IzzaBugg: [
         { id: 1184, name: '[Sheriff] Maisie Briar', factions: ['Law'], telegram: 'ZE633', deceased: true },
-        { id: 1213, name: '[Trainee] Arlie Everett', factions: ['Medical'] },
+        { id: 1213, name: '[Nurse] Arlie Everett', factions: ['Medical'], telegram: 'MV473' },
     ],
     J0J0: [
         { id: 423, name: 'Delilah Kane' },
