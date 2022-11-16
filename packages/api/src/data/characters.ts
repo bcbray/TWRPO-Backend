@@ -1431,7 +1431,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 520, name: 'Hanna Eriksson' },
     ],
     lizzyyyy: [
-        { id: 1290, name: 'Olive Cotter' },
+        { id: 1290, name: 'Olive Cotter', telegram: 'WX925' },
     ],
     ll_Marziano_ll: [
         { id: 521, name: 'James Lawson' },
