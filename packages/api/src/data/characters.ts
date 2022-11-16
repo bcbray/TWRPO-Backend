@@ -840,7 +840,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1217, name: 'Michael "Big Mike" James' },
     ],
     flaymayweather: [
-        { id: 310, name: 'Cade Cross' },
+        { id: 310, name: 'Cade Cross', telegram: 'UY677' },
     ],
     Flickerclad: [
         { id: 311, name: 'Evangeline Thorne', factions: ['Red Water'] }, // Former Summers Gang
