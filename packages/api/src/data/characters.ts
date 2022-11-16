@@ -2075,7 +2075,7 @@ export const wrpCharacters: WrpCharacters = {
     sneakyShadower: [
         { id: 750, name: 'Abigail Jones', telegram: 'WW466' }, // I'm pretty sure she's a reporter
         { id: 751, name: 'Azula Brooks' },
-        { id: 752, name: '[Doctor] Isabella Vautour', factions: ['Medical'] },
+        { id: 752, name: '[Doctor] Isabella Vautour', factions: ['Medical'], telegram: 'GA464' },
         { id: 753, name: '[Deputy] Jackie Lockwood', factions: ['Law'] },
         { id: 754, name: 'Raven Bennett' },
     ],
