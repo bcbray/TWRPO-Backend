@@ -570,7 +570,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 202, name: 'Ham Royce' },
     ],
     deciBel42: [
-        { id: 1141, name: 'Kit Bishop' },
+        { id: 1141, name: 'Kit Bishop', telegram: 'OG840' },
         { id: 1340, name: 'Billy Burgs', telegram: 'TM375' },
     ],
     DeFrostSC: [
