@@ -1576,7 +1576,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Mooftress: [
         { id: 1044, name: 'Erie Waters' },
-        { id: 1045, name: 'Dot Lungsford' },
+        { id: 1045, name: 'Dot Lungsford', telegram: 'CE927' },
     ],
     MoogieCookies: [
         { id: 1230, name: 'Cecily Caldwell' },
