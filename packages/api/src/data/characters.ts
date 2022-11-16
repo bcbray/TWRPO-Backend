@@ -728,7 +728,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1150, name: 'Ginette "Netty" Margreit' },
     ],
     Ellethwen_: [
-        { id: 266, name: 'Adaleigh Winters' },
+        { id: 266, name: 'Adaleigh Roach', nicknames: ['Adaleigh Winters'], telegram: 'YW740' },
         { id: 267, name: 'Anna Mayfield' },
         { id: 268, name: 'Magnolia Williams' },
         { id: 269, name: 'Nascha Onawa' },
