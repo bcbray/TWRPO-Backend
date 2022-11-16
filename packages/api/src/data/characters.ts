@@ -1103,7 +1103,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1058, name: '[Deputy] Judah Payne', factions: ['Law'], telegram: 'BO309' },
     ],
     ImagesOfBrokenLight: [
-        { id: 1114, name: 'Cailin O’Connor', nicknames: ['Petal'] },
+        { id: 1114, name: '[Medic] Cailin "Petal" O’Connor', factions: ['Medical'], telegram: 'XB519' },
     ],
     IMeMine30: [
         { id: 408, name: 'Angelo Clemente', factions: ['Fantoni Crew'], telegram: 'SN784' },
