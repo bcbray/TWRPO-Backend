@@ -1511,7 +1511,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MattRP: [
         { id: 1085, name: 'Guy Newman', displayName: 0 },
-        { id: 1310, name: '[Cadet] Jebediah Ripley', factions: ['Law'] }, // Aspiring Law
+        { id: 1310, name: '[Cadet] Jebediah Ripley', factions: ['Law'], telegram: 'AL699' },
     ],
     MatttyP92: [
         { id: 1046, name: 'Benito "Beni" Salvatore' },
