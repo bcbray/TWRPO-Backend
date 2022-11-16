@@ -414,7 +414,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 146, name: 'Willie "Gramps" Walker' },
     ],
     CastamereGold: [
-        { id: 1239, name: 'William Hathaway' },
+        { id: 1239, name: 'William Hathaway', telegram: 'HR656' },
     ],
     charlieblossom: [
         { id: 147, name: 'Katarina Lovette' },
