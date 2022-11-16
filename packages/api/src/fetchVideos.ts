@@ -1,4 +1,5 @@
 import { ApiClient, HelixForwardPagination } from '@twurple/api';
+import { HttpStatusCodeError } from '@twurple/api-call';
 import { DataSource } from 'typeorm';
 
 import { StreamChunk } from './db/entity/StreamChunk';
@@ -90,23 +91,37 @@ export const fetchMissingThumbnailsForVideoIds = async (
     try {
         while (toFetchVideoIds.length > 0) {
             const thisSearch = toFetchVideoIds.splice(0, fetchLimit);
-            const videos = await apiClient.videos.getVideosByIds(thisSearch);
-            for (const video of videos) {
-                if (video.thumbnailUrl && !video.thumbnailUrl.includes('_404/404_processing_')) {
-                    await dataSource.getRepository(Video)
-                        .update(
-                            { videoId: video.id },
-                            { thumbnailUrl: video.thumbnailUrl }
-                        );
-                    console.log(JSON.stringify({
-                        level: 'info',
-                        message: `Found thumbnail for “${video.title}” for ${video.userDisplayName}`,
-                        event: 'video-thumbnail-found',
-                        channel: video.userDisplayName,
-                        title: video.title,
-                    }));
-                    foundThumbnails += 1;
+            try {
+                const videos = await apiClient.videos.getVideosByIds(thisSearch);
+                for (const video of videos) {
+                    if (video.thumbnailUrl && !video.thumbnailUrl.includes('_404/404_processing_')) {
+                        await dataSource.getRepository(Video)
+                            .update(
+                                { videoId: video.id },
+                                { thumbnailUrl: video.thumbnailUrl }
+                            );
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            message: `Found thumbnail for “${video.title}” for ${video.userDisplayName}`,
+                            event: 'video-thumbnail-found',
+                            channel: video.userDisplayName,
+                            title: video.title,
+                        }));
+                        foundThumbnails += 1;
+                    }
                 }
+            } catch (error) {
+                // Ignore 404s (which will happen if we have a page full of deleted videos)
+                if (error instanceof HttpStatusCodeError && error.statusCode === 404) {
+                    console.log(JSON.stringify({
+                        level: 'notice',
+                        message: `No videos found for ids (${thisSearch.join(', ')})`,
+                        event: 'video-thumbnail-not-found',
+                        ids: thisSearch,
+                    }));
+                    continue;
+                }
+                throw error;
             }
         }
 
