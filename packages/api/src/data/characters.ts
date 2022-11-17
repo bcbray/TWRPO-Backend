@@ -2410,7 +2410,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 986, name: 'Phineas "Phi" Klein' },
     ],
     TheSlappyOne: [
-        { id: 878, name: 'Marcus Hutchinson' },
+        { id: 878, name: '[Cadet] Marcus Hutchinson', factions: ['Law'] },
     ],
     TheSmile__: [
         { id: 1320, name: 'Heinrich "Hank" Boltz' },
