@@ -514,7 +514,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 182, name: 'Archibald Shaw' },
     ],
     Dam_O: [
-        { id: 183, name: 'Grover Carlson' },
+        { id: 183, name: 'Grover Carlson', telegram: 'VV708' },
     ],
     DangitLacie: [
         { id: 184, name: '[Deputy] Doreen Pavus', factions: ['Law'] },
