@@ -123,7 +123,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1339, name: 'Imogen Clarke' }, // News
     ],
     andromedastarry: [
-        { id: 29, name: 'Andi Walker', assume: 'assumeOther' },
+        { id: 29, name: 'Andi Walker', assume: 'assumeOther', telegram: 'DI612' },
         { id: 30, name: 'Quinn Connolly' },
         { id: 31, name: 'Gabriella Gonzales' },
     ],
