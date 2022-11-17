@@ -2579,7 +2579,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 929, name: 'Brian Wright' }, // Former Senior Deputy
         { id: 930, name: 'Taylor Hicks', factions: ['Red Water'] }, // Former Summers Gang
         { id: 931, name: 'William "Bill" Carver' },
-        { id: 932, name: 'Benji Bell' },
+        { id: 932, name: 'Benji Bell', telegram: 'VE811' },
     ],
     WeeJimcent: [
         { id: 933, name: 'Sergio ?' },
