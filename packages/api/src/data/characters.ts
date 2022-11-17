@@ -1959,7 +1959,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1116, name: 'Ephrim Coldsteel', factions: ['Lifer'] }, // TODO: Confirm faction
     ],
     SaucedUpWizard: [
-        { id: 1336, name: 'Rags Fontaine' },
+        { id: 1336, name: 'Rags Fontaine', telegram: 'YZ680' },
     ],
     Savannieb00: [
         { id: 1036, name: 'Alish Vixen', telegram: 'XT753' },
