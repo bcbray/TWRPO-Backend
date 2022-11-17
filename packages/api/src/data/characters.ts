@@ -940,7 +940,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 352, name: 'Gianni Peccati', telegram: 'KS955' },
         { id: 353, name: 'Mordecai Butterbee' },
         { id: 354, name: 'Giano Greywolf' },
-        { id: 355, name: 'Rudy Allaway' },
+        { id: 355, name: 'Rudy Allaway', telegram: 'PX832' },
         { id: 1192, name: 'Roy Martin', factions: ['Lifer'] },
         { id: 1305, name: 'Jessie McCarthy' },
     ],
