@@ -2480,7 +2480,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1191, name: 'Odie "Jen" Moore' },
     ],
     topspin17: [
-        { id: 1008, name: 'Archie Stonewall' },
+        { id: 1008, name: 'Archie Stonewall', telegram: 'BB139' },
         { id: 1060, name: 'Alvin Caster' },
     ],
     TortillaTheHunTV: [
