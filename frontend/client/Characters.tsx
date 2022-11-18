@@ -86,9 +86,9 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
       <FilterBar
         factions={data.factions}
         selectedFaction={selectedFaction}
-        onSelectFaction={f => navigate(`/characters${f ? `/faction/${f.key}` : ''}${location.search}`) }
+        onSelectFaction={f => navigate(`/characters${f ? `/faction/${f.key}` : ''}${location.search}`, { state: location.state }) }
         searchText={filterText}
-        onChangeSearchText={text => setFilterText(text, { replace: true })}
+        onChangeSearchText={text => setFilterText(text, { replace: true, state: location.state })}
         allHref={'/characters'}
         factionHref={(f) => `/characters/faction/${f.key}`}
       />
