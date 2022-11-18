@@ -455,7 +455,7 @@ export const wrpCharacters: WrpCharacters = {
     CloakingHawk: [
         { id: 160, name: '[Deputy] Danni Jackson', factions: ['Law'], displayName: 1, telegram: 'MH642' },
         { id: 161, name: 'Roo' },
-        { id: 162, name: 'Tilly-May Edwards' },
+        { id: 162, name: '[Medic] Tilly-May Edwards', factions: ['Medical'] },
         { id: 1308, name: 'Constance "Conny" Dubois' },
     ],
     CloeeBee: [
