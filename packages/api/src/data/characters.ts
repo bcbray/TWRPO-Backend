@@ -2488,7 +2488,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     topspin17: [
         { id: 1008, name: 'Archie Stonewall', telegram: 'BB139' },
-        { id: 1060, name: 'Alvin Caster' },
+        { id: 1060, name: 'Alvin Caster', telegram: 'GG577' }, // Dead End Gang prospect
         { id: 1360, name: 'Don Deters', telegram: 'AM073' }, // Aspiring Law
     ],
     TortillaTheHunTV: [
