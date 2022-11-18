@@ -1562,7 +1562,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 567, name: 'Ana Stravinski' },
         { id: 568, name: 'Willow Wisp' },
         { id: 1126, name: 'Isabela Elena Montoya Cabrera de Isla de Flores III' },
-        { id: 1277, name: 'Maia Bailey' },
+        { id: 1277, name: 'Maia Bailey', telegram: 'MB430' },
     ],
     Mini_MoonFox: [
         { id: 1040, name: 'Angelica Schuyler' },
