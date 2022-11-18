@@ -1028,7 +1028,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 384, name: 'Charles Kane' },
     ],
     Hibblejaybob: [
-        { id: 386, name: 'Astrið Aleksdóttir', factions: ['Medical'], telegram: 'QT433' },
+        { id: 386, name: 'Astrið Aleksdóttir', telegram: 'QT433' },
     ],
     HibikiFox: [
         { id: 1186, name: 'Richard Ghearr' },
