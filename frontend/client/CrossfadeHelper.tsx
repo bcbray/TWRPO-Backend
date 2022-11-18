@@ -60,6 +60,7 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
     serverId: 1,
     characterName: 'Sam Baas',
     characterId: 1,
+    characterContact: null,
     nicknameLookup: null,
     faction: fakeFaction.key,
     factions: [fakeFaction.key],

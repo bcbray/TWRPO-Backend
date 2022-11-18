@@ -120,6 +120,7 @@ export const getCharacterInfo = (
             const factionMini = faction.toLowerCase().replaceAll(' ', '');
             return factionMap[factionMini];
         }) ?? [independent],
+        contact: character.telegram,
         channelInfo: twitchUser,
-    } as CharacterInfo;
+    };
 };

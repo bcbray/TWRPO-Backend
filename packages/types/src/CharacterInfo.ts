@@ -9,6 +9,7 @@ export default interface CharacterInfo {
   name: string;
   displayInfo: DisplayInfo;
   factions: FactionInfo[];
+  contact?: string;
   liveInfo?: Stream;
   channelInfo?: ChannelInfo;
   lastSeenLive?: string;

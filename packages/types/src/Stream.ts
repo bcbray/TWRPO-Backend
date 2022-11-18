@@ -12,6 +12,7 @@ export default interface Stream {
   serverId: number | null;
   characterName: string | null;
   characterId: number | null;
+  characterContact: string | null;
   nicknameLookup: string | null;
   faction: FactionKey;
   factions: FactionKey[];

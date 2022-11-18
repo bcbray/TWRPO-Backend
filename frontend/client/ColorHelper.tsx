@@ -40,6 +40,7 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
     serverId: 1,
     characterName: 'Sam Baas',
     characterId: 1,
+    characterContact: null,
     nicknameLookup: null,
     faction: faction.key,
     factions: [faction.key],
