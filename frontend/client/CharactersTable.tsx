@@ -10,7 +10,7 @@ import { classes, formatDuration } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
 import { useRelativeDateMaybe } from './hooks';
 
-type Sort = 'streamer' | 'title' | 'name' | 'nickname' | 'faction' | 'lastSeen' | 'duration';
+type Sort = 'streamer' | 'title' | 'name' | 'nickname' | 'faction' | 'contact' | 'lastSeen' | 'duration';
 type Order = 'asc' | 'desc';
 
 interface Props {
@@ -137,6 +137,9 @@ const CharacterRow: React.FC<RowProps> = ({
         )
       }
       </td>
+      <td className={styles.contact}>
+        {character.contact}
+      </td>
       <td className={styles.lastSeen}>
         {character.liveInfo ? (
           'live now'
@@ -196,6 +199,17 @@ const characterFactionComparator: OrderedComparator<CharacterInfo> = (order: Ord
   } else if (lhsVisible.length > 0) {
     return -1;
   } else if (rhsVisible.length > 0) {
+    return 1;
+  }
+  return 0;
+}
+
+const characterContactComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) => {
+  if (lhs.contact && rhs.contact) {
+    return lhs.contact.localeCompare(rhs.contact);
+  } else if (lhs.contact) {
+    return -1;
+  } else if (rhs.contact) {
     return 1;
   }
   return 0;
@@ -262,6 +276,13 @@ const characterComparator = (sort: Sort, order: Order): Comparator<CharacterInfo
       characterStreamerComparator(order),
     ]);
   }
+  if (sort === 'contact') {
+    return combinedComparator([
+      characterContactComparator(order),
+      characterNameComparator(order),
+      characterStreamerComparator(order),
+    ]);
+  }
   if (sort === 'lastSeen') {
     return combinedComparator([
       characterLastSeenComparator(order),
@@ -293,6 +314,7 @@ const sortFromState = (state: any): Sort | undefined => {
       || state.sort === 'name'
       || state.sort === 'nickname'
       || state.sort === 'faction'
+      || state.sort === 'contact'
       || state.sort === 'lastSeen'
       || state.sort === 'duration'
     )
@@ -426,6 +448,11 @@ const CharactersTable: React.FunctionComponent<Props> = ({
           <th style={{ width: '10%' }}>
             <SortableHeader sort='faction'>
               Factions
+            </SortableHeader>
+          </th>
+          <th style={{ width: '10%' }}>
+            <SortableHeader sort='contact'>
+              Telegram
             </SortableHeader>
           </th>
           <th style={{ width: '10%' }}>
