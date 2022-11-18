@@ -1493,7 +1493,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 548, name: 'Lily Landry' },
         { id: 549, name: 'Oola Lafayette' },
     ],
-    Madskadie: [
+    MadsKadie: [
         { id: 1361, name: 'Alessandra Moretti', telegram: 'EY243' },
     ],
     MafiaDrew: [
