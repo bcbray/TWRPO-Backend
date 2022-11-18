@@ -1251,7 +1251,7 @@ export const wrpCharacters: WrpCharacters = {
     Jonthebroski: [
         { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J’Baas', 'J Baas'], displayName: 5, factions: ['The Baastards'], leader: true, telegram: 'EJ572' }, // Former Sam's Club
         { id: 458, name: '[Sr. Deputy] Jaime Ruth', factions: ['Law'], telegram: 'SX271' },
-        { id: 1010, name: 'Erik "Nose" ?', nicknames: ['Vladimir', 'Ivan'] },
+        { id: 1010, name: 'Erik "Nose" Drugov', nicknames: ['Vladimir', 'Ivan'] },
         { id: 1279, name: 'Ceaser Falls' },
         { id: 1355, name: 'Gary Gallow', factions: ['Sisika Guard'] },
     ],
