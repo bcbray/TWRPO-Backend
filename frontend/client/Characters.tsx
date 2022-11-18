@@ -49,6 +49,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
             || filterRegex.test(character.name)
             || character.displayInfo.nicknames.some(n => filterRegex.test(n))
             || character.factions.some(f => filterRegex.test(f.name))
+            || (character.contact && filterRegex.test(character.contact))
         );
 
       const other = filterRegex === undefined || filtered.length > 0
@@ -58,6 +59,7 @@ const Characters: React.FunctionComponent<Props> = ({ data }) => {
               || filterRegex.test(character.name)
               || character.displayInfo.nicknames.some(n => filterRegex.test(n))
               || character.factions.some(f => filterRegex.test(f.name))
+              || (character.contact && filterRegex.test(character.contact))
           );
       return [filtered, other];
   }, [factionCharacters, data.characters, filterRegex]);

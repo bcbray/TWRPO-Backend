@@ -194,7 +194,8 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
                             || searchRegex.test(character.name)
                             // TODO: nicknameLookup
                             || character.displayInfo.nicknames.some(n => searchRegex.test(n))
-                            || character.factions.some(f => searchRegex.test(f.name)))
+                            || character.factions.some(f => searchRegex.test(f.name))
+                            || (character.contact && searchRegex.test(character.contact)))
                     ) || !searchRegex)
                     && ((factionKey
                         && (character.factions.some(faction => faction.key === factionKey))

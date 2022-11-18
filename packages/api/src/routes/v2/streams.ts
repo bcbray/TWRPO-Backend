@@ -72,6 +72,7 @@ export const fetchLiveStreams = async (
                     searchRegex.test(stream.tagText)
                     || (stream.characterName && searchRegex.test(stream.characterName))
                     || (searchTextLookup && stream.nicknameLookup && stream.nicknameLookup.includes(searchTextLookup))
+                    || (stream.characterContact && searchRegex.test(stream.characterContact))
                     || searchRegex.test(stream.channelName)
                     || searchRegex.test(stream.title)
                     || stream.factions.some(f => searchRegex.test(f))
@@ -295,7 +296,8 @@ export const fetchRecentStreams = async (
                 || searchRegex.test(character.name)
                 // TODO: nicknameLookup
                 || character.displayInfo.nicknames.some(n => searchRegex.test(n))
-                || character.factions.some(f => searchRegex.test(f.name)))
+                || character.factions.some(f => searchRegex.test(f.name))
+                || (character.contact && searchRegex.test(character.contact)))
             .map(c => c.id)
         : undefined;
 
@@ -638,7 +640,8 @@ export const fetchUnknownStreams = async (
                 || searchRegex.test(character.name)
                 // TODO: nicknameLookup
                 || character.displayInfo.nicknames.some(n => searchRegex.test(n))
-                || character.factions.some(f => searchRegex.test(f.name)))
+                || character.factions.some(f => searchRegex.test(f.name))
+                || (character.contact && searchRegex.test(character.contact)))
             .map(c => c.id)
         : undefined;
 

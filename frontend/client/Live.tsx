@@ -95,6 +95,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
           filterRegex.test(stream.tagText)
           || (stream.characterName && filterRegex.test(stream.characterName))
           || (stream.nicknameLookup && stream.nicknameLookup.includes(filterTextLookup))
+          || (stream.characterContact && filterRegex.test(stream.characterContact))
           || filterRegex.test(stream.channelName)
           || filterRegex.test(stream.title)
           || stream.factions.some(f => filterRegex.test(f)));
@@ -126,7 +127,8 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
         filterRegex.test(character.channelName)
         || filterRegex.test(character.name)
         || character.displayInfo.nicknames.some(n => filterRegex.test(n))
-        || character.factions.some(f => filterRegex.test(f.name)));
+        || character.factions.some(f => filterRegex.test(f.name))
+        || (character.contact && filterRegex.test(character.contact)));
 
     const filtered = (factionKey === undefined)
       ? textFilteredCandidateCharacters
