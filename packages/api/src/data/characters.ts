@@ -2038,7 +2038,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1334, name: 'Buck Curlay' },
     ],
     Silbullet: [
-        { id: 735, name: '[Deputy] Shawn Maple', factions: ['Law'], telegram: 'OQ297' },
+        { id: 735, name: '[Sr. Deputy] Shawn Maple', factions: ['Law'], telegram: 'OQ297' },
         { id: 736, name: 'Stefano Amendo' },
         { id: 737, name: 'Leopold Von Schitzen' },
         { id: 1051, name: 'Ronnie Rivers' },
