@@ -465,7 +465,7 @@ export const wrpCharacters: WrpCharacters = {
     Coda19us: [
         { id: 165, name: 'Cecil Prichard' },
     ],
-    cojothebro: [
+    cojo: [
         { id: 166, name: 'Oliver Toscano', nicknames: ['Mad Dog'], factions: ['DiCenzo Famiglia'], telegram: 'MS981' },
         { id: 991, name: 'Asher Bell', telegram: 'CY893' },
         { id: 1032, name: 'Shamus McConnell', factions: ['One Life'] },
