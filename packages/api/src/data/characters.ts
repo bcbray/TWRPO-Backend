@@ -2261,7 +2261,7 @@ export const wrpCharacters: WrpCharacters = {
     talon03: [
         { id: 1077, name: '[Doctor] Eoghan McConnell', factions: ['Medical'] },
         { id: 1095, name: 'Casey Banks' },
-        { id: 1283, name: 'Richard Pointer' },
+        { id: 1283, name: '[Cadet] Richard Pointer', factions: ['Law'] },
     ],
     TankGirl: [
         { id: 811, name: 'Effie Mae Braithwaite', deceased: true },
