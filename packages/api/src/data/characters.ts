@@ -1600,7 +1600,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1041, name: 'Crystal Hayston' },
     ],
     mishkaxoxo: [
-        { id: 569, name: '[Ranger] Mishka Agapova', factions: ['Rangers'] },
+        { id: 569, name: '[Ranger] Mishka Agapova', factions: ['Rangers'], telegram: 'QF055' },
         { id: 1073, name: 'Lavender Jones' },
         { id: 1074, name: 'Oksana Reznikov' },
     ],
