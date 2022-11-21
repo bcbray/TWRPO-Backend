@@ -2290,7 +2290,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1267, name: 'Germain Cyr', displayName: 2, telegram: 'PF391' },
     ],
     TaintedRUMBLER: [
-        { id: 809, name: 'Drew Peters', assume: 'assumeOther' },
+        { id: 809, name: 'Drew Peters', telegram: 'MT042', assume: 'assumeOther' },
     ],
     TalkingRecklessPodcast: [
         { id: 810, name: 'Jeremiah Rent' },
