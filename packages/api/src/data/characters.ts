@@ -741,7 +741,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 269, name: 'Nascha Onawa' },
         { id: 270, name: 'Della Sterling' },
         { id: 1135, name: 'Marlena King' },
-        { id: 1365, name: 'Sebastian ?', factions: ['The Masked Men'] },
+        { id: 1365, name: 'Sebastian ?', nicknames: ['Pink'], displayName: 3, factions: ['The Masked Men'] },
     ],
     embernocte: [
         { id: 271, name: 'Saffron Mitchell', telegram: 'MS716' }, // Former Deputy
