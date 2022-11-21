@@ -2674,7 +2674,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     yeka221: [
         { id: 957, name: '[Recruit] Tabitha "Tibbit" Birch', factions: ['Rangers'], telegram: 'RQ940' },
-        { id: 977, name: '[Deputy] Harley Bolton', factions: ['Law'], telegram: 'EA773' },
+        { id: 977, name: '[Sr. Deputy] Harley Bolton', factions: ['Law'], telegram: 'EA773' },
     ],
     Yorkoh: [
         { id: 958, name: '[Sheriff] Kai Ming', factions: ['Law'], displayName: 1, telegram: 'IR145' },
