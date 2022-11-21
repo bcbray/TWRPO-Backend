@@ -2480,7 +2480,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 883, name: 'William "Wild Willy" Brown' },
     ],
     ThicciusMaximus: [
-        { id: 1307, name: 'Sebastian Davis' },
+        { id: 1307, name: 'Sebastian Davis', telegram: 'ZN969' },
     ],
     ThinkingQuill: [
         { id: 884, name: 'Cian Malloy' },
