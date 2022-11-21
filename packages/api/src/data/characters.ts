@@ -1512,7 +1512,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 546, name: 'Richard Watson' },
         { id: 547, name: 'Terrance King' },
     ],
-    madhare2: [
+    madhare23: [
         { id: 1377, name: 'Edward Bretton', telegram: 'IN643' },
         { id: 1378, name: 'Jugg Washburn' },
     ],
