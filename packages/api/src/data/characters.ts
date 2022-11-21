@@ -264,7 +264,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 83, name: '[Deputy] Avery Eliss', factions: ['Law'], telegram: 'YU105' },
     ],
     BennayTee: [
-        { id: 1112, name: 'Otto Orleans' },
+        { id: 1112, name: 'Otto Orleans', assume: 'assumeOther' },
     ],
     BigTimmuh: [
         { id: 1039, name: 'Luke McCoy' },
