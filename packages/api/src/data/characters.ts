@@ -751,7 +751,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1198, name: 'Harmony Bell', nicknames: ['Bellish'] },
     ],
     EmeraldElephant_: [
-        { id: 1091, name: 'Jackson Connor' },
+        { id: 1091, name: '[Ranger] Jackson Connor', factions: ['Rangers'] },
         { id: 1183, name: 'Saturn Goya' },
     ],
     EmptyDome: [
