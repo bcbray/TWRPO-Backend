@@ -518,7 +518,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Dam_O: [
         { id: 183, name: 'Grover Carlson', telegram: 'VV708' },
-        { id: 1367, name: '? ?', nicknames: ['Green'], displayName: 3 }, // The Masked Men
+        { id: 1367, name: '? ?', nicknames: ['Green'], displayName: 3, factions: ['The Masked Men'] },
     ],
     DangitLacie: [
         { id: 184, name: '[Deputy] Doreen Pavus', factions: ['Law'] },
@@ -741,7 +741,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 269, name: 'Nascha Onawa' },
         { id: 270, name: 'Della Sterling' },
         { id: 1135, name: 'Marlena King' },
-        { id: 1365, name: 'Sebastian ?' }, // The Masked Men
+        { id: 1365, name: 'Sebastian ?', factions: ['The Masked Men'] },
     ],
     embernocte: [
         { id: 271, name: 'Saffron Mitchell', telegram: 'MS716' }, // Former Deputy
@@ -787,7 +787,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     EthanSchriver: [
         { id: 286, name: 'Leanord Scout', displayName: 2 },
-        { id: 1372, name: '? ?', nicknames: ['Purple'], displayName: 3 }, // The Masked Men
+        { id: 1372, name: '? ?', nicknames: ['Purple'], displayName: 3, factions: ['The Masked Men'] },
     ],
     Euiik: [
         { id: 998, name: 'Leven "LJ" June' },
@@ -1420,7 +1420,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1064, name: 'Ivy Skinner' },
         { id: 1128, name: 'Fern Rew' },
         { id: 1161, name: 'Myrtle Sherman', factions: ['Lifer'] },
-        { id: 1374, name: '? ?', nicknames: ['Blue'], displayName: 3 }, // The Masked Men
+        { id: 1374, name: '? ?', nicknames: ['Blue'], displayName: 3, factions: ['The Masked Men'] },
     ],
     Lewdicon: [
         { id: 950, name: 'Rayven Hope', nicknames: ['Rayvn'] },
@@ -1702,7 +1702,7 @@ export const wrpCharacters: WrpCharacters = {
     Nopheros: [
         { id: 607, name: '[Deputy] Robert Fisher', factions: ['Law'] },
         { id: 1050, name: 'Brick Bagwell' },
-        { id: 1373, name: '? ?', nicknames: ['Gold'], displayName: 3 }, // The Masked Men
+        { id: 1373, name: '? ?', nicknames: ['Gold'], displayName: 3, factions: ['The Masked Men'] },
     ],
     NOTmackfrew: [
         { id: 608, name: 'Seymour Humphries' },

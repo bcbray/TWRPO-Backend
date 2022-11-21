@@ -16,6 +16,7 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     boonsboys: 'Boons Boys',
     redwater: 'Red Water',
     thering: 'The Ring',
+    themaskedmen: 'The Masked Men',
     development: 'Development',
     law: 'Law',
     medical: 'Medical',
