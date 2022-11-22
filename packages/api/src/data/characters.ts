@@ -1399,7 +1399,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 499, name: 'Jade Turner', telegram: 'DD964' },
     ],
     L00seyG005ey: [
-        { id: 500, name: 'Elijah Grayson', factions: ['Boons Boys'] },
+        { id: 500, name: 'Elijah "Eli" Grayson', factions: ['Boons Boys'] },
         { id: 1388, name: '[Cadet] Jonathan Greycastle', factions: ['Law'] },
     ],
     LakunaRP: [
