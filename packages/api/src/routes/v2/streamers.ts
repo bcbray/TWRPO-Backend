@@ -458,6 +458,7 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
                         isVisible: segment.server.isVisible,
                         isRoleplay: segment.server.isRoleplay,
                     } : undefined,
+                    serverUncertain: segment.serverUncertain,
                     game: {
                         id: segment.game!.id,
                         key: segment.game!.key ?? undefined,

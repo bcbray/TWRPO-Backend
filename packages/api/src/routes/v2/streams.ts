@@ -149,6 +149,7 @@ export const fetchLiveStreams = async (
                     isVisible: segment.server.isVisible,
                     isRoleplay: segment.server.isRoleplay,
                 } : undefined,
+                serverUncertain: segment.serverUncertain,
                 game: {
                     id: segment.game!.id,
                     key: segment.game!.key ?? undefined,
@@ -505,6 +506,7 @@ export const fetchRecentStreams = async (
                     isVisible: segment.server.isVisible,
                     isRoleplay: segment.server.isRoleplay,
                 } : undefined,
+                serverUncertain: segment.serverUncertain,
                 game: {
                     id: segment.game!.id,
                     key: segment.game!.key ?? undefined,
@@ -667,7 +669,7 @@ export const fetchUnknownStreams = async (
                 .addSelect('stream_chunk.lastViewerCount', 'lastViewerCount')
                 .addSelect('stream_chunk.isOverridden', 'isOverridden')
                 .addSelect('stream_chunk.isHidden', 'isHidden')
-                .where('(stream_chunk.characterId IS NULL OR (stream_chunk.characterId IS NOT NULL AND stream_chunk.characterUncertain = true))')
+                .where('(stream_chunk.characterId IS NULL OR (stream_chunk.characterId IS NOT NULL AND stream_chunk.characterUncertain = true) OR stream_chunk.serverUncertain = true)')
                 .orderBy('stream_chunk.lastSeenDate', 'DESC');
 
             if (live === true) {
@@ -855,6 +857,7 @@ export const fetchUnknownStreams = async (
                     isVisible: segment.server.isVisible,
                     isRoleplay: segment.server.isRoleplay,
                 } : undefined,
+                serverUncertain: segment.serverUncertain,
                 game: {
                     id: segment.game!.id,
                     key: segment.game!.key ?? undefined,

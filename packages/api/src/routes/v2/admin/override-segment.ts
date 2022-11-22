@@ -48,6 +48,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 && req.body.characterUncertain === undefined
                 && req.body.isHidden === undefined
                 && req.body.serverId === undefined
+                && req.body.serverUncertain === undefined
             ) {
                 return res.send({ success: true, message: 'No changes.' });
             }
@@ -68,7 +69,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 }
             }
 
-            const update: Partial<Pick<StreamChunk, 'characterId' | 'characterUncertain' | 'isOverridden' | 'isHidden' | 'serverId'>> = {};
+            const update: Partial<Pick<StreamChunk, 'characterId' | 'characterUncertain' | 'isOverridden' | 'isHidden' | 'serverId' | 'serverUncertain'>> = {};
 
             if (req.body.characterUncertain !== undefined) {
                 update.characterUncertain = req.body.characterUncertain;
@@ -85,6 +86,11 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
 
             if (req.body.serverId !== undefined) {
                 update.serverId = req.body.serverId;
+                update.isOverridden = true;
+            }
+
+            if (req.body.serverUncertain !== undefined) {
+                update.serverUncertain = req.body.serverUncertain;
                 update.isOverridden = true;
             }
 

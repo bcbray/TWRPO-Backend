@@ -139,7 +139,7 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, alread
                 },
             });
 
-        const chunk: Omit<StreamChunk, 'id' | 'isOverridden' | 'isHidden' | 'characterId' | 'characterUncertain' | 'serverId'> = {
+        const chunk: Omit<StreamChunk, 'id' | 'isOverridden' | 'isHidden' | 'characterId' | 'characterUncertain' | 'serverId' | 'serverUncertain'> = {
             streamerId: stream.userId,
             streamId: stream.id,
             streamStartDate: stream.startDate,

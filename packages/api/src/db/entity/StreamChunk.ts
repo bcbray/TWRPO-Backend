@@ -32,6 +32,9 @@ export class StreamChunk {
     })
     serverId: number | null;
 
+    @Column({ default: false })
+    serverUncertain: boolean;
+
     @Column({
         type: 'int',
         nullable: true,

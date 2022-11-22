@@ -64,11 +64,16 @@ const FormContent: React.FC<LoadedProps> = ({
   const [overriddenCharacter, setOverriddenCharacter] = React.useState<CharacterInfo | null | undefined>(undefined);
   const [overriddenCharacterUncertain, setOverriddenCharacterUncertain] = React.useState<boolean | undefined>(undefined);
   const [overriddenServer, setOverriddenServer] = React.useState<Server | null | undefined>(undefined);
+  const [overriddenServerUncertain, setOverriddenServerUncertain] = React.useState<boolean | undefined>(undefined);
   const [overriddenIsHidden, setOverriddenIsHidden] = React.useState<boolean | undefined>(undefined);
 
   const displayedSelectedServer = overriddenServer === undefined
     ? segment.server
     : overriddenServer;
+
+  const displayedServerUncertain = overriddenServerUncertain === undefined
+      ? segment.serverUncertain
+      : overriddenServerUncertain;
 
   const isPrimaryServer = displayedSelectedServer?.id === primaryServer.id;
 
@@ -105,6 +110,7 @@ const FormContent: React.FC<LoadedProps> = ({
     const serverId = overriddenServer !== undefined
       ? overriddenServer?.id ?? null
       : undefined;
+    const serverUncertain = overriddenServerUncertain;
     const isHidden = overriddenIsHidden;
 
     const request: OverrideSegmentRequest = {
@@ -112,6 +118,7 @@ const FormContent: React.FC<LoadedProps> = ({
       characterId,
       characterUncertain,
       serverId,
+      serverUncertain,
       isHidden,
     }
     fetchAndCheck('/api/v2/admin/override-segment', {
@@ -131,7 +138,7 @@ const FormContent: React.FC<LoadedProps> = ({
       setHasSubmitted(false);
       setHasError(true);
     })
-  }, [segment.id, overriddenCharacter, overriddenCharacterUncertain, overriddenServer, overriddenIsHidden, isPrimaryServer, segment.characterUncertain, onHide]);
+  }, [segment.id, overriddenCharacter, overriddenCharacterUncertain, overriddenServer, overriddenServerUncertain, overriddenIsHidden, isPrimaryServer, segment.characterUncertain, onHide]);
 
   const characterLineItems: CharacterLineItem[] = React.useMemo(() => [
     {
@@ -203,6 +210,7 @@ const FormContent: React.FC<LoadedProps> = ({
       characterUncertain: oldCharacterUncertain,
       liveInfo: oldLiveInfo,
       server: oldServer,
+      serverUncertain: oldServerUncertain,
       ...rest
     } = segment;
     let liveInfo: Stream | undefined;
@@ -223,9 +231,10 @@ const FormContent: React.FC<LoadedProps> = ({
       character: displayedSelectedCharacter,
       characterUncertain: displayedCharacterUncertain,
       server: displayedSelectedServer ?? undefined,
+      serverUncertain: displayedServerUncertain,
       liveInfo,
     }
-  }, [segment, displayedSelectedCharacter, displayedCharacterUncertain, displayedSelectedServer]);
+  }, [segment, displayedSelectedCharacter, displayedCharacterUncertain, displayedSelectedServer, displayedServerUncertain]);
 
   const editedTagText = useSegmentTagText(partialEditedSegment, { ignoreLiveInfo: true });
 
@@ -277,6 +286,17 @@ const FormContent: React.FC<LoadedProps> = ({
         />
       </div>
       <div>
+        <label>
+          <input
+            type='checkbox'
+            checked={displayedServerUncertain}
+            onChange={e => setOverriddenServerUncertain(e.target.checked)}
+          />
+          {' '}
+          Server uncertain
+        </label>
+      </div>
+      <div>
         <FancyDropdown
           className={styles.characterDropdown}
           buttonClassName={styles.characterDropdownButton}
@@ -298,7 +318,7 @@ const FormContent: React.FC<LoadedProps> = ({
             onChange={e => setOverriddenCharacterUncertain(e.target.checked)}
           />
           {' '}
-          Uncertain
+          Character uncertain
         </label>
       </div>
       <div>

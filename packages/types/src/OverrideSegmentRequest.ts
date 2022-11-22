@@ -3,5 +3,6 @@ export default interface OverrideSegmentRequest {
     characterId?: number | null;
     characterUncertain?: boolean;
     serverId?: number | null;
+    serverUncertain?: boolean;
     isHidden?: boolean;
 }

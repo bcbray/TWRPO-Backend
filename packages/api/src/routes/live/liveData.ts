@@ -643,6 +643,7 @@ const getWrpLive = async (
                         continue;
                     }
 
+                    let serverUncertain = false;
                     const mainsOther = characters && characters.assumeOther == ASTATES.assumeOther;
                     const keepNp = characters && characters.assumeOther == ASTATES.assumeNpNoOther;
                     const onMainOther = !onNp && mainsOther;
@@ -658,6 +659,7 @@ const getWrpLive = async (
                         // If NoPixel streamer that isn't on another server
                         streamState = FSTATES.nopixel;
                         serverName = 'WRP';
+                        serverUncertain = (matchedServer?.id !== wrpServer.id);
                         matchedServer = wrpServer;
                     } else {
                         continue;
@@ -911,6 +913,7 @@ const getWrpLive = async (
                         streamerId: helixStream.userId,
                         characterId,
                         characterUncertain,
+                        serverUncertain,
                         streamId: helixStream.id,
                         streamStartDate: helixStream.startDate,
                         title: helixStream.title,
@@ -925,7 +928,9 @@ const getWrpLive = async (
                     if (mostRecentStreamSegment) {
                         const { id } = mostRecentStreamSegment;
                         const { lastSeenDate, lastViewerCount, isLive } = chunk;
-                        const chunkUpdate: Some<StreamChunk, 'id' | 'lastSeenDate' | 'lastViewerCount' | 'isLive', 'characterId' | 'characterUncertain' | 'serverId'> = {
+                        const chunkUpdate: Some<StreamChunk,
+                        'id' | 'lastSeenDate' | 'lastViewerCount' | 'isLive', 'characterId' |
+                        'characterUncertain' | 'serverId' | 'serverUncertain'> = {
                             id,
                             lastSeenDate,
                             lastViewerCount,
@@ -933,6 +938,7 @@ const getWrpLive = async (
                         };
                         if (!mostRecentStreamSegment.isOverridden) {
                             chunkUpdate.serverId = chunk.serverId;
+                            chunkUpdate.serverUncertain = chunk.serverUncertain;
                             chunkUpdate.characterId = chunk.characterId;
                             chunkUpdate.characterUncertain = chunk.characterUncertain;
                         }

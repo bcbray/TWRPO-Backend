@@ -18,5 +18,6 @@ export default interface VideoSegment {
     isTooShort: boolean;
     liveInfo?: Stream;
     server?: ServerBase;
+    serverUncertain: boolean;
     game: Game;
 }
