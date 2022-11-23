@@ -544,7 +544,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Darthbobo77: [
         { id: 192, name: 'Walter Rinsen' },
-        { id: 193, name: 'Cooter Jonason' },
+        { id: 193, name: 'Cooter Jonason', nicknames: ['Koodah'] },
     ],
     DarysFrost: [
         { id: 194, name: 'Hunter Solomons' },
