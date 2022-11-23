@@ -1371,7 +1371,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1031, name: 'Archie "Little Cheese" Small', factions: ['One Life'] },
         { id: 1118, name: 'James "The Bro" McAllister' },
         { id: 1271, name: 'John Hancock', nicknames: ['Unnamed & Unattested', 'Terry Frost'], displayName: 0 },
-        { id: 1333, name: '[Cadet] Jessie Valentine', telegram: 'XF491', factions: ['Law'] },
+        { id: 1333, name: '[Deputy] Jessie Valentine', telegram: 'XF491', factions: ['Law'] },
     ],
     KYCaffiend: [
         { id: 485, name: 'Emerson Cain' },
