@@ -1000,7 +1000,7 @@ export const wrpCharacters: WrpCharacters = {
     Grennig: [
         { id: 370, name: 'Wesley "Wes" Shields', factions: ['Kettleman Gang'], telegram: 'OC251' }, // Former Law
     ],
-    greymoorgaming: [
+    GreymoorGaming: [
         { id: 1337, name: 'Jon Grace' },
     ],
     grigoriypeppo: [
