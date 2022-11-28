@@ -1291,7 +1291,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1356, name: 'Tomasso Changretta' },
     ],
     JugsySiegel: [
-        { id: 459, name: 'Lyle Lancaster', telegram: 'FD542' },
+        { id: 459, name: '[Cadet] Lyle Lancaster', factions: ['Law'], telegram: 'FD542' },
     ],
     JunkieEzek: [
         { id: 460, name: 'Jeremiah Harth' },
