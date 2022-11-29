@@ -1966,7 +1966,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 676, name: 'Furio Bonanno', factions: ['DiCenzo Famiglia'], telegram: 'FB622' }, // Inactive DiCenzo
     ],
     RiftImpy: [
-        { id: 1247, name: 'Bartholomew "Barty" Brue', factions: ['The Ring'] },
+        { id: 1247, name: 'Bartholomew "Barty" Brue', factions: ['The Ring'], telegram: 'RY254' },
     ],
     Roach_tm: [
         { id: 677, name: 'Tony Moretti', factions: ['DiCenzo Famiglia'], telegram: 'GW121' }, // Inactive DiCenzo
