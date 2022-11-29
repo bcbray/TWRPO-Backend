@@ -770,7 +770,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1183, name: 'Saturn Goya' },
     ],
     emily_xb: [
-        { id: 1390, name: 'Ada-Jane Keller' },
+        { id: 1390, name: 'Ada-Jane Keller', telegram: 'NK475' },
     ],
     EmptyDome: [
         { id: 275, name: 'Barry Armstrong' },
