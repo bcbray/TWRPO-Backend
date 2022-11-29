@@ -1552,7 +1552,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1361, name: 'Alessandra Moretti', telegram: 'EY243' },
     ],
     MafiaDrew: [
-        { id: 550, name: 'Donatello "Don" Jameson' },
+        { id: 550, name: 'Donatello "Don" Jameson', telegram: 'TQ717' },
     ],
     ManiLive: [
         { id: 1275, name: 'Ting Wu' },
