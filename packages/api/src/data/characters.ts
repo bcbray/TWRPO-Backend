@@ -1404,7 +1404,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 490, name: 'Louis "Louie" Lancaster' },
         { id: 491, name: 'Luther Von Brandt' },
         { id: 1282, name: 'Daryl Dalton' },
-        { id: 1383, name: '[Guard] John Garrison', factions: ['Sisika Guard'] },
+        { id: 1383, name: '[Guard] John Garrison', factions: ['Sisika Guard'], telegram: 'RA826' },
     ],
     KyQuinn: [
         { id: 492, name: 'Carmen Beckett' },
