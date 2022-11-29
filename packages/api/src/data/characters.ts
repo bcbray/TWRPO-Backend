@@ -1418,7 +1418,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     L00seyG005ey: [
         { id: 500, name: 'Elijah "Eli" Grayson', factions: ['Boons Boys'] },
-        { id: 1388, name: '[Deputy] Jonathan Greycastle', factions: ['Law'] },
+        { id: 1388, name: '[Deputy] Jonathan Greycastle', factions: ['Law'], telegram: 'DE408' },
     ],
     LakunaRP: [
         { id: 501, name: 'Tavish Black' },
