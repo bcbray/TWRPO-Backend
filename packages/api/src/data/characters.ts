@@ -1512,7 +1512,7 @@ export const wrpCharacters: WrpCharacters = {
     luka_aus: [
         { id: 533, name: 'Lukeas Winsmore', factions: ['Boons Boys'], telegram: 'YU594' },
         { id: 534, name: 'Louis O’Neil' },
-        { id: 1363, name: 'Cain Maloo' },
+        { id: 1363, name: 'Cain Maloo', telegram: 'QA880' },
     ],
     Lunabee: [
         { id: 535, name: 'Abigale Hart' },
