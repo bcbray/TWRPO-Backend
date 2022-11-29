@@ -2554,7 +2554,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 888, name: 'Corvus Clements' },
     ],
     TilLuxx: [
-        { id: 1179, name: 'Mar Gloom' },
+        { id: 1179, name: 'Mara Gloom' },
         { id: 1237, name: 'Til Lux' },
     ],
     TiltedSun: [
