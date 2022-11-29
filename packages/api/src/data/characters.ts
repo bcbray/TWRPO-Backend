@@ -1729,7 +1729,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1395, name: 'Victoria ?', telegram: 'ZG829' },
     ],
     Nicklbean: [
-        { id: 1314, name: 'Arther Prince' },
+        { id: 1314, name: 'Arther Prince', telegram: 'YW855' },
         { id: 1357, name: 'Buddy Roland' },
         { id: 1389, name: 'Richard Ironheart' },
     ],
