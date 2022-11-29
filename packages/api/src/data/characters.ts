@@ -1044,7 +1044,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 382, name: 'Danny Ford' },
     ],
     Haxi_: [
-        { id: 383, name: 'Matt Dursk' },
+        { id: 383, name: 'Matt Dursk', telegram: 'IF340' },
         { id: 1278, name: 'Rhys O’Felan' },
         { id: 1342, name: 'Jack De’Ville Kandy' },
     ],
