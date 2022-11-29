@@ -2473,7 +2473,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 861, name: 'Edwin Braithwaite', nicknames: ['Eddie', 'Eddie Braithwaite', 'Prisoner 462503', '462503'], factions: ['Dead End Gang'], telegram: 'WZ827' }, // Former Kettleman
     ],
     TheGoldenDunsparce: [
-        { id: 1317, name: 'Ngu Daeng' },
+        { id: 1317, name: 'Ngu Daeng', telegram: 'KG865' },
         { id: 1318, name: 'Hmee Noi' },
     ],
     TheGoochTV: [
