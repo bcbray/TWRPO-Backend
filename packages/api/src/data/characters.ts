@@ -2056,7 +2056,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1062, name: 'Myrna Meadows' },
         { id: 1157, name: 'Posie Hart', nicknames: ['Kimberly', 'Kimberly Taylor'], displayName: 3 },
         { id: 1228, name: 'Ashley Sky', factions: ['The Ring'], telegram: 'GR775' },
-        { id: 1408, name: 'Holly Harper' },
+        { id: 1408, name: 'Holly Harper', telegram: 'FQ588' },
         { id: 1409, name: '[Guard] Liliana Braytenbach', factions: ['Sisika Guard'] },
     ],
     ScarlettLollipop: [
