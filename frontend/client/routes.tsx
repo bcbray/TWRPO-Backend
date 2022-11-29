@@ -13,6 +13,7 @@ import Login from './Login';
 import Streams from './Streams';
 import { ServersContainer } from './Servers';
 import { StreamTimelineContainer } from './StreamTimeline';
+import ServerStreams from './ServerStreams';
 
 export const publicRoutes = <>
   <Route path="/" element={<LiveContainer />} />
@@ -33,6 +34,10 @@ export const privateRoutes = <>
   <Route path="/utils/streams/faction/:factionKey" element={<Streams />} />
   <Route path="/utils/streams/unknown" element={<Streams type='unknown' />} />
   <Route path="/utils/timeline" element={<StreamTimelineContainer />} />
+
+  <Route path="/utils/streams/server" element={<ServerStreams />} />
+  <Route path="/utils/streams/server/:serverId" element={<ServerStreams />} />
+  <Route path="/utils/streams/server/:serverId/faction/:factionKey" element={<ServerStreams />} />
 
   <Route path="/admin/servers" element={<ServersContainer />} />
 </>;

@@ -14,9 +14,11 @@ import {
 } from './hooks';
 import FilterBar from './FilterBar'
 import { useCurrentServer } from './CurrentServer';
+import { classes } from './utils';
 
 interface StreamsProps {
   type?: 'live' | 'unknown'
+  noInset?: boolean;
 }
 
 export const usePaginatedStreams = (
@@ -108,6 +110,7 @@ export const usePaginatedStreams = (
 }
 
 const Streams: React.FC<StreamsProps> = ({
+  noInset = false,
   type = 'live',
 }) => {
   const location = useLocation();
@@ -170,7 +173,7 @@ const Streams: React.FC<StreamsProps> = ({
   ), [factionKey, factionInfos]);
 
   return (
-    <div className='content inset'>
+    <div className={classes(!noInset && 'content inset')}>
       <FilterBar
         factions={filterFactions}
         selectedFaction={selectedFaction}
