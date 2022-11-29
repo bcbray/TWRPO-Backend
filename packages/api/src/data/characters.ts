@@ -1345,7 +1345,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 476, name: 'Delilah' },
     ],
     Kirimae: [
-        { id: 1156, name: 'Evelynn Walker' },
+        { id: 1156, name: 'Evelynn Walker', nicknames: ['Evie'], telegram: 'DI612' },
     ],
     Kiva: [
         { id: 477, name: 'Harper Madison' },
