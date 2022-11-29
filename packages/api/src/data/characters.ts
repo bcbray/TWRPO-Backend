@@ -61,7 +61,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1209, name: 'Otomo Kitano' },
         { id: 1248, name: 'Giuseppe "Pepe" De Marco', nicknames: ['il Pepe'] },
         { id: 1255, name: 'William Stagley' },
-        { id: 1341, name: 'Shiro ?' },
+        { id: 1341, name: '[Trainee] Shiro ?', factions: ['Medical'] },
     ],
     AaronOnAir: [
         { id: 8, name: 'Dylan Texler' },
