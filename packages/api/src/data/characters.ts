@@ -1253,7 +1253,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 445, name: 'Margrett Anderson' },
     ],
     JestfulHam: [
-        { id: 1273, name: 'Ezra Holder', nicknames: ['Bayou'] },
+        { id: 1273, name: 'Ezra "Bayou" Holder', telegram: 'QT658' },
     ],
     jev2017: [
         { id: 1221, name: 'Daniel Williams' },
