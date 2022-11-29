@@ -2513,7 +2513,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1182, name: '[Guard] Mae Daye', factions: ['Sisika Guard'] },
     ],
     TheRudyDuck: [
-        { id: 986, name: 'Phineas "Phi" Klein' },
+        { id: 986, name: 'Phineas "Phi" Klein', telegram: 'VI890' },
     ],
     TheSlappyOne: [
         { id: 878, name: '[Cadet] Marcus Hutchinson', factions: ['Law'], telegram: 'GJ659' },
