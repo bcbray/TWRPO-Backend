@@ -1442,7 +1442,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 508, name: 'Riley Rivens' },
         { id: 509, name: 'Tantallia Tippins' },
     ],
-    leoDOTmae: [
+    leodotmae: [
         { id: 510, name: 'Eleanor Cain', telegram: 'UW695' }, // Former Law
         { id: 1316, name: 'Johannah Briggs' }, // Aspiring Law
     ],
