@@ -576,7 +576,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1093, name: '[Sr. Ranger] Malcom Irvine', factions: ['Rangers'] },
     ],
     DeadRoses21: [
-        { id: 1370, name: 'Harmony Rivers' },
+        { id: 1370, name: 'Harmony Rivers', telegram: 'FE865' },
     ],
     DEANSUMMERWIND: [
         { id: 201, name: 'Doug Darrell Dan' },
