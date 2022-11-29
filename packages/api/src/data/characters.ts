@@ -1045,7 +1045,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Haxi_: [
         { id: 383, name: 'Matt Dursk', telegram: 'IF340' },
-        { id: 1278, name: 'Rhys O’Felan' },
+        { id: 1278, name: 'Rhys O’Felan', telegram: 'HD646' },
         { id: 1342, name: 'Jack De’Ville Kandy' },
     ],
     Heikima: [
