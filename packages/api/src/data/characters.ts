@@ -452,7 +452,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 155, name: 'Joffery Wilkins' },
     ],
     ClassicSteeve: [
-        { id: 156, name: 'Melvin Brown' },
+        { id: 156, name: 'Melvin Brown', telegram: 'KU972' },
         { id: 157, name: 'Jimmy Duncs' },
         { id: 1145, name: 'Blake Davenport' },
     ],
