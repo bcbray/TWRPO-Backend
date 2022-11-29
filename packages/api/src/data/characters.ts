@@ -2555,7 +2555,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TilLuxx: [
         { id: 1179, name: '[Medic] Mara Gloom', factions: ['Medical'], telegram: 'GB639' },
-        { id: 1237, name: 'Til Lux' },
+        { id: 1237, name: 'Til Lux', telegram: 'GW137' },
     ],
     TiltedSun: [
         { id: 889, name: 'Madison "Maddy" Windward', telegram: 'RT946' },
