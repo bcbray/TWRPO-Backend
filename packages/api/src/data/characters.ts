@@ -778,7 +778,7 @@ export const wrpCharacters: WrpCharacters = {
     endangeredfinley: [
         { id: 276, name: 'Amelia Riddle' },
         { id: 277, name: 'Bonnie Gray' },
-        { id: 278, name: 'Kit "Hummingbird" ?' },
+        { id: 278, name: 'Kit "Hummingbird" ?', telegram: 'KX331' },
         { id: 279, name: 'Paul Güttman' },
         { id: 1199, name: 'Persephone "Bones" Bonesman' },
     ],
