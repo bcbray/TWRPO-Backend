@@ -1719,7 +1719,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 600, name: 'Peter Rockwell', telegram: 'PI343' },
     ],
     Nerfman_: [
-        { id: 1322, name: 'Mick Murphy' },
+        { id: 1322, name: 'Mick Murphy', telegram: 'YG894' },
     ],
     NiaDrools: [
         { id: 601, name: 'Madeline "Moxy" Maddox', telegram: 'ZJ152' },
