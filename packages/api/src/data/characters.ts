@@ -2256,7 +2256,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 784, name: 'Sam Baas', factions: ['The Baastards'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true, deceased: true, telegram: 'YB638' }, // Former Sam's Club. leader of Sam's Club
         { id: 785, name: 'Ali Baba', displayName: 0 },
         { id: 786, name: '[Deputy] Leo Slacks', nicknames: ['Golden Boy'], factions: ['Law'], telegram: 'EO787' },
-        { id: 1295, name: 'Charles "CD" Divine', telegram: 'FA344' },
+        { id: 1295, name: 'Charles "CD" Divine', telegram: 'FA344', factions: ['The Baastards'] },
     ],
     Ssmacky: [
         { id: 787, name: 'Jackson Marsh' },
@@ -2742,7 +2742,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     xoVESPER: [
         { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Famiglia'], deceased: true, telegram: 'FE371' }, // Former DiCenzo
-        { id: 1233, name: 'Josephine "Josie" Adders', telegram: 'FO336' },
+        { id: 1233, name: 'Josephine "Josie" Adders', telegram: 'FO336', factions: ['The Baastards'] },
     ],
     YatoTheMad: [
         { id: 953, name: 'Cassius Evans' },
