@@ -2403,7 +2403,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1067, name: 'Jesse Ambrose' },
     ],
     The_Beautiful_Void: [
-        { id: 836, name: 'Katherine Byrne' },
+        { id: 836, name: 'Katherine "Kate" Byrne', telegram: 'HY310' },
     ],
     The_Devils_Son: [
         { id: 837, name: 'Fredrick Smythe' },
