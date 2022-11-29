@@ -2558,7 +2558,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1237, name: 'Til Lux' },
     ],
     TiltedSun: [
-        { id: 889, name: 'Madison Windward' },
+        { id: 889, name: 'Madison "Maddy" Windward', telegram: 'RT946' },
         { id: 890, name: 'Clem Griffiths' },
         { id: 1207, name: 'Tessa Zachariah' },
     ],
