@@ -966,7 +966,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 350, name: 'Raymond "Rayray" Willis' },
     ],
     GmanRBI: [
-        { id: 351, name: 'Max Brady', telegram: 'GH469' }, // Former Sam's Club
+        { id: 351, name: '[Cadet] Max Brady', factions: ['Law'], telegram: 'GH469' }, // Former Sam's Club
         { id: 352, name: 'Gianni Peccati', telegram: 'KS955' },
         { id: 353, name: 'Mordecai Butterbee' },
         { id: 354, name: 'Giano Greywolf' },
