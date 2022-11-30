@@ -42,7 +42,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 4, name: 'Ernest Dooly' },
         { id: 5, name: 'Maverik Stone', factions: ['Boons Boys'], telegram: 'NK579' },
         { id: 6, name: '[Ranger] Sheppard Dutton', factions: ['Rangers'] },
-        { id: 1166, name: 'Finnagan Huxley' },
+        { id: 1166, name: '[Cadet] Finnagan Huxley', factions: ['Law'], telegram: 'FH202' },
     ],
     '52Chains': [
         { id: 1122, name: 'Eduardo "Slimy" Guavera' },
