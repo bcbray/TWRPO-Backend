@@ -2669,7 +2669,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 918, name: 'Carlo Marciano', factions: ['Fantoni Crew'], telegram: 'XX125' },
     ],
     VERTiiGOGAMING: [
-        { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'], telegram: 'KY857' }, // Former Kerrigan Ranch
+        { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'], telegram: 'KY857', deceased: true }, // Former Kerrigan Ranch
         { id: 920, name: 'Richard "The Wallaby Kid" Eastwick', nicknames: ['Joey Johns'], factions: ['Dead End Gang'], telegram: 'NS591' },
         { id: 921, name: 'Les Darcy' },
         { id: 922, name: 'Bazz Kerrigan', factions: ['Kettleman Gang'], deceased: true }, // leader of Kerrigan Ranch
