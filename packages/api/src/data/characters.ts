@@ -1713,7 +1713,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 599, name: 'Ivy Hill', telegram: 'TL605' },
     ],
     nawori: [
-        { id: 1364, name: 'Jack Bones' },
+        { id: 1364, name: 'Jack Bones', telegram: 'OL590' },
     ],
     nawtyeagle: [
         { id: 1302, name: 'Ronnie White' },
