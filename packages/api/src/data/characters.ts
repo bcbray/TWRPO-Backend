@@ -2483,7 +2483,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 862, name: 'Becker Lang', assume: 'assumeOther' },
     ],
     TheHairyCelt: [
-        { id: 863, name: 'Ronnie Hurbert' },
+        { id: 863, name: 'Ronnie Hurbert', telegram: 'EW576' },
     ],
     TheHardcorian: [
         { id: 864, name: 'Edgar Buckle' },
