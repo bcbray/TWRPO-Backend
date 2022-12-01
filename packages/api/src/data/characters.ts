@@ -804,7 +804,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     eternalsong: [
         { id: 285, name: 'Kora Vane', telegram: 'JH385' }, // Former Sam's Club
-        { id: 1264, name: '[Sr. Ranger] Rayne Farley', factions: ['Rangers'] },
+        { id: 1264, name: '[Sr. Ranger] Rayne Farley', factions: ['Rangers'], telegram: 'GZ075' },
     ],
     EthanSchriver: [
         { id: 286, name: 'Leanord Scout', displayName: 2 },
