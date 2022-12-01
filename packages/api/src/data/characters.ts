@@ -1852,7 +1852,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     PBandJLee: [
         { id: 637, name: '[Medic] Elsie Fletcher', factions: ['Medical'], telegram: 'VR174' }, // TODO: `factions: ['News']` maybe?
-        { id: 1311, name: 'Amelia Evans' },
+        { id: 1311, name: 'Amelia Evans', telegram: 'VG322' },
     ],
     PeachTreeMcGee: [
         { id: 638, name: 'Charlotte Toussaint' },
