@@ -2253,7 +2253,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 979, name: 'Moe McQueen' },
         { id: 983, name: 'Malaha Mage' },
         { id: 1185, name: 'Monica McMonigal' },
-        { id: 1416, name: 'Paddy Doyle' },
+        { id: 1416, name: 'Paddy Doyle', telegram: 'DS872' },
     ],
     Ssaab: [
         { id: 784, name: 'Sam Baas', factions: ['The Baastards'], leader: true, nicknames: ['Dank Outlaw'], assumeChar: true, deceased: true, telegram: 'YB638' }, // Former Sam's Club. leader of Sam's Club
