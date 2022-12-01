@@ -640,7 +640,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 224, name: 'The Blood Witch', displayName: 0 },
     ],
     DJADIP: [
-        { id: 225, name: 'Juan Pablo' },
+        { id: 225, name: 'Juan Pablo', telegram: 'DY911' },
         { id: 1086, name: 'Frikkie Van Tonder' },
     ],
     DjinnJee: [
