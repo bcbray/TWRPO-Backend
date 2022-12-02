@@ -214,7 +214,7 @@ export const wrpCharacters: WrpCharacters = {
     ayekayy47_: [
         { id: 62, name: 'Misty Shaw' },
         { id: 63, name: 'Rayne Beaux' },
-        { id: 64, name: 'Toni Chambers' },
+        { id: 64, name: 'Toni Chambers', factions: ['Freeman Family'] },
         { id: 1137, name: 'Robyn Duckworth' },
     ],
     AzzTazz: [
@@ -333,7 +333,7 @@ export const wrpCharacters: WrpCharacters = {
     Brizzo24: [
         { id: 110, name: 'Craig Johnson' }, // Former Sam's Club
         { id: 111, name: 'Karl Feckles', deceased: true },
-        { id: 1016, name: 'Izaac Douglass', telegram: 'BF174' },
+        { id: 1016, name: 'Izaac Douglass', telegram: 'BF174', factions: ['Freeman Family'] },
         { id: 1080, name: 'Teddy Payne' },
     ],
     BrutalBri: [
@@ -2338,7 +2338,7 @@ export const wrpCharacters: WrpCharacters = {
     TacticalGH0STT: [
         { id: 808, name: 'Beaux Carter' },
         { id: 1210, name: 'Odell Simmons', factions: ['Lifer'] },
-        { id: 1267, name: 'Germain Cyr', displayName: 2, telegram: 'PF391' },
+        { id: 1267, name: 'Germain Cyr', displayName: 2, telegram: 'PF391', factions: ['Freeman Family'] },
     ],
     TaintedRUMBLER: [
         { id: 809, name: 'Drew Peters', telegram: 'MT042', assume: 'assumeOther' },
