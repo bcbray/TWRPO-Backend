@@ -1154,9 +1154,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 409, name: 'Roscoe Montana', factions: ['The Baastards'] }, // Former Sam's Club
         { id: 1138, name: 'Jackson Diggles' },
     ],
-    ImUnruly: [
-        { id: 1425, name: 'Marquise Fraiser', telegram: 'TN764' },
-    ],
+    // imunruly: [
+    //     { id: 1425, name: 'Marquise Fraiser', telegram: 'TN764' },
+    // ],
     inkyblackdreams: [
         { id: 410, name: 'Vera Dragavei' },
         { id: 1376, name: 'Evelyn Harlowe' },
