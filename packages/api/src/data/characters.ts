@@ -2753,7 +2753,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 943, name: '[Marshal] Logan Monroe', factions: ['Law'], telegram: 'AC843', deceased: true }, // Deputy Marshal
         { id: 944, name: 'Roscoe Riggs' },
         { id: 945, name: 'Joseph Carter' },
-        { id: 1431, name: '[Cadet] Teddy ?', factions: ['Law'], displayName: 1 },
+        { id: 1431, name: '[Cadet] Theodor "Teddy" Mcfarlane', factions: ['Law'] },
     ],
     WTFGameNation: [
         { id: 946, name: 'Morgan Calloway' },
