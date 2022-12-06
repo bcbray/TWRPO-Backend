@@ -2249,7 +2249,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1208, name: 'Payton Bell' },
     ],
     Spoofey: [
-        { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'] },
+        { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'], deceased: true },
     ],
     sporkerific: [
         { id: 776, name: 'Rosamaria Sandoval' },
