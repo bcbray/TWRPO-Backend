@@ -884,7 +884,7 @@ export const wrpCharacters: WrpCharacters = {
     Flickerclad: [
         { id: 311, name: 'Evangeline Thorne', factions: ['Red Water'] }, // Former Summers Gang
         { id: 312, name: 'Frankie Czepanski' },
-        { id: 313, name: '[Sheriff] Rabbit Windward', factions: ['Law'], telegram: 'NU817' },
+        { id: 313, name: '[Sheriff] Rabbit Windward', displayName: 1, factions: ['Law'], telegram: 'NU817' },
         { id: 314, name: 'Saskia "Fang" Wolf' },
         { id: 315, name: 'Quinn Thatcher' },
         { id: 1168, name: 'Amity Carrow' },
