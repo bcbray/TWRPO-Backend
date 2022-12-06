@@ -1099,7 +1099,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 394, name: '[Cadet] Miles Gyles', factions: ['Law'] },
         { id: 1063, name: '[Deputy] Thomas Hooper', factions: ['Law'] },
         { id: 1102, name: '[Guard] Mickey Doyle', factions: ['Sisika Guard'] },
-        { id: 1424, name: 'Richard Gold' },
+        { id: 1424, name: 'Richard Gold', telegram: 'AH036' },
     ],
     Hoss: [
         { id: 395, name: 'Buck Cherry' },
