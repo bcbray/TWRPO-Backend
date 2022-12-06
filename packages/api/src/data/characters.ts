@@ -110,7 +110,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     alyssajeanaf: [
         { id: 24, name: 'Dahlia Malone', nicknames: ['Songbird'], factions: ['Fantoni Crew'], telegram: 'WS289' }, // Former Sam's Club
-        { id: 1099, name: 'Evelyn Salvatore' },
+        { id: 1099, name: 'Evelyn Salvatore', telegram: 'XR135' },
     ],
     AM_Raid: [
         { id: 25, name: 'Cain Lockhart' },
