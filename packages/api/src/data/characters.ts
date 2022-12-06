@@ -2382,7 +2382,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 813, name: 'Ethan Cross' },
         { id: 814, name: 'Eugene Goodman' },
         { id: 815, name: '[Deputy] Jean-Pierre Lefrancois', factions: ['Law'] },
-        { id: 816, name: 'Julius "The Jade King" Bradshaw' },
+        { id: 816, name: 'Julius Bradshaw', nicknames: ['The Jade King'] },
         { id: 817, name: '[Marshal] Rico Ortega', nicknames: ['Deputy Marshal'], factions: ['Law'], telegram: 'CH119' }, // Deputy Marshal
         { id: 1257, name: 'Ming Yat-Sen' },
     ],
