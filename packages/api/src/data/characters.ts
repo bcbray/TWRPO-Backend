@@ -1660,7 +1660,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1045, name: 'Dot Lungsford', telegram: 'CE927' },
     ],
     MoogieCookies: [
-        { id: 1230, name: 'Cecily Caldwell' },
+        { id: 1230, name: 'Cecily Caldwell', telegram: 'AI841' },
         { id: 1319, name: 'Seraphine Nostradame' },
     ],
     Mr_Jay_Gaming: [
