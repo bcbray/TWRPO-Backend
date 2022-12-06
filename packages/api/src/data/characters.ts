@@ -1703,7 +1703,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Myre: [
         { id: 587, name: 'Benoit Baratie' },
-        { id: 588, name: 'Crispin Cantabile' },
+        { id: 588, name: 'Crispin Cantabile', telegram: 'NT330' },
         { id: 589, name: '[Ranger] Dallas Wolf', factions: ['Rangers'] },
         { id: 590, name: 'Phineas Fentworth' },
         { id: 591, name: 'Saul South' },
