@@ -168,7 +168,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1160, name: 'Millicent Walker' },
     ],
     Arvenarl: [
-        { id: 1422, name: '[Ranger] Alabaster King', factions: ['Rangers'] },
+        { id: 1422, name: '[Ranger] Alabaster King', factions: ['Rangers'], telegram: 'BN787' },
     ],
     Ashen_Rabbit: [
         { id: 42, name: '[Trainee] Dovie Parker', factions: ['Medical'] },
