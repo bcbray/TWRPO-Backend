@@ -770,7 +770,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     embernocte: [
         { id: 271, name: 'Saffron Mitchell', telegram: 'MS716' }, // Former Deputy
-        { id: 272, name: 'Crissy "Cricket" Blitz' },
+        { id: 272, name: 'Crissy "Cricket" Blitz', telegram: 'KW617' },
         { id: 273, name: 'Holly Frost', telegram: 'DU057' },
         { id: 274, name: 'Sadhbh O’Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
         { id: 1198, name: 'Harmony Bell', nicknames: ['Bellish'] },
