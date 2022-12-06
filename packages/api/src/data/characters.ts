@@ -1200,7 +1200,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 420, name: 'Archibald Welch' },
         { id: 421, name: 'Houston Gray' },
         { id: 422, name: 'Patch "Patches" Twine' },
-        { id: 1061, name: 'Phineas "Fin" Faith' },
+        { id: 1061, name: 'Phineas "Fin" Faith', telegram: 'BJ540' },
         { id: 1089, name: 'Rupert Romano' },
         { id: 1124, name: 'Dynamo Barbarosa', nicknames: ['The Doctor'] }, // Character last name Dolton but goes by Barbarosa
         { id: 1429, name: 'Edward Masters' },
