@@ -233,7 +233,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 84, name: 'Noah Little' },
     ],
     B3UDown: [
-        { id: 68, name: 'Zip Quil', factions: ['Kettleman Gang'], telegram: 'RK699' },
+        { id: 68, name: 'Zip Quil', factions: ['Quil Gang'], telegram: 'RK699' }, // Former Kettleman Gang
     ],
     Baaaadgoat: [
         { id: 1433, name: 'Early Ballard', telegram: 'BP229' },
@@ -1927,7 +1927,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 655, name: 'Kathryn ?' },
         { id: 656, name: 'Minerva Ackerman' },
         { id: 1187, name: 'Jenna Pearl', factions: ['Lifer'] },
-        { id: 1309, name: 'Abigail Quil', telegram: 'EN744' },
+        { id: 1309, name: 'Abigail Quil', telegram: 'EN744', factions: ['Quil Gang'] },
         { id: 1359, name: 'Mildred Rose' }, // Aspiring Law
     ],
     ProJB: [
@@ -2249,7 +2249,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1208, name: 'Payton Bell' },
     ],
     Spoofey: [
-        { id: 1354, name: 'Enola Quil', telegram: 'IX263' },
+        { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'] },
     ],
     sporkerific: [
         { id: 776, name: 'Rosamaria Sandoval' },
