@@ -2631,7 +2631,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 902, name: 'William "Bill" Gunner', nicknames: ['Carlos Sanchez', 'Carlos'] },
     ],
     tsunpapi: [
-        { id: 1407, name: 'Felix Meyers' },
+        { id: 1407, name: 'Felix Meyers', telegram: 'RJ703' },
     ],
     TullyCuffs: [
         { id: 903, name: 'Hugo Hopper' },
