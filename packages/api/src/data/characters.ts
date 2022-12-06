@@ -2136,7 +2136,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 731, name: 'Dane Swan', displayName: 2, factions: ['Independent', 'Guarma'], telegram: 'TT295' }, // Former Law
         { id: 732, name: 'Gator Weaver' },
         { id: 733, name: 'Odysseus Kain' },
-        { id: 734, name: 'Mr. White', displayName: 0 }, // TODO: Don't know first name
+        { id: 734, name: 'Mr. White', displayName: 0, telegram: 'JJ244' }, // TODO: Don't know first name
         { id: 1334, name: 'Buck Curlay' },
     ],
     Silbullet: [
