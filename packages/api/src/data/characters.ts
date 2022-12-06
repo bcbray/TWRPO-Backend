@@ -202,7 +202,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 57, name: 'Mo Tengfei' },
     ],
     avocadotoasty83: [
-        { id: 1371, name: 'Naomi Angeli', nicknames: ['𝒩𝒶𝑜𝓂𝒾 𝒜𝓃𝑔𝑒𝓁𝒾'] },
+        { id: 1371, name: 'Naomi Angeli', nicknames: ['𝒩𝒶𝑜𝓂𝒾 𝒜𝓃𝑔𝑒𝓁𝒾'], telegram: 'BP413' },
         { id: 1414, name: 'Camila Madrazo', nicknames: ['𝓒𝓪𝓶𝓲𝓵𝓪 𝓜𝓪𝓭𝓻𝓪𝔃𝓸'] },
     ],
     AwaBeats: [
