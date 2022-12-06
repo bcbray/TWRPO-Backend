@@ -2287,7 +2287,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 789, name: 'Edie Barlowe' },
     ],
     start_vx: [
-        { id: 1238, name: 'Garneesh Tandoori', factions: ['The Ring'] },
+        { id: 1238, name: 'Garneesh Tandoori', factions: ['The Ring'], telegram: 'LL642' },
     ],
     SteelRain27: [
         { id: 790, name: 'Moses Maddox' },
