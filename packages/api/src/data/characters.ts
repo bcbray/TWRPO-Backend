@@ -212,7 +212,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 61, name: 'Yorrik Morales' },
     ],
     ayebizzi: [
-        { id: 1081, name: 'Ariel Madison' },
+        { id: 1081, name: 'Ariel Madison', factions: ['Quil Gang'] },
     ],
     ayekayy47_: [
         { id: 62, name: 'Misty Shaw' },
