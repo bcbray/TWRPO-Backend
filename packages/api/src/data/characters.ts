@@ -122,7 +122,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1246, name: 'Mildred "Millie" Price' },
     ],
     AndiiCraft: [
-        { id: 1068, name: 'Allison Gator', nicknames: ['Swamp Witch'], displayName: 3 },
+        { id: 1068, name: 'Allison Gator', nicknames: ['Swamp Witch'], telegram: 'ZV440' },
         { id: 1339, name: 'Imogen Clarke' }, // News
     ],
     andromedastarry: [
