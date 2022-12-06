@@ -1459,7 +1459,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Lendermations: [
         { id: 507, name: 'Inessa "Miss Match" Bornlof' },
-        { id: 508, name: 'Riley Rivens' },
+        { id: 508, name: 'Riley Rivens', nicknames: ['Slim'], telegram: 'RI031' },
         { id: 509, name: 'Tantallia Tippins' },
     ],
     leodotmae: [
