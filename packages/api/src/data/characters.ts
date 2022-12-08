@@ -1003,7 +1003,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GrammTheGibbon: [
         { id: 363, name: 'Jimothy Little', nicknames: ['Little Jimothy', 'LJ', 'Kid'], displayName: 3, telegram: 'SI011' }, // Former Dead End Kid
-        { id: 361, name: 'Herbert Parker', nicknames: ['Herb'] }, // Kettleman hangaround
+        { id: 361, name: 'Herbert Parker', nicknames: ['Herb'], telegram: 'QL725' }, // Kettleman hangaround
         { id: 362, name: '[Detective] Homer Carnes', factions: ['Law'], deceased: true },
         { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'], deceased: true }, // Considered to be the one and only leader of the Kettleman Gang
         { id: 1323, name: '[Deputy] Pop Sullivan', factions: ['Law'], telegram: 'EX817' },
