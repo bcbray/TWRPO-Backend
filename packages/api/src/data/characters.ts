@@ -568,7 +568,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 196, name: 'Cassel bottom' },
     ],
     DatRageGuy: [
-        { id: 1352, name: '[Sr. Deputy] Elliot Pruitt', telegram: 'PK525' },
+        { id: 1352, name: '[Sr. Deputy] Elliot Pruitt', factions: ['Law'], telegram: 'PK525' },
     ],
     DatVoiceGuy: [
         { id: 197, name: 'Alejandro Ariez' },
