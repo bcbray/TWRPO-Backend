@@ -293,7 +293,26 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise
 
             const lookupStreams = [];
             for (const helixStream of gtaStreamsNow.data) {
-                const { userId } = helixStream;
+                const {
+                    userId,
+                    gameId,
+                    gameName,
+                    userDisplayName,
+                    title,
+                } = helixStream;
+                if (gameId !== game) {
+                    console.log(JSON.stringify({
+                        level: 'warning',
+                        message: `Got stream for incorrect game for  ${userDisplayName}`,
+                        event: 'twitch-stream-fetch-wrong-game',
+                        channel: userDisplayName,
+                        title,
+                        gameName,
+                        gameId,
+                        userId,
+                    }));
+                    continue;
+                }
                 if (gtaStreamsObj[userId]) continue;
                 gtaStreamsObj[userId] = helixStream;
                 gtaStreams.push(helixStream);
