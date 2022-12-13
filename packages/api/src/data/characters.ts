@@ -644,8 +644,7 @@ export const wrpCharacters: WrpCharacters = {
     DisbeArex: [
         { id: 221, name: 'Timmy Took', telegram: 'CK816' },
         { id: 222, name: 'Dolly Dixon', deceased: true },
-        { id: 223, name: 'Morgana Fay' },
-        { id: 224, name: 'The Blood Witch', displayName: 0 },
+        { id: 224, name: 'Morgana "The Blood Witch" Fay' },
     ],
     DJADIP: [
         { id: 225, name: 'Juan Pablo', telegram: 'DY911' },
