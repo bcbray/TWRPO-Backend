@@ -642,7 +642,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 220, name: 'Archibald Trout' },
     ],
     DisbeArex: [
-        { id: 221, name: 'Timmy Took' },
+        { id: 221, name: 'Timmy Took', telegram: 'CK816' },
         { id: 222, name: 'Dolly Dixon', deceased: true },
         { id: 223, name: 'Morgana Fay' },
         { id: 224, name: 'The Blood Witch', displayName: 0 },
