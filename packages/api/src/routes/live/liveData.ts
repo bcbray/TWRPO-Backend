@@ -302,7 +302,7 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise
                 } = helixStream;
                 if (gameId !== game) {
                     console.log(JSON.stringify({
-                        level: 'warning',
+                        level: 'notice',
                         message: `Got stream for incorrect game for  ${userDisplayName}`,
                         event: 'twitch-stream-fetch-wrong-game',
                         channel: userDisplayName,
