@@ -769,7 +769,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1365, name: 'Sebastian ?', nicknames: ['Pink'], displayName: 3, factions: ['The Masked Men'] },
     ],
     embernocte: [
-        { id: 271, name: 'Saffron Mitchell', telegram: 'MS716' }, // Former Deputy
+        { id: 271, name: 'Saffron Mitchell', telegram: 'MS716', factions: ['News'] }, // Former Deputy
         { id: 272, name: 'Crissy "Cricket" Blitz', telegram: 'KW617' },
         { id: 273, name: 'Holly Frost', telegram: 'DU057' },
         { id: 274, name: 'Sadhbh O’Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
@@ -1113,7 +1113,7 @@ export const wrpCharacters: WrpCharacters = {
     IanMMori: [
         { id: 396, name: '[Deputy] Enrique Vespucci', factions: ['Law'] },
         { id: 397, name: 'Ewan Byrne', telegram: 'AR465' },
-        { id: 398, name: 'Jonathan Coiner' },
+        { id: 398, name: 'Jonathan Coiner', factions: ['News'] },
         { id: 399, name: 'Nate Coiner' },
         { id: 400, name: '[Trainee] Luther Lake', factions: ['Medical'] },
     ],
@@ -1709,7 +1709,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Myre: [
         { id: 587, name: 'Benoit Baratie' },
-        { id: 588, name: 'Crispin Cantabile', telegram: 'NT330' },
+        { id: 588, name: 'Crispin Cantabile', telegram: 'NT330', factions: ['News'] },
         { id: 589, name: '[Ranger] Dallas Wolf', factions: ['Rangers'] },
         { id: 590, name: 'Phineas Fentworth' },
         { id: 591, name: 'Saul South' },
@@ -2061,7 +2061,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     sarahpeathatsme: [
         { id: 700, name: 'Ruby Raines' },
-        { id: 1171, name: 'Abigail Jones' },
+        { id: 1171, name: 'Abigail Jones', factions: ['News'] },
     ],
     satyr_queen: [
         { id: 701, name: 'Cornelius Tias' },
@@ -2547,7 +2547,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheRandomChick: [
         { id: 876, name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'] },
-        { id: 877, name: 'Poppet Deveaux' },
+        { id: 877, name: 'Poppet "Caroline" Deveaux', factions: ['News'] },
         { id: 1182, name: '[Guard] Mae Daye', factions: ['Sisika Guard'] },
     ],
     TheRudyDuck: [
