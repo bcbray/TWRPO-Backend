@@ -1301,7 +1301,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 451, name: 'Jackie Laguna' },
     ],
     johnnyblamz: [
-        { id: 452, name: 'Gavin Summers', telegram: 'WQ958' }, // Former Summers Gang. Leader of Summers Gang
+        { id: 452, name: 'Gavin Summers', telegram: 'WQ958', deceased: true }, // Former Summers Gang. Leader of Summers Gang
         { id: 453, name: 'Jody Quinn', telegram: 'DW522' },
         { id: 454, name: 'Logan Miller' },
         { id: 455, name: 'Avery Woods' },
