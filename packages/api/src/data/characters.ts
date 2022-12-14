@@ -529,7 +529,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 180, name: 'Dusty Wilder' },
     ],
     Daftmedic: [
-        { id: 181, name: '[Doctor] Tristan Shipman', factions: ['Medical'] },
+        { id: 181, name: 'Tristan Shipman' },
         { id: 182, name: 'Archibald Shaw' },
     ],
     Dam_O: [
@@ -921,7 +921,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 329, name: 'Lillian Frost' },
     ],
     FrostFromFire: [
-        { id: 330, name: '[Doctor] Bianca Mackenna', factions: ['Medical'], telegram: 'ZH631' },
+        { id: 330, name: 'Bianca Mackenna', telegram: 'ZH631' },
     ],
     FunnyMatters: [
         { id: 331, name: 'Clint Brimshaw', assumeChar: true },
@@ -931,7 +931,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 333, name: 'Claire Marsh' },
     ],
     GameBaked: [
-        { id: 334, name: 'Mato Tahoma', factions: ['Medical'] },
+        { id: 334, name: 'Mato Tahoma' },
         { id: 335, name: 'Adriaan' },
         { id: 336, name: 'Nyander Furrest' },
     ],
@@ -1497,7 +1497,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1396, name: 'Duncan Murphy', telegram: 'QQ407' },
     ],
     Lithiaris: [
-        { id: 518, name: '[Doctor] Lark Atwood', factions: ['Medical'], telegram: 'MB861' },
+        { id: 518, name: 'Lark Atwood', telegram: 'MB861' },
         { id: 519, name: '[Deputy] Sylvie Chevalier', factions: ['Law'], telegram: 'OR480' },
         { id: 1024, name: 'Hollyhock' },
     ],
@@ -2201,7 +2201,7 @@ export const wrpCharacters: WrpCharacters = {
     sneakyShadower: [
         { id: 750, name: 'Abigail Jones', telegram: 'WW466' }, // I'm pretty sure she's a reporter
         { id: 751, name: 'Azula Brooks' },
-        { id: 752, name: '[Doctor] Isabella Vautour', factions: ['Medical'], telegram: 'GA464' },
+        { id: 752, name: 'Isabella Vautour', telegram: 'GA464' },
         { id: 753, name: '[Deputy] Jackie Lockwood', factions: ['Law'] },
         { id: 754, name: 'Raven Bennett' },
     ],
