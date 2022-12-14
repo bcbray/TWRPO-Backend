@@ -157,7 +157,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1147, name: 'William Jefferson' },
     ],
     ArmoredAndy: [
-        { id: 39, name: '[Sr. Ranger] Buzz Buxton', factions: ['Rangers'] },
+        { id: 39, name: '[Head Ranger] Buzz Buxton', factions: ['Rangers'] },
         { id: 40, name: 'Adolf "Dolfie" Hofcooperstedder' },
         { id: 41, name: 'Moose' },
     ],
@@ -394,7 +394,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 131, name: '[Deputy] Joseph Parrish', factions: ['Law'], telegram: 'UF111' },
     ],
     calliecakes: [
-        { id: 132, name: '[Ranger] Amelie Ashton', factions: ['Rangers'] },
+        { id: 132, name: 'Amelie Ashton' },
     ],
     CallisTV: [
         { id: 133, name: 'August Wheeler' },
@@ -2269,7 +2269,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 777, name: 'Butch Marlow', factions: ['Hagen'] },
     ],
     spriteleah: [
-        { id: 778, name: '[Ranger] Francesca "Frankie" Bright', factions: ['Rangers'], displayName: 2 },
+        { id: 778, name: '[Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190' },
         { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256' }, // Former Summers Gang
         { id: 780, name: 'Brie Haviour' },
         { id: 781, name: 'Ruthie Samuels' },
@@ -2366,7 +2366,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 807, name: 'Emilia "Emi" Song' },
     ],
     TacticalGH0STT: [
-        { id: 808, name: 'Beaux Carter' },
+        { id: 808, name: '[Recruit] Beaux Carter', factions: ['Rangers'] },
         { id: 1210, name: 'Odell Simmons', factions: ['Lifer'] },
         { id: 1267, name: 'Germain Cyr', displayName: 2, telegram: 'PF391', factions: ['Freeman Family'] },
     ],
