@@ -1687,7 +1687,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 576, name: 'Blem Jinkins' },
     ],
     MRGOONBONES: [
-        { id: 577, name: 'Goon "Goom-Boobie" Bones' },
+        { id: 577, name: 'Goon "Goom-Boobie" Bones', factions: ['Conductors'] },
     ],
     MrMoonsHouse: [
         { id: 578, name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes'], displayName: 4, assumeChar: true, telegram: 'LH415' }, // Former Momma's Boys, but I'm not sure if they still exist or not. May have been the leader?
@@ -2256,7 +2256,7 @@ export const wrpCharacters: WrpCharacters = {
     split_uni: [
         { id: 1007, name: 'Koho ?', nicknames: ['Fox'], factions: ['Red Water'], telegram: 'JE142' }, // Former Summers Gang
         { id: 1033, name: 'Bai Li', factions: ['Taipan'], displayName: 0 },
-        { id: 1076, name: 'Gabriel Gashade', displayName: 2 },
+        { id: 1076, name: 'Gabriel Gashade', displayName: 2, factions: ['Conductors'] },
         { id: 1208, name: 'Payton Bell' },
     ],
     Spoofey: [
@@ -2552,7 +2552,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1182, name: '[Guard] Mae Daye', factions: ['Sisika Guard'] },
     ],
     TheRudyDuck: [
-        { id: 986, name: 'Phineas "Phi" Klein', telegram: 'VI890' },
+        { id: 986, name: 'Phineas "Phi" Klein', telegram: 'VI890', factions: ['Conductors'] },
     ],
     TheSlappyOne: [
         { id: 878, name: '[Deputy] Marcus Hutchinson', factions: ['Law'], telegram: 'GJ659' },
