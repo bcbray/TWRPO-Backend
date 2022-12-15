@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1450
+// Next ID: 1451
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -175,6 +175,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Ashen_Rabbit: [
         { id: 42, name: '[Trainee] Dovie Parker', factions: ['Medical'] },
+    ],
+    AstroSC: [
+        { id: 1450, name: 'Wayne Lovell', factions: ['The Black Company'] },
     ],
     aTinyHorse: [
         { id: 1148, name: 'Antonio "Tiny" Ricci' },
@@ -609,7 +612,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 204, name: 'Hank Boon' },
     ],
     Demorga_: [
-        { id: 1043, name: 'Avery Hobbs', displayName: 2 },
+        { id: 1043, name: 'Avery Hobbs', displayName: 2, factions: ['The Black Company'] },
         { id: 1120, name: '[Guard] Cassius Renata', factions: ['Sisika Guard'] },
         { id: 1127, name: 'Sylas "Stache" Kristiansen', telegram: 'NO025' }, // Former Sheriff
     ],
@@ -883,7 +886,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1217, name: 'Michael "Big Mike" James' },
     ],
     flaymayweather: [
-        { id: 310, name: 'Cade Cross', telegram: 'UY677' },
+        { id: 310, name: 'Cade Cross', factions: ['The Black Company'], telegram: 'UY677' },
     ],
     Flickerclad: [
         { id: 311, name: 'Evangeline Thorne', factions: ['Red Water'] }, // Former Summers Gang
@@ -1513,7 +1516,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 520, name: 'Hanna Eriksson' },
     ],
     lizzyyyy: [
-        { id: 1290, name: 'Olive Cotter', telegram: 'WX925' },
+        { id: 1290, name: 'Olive Cotter', factions: ['The Black Company'], telegram: 'WX925' },
     ],
     ll_Marziano_ll: [
         { id: 521, name: 'James Lawson' },
