@@ -794,7 +794,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 275, name: 'Barry Armstrong' },
     ],
     endangeredfinley: [
-        { id: 276, name: 'Amelia Riddle' },
+        { id: 276, name: 'Amelia Riddle', nicknames: ['Eihwaz'], factions: ['Daughters of Fenrir'] },
         { id: 277, name: 'Bonnie Gray' },
         { id: 278, name: 'Kit "Hummingbird" ?', telegram: 'KX331' },
         { id: 279, name: 'Paul Güttman' },
@@ -889,7 +889,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 310, name: 'Cade Cross', factions: ['The Black Company'], telegram: 'UY677' },
     ],
     Flickerclad: [
-        { id: 311, name: 'Evangeline Thorne', factions: ['Red Water'] }, // Former Summers Gang
+        { id: 311, name: 'Evangeline Thorne', nicknames: ['Thurisaz', 'Sköll'], factions: ['Daughters of Fenrir'] }, // Former Summers Gang
         { id: 312, name: 'Frankie Czepanski' },
         { id: 313, name: '[Sheriff] Rabbit Windward', displayName: 1, factions: ['Law'], telegram: 'NU817' },
         { id: 314, name: 'Saskia "Fang" Wolf' },
@@ -2617,7 +2617,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TiltedSun: [
         { id: 889, name: 'Madison "Maddy" Windward', telegram: 'RT946' },
-        { id: 890, name: 'Clem Griffiths' },
+        { id: 890, name: 'Clem Griffiths', nicknames: ['Isa'], factions: ['Daughters of Fenrir'] },
         { id: 1207, name: 'Tessa Zachariah', factions: ['Miles Gang'] },
     ],
     Timmac: [
