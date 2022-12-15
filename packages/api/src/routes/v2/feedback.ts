@@ -55,6 +55,7 @@ router.post('/', async (req: Request<any, any, Feedback>, res) => {
     }
 
     const message = `New feedback:
+**IP:** ${req.header('X-Forwarded-For') ?? req.socket.remoteAddress ?? '*(unknown)*'}
 **discord:** ${req.body.discord && req.body.discord.length ? req.body.discord : '*(none)*'}
 **email:** ${req.body.email && req.body.email.length ? req.body.email : '*(none)*'}
 **page:** ${req.body.page && req.body.page.length ? `http://twrponly.tv${req.body.page}` : '*(none)*'}
