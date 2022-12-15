@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1456
+// Next ID: 1457
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -738,7 +738,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 254, name: 'Solomon Walker', deceased: true }, // Leader of The Cut
         { id: 255, name: 'Lawrence "The Major" Stirling' },
         { id: 256, name: 'Isaac "Dr. Creed" Creed', telegram: 'RU038' }, // Leader of The Ward
-        { id: 257, name: 'Reginald "Reggie" Richardson', telegram: 'KV391' },
+        { id: 257, name: 'Reginald "Reggie" Richardson', factions: ['The Firm'], telegram: 'KV391' },
         { id: 258, name: 'Cullen Vane', displayName: 2, factions: ['Independent', 'Guarma'] },
     ],
     Dwoalin: [
@@ -924,7 +924,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     friendly_chick: [
         { id: 326, name: 'Angelica "Angel" Ward', nicknames: ['Angle'], factions: ['Conductors'] },
-        { id: 327, name: 'Charlotte "Lottie" Davis', telegram: 'SM304' },
+        { id: 327, name: 'Charlotte "Lottie" Davis', factions: ['The Firm'], telegram: 'SM304' },
         { id: 328, name: 'Haven Rivers' },
         { id: 329, name: 'Lillian Frost' },
     ],
@@ -1218,7 +1218,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 420, name: 'Archibald Welch' },
         { id: 421, name: 'Houston Gray' },
         { id: 422, name: 'Patch "Patches" Twine' },
-        { id: 1061, name: 'Phineas "Fin" Faith', telegram: 'BJ540' },
+        { id: 1061, name: 'Phineas "Fin" Faith', factions: ['The Firm'], telegram: 'BJ540' },
         { id: 1089, name: 'Rupert Romano' },
         { id: 1124, name: 'Dynamo Barbarosa', nicknames: ['The Doctor'] }, // Character last name Dolton but goes by Barbarosa
         { id: 1429, name: 'Edward Masters' },
@@ -1677,7 +1677,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Mooftress: [
         { id: 1044, name: 'Erie Waters' },
-        { id: 1045, name: 'Dot Lungsford', telegram: 'CE927' },
+        { id: 1045, name: 'Dot Lungsford', factions: ['The Firm'], telegram: 'CE927' },
     ],
     MoogieCookies: [
         { id: 1230, name: 'Cecily Caldwell', telegram: 'AI841' },
@@ -1770,7 +1770,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1395, name: 'Victoria ?', telegram: 'ZG829' },
     ],
     Nicklbean: [
-        { id: 1314, name: 'Arther Prince', telegram: 'YW855' },
+        { id: 1314, name: 'Arther Prince', factions: ['The Firm'], telegram: 'YW855' },
         { id: 1357, name: 'Buddy Roland' },
         { id: 1389, name: 'Richard Ironheart' },
     ],
@@ -2264,7 +2264,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 770, name: '[Deputy] Andrew Hamilton', factions: ['Law'] },
         { id: 771, name: 'Emmet Gray' },
         { id: 772, name: 'James Parker' },
-        { id: 773, name: 'Archie Richardson' },
+        { id: 773, name: 'Archie Richardson', factions: ['The Firm'] },
     ],
     spicybackpain: [
         { id: 774, name: 'Pepper Jackson' },
@@ -2538,7 +2538,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 862, name: 'Becker Lang', assume: 'assumeOther' },
     ],
     TheHairyCelt: [
-        { id: 863, name: 'Ronnie Hurbert', telegram: 'EW576' },
+        { id: 863, name: 'Ronnie Hurbert', factions: ['The Firm'], telegram: 'EW576' },
     ],
     TheHardcorian: [
         { id: 864, name: 'Edgar Buckle' },
@@ -2723,6 +2723,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     VellamoSwift: [
         { id: 1284, name: 'Alice Jinks' },
+        { id: 1456, name: 'Alice Lungsford', factions: ['The Firm'] }, // Same character as Alice Jinks? Old stream titles use “Jinks,” but unclear
     ],
     VersaLK: [
         { id: 918, name: 'Carlo Marciano', factions: ['Fantoni Crew'], telegram: 'XX125' },
