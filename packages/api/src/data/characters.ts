@@ -1505,7 +1505,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 515, name: '[Deputy] Negan McAlister', factions: ['Law'], displayName: 1, telegram: 'WD052' },
         { id: 516, name: 'Joseph "JoJo" Johanson', factions: ['Half Wits'], telegram: 'FX403' },
         { id: 517, name: 'Diego Marin', factions: ['Conductors'] },
-        { id: 1396, name: 'Duncan Murphy', telegram: 'QQ407' },
+        { id: 1396, name: 'Duncan Murphy', factions: ['10 Tonne Gang'], telegram: 'QQ407' },
     ],
     Lithiaris: [
         { id: 518, name: 'Lark Atwood', telegram: 'MB861' },
@@ -2500,7 +2500,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 853, name: 'Javier Moreno' },
         { id: 854, name: 'Thomas Schneider', nicknames: ['Butcher Of Berlin'] },
         { id: 855, name: 'W. J. Patterson' },
-        { id: 1397, name: 'Reuben Roberts', telegram: 'OW044' },
+        { id: 1397, name: 'Reuben Roberts', factions: ['10 Tonne Gang'], telegram: 'OW044' },
     ],
     TheCourtJester: [
         { id: 856, name: 'Dr. Nikolai' },
