@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1444
+// Next ID: 1446
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -99,6 +99,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], displayName: 0, factions: ['Kettleman Gang'], telegram: 'NB240' }, // Briefly led Kelly Gang
         { id: 1029, name: 'Kenny Kingston' },
         { id: 1206, name: 'Sunny Falls' },
+    ],
+    AlbyGG: [
+        { id: 1445, name: '[Sheriff] Gabriel Cash', factions: ['Law'] },
     ],
     Altrah: [
         { id: 22, name: 'Victor Morteza' },
@@ -444,7 +447,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Cheever7: [
         { id: 149, name: 'Aurora Rayne', factions: ['The Baastards'], telegram: 'KH378' }, // Former Kettleman Gang
-        { id: 1241, name: '[Deputy] Maya Brooks', factions: ['Law'], telegram: 'KJ562' },
+        { id: 1241, name: '[Sr. Deputy] Maya Brooks', factions: ['Law'], telegram: 'KJ562' },
     ],
     ChickPenguin: [
         { id: 150, name: 'Lily Linwood', nicknames: ['Lily Fish', 'Lilly', 'Lilly Fish'], factions: ['Independent', 'Guppy Gang'] },
@@ -537,7 +540,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1367, name: '? ?', nicknames: ['Green'], displayName: 3, factions: ['The Masked Men'] },
     ],
     DangitLacie: [
-        { id: 184, name: '[Deputy] Doreen Pavus', factions: ['Law'] },
+        { id: 184, name: 'Doreen Pavus' }, // Former Deputy
         { id: 185, name: 'Judith Amerine' },
         { id: 186, name: 'Kid Kelley' },
     ],
@@ -607,7 +610,7 @@ export const wrpCharacters: WrpCharacters = {
     Demorga_: [
         { id: 1043, name: 'Avery Hobbs', displayName: 2 },
         { id: 1120, name: '[Guard] Cassius Renata', factions: ['Sisika Guard'] },
-        { id: 1127, name: '[Sheriff] Sylas "Stache" Kristiansen', factions: ['Law'], telegram: 'NO025' },
+        { id: 1127, name: 'Sylas "Stache" Kristiansen', telegram: 'NO025' }, // Former Sheriff
     ],
     DeneeSays: [
         { id: 205, name: 'Brooke "Babs" Burns', factions: ['DiCenzo Famiglia'], telegram: 'AT704' },
@@ -616,7 +619,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 206, name: 'Sam Rosco' }, // Former The Cut
     ],
     DetectiveDoorag: [
-        { id: 207, name: '[Deputy] Casey Kramer', factions: ['Law'], telegram: 'JY337' },
+        { id: 207, name: '[Sr. Deputy] Casey Kramer', factions: ['Law'], telegram: 'JY337' },
         { id: 208, name: 'Beau Wilder' },
         { id: 209, name: 'Colt Clifford' },
     ],
@@ -740,7 +743,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1082, name: 'Bruce ?' },
     ],
     dynadivine: [
-        { id: 260, name: 'Lucille Davis' },
+        { id: 260, name: '[Cadet] Lucille Davis', factions: ['Law'] },
         { id: 261, name: 'Lucille Walker' }, // Former The Cut
         { id: 262, name: 'Danielle ?' },
         { id: 1006, name: '[Deputy] Lillian Taylor', factions: ['Law'], telegram: 'MH115' },
@@ -887,7 +890,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 313, name: '[Sheriff] Rabbit Windward', displayName: 1, factions: ['Law'], telegram: 'NU817' },
         { id: 314, name: 'Saskia "Fang" Wolf' },
         { id: 315, name: 'Quinn Thatcher' },
-        { id: 1168, name: 'Amity Carrow' },
+        { id: 1168, name: '[Deputy] Amity Carrow', factions: ['Law'] },
     ],
     floralfoxes: [
         { id: 1350, name: 'Juniper Ripley', telegram: 'IV378' },
@@ -978,7 +981,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 350, name: 'Raymond "Rayray" Willis' },
     ],
     GmanRBI: [
-        { id: 351, name: '[Cadet] Max Brady', factions: ['Law'], telegram: 'GH469' }, // Former Sam's Club
+        { id: 351, name: '[Deputy] Max Brady', factions: ['Law'], telegram: 'GH469' }, // Former Sam's Club
         { id: 352, name: 'Gianni Peccati', telegram: 'KS955' },
         { id: 353, name: 'Mordecai Butterbee' },
         { id: 354, name: 'Giano Greywolf' },
@@ -1004,7 +1007,7 @@ export const wrpCharacters: WrpCharacters = {
     GrammTheGibbon: [
         { id: 363, name: 'Jimothy Little', nicknames: ['Little Jimothy', 'LJ', 'Kid'], displayName: 3, telegram: 'SI011' }, // Former Dead End Kid
         { id: 361, name: 'Herbert Parker', nicknames: ['Herb'], telegram: 'QL725' }, // Kettleman hangaround
-        { id: 362, name: '[Detective] Homer Carnes', factions: ['Law'], deceased: true },
+        { id: 362, name: 'Homer Carnes', deceased: true }, // Former Deputy?
         { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'], deceased: true }, // Considered to be the one and only leader of the Kettleman Gang
         { id: 1323, name: '[Deputy] Pop Sullivan', factions: ['Law'], telegram: 'EX817' },
     ],
@@ -1097,7 +1100,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 391, name: 'Barry Bjornson' }, // Former Sam's Club
         { id: 392, name: 'Clyde Davis', nicknames: ['Dusty Danger'], deceased: true }, // Leader of the Danger Gang
         { id: 393, name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'], telegram: 'CH801' },
-        { id: 394, name: '[Cadet] Miles Gyles', factions: ['Law'] },
+        { id: 394, name: 'Miles Gyles' }, // Former Deputy
         { id: 1063, name: '[Deputy] Thomas Hooper', factions: ['Law'] },
         { id: 1102, name: '[Guard] Mickey Doyle', factions: ['Sisika Guard'] },
         { id: 1424, name: 'Richard Gold', telegram: 'AH036' },
@@ -1470,7 +1473,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     leodotmae: [
         { id: 510, name: 'Eleanor Cain', telegram: 'UW695' }, // Former Law
-        { id: 1316, name: 'Johannah Briggs' }, // Aspiring Law
+        { id: 1316, name: '[Deputy] Johannah Briggs', factions: ['Law'] },
     ],
     LetterJaye: [
         { id: 511, name: 'Wisteria Snowdon', telegram: 'IM661' },
@@ -2440,6 +2443,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 834, name: '[Deputy] Jonathan Robertson', factions: ['Law'] },
         { id: 835, name: 'Alexander Rose' },
         { id: 1067, name: 'Jesse Ambrose' },
+        { id: 1444, name: '[Cadet] Lewis Camden', factions: ['Law'] },
     ],
     The_Beautiful_Void: [
         { id: 836, name: 'Katherine "Kate" Byrne', telegram: 'HY310' },
@@ -2772,7 +2776,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 943, name: '[Marshal] Logan Monroe', factions: ['Law'], telegram: 'AC843', deceased: true }, // Deputy Marshal
         { id: 944, name: 'Roscoe Riggs' },
         { id: 945, name: 'Joseph Carter' },
-        { id: 1431, name: '[Cadet] Theodor "Teddy" Mcfarlane', factions: ['Law'] },
+        { id: 1431, name: '[Deputy] Theodor "Teddy" Mcfarlane', factions: ['Law'] },
     ],
     WTFGameNation: [
         { id: 946, name: 'Morgan Calloway' },
