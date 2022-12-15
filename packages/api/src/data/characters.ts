@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1446
+// Next ID: 1450
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -543,6 +543,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 184, name: 'Doreen Pavus' }, // Former Deputy
         { id: 185, name: 'Judith Amerine' },
         { id: 186, name: 'Kid Kelley' },
+        { id: 1449, name: 'Melody Bell', factions: ['Bell Gang'], deceased: true },
     ],
     DaniOregon: [
         { id: 187, name: 'Wesley Daniels' },
@@ -776,7 +777,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 272, name: 'Crissy "Cricket" Blitz', telegram: 'KW617' },
         { id: 273, name: 'Holly Frost', telegram: 'DU057' },
         { id: 274, name: 'Sadhbh O’Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
-        { id: 1198, name: 'Harmony Bell', nicknames: ['Bellish'] },
+        { id: 1198, name: 'Harmony Bell', nicknames: ['Bellish'], factions: ['Bell Gang'], deceased: true },
         { id: 1423, name: 'Lea Loup' },
     ],
     EmeraldElephant_: [
@@ -964,6 +965,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GhostsTV: [
         { id: 1384, name: 'Michelangelo "Mikey" Scarpatti', factions: ['DiCenzo Famiglia'], telegram: 'ZU162' },
+        { id: 1446, name: 'Seamus Bell', factions: ['Bell Gang'] },
     ],
     GiveMeUhMinute: [
         { id: 345, name: 'James Willow' },
@@ -1237,6 +1239,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 430, name: 'Maria Gonzales' }, // Former Bloody Hood
         { id: 431, name: 'Widow Fan' },
         { id: 976, name: 'Sabina Demeter' },
+    ],
+    JackTFD: [
+        { id: 1447, name: 'Max Bell', factions: ['Bell Gang'] },
     ],
     jakeyp0o: [
         { id: 432, name: 'Danner Wynn' },
@@ -2260,7 +2265,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1007, name: 'Koho ?', nicknames: ['Fox'], factions: ['Red Water'], telegram: 'JE142' }, // Former Summers Gang
         { id: 1033, name: 'Bai Li', factions: ['Taipan'], displayName: 0 },
         { id: 1076, name: 'Gabriel Gashade', displayName: 2, factions: ['Conductors'] },
-        { id: 1208, name: 'Payton Bell' },
+        { id: 1208, name: 'Payton Bell', factions: ['Bell Gang'], deceased: true },
     ],
     Spoofey: [
         { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'], deceased: true },
@@ -2579,6 +2584,9 @@ export const wrpCharacters: WrpCharacters = {
     theweyu: [
         { id: 882, name: 'Alawa "Ali" Meota' },
     ],
+    TheWltchDoctor: [
+        { id: 1448, name: 'Sam Bell', factions: ['Bell Gang'] },
+    ],
     TheZenPunk: [
         { id: 883, name: 'William "Wild Willy" Brown' },
     ],
@@ -2739,7 +2747,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 929, name: 'Brian Wright' }, // Former Senior Deputy
         { id: 930, name: 'Taylor Hicks', factions: ['Red Water'] }, // Former Summers Gang
         { id: 931, name: 'William "Bill" Carver' },
-        { id: 932, name: 'Benji Bell', telegram: 'VE811' },
+        { id: 932, name: 'Benji Bell', factions: ['Bell Gang'], leader: true, telegram: 'VE811' },
     ],
     WeeJimcent: [
         { id: 933, name: 'Sergio ?' },
