@@ -23,6 +23,7 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     theblackcompany: 'The Black Company',
     milesgang: 'Miles Gang',
     '10tonnegang': '10 Tonne Gang',
+    littlegang: 'Little Gang',
     news: 'News',
     development: 'Development',
     law: 'Law',

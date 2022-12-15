@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1451
+// Next ID: 1453
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -219,7 +219,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 61, name: 'Yorrik Morales' },
     ],
     ayebizzi: [
-        { id: 1081, name: 'Ariel Madison', factions: ['Quil Gang'], telegram: 'GQ613' },
+        { id: 1081, name: 'Ariel Madison', factions: ['Quil Gang'], telegram: 'GQ613' }, // Former Little Gang
     ],
     ayekayy47_: [
         { id: 62, name: 'Misty Shaw' },
@@ -1010,7 +1010,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1015, name: 'Harold Roach' },
     ],
     GrammTheGibbon: [
-        { id: 363, name: 'Jimothy Little', nicknames: ['Little Jimothy', 'LJ', 'Kid'], displayName: 3, telegram: 'SI011' }, // Former Dead End Kid
+        { id: 363, name: 'Jimothy Little', nicknames: ['Little Jimothy', 'LJ', 'Kid'], displayName: 3, factions: ['Little Gang'], leader: true, telegram: 'SI011' }, // Former Dead End Kid
         { id: 361, name: 'Herbert Parker', nicknames: ['Herb'], telegram: 'QL725' }, // Kettleman hangaround
         { id: 362, name: 'Homer Carnes', deceased: true }, // Former Deputy?
         { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'], deceased: true }, // Considered to be the one and only leader of the Kettleman Gang
@@ -1065,7 +1065,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 382, name: 'Danny Ford' },
     ],
     Haxi_: [
-        { id: 383, name: 'Matt Dursk', telegram: 'IF340' },
+        { id: 383, name: 'Matt Dursk', factions: ['Little Gang'], telegram: 'IF340' },
         { id: 1278, name: 'Rhys O’Felan', telegram: 'HD646' },
         { id: 1342, name: 'Jack De’Ville Kandy' },
     ],
@@ -1174,6 +1174,7 @@ export const wrpCharacters: WrpCharacters = {
     inkyblackdreams: [
         { id: 410, name: 'Vera Dragavei' },
         { id: 1376, name: 'Evelyn Harlowe' },
+        { id: 1451, name: 'Vera Addley', factions: ['Little Gang'] }, // Same character as Vera Dragavei? Old stream titles mention “Vera Dragavei” but new ones mention “Vera Addley”. Unclear.
     ],
     IonicEagle: [
         { id: 1079, name: 'Atticus Godson' },
@@ -1454,7 +1455,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 499, name: 'Jade Turner', telegram: 'DD964' },
     ],
     L00seyG005ey: [
-        { id: 500, name: 'Elijah "Eli" Grayson', factions: ['Boons Boys'] },
+        { id: 500, name: 'Elijah "Eli" Grayson', factions: ['Little Gang'] }, // Former Boons Boys? Or maybe I just mistagged?
         { id: 1388, name: '[Deputy] Jonathan Greycastle', factions: ['Law'], telegram: 'DE408' },
     ],
     LakunaRP: [
@@ -2153,6 +2154,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     SheepDog59: [
         { id: 729, name: 'Wyatt Mason Kennedy' },
+    ],
+    Shmooj: [
+        { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'] },
     ],
     Shyirasky: [
         { id: 730, name: 'Twitch Cooper' },
