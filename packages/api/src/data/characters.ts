@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1453
+// Next ID: 1456
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -62,6 +62,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1248, name: 'Giuseppe "Pepe" De Marco', nicknames: ['il Pepe'], deceased: true },
         { id: 1255, name: 'William Stagley' },
         { id: 1341, name: '[Trainee] Shiro ?', factions: ['Medical'] },
+        { id: 1455, name: 'Adan Jimenez', factions: ['New Del Lobos'] },
     ],
     AaronOnAir: [
         { id: 8, name: 'Dylan Texler' },
@@ -1471,6 +1472,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 505, name: 'Brie Haviour' },
         { id: 506, name: 'Ruthie Samuels' },
         { id: 1330, name: 'Ally Ramsey' },
+        { id: 1454, name: 'Sierra ?', factions: ['New Del Lobos'] },
     ],
     Leg0s: [
         { id: 1286, name: 'Gabrielle Reyes' },
@@ -2273,6 +2275,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1033, name: 'Bai Li', factions: ['Taipan'], displayName: 0 },
         { id: 1076, name: 'Gabriel Gashade', displayName: 2, factions: ['Conductors'] },
         { id: 1208, name: 'Payton Bell', factions: ['Bell Gang'], deceased: true },
+        { id: 1453, name: 'Rio ?', factions: ['New Del Lobos'] },
     ],
     Spoofey: [
         { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'], deceased: true },
@@ -2352,10 +2355,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1164, name: 'Raylan "Ray-Ray" Goggins', nicknames: [reg(/\bray(?:\-|\s*)ray\b/)], factions: ['Conductors'] },
         { id: 1169, name: 'Black Sky', displayName: 0 },
         { id: 1392, name: 'John-Michael Douglas' },
-        { id: 1410, name: 'Santiago Velasquez' },
+        { id: 1410, name: 'Santiago Velasquez', factions: ['New Del Lobos'] },
     ],
     Sveo0: [
-        { id: 1133, name: 'Miguel Garcia' },
+        { id: 1133, name: 'Miguel Garcia', factions: ['New Del Lobos'] },
     ],
     sweetcraw: [
         { id: 802, name: 'Joey Crawford', telegram: 'UQ998' },
