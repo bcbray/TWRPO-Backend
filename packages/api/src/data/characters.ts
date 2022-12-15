@@ -1817,7 +1817,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1038, name: '? ?', assume: 'neverNp' },
     ],
     OfficialBea: [
-        { id: 974, name: 'Lois Miles' },
+        { id: 974, name: 'Lois Miles', factions: ['Miles Gang'] },
         { id: 1281, name: 'Sprout ?' },
     ],
     og_cush00: [
@@ -2034,7 +2034,7 @@ export const wrpCharacters: WrpCharacters = {
     rossthehsauce: [
         { id: 682, name: 'Forest Fish', factions: ['Guppy Gang'], telegram: 'IF559' },
         { id: 683, name: 'Dominic "Dom" Disouza', factions: ['DiCenzo Famiglia'], telegram: 'HJ726' }, // Inactive DiCenzo
-        { id: 684, name: 'Lionel Miles' },
+        { id: 684, name: 'Lionel Miles', factions: ['Miles Gang'], leader: true },
         { id: 1261, name: 'Jericho Gunne' },
     ],
     RY4N: [
@@ -2614,7 +2614,7 @@ export const wrpCharacters: WrpCharacters = {
     TiltedSun: [
         { id: 889, name: 'Madison "Maddy" Windward', telegram: 'RT946' },
         { id: 890, name: 'Clem Griffiths' },
-        { id: 1207, name: 'Tessa Zachariah' },
+        { id: 1207, name: 'Tessa Zachariah', factions: ['Miles Gang'] },
     ],
     Timmac: [
         { id: 891, name: 'Gomer Colton', factions: ['Coltons'] },
