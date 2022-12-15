@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1457
+// Next ID: 1461
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -341,7 +341,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BradWOTO: [
         { id: 107, name: 'Bentley Fog' },
-        { id: 108, name: 'Rufus Lorde', deceased: true }, // Dead End Kid. Summer's Gang.
+        { id: 108, name: 'Rufus Lorde', factions: ['Dead End Gang'], deceased: true }, // Former Summer's Gang.
         { id: 109, name: 'Tar Sullivan' },
     ],
     Brizzo24: [
@@ -360,6 +360,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 116, name: 'Butch Fairway' },
         { id: 117, name: 'Johnny Quick' },
         { id: 1415, name: '[Deputy] Clifford Castle', factions: ['Law'], telegram: 'PX411' },
+    ],
+    Bryce_Reid: [
+        { id: 1457, name: 'Melchior "Milkman" Tarsovich', factions: ['Dead End Gang'] },
     ],
     buddha: [
         { id: 118, name: 'Wu Buddha', factions: ['DiCenzo Famiglia'], telegram: 'EI571' }, // Inactive DiCenzo
@@ -385,10 +388,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BurtLington: [
         { id: 125, name: '[Sheriff] Marty Malone', factions: ['Law'], telegram: 'PF150' },
-        { id: 126, name: 'Paddy Connelly', nicknames: ['The Sweeper'] },
+        { id: 126, name: 'Paddy Connelly', nicknames: ['The Sweeper'], factions: ['Dead End Gang'] },
     ],
     buttrito: [
-        { id: 127, name: 'Dakota Ellis', telegram: 'KS130' },
+        { id: 127, name: 'Dakota Ellis', factions: ['Dead End Gang'], telegram: 'KS130' },
     ],
     Caffine5: [
         { id: 128, name: 'Billy Falco', nicknames: ['Billy Blasters', 'Billy Blunders'], displayName: 3 }, // Former Danger Gang
@@ -700,7 +703,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 239, name: 'Danny Kerrigan', deceased: true }, // Kerrigan Ranch
         { id: 240, name: 'Duncan Ladle' },
         { id: 241, name: '[Deputy] Duncan Weller', factions: ['Law'], telegram: 'EY733' },
-        { id: 242, name: 'Darwin Howe' },
+        { id: 242, name: 'Darwin Howe', factions: ['Dead End Gang'] },
         { id: 1227, name: 'Blue Harlow' },
     ],
     DrulkTV: [
@@ -723,7 +726,7 @@ export const wrpCharacters: WrpCharacters = {
     DukeOfFlukes: [
         { id: 249, name: '[Cadet] Alexander Poe', factions: ['Law'], telegram: 'YH781' }, // Former Doctor
         { id: 250, name: 'Duke Colt', nicknames: ['Handsome Colt'] },
-        { id: 251, name: 'Charles Morgan', telegram: 'ES892' },
+        { id: 251, name: 'Charles Morgan', factions: ['Dead End Gang'], telegram: 'ES892' },
         { id: 1052, name: 'Jimmy Billiam' },
         { id: 1181, name: '[Guard] Darren Hobbs', factions: ['Sisika Guard'] },
     ],
@@ -823,7 +826,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1264, name: '[Sr. Ranger] Rayne Farley', factions: ['Rangers'], telegram: 'GZ075' },
     ],
     EthanSchriver: [
-        { id: 286, name: 'Leanord Scout', displayName: 2 },
+        { id: 286, name: 'Leanord Scout', displayName: 2, factions: ['Dead End Gang'] },
         { id: 1372, name: '? ?', nicknames: ['Purple'], displayName: 3, factions: ['The Masked Men'] },
     ],
     Euiik: [
@@ -2652,7 +2655,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     topspin17: [
         { id: 1008, name: 'Archie Stonewall', telegram: 'BB139' },
-        { id: 1060, name: 'Alvin Caster', telegram: 'GG577' }, // Dead End Gang prospect
+        { id: 1060, name: 'Alvin Caster', factions: ['Dead End Gang'], telegram: 'GG577' },
         { id: 1360, name: 'Don Deters', telegram: 'AM073' }, // Aspiring Law
     ],
     TortillaTheHunTV: [
@@ -2662,6 +2665,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     travpiper: [
         { id: 902, name: 'William "Bill" Gunner', nicknames: ['Carlos Sanchez', 'Carlos'] },
+    ],
+    Trenchmouth: [
+        { id: 1458, name: 'Husky Tarbox', factions: ['Dead End Gang'], deceased: true },
     ],
     tsunpapi: [
         { id: 1407, name: 'Felix Meyers', telegram: 'RJ703' },
@@ -2715,6 +2721,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Vantilles: [
         { id: 994, name: '[Deputy] John Beckwith', factions: ['Law'] }, // Unsure of rank
+        { id: 1460, name: '? "Flood" ?', factions: ['Dead End Gang'] },
     ],
     Vaughtex: [
         { id: 992, name: 'Henry Laveer' },
@@ -2796,6 +2803,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 944, name: 'Roscoe Riggs' },
         { id: 945, name: 'Joseph Carter' },
         { id: 1431, name: '[Deputy] Theodor "Teddy" Mcfarlane', factions: ['Law'] },
+        { id: 1459, name: 'Bob ?', factions: ['Dead End Gang'], deceased: true },
     ],
     WTFGameNation: [
         { id: 946, name: 'Morgan Calloway' },
