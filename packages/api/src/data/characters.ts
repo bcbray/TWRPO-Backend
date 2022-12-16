@@ -1833,7 +1833,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     OfficialBea: [
         { id: 974, name: 'Lois Miles', factions: ['Miles Gang'] },
-        { id: 1281, name: 'Sprout ?' },
+        { id: 1281, name: 'Sprout ?', factions: ['Hagen'] },
     ],
     og_cush00: [
         { id: 620, name: 'Walter Bridges' },
