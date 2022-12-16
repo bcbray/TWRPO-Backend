@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1461
+// Next ID: 1464
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -117,7 +117,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1099, name: 'Evelyn Salvatore', telegram: 'XR135' },
     ],
     AM_Raid: [
-        { id: 25, name: 'Cain Lockhart' },
+        { id: 25, name: 'Cain Lockhart', nicknames: ['Loverboy'], factions: ['Red Water'] },
         { id: 26, name: 'Clifford Buck' },
         { id: 27, name: 'Giorgio "Gio" Santorelli' }, // Former law?
         { id: 28, name: 'Raul Sanchez' },
@@ -782,7 +782,7 @@ export const wrpCharacters: WrpCharacters = {
     embernocte: [
         { id: 271, name: 'Saffron Mitchell', telegram: 'MS716', factions: ['News'] }, // Former Deputy
         { id: 272, name: 'Crissy "Cricket" Blitz', telegram: 'KW617' },
-        { id: 273, name: 'Holly Frost', telegram: 'DU057' },
+        { id: 273, name: 'Holly Frost', factions: ['Taipan'], telegram: 'DU057' },
         { id: 274, name: 'Sadhbh O’Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
         { id: 1198, name: 'Harmony Bell', nicknames: ['Bellish'], factions: ['Bell Gang'], deceased: true },
         { id: 1423, name: 'Lea Loup' },
@@ -1076,7 +1076,7 @@ export const wrpCharacters: WrpCharacters = {
     Heikima: [
         { id: 989, name: 'Kaifeng Mi', factions: ['Independent', 'Guarma'], deceased: true },
         { id: 1054, name: 'Pocky Ma' },
-        { id: 1173, name: 'Koxinga Zheng', nicknames: ['Mr. Ko', reg(/\bmr\.?\s+ko\b/)], displayName: 3, telegram: 'XN961' },
+        { id: 1173, name: 'Koxinga Zheng', nicknames: ['Mr. Ko', reg(/\bmr\.?\s+ko\b/)], displayName: 3, factions: ['Taipan'], telegram: 'XN961' },
         { id: 1223, name: 'Pretty Boy Stagley', displayName: 0 },
         { id: 1324, name: 'Big Bear', nicknames: ['BigBear'], displayName: 0 },
     ],
@@ -1331,6 +1331,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1355, name: 'Gary Gallow', factions: ['Sisika Guard'] },
         { id: 1356, name: 'Tomasso Changretta' },
         { id: 1418, name: 'Rocky Jackson', nicknames: ['Jeremiah Silverspoon'], telegram: 'DS821' },
+    ],
+    jsaabb: [
+        { id: 1463, name: 'Julien Snow', factions: ['Red Water'], telegram: 'VF848' },
     ],
     JugsySiegel: [
         { id: 459, name: '[Cadet] Lyle Lancaster', factions: ['Law'], telegram: 'FD542' },
@@ -1666,6 +1669,9 @@ export const wrpCharacters: WrpCharacters = {
     Mini_MoonFox: [
         { id: 1040, name: 'Angelica Schuyler' },
         { id: 1041, name: 'Crystal Hayston' },
+    ],
+    MisfitIsOnline: [
+        { id: 1461, name: 'Desmond Pierce', factions: ['Red Water'] },
     ],
     mishkaxoxo: [
         { id: 569, name: '[Ranger] Mishka Agapova', factions: ['Rangers'], telegram: 'QF055' },
@@ -2221,7 +2227,7 @@ export const wrpCharacters: WrpCharacters = {
     sneakyShadower: [
         { id: 750, name: 'Abigail Jones', telegram: 'WW466' }, // I'm pretty sure she's a reporter
         { id: 751, name: 'Azula Brooks' },
-        { id: 752, name: 'Isabella Vautour', telegram: 'GA464' },
+        { id: 752, name: 'Isabella Vautour', factions: ['Red Water'], telegram: 'GA464' },
         { id: 753, name: '[Deputy] Jackie Lockwood', factions: ['Law'] },
         { id: 754, name: 'Raven Bennett' },
     ],
@@ -2320,6 +2326,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     stardaze: [
         { id: 789, name: 'Edie Barlowe' },
+        { id: 1462, name: 'Rook ?', factions: ['Red Water'] },
     ],
     start_vx: [
         { id: 1238, name: 'Garneesh Tandoori', factions: ['The Ring'], telegram: 'LL642' },
