@@ -1699,9 +1699,6 @@ export const wrpCharacters: WrpCharacters = {
     Mr_Jay_Gaming: [
         { id: 1331, name: 'Jay Walker' },
     ],
-    mr_wolf_98: [
-        { id: 1369, name: 'Jesse Rivers' },
-    ],
     MrArkay: [
         { id: 570, name: 'Casper Hems' },
     ],
@@ -1723,6 +1720,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MrPandaaBear: [
         { id: 580, name: 'Cathal McCarthy' },
+    ],
+    mrwolfff98: [
+        { id: 1369, name: 'Jesse Rivers' },
     ],
     MsVenture: [
         { id: 581, name: 'Martina Guzman', factions: ['Hagen'] },
