@@ -1337,7 +1337,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1418, name: 'Rocky Jackson', nicknames: ['Jeremiah Silverspoon'], telegram: 'DS821' },
     ],
     jsaabb: [
-        { id: 1463, name: 'Julien Snow', factions: ['Red Water'], telegram: 'VF848' },
+        { id: 1463, name: 'Julien Snow', displayName: 2, factions: ['Red Water'], telegram: 'VF848' },
     ],
     JugsySiegel: [
         { id: 459, name: '[Cadet] Lyle Lancaster', factions: ['Law'], telegram: 'FD542' },
