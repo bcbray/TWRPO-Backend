@@ -366,7 +366,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1415, name: '[Deputy] Clifford Castle', factions: ['Law'], telegram: 'PX411' },
     ],
     Bryce_Reid: [
-        { id: 1457, name: 'Melchior "Milkman" Tarsovich', factions: ['Dead End Gang'] },
+        { id: 1457, name: 'Melchior "Milk Man" Tarsovich', factions: ['Dead End Gang'] },
     ],
     buddha: [
         { id: 118, name: 'Wu Buddha', factions: ['DiCenzo Famiglia'], telegram: 'EI571' }, // Inactive DiCenzo
