@@ -706,7 +706,7 @@ export const wrpCharacters: WrpCharacters = {
     DrensWorld: [
         { id: 239, name: 'Danny Kerrigan', deceased: true }, // Kerrigan Ranch
         { id: 240, name: 'Duncan Ladle' },
-        { id: 241, name: '[Deputy] Duncan Weller', factions: ['Law'], telegram: 'EY733' },
+        { id: 241, name: '[Sr. Deputy] Duncan Weller', factions: ['Law'], telegram: 'EY733' },
         { id: 242, name: 'Darwin Howe', factions: ['Dead End Gang'] },
         { id: 1227, name: 'Blue Harlow' },
     ],
