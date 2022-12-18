@@ -1340,7 +1340,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1463, name: 'Julien Snow', displayName: 2, factions: ['Red Water'], telegram: 'VF848' },
     ],
     JugsySiegel: [
-        { id: 459, name: '[Cadet] Lyle Lancaster', factions: ['Law'], telegram: 'FD542' },
+        { id: 459, name: '[Deputy] Lyle Lancaster', factions: ['Law'], telegram: 'FD542' },
     ],
     JunkieEzek: [
         { id: 460, name: 'Jeremiah Harth' },
