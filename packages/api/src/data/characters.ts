@@ -2252,7 +2252,7 @@ export const wrpCharacters: WrpCharacters = {
     SomethingBees: [
         { id: 760, name: '[Game Warden] Isla White', factions: ['Rangers'], telegram: 'DF338' },
         { id: 761, name: 'Berdie Lloyd' },
-        { id: 762, name: '[Deputy] Cait McAlister', factions: ['Law'], telegram: 'XP728' },
+        { id: 762, name: '[Sr. Deputy] Cait McAlister', factions: ['Law'], telegram: 'XP728' },
         { id: 763, name: 'Amarok' },
     ],
     Sonneflower: [
