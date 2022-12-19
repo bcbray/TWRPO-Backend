@@ -399,7 +399,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 127, name: 'Dakota Ellis', factions: ['Dead End Gang'], telegram: 'KS130' },
     ],
     Caffine5: [
-        { id: 128, name: 'Billy Falco', nicknames: ['Billy Blasters', 'Billy Blunders'], displayName: 3 }, // Former Danger Gang
+        { id: 128, name: 'Billy Falco', nicknames: ['Billy Blasters', 'Billy Blunders'], displayName: 3, telegram: 'UO243' }, // Former Danger Gang
         { id: 129, name: 'Vincenzo Struzzo' },
         { id: 1180, name: 'Massimo Aquila' },
         { id: 1254, name: 'Henry Corvo', factions: ['Lifer'] },
