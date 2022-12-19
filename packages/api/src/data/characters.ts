@@ -2011,7 +2011,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 673, name: 'Shirley Lemons', nicknames: ['Cowgirl'] },
     ],
     RayTwoPlay: [
-        { id: 1439, name: 'Freddie Hunt' },
+        { id: 1439, name: 'Freddie Hunt', telegram: 'KP895' },
     ],
     Really_Russ: [
         { id: 1009, name: 'Emerson Newly' },
