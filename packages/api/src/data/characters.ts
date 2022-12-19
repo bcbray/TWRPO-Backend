@@ -2371,7 +2371,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1164, name: 'Raylan "Ray-Ray" Goggins', nicknames: [reg(/\bray(?:\-|\s*)ray\b/)], factions: ['Conductors'] },
         { id: 1169, name: 'Black Sky', displayName: 0 },
         { id: 1392, name: 'John-Michael Douglas' },
-        { id: 1410, name: 'Santiago Velasquez', factions: ['Del Lobos'] },
+        { id: 1410, name: 'Santiago Velasquez', factions: ['Del Lobos'], telegram: 'KY343' },
     ],
     Sveo0: [
         { id: 1133, name: 'Miguel Garcia', factions: ['Del Lobos'] },
