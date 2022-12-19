@@ -1484,7 +1484,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 505, name: 'Brie Haviour' },
         { id: 506, name: 'Ruthie Samuels' },
         { id: 1330, name: 'Ally Ramsey' },
-        { id: 1454, name: 'Sierra ?', factions: ['Del Lobos'] },
+        { id: 1454, name: 'Sierra Castillo', factions: ['Del Lobos'] },
     ],
     Leg0s: [
         { id: 1286, name: 'Gabrielle Reyes' },
