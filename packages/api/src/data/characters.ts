@@ -1508,7 +1508,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Lewdicon: [
         { id: 950, name: 'Rayven Hope', nicknames: ['Rayvn'] },
-        { id: 951, name: 'Zola Caiman' },
+        { id: 951, name: 'Zola Caiman', telegram: 'GC656' },
         { id: 952, name: 'Noel "Leon" Taylor' },
         { id: 1103, name: 'Carmen Fuentes' },
     ],
