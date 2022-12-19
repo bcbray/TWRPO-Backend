@@ -918,6 +918,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1153, name: 'Cecilio Marino' },
         { id: 1348, name: 'Lawrence "Larry" Gaines', telegram: 'XY283' },
     ],
+    FortyOne: [
+        { id: 322, name: 'Sean Mercer' },
+    ],
     FoxryGaming: [
         { id: 1265, name: 'William Teer', nicknames: ['Bluecoat', 'Blue Coat'], displayName: 3, telegram: 'VU248' },
         { id: 1346, name: 'Nathanael Greene', telegram: 'NL215' },
@@ -1415,9 +1418,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1177, name: '[Warden] Lawrence "Big L" ?', factions: ['Sisika Guard'] },
         { id: 1178, name: '[Deputy] Andrew Weaver', factions: ['Law'], deceased: true },
         { id: 1292, name: '[Deputy] Benjamin "Benny" Thatcher', factions: ['Law'], telegram: 'LR040' },
-    ],
-    Kontrol: [
-        { id: 322, name: 'Sean Mercer' },
     ],
     Kouts3: [
         { id: 479, name: 'Felix Colt' },
