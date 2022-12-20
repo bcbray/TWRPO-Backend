@@ -2733,7 +2733,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1298, name: 'Nicodemo Monteleone' },
     ],
     Vantilles: [
-        { id: 994, name: '[Sr. Deputy] John Beckwith', factions: ['Law'] }, // Unsure of rank
+        { id: 994, name: '[Sheriff] John Beckwith', factions: ['Law'] },
         { id: 1460, name: '? "Flood" ?', factions: ['Dead End Gang'] },
     ],
     Vaughtex: [
