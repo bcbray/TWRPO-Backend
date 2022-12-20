@@ -773,7 +773,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1150, name: 'Ginette "Netty" Margreit' },
     ],
     elegendz77: [
-        { id: 1403, name: 'Terry Mallagher', telegram: 'QW096' },
+        { id: 1403, name: '[Cadet] Terry Mallagher', factions: ['Law'], telegram: 'QW096' },
     ],
     Ellethwen_: [
         { id: 266, name: 'Adaleigh Roach', nicknames: ['Adaleigh Winters'], telegram: 'YW740' },
