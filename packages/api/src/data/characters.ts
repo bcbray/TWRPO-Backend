@@ -2016,7 +2016,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 661, name: 'Honey Sparks' },
         { id: 662, name: 'Imogen Blackwell' },
         { id: 663, name: 'Nora Boone' },
-        { id: 664, name: 'Omens' },
+        { id: 664, name: 'Delilah ?', nicknames: ['Omens'] }, // Character introduces herself as Delilah, Omens seems to be normally used just for stream titles; there's a very high chance that Delilah is a fake name
         { id: 1443, name: 'Natalie Wilson', factions: ['Guarma'] },
     ],
     PUNK11: [
