@@ -2013,7 +2013,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 660, name: 'Alice Quinn', factions: ['Kettleman Gang'], telegram: 'QN172' },
     ],
     Pumpkinberry: [
-        { id: 661, name: 'Honey Sparks' },
+        { id: 661, name: 'Cara "Sparks" Murphy', nicknames: ['Honey Sparks', 'Murph'] },
         { id: 662, name: 'Imogen Blackwell' },
         { id: 663, name: 'Nora Boone' },
         { id: 664, name: 'Delilah ?', nicknames: ['Omens'] }, // Character introduces herself as Delilah, Omens seems to be normally used just for stream titles; there's a very high chance that Delilah is a fake name
