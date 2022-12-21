@@ -2343,7 +2343,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 777, name: 'Butch Marlow', factions: ['Hagen'] },
     ],
     spriteleah: [
-        { id: 778, name: '[Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190' },
+        { id: 778, name: '[Deputy] Francesca "Frankie" Bright', nicknames: ['Checkers'], factions: ['Law'], telegram: 'GG190' },
         { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256' }, // Former Summers Gang
         { id: 780, name: 'Brie Haviour' },
         { id: 781, name: 'Ruthie Samuels' },
