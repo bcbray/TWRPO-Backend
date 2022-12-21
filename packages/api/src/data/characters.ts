@@ -351,7 +351,7 @@ export const wrpCharacters: WrpCharacters = {
     BradWOTO: [
         { id: 107, name: 'Bentley Fog' },
         { id: 108, name: 'Rufus Lorde', factions: ['Dead End Gang'], deceased: true }, // Former Summer's Gang.
-        { id: 109, name: 'Tar Sullivan' },
+        { id: 109, name: 'Ronan "Tar" McCarthy', nicknames: ['Tar Sullivan'] },
     ],
     Bringus: [
         { id: 1468, name: 'Linus Lievesley' },
