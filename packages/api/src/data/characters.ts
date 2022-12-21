@@ -1356,7 +1356,7 @@ export const wrpCharacters: WrpCharacters = {
     JustSam42: [
         { id: 462, name: '[Game Warden] Nathan Thompson', factions: ['Rangers'] },
     ],
-    JustxJodi: [
+    JxdiTV: [
         { id: 463, name: 'Minnie Mines' },
     ],
     KADOsLIVE: [
