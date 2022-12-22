@@ -1968,9 +1968,6 @@ export const wrpCharacters: WrpCharacters = {
     PibbJont: [
         { id: 646, name: '[Deputy] Thatcher Mantell', factions: ['Law'], telegram: 'JR033' },
     ],
-    PiixiDoll: [
-        { id: 1472, name: 'Jane Evans' },
-    ],
     pinkchyu: [
         { id: 647, name: 'Caroline Kroll' },
         { id: 648, name: 'Kelly Crockett' },
@@ -2054,6 +2051,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Really_Russ: [
         { id: 1009, name: 'Emerson Newly' },
+    ],
+    rebeccaculp: [
+        { id: 1472, name: 'Jane Evans' },
     ],
     RecallReminisce: [
         { id: 1270, name: 'Victoria Foster' },
