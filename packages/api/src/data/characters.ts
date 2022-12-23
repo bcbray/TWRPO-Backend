@@ -2519,7 +2519,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 834, name: '[Deputy] Jonathan Robertson', factions: ['Law'] },
         { id: 835, name: 'Alexander Rose' },
         { id: 1067, name: 'Jesse Ambrose' },
-        { id: 1444, name: '[Cadet] Lewis Camden', factions: ['Law'] },
+        { id: 1444, name: '[Deputy] Lewis Camden', factions: ['Law'] },
     ],
     The_Beautiful_Void: [
         { id: 836, name: 'Katherine "Kate" Byrne', telegram: 'HY310' },
