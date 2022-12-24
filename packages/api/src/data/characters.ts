@@ -1604,7 +1604,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 532, name: 'Randall "Ears" ?' }, // Rhodes Ruffians
     ],
     luka_aus: [
-        { id: 533, name: 'Lukeas Winsmore', factions: ['Boons Boys'], telegram: 'YU594' },
+        { id: 533, name: 'Lukeas Winsmore', factions: ['The Baastards'], telegram: 'YU594' }, // Former Boons Boys
         { id: 534, name: 'Louis O’Neil' },
         { id: 1363, name: 'Cain Maloo', telegram: 'QA880' },
     ],
