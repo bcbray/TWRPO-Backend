@@ -105,14 +105,16 @@ type ServerEditAuthorization = 'server-edit';
 
 type ViewOtherSegmentsAuthorization = 'view-all-segments';
 
-type AuthorizationType = OverrideSegmentAuthorization | ServerEditAuthorization | ViewOtherSegmentsAuthorization;
+type EditUsersAuthorization = 'edit-users';
+
+type AuthorizationType = OverrideSegmentAuthorization | ServerEditAuthorization | ViewOtherSegmentsAuthorization | EditUsersAuthorization;
 
 export const useAuthorization = (type: AuthorizationType): boolean => {
   const { user } = useAuthentication();
   if (!user) {
     return false;
   }
-  if (type === 'server-edit' || type === 'view-all-segments') {
+  if (type === 'server-edit' || type === 'view-all-segments' || type === 'edit-users') {
     return user.globalRole === 'admin';
   } else if (type.type === 'overide-segment') {
     return user.globalRole === 'admin' || user.globalRole === 'editor';

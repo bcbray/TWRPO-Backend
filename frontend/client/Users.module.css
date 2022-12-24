@@ -1,0 +1,15 @@
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.pfp {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 0.5rem;
+}
+
+.role {
+  margin-left: 0.5rem;
+  display: inline-block;
+  color: var(--theme-gray-600);
+}

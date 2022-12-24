@@ -25,6 +25,7 @@ import type Regex from './Regex';
 import type ServersResponse from './ServersResponse';
 import type Game from './Game';
 import type ServerResponse from './ServerResponse';
+import type UsersResponse from './UsersResponse';
 
 
 export {
@@ -55,4 +56,5 @@ export {
   ServersResponse,
   Game,
   ServerResponse,
+  UsersResponse,
 }

@@ -14,6 +14,7 @@ import Streams from './Streams';
 import { ServersContainer } from './Servers';
 import { StreamTimelineContainer } from './StreamTimeline';
 import ServerStreams from './ServerStreams';
+import { UsersContainer } from './Users';
 
 export const publicRoutes = <>
   <Route path="/" element={<LiveContainer />} />
@@ -40,6 +41,7 @@ export const privateRoutes = <>
   <Route path="/utils/streams/server/:serverId/faction/:factionKey" element={<ServerStreams />} />
 
   <Route path="/admin/servers" element={<ServersContainer />} />
+  <Route path="/admin/users" element={<UsersContainer />} />
 </>;
 
 export const privateStandaloneRoutes = <>

@@ -12,6 +12,7 @@ import {
   StreamsResponse,
   ServersResponse,
   ServerResponse,
+  UsersResponse,
 } from '@twrpo/types'
 
 import { useInitialRender } from './hooks';
@@ -39,6 +40,7 @@ export interface PreloadedData {
   currentUser?: UserResponse;
   servers?: ServersResponse;
   server?: Record<string, ServerResponse | null>;
+  users?: UsersResponse;
   isSSR: boolean;
 }
 
@@ -58,6 +60,7 @@ export interface PreloadedUsed {
   usedUnknownStreamsQueries?: string[];
   usedServers?: boolean;
   usedServerIdentifiers?: string[];
+  usedUsers?: boolean;
 }
 
 export const preloadedDataKey = '__TWRPO_PRELOADED__';
@@ -603,4 +606,23 @@ export const useServer = (identifier: string | number, { skipsPreload = false, .
   }
 
   return [loadState, outerOnReload, lastLoad];
-}
+};
+
+export const useUsers = ({ skipsPreload = false, ...props }: PreLoadingProps<UsersResponse> = {}): LoadingResult<UsersResponse> => {
+  const preloadedData = React.useContext(PreloadedDataContext);
+  const preloadedUsed = React.useContext(PreloadedUsedContext);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.users === undefined) {
+    preloadedUsed.usedUsers = true;
+  }
+  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/users', {
+    preloaded: skipsPreload ? undefined : preloadedData.users,
+    ...props,
+  });
+
+  // Update the context so we don't get stuck with stale data later
+  if (isSuccess(loadState)) {
+    preloadedData.users = loadState.data;
+  }
+
+  return [loadState, outerOnReload, lastLoad];
+};
