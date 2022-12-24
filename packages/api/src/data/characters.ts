@@ -2635,7 +2635,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1047, name: 'Franklin Jones' },
     ],
     TheObsidianTravelersCo: [
-        { id: 873, name: 'Cornileus Moon Frazier', displayName: 2, nicknames: ['Seth'] }, // "Cornileus Moon" "Cornileus Moon-Frazier" "Moon Frazier" "Moon “Seth” Frazier"
+        { id: 873, name: 'Cornileus Moon Frazier', displayName: 2, nicknames: ['Seth'], telegram: 'YD718' }, // "Cornileus Moon" "Cornileus Moon-Frazier" "Moon Frazier" "Moon “Seth” Frazier"
         { id: 874, name: 'Amadeus "Adonis" Silver' },
     ],
     ThePatrician69: [
