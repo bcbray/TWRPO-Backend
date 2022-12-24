@@ -10,6 +10,9 @@ import styles from './FeedbackModal.module.css';
 import Modal from './Modal';
 import { classes } from './utils';
 import Spinner from './Spinner';
+import { useAuthentication } from './auth';
+import ProfilePhoto from './ProfilePhoto';
+import LoginButton from './LoginButton';
 
 import OutboundLink from './OutboundLink';
 
@@ -30,6 +33,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
   const [hasSubmitted, setHasSubmitted] = React.useState(false);
   const [hasSubmissionError, setHasSubmissionError] = React.useState(false);
   const location = useLocation();
+  const { user, logout } = useAuthentication();
 
   const initialFields: FormData = { suggestion: '', email: undefined, discord: undefined };
 
@@ -116,6 +120,42 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
                   value={values.suggestion}
                   disabled={isSubmitting}
                 />
+              </div>
+              <div>
+                <div className={styles.labelContainer}>
+                  <label>
+                    Twitch <span className={styles.muted}>(optional)</span>
+                  </label>
+                </div>
+                {user ? (
+                  <div className={styles.twitchUser}>
+                    <ProfilePhoto
+                      className={styles.pfp}
+                      channelInfo={{
+                        id: user.twitchId,
+                        login: user.twitchLogin,
+                        displayName: user.displayName,
+                        profilePictureUrl: user.profilePhotoUrl,
+                      }}
+                    />
+                    {user.displayName}
+                    <Button
+                      as='a'
+                      className={classes(
+                        styles.logOut,
+                        isSubmitting && styles.disabled
+                      )}
+                      onClick={logout}
+                      disabled={isSubmitting}
+                    >
+                      Log out
+                    </Button>
+                  </div>
+                ) : (
+                  <LoginButton
+                    disabled={isSubmitting}
+                  />
+                )}
               </div>
               <div>
                 <div className={styles.labelContainer}>

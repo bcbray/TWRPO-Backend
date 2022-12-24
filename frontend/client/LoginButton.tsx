@@ -8,10 +8,12 @@ import { useAuthentication } from './auth';
 import { classes } from './utils';
 
 interface LoginButtonProps {
-
+  disabled?: boolean;
 }
 
-const LoginButton: React.FC<LoginButtonProps> = () => {
+const LoginButton: React.FC<LoginButtonProps> = ({
+  disabled = false,
+}) => {
   const { login } = useAuthentication();
   return (
     <Button
@@ -19,6 +21,7 @@ const LoginButton: React.FC<LoginButtonProps> = () => {
         'button',
         styles.twitchLogin
       )}
+      disabled={disabled}
       onClick={login}
     >
       <Twitch /> Sign in with Twitch

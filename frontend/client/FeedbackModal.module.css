@@ -80,6 +80,22 @@
   font-size: .875em;
 }
 
+.twitchUser {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.logOut {
+  font-size: 0.875em;
+}
+
+.logOut.disabled {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
 .footer {
   align-items: center;
   border-bottom-left-radius: calc(0.3rem - 1px);
