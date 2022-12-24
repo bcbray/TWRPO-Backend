@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1497
+// Next ID: 1499
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -96,6 +96,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Agidon: [
         { id: 20, name: 'Holt MacMillan' },
+    ],
+    AgrippaMaxentius: [
+        { id: 1497, name: 'Buster Dalton' },
     ],
     aJimmy: [
         { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], displayName: 0, factions: ['Kettleman Gang'], telegram: 'NB240' }, // Briefly led Kelly Gang
