@@ -2215,7 +2215,7 @@ export const wrpCharacters: WrpCharacters = {
     SencneS: [
         { id: 722, name: 'Desmond Potts' },
     ],
-    SentientSeries: [
+    SentientChronicles: [
         { id: 1297, name: 'Jason Caliga' },
     ],
     sgttyn: [
