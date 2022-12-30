@@ -1939,7 +1939,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     okaygingervitis: [
         { id: 1332, name: 'Thornton Nigelbury' },
-        { id: 1482, name: 'Stylianos "Stelio" Kontros', nicknames: ['Bill', 'Peaches'] },
+        { id: 1482, name: 'Stylianos "Stelio" Kontros', nicknames: ['Bill', 'Peaches'], telegram: 'FI133' },
         { id: 1503, name: 'Eugene Pemberton', factions: ['Conductors'], telegram: 'WM050' },
     ],
     oldkelvo: [
