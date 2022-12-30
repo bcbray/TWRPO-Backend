@@ -1775,7 +1775,7 @@ export const wrpCharacters: WrpCharacters = {
     MoogieCookies: [
         { id: 1230, name: 'Cecily Caldwell', telegram: 'AI841' },
         { id: 1319, name: 'Seraphine Nostradame' },
-        { id: 1523, name: 'Andi Gotti', factions: ['Quil Gang'] },
+        { id: 1523, name: 'Andromeda "Andi" Gotti', factions: ['Quil Gang'] },
     ],
     Mr_Jay_Gaming: [
         { id: 1331, name: 'Jay Walker' },
