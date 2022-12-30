@@ -240,7 +240,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ayebizzi: [
         { id: 1081, name: 'Ariel Madison', factions: ['Quil Gang'], telegram: 'GQ613' }, // Former Little Gang
-        { id: 1521, name: '[Deputy] Maisie Love', factions: ['Law'] },
+        { id: 1521, name: '[Deputy] Maisie Love', factions: ['Law'], telegram: 'DI869' },
     ],
     ayekayy47_: [
         { id: 62, name: 'Misty Shaw' },
