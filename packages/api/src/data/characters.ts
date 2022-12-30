@@ -2132,7 +2132,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 679, name: 'Frank Church' },
         { id: 680, name: 'John Hell' },
         { id: 1146, name: 'Maurice Cheeks', factions: ['Lifer'] },
-        { id: 1190, name: 'Andy Cabbage' },
+        { id: 1190, name: 'Andy Cabbage', telegram: 'DR608' },
     ],
     RookGoose: [
         { id: 681, name: 'Leto McMorris', telegram: 'RT085' },
