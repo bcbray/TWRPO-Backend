@@ -1254,7 +1254,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1349, name: 'Andrew Erickson', telegram: 'IZ499' },
     ],
     IronSmithy: [
-        { id: 1437, name: 'Jesse Hunt' },
+        { id: 1437, name: '[Recruit] Jesse Hunt', factions: ['Rangers'] },
     ],
     iruASH: [
         { id: 411, name: 'Kayce Smith' },
