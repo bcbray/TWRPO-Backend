@@ -2432,7 +2432,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     stardaze: [
         { id: 789, name: 'Edie Barlowe' },
-        { id: 1462, name: 'Rook Pierce', factions: ['Red Water'] },
+        { id: 1462, name: 'Rook Pierce', factions: ['Red Water'], telegram: 'SM528' },
     ],
     start_vx: [
         { id: 1238, name: 'Garneesh Tandoori', factions: ['The Ring'], telegram: 'LL642' },
