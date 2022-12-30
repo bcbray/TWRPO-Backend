@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1528
+// Next ID: 1529
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -1233,12 +1233,13 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1138, name: 'Jackson Diggles' },
     ],
     // imunruly: [
-    //     { id: 1425, name: 'Marquise Fraiser', telegram: 'TN764' },
+    //     { id: 1425, name: 'Marquise Fraiser', nicknames: ['MF'], telegram: 'TN764' },
     // ],
     inkyblackdreams: [
         { id: 410, name: 'Vera Dragavei' },
         { id: 1376, name: 'Evelyn Harlowe' },
         { id: 1451, name: 'Vera Addley', factions: ['Little Gang'] }, // Same character as Vera Dragavei? Old stream titles mention “Vera Dragavei” but new ones mention “Vera Addley”. Unclear.
+        { id: 1528, name: 'Granny Smith', displayName: 0 },
     ],
     IonicEagle: [
         { id: 1079, name: 'Atticus Godson' },
