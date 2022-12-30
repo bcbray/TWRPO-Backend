@@ -2772,7 +2772,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1516, name: 'Barkley Oglethorpe' },
     ],
     tsunpapi: [
-        { id: 1407, name: 'Felix Meyers', telegram: 'RJ703' },
+        { id: 1407, name: 'Felix Meyers', telegram: 'RJ703', assume: 'assumeOther' },
     ],
     TullyCuffs: [
         { id: 903, name: 'Hugo Hopper' },
