@@ -2885,7 +2885,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 939, name: 'Sally Cooper-Borr' },
     ],
     Wombax: [
-        { id: 940, name: 'Nash', deceased: true }, // Former Kettleman
+        { id: 940, name: 'Wiley Nash', displayName: 2, deceased: true }, // Former Kettleman
         { id: 1014, name: 'Clay Dempsey' },
         { id: 1022, name: 'Hannibal ?', telegram: 'TV398' },
         { id: 1115, name: 'Nolan Kemp', factions: ['Guarma'] },
