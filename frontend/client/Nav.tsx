@@ -45,7 +45,7 @@ const Nav: React.FC<{}> = () => {
               <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/'>Live</NavLink>
               <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/characters'>Characters</NavLink>
               <NavLink className={({isActive}) => classes(isActive && styles.active)} to='/multistream'>Multistream</NavLink>
-              <UserDropdown />
+              <UserDropdown className={styles.userDropdown} />
             </div>
           </div>
         </Collapse>
