@@ -2914,7 +2914,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 937, name: 'Devyn "Dakota" Dunning' },
     ],
     WickedPhoenixRP: [
-        { id: 1440, name: 'Jeremiah Watson' }, // Quil Gang?
+        { id: 1440, name: 'Jeremiah Watson', factions: ['Quil Gang'] },
     ],
     WingTroker: [
         { id: 938, name: 'Bert Silver' },
