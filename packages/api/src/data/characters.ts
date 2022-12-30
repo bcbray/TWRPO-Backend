@@ -104,7 +104,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 20, name: 'Holt MacMillan' },
     ],
     AgrippaMaxentius: [
-        { id: 1497, name: 'Buster Dalton' },
+        { id: 1497, name: 'Buster Dalton', factions: ['Quil Gang'] },
         { id: 1499, name: 'Vinny Lombardi' },
     ],
     aJimmy: [
