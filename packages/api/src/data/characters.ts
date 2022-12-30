@@ -2487,7 +2487,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1326, name: 'Kip Smith' },
     ],
     Swordofpower1: [
-        { id: 1244, name: 'Jim "Lockjaw Jim" Munson', telegram: 'OT144' },
+        { id: 1244, name: 'Jim "Lockjaw Jim" Munson', factions: ['Independent', 'Guarma'], telegram: 'OT144' },
         { id: 1262, name: 'Charlie Nelson', telegram: 'FW010' },
         { id: 1335, name: 'Sylvester Spectre' },
     ],
