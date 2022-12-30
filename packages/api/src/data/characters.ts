@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1509
+// Next ID: 1510
 
 export const wrpCharacters: WrpCharacters = {
     '0Reed': [
@@ -2036,6 +2036,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 663, name: 'Nora Boone' },
         { id: 664, name: 'Delilah ?', nicknames: ['Omens'] }, // Character introduces herself as Delilah, Omens seems to be normally used just for stream titles; there's a very high chance that Delilah is a fake name
         { id: 1443, name: 'Natalie Wilson', factions: ['Guarma'] },
+        { id: 1509, name: 'Coyote Alder' },
     ],
     PUNK11: [
         { id: 1328, name: 'Chase Ward' },
