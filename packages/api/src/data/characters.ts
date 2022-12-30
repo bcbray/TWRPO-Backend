@@ -286,7 +286,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 74, name: 'Wade Kilian' },
     ],
     Beanblanket: [
-        { id: 75, name: 'Clifford Dawes' },
+        { id: 75, name: 'Clifford Dawes', factions: ['Bluestone'] },
         { id: 76, name: 'Emilio Peralta' },
     ],
     BeardofOz: [
@@ -737,7 +737,7 @@ export const wrpCharacters: WrpCharacters = {
     DrensWorld: [
         { id: 239, name: 'Danny Kerrigan', deceased: true }, // Kerrigan Ranch
         { id: 240, name: 'Duncan Ladle' },
-        { id: 241, name: '[Sr. Deputy] Duncan Weller', factions: ['Law'], telegram: 'EY733' },
+        { id: 241, name: '[Sr. Deputy] Duncan Weller', factions: ['Law', 'Bluestone'], telegram: 'EY733' }, // Leader of Bluestone
         { id: 242, name: 'Darwin Howe', factions: ['Dead End Gang'] },
         { id: 1227, name: 'Blue Harlow' },
     ],
@@ -822,7 +822,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1365, name: 'Sebastian ?', nicknames: ['Pink'], displayName: 3, factions: ['The Masked Men'] },
     ],
     embernocte: [
-        { id: 271, name: 'Saffron Mitchell', telegram: 'MS716', factions: ['News'] }, // Former Deputy
+        { id: 271, name: 'Saffron Mitchell', telegram: 'MS716', factions: ['Bluestone'] }, // Former Deputy. Former(?) News
         { id: 272, name: 'Crissy "Cricket" Blitz', telegram: 'KW617' },
         { id: 273, name: 'Holly Frost', factions: ['Taipan'], telegram: 'DU057' },
         { id: 274, name: 'Sadhbh O’Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
@@ -902,7 +902,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 298, name: 'Steven Hayes' },
     ],
     fayebles: [
-        { id: 299, name: 'Clementine "Clem" Fisher', telegram: 'IF890' },
+        { id: 299, name: 'Clementine "Clem" Fisher', factions: ['Bluestone'], telegram: 'IF890' },
         { id: 300, name: 'Nessa Evans' },
         { id: 1069, name: 'Ruby Warner' },
         { id: 1325, name: 'Rana Marsh' },
@@ -2665,7 +2665,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1504, name: 'Vega Escudero' },
     ],
     ThePatrician69: [
-        { id: 875, name: 'Nate Casey', telegram: 'AV925' }, // Former Kelly Gang
+        { id: 875, name: 'Nate Casey', factions: ['Bluestone'], telegram: 'AV925' }, // Former Kelly Gang
     ],
     TheRandomChick: [
         { id: 876, name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'] },
@@ -2722,7 +2722,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1500, name: 'Celeste Demeter' },
     ],
     TiltedSun: [
-        { id: 889, name: 'Madison "Maddy" Windward', telegram: 'RT946' },
+        { id: 889, name: 'Madison "Maddy" Windward', factions: ['Bluestone'], telegram: 'RT946' },
         { id: 890, name: 'Clem Griffiths', nicknames: ['Isa'], factions: ['Daughters of Fenrir'] },
         { id: 1207, name: 'Tessa Zachariah', factions: ['Miles Gang'] },
     ],

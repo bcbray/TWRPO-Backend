@@ -27,6 +27,7 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     daughtersoffenrir: 'Daughters of Fenrir',
     dellobos: 'Del Lobos',
     thefirm: 'The Firm',
+    bluestone: 'Bluestone',
     news: 'News',
     development: 'Development',
     law: 'Law',
