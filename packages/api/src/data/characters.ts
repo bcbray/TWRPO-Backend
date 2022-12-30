@@ -2036,7 +2036,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 656, name: 'Minerva Ackerman' },
         { id: 1187, name: 'Jenna Pearl', factions: ['Lifer'] },
         { id: 1309, name: 'Abigail Quil', telegram: 'EN744', factions: ['Quil Gang'] },
-        { id: 1359, name: 'Mildred Rose' }, // Aspiring Law
+        { id: 1359, name: '[Cadet] Mildred Rose', factions: ['Law'] },
     ],
     ProJB: [
         { id: 657, name: 'Odin Borr' },
