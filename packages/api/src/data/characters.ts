@@ -2577,7 +2577,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 842, name: 'Basey "Red" Bohannon' },
     ],
     the_sea_four: [
-        { id: 1393, name: 'Ellie Gator' },
+        { id: 1393, name: 'Ellie Gator', assume: 'assumeOther' },
     ],
     TheAaronShaq: [
         { id: 843, name: 'Kenneth "Ricky" Randall' },
