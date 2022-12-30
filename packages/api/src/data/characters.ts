@@ -1004,7 +1004,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 340, name: 'Juana Soto' },
     ],
     GeDWiCK79: [
-        { id: 341, name: 'Kennway Mallory' },
+        { id: 341, name: 'Kennway Mallory', assume: 'assumeOther' },
     ],
     GeekyMeepy: [
         { id: 1402, name: 'Olive Myers', telegram: 'JG133' },
