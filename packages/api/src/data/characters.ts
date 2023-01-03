@@ -932,7 +932,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     FhaeLin: [
         { id: 302, name: '[Sr. Deputy] Tabitha Thorne', factions: ['Law'], displayName: 1, telegram: 'BR226' },
-        { id: 303, name: 'Amber Sage' }, // Medic?
+        { id: 303, name: 'Amber Sage', telegram: 'XN181' }, // Medic?
         { id: 1534, name: 'Josephine "Mist" Taylor' },
     ],
     FirecrackThat: [
