@@ -2880,7 +2880,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Vantilles: [
         { id: 994, name: '[Sheriff] John Beckwith', factions: ['Law'] },
-        { id: 1460, name: '? "Flood" ?', factions: ['Dead End Gang'] },
+        { id: 1460, name: '? "Flood" ?', factions: ['Dead End Gang'], telegram: 'SC651' },
     ],
     Vaughtex: [
         { id: 992, name: 'Henry Laveer', telegram: 'QO153' },
