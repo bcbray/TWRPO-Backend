@@ -673,7 +673,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 205, name: 'Brooke "Babs" Burns', factions: ['DiCenzo Famiglia'], telegram: 'AT704' },
     ],
     Deputy_Games: [
-        { id: 206, name: 'Sam Rosco' }, // Former The Cut
+        { id: 206, name: 'Sam Rosco', telegram: 'UX593' }, // Former The Cut
     ],
     DetectiveDoorag: [
         { id: 207, name: '[Sr. Deputy] Casey Kramer', factions: ['Law'], telegram: 'JY337' },
