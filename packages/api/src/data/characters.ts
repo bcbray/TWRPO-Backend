@@ -2968,7 +2968,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 943, name: '[Marshal] Logan Monroe', factions: ['Law'], telegram: 'AC843', deceased: true }, // Deputy Marshal
         { id: 944, name: 'Roscoe Riggs' },
         { id: 945, name: 'Joseph Carter' },
-        { id: 1431, name: '[Deputy] Theodor "Teddy" Mcfarlane', factions: ['Law'] },
+        { id: 1431, name: '[Deputy] Theodor "Teddy" Mcfarlane', factions: ['Law'], telegram: 'FT994' },
         { id: 1459, name: 'Bob ?', factions: ['Dead End Gang'], deceased: true },
         { id: 1549, name: 'James Mustang' },
     ],
