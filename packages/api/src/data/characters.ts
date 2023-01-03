@@ -1882,7 +1882,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 601, name: 'Madeline "Moxy" Maddox', telegram: 'ZJ152' },
         { id: 602, name: 'Edith "Ed" Gretchen', factions: ['Conductors'], telegram: 'BJ726' },
         { id: 603, name: 'Guinevere "Snow" Snow' },
-        { id: 604, name: 'Penelope Kringle', nicknames: ['Queen of Roaches'], factions: ['Half Wits'] },
+        { id: 604, name: 'Penelope Kringle', nicknames: ['Queen of Roaches'], factions: ['Half Wits'], telegram: 'AB668' },
         { id: 1395, name: 'Victoria ?', telegram: 'ZG829' },
     ],
     Nicklbean: [
