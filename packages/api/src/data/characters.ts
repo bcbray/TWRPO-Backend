@@ -192,7 +192,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1512, name: 'Antonio "Fat Tone" Delino' },
     ],
     Ashen_Rabbit: [
-        { id: 42, name: '[Trainee] Dovie Parker', factions: ['Medical'] },
+        { id: 42, name: '[Medic] Dovie Parker', factions: ['Medical'] },
         { id: 1465, name: 'Vivian Smith' },
     ],
     AstroSC: [
