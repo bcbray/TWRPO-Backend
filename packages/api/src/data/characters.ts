@@ -2211,7 +2211,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     sarahpeathatsme: [
         { id: 700, name: 'Ruby Raines' },
-        { id: 1171, name: '[Editor] Abigail Jones', factions: ['News'] },
+        { id: 1171, name: '[Editor] Abigail Jones', factions: ['News'], telegram: 'WW466' },
         { id: 1568, name: '[Cadet] Cordilia Clark', factions: ['Law'] },
     ],
     satyr_queen: [
@@ -2364,7 +2364,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1567, name: '[Cadet] Irma Kivi', factions: ['Law'], telegram: 'WE394' },
     ],
     sneakyShadower: [
-        { id: 750, name: 'Abigail Jones', telegram: 'WW466' }, // I'm pretty sure she's a reporter
+        { id: 750, name: 'Abigail Jones' },
         { id: 751, name: 'Azula Brooks' },
         { id: 752, name: 'Isabella Vautour', factions: ['Red Water'], telegram: 'GA464' },
         { id: 753, name: '[Deputy] Jackie Lockwood', factions: ['Law'] },
