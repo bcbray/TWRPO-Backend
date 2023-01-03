@@ -1256,9 +1256,8 @@ export const wrpCharacters: WrpCharacters = {
     //     { id: 1425, name: 'Marquise Fraiser', nicknames: ['MF'], telegram: 'TN764' },
     // ],
     inkyblackdreams: [
-        { id: 410, name: 'Vera Dragavei' },
+        { id: 410, name: 'Vera Addley', nicknames: ['Vera Dragavei'], factions: ['Little Gang'] },
         { id: 1376, name: 'Evelyn Harlowe' },
-        { id: 1451, name: 'Vera Addley', factions: ['Little Gang'] }, // Same character as Vera Dragavei? Old stream titles mention “Vera Dragavei” but new ones mention “Vera Addley”. Unclear.
         { id: 1528, name: 'Granny Smith', displayName: 0 },
     ],
     IonicEagle: [
