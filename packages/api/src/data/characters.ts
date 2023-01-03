@@ -2727,7 +2727,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheRandomChick: [
         { id: 876, name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'], telegram: 'OA974' },
-        { id: 877, name: 'Poppet "Caroline" Deveaux', factions: ['News'] },
+        { id: 877, name: '[Sr. Reporter] Poppet Deveaux', nicknames: ['Caroline'], factions: ['News'] },
         { id: 1182, name: '[Guard] Mae Daye', factions: ['Sisika Guard'] },
     ],
     TheRudyDuck: [
