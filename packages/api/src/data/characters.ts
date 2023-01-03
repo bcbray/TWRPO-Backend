@@ -1884,7 +1884,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     NiaDrools: [
         { id: 601, name: 'Madeline "Moxy" Maddox', telegram: 'ZJ152' },
-        { id: 602, name: 'Edith "Ed" Gretchen', factions: ['Conductors'], telegram: 'BJ726' },
+        { id: 602, name: '[Cadet] Edith "Ed" Gretchen', factions: ['Law'], telegram: 'BJ726' }, // Former Conductor
         { id: 603, name: 'Guinevere "Snow" Snow' },
         { id: 604, name: 'Penelope Kringle', nicknames: ['Queen of Roaches'], factions: ['Half Wits'], telegram: 'AB668' },
         { id: 1395, name: 'Victoria ?', telegram: 'ZG829' },
