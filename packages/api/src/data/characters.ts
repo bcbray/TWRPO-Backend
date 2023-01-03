@@ -2465,7 +2465,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 788, name: 'Elich Doherty' },
     ],
     stardaze: [
-        { id: 789, name: 'Edie Barlowe' },
+        { id: 789, name: 'Edie Barlowe', telegram: 'KW564' },
         { id: 1462, name: 'Rook Pierce', factions: ['Red Water'], telegram: 'SM528' },
     ],
     start_vx: [
