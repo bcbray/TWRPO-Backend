@@ -998,7 +998,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 325, name: 'Leonardo E. "Leo" Fantoni', factions: ['Fantoni Crew'], leader: true, telegram: 'JN223' },
     ],
     friendly_chick: [
-        { id: 326, name: 'Angelica "Angel" Ward', nicknames: ['Angle'], factions: ['Conductors'] },
+        { id: 326, name: 'Angelica "Angel" Ward-Jones', nicknames: ['Angle'], factions: ['Conductors'], telegram: 'DE662' },
         { id: 327, name: 'Charlotte "Lottie" Davis', factions: ['The Firm'], telegram: 'SM304' },
         { id: 328, name: 'Haven Rivers' },
         { id: 329, name: 'Lillian Frost' },
