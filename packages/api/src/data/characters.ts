@@ -2880,7 +2880,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1460, name: '? "Flood" ?', factions: ['Dead End Gang'] },
     ],
     Vaughtex: [
-        { id: 992, name: 'Henry Laveer' },
+        { id: 992, name: 'Henry Laveer', telegram: 'QO153' },
         { id: 1048, name: 'Bubba Linton' },
         { id: 1049, name: 'Kevin Sloop', nicknames: ['Big Kev'] },
     ],
