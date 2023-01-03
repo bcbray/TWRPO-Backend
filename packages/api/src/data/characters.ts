@@ -2213,7 +2213,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     sarahpeathatsme: [
         { id: 700, name: 'Ruby Raines' },
-        { id: 1171, name: 'Abigail Jones', factions: ['News'] },
+        { id: 1171, name: '[Editor] Abigail Jones', factions: ['News'] },
         { id: 1568, name: '[Cadet] Cordilia Clark', factions: ['Law'] },
     ],
     satyr_queen: [
