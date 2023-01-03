@@ -541,7 +541,7 @@ export const wrpCharacters: WrpCharacters = {
     ConnorCronus: [
         { id: 167, name: '[Sr. Deputy] Rip Riley', factions: ['Law'], telegram: 'ZC951' },
         { id: 168, name: 'Isaac Smith' },
-        { id: 169, name: 'Karlias Drex' },
+        { id: 169, name: 'Karlias Drex', telegram: 'EQ853' },
         { id: 170, name: 'Richard Sionis' },
     ],
     Coolidge: [
