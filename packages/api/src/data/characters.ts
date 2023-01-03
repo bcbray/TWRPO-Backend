@@ -1260,7 +1260,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1528, name: 'Granny Smith', displayName: 0 },
     ],
     IonicEagle: [
-        { id: 1079, name: 'Atticus Godson' },
+        { id: 1079, name: 'Atticus Godson', telegram: 'WH168' },
         { id: 1193, name: 'Eliza Vanderbooben' },
         { id: 1195, name: 'Jensen Beaumont' },
     ],
