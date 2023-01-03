@@ -1209,7 +1209,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 396, name: '[Deputy] Enrique Vespucci', factions: ['Law'] },
         { id: 397, name: 'Ewan Byrne', telegram: 'AR465' },
         { id: 398, name: '[Editor-in-Chief] Jonathan Coiner', factions: ['News'] },
-        { id: 399, name: 'Nate Coiner' },
         { id: 400, name: '[Trainee] Luther Lake', factions: ['Medical'] },
     ],
     ianriveras: [
