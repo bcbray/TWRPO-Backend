@@ -233,11 +233,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1506, name: 'Cordelia Crabtree' }, // 𝓒𝓸𝓻𝓭𝓮𝓵𝓲𝓪 𝓒𝓻𝓪𝓫𝓽𝓻𝓮𝓮
     ],
     AwaBeats: [
-        { id: 58, name: 'Ali Mason' },
+        { id: 58, name: 'Ali Mason' }, // Red Water? Did a bank job with them
         { id: 59, name: 'Nokosi Ahanu' },
         { id: 60, name: '[Deputy] Cleveland Brown', nicknames: ['C-Lo'], displayName: 3, factions: ['Law'], telegram: 'ZM161' },
         { id: 61, name: 'Yorrik Morales' },
-        { id: 1513, name: 'Ali Mason' }, // Red Water? Did a bank job with them
     ],
     ayebizzi: [
         { id: 1081, name: 'Ariel Madison', factions: ['Quil Gang'], telegram: 'GQ613' }, // Former Little Gang
