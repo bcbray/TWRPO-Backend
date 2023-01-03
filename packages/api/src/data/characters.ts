@@ -2724,7 +2724,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 875, name: 'Nate Casey', factions: ['Bluestone'], telegram: 'AV925' }, // Former Kelly Gang
     ],
     TheRandomChick: [
-        { id: 876, name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'] },
+        { id: 876, name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'], telegram: 'OA974' },
         { id: 877, name: 'Poppet "Caroline" Deveaux', factions: ['News'] },
         { id: 1182, name: '[Guard] Mae Daye', factions: ['Sisika Guard'] },
     ],
