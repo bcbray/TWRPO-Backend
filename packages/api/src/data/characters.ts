@@ -1011,7 +1011,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 333, name: 'Claire Marsh' },
     ],
     GameBaked: [
-        { id: 334, name: 'Mato Tahoma' },
+        { id: 334, name: 'Mato Tahoma', telegram: 'FN602' },
         { id: 335, name: 'Adriaan' },
         { id: 336, name: 'Nyander Furrest' },
     ],
