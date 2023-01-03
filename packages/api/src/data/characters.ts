@@ -1497,7 +1497,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1057, name: 'Enzo Ekker' },
     ],
     KokoBananaMan: [
-        { id: 1017, name: 'Gideon Graves', factions: ['Independent', 'Guarma'] },
+        { id: 1017, name: 'Gideon Graves', factions: ['Independent', 'Guarma'], telegram: 'XS740' },
         { id: 1438, name: 'Roger Mayberry' },
     ],
     kono5alive: [
