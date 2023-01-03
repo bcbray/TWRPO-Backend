@@ -1571,7 +1571,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 981, name: 'Jim Walker' },
     ],
     LEAH: [
-        { id: 503, name: '[Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190' },
+        { id: 503, name: '[Sr. Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190' },
         { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256' }, // Former Summers Gang
         { id: 505, name: 'Brie Haviour' },
         { id: 506, name: 'Ruthie Samuels' },
@@ -2435,7 +2435,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 777, name: 'Butch Marlow', factions: ['Hagen'] },
     ],
     spriteleah: [
-        { id: 778, name: '[Deputy] Francesca "Frankie" Bright', nicknames: ['Checkers'], factions: ['Law'], telegram: 'GG190' },
+        { id: 778, name: '[Sr. Deputy] Francesca "Frankie" Bright', nicknames: ['Checkers'], factions: ['Law'], telegram: 'GG190' },
         { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256' }, // Former Summers Gang
         { id: 780, name: 'Brie Haviour' },
         { id: 781, name: 'Ruthie Samuels' },
