@@ -968,7 +968,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     floralfoxes: [
         { id: 1350, name: 'Juniper Ripley', telegram: 'IV378' },
-        { id: 1351, name: 'Cat Carver' },
+        { id: 1351, name: 'Cat Carver', telegram: 'IQ879' },
         { id: 1545, name: 'Cass Darling' },
         { id: 1546, name: 'Karina Durst' },
     ],
