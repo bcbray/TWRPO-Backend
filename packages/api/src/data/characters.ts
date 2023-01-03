@@ -113,7 +113,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1206, name: 'Sunny Falls' },
     ],
     AlbyGG: [
-        { id: 1445, name: '[Sheriff] Gabriel Cash', factions: ['Law'] },
+        { id: 1445, name: '[Sheriff] Gabriel Cash', factions: ['Law'], telegram: 'NU948' },
     ],
     Altrah: [
         { id: 22, name: 'Victor Morteza' },
