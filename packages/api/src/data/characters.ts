@@ -1978,7 +1978,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Orcish: [
         { id: 629, name: '[Sr. Deputy] Allistair McGregor', factions: ['Law'], telegram: 'HP579' },
-        { id: 630, name: 'Billy Beetur' },
+        { id: 630, name: 'Billy Beetur', nicknames: ['Charlie'], factions: ['Independent', 'Guarma'], telegram: 'KY632' },
         { id: 631, name: 'Otis Potts' },
         { id: 632, name: 'Richard Westlake' },
         { id: 633, name: 'Tripp Riggs' },
