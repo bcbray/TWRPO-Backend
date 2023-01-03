@@ -243,7 +243,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1521, name: '[Deputy] Maisie Love', factions: ['Law'], telegram: 'DI869' },
     ],
     ayekayy47_: [
-        { id: 62, name: 'Misty Shaw' },
+        { id: 62, name: 'Ahari Thatcher', nicknames: ['Misty', 'Misty Shaw', 'Ahari Gayle'], telegram: 'WP204' },
         { id: 63, name: 'Rayne Beaux' },
         { id: 64, name: 'Toni Chambers', factions: ['Freeman Family'] },
         { id: 1137, name: 'Robyn Duckworth' },
