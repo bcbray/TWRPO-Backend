@@ -2965,7 +2965,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1022, name: 'Hannibal ?', telegram: 'TV398' },
         { id: 1115, name: 'Nolan Kemp', factions: ['Guarma'] },
         { id: 1296, name: '[Deputy] Scott Wilkins', factions: ['Law'], deceased: true },
-        { id: 1518, name: '[Deputy] Maxwell Tango', factions: ['Law'] },
+        { id: 1518, name: 'Maxwell Tango' }, // Former Law
     ],
     woplotomo: [
         { id: 941, name: '? ?', assume: 'neverNp' },
