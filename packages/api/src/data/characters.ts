@@ -61,7 +61,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1209, name: 'Otomo Kitano' },
         { id: 1248, name: 'Giuseppe "Pepe" De Marco', nicknames: ['il Pepe'], deceased: true },
         { id: 1255, name: 'William Stagley' },
-        { id: 1341, name: '[Trainee] Shiro ?', factions: ['Medical'] },
+        { id: 1341, name: 'Shiro ?' }, // Medical, Newspaper, Bluestone. Faction jumping. Leaving as independent
         { id: 1455, name: 'Adan Jimenez', factions: ['Del Lobos'] },
         { id: 1470, name: 'Mo Zhaohui' },
     ],
