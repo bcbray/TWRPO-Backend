@@ -2296,7 +2296,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 729, name: 'Wyatt Mason Kennedy' },
     ],
     Shmooj: [
-        { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'] },
+        { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'], telegram: 'GI916' },
     ],
     Shyirasky: [
         { id: 730, name: 'Twitch Cooper' },
