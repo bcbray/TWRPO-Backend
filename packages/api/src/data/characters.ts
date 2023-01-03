@@ -1770,7 +1770,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1041, name: 'Crystal Hayston' },
     ],
     MisfitIsOnline: [
-        { id: 1461, name: 'Desmond Pierce', factions: ['Red Water'] },
+        { id: 1461, name: 'Desmond Pierce', factions: ['Red Water'], telegram: 'SA360' },
         { id: 1552, name: 'Michael "Big Mike" Lansky' },
     ],
     mishkaxoxo: [
