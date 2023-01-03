@@ -267,9 +267,6 @@ export const wrpCharacters: WrpCharacters = {
     Baaaadgoat: [
         { id: 1433, name: 'Early Ballard', telegram: 'BP229' },
     ],
-    babysiren_: [
-        { id: 69, name: 'Laura Dunn' },
-    ],
     Balmer: [
         { id: 70, name: 'Little Tibbles' },
     ],
@@ -2075,6 +2072,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ProJB: [
         { id: 657, name: 'Odin Borr' },
+    ],
+    psyrinity: [
+        { id: 69, name: 'Laura Dunn' },
     ],
     PuckNatorGaming: [
         { id: 659, name: 'Ernest Thorton' },
