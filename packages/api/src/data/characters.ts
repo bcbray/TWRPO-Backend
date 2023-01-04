@@ -2084,7 +2084,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 659, name: 'Ernest Thorton' },
     ],
     PukingFerrets: [
-        { id: 660, name: 'Alice Quinn', factions: ['Kettleman Gang'], telegram: 'QN172' },
+        { id: 660, name: 'Alice Fuller', nicknames: ['Alice Quinn'], factions: ['Kettleman Gang'], telegram: 'QN172' },
     ],
     Pumpkinberry: [
         { id: 661, name: 'Cara "Sparks" Murphy', nicknames: ['Honey Sparks', 'Murph'], telegram: 'WD223' },
