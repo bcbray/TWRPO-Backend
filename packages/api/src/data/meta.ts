@@ -28,6 +28,7 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     dellobos: 'Del Lobos',
     thefirm: 'The Firm',
     bluestone: 'Bluestone',
+    theward: 'The Ward',
     news: 'News',
     development: 'Development',
     law: 'Law',

@@ -795,7 +795,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 253, name: '[Deputy] Charles Slaughter', factions: ['Law'] },
         { id: 254, name: 'Solomon Walker', deceased: true }, // Leader of The Cut
         { id: 255, name: 'Lawrence "The Major" Stirling' },
-        { id: 256, name: 'Isaac "Dr. Creed" Creed', telegram: 'RU038' }, // Leader of The Ward
+        { id: 256, name: 'Isaac "Dr. Creed" Creed', factions: ['The Ward'], telegram: 'RU038' }, // Leader of The Ward. But maybe just associated now?
         { id: 257, name: 'Reginald "Reggie" Richardson', factions: ['The Firm'], telegram: 'KV391' },
         { id: 258, name: 'Cullen Vane', displayName: 2, factions: ['Independent', 'Guarma'] },
     ],
@@ -807,7 +807,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     dynadivine: [
         { id: 260, name: '[Deputy] Lucille Davis', nicknames: ['Lucille Walker'], factions: ['Law'] }, // Former The Cut
-        { id: 262, name: 'Danielle ?' },
+        { id: 262, name: 'Danielle ?', factions: ['The Ward'] },
         { id: 1006, name: '[Deputy] Lillian Taylor', factions: ['Law'], telegram: 'MH115' },
         { id: 1107, name: 'Stella Callahan' },
         { id: 1571, name: 'JJ ?', factions: ['Independent', 'Guarma'] },
@@ -1270,7 +1270,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1437, name: '[Recruit] Jesse Hunt', factions: ['Rangers'] },
     ],
     iruASH: [
-        { id: 411, name: 'Kayce Smith' },
+        { id: 411, name: 'Kayce Smith', factions: ['The Ward'], deceased: true }, // The Ward associate, but not member?
         { id: 1490, name: 'George Bruton', telegram: 'KT167' },
     ],
     Its_Brogan2k: [
@@ -1681,7 +1681,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 544, name: 'Scott Samuel' },
         { id: 545, name: 'Nathanial ?', nicknames: ['Smoke'] },
         { id: 546, name: 'Richard Watson' },
-        { id: 547, name: 'Terrance King' },
+        { id: 547, name: 'Terrance King', factions: ['The Ward'] },
     ],
     madhare23: [
         { id: 1377, name: 'Edward Bretton', telegram: 'IN643' },
@@ -2306,7 +2306,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1566, name: 'Mary-Jane "MJ" Macfarlane', telegram: 'YJ981' },
     ],
     Shyirasky: [
-        { id: 730, name: 'Twitch Cooper' },
+        { id: 730, name: 'Twitch Cooper', factions: ['The Ward'] },
         { id: 1581, name: '[Deputy] ? Wallace', factions: ['Law'], deceased: true },
     ],
     Sidkriken: [
@@ -2416,7 +2416,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Speckie_: [
         { id: 770, name: '[Deputy] Andrew Hamilton', factions: ['Law'] },
-        { id: 771, name: 'Emmet Gray' },
+        { id: 771, name: 'Emmet Gray', factions: ['The Ward'] },
         { id: 772, name: 'James Parker' },
         { id: 773, name: 'Archie Richardson', factions: ['The Firm'] },
     ],
