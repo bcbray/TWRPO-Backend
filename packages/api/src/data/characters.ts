@@ -841,7 +841,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 271, name: 'Saffron Mitchell', telegram: 'MS716', factions: ['Bluestone'] }, // Former Deputy. Former(?) News
         { id: 272, name: 'Crissy "Cricket" Blitz', telegram: 'KW617' },
         { id: 273, name: 'Holly Frost', factions: ['Taipan'], telegram: 'DU057' },
-        { id: 274, name: 'Sadhbh O’Brien', factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
+        { id: 274, name: 'Sadhbh Marlow', nicknames: ['Sadhbh O’Brien', 'Meabh'], factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
         { id: 1198, name: 'Harmony Bell', nicknames: ['Bellish'], factions: ['Bell Gang'], deceased: true },
         { id: 1423, name: 'Lea Loup' },
     ],
