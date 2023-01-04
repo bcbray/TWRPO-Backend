@@ -1551,7 +1551,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 497, name: '[Deputy] Quinton Ivy', factions: ['Law'], telegram: 'OK036' },
         { id: 498, name: 'Trixie Davenport' },
         { id: 499, name: 'Jade Turner', telegram: 'DD964' },
-        { id: 1560, name: 'Bessie ?' },
+        { id: 1560, name: 'Bessie Blessing' },
     ],
     L00seyG005ey: [
         { id: 500, name: 'Elijah "Eli" Grayson', factions: ['Little Gang'], telegram: 'HP707' }, // Former Boons Boys? Or maybe I just mistagged?
