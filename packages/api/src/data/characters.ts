@@ -2425,7 +2425,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     split_uni: [
         { id: 1007, name: 'Koho ?', nicknames: ['Fox'], factions: ['Red Water'], telegram: 'JE142' }, // Former Summers Gang
-        { id: 1033, name: 'Bai Li', factions: ['Taipan'], displayName: 0 },
+        { id: 1033, name: 'Bai Li Huang', nicknames: ['Bai Li'], displayName: 4, factions: ['Taipan'] },
         { id: 1076, name: 'Gabriel Gashade', displayName: 2, factions: ['Conductors'] },
         { id: 1208, name: 'Payton Bell', factions: ['Bell Gang'], deceased: true },
         { id: 1453, name: 'Rio ?', factions: ['Del Lobos'] },
