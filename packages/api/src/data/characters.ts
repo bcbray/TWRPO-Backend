@@ -2780,6 +2780,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ThrillerInstinct: [
         { id: 1526, name: 'Jeb Longwater' },
+        { id: 1527, name: 'Willard Carmine' },
     ],
     TilLuxx: [
         { id: 1179, name: '[Medic] Mara Gloom', factions: ['Medical'], telegram: 'GB639' },
