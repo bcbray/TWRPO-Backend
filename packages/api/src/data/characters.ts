@@ -173,7 +173,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1147, name: 'William Jefferson' },
     ],
     ArmoredAndy: [
-        { id: 39, name: '[Head Ranger] Buzz Buxton', factions: ['Rangers'] },
+        { id: 39, name: '[Head Ranger] Buzz Buxton', factions: ['Rangers'], telegram: 'QG293' },
         { id: 40, name: 'Adolf "Dolfie" Hofcooperstedder' },
         { id: 41, name: 'Moose' },
     ],
