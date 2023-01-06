@@ -761,7 +761,7 @@ export const wrpCharacters: WrpCharacters = {
     DrulkTV: [
         { id: 243, name: 'Lawrence Noll' },
         { id: 244, name: 'Wayne Colt' },
-        { id: 1242, name: '[Ranger] Ray Lee', factions: ['Rangers'] },
+        { id: 1242, name: '[Ranger] Ray Lee', factions: ['Rangers'], telegram: 'VX174' },
         { id: 1313, name: 'Damon Decker' },
     ],
     DrXeroLive: [
