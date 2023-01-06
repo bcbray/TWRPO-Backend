@@ -1268,7 +1268,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1349, name: 'Andrew Erickson', telegram: 'IZ499' },
     ],
     IronSmithy: [
-        { id: 1437, name: '[Recruit] Jesse Hunt', factions: ['Rangers'] },
+        { id: 1437, name: '[Recruit] Jesse Hunt', factions: ['Rangers'], telegram: 'WD354' },
     ],
     iruASH: [
         { id: 411, name: 'Kayce Smith', factions: ['The Ward'], deceased: true }, // The Ward associate, but not member?
