@@ -2552,7 +2552,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1267, name: 'Germain Cyr', displayName: 2, telegram: 'PF391', factions: ['Freeman Family'] },
     ],
     Tagita_K: [
-        { id: 1427, name: 'Matthew Morrow' },
+        { id: 1427, name: '[Recruit] Matthew Morrow', factions: ['Rangers'], telegram: 'VZ031' },
     ],
     TaintedRUMBLER: [
         { id: 809, name: 'Drew Peters', telegram: 'MT042', assume: 'assumeOther' },
