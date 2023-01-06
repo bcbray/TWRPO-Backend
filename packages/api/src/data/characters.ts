@@ -1973,7 +1973,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1212, name: 'Marco Armando Dantez De La Copa' },
     ],
     One_True_Roadie: [
-        { id: 1252, name: '[Ranger] Cole Cade', factions: ['Rangers'] },
+        { id: 1252, name: '[Sr. Ranger] Cole Cade', factions: ['Rangers'], telegram: 'PK751' },
     ],
     onebaw: [
         { id: 995, name: 'John Loch' },
