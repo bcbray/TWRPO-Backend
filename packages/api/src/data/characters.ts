@@ -1873,7 +1873,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1302, name: 'Ronnie White' },
     ],
     Nbodo: [
-        { id: 600, name: 'Peter Rockwell', telegram: 'PI343' },
+        { id: 600, name: '[Ranger] Peter Rockwell', factions: ['Rangers'], telegram: 'PI343' },
     ],
     Nerfman_: [
         { id: 1322, name: 'Mick Murphy', telegram: 'YG894' },
