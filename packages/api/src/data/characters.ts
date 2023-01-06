@@ -637,7 +637,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1245, name: 'Pete "Mudbutt" Rotunda' },
     ],
     deadbeat_shaman: [
-        { id: 1093, name: '[Sr. Ranger] Malcom Irvine', factions: ['Rangers'] },
+        { id: 1093, name: 'Malcom Irvine' }, // Former Sr Ranger? No longer on ranger roster.
     ],
     DeadRoses21: [
         { id: 1370, name: 'Harmony Rivers', telegram: 'FE865' },
