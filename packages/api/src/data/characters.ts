@@ -846,7 +846,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1423, name: 'Lea Loup' },
     ],
     EmeraldElephant_: [
-        { id: 1091, name: '[Ranger] Jackson Connor', factions: ['Rangers'] },
+        { id: 1091, name: 'Jackson Connor' }, // Former Ranger
         { id: 1183, name: 'Saturn Goya' },
     ],
     emily_xb: [
