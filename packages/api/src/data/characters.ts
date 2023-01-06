@@ -2547,7 +2547,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 807, name: 'Emilia "Emi" Song' },
     ],
     TacticalGH0STT: [
-        { id: 808, name: '[Recruit] Beaux Carter', factions: ['Rangers'] },
+        { id: 808, name: '[Recruit] Beaux Carter', factions: ['Rangers'], telegram: 'EU031' },
         { id: 1210, name: 'Odell Simmons', factions: ['Lifer'] },
         { id: 1267, name: 'Germain Cyr', displayName: 2, telegram: 'PF391', factions: ['Freeman Family'] },
     ],
