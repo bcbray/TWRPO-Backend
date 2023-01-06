@@ -41,7 +41,7 @@ export const wrpCharacters: WrpCharacters = {
     '2hands2thumbs': [
         { id: 4, name: 'Ernest Dooly' },
         { id: 5, name: 'Maverik Stone', factions: ['Boons Boys'], telegram: 'NK579' },
-        { id: 6, name: '[Ranger] Sheppard Dutton', factions: ['Rangers'] },
+        { id: 6, name: '[Ranger] Sheppard Dutton', factions: ['Rangers'], telegram: 'IJ772' }, // LOA from Rangers
         { id: 1166, name: '[Deputy] Finnagan Huxley', factions: ['Law'], telegram: 'FH202' },
     ],
     '52Chains': [
