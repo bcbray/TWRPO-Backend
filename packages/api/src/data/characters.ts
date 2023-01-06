@@ -1774,7 +1774,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1552, name: 'Michael "Big Mike" Lansky' },
     ],
     mishkaxoxo: [
-        { id: 569, name: '[Ranger] Mishka Agapova', factions: ['Rangers'], telegram: 'QF055' },
+        { id: 569, name: 'Mishka Agapova', telegram: 'QF055' },
         { id: 1073, name: 'Lavender Jones' },
         { id: 1074, name: 'Oksana Reznikov' },
         { id: 1487, name: 'Dixie Jacobs' },
