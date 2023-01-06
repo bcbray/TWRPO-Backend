@@ -1434,7 +1434,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 461, name: 'Billy Blood' },
     ],
     JustSam42: [
-        { id: 462, name: '[Game Warden] Nathan Thompson', factions: ['Rangers'], telegram: 'EY079' },
+        { id: 462, name: '[Game Warden] Nathan Thompson', factions: ['Rangers'], telegram: 'EY079' }, // “Suspended indefinitely” from Rangers, but not yet fired
     ],
     JxdiTV: [
         { id: 463, name: 'Minnie Mines' },
