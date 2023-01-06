@@ -2579,7 +2579,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1257, name: 'Ming Yat-Sen' },
     ],
     Taranix: [
-        { id: 818, name: 'Mattias Temble' },
+        { id: 818, name: '[Ranger] Mattias Temble', factions: ['Rangers'], telegram: 'IR372' }, // LOA from Rangers
     ],
     Tasara22: [
         { id: 819, name: '[Sr. Deputy] Jane Ripley', factions: ['Law'], deceased: true, telegram: 'SG824' },
