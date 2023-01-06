@@ -1840,7 +1840,7 @@ export const wrpCharacters: WrpCharacters = {
     Myre: [
         { id: 587, name: 'Benoit Baratie' },
         { id: 588, name: '[Reporter] Crispin Cantebile', telegram: 'AX263', factions: ['News'] },
-        { id: 589, name: '[Sr. Ranger] Dallas Wolf', factions: ['Rangers'] },
+        { id: 589, name: '[Sr. Ranger] Dallas Wolf', factions: ['Rangers'], telegram: 'DV817' },
         { id: 590, name: 'Phineas Fentworth' },
         { id: 591, name: 'Saul South' },
         { id: 1285, name: 'Felix Stanton' },
