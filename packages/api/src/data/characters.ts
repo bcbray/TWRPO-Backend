@@ -637,7 +637,7 @@ export const wrpCharacters: WrpCharacters = {
     Daveybe: [
         { id: 199, name: 'Pip Delahan', factions: ['Kettleman Gang'], telegram: 'TR637' },
         { id: 200, name: 'Edge Lamburg' },
-        { id: 1204, name: 'Peter "Pete" Conrad', nicknames: ['Squeaky Pete'], factions: ['Dead End Gang'], telegram: 'CA349' },
+        { id: 1204, name: 'Peter "Squeaky Pete" Conrad', nicknames: ['Pete'], factions: ['Dead End Gang'], telegram: 'CA349' },
     ],
     DDPeter: [
         { id: 1245, name: 'Pete "Mudbutt" Rotunda' },
