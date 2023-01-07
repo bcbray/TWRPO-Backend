@@ -407,9 +407,6 @@ export const wrpCharacters: WrpCharacters = {
     buddyandy88: [
         { id: 119, name: 'Carla Johanson' },
     ],
-    Budelii: [
-        { id: 473, name: 'John Frisco', displayName: 2 },
-    ],
     Buffalo995: [
         { id: 120, name: 'Clayton Woods' },
     ],
@@ -833,6 +830,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1403, name: '[Deputy] Terry Mallagher', factions: ['Law'], telegram: 'QW096' },
         { id: 1495, name: 'Toby Mallagher' }, // Is this truly a different character?
         { id: 1522, name: 'Darren The Drongo', displayName: 0 },
+    ],
+    EliDoesStuffIG: [
+        { id: 473, name: 'John Frisco', displayName: 2 },
     ],
     Ellethwen_: [
         { id: 266, name: 'Adaleigh Roach', nicknames: ['Adaleigh Winters'], telegram: 'YW740' },
