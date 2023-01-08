@@ -2628,7 +2628,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Tasara22: [
         { id: 819, name: '[Sr. Deputy] Jane Ripley', factions: ['Law'], deceased: true, telegram: 'SG824' },
-        { id: 820, name: 'Elizabeth "Betty" Butcher', telegram: 'ZK132' }, // Former DiCenzo (group 2)
+        { id: 820, name: 'Elizabeth "Betty" Moretti', nicknames: ['Betty Butcher'], telegram: 'ZK132' }, // Former DiCenzo (group 2)
         { id: 821, name: 'Madame Milena' },
         { id: 822, name: 'Monica Peach' },
         { id: 823, name: 'Oneida Zonta' },
