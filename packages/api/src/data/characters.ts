@@ -1840,7 +1840,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     mrwolfff98: [
         { id: 1369, name: 'Jesse Rivers' },
-        { id: 1493, name: '[Recruit] Ellis Wade', factions: ['Rangers'], telegram: 'SU750' },
+        { id: 1493, name: '[Ranger] Ellis Wade', factions: ['Rangers'], telegram: 'SU750' },
     ],
     MsVenture: [
         { id: 581, name: 'Martina Guzman', factions: ['Hagen'], telegram: 'JK700' },
