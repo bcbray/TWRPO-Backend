@@ -586,7 +586,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 180, name: 'Dusty Wilder' },
     ],
     Daftmedic: [
-        { id: 181, name: 'Tristan Shipman' },
+        { id: 181, name: '[Trainee] Tristan Shipman', factions: ['Medical'] },
         { id: 182, name: 'Archibald Shaw' },
     ],
     Dam_O: [
