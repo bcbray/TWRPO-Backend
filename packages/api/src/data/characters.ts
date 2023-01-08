@@ -305,7 +305,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 81, name: 'Georgie Meadows' },
         { id: 82, name: 'Nora Boyle' },
         { id: 83, name: '[Deputy] Avery Eliss', factions: ['Law'], telegram: 'YU105' },
-        { id: 1605, name: 'Gabriella Bailey', factions: ['Guarma'] },
+        { id: 1605, name: 'Gabriella Bailey', displayName: 2, factions: ['Guarma'] },
     ],
     BennayTee: [
         { id: 1112, name: 'Otto Orleans', assume: 'assumeOther' },
