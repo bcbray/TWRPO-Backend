@@ -2627,15 +2627,16 @@ export const wrpCharacters: WrpCharacters = {
         { id: 818, name: '[Ranger] Mattias Temble', factions: ['Rangers'], telegram: 'IR372' }, // LOA from Rangers
     ],
     Tasara22: [
+        // Characters as of 12/26/2022: https://clips.twitch.tv/SilkyJoyousDinosaurBloodTrail-E0KXK8TIG_hbf3F3
         { id: 819, name: '[Sr. Deputy] Jane Ripley', factions: ['Law'], deceased: true, telegram: 'SG824' },
         { id: 820, name: 'Elizabeth "Betty" Moretti', nicknames: ['Betty Butcher'], telegram: 'ZK132' }, // Former DiCenzo (group 2)
-        { id: 821, name: 'Madame Milena' },
-        { id: 822, name: 'Monica Peach' },
-        { id: 823, name: 'Oneida Zonta' },
+        { id: 821, name: 'Madame Milena', deceased: true }, // Unsure deceased or just inactive
+        { id: 822, name: 'Monica Peach', deceased: true }, // Unsure deceased or just inactive
+        { id: 823, name: 'Oneida Zonta', deceased: true }, // Unsure deceased or just inactive
         { id: 824, name: 'Precious Cargo' },
-        { id: 825, name: 'Gertrude Nelson' },
-        { id: 1092, name: 'Mercy Porter' },
-        { id: 1111, name: '[Guard] Angela Payne', factions: ['Sisika Guard'] },
+        { id: 825, name: 'Gertrude Nelson', deceased: true }, // Unsure deceased or just inactive
+        { id: 1092, name: 'Mercy Porter', deceased: true }, // Unsure deceased or just inactive
+        { id: 1111, name: '[Guard] Angela Payne', factions: ['Sisika Guard'], deceased: true }, // Unsure deceased or just inactive
         { id: 1129, name: 'Jasmine Baro', factions: ['Independent', 'Guarma'] },
         { id: 1621, name: 'Wendy Wallace' },
         { id: 1622, name: 'EmmaLee Strawberry' },
