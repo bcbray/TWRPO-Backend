@@ -121,7 +121,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1162, name: 'Kit Saxton' },
     ],
     alta_ambulate: [
-        { id: 1592, name: 'Clint ?' },
+        { id: 1592, name: 'Clint Solis' },
     ],
     AlwayStayBlack: [
         { id: 23, name: 'Shaggy McRaggzzah' },
