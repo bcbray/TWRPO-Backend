@@ -884,7 +884,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 284, name: 'Vera Helvig' },
         { id: 1013, name: 'Annabelle Martin' },
         { id: 1240, name: '[Ranger] Olya Ivanavia', factions: ['Rangers'], telegram: 'UB094' },
-        { id: 1477, name: 'Revenant Wright' },
+        { id: 1477, name: 'Revenant Wright', telegram: 'YB671' },
     ],
     eternalsong: [
         { id: 285, name: 'Kora Vane', telegram: 'JH385' }, // Former Sam's Club
