@@ -2398,7 +2398,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     smorgenborgendorgen: [
         { id: 749, name: 'Martha Crook' },
-        { id: 1567, name: '[Cadet] Irma Kivi', factions: ['Law'], telegram: 'WE394' },
+        { id: 1567, name: '[Deputy] Irma Kivi', factions: ['Law'], telegram: 'WE394' },
     ],
     sneakyShadower: [
         { id: 750, name: 'Abigail Jones' },
