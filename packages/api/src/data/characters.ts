@@ -561,7 +561,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1469, name: 'Jules Preston' },
     ],
     CopernicusTheDesertWizard: [
-        { id: 1478, name: 'Copernicus "Perni"' },
+        { id: 1478, name: 'Copernicus "Perni" DesertWizard' },
     ],
     CptCheeto: [
         { id: 1214, name: 'Charlie VanDyne' },
