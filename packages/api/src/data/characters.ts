@@ -321,7 +321,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1112, name: 'Otto Orleans', assume: 'assumeOther' },
     ],
     BigBadMomma: [
-        { id: 1588, name: 'Gladys Pettibone' },
+        { id: 1588, name: 'Gladys Pettibone', nicknames: ['Gladys Blanchard', 'Blanchard'] },
     ],
     BigTimmuh: [
         { id: 1039, name: 'Luke McCoy' },
