@@ -141,7 +141,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 28, name: 'Raul Sanchez' },
     ],
     Amora_xox: [
-        { id: 1625, name: 'Nellie ?', telegram: 'YU662' }, // Last name Cipriano? Also unsure of spelling of “Nellie”
+        { id: 1625, name: 'Nellie Cipriano', telegram: 'YU662' },
     ],
     AmRainbowBee: [
         { id: 1246, name: 'Mildred "Millie" Price' },
