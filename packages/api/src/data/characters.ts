@@ -2580,7 +2580,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Swordofpower1: [
         { id: 1244, name: 'Jim "Lockjaw Jim" Munson', factions: ['Independent', 'Guarma'], telegram: 'OT144' },
-        { id: 1262, name: 'Charlie Nelson', telegram: 'FW010' },
+        { id: 1262, name: 'Charlie "Chucky" Nelson', telegram: 'FW010' },
         { id: 1335, name: 'Sylvester Spectre' },
     ],
     Sylasism: [
