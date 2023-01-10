@@ -278,6 +278,12 @@ export const wrpCharacters: WrpCharacters = {
     Baaaadgoat: [
         { id: 1433, name: 'Early Ballard', telegram: 'BP229' },
     ],
+    badnewsbryan: [
+        { id: 115, name: 'Blue Vanderweit' },
+        { id: 116, name: 'Butch Fairway' },
+        { id: 117, name: 'Johnny Quick' },
+        { id: 1415, name: '[Deputy] Clifford Castle', factions: ['Law'], telegram: 'PX411' },
+    ],
     Balmer: [
         { id: 70, name: 'Little Tibbles' },
     ],
@@ -403,12 +409,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 112, name: 'Cooter O’Doole' },
         { id: 113, name: 'Dakota Rush' },
         { id: 114, name: 'Robin Fischer' },
-    ],
-    bryanprograms: [
-        { id: 115, name: 'Blue Vanderweit' },
-        { id: 116, name: 'Butch Fairway' },
-        { id: 117, name: 'Johnny Quick' },
-        { id: 1415, name: '[Deputy] Clifford Castle', factions: ['Law'], telegram: 'PX411' },
     ],
     Bryce_Reid: [
         { id: 1457, name: 'Melchior "Milk Man" Tarsovich', factions: ['Dead End Gang'] },
