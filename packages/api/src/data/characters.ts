@@ -1953,7 +1953,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1119, name: 'Billy Bob Baker' },
     ],
     NoahsDay: [
-        { id: 606, name: '[Cadet] Cliff Otis', factions: ['Law'] },
+        { id: 606, name: '[Deputy] Cliff Otis', factions: ['Law'] },
     ],
     Nopheros: [
         { id: 607, name: '[Deputy] Robert Fisher', factions: ['Law'] },
