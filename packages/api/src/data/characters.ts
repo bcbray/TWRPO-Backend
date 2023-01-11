@@ -671,6 +671,7 @@ export const wrpCharacters: WrpCharacters = {
     DearJhnnn: [
         { id: 1400, name: 'León Fontaine', telegram: 'RN296' },
         { id: 1419, name: 'Francis DeVille' },
+        { id: 1634, name: 'Quincy Bill' },
     ],
     deciBel42: [
         { id: 1141, name: 'Kit Bishop', telegram: 'OG840' },
