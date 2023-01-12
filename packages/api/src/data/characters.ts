@@ -2080,7 +2080,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 639, name: 'Chrissy Snow', factions: ['Dead End Gang'], telegram: 'CE683' },
         { id: 640, name: 'Toosie Loo', telegram: 'NY412' }, // Kettleman hangaround? I would consider her Kettleman, but Jack doesn't
         { id: 641, name: 'Kipper O’Neil' },
-        { id: 1494, name: '[Deputy] Justine Prudence', factions: ['Law'] },
+        { id: 1494, name: '[Deputy] Justine Prudence', factions: ['Law'], telegram: 'SD737' },
     ],
     Pengwin: [
         { id: 642, name: 'Staniel Wilkerson' },
