@@ -2058,7 +2058,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     PapaDrgnz: [
         { id: 635, name: 'Shiv Bailey' },
-        { id: 1428, name: 'Kiley Cobain' },
+        { id: 1428, name: 'Kiley Cobain', telegram: 'TA866' },
     ],
     PapkaMush: [
         { id: 1105, name: 'John Christian' },
