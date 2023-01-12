@@ -2307,7 +2307,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1408, name: 'Holly Harper', telegram: 'FQ588' },
         { id: 1409, name: '[Guard] Liliana Braytenbach', factions: ['Sisika Guard'] },
         { id: 1537, name: 'Kyla Lane' },
-        { id: 1589, name: 'Sophie DeLaRue' },
+        { id: 1589, name: 'Sophie DeLaRue', telegram: 'NS791' },
     ],
     ScarlettLollipop: [
         { id: 1412, name: 'Scarlett Kensington', telegram: 'CF169' },
