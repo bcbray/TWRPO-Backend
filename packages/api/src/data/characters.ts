@@ -2957,7 +2957,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 909, name: 'Willie Reuben' },
     ],
     uncledirtbag: [
-        { id: 1025, name: 'Jason Maynard' },
+        { id: 1025, name: 'Jason Maynard', telegram: 'GG954' },
         { id: 1026, name: 'Henry Dahlman' },
         { id: 1055, name: 'Rhett Sawyer' },
         { id: 1136, name: 'Theodore Hammond' },
