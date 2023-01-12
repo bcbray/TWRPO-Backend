@@ -568,7 +568,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 172, name: 'Cash Colton', factions: ['Coltons'] },
     ],
     Coolranch15: [
-        { id: 1469, name: 'Jules Preston' },
+        { id: 1469, name: 'Jules Preston', telegram: 'LA938' },
     ],
     CopernicusTheDesertWizard: [
         { id: 1478, name: 'Copernicus "Perni" DesertWizard' },
