@@ -309,7 +309,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1637, name: 'Johnathan "John" Butcher' },
     ],
     BCold_TTV: [
-        { id: 1632, name: 'Theodosia Ripley' },
+        { id: 1632, name: 'Theodosia "Theo" Ripley', telegram: 'DX020' },
     ],
     Beanblanket: [
         { id: 75, name: 'Clifford Dawes', factions: ['Bluestone'] },
