@@ -3011,7 +3011,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     VinnieThatsMe: [
         { id: 1511, name: 'Ahnah Adjuk' },
-        { id: 1642, name: 'Indigo Riley', telegram: 'XM689' },
+        { id: 1642, name: 'Indigo "Indy" Riley', telegram: 'XM689' },
         { id: 1643, name: 'Mirai Lee' },
         { id: 1644, name: 'Delilah Tucker' },
         { id: 1645, name: 'Tahoma Desert Wolf', nicknames: ['Desert Wolf'] },
