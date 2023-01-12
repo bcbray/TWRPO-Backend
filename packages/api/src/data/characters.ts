@@ -2207,7 +2207,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     RiftImpy: [
         { id: 1247, name: 'Bartholomew "Barty" Brue', factions: ['The Ring'], telegram: 'RY254' },
-        { id: 1624, name: 'Cole Duncan', nicknames: ['Dusty'] },
+        { id: 1624, name: 'Cole Duncan', nicknames: ['Dusty'], telegram: 'US762' },
     ],
     Roach_tm: [
         { id: 677, name: 'Tony Moretti', factions: ['DiCenzo Famiglia'], telegram: 'GW121' }, // Inactive DiCenzo
