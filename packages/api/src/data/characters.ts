@@ -992,7 +992,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 314, name: 'Saskia "Fang" Wolf' },
         { id: 315, name: 'Quinn Thatcher' },
         { id: 1168, name: '[Deputy] Amity Carrow', factions: ['Law'] },
-        { id: 1467, name: 'Mercedes de la Rosa', factions: ['Del Lobos'] },
+        { id: 1467, name: 'Mercedes de la Rosa', factions: ['Del Lobos'], telegram: 'ON993' },
     ],
     floralfoxes: [
         { id: 1350, name: '[Reporter] Juniper Ripley', nicknames: ['Juni', 'Juniper Lawrence'], telegram: 'IV378' },
