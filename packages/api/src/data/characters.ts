@@ -885,7 +885,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     endangeredfinley: [
         { id: 276, name: 'Amelia Riddle', nicknames: ['Eihwaz'], factions: ['Daughters of Fenrir'] },
-        { id: 277, name: '[Trainee] Bonnie Gray', factions: ['Medical'] },
+        { id: 277, name: '[Trainee] Bonnie Gray', factions: ['Medical'], telegram: 'SE096' },
         { id: 278, name: 'Kit "Hummingbird" ?', telegram: 'KX331' },
         { id: 279, name: 'Paul Güttman' },
         { id: 1199, name: 'Persephone "Bones" Bonesman' },
