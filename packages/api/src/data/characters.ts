@@ -2401,7 +2401,7 @@ export const wrpCharacters: WrpCharacters = {
     SincerelyIndie: [
         { id: 739, name: 'Truly Tillery' },
         { id: 1554, name: 'Sarabi Brownlee' },
-        { id: 1590, name: 'Onélie Bourgeois' },
+        { id: 1590, name: 'Onélie Bourgeois', telegram: 'RU650' },
     ],
     SinnixTv: [
         { id: 740, name: 'Frank Brower' },
