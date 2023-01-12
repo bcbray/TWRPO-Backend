@@ -2959,7 +2959,7 @@ export const wrpCharacters: WrpCharacters = {
     uncledirtbag: [
         { id: 1025, name: 'Jason Maynard', telegram: 'GG954' },
         { id: 1026, name: 'Henry Dahlman' },
-        { id: 1055, name: 'Rhett Sawyer' },
+        { id: 1055, name: 'Rhett Sawyer', telegram: 'VP405' },
         { id: 1136, name: 'Theodore Hammond' },
         { id: 1250, name: '[Deputy] Robert Herrera', factions: ['Law'] },
         { id: 1442, name: '[Deputy] Wyatt Schaffer', factions: ['Law'], telegram: 'FU564' },
