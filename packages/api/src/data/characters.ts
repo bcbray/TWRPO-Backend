@@ -1399,6 +1399,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 439, name: '[Deputy] Obidiah Colt', factions: ['Law'] },
         { id: 440, name: 'Scooter Brown' },
     ],
+    JayDRated: [
+        { id: 1331, name: 'Jay Walker' },
+    ],
     jdot: [
         { id: 441, name: 'James McAfee' },
     ],
@@ -1843,9 +1846,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1319, name: 'Seraphine Nostradame' },
         { id: 1523, name: 'Andromeda "Andi" Gotti', factions: ['Quil Gang'] },
         { id: 1636, name: 'Debbie Barkley' },
-    ],
-    Mr_Jay_Gaming: [
-        { id: 1331, name: 'Jay Walker' },
     ],
     MrArkay: [
         { id: 570, name: 'Casper Hems' },
