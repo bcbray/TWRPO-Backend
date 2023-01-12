@@ -2482,7 +2482,7 @@ export const wrpCharacters: WrpCharacters = {
     Spaceboy: [
         { id: 769, name: 'James Randal', nicknames: ['Jim Beef'] },
     ],
-    SpartaChrisTV: [
+    SpartaHC: [
         { id: 1098, name: 'Bruce Blaze' },
     ],
     Speckie_: [
