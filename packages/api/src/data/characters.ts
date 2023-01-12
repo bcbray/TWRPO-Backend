@@ -210,7 +210,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1450, name: 'Wayne Lovell', factions: ['The Black Company'] },
     ],
     aTinyHorse: [
-        { id: 1148, name: 'Antonio "Tiny" Ricci' },
+        { id: 1148, name: 'Antonio "Tiny Tony" Ricci', nicknames: ['Tiny'], telegram: 'AW259' },
     ],
     AtomosCLU: [
         { id: 43, name: 'George Anderson' },
