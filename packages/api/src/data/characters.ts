@@ -2315,7 +2315,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 985, name: 'Pat Hetic' },
     ],
     ScottAndTheFullEffect: [
-        { id: 1471, name: 'Burt Daniels' },
+        { id: 1471, name: 'Burt Daniels', nicknames: ['Burt Kurt'], telegram: 'JY160' },
     ],
     ScottJitsu: [
         { id: 711, name: 'Reno Cash' },
