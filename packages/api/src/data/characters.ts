@@ -1149,7 +1149,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 373, name: '[Deputy] Manuel Diaz', nicknames: ['El Coyote', 'Coyote'], displayName: 3, factions: ['Law'], telegram: 'NG146' },
         { id: 1170, name: 'Richard Ross' },
         { id: 1435, name: 'Merry Slobbins' },
-        { id: 1633, name: 'Edgar Lopez' },
+        { id: 1633, name: 'Edgar Lopez', telegram: 'KG025' },
     ],
     gtplays: [
         { id: 374, name: 'Gene Tiffin' },
