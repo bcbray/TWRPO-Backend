@@ -2599,7 +2599,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1096, name: 'Robert "Rob" Banks' },
         { id: 1326, name: 'Kip Smith' },
         { id: 1584, name: 'Marshall Lee' },
-        { id: 1635, name: '[Cadet] Ollie Cooper', factions: ['Law'] },
+        { id: 1635, name: '[Cadet] Ollie Cooper', factions: ['Law'], telegram: 'CL140' },
     ],
     Swordofpower1: [
         { id: 1244, name: 'Jim "Lockjaw Jim" Munson', factions: ['Independent', 'Guarma'], telegram: 'OT144' },
