@@ -3141,7 +3141,7 @@ export const wrpCharacters: WrpCharacters = {
     Zelupsy: [
         { id: 1078, name: 'Abigail Bennett' },
     ],
-    ZetarkGG: [
+    zetark: [
         { id: 964, name: 'Cesare DiCenzo', factions: ['DiCenzo Famiglia'], leader: true, telegram: 'GC730' },
     ],
     ZeusLair: [
