@@ -689,7 +689,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1043, name: 'Avery Hobbs', displayName: 2, factions: ['The Black Company'] },
         { id: 1120, name: '[Guard] Cassius Renata', factions: ['Sisika Guard'] },
         { id: 1127, name: 'Sylas "Stache" Kristiansen', telegram: 'NO025' }, // Former Sheriff
-        { id: 1628, name: 'Ludwig Weiß' }, // Aspiring law?
+        { id: 1628, name: '[Cadet] Ludwig Weiß', nicknames: ['Ludwig Weiss'], factions: ['Law'] },
     ],
     DeneeSays: [
         { id: 205, name: 'Brooke "Babs" Burns', factions: ['DiCenzo Famiglia'], telegram: 'AT704' },
