@@ -1588,7 +1588,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 489, name: 'Jackson "Dead-Eye Jack" Pryde', nicknames: ['#1'], telegram: 'MV535' }, // Former leader of the Bloody Hoods
         { id: 490, name: 'Louis "Louie" Lancaster' },
         { id: 491, name: 'Luther Von Brandt' },
-        { id: 1282, name: 'Daryl Dalton' },
+        { id: 1282, name: '[Cadet] Daryl Dalton', factions: ['Law'], telegram: 'TV495' },
         { id: 1383, name: '[Guard] John Garrison', factions: ['Sisika Guard'], telegram: 'RA826' },
     ],
     KyQuinn: [
