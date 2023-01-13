@@ -2082,7 +2082,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1263, name: 'Viktor Reith' },
     ],
     Paracast: [
-        { id: 636, name: 'Erasmus South' },
+        { id: 636, name: 'Erasmus South', assume: 'assumeOther' },
     ],
     PBandJLee: [
         { id: 637, name: '[Medic] Elsie Fletcher', factions: ['Medical'], telegram: 'VR174' }, // TODO: `factions: ['News']` maybe?
