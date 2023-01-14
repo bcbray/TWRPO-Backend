@@ -2069,7 +2069,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     PandemoniumXY: [
         { id: 1018, name: 'Alfie Jacobsmith' },
-        { id: 1480, name: 'Garath "Mitch" Mitchell' },
+        { id: 1480, name: 'Garath "Mitch" Mitchell', telegram: 'WB743' },
         { id: 1556, name: 'Billybob Roberts' },
     ],
     PapaDrgnz: [
