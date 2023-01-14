@@ -1759,7 +1759,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MadsKadie: [
         { id: 1361, name: 'Alessandra Moretti', telegram: 'EY243' },
-        { id: 1421, name: 'Scarlett Winters' },
+        { id: 1421, name: 'Scarlett Winters', telegram: 'CN670' },
     ],
     MafiaDrew: [
         { id: 550, name: 'Donatello "Don" Jameson', displayName: 2, telegram: 'TQ717' },
