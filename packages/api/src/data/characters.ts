@@ -1085,7 +1085,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1446, name: 'Seamus Bell', factions: ['Bell Gang'] },
     ],
     GiveMeUhMinute: [
-        { id: 345, name: 'James Willow' },
+        { id: 345, name: 'James Willow', telegram: 'RQ954' },
     ],
     Gizmetti: [
         { id: 1345, name: 'Markee McDuff', factions: ['DiCenzo Famiglia'], telegram: 'QX717' }, // Inactive DiCenzo
