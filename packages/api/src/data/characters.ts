@@ -2051,7 +2051,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 995, name: 'John Loch' },
     ],
     Orcish: [
-        { id: 629, name: '[Sr. Deputy] Allistair McGregor', factions: ['Law'], telegram: 'HP579' },
+        { id: 629, name: '[Deputy] Allistair McGregor', factions: ['Law'], telegram: 'HP579' },
         { id: 630, name: 'Billy Beetur', nicknames: ['Charlie'], factions: ['Independent', 'Guarma'], telegram: 'KY632' },
         { id: 631, name: 'Otis Potts' },
         { id: 632, name: 'Richard Westlake' },
