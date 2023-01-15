@@ -78,13 +78,13 @@ export const fetchTimeseries = async (
                         ${startDateQueryPart}
                       ),
                       ${endDateQueryPart},
-                      '1 day'
+                      '1 hour'
                     ) d
             CROSS  JOIN LATERAL (
                SELECT count(DISTINCT "streamerId")::int AS n
                FROM   stream_chunk
                WHERE  "serverId" = ${serverQueryParam}
-               AND    ("firstSeenDate", "lastSeenDate") OVERLAPS (d, '1 day'::INTERVAL)
+               AND    ("firstSeenDate", "lastSeenDate") OVERLAPS (d, '1 hour'::INTERVAL)
             ) c
             ORDER  BY date ASC;
     `;
