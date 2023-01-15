@@ -31,6 +31,7 @@
     "connect-typeorm": "^2.0.0",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
+    "d3": "^6.7.0",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^1.3.7",
     "dd-trace": "^3.0.0",
@@ -122,6 +123,7 @@
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",
+    "@types/d3": "^6.7.0",
     "@types/passport-oauth2": "^1.4.11",
     "concurrently": "^7.3.0",
     "ts-loader": "^9.3.1",

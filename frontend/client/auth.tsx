@@ -107,14 +107,16 @@ type ViewOtherSegmentsAuthorization = 'view-all-segments';
 
 type EditUsersAuthorization = 'edit-users';
 
-type AuthorizationType = OverrideSegmentAuthorization | ServerEditAuthorization | ViewOtherSegmentsAuthorization | EditUsersAuthorization;
+type ViewTimeseriesAuthorization = 'view-timeseries';
+
+type AuthorizationType = OverrideSegmentAuthorization | ServerEditAuthorization | ViewOtherSegmentsAuthorization | EditUsersAuthorization | ViewTimeseriesAuthorization;
 
 export const useAuthorization = (type: AuthorizationType): boolean => {
   const { user } = useAuthentication();
   if (!user) {
     return false;
   }
-  if (type === 'server-edit' || type === 'view-all-segments' || type === 'edit-users') {
+  if (type === 'server-edit' || type === 'view-all-segments' || type === 'edit-users' || type === 'view-timeseries') {
     return user.globalRole === 'admin';
   } else if (type.type === 'overide-segment') {
     return user.globalRole === 'admin' || user.globalRole === 'editor';
