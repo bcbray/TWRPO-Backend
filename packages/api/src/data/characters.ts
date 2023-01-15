@@ -383,7 +383,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BluebonnetRP: [
         { id: 1475, name: '[Cadet] Lorenzo Roussan', factions: ['Law'], telegram: 'VX740' },
-        { id: 1551, name: 'Everett "Ev" Thompson' },
+        { id: 1551, name: 'Everett "Ev" Thompson', factions: ['The Baastards'] },
     ],
     BooksBlanketsandTea: [
         { id: 102, name: 'Edith Scriven' },
