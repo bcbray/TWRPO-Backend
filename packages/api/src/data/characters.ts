@@ -264,7 +264,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 66, name: 'Solomon Kray' },
         { id: 67, name: 'Thomas Ethan', nicknames: ['The Kid'] },
     ],
-    b0xya: [
+    B0MBOX: [
         { id: 913, name: 'Roman Blanco' },
         { id: 914, name: 'Teddy Graves' },
     ],
