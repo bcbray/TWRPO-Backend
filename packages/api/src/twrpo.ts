@@ -110,6 +110,7 @@ class Api {
         this.apiRouter.use('/v2/whoami', routes.v2WhoamiRouter(this.dataSource));
         this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter(this.dataSource));
         this.apiRouter.use('/v2/users', routes.v2UsersRouter(this.dataSource));
+        this.apiRouter.use('/v2/timeseries', routes.v2TimeseriesRouter(this.dataSource));
         this.apiRouter.use('/v2/admin/override-segment', routes.v2AdminOverrideSegmentRouter(this.twitchClient, this.dataSource));
         this.apiRouter.use('/v2/admin/reorder-servers', routes.v2AdminReorderServersRouter(this.dataSource));
         this.apiRouter.use('/v2/admin/test-matcher', routes.v2AdminTestMatcherRouter(this.twitchClient, this.dataSource));

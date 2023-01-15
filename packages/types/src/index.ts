@@ -26,6 +26,7 @@ import type ServersResponse from './ServersResponse';
 import type Game from './Game';
 import type ServerResponse from './ServerResponse';
 import type UsersResponse from './UsersResponse';
+import type TimeseriesResponse from './TimeseriesResponse';
 
 
 export {
@@ -57,4 +58,5 @@ export {
   Game,
   ServerResponse,
   UsersResponse,
+  TimeseriesResponse,
 }
