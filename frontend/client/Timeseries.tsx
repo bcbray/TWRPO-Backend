@@ -80,6 +80,16 @@ const Timeseries: React.FC<TimeseriesProps> = ({
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    svg.append("g")
+      .selectAll("rect")
+      .data([undefined])
+      .join("rect")
+        .attr("fill", "none")
+        .attr("stroke", "none")
+        .attr("pointer-events", "all")
+        .attr("width", width)
+        .attr("height", height);
+
    const xAxis = d3.axisBottom(xScale)
      .ticks(5)
      .tickSize(-height - 8);
@@ -123,31 +133,51 @@ const Timeseries: React.FC<TimeseriesProps> = ({
         const date = parsedData[i].date;
         const count = parsedData[i].count;
         tooltip.style("display", null);
-        tooltip.attr("transform", `translate(${xScale(date)}, ${yScale(count)})`);
 
         const path = tooltip.selectAll("path")
-          .data([undefined,undefined])
+          .data([undefined])
           .join("path")
-            .attr("fill", "var(--theme-gray-800)")
-            .attr("stroke", "var(--theme-primary-900)");
+            .attr("fill", "var(--theme-gray-200)");
 
         const text = tooltip.selectAll("text")
           .attr("fill", "currentColor")
-          .data([undefined,undefined])
+          .data([undefined])
           .join("text")
             .call(text => text
               .selectAll("tspan")
-              .data([xScale.tickFormat(0, "%b %-d, %Y")(date), `${count} streamers`])
+              .data([xScale.tickFormat(0, "%b %-d, %Y %-I %p")(date), `${count} streamers`])
               .join("tspan")
                 .attr("x", 0)
                 .attr("y", (_, i) => `${i * 1.1}em`)
                 .attr("font-weight", (_, i) => i ? null : "bold")
-                .attr("color", "var(--theme-white)")
+                .attr("color", "var(--theme-gray-900)")
                 .text(d => d));
 
         const { y, width: w, height: h } = (text.node() as SVGGraphicsElement).getBBox();
-        text.attr("transform", `translate(${-w / 2}, ${15 - y})`);
-        path.attr("d", `M${-w / 2 - 10},5H-5l5,-5l5,5H${w / 2 + 10}v${h + 20}h-${w + 20}z`);
+        const tt = { w: 12.8, h: 6.4 };
+        const yPos = yScale(count);
+        const tth = (h + 20 + tt.h);
+        const flipped = yPos - tth > 0;
+
+        tooltip.attr("transform", `translate(${xScale(date)}, ${yPos - (flipped ? tth : 0)})`);
+        text.attr("transform", `translate(${-w / 2}, ${tt.h + 10 - y - (flipped ? tt.h : 0)})`);
+        const r = 4;
+        path.attr("d", `
+          M ${-w / 2 - 10 + r} ${tt.h}
+          H ${-tt.w / 2}
+          l ${tt.w / 2} -${tt.h}
+          l ${tt.w / 2} ${tt.h}
+          H ${w / 2 + 10 - r}
+          A ${r} ${r} 0 0 1 ${w / 2 + 10} ${tt.h + r}
+          V ${h + 20 + tt.h - r}
+          A ${r} ${r} 0 0 1 ${w / 2 + 10 - r} ${h + 20 + tt.h}
+          H ${-w / 2 - 10 + r}
+          A ${r} ${r} 0 0 1 ${-w / 2 - 10} ${h + 20 + tt.h - r}
+          L ${-w / 2 - 10} ${tt.h + r}
+          A ${r} ${r} 0 0 1 ${-w / 2 - 10 + r} ${tt.h}
+          z
+        `);
+        path.attr("transform", `rotate(${flipped ? 180 : 0}, 0, ${(h + 20 + tt.h) / 2})`)
         svg.property("value", parsedData[i]).dispatch("input", {bubbles: true, cancelable: true, detail: null});
       })
       .on("pointerleave", () => {
