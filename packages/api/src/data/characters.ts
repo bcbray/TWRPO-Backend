@@ -1239,7 +1239,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 390, name: 'James Brown' },
     ],
     HolliverFist: [
-        { id: 1603, name: 'Erin McLyre' },
+        { id: 1603, name: 'Erin McLyre', telegram: 'IA571' },
     ],
     Hoop: [
         { id: 391, name: 'Barry Bjornson' }, // Former Sam's Club
