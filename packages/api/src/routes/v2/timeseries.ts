@@ -55,7 +55,7 @@ export const fetchTimeseries = async (
 
     let startDateQueryPart: string;
     if (start) {
-        startDateQueryPart = `'${start.toISOString()}'::timestamp`;
+        startDateQueryPart = `('${start.toISOString()}'::timestamp with time zone at time zone 'utc')::timestamp`;
     } else {
         startDateQueryPart = '(SELECT "firstSeenDate" FROM stream_chunk ORDER BY "firstSeenDate" ASC LIMIT 1)';
     }
@@ -63,10 +63,10 @@ export const fetchTimeseries = async (
     let endDateQueryPart: string;
     let endDate: Date;
     if (end) {
-        endDateQueryPart = `'${end.toISOString()}'::timestamp`;
+        endDateQueryPart = `('${end.toISOString()}'::timestamp with time zone at time zone 'utc')::timestamp`;
         endDate = end;
     } else {
-        endDateQueryPart = 'now()::date';
+        endDateQueryPart = 'now()::timestamp';
         endDate = new Date();
     }
 
@@ -75,10 +75,13 @@ export const fetchTimeseries = async (
     let stepQueryPart: string;
     if (deltaDays === undefined || deltaDays > 10) {
         stepQueryPart = '1 hour';
+        startDateQueryPart = `date_trunc('hour', ${startDateQueryPart})`;
     } else if (deltaDays > 2) {
         stepQueryPart = '20 min';
+        startDateQueryPart = `date_trunc('hour', ${startDateQueryPart}) + date_part('minute', ${startDateQueryPart})::INT / 20 * '20 min'::INTERVAL`;
     } else {
         stepQueryPart = '5 min';
+        startDateQueryPart = `date_trunc('hour', ${startDateQueryPart}) + date_part('minute', ${startDateQueryPart})::INT / 5 * '5 min'::INTERVAL`;
     }
 
     queryParams.push(server.id);
@@ -87,10 +90,7 @@ export const fetchTimeseries = async (
     const query = `
         SELECT d AS date, c.n AS count
             FROM   generate_series(
-                      date_trunc(
-                        'day',
-                        ${startDateQueryPart}
-                      ),
+                      ${startDateQueryPart},
                       ${endDateQueryPart},
                       '${stepQueryPart}'
                     ) d
