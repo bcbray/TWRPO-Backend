@@ -108,8 +108,10 @@ const Timeseries: React.FC<TimeseriesProps> = ({
         .attr("fill", "none")
         .attr("stroke", "none")
         .attr("pointer-events", "all")
-        .attr("width", width)
-        .attr("height", height);
+        .attr("x", -margin.left)
+        .attr("y", -margin.top)
+        .attr("width", svgWidth)
+        .attr("height", svgHeight);
 
    const xAxis = d3.axisBottom(xScale)
      .ticks(5)
@@ -252,7 +254,7 @@ const Timeseries: React.FC<TimeseriesProps> = ({
           : 0;
 
         highlightPoint.attr("transform", `translate(${xPos}, ${yPos})`);
-        highlightLine.attr("transform", `translate(${mouseXPos}, 0)`);
+        highlightLine.attr("transform", `translate(${Math.min(Math.max(mouseXPos,0), width)}, 0)`);
         tooltip.attr("transform", `translate(${xPos}, ${height + highlightRadius / 2})`);
         text.attr("transform", `translate(${-w / 2 - offset}, ${tt.h + m.v - y - (flipped ? tt.h : 0)})`);
         const r = 4;
@@ -302,7 +304,7 @@ const Timeseries: React.FC<TimeseriesProps> = ({
       })
       .on("touchstart", event => event.preventDefault());
 
-  }, [parsedData, width, height, margin.bottom, margin.top, margin.left, margin.right, span]);
+  }, [parsedData, width, height, margin.bottom, margin.top, margin.left, margin.right, span, svgWidth, svgHeight]);
 
   return <svg ref={svgRef} width={svgWidth} height={svgHeight} />;
 };
