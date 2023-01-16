@@ -245,7 +245,7 @@ const TimeseriesContainer: React.FC<{}> = () => {
   const { server } = useCurrentServer();
   const now = useNow(1000 * 60 * 60 * 24);
 
-  const [timeSpan, setTimeSpan] = React.useState<TimeSpan>('3m');
+  const [timeSpan, setTimeSpan] = React.useState<TimeSpan>('7d');
 
   const query = queryStringForTimeseriesParams({
     serverId: server.id,
