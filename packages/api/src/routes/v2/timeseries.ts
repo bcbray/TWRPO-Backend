@@ -61,10 +61,24 @@ export const fetchTimeseries = async (
     }
 
     let endDateQueryPart: string;
+    let endDate: Date;
     if (end) {
         endDateQueryPart = `'${end.toISOString()}'::timestamp`;
+        endDate = end;
     } else {
         endDateQueryPart = 'now()::date';
+        endDate = new Date();
+    }
+
+    const deltaDays = start === undefined ? undefined : (endDate.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+
+    let stepQueryPart: string;
+    if (deltaDays === undefined || deltaDays > 10) {
+        stepQueryPart = '1 hour';
+    } else if (deltaDays > 2) {
+        stepQueryPart = '20 min';
+    } else {
+        stepQueryPart = '5 min';
     }
 
     queryParams.push(server.id);
@@ -78,13 +92,13 @@ export const fetchTimeseries = async (
                         ${startDateQueryPart}
                       ),
                       ${endDateQueryPart},
-                      '1 hour'
+                      '${stepQueryPart}'
                     ) d
             CROSS  JOIN LATERAL (
                SELECT count(DISTINCT "streamerId")::int AS n
                FROM   stream_chunk
                WHERE  "serverId" = ${serverQueryParam}
-               AND    tsrange("firstSeenDate", "lastSeenDate") && tsrange(d, d + '1 hour'::INTERVAL)
+               AND    tsrange("firstSeenDate", "lastSeenDate") && tsrange(d, d + '${stepQueryPart}'::INTERVAL)
             ) c
             ORDER  BY date ASC;
     `;
