@@ -529,6 +529,7 @@ const getWrpLive = async (
 
                     let onOther = false;
                     let onOtherIncluded = false;
+                    let onOtherGeneric = false;
                     let serverName = '';
                     let matchedServer: ParsedServer | null = null;
 
@@ -544,7 +545,11 @@ const getWrpLive = async (
                                 onOther = true;
                                 serverName = overriddenServer?.name ?? '';
                                 matchedServer = overriddenServer ?? null;
-                                if (overriddenServer !== undefined && overriddenServer.isVisible) onOtherIncluded = true;
+                                if (overriddenServer !== undefined && overriddenServer.isVisible) {
+                                    onOtherIncluded = true;
+                                } else if (overriddenServer !== undefined && overriddenServer.isRoleplay) {
+                                    onOtherGeneric = true;
+                                }
                             } else {
                                 console.warn(JSON.stringify({
                                     level: 'error',
@@ -568,7 +573,11 @@ const getWrpLive = async (
                                         onOther = true;
                                         serverName = otherServer.name;
                                         matchedServer = otherServer;
-                                        if (otherServer.isVisible) onOtherIncluded = true;
+                                        if (otherServer.isVisible) {
+                                            onOtherIncluded = true;
+                                        } else if (otherServer.isRoleplay) {
+                                            onOtherGeneric = true;
+                                        }
                                         break servers; // eslint-disable-line no-labels
                                     }
                                 } catch (error) {
@@ -618,6 +627,7 @@ const getWrpLive = async (
                             const testMatchedServer = matchServer(title, [wrpServer, ...otherServers]);
                             const testOnOther = testMatchedServer !== null && testMatchedServer.id !== wrpServer.id;
                             const testOnOtherIncluded = testOnOther && testMatchedServer.isVisible;
+                            const testOnOtherGeneric = testOnOther && !testOnOtherIncluded && testMatchedServer.isRoleplay;
                             const testServerName = testOnOther ? testMatchedServer.name : '';
                             const testOnNp = testMatchedServer !== null && testMatchedServer.id === wrpServer.id;
 
@@ -625,6 +635,7 @@ const getWrpLive = async (
                                 testMatchedServer?.id !== matchedServer?.id
                                 || testOnOther !== onOther
                                 || testOnOtherIncluded !== onOtherIncluded
+                                || testOnOtherGeneric !== onOtherGeneric
                                 || testServerName !== serverName
                                 || testOnNp !== onNp
                             ) {
@@ -644,6 +655,9 @@ const getWrpLive = async (
 
                                     testOnOtherIncluded,
                                     onOtherIncluded,
+
+                                    testOnOtherGeneric,
+                                    onOtherGeneric,
 
                                     testServerName,
                                     serverName,
@@ -674,6 +688,10 @@ const getWrpLive = async (
                         streamState = FSTATES.other;
                     } else if ((onOtherIncluded || onMainOther || (npStreamer && onOther))) {
                         streamState = FSTATES.other;
+                    } else if (onOtherGeneric) {
+                        // Other server, but not a named server
+                        streamState = FSTATES.other;
+                        serverName = '';
                     } else if (npStreamer && !onMainOther && !onOther) {
                         // If NoPixel streamer that isn't on another server
                         streamState = FSTATES.nopixel;
