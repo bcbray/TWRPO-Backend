@@ -3171,7 +3171,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 962, name: 'Everett Silver' },
     ],
     ZambiGames: [
-        { id: 1094, name: 'Hank Handsome', nicknames: ['Handsome Hank'], displayName: 3 },
+        { id: 1094, name: 'Hank Hanson', nicknames: ['Handsome Hank'], displayName: 3 },
     ],
     Zarrqq: [
         { id: 963, name: 'Benjamin Gaines', nicknames: ['Ben'], displayName: 3, telegram: 'WA374' }, // Former Sam's Club
