@@ -2746,7 +2746,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1491, name: 'Jason Haynes' },
     ],
     The_Beautiful_Void: [
-        { id: 836, name: 'Katherine "Kate" Byrne', telegram: 'HY310' },
+        { id: 836, name: '[Medic] Katherine "Kate" Byrne', factions: ['Medical'], telegram: 'HY310' },
     ],
     The_Devils_Son: [
         { id: 837, name: 'Fredrick Smythe' },
