@@ -245,25 +245,30 @@ const Timeseries: React.FC<TimeseriesProps> = ({
         const xPos = xScale(date);
         const yPos = yScale(count);
         const flipped = false; // yPos - tth > 0;
+        const offset = xPos + w / 2 + m.h > width + margin.right
+          ? (xPos + w / 2 + m.h) - width - margin.right
+          : xPos - w / 2 - m.h < -margin.left
+          ? (xPos - w / 2 - m.h) + margin.left
+          : 0;
 
         highlightPoint.attr("transform", `translate(${xPos}, ${yPos})`);
         highlightLine.attr("transform", `translate(${mouseXPos}, 0)`);
         tooltip.attr("transform", `translate(${xPos}, ${height + highlightRadius / 2})`);
-        text.attr("transform", `translate(${-w / 2}, ${tt.h + m.v - y - (flipped ? tt.h : 0)})`);
+        text.attr("transform", `translate(${-w / 2 - offset}, ${tt.h + m.v - y - (flipped ? tt.h : 0)})`);
         const r = 4;
         path.attr("d", `
-          M ${-w / 2 - m.h + r} ${tt.h}
+          M ${-w / 2 - m.h + r - offset} ${tt.h}
           H ${-tt.w / 2}
-          l ${tt.w / 2} -${tt.h}
-          l ${tt.w / 2} ${tt.h}
-          H ${w / 2 + m.h - r}
-          A ${r} ${r} 0 0 1 ${w / 2 + m.h} ${tt.h + r}
+          L 0 0
+          L ${tt.w / 2} ${tt.h}
+          H ${w / 2 + m.h - r - offset}
+          A ${r} ${r} 0 0 1 ${w / 2 + m.h - offset} ${tt.h + r}
           V ${h + m.v + m.v + tt.h - r}
-          A ${r} ${r} 0 0 1 ${w / 2 + m.h - r} ${h + m.v + m.v + tt.h}
-          H ${-w / 2 - m.h + r}
-          A ${r} ${r} 0 0 1 ${-w / 2 - m.h} ${h + m.v + m.v + tt.h - r}
-          L ${-w / 2 - m.h} ${tt.h + r}
-          A ${r} ${r} 0 0 1 ${-w / 2 - m.h + r} ${tt.h}
+          A ${r} ${r} 0 0 1 ${w / 2 + m.h - r - offset} ${h + m.v + m.v + tt.h}
+          H ${-w / 2 - m.h + r - offset}
+          A ${r} ${r} 0 0 1 ${-w / 2 - m.h - offset} ${h + m.v + m.v + tt.h - r}
+          L ${-w / 2 - m.h - offset} ${tt.h + r}
+          A ${r} ${r} 0 0 1 ${-w / 2 - m.h + r - offset} ${tt.h}
           z
         `);
         path.attr("transform", `rotate(${flipped ? 180 : 0}, 0, ${(h + 20 + tt.h) / 2})`)
