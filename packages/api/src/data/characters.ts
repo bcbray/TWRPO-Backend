@@ -1872,7 +1872,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1294, name: 'Diana Bennet' },
     ],
     Mo1taz: [
-        { id: 1327, name: 'Lennart Hellström' },
+        { id: 1327, name: 'Lennart Hellström', telegram: 'RM829' },
     ],
     Mooftress: [
         { id: 1044, name: 'Erie Waters' },
