@@ -1700,7 +1700,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1544, name: 'Hutch Vandal' },
     ],
     Lithiaris: [
-        { id: 518, name: '[Doctor?] Lark Atwood', factions: ['Medical'], telegram: 'MB861' },
+        { id: 518, name: '[Doctor] Lark Atwood', factions: ['Medical'], telegram: 'MB861' },
         { id: 519, name: '[Deputy] Sylvie Chevalier', factions: ['Law'], telegram: 'OR480' },
         { id: 1024, name: 'Hollyhock' },
     ],
