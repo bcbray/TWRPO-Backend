@@ -151,7 +151,8 @@ const Timeseries: React.FC<TimeseriesProps> = ({
       .data([undefined])
       .join("line")
       .attr("opacity", "0.5")
-      .attr("stroke", "var(--theme-gray-600)");
+      .attr("stroke", "var(--theme-gray-600)")
+      .style("display", "none");
 
     const highlightRadius = 3;
     const highlightLine = svg.append("g")
@@ -163,19 +164,23 @@ const Timeseries: React.FC<TimeseriesProps> = ({
       .attr("x1", 0)
       .attr("x2", 0)
       .attr("y1", 0)
-      .attr("y2", height);
+      .attr("y2", height)
+      .style("display", "none");
     const highlightPoint = svg.append("g")
       .selectAll("circle")
       .data([undefined])
       .join("circle")
       .attr("fill", "var(--theme-primary-color-hover)")
-      .attr("r", `${highlightRadius}`);
+      .attr("r", `${highlightRadius}`)
+      .style("display", "none");
 
     const tooltip = svg.append("g")
-      .style("pointer-events", "none");
+      .style("pointer-events", "none")
+      .style("display", "none");
 
     const tooltip2 = svg.append("g")
       .style("pointer-events", "none")
+      .style("display", "none");
 
     svg
       .on("pointerenter pointermove", (event) => {
