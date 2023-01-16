@@ -91,7 +91,8 @@ export const fetchTimeseries = async (
 
     const results: { date: string, count: number }[] = await dataSource
         .query(query, queryParams);
-    return { data: results };
+    const first = results.findIndex(d => d.count > 0);
+    return { data: first > 0 ? results.slice(first) : results };
 };
 
 export const parseTimeseriesQuery = (query: Request['query'] | URLSearchParams): TimeseriesParams | { error: string } => {
