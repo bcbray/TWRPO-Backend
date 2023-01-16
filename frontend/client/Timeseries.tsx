@@ -91,9 +91,10 @@ const Timeseries: React.FC<TimeseriesProps> = ({
     const yScale = d3.scaleLinear()
       .domain([
         0,
-        d3.max(parsedData, (d) => d.count) ?? 0
+        (d3.max(parsedData, (d) => d.count) ?? 0) * 1.1
       ])
-      .range([height, 0]);
+      .range([height, 0])
+      .nice();
     const svgEl = d3.select(svgRef.current);
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements
     const svg = svgEl
@@ -145,24 +146,48 @@ const Timeseries: React.FC<TimeseriesProps> = ({
       .attr("stroke-width", 2)
       .attr("d", (d) => line(d));
 
+    const annotationLine = svg.append("g")
+      .selectAll("line")
+      .data([undefined])
+      .join("line")
+      .attr("opacity", "0.5")
+      .attr("stroke", "var(--theme-gray-600)");
+
     const highlightRadius = 3;
-    const highlight = svg.append("g")
+    const highlightLine = svg.append("g")
+      .selectAll("line")
+      .data([undefined])
+      .join("line")
+      .attr("opacity", "0.5")
+      .attr("stroke", "var(--theme-primary-color-hover)")
+      .attr("x1", 0)
+      .attr("x2", 0)
+      .attr("y1", 0)
+      .attr("y2", height);
+    const highlightPoint = svg.append("g")
       .selectAll("circle")
       .data([undefined])
       .join("circle")
-      .attr("fill", "var(--theme-primary-color)")
+      .attr("fill", "var(--theme-primary-color-hover)")
       .attr("r", `${highlightRadius}`);
 
     const tooltip = svg.append("g")
       .style("pointer-events", "none");
 
+    const tooltip2 = svg.append("g")
+      .style("pointer-events", "none")
+
     svg
       .on("pointerenter pointermove", (event) => {
-        const i = d3.bisectCenter(parsedData.map(d => d.date), xScale.invert(d3.pointer(event)[0]));
+        const mouseXPos = d3.pointer(event)[0];
+        const i = d3.bisectCenter(parsedData.map(d => d.date), xScale.invert(mouseXPos));
         const date = parsedData[i].date;
         const count = parsedData[i].count;
         tooltip.style("display", null);
-        highlight.style("display", null);
+        tooltip2.style("display", null);
+        highlightPoint.style("display", null);
+        highlightLine.style("display", null);
+        annotationLine.style("display", null);
 
         const path = tooltip.selectAll("path")
           .data([undefined])
@@ -175,45 +200,94 @@ const Timeseries: React.FC<TimeseriesProps> = ({
           .join("text")
             .call(text => text
               .selectAll("tspan")
-              .data([xScale.tickFormat(0, timeSpanFormat(span))(date), `${count} streamers`])
+              .data([xScale.tickFormat(0, timeSpanFormat(span))(date)])
+              // .data([xScale.tickFormat(0, timeSpanFormat(span))(date), `${count} streamers`])
               .join("tspan")
                 .attr("x", 0)
                 .attr("y", (_, i) => `${i * 1.1}em`)
-                .attr("font-weight", (_, i) => i ? null : "bold")
+                // .attr("font-weight", (_, i) => i ? null : "bold")
                 .attr("color", "var(--theme-gray-900)")
+                .attr("font-size", "0.75rem")
                 .text(d => d));
 
-        const { y, width: w, height: h } = (text.node() as SVGGraphicsElement).getBBox();
-        const tt = { w: 12.8, h: 6.4 };
-        const yPos = yScale(count);
-        const tth = (h + 20 + tt.h);
-        const flipped = yPos - tth > 0;
 
-        highlight.attr("transform", `translate(${xScale(date)}, ${yPos})`);
-        tooltip.attr("transform", `translate(${xScale(date)}, ${yPos - (flipped ? tth + highlightRadius : -highlightRadius)})`);
-        text.attr("transform", `translate(${-w / 2}, ${tt.h + 10 - y - (flipped ? tt.h : 0)})`);
+        const path2 = tooltip2.selectAll("rect")
+                .data([undefined])
+                .join("rect")
+                // .attr("opacity", 0.6)
+                .attr("rx", 4)
+                .attr("fill", "var(--theme-gray-200)");
+
+        const text2 = tooltip2.selectAll("text")
+                .attr("fill", "currentColor")
+                .data([undefined])
+                .join("text")
+                  .call(text => text
+                    .selectAll("tspan")
+                    .data([`${count} streamers`])
+                    .join("tspan")
+                      .attr("x", 0)
+                      .attr("y", (_, i) => `${i * 1.1}em`)
+                      // .attr("font-weight", (_, i) => i ? null : "bold")
+                      .attr("color", "var(--theme-gray-900)")
+                      .attr("font-size", "0.75rem")
+                      .text(d => d));
+
+
+        const { y, width: w, height: h } = (text.node() as SVGGraphicsElement).getBBox();
+        const tt = { w: 12.8 * 0.5, h: 6.4 * 0.5 };
+        const m = { h: 8, v: 5 };
+        const xPos = xScale(date);
+        const yPos = yScale(count);
+        const flipped = false; // yPos - tth > 0;
+
+        highlightPoint.attr("transform", `translate(${xPos}, ${yPos})`);
+        highlightLine.attr("transform", `translate(${mouseXPos}, 0)`);
+        tooltip.attr("transform", `translate(${xPos}, ${height + highlightRadius / 2})`);
+        text.attr("transform", `translate(${-w / 2}, ${tt.h + m.v - y - (flipped ? tt.h : 0)})`);
         const r = 4;
         path.attr("d", `
-          M ${-w / 2 - 10 + r} ${tt.h}
+          M ${-w / 2 - m.h + r} ${tt.h}
           H ${-tt.w / 2}
           l ${tt.w / 2} -${tt.h}
           l ${tt.w / 2} ${tt.h}
-          H ${w / 2 + 10 - r}
-          A ${r} ${r} 0 0 1 ${w / 2 + 10} ${tt.h + r}
-          V ${h + 20 + tt.h - r}
-          A ${r} ${r} 0 0 1 ${w / 2 + 10 - r} ${h + 20 + tt.h}
-          H ${-w / 2 - 10 + r}
-          A ${r} ${r} 0 0 1 ${-w / 2 - 10} ${h + 20 + tt.h - r}
-          L ${-w / 2 - 10} ${tt.h + r}
-          A ${r} ${r} 0 0 1 ${-w / 2 - 10 + r} ${tt.h}
+          H ${w / 2 + m.h - r}
+          A ${r} ${r} 0 0 1 ${w / 2 + m.h} ${tt.h + r}
+          V ${h + m.v + m.v + tt.h - r}
+          A ${r} ${r} 0 0 1 ${w / 2 + m.h - r} ${h + m.v + m.v + tt.h}
+          H ${-w / 2 - m.h + r}
+          A ${r} ${r} 0 0 1 ${-w / 2 - m.h} ${h + m.v + m.v + tt.h - r}
+          L ${-w / 2 - m.h} ${tt.h + r}
+          A ${r} ${r} 0 0 1 ${-w / 2 - m.h + r} ${tt.h}
           z
         `);
         path.attr("transform", `rotate(${flipped ? 180 : 0}, 0, ${(h + 20 + tt.h) / 2})`)
+
+        const { y: y2, width: w2, height: h2 } = (text2.node() as SVGGraphicsElement).getBBox();
+        const yTarget = Math.round((yPos / height) * 6) / 6 * height;
+        tooltip2.attr("transform", `translate(${xPos < width / 2 ? xPos + 25: xPos - w2 - 16 - 25}, ${yTarget < h2 + 60 ? yTarget + 20 : yTarget - 20 - h2 - 10})`);
+
+        path2
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("width", w2 + 16)
+          .attr("height", h2 + 10)
+        text2.attr("transform", `translate(8, ${5 - y2})`);
+
+        annotationLine
+          .attr("x1", xPos)
+          .attr("y1", yPos)
+          .attr("x2", xPos < width / 2 ? xPos + 25 + 4: xPos - 25 - 4)
+          .attr("y2", yTarget < h2 + 60 ? yTarget + 20 + 4 : yTarget - 20 - 4);
+
         svg.property("value", parsedData[i]).dispatch("input", {bubbles: true, cancelable: true, detail: null});
       })
       .on("pointerleave", () => {
         tooltip.style("display", "none");
-        highlight.style("display", "none");
+        tooltip2.style("display", "none");
+        highlightPoint.style("display", "none");
+        highlightLine.style("display", "none");
+        annotationLine.style("display", "none");
         svg.property("value", null).dispatch("input", {bubbles: true, cancelable: true, detail: null});
       })
       .on("touchstart", event => event.preventDefault());
@@ -285,9 +359,9 @@ const TimeseriesContainer: React.FC<{}> = () => {
       {isSuccess(loadState) &&
         <Timeseries
           data={loadState.data}
-          width={width - 60}
+          width={width - 50}
           height={300}
-          margin={{ top: 0, right: 0, bottom: 30, left: 30 }}
+          margin={{ top: 3, right: 20, bottom: 30, left: 30 }}
           span={timeSpan}
         />
       }
