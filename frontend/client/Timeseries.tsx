@@ -142,17 +142,27 @@ const Timeseries: React.FC<TimeseriesProps> = ({
       .append("path")
       .attr("fill", "none")
       .attr("stroke", "var(--theme-primary-color)")
-      .attr("stroke-width", 3)
+      .attr("stroke-width", 2)
       .attr("d", (d) => line(d));
 
+    const highlightRadius = 3;
+    const highlight = svg.append("g")
+      .selectAll("circle")
+      .data([undefined])
+      .join("circle")
+      .attr("fill", "var(--theme-primary-color)")
+      .attr("r", `${highlightRadius}`);
+
     const tooltip = svg.append("g")
-        .style("pointer-events", "none");
+      .style("pointer-events", "none");
+
     svg
       .on("pointerenter pointermove", (event) => {
         const i = d3.bisectCenter(parsedData.map(d => d.date), xScale.invert(d3.pointer(event)[0]));
         const date = parsedData[i].date;
         const count = parsedData[i].count;
         tooltip.style("display", null);
+        highlight.style("display", null);
 
         const path = tooltip.selectAll("path")
           .data([undefined])
@@ -179,7 +189,8 @@ const Timeseries: React.FC<TimeseriesProps> = ({
         const tth = (h + 20 + tt.h);
         const flipped = yPos - tth > 0;
 
-        tooltip.attr("transform", `translate(${xScale(date)}, ${yPos - (flipped ? tth : 0)})`);
+        highlight.attr("transform", `translate(${xScale(date)}, ${yPos})`);
+        tooltip.attr("transform", `translate(${xScale(date)}, ${yPos - (flipped ? tth + highlightRadius : -highlightRadius)})`);
         text.attr("transform", `translate(${-w / 2}, ${tt.h + 10 - y - (flipped ? tt.h : 0)})`);
         const r = 4;
         path.attr("d", `
@@ -202,6 +213,7 @@ const Timeseries: React.FC<TimeseriesProps> = ({
       })
       .on("pointerleave", () => {
         tooltip.style("display", "none");
+        highlight.style("display", "none");
         svg.property("value", null).dispatch("input", {bubbles: true, cancelable: true, detail: null});
       })
       .on("touchstart", event => event.preventDefault());
