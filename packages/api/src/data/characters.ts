@@ -2934,7 +2934,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 894, name: 'Alfred Kidd' },
     ],
     Tmparro01: [
-        { id: 1580, name: '[Deputy] Rubin Wiley', factions: ['Law'] },
+        { id: 1580, name: '[Deputy] Rubin Wiley', factions: ['Law'], telegram: 'SW311' },
     ],
     TnFD: [
         { id: 895, name: 'Julian Charleston' },
