@@ -788,7 +788,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1189, name: 'Winter Frost', factions: ['Lifer'] }, // Unsure of faction
     ],
     Drawn_Sean: [
-        { id: 1474, name: 'Dean Bean' },
+        { id: 1474, name: 'Dean Bean', factions: ['The Strays'] },
     ],
     DreadfullyDespized: [
         { id: 238, name: 'Byong Ho' },
@@ -1782,7 +1782,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     madhare23: [
         { id: 1377, name: 'Edward Bretton', telegram: 'IN643' },
-        { id: 1378, name: 'Jugg Washburn', telegram: 'TF573' },
+        { id: 1378, name: 'Jugg Washburn', factions: ['The Strays'], telegram: 'TF573' },
         { id: 1608, name: 'Edmund Rivett', telegram: 'ZP509' },
         { id: 1609, name: 'Kurtis "Big Swell" Swell' },
     ],
@@ -2263,7 +2263,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     RiftImpy: [
         { id: 1247, name: 'Bartholomew "Barty" Brue', factions: ['The Ring'], telegram: 'RY254' },
-        { id: 1624, name: 'Cole Duncan', nicknames: ['Dusty'], telegram: 'US762' },
+        { id: 1624, name: 'Cole Duncan', nicknames: ['Dusty'], factions: ['The Strays'], telegram: 'US762' },
     ],
     Roach_tm: [
         { id: 677, name: 'Tony Moretti', factions: ['DiCenzo Famiglia'], telegram: 'GW121' }, // Inactive DiCenzo
@@ -2371,7 +2371,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 985, name: 'Pat Hetic' },
     ],
     ScottAndTheFullEffect: [
-        { id: 1471, name: 'Burt Daniels', nicknames: ['Burt Kurt'], telegram: 'JY160' },
+        { id: 1471, name: 'Burt Daniels', nicknames: ['Burt Kurt'], factions: ['The Strays'], telegram: 'JY160' },
     ],
     ScottJitsu: [
         { id: 711, name: 'Reno Cash' },
@@ -2615,7 +2615,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1616, name: 'Ember Shaw' },
     ],
     stenchserpow: [
-        { id: 1426, name: 'Joseph "Hobo Joe" Quinn', telegram: 'MV078' },
+        { id: 1426, name: 'Joseph "Hobo Joe" Quinn', factions: ['The Strays'], telegram: 'MV078' },
     ],
     Stichboy: [
         { id: 791, name: 'Jeremiah Smoak' },
