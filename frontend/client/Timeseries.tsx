@@ -259,7 +259,7 @@ const TimeseriesContainer: React.FC<{}> = () => {
       eventKey={ts}
       active={ts === timeSpan}
     >
-      {ts}
+      {timeSpanName(ts)}
     </DropdownItem>
   }))
 
