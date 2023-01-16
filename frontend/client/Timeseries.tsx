@@ -1,6 +1,11 @@
 import React from 'react';
 import * as d3 from 'd3';
 import { useMeasure } from 'react-use';
+import {
+  subWeeks,
+  subDays,
+  subMonths
+} from 'date-fns';
 import { TimeseriesResponse } from '@twrpo/types';
 
 import { useCurrentServer } from './CurrentServer';
@@ -8,6 +13,9 @@ import {
   useLoading,
   isSuccess,
 } from './LoadingState';
+import { useNow } from './Data';
+import { FancyDropdown, LineItem } from './FancyDropdown'
+import DropdownItem from './DropdownItem';
 
 interface TimeseriesParams {
     start?: Date;
@@ -191,24 +199,76 @@ const Timeseries: React.FC<TimeseriesProps> = ({
   return <svg ref={svgRef} width={svgWidth} height={svgHeight} />;
 };
 
+type TimeSpan = '1d' | '7d' | '3m' | 'start';
+const timeSpans: TimeSpan[] = ['1d', '7d', '3m', 'start']
+
+const timeSpanName = (timeSpan: TimeSpan) => {
+  if (timeSpan === '1d') {
+    return '1 day';
+  } else if (timeSpan === '7d') {
+    return '1 week';
+  } else if (timeSpan === '3m') {
+    return '3 months';
+  } else {
+    return 'All'
+  }
+}
+
+interface TimeSpanLineItem extends LineItem {
+  span: TimeSpan;
+}
+
 const TimeseriesContainer: React.FC<{}> = () => {
   const { server } = useCurrentServer();
+  const now = useNow(1000 * 60 * 60 * 24);
 
-  const query = queryStringForTimeseriesParams({ serverId: server.id });
+  const [timeSpan, setTimeSpan] = React.useState<TimeSpan>('3m');
+
+  const query = queryStringForTimeseriesParams({
+    serverId: server.id,
+    start: timeSpan === '1d'
+      ? subDays(now, 1)
+      : timeSpan === '7d'
+      ? subWeeks(now, 1)
+      : timeSpan === '3m'
+      ? subMonths(now, 3)
+      : undefined,
+  });
 
   const [loadState] = useLoading<TimeseriesResponse>(`/api/v2/timeseries${query ? `?${query}` : ''}`);
   const [ref, { width }] = useMeasure<HTMLDivElement>();
 
-  return <div ref={ref}>
-    {isSuccess(loadState) &&
-      <Timeseries
-        data={loadState.data}
-        width={width - 60}
-        height={300}
-        margin={{ top: 0, right: 0, bottom: 30, left: 30 }}
-      />
-    }
-  </div>;
+  const lineItems: TimeSpanLineItem[] = timeSpans.map(ts => ({
+    id: ts,
+    span: ts,
+    name: timeSpanName(ts),
+    element: <DropdownItem
+      key={ts}
+      onClick={e => e.preventDefault()}
+      eventKey={ts}
+      active={ts === timeSpan}
+    >
+      {ts}
+    </DropdownItem>
+  }))
+
+  return <>
+    <FancyDropdown
+      title={timeSpanName(timeSpan)}
+      items={lineItems}
+      onSelect={item => item && setTimeSpan(item.span)}
+    />
+    <div ref={ref}>
+      {isSuccess(loadState) &&
+        <Timeseries
+          data={loadState.data}
+          width={width - 60}
+          height={300}
+          margin={{ top: 0, right: 0, bottom: 30, left: 30 }}
+        />
+      }
+    </div>
+  </>;
 };
 
 export default TimeseriesContainer;
