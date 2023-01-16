@@ -84,7 +84,7 @@ export const fetchTimeseries = async (
                SELECT count(DISTINCT "streamerId")::int AS n
                FROM   stream_chunk
                WHERE  "serverId" = ${serverQueryParam}
-               AND    ("firstSeenDate", "lastSeenDate") OVERLAPS (d, '1 hour'::INTERVAL)
+               AND    tsrange("firstSeenDate", "lastSeenDate") && tsrange(d, d + '1 hour'::INTERVAL)
             ) c
             ORDER  BY date ASC;
     `;

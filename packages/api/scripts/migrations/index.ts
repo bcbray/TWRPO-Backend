@@ -25,6 +25,7 @@ import { StreamChunkIsLive1664395881280 } from './1664395881280-StreamChunkIsLiv
 import { RemoveProcessingThumbnails1668363387900 } from './1668363387900-RemoveProcessingThumbnails';
 import { RemoveProcessingThumbnailsAgain1668442450700 } from './1668442450700-RemoveProcessingThumbnailsAgain';
 import { StreamChunkUncertainServer1669155341157 } from './1669155341157-StreamChunkUncertainServer';
+import { TimeseriesIndex1673833926314 } from './1673833926314-Timeseries-Index';
 
 export default [
     Initial1660336359134,
@@ -54,4 +55,5 @@ export default [
     RemoveProcessingThumbnails1668363387900,
     RemoveProcessingThumbnailsAgain1668442450700,
     StreamChunkUncertainServer1669155341157,
+    TimeseriesIndex1673833926314,
 ];
