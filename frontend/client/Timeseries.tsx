@@ -49,11 +49,22 @@ const queryStringForTimeseriesParams = (params: TimeseriesParams): string => {
   return searchParams.toString();
 };
 
+type TimeSpan = '1d' | '7d' | '3m' | 'start';
+
 interface TimeseriesProps {
   data: TimeseriesResponse;
   width: number;
   height: number;
   margin: { top: number, right: number, bottom: number, left: number };
+  span: TimeSpan;
+}
+
+const timeSpanFormat = (timeSpan: TimeSpan) => {
+  if (timeSpan === '1d' || timeSpan === '7d') {
+    return '%b %-d, %Y %-I:%M %p';
+  } else {
+    return '%b %-d, %Y %-I %p'
+  }
 }
 
 
@@ -62,6 +73,7 @@ const Timeseries: React.FC<TimeseriesProps> = ({
   width,
   height,
   margin,
+  span,
 }) => {
   const svgRef = React.useRef(null);
   // const margin = { top: 30, right: 30, bottom: 30, left: 60 };
@@ -153,7 +165,7 @@ const Timeseries: React.FC<TimeseriesProps> = ({
           .join("text")
             .call(text => text
               .selectAll("tspan")
-              .data([xScale.tickFormat(0, "%b %-d, %Y %-I %p")(date), `${count} streamers`])
+              .data([xScale.tickFormat(0, timeSpanFormat(span))(date), `${count} streamers`])
               .join("tspan")
                 .attr("x", 0)
                 .attr("y", (_, i) => `${i * 1.1}em`)
@@ -194,12 +206,11 @@ const Timeseries: React.FC<TimeseriesProps> = ({
       })
       .on("touchstart", event => event.preventDefault());
 
-  }, [parsedData, width, height, margin.bottom, margin.top, margin.left, margin.right]);
+  }, [parsedData, width, height, margin.bottom, margin.top, margin.left, margin.right, span]);
 
   return <svg ref={svgRef} width={svgWidth} height={svgHeight} />;
 };
 
-type TimeSpan = '1d' | '7d' | '3m' | 'start';
 const timeSpans: TimeSpan[] = ['1d', '7d', '3m', 'start']
 
 const timeSpanName = (timeSpan: TimeSpan) => {
@@ -265,6 +276,7 @@ const TimeseriesContainer: React.FC<{}> = () => {
           width={width - 60}
           height={300}
           margin={{ top: 0, right: 0, bottom: 30, left: 30 }}
+          span={timeSpan}
         />
       }
     </div>
