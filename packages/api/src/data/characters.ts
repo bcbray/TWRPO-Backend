@@ -583,7 +583,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 171, name: 'Franco "Frank" Salvatore Murdock', nicknames: ['Fwank'] },
         { id: 172, name: 'Cash Colton', factions: ['Coltons'] },
     ],
-    Coolranch15: [
+    CoolRanchOfficial: [
         { id: 1469, name: 'Jules Preston', telegram: 'LA938' },
     ],
     CopernicusTheDesertWizard: [
