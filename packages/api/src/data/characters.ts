@@ -482,7 +482,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 135, name: 'Franklin Costella' },
         { id: 136, name: 'James "Jimi" Black' },
     ],
-    capnsmitty9: [
+    CapnSmitty9: [
         { id: 1670, name: '[Doctor] Calvin Smith', factions: ['Medical'], telegram: 'VM831' },
     ],
     capsure: [
