@@ -1029,7 +1029,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1545, name: 'Cass Darling' },
         { id: 1546, name: 'Karina Durst' },
     ],
-    fluffalumpalump: [
+    Fluffalumpalump: [
         { id: 1669, name: '[Trainee] Ellie Rose', factions: ['Medical'] },
     ],
     ForeheadSkin: [
