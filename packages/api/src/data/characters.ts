@@ -245,11 +245,11 @@ export const wrpCharacters: WrpCharacters = {
         { id: 57, name: 'Mo Tengfei' },
     ],
     avocadotoasty83: [
-        { id: 1371, name: 'Naomi Angeli', nicknames: ['𝒩𝒶𝑜𝓂𝒾 𝒜𝓃𝑔𝑒𝓁𝒾'], telegram: 'BP413' },
-        { id: 1414, name: 'Camila Madrazo', nicknames: ['𝓒𝓪𝓶𝓲𝓵𝓪 𝓜𝓪𝓭𝓻𝓪𝔃𝓸'] },
-        { id: 1434, name: 'Raven Blackwood' }, // 𝕽𝖆𝖛𝖊𝖓 𝕭𝖑𝖆𝖈𝖐𝖜𝖔𝖔𝖉
-        { id: 1506, name: 'Cordelia Crabtree' }, // 𝓒𝓸𝓻𝓭𝓮𝓵𝓲𝓪 𝓒𝓻𝓪𝓫𝓽𝓻𝓮𝓮
-        { id: 1677, name: 'Rainbow Meadows' }, // 𝓡𝓪𝓲𝓷𝓫𝓸𝔀 𝓜𝓮𝓪𝓭𝓸𝔀𝓼
+        { id: 1371, name: 'Naomi Angeli', nicknames: [reg(/𝒩𝒶𝑜𝓂𝒾|𝒜𝓃𝑔𝑒𝓁𝒾|𝓝𝓪𝓸𝓶𝓲|𝓐𝓷𝓰𝓮𝓵𝓲/)], telegram: 'BP413' }, // 𝒩𝒶𝑜𝓂𝒾 𝒜𝓃𝑔𝑒𝓁𝒾, 𝓝𝓪𝓸𝓶𝓲 𝓐𝓷𝓰𝓮𝓵𝓲
+        { id: 1414, name: 'Camila Madrazo', nicknames: [reg(/𝓒𝓪𝓶𝓲𝓵𝓪|𝓜𝓪𝓭𝓻𝓪𝔃𝓸/)] }, // 𝓒𝓪𝓶𝓲𝓵𝓪 𝓜𝓪𝓭𝓻𝓪𝔃𝓸
+        { id: 1434, name: 'Raven Blackwood', nicknames: [reg(/𝕽𝖆𝖛𝖊𝖓|𝕭𝖑𝖆𝖈𝖐𝖜𝖔𝖔𝖉/)] }, // 𝕽𝖆𝖛𝖊𝖓 𝕭𝖑𝖆𝖈𝖐𝖜𝖔𝖔𝖉
+        { id: 1506, name: 'Cordelia Crabtree', nicknames: [reg(/𝓒𝓸𝓻𝓭𝓮𝓵𝓲𝓪|𝓒𝓻𝓪𝓫𝓽𝓻𝓮𝓮/)] }, // 𝓒𝓸𝓻𝓭𝓮𝓵𝓲𝓪 𝓒𝓻𝓪𝓫𝓽𝓻𝓮𝓮
+        { id: 1677, name: 'Rainbow Meadows', nicknames: [reg(/𝓡𝓪𝓲𝓷𝓫𝓸𝔀|𝓜𝓮𝓪𝓭𝓸𝔀𝓼/)] }, // 𝓡𝓪𝓲𝓷𝓫𝓸𝔀 𝓜𝓮𝓪𝓭𝓸𝔀𝓼
     ],
     AwaBeats: [
         { id: 58, name: 'Ali Mason' }, // Red Water? Did a bank job with them
