@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1684
+// Next ID: 1685
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -1161,6 +1161,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 362, name: 'Homer Carnes', deceased: true }, // Former Deputy?
         { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'], deceased: true }, // Considered to be the one and only leader of the Kettleman Gang
         { id: 1323, name: '[Deputy] Pop Sullivan', factions: ['Law'], telegram: 'EX817' },
+        { id: 1684, name: 'Sebasian "Sebas" Rudea' },
     ],
     GraveGamerTV: [
         { id: 365, name: 'Paulson Greer' },
