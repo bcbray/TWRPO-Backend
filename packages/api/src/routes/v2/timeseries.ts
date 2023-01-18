@@ -53,11 +53,14 @@ export const fetchTimeseries = async (
 
     const queryParams: any[] = [];
 
+    queryParams.push(server.id);
+    const serverQueryParam = `$${queryParams.length}`;
+
     let startDateQueryPart: string;
     if (start) {
         startDateQueryPart = `('${start.toISOString()}'::timestamp with time zone at time zone 'utc')::timestamp`;
     } else {
-        startDateQueryPart = '(SELECT "firstSeenDate" FROM stream_chunk ORDER BY "firstSeenDate" ASC LIMIT 1)';
+        startDateQueryPart = `(SELECT "firstSeenDate" FROM stream_chunk WHERE  "serverId" = ${serverQueryParam} ORDER BY "firstSeenDate" ASC LIMIT 1)`;
     }
 
     let endDateQueryPart: string;
@@ -84,9 +87,6 @@ export const fetchTimeseries = async (
         startDateQueryPart = `date_trunc('hour', ${startDateQueryPart}) + date_part('minute', ${startDateQueryPart})::INT / 5 * '5 min'::INTERVAL`;
     }
 
-    queryParams.push(server.id);
-    const serverQueryParam = `$${queryParams.length}`;
-
     const query = `
         SELECT d AS date, c.n AS count
             FROM   generate_series(
@@ -105,8 +105,7 @@ export const fetchTimeseries = async (
 
     const results: { date: string, count: number }[] = await dataSource
         .query(query, queryParams);
-    const first = results.findIndex(d => d.count > 0);
-    return { data: first > 0 ? results.slice(first) : results };
+    return { data: results };
 };
 
 export const parseTimeseriesQuery = (query: Request['query'] | URLSearchParams): TimeseriesParams | { error: string } => {
