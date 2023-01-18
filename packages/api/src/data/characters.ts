@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1683
+// Next ID: 1684
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -2248,6 +2248,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     raulsi: [
         { id: 1682, name: 'Leslie Oak' }, // Seems to try and hide character name on stream. Might be the '????' in stream titles. Not sure if there’s lore around that.
+        { id: 1683, name: '‪Battuvshin Lkhagvasuren' },
     ],
     Rayormy: [
         { id: 671, name: 'Adelaide Henry' },
