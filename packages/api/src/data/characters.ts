@@ -613,7 +613,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1301, name: 'Abraham Solomon' },
     ],
     CuddlyJays: [
-        { id: 1659, name: 'Sebastion Livingstone' },
+        { id: 1659, name: 'Sebastian Livingstone' },
     ],
     CyboargTV: [
         { id: 178, name: 'Porter ONeill' },
