@@ -1372,7 +1372,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 418, name: 'Dandy Smells' },
     ],
     ItsGrumpyGramps: [
-        { id: 1368, name: '[Cadet] Profit Quil', factions: ['Law', 'Bluestone'], telegram: 'OI576' },
+        { id: 1368, name: '[Deputy] Profit Quil', factions: ['Law', 'Bluestone'], telegram: 'OI576' },
     ],
     itsjustasummerjob: [
         { id: 1219, name: 'Elisabeth Darling' },
