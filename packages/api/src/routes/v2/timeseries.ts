@@ -1,17 +1,14 @@
 import { Router, Request } from 'express';
 import { DataSource } from 'typeorm';
-import { TimeseriesResponse, UserResponse } from '@twrpo/types';
+import { TimeseriesResponse } from '@twrpo/types';
 
 import { Server } from '../../db/entity/Server';
-import { SessionUser } from '../../SessionUser';
-import { fetchSessionUser } from './whoami';
 import {
     queryParamDate,
     queryParamString,
     queryParamInteger,
     ParamError,
 } from '../../queryParams';
-import { isGlobalEditor } from '../../userUtils';
 
 export interface TimeseriesParams {
     start?: Date;
@@ -22,15 +19,8 @@ export interface TimeseriesParams {
 
 export const fetchTimeseries = async (
     dataSource: DataSource,
-    params: TimeseriesParams,
-    currentUser: UserResponse
+    params: TimeseriesParams
 ): Promise<TimeseriesResponse> => {
-    // Temporarily restrict to editors
-    if (!isGlobalEditor(currentUser)) {
-        // TODO: Error?
-        return { data: [] };
-    }
-
     const {
         start,
         end,
@@ -133,8 +123,7 @@ const buildRouter = (dataSource: DataSource): Router => {
             const { error } = params;
             return res.status(400).send({ success: false, error });
         }
-        const currentUser = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const result = await fetchTimeseries(dataSource, params, currentUser);
+        const result = await fetchTimeseries(dataSource, params);
         return res.send(result);
     });
 

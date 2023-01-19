@@ -11,7 +11,6 @@ import DropdownItem from './DropdownItem';
 import { useCurrentServer, CurrentServerProvider } from './CurrentServer';
 import Streams from './Streams';
 import Timeseries from './Timeseries';
-import { useAuthorization } from './auth';
 
 interface ServerStreamsProps {
 
@@ -28,7 +27,6 @@ const ServerStreams: React.FC<ServerStreamsProps> = () => {
   const { serverId: serverIdParam } = params;
   const serverId = serverIdParam !== undefined ? Number.parseInt(serverIdParam) : primaryServer.server.id;
   const [serversLoadState] = useServers();
-  const canViewTimeseries = useAuthorization('view-timeseries')
 
   const selectedServer = serverId && isSuccess(serversLoadState)
     ? serversLoadState.data.servers.find(server => server.id === serverId)
@@ -67,12 +65,12 @@ const ServerStreams: React.FC<ServerStreamsProps> = () => {
       />
       {selectedServer ? (
         <CurrentServerProvider identifier={selectedServer?.id}>
-          {canViewTimeseries && <Timeseries />}
+          <Timeseries />
           <Streams noInset />
         </CurrentServerProvider>
       ) : (
         <>
-          {canViewTimeseries && <Timeseries />}
+          <Timeseries />
           <Streams noInset />
         </>
       )}
