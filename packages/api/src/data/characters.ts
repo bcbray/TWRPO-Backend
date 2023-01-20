@@ -1675,7 +1675,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 506, name: 'Ruthie Samuels' },
         { id: 1330, name: 'Ally Ramsey' },
         { id: 1454, name: 'Sierra "Sisi" Castillo', factions: ['Del Lobos'], telegram: 'LS438' },
-        { id: 1664, name: 'Margo Rush' },
+        { id: 1664, name: 'Margo Rush', telegram: 'ZW004' },
     ],
     learntoswim: [
         { id: 1658, name: 'Cornelius T Fop' },
@@ -2603,7 +2603,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256' }, // Former Summers Gang
         { id: 780, name: 'Brie Haviour' },
         { id: 781, name: 'Ruthie Samuels' },
-        { id: 1665, name: 'Margo Rush' },
+        { id: 1665, name: 'Margo Rush', telegram: 'ZW004' },
     ],
     Sput: [
         { id: 782, name: 'Marvin Mayflower' },
