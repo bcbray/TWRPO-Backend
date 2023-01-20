@@ -2267,7 +2267,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 673, name: 'Shirley Lemons', nicknames: ['Cowgirl'] },
     ],
     RayTwoPlay: [
-        { id: 1439, name: 'Freddie Hunt', telegram: 'KP895' },
+        { id: 1439, name: 'Freddie Hunt', factions: ['Taipan'], telegram: 'KP895' },
     ],
     Really_Russ: [
         { id: 1009, name: 'Emerson Newly' },
