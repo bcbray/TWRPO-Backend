@@ -164,7 +164,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 31, name: 'Gabriella Gonzales' },
     ],
     AndyMilonakis: [
-        { id: 1691, name: 'Davey Barnes' },
+        { id: 1691, name: 'Davey Barnes', telegram: 'ZN094' },
     ],
     AngelKnivez: [
         { id: 32, name: 'Renni Bradshaw', factions: ['Dead End Gang'], telegram: 'SE192' }, // Former Danger Gang. Briefly Kelly Gang
