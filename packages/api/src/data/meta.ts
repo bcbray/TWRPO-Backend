@@ -30,6 +30,7 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     bluestone: 'Bluestone',
     theward: 'The Ward',
     thestrays: 'The Strays',
+    fullerhouse: 'Fuller House',
     news: 'News',
     development: 'Development',
     law: 'Law',

@@ -1271,7 +1271,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 394, name: 'Miles Gyles' }, // Former Deputy
         { id: 1063, name: '[Deputy] Thomas Hooper', factions: ['Law'] },
         { id: 1102, name: '[Guard] Mickey Doyle', factions: ['Sisika Guard'] },
-        { id: 1424, name: 'Richard Gold', telegram: 'AH036' },
+        { id: 1424, name: 'Richard Gold', factions: ['Fuller House'], telegram: 'AH036' },
     ],
     hopdowg: [
         { id: 1681, name: 'Abramo "Abe" ?' },
@@ -1621,7 +1621,7 @@ export const wrpCharacters: WrpCharacters = {
     ksinz: [
         { id: 482, name: '[Deputy] Syles MacKenna', factions: ['Law'] },
         { id: 483, name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
-        { id: 484, name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Kettleman Gang'], telegram: 'AW313' },
+        { id: 484, name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Fuller House'], leader: true, telegram: 'AW313' }, // Former Kettleman Gang
         { id: 1031, name: 'Archie "Little Cheese" Small', factions: ['One Life'] },
         { id: 1118, name: 'James "The Bro" McAllister' },
         { id: 1271, name: 'John Hancock', nicknames: ['Unnamed & Unattested', 'Terry Frost'], displayName: 0 },
@@ -2217,7 +2217,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 659, name: 'Ernest Thorton' },
     ],
     PukingFerrets: [
-        { id: 660, name: 'Alice Fuller', nicknames: ['Alice Quinn'], factions: ['Kettleman Gang'], telegram: 'QN172' },
+        { id: 660, name: 'Alice Fuller', nicknames: ['Alice Quinn'], factions: ['Fuller House'], telegram: 'QN172' }, // Former Kettleman Gang
     ],
     Pumpkinberry: [
         { id: 661, name: 'Cara "Sparks" Murphy', nicknames: ['Honey Sparks', 'Murph'], telegram: 'WD223' },
