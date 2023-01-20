@@ -977,7 +977,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 296, name: 'Chavez Rodríguez' },
     ],
     Farmhouse78: [
-        { id: 297, name: 'Stewart Harington' },
+        { id: 297, name: 'Stewart Harington', telegram: 'BG883' },
         { id: 298, name: 'Steven Hayes' },
     ],
     fayebles: [
