@@ -1156,6 +1156,9 @@ export const wrpCharacters: WrpCharacters = {
     GobbleHawk: [
         { id: 1259, name: 'Martin Brue' },
     ],
+    Goochy: [
+        { id: 862, name: 'Becker Lang', assume: 'assumeOther' },
+    ],
     goose_thegreat: [
         { id: 357, name: 'Thaddeus Owens' },
     ],
@@ -2881,9 +2884,6 @@ export const wrpCharacters: WrpCharacters = {
     TheGoldenDunsparce: [
         { id: 1317, name: 'Ngu Daeng', telegram: 'KG865' },
         { id: 1318, name: 'Hmee Noi' },
-    ],
-    TheGoochTV: [
-        { id: 862, name: 'Becker Lang', assume: 'assumeOther' },
     ],
     TheHairyCelt: [
         { id: 863, name: 'Ronnie Hurbert', factions: ['The Firm'], telegram: 'EW576' },
