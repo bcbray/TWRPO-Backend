@@ -1913,7 +1913,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 569, name: 'Mishka Agapova', telegram: 'QF055' },
         { id: 1073, name: 'Lavender Jones' },
         { id: 1074, name: 'Oksana Reznikov' },
-        { id: 1487, name: 'Dixie Jacobs' },
+        { id: 1487, name: 'Dixie Jacobs', nicknames: ['DJ'], telegram: 'DJ998' },
     ],
     MissMangoJuice: [
         { id: 1294, name: 'Diana Bennet' },
