@@ -2515,7 +2515,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1249, name: 'Ducky Lloyd' },
     ],
     SirSpacyEsquire: [
-        { id: 1585, name: '[Deputy] Mason Mcree', factions: ['Law'] },
+        { id: 1585, name: '[Deputy] Mason Mcree', factions: ['Law'], telegram: 'TZ944' },
     ],
     Skids_N_Cones: [
         { id: 742, name: '"Old Greg" Boone', nicknames: ['Old Greg'], displayName: 3 },
