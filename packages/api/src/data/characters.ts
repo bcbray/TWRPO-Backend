@@ -1476,7 +1476,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1225, name: '[Deputy] Molly Mills', factions: ['Law'], deceased: true, telegram: 'AU029' },
         { id: 1303, name: '[Deputy] Mia Bailey', factions: ['Law'], telegram: 'CQ648' },
         { id: 1304, name: 'Missy Mee', factions: ['Dead End Gang'], deceased: true, telegram: 'EP452' },
-        { id: 1701, name: 'Tess Tempest' },
+        { id: 1701, name: 'Tess Tempest', telegram: 'LI044' },
     ],
     JesterTheRyda: [
         { id: 443, name: 'Jordin Bradley' },
