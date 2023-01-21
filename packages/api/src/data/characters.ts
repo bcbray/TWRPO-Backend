@@ -2970,7 +2970,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TilLuxx: [
         { id: 1179, name: '[Medic] Mara Gloom', factions: ['Medical'], telegram: 'GB639' },
-        { id: 1237, name: 'Til Lux', telegram: 'GW137' },
+        { id: 1237, name: '[Cadet] Til Lux', factions: ['Law'], telegram: 'GW137' },
         { id: 1500, name: 'Celeste Demeter' },
     ],
     TiltedSun: [
