@@ -1313,7 +1313,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1606, name: 'Bear John', factions: ['Boons Boys'] },
     ],
     Iceshredder_: [
-        { id: 1630, name: 'Rockford ?', nicknames: ['Rock'] },
+        { id: 1630, name: 'Rockford McGillicuddy', nicknames: ['Rock'] },
     ],
     ICoolioM: [
         { id: 404, name: 'Arie ?' },
