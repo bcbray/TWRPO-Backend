@@ -1106,7 +1106,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1402, name: 'Olive Myers', telegram: 'JG133' },
     ],
     Gelesas: [
-        { id: 1663, name: 'Dolly Dyer', nicknames: ['D.D.', 'Dee Dee', 'DeeDee'] },
+        { id: 1663, name: 'Dolly Dyer', nicknames: ['D.D.', 'DD', 'Dede', 'Dee Dee', 'DeeDee'], displayName: 3, telegram: 'US641' },
     ],
     GemZo23: [
         { id: 1042, name: 'Doc Ringo' },
