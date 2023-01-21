@@ -2184,7 +2184,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 644, name: 'Mischa Crane' },
     ],
     Pezz: [
-        { id: 645, name: 'Cid Speedwagon', nicknames: ['Highwayman'] },
+        { id: 645, name: 'Cid Speedwagon', nicknames: ['Highwayman'], telegram: 'OR367' },
     ],
     PibbJont: [
         { id: 646, name: '[Deputy] Thatcher Mantell', factions: ['Law'], telegram: 'JR033' },
