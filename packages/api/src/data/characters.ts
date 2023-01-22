@@ -3264,7 +3264,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1667, name: 'Marty Fatts', telegram: 'EH280' },
     ],
     Zarrqq: [
-        { id: 963, name: 'Benjamin Gaines', nicknames: ['Ben'], displayName: 3, telegram: 'WA374' }, // Former Sam's Club
+        { id: 963, name: 'Benjamin "Ben" Gaines', factions: ['Independent', 'Guarma'], telegram: 'WA374' }, // Former Sam's Club
     ],
     Zelupsy: [
         { id: 1078, name: 'Abigail Bennett' },
