@@ -20,11 +20,11 @@
   color: var(--theme-white);
 }
 
-a:hover .segment {
+a:hover .segment, .segmentContainer.hovered .segment {
   --segment-background-color: var(--theme-gray-400);
 }
 
-a:hover .segment.live {
+a:hover .segment.live, .segmentContainer.hovered .segment.live {
   --segment-background-color: var(--theme-black);
 }
 

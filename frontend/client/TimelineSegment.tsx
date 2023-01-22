@@ -17,7 +17,7 @@ import SegmentTitleTag from './SegmentTitleTag'
 import Tag from './Tag';
 import OutboundLink from './OutboundLink';
 
-interface TimelineSegmentProps {
+interface TimelineSegmentProps extends React.HTMLProps<HTMLDivElement> {
   segment: VideoSegment;
   streamer: Streamer;
   visibleInterval: Interval;
@@ -25,6 +25,7 @@ interface TimelineSegmentProps {
   compact?: boolean;
   handleRefresh: () => void;
   style?: React.CSSProperties;
+  hovered?: boolean;
 }
 
 interface StreamLinkProps {
@@ -79,6 +80,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
   pixelsPerSecond,
   compact,
   handleRefresh,
+  hovered,
   ...rest
 }) => {
   const streamStart = new Date(segment.startDate);
@@ -116,7 +118,8 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
     >
       <div
         className={classes(
-          styles.segmentContainer
+          styles.segmentContainer,
+          hovered && styles.hovered,
         )}
         {...rest}
       >

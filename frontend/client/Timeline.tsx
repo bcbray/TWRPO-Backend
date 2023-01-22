@@ -211,6 +211,7 @@ const Timeline: React.FC<TimelineProps> = ({
   );
 
   const [hoveredRowKey, setHoveredRowKey] = React.useState<string | null>(null);
+  const [hoveredSegmentId, setHoveredSegmentIdKey] = React.useState<number | null>(null);
 
   const totalTimeSeconds = rows.reduce((maxTime, row) => {
     if (!('interval' in row)) {
@@ -453,6 +454,9 @@ const Timeline: React.FC<TimelineProps> = ({
                       pixelsPerSecond={pixelsPerSecond}
                       compact={isCompact}
                       handleRefresh={handleReload ?? (() => {})}
+                      onMouseEnter={() => setHoveredSegmentIdKey(segment.id)}
+                      onMouseLeave={() => setHoveredSegmentIdKey(id => segment.id === id ? null : id)}
+                      hovered={hoveredSegmentId === segment.id}
                       style={{
                         left: `${Math.round(startOffsetSec * pixelsPerSecond)}px`,
                         right: `${Math.round(endOffsetSec * pixelsPerSecond)}px`,
@@ -485,7 +489,7 @@ const Timeline: React.FC<TimelineProps> = ({
         );
       }
     })
-  ), [rows, hoveredRowKey, isCompact, handleReload, pixelsPerSecond, previousPixelsPerSecond, removeSpring]);
+  ), [rows, hoveredRowKey, isCompact, handleReload, pixelsPerSecond, previousPixelsPerSecond, removeSpring, hoveredSegmentId]);
 
   const isInitialRenderFromSSR = useIsFirstRenderFromSSR();
   if (isInitialRenderFromSSR) {
