@@ -31,7 +31,7 @@ export const useSegmentTagText = (segment: VideoSegment, options: UseSegmentTagT
     } else {
       tagText = segment.server.name;
     }
-  } else if (segment.game.id === game.id && segment.server && segment.server.isRoleplay) {
+  } else if (segment.game && segment.game.id === game.id && segment.server && segment.server.isRoleplay) {
     if (segment.server.isVisible) {
       tagText = `::${segment.server.name}::`;
     } else {
@@ -39,7 +39,7 @@ export const useSegmentTagText = (segment: VideoSegment, options: UseSegmentTagT
     }
   } else {
     // TODO: different game, has server
-    tagText = `${segment.game.name}`;
+    tagText = `${segment.game?.name ?? 'Variety'}`;
   }
   return tagText;
 }

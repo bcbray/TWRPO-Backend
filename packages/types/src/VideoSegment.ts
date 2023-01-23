@@ -19,5 +19,5 @@ export default interface VideoSegment {
     liveInfo?: Stream;
     server?: ServerBase;
     serverUncertain: boolean;
-    game: Game;
+    game?: Game;
 }

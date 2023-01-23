@@ -150,18 +150,18 @@ export const fetchLiveStreams = async (
                     isRoleplay: segment.server.isRoleplay,
                 } : undefined,
                 serverUncertain: segment.serverUncertain,
-                game: {
-                    id: segment.game!.id,
-                    key: segment.game!.key ?? undefined,
-                    name: segment.game!.name,
-                },
+                game: segment.game ? {
+                    id: segment.game.id,
+                    key: segment.game.key ?? undefined,
+                    name: segment.game.name,
+                } : undefined,
             },
         };
     };
 
     return {
         streams: segments
-            .filter(s => s.channel && s.game)
+            .filter(s => s.channel)
             .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
             .map(segmentAndStreamer),
         lastRefreshTime: new Date(liveData.tick).toISOString(),
@@ -507,17 +507,17 @@ export const fetchRecentStreams = async (
                     isRoleplay: segment.server.isRoleplay,
                 } : undefined,
                 serverUncertain: segment.serverUncertain,
-                game: {
-                    id: segment.game!.id,
-                    key: segment.game!.key ?? undefined,
-                    name: segment.game!.name,
-                },
+                game: segment.game ? {
+                    id: segment.game.id,
+                    key: segment.game.key ?? undefined,
+                    name: segment.game.name,
+                } : undefined,
             },
         };
     };
 
     const streams = segments
-        .filter(s => s.channel && s.game)
+        .filter(s => s.channel)
         .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
         .map(segmentAndStreamer);
 
@@ -858,17 +858,17 @@ export const fetchUnknownStreams = async (
                     isRoleplay: segment.server.isRoleplay,
                 } : undefined,
                 serverUncertain: segment.serverUncertain,
-                game: {
-                    id: segment.game!.id,
-                    key: segment.game!.key ?? undefined,
-                    name: segment.game!.name,
-                },
+                game: segment.game ? {
+                    id: segment.game.id,
+                    key: segment.game.key ?? undefined,
+                    name: segment.game.name,
+                } : undefined,
             },
         };
     };
 
     const streams = segments
-        .filter(s => s.channel && s.game)
+        .filter(s => s.channel)
         .filter(s => !s.isHidden || isEditorForTwitchId(s.streamerId, userResponse))
         .map(segmentAndStreamer);
 
