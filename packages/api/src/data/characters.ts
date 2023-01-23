@@ -1001,7 +1001,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     FhaeLin: [
         { id: 302, name: '[Sr. Deputy] Tabitha Thorne', factions: ['Law'], telegram: 'BR226' },
-        { id: 303, name: 'Amber Sage', factions: ['Guarma'], telegram: 'XN181' }, // Medic?
+        { id: 303, name: 'Amber Sage', factions: ['Guarma'], telegram: 'XN181' }, // Guarma Guarda
         { id: 1534, name: 'Josephine "Mist" Taylor' },
         { id: 1578, name: 'Winona Moss', telegram: 'QO695' },
     ],
@@ -2254,7 +2254,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 662, name: 'Imogen Blackwell', telegram: 'CI233' },
         { id: 663, name: 'Nora Boone' },
         { id: 664, name: 'Delilah ?', nicknames: ['Omens'], factions: ['Independent', 'Guarma'] }, // Character introduces herself as Delilah, Omens seems to be normally used just for stream titles; there's a very high chance that Delilah is a fake name
-        { id: 1443, name: 'Natalie Wilson', factions: ['Guarma'] },
+        { id: 1443, name: 'Natalie Wilson', factions: ['Guarma'] }, // Guarma Guarda
         { id: 1509, name: 'Coyote Alder', telegram: 'PX024' },
     ],
     PUNK11: [
@@ -2619,7 +2619,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'], deceased: true },
         { id: 1716, name: 'June Joy Lang' }, // Pretty sure about the last name, but not positive
         { id: 1727, name: 'Opal Foxx' },
-        { id: 1728, name: 'Elizabeth "Lizzy" O’Hara', factions: ['Guarma'], telegram: 'AJ333' },
+        { id: 1728, name: 'Elizabeth "Lizzy" O’Hara', factions: ['Guarma'], telegram: 'AJ333' },// Guarma Guarda
     ],
     sporkerific: [
         { id: 776, name: 'Rosamaria Sandoval' },
