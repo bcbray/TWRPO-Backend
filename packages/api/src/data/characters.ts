@@ -2617,7 +2617,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Spoofey: [
         { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'], deceased: true },
-        { id: 1716, name: 'June Lang' }, // Pretty sure about the last name, but not positive
+        { id: 1716, name: 'June Joy Lang' }, // Pretty sure about the last name, but not positive
     ],
     sporkerific: [
         { id: 776, name: 'Rosamaria Sandoval' },
