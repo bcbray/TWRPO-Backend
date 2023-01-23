@@ -2241,7 +2241,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     psyrinity: [
         { id: 69, name: 'Laura Dunn' },
-        { id: 1707, name: 'Amalia H. Delray' },
+        { id: 1707, name: 'Amalia H. Delray', factions: ['Freeman Family'] },
     ],
     PuckNatorGaming: [
         { id: 659, name: 'Ernest Thorton' },
