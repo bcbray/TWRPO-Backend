@@ -2711,7 +2711,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     sulley_cs: [
         { id: 1164, name: 'Raylan "Ray-Ray" Goggins', nicknames: [reg(/\bray(?:\-|\s*)ray\b/)], factions: ['Conductors'] },
-        { id: 1169, name: '[Cadet] Black Sky', displayName: 0, factions: ['Law'], telegram: 'OT409' },
+        { id: 1169, name: '[Deputy] Black Sky', displayName: 0, factions: ['Law'], telegram: 'OT409' },
         { id: 1392, name: 'John-Michael Douglas' },
         { id: 1410, name: 'Santiago Velasquez', factions: ['Del Lobos'], telegram: 'KY343' },
     ],
