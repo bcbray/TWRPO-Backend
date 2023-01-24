@@ -2506,7 +2506,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 735, name: '[Sr. Deputy] Shawn Maple', factions: ['Law'], telegram: 'OQ297' },
         { id: 736, name: 'Stefano Amendo' },
         { id: 737, name: 'Leopold Von Schitzen' },
-        { id: 1051, name: 'Ronnie Rivers', telegram: 'YB719' },
+        { id: 1051, name: 'Ronnie Rivers', factions: ['The Baastards'], telegram: 'YB719' },
     ],
     SilentSentry: [
         { id: 738, name: 'Emmet "Stripes" Wagner' },
