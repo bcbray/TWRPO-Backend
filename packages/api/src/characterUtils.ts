@@ -121,6 +121,7 @@ export const getCharacterInfo = (
             return factionMap[factionMini];
         }) ?? [independent],
         contact: character.telegram,
+        isDeceased: character.deceased ? true : undefined,
         channelInfo: twitchUser,
     };
 };

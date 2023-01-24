@@ -83,6 +83,10 @@
   color: inherit;
 }
 
+.name .deceased {
+  color: var(--theme-gray-500);
+}
+
 .channelName a:hover, .name a:hover {
   color: var(--theme-primary-color-hover);
 }
