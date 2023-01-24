@@ -114,7 +114,7 @@ const CharacterRow: React.FC<RowProps> = ({
             {character.displayInfo.realNames.join(' ')}
           </Link>
         )}
-        {character.isDeceased && <> <span className={styles.deceased} title="deceased">(deceased)</span></>}
+        {character.isDeceased && <> <span className={styles.deceased}>(deceased)</span></>}
         {hideStreamer && character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
       </td>
       <td className={styles.nicknames}>{character.displayInfo.nicknames.join(', ')}</td>
