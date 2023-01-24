@@ -616,7 +616,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 176, name: 'Aleister Reid' },
     ],
     cruddycheese: [
-        { id: 177, name: 'Donald McMuffin', factions: ['Taipan'] },
+        { id: 177, name: 'Donald McMuffin', factions: ['Taipan'], telegram: 'KZ656' },
         { id: 1301, name: 'Abraham Solomon' },
     ],
     CuddlyJays: [
