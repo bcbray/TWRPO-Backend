@@ -890,7 +890,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     elegendz77: [
         { id: 1403, name: '[Deputy] Terry Mallagher', factions: ['Law'], telegram: 'QW096' },
-        { id: 1495, name: 'Toby Mallagher' }, // Is this truly a different character?
+        { id: 1495, name: 'Toby Mallagher', deceased: true }, // Is this truly a different character?
         { id: 1522, name: 'Darren The Drongo', displayName: 0 },
     ],
     EliDoesStuffIG: [
