@@ -983,7 +983,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1235, name: 'Philo McGee' },
     ],
     famousivan: [
-        { id: 294, name: 'Raul Dominguez' },
+        { id: 294, name: 'Raul Dominguez', telegram: 'BS178' },
         { id: 295, name: 'Manual Salamanca', factions: ['Half Wits'] },
         { id: 296, name: 'Chavez Rodríguez' },
     ],
