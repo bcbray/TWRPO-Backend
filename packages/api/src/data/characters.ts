@@ -2820,7 +2820,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 975, name: 'Dustin Barlowe' },
     ],
     ThatTrollsomeGuy: [
-        { id: 833, name: 'Logan Callaway' },
+        { id: 833, name: 'Logan Callaway', deceased: true },
         { id: 834, name: '[Deputy] Jonathan Robertson', factions: ['Law'] },
         { id: 835, name: 'Alexander Rose' },
         { id: 1067, name: 'Jesse Ambrose' },
