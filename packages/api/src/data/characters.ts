@@ -941,7 +941,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 281, name: 'Bran Speaksy' },
     ],
     eNufph: [
-        { id: 1708, name: 'El Sali' },
+        { id: 1708, name: 'El Sali', telegram: 'LR159' },
     ],
     EquinoxRP: [
         { id: 282, name: 'Brendyn Cormac' },
