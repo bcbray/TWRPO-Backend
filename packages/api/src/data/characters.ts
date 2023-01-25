@@ -2704,7 +2704,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 797, name: '[Sheriff] Hudson Hart', factions: ['Law'], telegram: 'XH213' },
         { id: 798, name: 'Kevin Higgins' },
         { id: 799, name: 'Mackenzie Kale' },
-        { id: 800, name: 'Boyd Banks' },
+        { id: 800, name: 'Boyd Banks', deceased: true },
     ],
     Sugarsockz: [
         { id: 801, name: 'Mason Memphis' },
