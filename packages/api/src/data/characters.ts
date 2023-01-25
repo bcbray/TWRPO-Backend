@@ -2414,7 +2414,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     SaucedUpWizard: [
         { id: 1336, name: 'Rags Fontaine', telegram: 'YZ680' },
-        { id: 1675, name: 'Bear Bridgers' },
+        { id: 1675, name: 'Bear Bridgers', telegram: 'MF233' },
     ],
     Savannieb00: [
         { id: 1036, name: 'Alish Vixen', telegram: 'XT753' },
