@@ -1410,7 +1410,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Iwhuttt: [
         { id: 420, name: 'Archibald Welch' },
-        { id: 421, name: 'Houston Gray' },
+        { id: 421, name: 'Houston Gray', deceased: true },
         { id: 422, name: 'Patch "Patches" Twine' },
         { id: 1061, name: 'Phineas "Fin" Faith', factions: ['The Firm'], telegram: 'BJ540' },
         { id: 1089, name: 'Rupert Romano', telegram: 'CB130' },
