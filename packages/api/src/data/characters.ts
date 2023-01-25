@@ -3141,7 +3141,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 921, name: 'Les Darcy' },
         { id: 922, name: 'Bazz Kerrigan', factions: ['Kettleman Gang'], deceased: true }, // leader of Kerrigan Ranch
         { id: 923, name: 'Clarence McCloud' },
-        { id: 1117, name: 'Steve "The Dude" McAnderson' },
+        { id: 1117, name: 'Steve "The Dude" McAnderson', deceased: true },
         { id: 1401, name: '? Rudd', nicknames: ['Rev. Rudd'], displayName: 3 }, // Clergy
     ],
     VinnieThatsMe: [
