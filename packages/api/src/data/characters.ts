@@ -176,7 +176,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1231, name: 'Virgil Fox', factions: ['The Ring'], telegram: 'BA975' },
     ],
     AngryPotatoChipz: [
-        { id: 34, name: '[Deputy] Jamie Marlow', factions: ['Law'] },
+        { id: 34, name: '[Deputy] Jamie Marlow', factions: ['Law'], deceased: true },
         { id: 35, name: 'Isiah Trebuchet' },
         { id: 1174, name: '[Guard] Johannes Wolfe', factions: ['Sisika Guard'] },
         { id: 1194, name: 'Dylan Dunning' },
