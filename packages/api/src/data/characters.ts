@@ -1316,7 +1316,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 402, name: 'Chuck Morris' },
     ],
     IboonI: [
-        { id: 403, name: 'Elias Boon', factions: ['Boons Boys'] }, // Emerald Ranch
+        { id: 403, name: 'Elias Boon', factions: ['Boons Boys'], deceased: true }, // Emerald Ranch
         { id: 1595, name: 'Dewy ?' },
         { id: 1606, name: 'Bear John', factions: ['Boons Boys'] },
     ],
