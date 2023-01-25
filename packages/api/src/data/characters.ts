@@ -2728,7 +2728,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1635, name: '[Deputy] Ollie Cooper', factions: ['Law'], telegram: 'CL140' },
     ],
     Swordofpower1: [
-        { id: 1244, name: 'Jim "Lockjaw Jim" Munson', factions: ['Independent', 'Guarma'], telegram: 'OT144' },
+        { id: 1244, name: 'Jim "Lockjaw Jim" Munson', factions: ['Independent', 'Guarma'], telegram: 'OT144', deceased: true },
         { id: 1262, name: 'Charlie "Chucky" Nelson', telegram: 'FW010' },
         { id: 1335, name: 'Sylvester Spectre' },
         { id: 1704, name: 'Lawrence Belcher' },
