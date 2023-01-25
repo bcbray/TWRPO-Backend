@@ -1890,7 +1890,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MetamorfLive: [
         { id: 1674, name: '[Deputy] John Bishop', factions: ['Law'], telegram: 'FB564' },
-        { id: 1738, name: 'Walter Wolf' },
+        { id: 1738, name: 'Walter Wolf', telegram: 'FI975' },
     ],
     MexiTheHero: [
         { id: 385, name: 'George Shaffer' },
