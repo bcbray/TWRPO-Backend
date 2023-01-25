@@ -2978,7 +2978,7 @@ export const wrpCharacters: WrpCharacters = {
     theValiance: [
         { id: 1011, name: '[Deputy] James Roush', factions: ['Law'], telegram: 'NE915' },
         { id: 1386, name: 'Randy Beaver' },
-        { id: 1692, name: 'Hector Suarez', factions: ['Del Lobos'] },
+        { id: 1692, name: 'Hector Suarez', factions: ['Del Lobos'], telegram: 'CZ571' },
     ],
     theweyu: [
         { id: 882, name: 'Alawa "Ali" Meota' },
