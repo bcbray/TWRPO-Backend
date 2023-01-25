@@ -1693,7 +1693,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     LEAH: [
         { id: 503, name: '[Sr. Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190' },
-        { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256' }, // Former Summers Gang
+        { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256', deceased: true }, // Former Summers Gang
         { id: 505, name: 'Brie Haviour' },
         { id: 506, name: 'Ruthie Samuels' },
         { id: 1330, name: 'Ally Ramsey' },
@@ -2633,7 +2633,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     spriteleah: [
         { id: 778, name: '[Sr. Deputy] Francesca "Frankie" Bright', nicknames: ['Checkers'], factions: ['Law'], telegram: 'GG190' },
-        { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256' }, // Former Summers Gang
+        { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256', deceased: true }, // Former Summers Gang
         { id: 780, name: 'Brie Haviour' },
         { id: 781, name: 'Ruthie Samuels' },
         { id: 1665, name: 'Margo Rush', telegram: 'ZW004' },
