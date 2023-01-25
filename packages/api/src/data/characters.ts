@@ -290,7 +290,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Baaaadgoat: [
         { id: 1433, name: 'Early Ballard', telegram: 'BP229' },
-        { id: 1640, name: 'Tal "Ox" Mohrant' },
+        { id: 1640, name: 'Tal "Ox" Mohrant', telegram: 'QE884' },
     ],
     badnewsbryan: [
         { id: 115, name: 'Blue Vanderweit' },
