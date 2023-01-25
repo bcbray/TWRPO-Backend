@@ -772,7 +772,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 227, name: 'Butch Nickle' },
         { id: 228, name: 'Fondue Framboise' },
         { id: 229, name: 'Princess Biscuits' },
-        { id: 230, name: 'Jonah Harper' },
+        { id: 230, name: 'Jonah Harper', deceased: true },
         { id: 1019, name: '[Deputy] Edison Jones', nicknames: ['Clockwork'], factions: ['Law'], telegram: 'LD837' },
         { id: 1056, name: 'Caleb Milton' },
     ],
