@@ -1220,7 +1220,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1629, name: 'Cody Drisko' },
     ],
     HaCha_art: [
-        { id: 378, name: 'Ava "La Nina" Jimenes' },
+        { id: 378, name: 'Ava "La Niña" Jimenes', nicknames: ['La Nina'], deceased: true },
     ],
     hanrotheroleplayer: [
         { id: 1321, name: 'Harry Dobbing', factions: ['Boons Boys'] },
