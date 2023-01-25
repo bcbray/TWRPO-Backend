@@ -559,7 +559,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1555, name: 'Sven Oakwood' },
     ],
     ClassyPax: [
-        { id: 158, name: 'Eugene Calloway' },
+        { id: 158, name: 'Eugene Calloway', deceased: true },
         { id: 159, name: 'Father Hickey' },
         { id: 1158, name: 'Thisbe Fae', nicknames: ['The Sweat Witch'] },
         { id: 1646, name: '[Cadet] Buck Dewberry', factions: ['Law'] },
