@@ -907,7 +907,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1365, name: 'Sebastian ?', nicknames: ['Pink'], displayName: 3, factions: ['The Masked Men'] },
     ],
     embernocte: [
-        { id: 271, name: 'Saffron Mitchell', telegram: 'MS716', factions: ['Bluestone'] }, // Former Deputy. Former(?) News
+        { id: 271, name: 'Saffron Riley', nicknames: ['Saffron Mitchell'], telegram: 'MS716', factions: ['Bluestone'] }, // Former Deputy. Former(?) News
         { id: 272, name: 'Crissy "Cricket" Blitz', telegram: 'KW617' },
         { id: 273, name: 'Holly Frost', factions: ['Taipan'], telegram: 'DU057' },
         { id: 274, name: 'Sadhbh Marlow', nicknames: ['Sadhbh O’Brien', 'Meabh'], factions: ['Hagen', 'The Humble Bunch'] }, // Is a current Hagen as far as I'm aware.
