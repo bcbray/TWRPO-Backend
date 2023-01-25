@@ -1746,6 +1746,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 518, name: '[Doctor] Lark Atwood', factions: ['Medical'], telegram: 'MB861' },
         { id: 519, name: '[Deputy] Sylvie Chevalier', factions: ['Law'], telegram: 'OR480' },
         { id: 1024, name: 'Hollyhock' },
+    ],
+    lithiumGhoul: [
         { id: 1712, name: '[Deputy] Cain Taylor', factions: ['Law'] },
     ],
     livraan: [
