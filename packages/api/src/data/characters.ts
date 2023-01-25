@@ -55,9 +55,6 @@ export const wrpCharacters: WrpCharacters = {
     '615time': [
         { id: 1218, name: '[Deputy] Doug Darrell Dan', factions: ['Law'] },
     ],
-    '86ed_ENT': [
-        { id: 1236, name: 'Milo Tremonti' },
-    ],
     '893SHIRO': [
         { id: 7, name: 'Mitsuhide Nagahama', nicknames: ['Mitsu'], deceased: true, telegram: 'OT815' },
         { id: 1200, name: 'Qurun Alghul' },
@@ -2518,6 +2515,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 739, name: 'Truly Tillery' },
         { id: 1554, name: 'Sarabi Brownlee' },
         { id: 1590, name: 'Onélie Bourgeois', telegram: 'RU650' },
+    ],
+    SinCityReject: [
+        { id: 1236, name: 'Milo Tremonti' },
     ],
     SinnixTv: [
         { id: 740, name: 'Frank Brower' },
