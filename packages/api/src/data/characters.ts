@@ -1950,7 +1950,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1636, name: 'Debbie Barkley' },
     ],
     Mood_SlayerVT: [
-        { id: 1686, name: 'John Coleman' },
+        { id: 1686, name: 'John Coleman', telegram: 'LW920' },
     ],
     MrArkay: [
         { id: 570, name: 'Casper Hems' },
