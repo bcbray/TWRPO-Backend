@@ -2629,7 +2629,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1033, name: 'Bai Li Huang', nicknames: ['Bai Li'], displayName: 4, factions: ['Taipan'] },
         { id: 1076, name: 'Gabriel Gashade', displayName: 2, factions: ['Conductors'] },
         { id: 1208, name: 'Payton Bell', factions: ['Bell Gang'], deceased: true },
-        { id: 1453, name: 'Rio ?', factions: ['Del Lobos'] },
+        { id: 1453, name: 'Rio ?', factions: ['Del Lobos'], telegram: 'PO419' },
     ],
     Spoofey: [
         { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'], deceased: true },
