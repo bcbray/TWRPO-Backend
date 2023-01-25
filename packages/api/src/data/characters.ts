@@ -1753,7 +1753,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1024, name: 'Hollyhock' },
     ],
     lithiumGhoul: [
-        { id: 1712, name: '[Deputy] Cain Taylor', factions: ['Law'] },
+        { id: 1712, name: '[Deputy] Cain Taylor', factions: ['Law'], telegram: 'QE630' },
     ],
     livraan: [
         { id: 520, name: 'Hanna Eriksson' },
