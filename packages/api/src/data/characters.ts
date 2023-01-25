@@ -2454,7 +2454,7 @@ export const wrpCharacters: WrpCharacters = {
     section9_Browncoat: [
         { id: 718, name: '[Deputy] Ned Fuller', factions: ['Law'], telegram: 'AM182' },
         { id: 719, name: 'Nick Carver' },
-        { id: 720, name: 'Loup Farrow' },
+        { id: 720, name: 'Loup Farrow', telegram: 'LT705' },
         { id: 1733, name: 'Philip Ines', telegram: 'RW729' },
     ],
     Seithrius: [
