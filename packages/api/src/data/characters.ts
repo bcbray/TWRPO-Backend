@@ -2520,7 +2520,7 @@ export const wrpCharacters: WrpCharacters = {
     SinnixTv: [
         { id: 740, name: 'Frank Brower' },
         { id: 1110, name: 'Liam Decker' },
-        { id: 1123, name: 'Micheal Spoondard', factions: ['Lifer'] },
+        { id: 1123, name: 'Micheal Spoondard', factions: ['Lifer'], deceased: true },
         { id: 1205, name: 'Ryder Whitlock' },
         { id: 1338, name: 'Daultin Curlay' },
         { id: 1577, name: 'Connor Acree' }, // Old character? Current streams seem to be VODs
