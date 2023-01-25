@@ -2122,7 +2122,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ohnopojo: [
         { id: 624, name: 'Billy Kim' },
-        { id: 1517, name: 'Sancho ?', factions: ['Del Lobos'] },
+        { id: 1517, name: 'Sancho ?', factions: ['Del Lobos'], telegram: 'PU409' },
         { id: 1575, name: 'Everett Dunn' },
         { id: 1576, name: 'Felix Zhou' },
     ],
