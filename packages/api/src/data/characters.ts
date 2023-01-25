@@ -2349,7 +2349,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     rossthehsauce: [
         { id: 682, name: 'Murrietta Walton', nicknames: ['Forest', 'Forest Fish'], displayName: 3, factions: ['The Baastards', 'Guppy Gang'], telegram: 'IF559' },
-        { id: 683, name: 'Dominic "Dom" Disouza', factions: ['DiCenzo Famiglia'], telegram: 'HJ726' }, // Inactive DiCenzo
+        { id: 683, name: 'Dominic "Dom" Disouza', factions: ['DiCenzo Famiglia'], telegram: 'HJ726', deceased: true }, // Inactive DiCenzo
         { id: 684, name: 'Lionel Miles', factions: ['Miles Gang'], leader: true },
         { id: 1261, name: 'Jericho Gunne' },
     ],
