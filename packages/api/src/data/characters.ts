@@ -1646,7 +1646,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 483, name: 'Cucamonga Kid', factions: ['Half Wits'], displayName: 0 },
         { id: 484, name: 'Milliken Fuller', nicknames: ['Mills'], displayName: 3, factions: ['Fuller House'], leader: true, telegram: 'AW313' }, // Former Kettleman Gang
         { id: 1031, name: 'Archie "Little Cheese" Small', factions: ['One Life'] },
-        { id: 1118, name: 'James "The Bro" McAllister' },
+        { id: 1118, name: 'James "The Bro" McAllister', deceased: true },
         { id: 1271, name: 'John Hancock', nicknames: ['Unnamed & Unattested', 'Terry Frost'], displayName: 0 },
         { id: 1333, name: '[Deputy] Jessie Valentine', telegram: 'XF491', factions: ['Law'] },
     ],
