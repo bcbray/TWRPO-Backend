@@ -1041,7 +1041,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1467, name: 'Mercedes de la Rosa', factions: ['Del Lobos'], telegram: 'ON993' },
     ],
     floralfoxes: [
-        { id: 1350, name: '[Reporter] Juniper Ripley', nicknames: ['Juni', 'Juniper Lawrence'], telegram: 'IV378' },
+        { id: 1350, name: '[Reporter] Juniper Ripley', nicknames: ['Juni', 'Juniper Lawrence'], telegram: 'IV378', deceased: true },
         { id: 1351, name: '[Ranger] Cat Carver', factions: ['Rangers'], telegram: 'IQ879' },
         { id: 1545, name: 'Cass Darling' },
         { id: 1546, name: 'Karina Durst' },
