@@ -189,7 +189,15 @@ export function useRelativeDate(date: Date): RelativeDateResult {
 }
 
 function shortDate(date: Date, now: Date, locale: string | undefined, formatOptions: Intl.DateTimeFormatOptions): string {
-  if (date.getFullYear() === now.getFullYear()) {
+  const dateYear = date.toLocaleDateString(locale, {
+    ...formatOptions,
+    year: 'numeric',
+  });
+  const nowYear = now.toLocaleDateString(locale, {
+    ...formatOptions,
+    year: 'numeric',
+  });
+  if (dateYear === nowYear) {
     return date.toLocaleDateString(locale, {
       ...formatOptions,
       month: 'short',
