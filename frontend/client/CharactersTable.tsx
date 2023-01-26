@@ -43,7 +43,7 @@ const CharacterRow: React.FC<RowProps> = ({
 }) => {
   const location = useLocation();
   const { factionStyles } = useFactionCss();
-  const factionsToShow = visibleFactions(character.factions);
+  const factionsToShow = React.useMemo(() => visibleFactions(character.factions), [character.factions]);
   const lastSeenLiveDate = React.useMemo(() => {
       if (!character.lastSeenLive) return undefined;
       const date = new Date(character.lastSeenLive);
@@ -68,7 +68,7 @@ const CharacterRow: React.FC<RowProps> = ({
     return formatDuration(character.totalSeenDuration);
   }, [character.totalSeenDuration]);
 
-  return (
+  return React.useMemo(() => (
     <tr className={styles.characterRow}>
       {!hideStreamer &&
         <td className={styles.channelName}>
@@ -145,17 +145,29 @@ const CharacterRow: React.FC<RowProps> = ({
         {character.liveInfo ? (
           'live now'
         ) : (
-          lastSeenLive &&
+          lastSeenLive?.full && lastSeenLive?.relative &&
             <span title={lastSeenLive.full}>{lastSeenLive.relative}</span>
         )}
       </td>
       <td className={styles.totalSeen}>
-        {totalDuration && firstSeenLive &&
+        {totalDuration && firstSeenLive?.relative &&
           <span title={`This character has been streamed for ${totalDuration} since we first saw them ${firstSeenLive.relative}`}>{totalDuration}</span>
         }
       </td>
     </tr>
-  );
+  ), [
+    character,
+    factionDestination,
+    factionStyles,
+    factionsToShow,
+    hideStreamer,
+    firstSeenLive?.relative,
+    lastSeenLive?.full,
+    lastSeenLive?.relative,
+    location.search,
+    noStreamerLink,
+    totalDuration,
+  ]);
 }
 
 type Comparator<T> = (lhs: T, rhs: T) => number;
