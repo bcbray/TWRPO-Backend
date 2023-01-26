@@ -3176,7 +3176,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1582, name: '[Sr. Deputy] Noah Shaw', factions: ['Law'] },
     ],
     VTM___: [
-        { id: 925, name: 'Boone Morales' },
+        { id: 925, name: 'Boone Morales', telegram: 'JG239' },
         { id: 926, name: 'Guy Hyneman' },
     ],
     vtrich: [
