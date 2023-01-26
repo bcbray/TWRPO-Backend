@@ -122,7 +122,12 @@ export function useInitialRender(): boolean {
   return firstRender;
 }
 
-export function useBaseDateFormattingOptions(): { dateFormatOptions: Intl.DateTimeFormatOptions, locale?: string } {
+export interface DateFormattingOptions {
+  dateFormatOptions: Intl.DateTimeFormatOptions;
+  locale?: string;
+}
+
+export function useBaseDateFormattingOptions(): DateFormattingOptions {
   const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
 
   // Use en-US for the first render so we're consistent between SSR and the
@@ -199,7 +204,7 @@ export function useShallowCompareMemo<Result, Deps extends DependencyList>(memo:
   }, deps);
 }
 
-function relativeDateDiff(date: Date, now: Date): RelativeDateDiff {
+function relativeDateDiff(date: Date, now: Date, dateFormatOptions: DateFormattingOptions): RelativeDateDiff {
   const diffSeconds = (date.getTime() - now.getTime()) / 1000;
   const diffMinutes = diffSeconds / 60;
   const diffHours = diffMinutes / 60;
@@ -216,9 +221,17 @@ function relativeDateDiff(date: Date, now: Date): RelativeDateDiff {
   } else if (Math.abs(diffWeeks) < 2) {
     return { type: 'days', value: Math.round(diffDays) };
   } else {
+    const dateYear = date.toLocaleDateString(dateFormatOptions.locale, {
+      ...dateFormatOptions.dateFormatOptions,
+      year: 'numeric',
+    });
+    const nowYear = date.toLocaleDateString(dateFormatOptions.locale, {
+      ...dateFormatOptions.dateFormatOptions,
+      year: 'numeric',
+    });
     return {
       type: 'generic',
-      sameYear: date.getFullYear() === now.getFullYear(),
+      sameYear: dateYear === nowYear,
       date
     };
   }
@@ -240,8 +253,8 @@ export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult
 
   const diff = useMemo(() => {
     if (!date) return undefined;
-    return relativeDateDiff(date, now)
-  }, [date, now]);
+    return relativeDateDiff(date, now, { locale, dateFormatOptions });
+  }, [date, now, locale, dateFormatOptions]);
 
   return useShallowCompareMemo(() => {
     if (!diff || !date) return undefined;
