@@ -15,6 +15,7 @@ interface ModalProps
   extends Omit<BaseModalProps,'children'>
 {
   centered: boolean;
+  dismissOnEscape: boolean;
 }
 
 const transitionStatusStyle: Partial<Record<TransitionStatus, string>> = {
@@ -55,6 +56,7 @@ const Modal = React.forwardRef<ModalHandle, ModalProps>((
     className,
     children,
     centered = false,
+    dismissOnEscape = true,
 
     // BaseModelProps
     show,
@@ -96,7 +98,7 @@ const Modal = React.forwardRef<ModalHandle, ModalProps>((
   }
 
   const handleEscapeKeyDown = (e: KeyboardEvent) => {
-    if (backdrop === 'static') {
+    if (!dismissOnEscape) {
       handlePulse();
       e.preventDefault();
     }

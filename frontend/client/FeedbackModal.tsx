@@ -85,6 +85,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
             setHasSubmissionError(false);
           }}
           backdrop={values.suggestion || values.discord || values.email ? 'static' : true}
+          dismissOnEscape={!values.suggestion && !values.discord && !values.email}
         >
           <form
             onSubmit={handleSubmit}
