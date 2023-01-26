@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDatadogRum } from 'react-datadog';
 import { Button } from '@restart/ui';
+import { useLocalStorage } from 'react-use';
 import { CharacterInfo, FactionInfo } from '@twrpo/types';
 
 import styles from './CharactersTable.module.css';
@@ -11,7 +12,7 @@ import { classes, formatDuration } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
 import { useRelativeDateMaybe } from './hooks';
 import { useCurrentServer } from './CurrentServer';
-import MetaAlert from './MetaAlert';
+import MetaAlert, { MetaAlertDecision } from './MetaAlert';
 
 type Sort = 'streamer' | 'title' | 'name' | 'nickname' | 'faction' | 'contact' | 'lastSeen' | 'duration';
 type Order = 'asc' | 'desc';
@@ -454,6 +455,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
   const [canShowContacts, setCanShowContacts] = React.useState(false);
   const [showingMetaAlert, setShowingMetaAlert] = React.useState(false);
   const [onMetaAlertApproval, setOnMetaAlertApproval] = React.useState<(() => void) | null>(null);
+  const [suppressContactMetaAlert, setSuppressContactMetaAlert] = useLocalStorage('suppress-contact-meta-alert', false);
 
   const showMetaAlert = React.useCallback((onApprove: () => void) => {
     // Set using the updater function style to prevent `onApprove` from being called _as_ the updater function
@@ -461,13 +463,16 @@ const CharactersTable: React.FunctionComponent<Props> = ({
     setShowingMetaAlert(true);
   }, []);
 
-  const handleMetaDialogDismiss = React.useCallback((decision: 'cancel' | 'agree') => {
-    if (decision === 'agree') {
+  const handleMetaDialogDismiss = React.useCallback((decision: MetaAlertDecision) => {
+    if (decision === 'agree' || decision === 'agree-and-dont-show-again') {
       setCanShowContacts(true);
       onMetaAlertApproval?.();
+      if (decision === 'agree-and-dont-show-again') {
+        setSuppressContactMetaAlert(true);
+      }
     };
     setShowingMetaAlert(false);
-  }, [onMetaAlertApproval]);
+  }, [onMetaAlertApproval, setSuppressContactMetaAlert]);
 
   return <>
     <div
@@ -545,7 +550,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
               hideStreamer={hideStreamer}
               noStreamerLink={noStreamerLink}
               factionDestination={factionDestination}
-              canShowContacts={canShowContacts}
+              canShowContacts={canShowContacts || (suppressContactMetaAlert ?? false)}
               requestContactVisibility={showMetaAlert}
             />
           )}

@@ -22,6 +22,11 @@
   margin-bottom: 1rem;
 }
 
+.formCheckbox input[type="checkbox"] {
+  display: inline-block;
+  margin-right: 0.65rem;
+}
+
 .footer {
   align-items: center;
   border-bottom-left-radius: calc(0.3rem - 1px);
