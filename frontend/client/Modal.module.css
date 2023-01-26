@@ -78,27 +78,38 @@
 
 .dialog {
   max-width: 100%;
-  margin: 1.75rem auto;
+  --modal-margin: 1.75rem;
+  margin: var(--modal-margin) auto;
+}
+
+.centered .dialog {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - var(--modal-margin) * 2);
+}
+
+.content {
+
 }
 
 @media (min-width: 576px) {
   .dialog {
     max-width: 500px;
-    margin: 1.75rem auto;
+    --modal-margin: 1.75rem;
   }
 }
 
 @media (min-width: 768px) {
   .dialog {
     max-width: 500px;
-    margin: 1.75rem auto;
+    --modal-margin: 1.75rem;
   }
 }
 
 @media (min-width: 992px) {
   .dialog {
     max-width: 500px;
-    margin: 1.75rem auto;
+    --modal-margin: 1.75rem;
   }
 }
 

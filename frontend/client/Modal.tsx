@@ -14,6 +14,7 @@ import { classes } from './utils';
 interface ModalProps
   extends Omit<BaseModalProps,'children'>
 {
+  centered: boolean;
 }
 
 const transitionStatusStyle: Partial<Record<TransitionStatus, string>> = {
@@ -53,6 +54,7 @@ const Modal = React.forwardRef<ModalHandle, ModalProps>((
   {
     className,
     children,
+    centered = false,
 
     // BaseModelProps
     show,
@@ -122,7 +124,7 @@ const Modal = React.forwardRef<ModalHandle, ModalProps>((
   const renderDialog = (dialogProps: RenderModalDialogProps) => (
     <div
       {...dialogProps}
-      className={classes(className, styles.modal, isPreventingDismiss && styles.shake)}
+      className={classes(className, styles.modal, isPreventingDismiss && styles.shake, centered && styles.centered)}
       onClick={handleBackdropClick}
       {...props}
     >

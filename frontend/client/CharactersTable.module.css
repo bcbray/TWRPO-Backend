@@ -125,6 +125,48 @@
   background-color: var(--faction-color-light-active);
 }
 
+.contact .obscured {
+  position: relative;
+}
+
+.contact .obscured span.value {
+  transform: translate3d(0, 0, 0);
+  filter: blur(6px);
+  user-select: none;
+  transition: opacity 0.15s linear;
+  transition: filter 0.15s linear;
+}
+
+tr:hover .contact .obscured .value {
+  opacity: 0.5;
+}
+
+.contact .obscured .showButton {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  color: var(--theme-primary-color);
+}
+
+.contact .obscured .showButton:hover {
+  color: var(--theme-primary-color-hover);
+}
+
+.contact .obscured .showButton:active {
+  color: var(--theme-primary-color-active);
+}
+
+tr:hover .contact .obscured .showButton {
+  opacity: 1.0;
+}
+
+.contact .obscured .showButton svg {
+  display: block;
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not(:global(.light)):not(:global(.dark)) .factionPill span {
     background-color: var(--faction-color-dark);
