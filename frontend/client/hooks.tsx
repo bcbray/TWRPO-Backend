@@ -269,7 +269,11 @@ export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult
         year: 'numeric',
       });
     }
-    return { relative, full }
+    return {
+      // Replace U+202F (NARROW NO-BREAK SPACE) with plain spaces to normalize output between server and client rendering
+      relative: relative.replaceAll('\u202F', ' '),
+      full: full.replaceAll('\u202F', ' '),
+    }
   }, [diff, date, formatter, locale, fullFormatOptions, dateFormatOptions]);
 }
 
