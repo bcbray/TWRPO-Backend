@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo, createContext, useContext } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo, createContext, useContext, DependencyList } from 'react';
 import { useSearchParams, NavigateOptions } from 'react-router-dom';
 import { useDebounce, usePreviousDistinct, useUpdateEffect } from 'react-use';
 import useTimeout from '@restart/hooks/useTimeout';
@@ -143,6 +143,87 @@ export interface RelativeDateResult {
   relative: string;
 }
 
+interface NowDiff {
+  type: 'now';
+}
+
+interface RelativeMinuteDiff {
+  type: 'minutes';
+  value: number;
+}
+
+interface RelativeHourDiff {
+  type: 'hours';
+  value: number;
+}
+
+interface RelativeDayDiff {
+  type: 'days';
+  value: number;
+}
+
+interface GenericDateDiff {
+  type: 'generic';
+  sameYear: boolean;
+  date: Date;
+}
+
+type RelativeDateDiff = NowDiff | RelativeMinuteDiff | RelativeHourDiff | RelativeDayDiff | GenericDateDiff;
+
+function shallowEqual<T>(a: T, b: T): boolean {
+  if (a === b) return true;
+  if (!(a instanceof Object) || !(b instanceof Object)) return false;
+
+  var keys = Object.keys(a);
+  for (let i = 0; i < keys.length; i++) {
+    if (!(keys[i] in b)) return false;
+  }
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i] as keyof T;
+    if (a[key] !== b[key]) return false;
+  }
+  return keys.length === Object.keys(b).length;
+}
+
+export function useShallowCompareMemo<Result, Deps extends DependencyList>(memo: () => Result, deps: Deps): Result {
+  const depsRef = useRef<Deps | undefined>(undefined);
+  const ref = useRef<Result | undefined>(undefined);
+  return useMemo(() => {
+    if (ref.current === undefined || depsRef.current === undefined || !depsRef.current.every((prev: any, i) => shallowEqual(prev, deps[i] as any))) {
+      depsRef.current = deps;
+      ref.current = memo();
+      return ref.current;
+    }
+    return ref.current;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+}
+
+function relativeDateDiff(date: Date, now: Date): RelativeDateDiff {
+  const diffSeconds = (date.getTime() - now.getTime()) / 1000;
+  const diffMinutes = diffSeconds / 60;
+  const diffHours = diffMinutes / 60;
+  const diffDays = diffHours / 24;
+  const diffWeeks = diffDays / 7;
+  if (diffSeconds > 0) {
+    return { type: 'now' };
+  } else if (Math.abs(diffMinutes) < 1) {
+    return { type: 'now' };
+  } else if (Math.abs(diffHours) < 1) {
+    return { type: 'minutes', value: Math.round(diffMinutes) };
+  } else if (Math.abs(diffDays) < 1) {
+    return { type: 'hours', value: Math.round(diffHours) };
+  } else if (Math.abs(diffWeeks) < 2) {
+    return { type: 'days', value: Math.round(diffDays) };
+  } else {
+    return {
+      type: 'generic',
+      sameYear: date.getFullYear() === now.getFullYear(),
+      date
+    };
+  }
+}
+
 export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult | undefined {
   const now = useNow();
   const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
@@ -157,31 +238,39 @@ export function useRelativeDateMaybe(date: Date | undefined): RelativeDateResult
     new Intl.RelativeTimeFormat(locale, { numeric: 'auto' })
   ), [locale]);
 
-  return useMemo(() => {
+  const diff = useMemo(() => {
     if (!date) return undefined;
+    return relativeDateDiff(date, now)
+  }, [date, now]);
+
+  return useShallowCompareMemo(() => {
+    if (!diff || !date) return undefined;
     const full = date.toLocaleString(locale, fullFormatOptions);
     let relative: string;
-    const diffSeconds = (date.getTime() - now.getTime()) / 1000;
-    const diffMinutes = diffSeconds / 60;
-    const diffHours = diffMinutes / 60;
-    const diffDays = diffHours / 24;
-    const diffWeeks = diffDays / 7;
-    if (diffSeconds > 0) {
+    if (diff.type === 'now') {
       relative = 'just now'
-    } else if (Math.abs(diffMinutes) < 1) {
-      relative = 'just now'
-    } else if (Math.abs(diffHours) < 1) {
-      relative = formatter.format(Math.round(diffMinutes), 'minutes');
-    } else if (Math.abs(diffDays) < 1) {
-      relative = formatter.format(Math.round(diffHours), 'hours');
-    } else if (Math.abs(diffWeeks) < 2) {
-      relative = formatter.format(Math.round(diffDays), 'days');
-    } else {
-      relative = shortDate(date, now, locale, dateFormatOptions);
+    } else if (diff.type === 'minutes') {
+      relative = formatter.format(Math.round(diff.value), 'minutes');
+    } else if (diff.type === 'hours') {
+      relative = formatter.format(Math.round(diff.value), 'hours');
+    } else if (diff.type === 'days') {
+      relative = formatter.format(Math.round(diff.value), 'days');
+    } else if (diff.sameYear) {
+      relative = date.toLocaleDateString(locale, {
+         ...dateFormatOptions,
+         month: 'short',
+         day: 'numeric',
+       });
+     } else {
+      relative = date.toLocaleDateString(locale, {
+        ...dateFormatOptions,
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
     }
-
     return { relative, full }
-  }, [now, date, formatter, locale, fullFormatOptions, dateFormatOptions]);
+  }, [diff, date, formatter, locale, fullFormatOptions, dateFormatOptions]);
 }
 
 export function useRelativeDate(date: Date): RelativeDateResult {
