@@ -10,7 +10,7 @@ interface Props {
     channel: string;
     width: number | string;
     height: number | string;
-    parent: string;
+    parent?: string;
     muted?: boolean;
     controls?: boolean;
     autoplay?: boolean;
@@ -141,7 +141,7 @@ const TwitchEmbed: React.FunctionComponent<Props> = ({
     function createPlayer() {
       const player = TwitchPlayer.FromOptions(id, {
         channel,
-        parent: [parent],
+        parent: parent ? [parent] : [],
         width: '100%',
         height: '100%',
         muted: muted ?? false,

@@ -152,7 +152,6 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
               channel={stream.channelName}
               width='100%'
               height='100%'
-              parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
               muted
               controls={false}
               autoplay={false}

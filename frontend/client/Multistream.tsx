@@ -175,7 +175,6 @@ const Multistream: React.FunctionComponent<Props> = ({ streams, factionInfoMap, 
                       channel={stream.channelName}
                       width={bestWidth}
                       height={bestHeight}
-                      parent={process.env.REACT_APP_APPLICATION_HOST || 'twrponly.tv'}
                       muted={listeningTo?.channelName !== stream.channelName}
                   />
                 }
