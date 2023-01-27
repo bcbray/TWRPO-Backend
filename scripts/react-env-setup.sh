@@ -15,3 +15,9 @@ if [ -n "$DD_ENV" ]; then
   echo "Setting REACT_APP_DD_ENV to ${DD_ENV}"
   echo "REACT_APP_DD_ENV=\"${DD_ENV}\"" >> frontend/.env
 fi
+
+if [ -n "$SOURCE_VERSION" ]; then
+  DD_TAGS="git.commit.sha:${SOURCE_VERSION} git.repository_url:github.com/bcbray/TWRPO-Backend"
+  echo "Setting DD_TAGS to ${DD_TAGS}"
+  echo "DD_TAGS=\"${DD_TAGS}\"" >> frontend/.env
+fi
