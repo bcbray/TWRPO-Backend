@@ -137,8 +137,15 @@
   transition: filter 0.15s linear;
 }
 
-tr:hover .contact .obscured .value {
+.table:not(.noHover) tr:hover .contact .obscured .value,
+.table.noHover .contact .obscured:hover .value {
   opacity: 0.5;
+}
+
+@media (hover: none) {
+  .contact .obscured .value {
+    opacity: 0.5;
+  }
 }
 
 .contact .obscured .showButton {
@@ -159,8 +166,15 @@ tr:hover .contact .obscured .value {
   color: var(--theme-primary-color-active);
 }
 
-tr:hover .contact .obscured .showButton {
+.table:not(.noHover) tr:hover .contact .obscured .showButton,
+.table.noHover .contact .obscured:hover .showButton {
   opacity: 1.0;
+}
+
+@media (hover: none) {
+  .contact .obscured .showButton {
+    opacity: 1.0;
+  }
 }
 
 .contact .obscured .showButton svg {
