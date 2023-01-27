@@ -17,6 +17,7 @@ const TrackerProvider: React.FC<Props> = ({ children }) => {
       clientToken='pub28eb54281f13367423106a5fbcdf7461'
       site='us3.datadoghq.com'
       service='twrponly.tv'
+      env={process.env.REACT_APP_DD_ENV ?? 'dev'}
       defaultPrivacyLevel='allow'
       sessionReplayRecording
     >
