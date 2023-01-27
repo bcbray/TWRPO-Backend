@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if echo ${HEROKU_APP_NAME} | grep "twrpo-pr"; then
+if echo ${HEROKU_APP_NAME} | grep "twrpo-pr-"; then
   DD_ENV="review-${HEROKU_APP_NAME}"
   echo "Setting DD_ENV to ${DD_ENV}"
 fi

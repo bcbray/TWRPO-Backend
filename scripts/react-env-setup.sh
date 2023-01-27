@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if echo ${HEROKU_APP_NAME} | grep "twrpo-pr"; then
+if echo ${HEROKU_APP_NAME} | grep "twrpo-pr-"; then
   APP_HOST="${HEROKU_APP_NAME}.herokuapp.com"
   echo "Setting REACT_APP_APPLICATION_HOST to ${APP_HOST}"
   echo "REACT_APP_APPLICATION_HOST=\"${APP_HOST}\"" >> frontend/.env
