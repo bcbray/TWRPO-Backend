@@ -20,6 +20,11 @@ const TrackerProvider: React.FC<Props> = ({ children }) => {
       env={process.env.REACT_APP_DD_ENV ?? 'dev'}
       defaultPrivacyLevel='allow'
       sessionReplayRecording
+      allowedTracingOrigins={
+        process.env.REACT_APP_APPLICATION_HOST
+        ? [`https://${process.env.REACT_APP_APPLICATION_HOST}`]
+        : [`https://twrponly.tv`]
+      }
     >
       <Plausible>
         {children}
