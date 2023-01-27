@@ -844,7 +844,7 @@ const getWrpLive = async (
                             } else {
                                 // If we have one, use the most-streamed character as the guess
                                 let foundLongest = false;
-                                const longestCharacters = longestCharactersLookup[wrpServer.id][helixStream.userId];
+                                const longestCharacters = longestCharactersLookup[wrpServer.id]?.[helixStream.userId];
                                 if (longestCharacters) {
                                     for (const longest of longestCharacters) {
                                         const char = characters.find(c => c.id === longest.characterId);
