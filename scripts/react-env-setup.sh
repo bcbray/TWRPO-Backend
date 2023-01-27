@@ -21,3 +21,10 @@ if [ -n "$SOURCE_VERSION" ]; then
   echo "Setting DD_TAGS to ${DD_TAGS}"
   echo "DD_TAGS=\"${DD_TAGS}\"" >> frontend/.env
 fi
+
+if [ -n "$HEROKU_RELEASE_VERSION" ]; then
+  echo "Setting DD_VERSION to ${HEROKU_RELEASE_VERSION}"
+  echo "DD_VERSION=\"${HEROKU_RELEASE_VERSION}\"" >> frontend/.env
+  echo "Setting REACT_APP_DD_VERSION to ${HEROKU_RELEASE_VERSION}"
+  echo "REACT_APP_DD_VERSION=\"${HEROKU_RELEASE_VERSION}\"" >> frontend/.env
+fi

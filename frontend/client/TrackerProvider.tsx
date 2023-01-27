@@ -18,6 +18,7 @@ const TrackerProvider: React.FC<Props> = ({ children }) => {
       site='us3.datadoghq.com'
       service='twrponly.tv'
       env={process.env.REACT_APP_DD_ENV ?? 'dev'}
+      version={process.env.REACT_APP_DD_VERSION}
       defaultPrivacyLevel='allow'
       sessionReplayRecording
       allowedTracingOrigins={
