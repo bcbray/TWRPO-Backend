@@ -8,16 +8,19 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { ClientPreloadedDataProvider } from './Data';
+import { ClientEnvironmentProvider } from './Environment';
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <React.StrictMode>
     <BrowserRouter>
-      <ClientPreloadedDataProvider>
-        <HelmetProvider>
-          <App />
-        </HelmetProvider>
-      </ClientPreloadedDataProvider>
+      <ClientEnvironmentProvider>
+        <ClientPreloadedDataProvider>
+          <HelmetProvider>
+            <App />
+          </HelmetProvider>
+        </ClientPreloadedDataProvider>
+      </ClientEnvironmentProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

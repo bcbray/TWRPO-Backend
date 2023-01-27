@@ -7,12 +7,11 @@
         "frontend"
     ],
     "scripts": {
-        "heroku-prebuild": "./scripts/react-env-setup.sh",
         "postinstall": "patch-package",
         "clean": "yarn workspaces run clean",
-        "build": "yarn workspaces run build",
-        "release": "yarn workspace @twrpo/api bootstrap-db",
-        "start": "yarn workspace frontend start:server",
+        "build": ". ./scripts/env-setup.sh && yarn workspaces run build",
+        "release": ". ./scripts/env-setup.sh && yarn workspace @twrpo/api bootstrap-db",
+        "start": ". ./scripts/env-setup.sh && yarn workspace frontend start:server",
         "inspect": "yarn workspace frontend inspect"
     },
     "dependencies": {

@@ -30,6 +30,7 @@ import {
 } from '../client/Data';
 import { rootFactionStylesheetContents } from '../client/FactionStyleProvider';
 import { ServerHookDataProvider, ServerHookData } from '../client/hooks'
+import { Environment, ServerEnvironmentProvider, environmentKey } from '../client/Environment';
 
 const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
   try {
@@ -42,6 +43,12 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
     const hookContext: ServerHookData = {
       userAgent: req
+    };
+
+    const environment: Environment = {
+      datadogEnvironment: process.env.DD_ENV ?? 'dev',
+      datadogVersion: process.env.DD_VERSION,
+      rootUrl: process.env.ROOT_URL ?? 'https://twrponly.tv',
     };
 
     const {
@@ -68,19 +75,21 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
         const used: PreloadedUsed = {};
 
         appHtml = ReactDOMServer.renderToString(
-          <ServerHookDataProvider data={hookContext}>
-            <ServerPreloadedDataProvider data={preloadedData} used={used}>
-              <SSRProvider>
-                <SSRRoutingProvider value={routingContext}>
-                  <HelmetProvider context={helmetContext} >
-                    <StaticRouter location={req.url}>
-                      <App />
-                    </StaticRouter>
-                  </HelmetProvider>
-                </SSRRoutingProvider>
-              </SSRProvider>
-            </ServerPreloadedDataProvider>
-          </ServerHookDataProvider>
+          <ServerEnvironmentProvider {...environment}>
+            <ServerHookDataProvider data={hookContext}>
+              <ServerPreloadedDataProvider data={preloadedData} used={used}>
+                <SSRProvider>
+                  <SSRRoutingProvider value={routingContext}>
+                    <HelmetProvider context={helmetContext} >
+                      <StaticRouter location={req.url}>
+                        <App />
+                      </StaticRouter>
+                    </HelmetProvider>
+                  </SSRRoutingProvider>
+                </SSRProvider>
+              </ServerPreloadedDataProvider>
+            </ServerHookDataProvider>
+          </ServerEnvironmentProvider>
         );
 
         let needsAnotherLoad = false;
@@ -257,8 +266,9 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
       '<script id="preloaded"></script>',
       `<script id="preloaded">
 window.${preloadedDataKey} = ${JSON.stringify(preloadedData).replace(/</g,'\\u003c')}
+window.${environmentKey} = ${JSON.stringify(environment).replace(/</g,'\\u003c')}
 </script>`
-    )
+    );
 
 
     if (preloadedData.factions && needsFactionCss) {
