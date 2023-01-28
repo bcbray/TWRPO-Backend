@@ -420,7 +420,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 108, name: 'Rufus Lorde', factions: ['Dead End Gang'], deceased: true }, // Former Summer's Gang.
         { id: 109, name: 'Ronan "Tar" McCarthy', nicknames: ['Tar Sullivan'] },
     ],
-    brambleleaf: [
+    BrambleLeaf: [
         { id: 1755, name: 'Judith "Fiver" ?', factions: ['Fuller House'] },
     ],
     Bringus: [
