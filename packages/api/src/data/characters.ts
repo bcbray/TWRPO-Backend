@@ -421,7 +421,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 109, name: 'Ronan "Tar" McCarthy', nicknames: ['Tar Sullivan'] },
     ],
     brambleleaf: [
-        { id: 1755, name: 'Judith "Fiver" ?' },
+        { id: 1755, name: 'Judith "Fiver" ?', factions: ['Fuller House'] },
     ],
     Bringus: [
         { id: 1468, name: 'Linus Lievesley' },
