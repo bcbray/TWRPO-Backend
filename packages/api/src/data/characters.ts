@@ -2817,7 +2817,7 @@ export const wrpCharacters: WrpCharacters = {
     Tasara22: [
         // Characters as of 12/26/2022: https://clips.twitch.tv/SilkyJoyousDinosaurBloodTrail-E0KXK8TIG_hbf3F3
         { id: 819, name: '[Sr. Deputy] Jane Ripley', factions: ['Law'], deceased: true, telegram: 'SG824' },
-        { id: 820, name: 'Elizabeth "Betty" Moretti', nicknames: ['Betty Butcher'], telegram: 'ZK132' }, // Former DiCenzo (group 2)
+        { id: 820, name: 'Elizabeth "Betty" Moretti', nicknames: ['Betty Butcher'], deceased: true, telegram: 'ZK132' }, // Former DiCenzo (group 2)
         { id: 821, name: 'Madame Milena', deceased: true }, // Unsure deceased or just inactive
         { id: 822, name: 'Monica Peach', deceased: true }, // Unsure deceased or just inactive
         { id: 823, name: 'Oneida Zonta', deceased: true }, // Unsure deceased or just inactive
