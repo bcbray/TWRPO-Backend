@@ -3097,7 +3097,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1572, name: 'Herbie Coltrane', factions: ['Independent', 'Guarma'] },
     ],
     Trincaria: [
-        { id: 1570, name: 'Henrietta Callaghan', factions: ['Conductors'] },
+        { id: 1570, name: 'Henrietta Callaghan', factions: ['Conductors'], telegram: 'VJ944' },
     ],
     tsunpapi: [
         { id: 1407, name: 'Felix Meyers', telegram: 'RJ703', assume: 'assumeOther' },
