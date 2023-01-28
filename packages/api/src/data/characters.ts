@@ -2181,7 +2181,7 @@ export const wrpCharacters: WrpCharacters = {
     p3t3_ttv: [
         { id: 1256, name: 'Tex Smith' },
     ],
-    PandemoniumXY: [
+    PandemoniumRPG: [
         { id: 1018, name: 'Alfie Jacobsmith' },
         { id: 1480, name: 'Garath "Mitch" Mitchell', telegram: 'WB743' },
         { id: 1556, name: 'Billybob Roberts' },
