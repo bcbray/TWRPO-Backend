@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1761
+// Next ID: 1762
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -1211,6 +1211,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1337, name: 'Jon Grace' },
         { id: 1405, name: 'Bobby Ratheon', telegram: 'RJ094' },
         { id: 1593, name: '? "Badger" ?' },
+        { id: 1761, name: 'Castor ?', nicknames: ['Cass']},
     ],
     grigoriypeppo: [
         { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2, telegram: 'MT027' },
@@ -2653,7 +2654,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Spoofey: [
         { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'], deceased: true },
-        { id: 1716, name: 'June Joy Lang' }, // Pretty sure about the last name, but not positive
+        { id: 1716, name: 'June Joy Foxx', nicknames: ['Niece of the West'] }, // Birthname is June Joy Foxx, but has been going by June Joy Divine-Lang recently
         { id: 1727, name: 'Opal Foxx' },
         { id: 1728, name: 'Elizabeth "Lizzy" O’Hara', factions: ['Guarma'], telegram: 'AJ333' },// Guarma Guarda
     ],
