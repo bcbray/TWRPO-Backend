@@ -685,9 +685,8 @@ export const wrpCharacters: WrpCharacters = {
     DatVoiceGuy: [
         { id: 197, name: 'Alejandro Ariez' },
         { id: 198, name: 'Luther Van Dam' },
-        { id: 1559, name: 'Blake Dollah' },
+        { id: 1559, name: 'Blake Dollahan' },
         { id: 1631, name: 'Chester Brown' },
-        { id: 1699, name: 'Blake Dollahan' },
     ],
     Daveybe: [
         { id: 199, name: 'Pip Delahan', factions: ['Kettleman Gang'], telegram: 'TR637' },
