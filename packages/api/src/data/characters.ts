@@ -628,6 +628,9 @@ export const wrpCharacters: WrpCharacters = {
     CuddlyJays: [
         { id: 1659, name: 'Sebastian Livingstone' },
     ],
+    cush00: [
+        { id: 620, name: 'Walter Bridges' },
+    ],
     CyboargTV: [
         { id: 178, name: 'Porter ONeill' },
     ],
@@ -2127,9 +2130,6 @@ export const wrpCharacters: WrpCharacters = {
     OfficialBea: [
         { id: 974, name: 'Lois Miles', factions: ['Miles Gang'] },
         { id: 1281, name: 'Sprout ?', factions: ['Hagen'] },
-    ],
-    og_cush00: [
-        { id: 620, name: 'Walter Bridges' },
     ],
     OhHeyItsFunk: [
         { id: 621, name: 'Lucius Tubbs' },
