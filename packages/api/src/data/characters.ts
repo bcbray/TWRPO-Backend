@@ -1922,7 +1922,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 565, name: 'Gladys Berry' },
     ],
     MickeyyyTV: [
-        { id: 52, name: 'Mickey Toolin' },
+        { id: 52, name: 'Mickey Toolin', nicknames: ['Mick'] },
     ],
     MightyMoonBear: [
         { id: 1028, name: 'Russell Woods', factions: ['The Ring'] },
