@@ -3041,7 +3041,7 @@ export const wrpCharacters: WrpCharacters = {
     TilLuxx: [
         { id: 1179, name: '[Medic] Mara Gloom', factions: ['Medical'], telegram: 'GB639' },
         { id: 1237, name: '[Cadet] Til Lux', factions: ['Law'], telegram: 'GW137' },
-        { id: 1500, name: 'Celeste Demeter' },
+        // { id: 1500, name: 'Celeste Demeter' }, // Is this a WildRP Character? Or Saints & Sinners?
     ],
     TiltedSun: [
         { id: 889, name: 'Madison "Maddy" Windward', factions: ['Bluestone'], telegram: 'RT946' },
