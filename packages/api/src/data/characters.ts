@@ -1553,7 +1553,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 458, name: '[Sr. Deputy] Jaime Ruth', factions: ['Law'], telegram: 'SX271' },
         { id: 1010, name: 'Erik "Nose" Drugov', nicknames: ['Vladimir', 'Ivan'] },
         { id: 1279, name: 'Ceaser Falls' },
-        { id: 1355, name: 'Gary Gallow', factions: ['Sisika Guard'] },
+        { id: 1355, name: '[Guard] Gary Gallow', factions: ['Sisika Guard'] },
         { id: 1356, name: 'Tomasso Changretta' },
         { id: 1418, name: 'Rocky Jackson', nicknames: ['Jeremiah', 'Jeremiah Silverspoon'], displayName: 3, telegram: 'DS821' },
         { id: 1711, name: 'Rudolph "Ralphie" Gold', nicknames: ['Ralph'], telegram: 'ZT342' },
