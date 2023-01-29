@@ -1373,7 +1373,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     im_unruly: [
         { id: 1425, name: 'Marquise "MF" Fraiser', telegram: 'TN764' },
-        { id: 1685, name: 'Rudy ?', nicknames: ['Rudeboy Rudy'] },
+        { id: 1685, name: 'Rudy "Rudeboy Rudy" ?', telegram: 'DF337' },
     ],
     inkyblackdreams: [
         { id: 410, name: 'Vera Addley', nicknames: ['Vera Dragavei'], factions: ['Little Gang'] },
