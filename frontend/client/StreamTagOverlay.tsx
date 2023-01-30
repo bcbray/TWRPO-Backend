@@ -77,7 +77,7 @@ export const usePrimaryTagsForStream = (stream: Stream, factions: FactionInfo[],
       tags.push({
         type: 'plain',
         key: 'real-name',
-        text: stream.characterDisplayName,
+        text: stream.characterUncertain ? `Maybe: ${stream.characterDisplayName}` : stream.characterDisplayName,
       });
     }
     tags = tags.concat(factions.map(f => ({
