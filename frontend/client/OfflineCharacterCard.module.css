@@ -195,6 +195,10 @@
   color: var(--faction-color-light-hover);
 }
 
+.channel a:active {
+  color: var(--faction-color-light-active);
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not(:global(.light)):not(:global(.dark)) .thumbnail.hasThumbnail:hover {
     box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -210,6 +214,10 @@
 
   :root:not(:global(.light)):not(:global(.dark)) .channel a:hover {
     color: var(--faction-color-dark-hover);
+  }
+
+  :root:not(:global(.light)):not(:global(.dark)) .channel a:active {
+    color: var(--faction-color-dark-active);
   }
 
   :root:not(:global(.light)):not(:global(.dark)) .thumbnail .offline .lastSeen {
@@ -231,6 +239,10 @@
 
 :root:global(.dark) .channel a:hover {
   color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .channel a:active {
+  color: var(--faction-color-dark-active);
 }
 
 :root:global(.dark) .thumbnail .offline .lastSeen {

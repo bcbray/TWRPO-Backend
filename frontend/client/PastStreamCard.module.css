@@ -282,6 +282,10 @@
   color: var(--faction-color-light-hover);
 }
 
+.channel a:active {
+  color: var(--faction-color-light-active);
+}
+
 .editButton {
   display: none;
 }
@@ -319,6 +323,10 @@
   :root:not(:global(.light)):not(:global(.dark)) .channel a:hover {
     color: var(--faction-color-dark-hover);
   }
+
+  :root:not(:global(.light)):not(:global(.dark)) .channel a:active {
+    color: var(--faction-color-dark-active);
+  }
 }
 
 :root:global(.dark) .card.container {
@@ -348,4 +356,8 @@
 
 :root:global(.dark) .channel a:hover {
   color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .channel a:active {
+  color: var(--faction-color-dark-active);
 }
