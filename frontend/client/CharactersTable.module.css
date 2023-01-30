@@ -91,6 +91,10 @@
   color: var(--theme-primary-color-hover);
 }
 
+.channelName a:active, .name a:active {
+  color: var(--theme-primary-color-active);
+}
+
 .liveTag {
   margin: 0.5em;
 }
@@ -113,8 +117,12 @@
   white-space: nowrap;
 }
 
-.factionPill span:hover {
+.factionPill:hover span {
   background-color: var(--faction-color-light-hover);
+}
+
+.factionPill:active span {
+  background-color: var(--faction-color-light-active);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -122,8 +130,12 @@
     background-color: var(--faction-color-dark);
   }
 
-  :root:not(:global(.light)):not(:global(.dark)) .factionPill span:hover {
+  :root:not(:global(.light)):not(:global(.dark)) .factionPill:hover span {
     background-color: var(--faction-color-dark-hover);
+  }
+
+  :root:not(:global(.light)):not(:global(.dark)) .factionPill:active span {
+    background-color: var(--faction-color-dark-active);
   }
 }
 
@@ -131,6 +143,10 @@
   background-color: var(--faction-color-dark);
 }
 
-:root:global(.dark) .factionPill span:hover {
+:root:global(.dark) .factionPill:hover span {
   background-color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .factionPill:active span {
+  background-color: var(--faction-color-dark-active);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { VideoSegment, Streamer } from '@twrpo/types';
+import { VideoSegment, Streamer, FactionInfo } from '@twrpo/types';
 
 import StreamCard from './StreamCard';
 import PastStreamCard from './PastStreamCard';
@@ -20,6 +20,7 @@ interface VideoSegmentCardProps {
   canShowLiveBadge?: boolean;
   handleRefresh: () => void;
   cardStyle?: CardStyle;
+  factionsByKey: Record<string, FactionInfo>;
 }
 
 const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>((
@@ -53,6 +54,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
         showLiveBadge={canShowLiveBadge}
         handleRefresh={handleRefresh}
         cardStyle={cardStyle}
+        factionsByKey={{}}
       />
     );
   } else {

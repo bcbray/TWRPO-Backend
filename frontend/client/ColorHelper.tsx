@@ -39,6 +39,8 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
     rpServer: 'WRP',
     serverId: 1,
     characterName: 'Sam Baas',
+    characterDisplayName: 'Sam Baas',
+    characterUncertain: false,
     characterId: 1,
     characterContact: null,
     nicknameLookup: null,
@@ -69,7 +71,7 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
       </div>
       <div>
         <div>
-          <StreamCard stream={fakeStream} handleRefresh={() => {}} />
+          <StreamCard stream={fakeStream} handleRefresh={() => {}} factionsByKey={{}} />
         </div>
       </div>
     </div>

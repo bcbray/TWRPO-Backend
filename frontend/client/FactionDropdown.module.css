@@ -11,6 +11,10 @@
   background-color: var(--faction-color-light-hover);
 }
 
+.factionDropdownButton:active {
+  background-color: var(--faction-color-light-active);
+}
+
 .item {
   color: var(--faction-color-light) !important;
 }

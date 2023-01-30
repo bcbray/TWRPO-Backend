@@ -44,6 +44,10 @@
   color: var(--faction-color-light-hover);
 }
 
+.streamer .name a:active {
+  color: var(--faction-color-light-active);
+}
+
 @media (min-width: 576px) {
   .streamer .name {
     display: block;

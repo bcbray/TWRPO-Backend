@@ -56,6 +56,7 @@ interface Character extends Omit<CharacterOld, 'factions' | 'displayName' | 'ass
     factionsObj: { [key in FactionRealMini]?: true };
     factionUse: FactionColorsRealMini;
     displayName: string;
+    displayFullName: string;
     nameReg: RegExp;
 }
 
@@ -160,6 +161,9 @@ for (const [streamer, characters] of Object.entries(wrpCharacters)) {
                 parsedNames.push(RegExp.escape(pushName.replaceAll(/’/g, '\'').toLowerCase()));
             }
         }
+
+        // Create displayFullName before augmenting `realNames` with nicknames
+        char.displayFullName = realNames.join(' ');
 
         if (charOld.nicknames) {
             if (realNames.length === 1) realNames.push(realNames[0]);
@@ -716,6 +720,8 @@ const getWrpLive = async (
                             rpServer: serverName.length ? serverName : null,
                             serverId: matchedServer?.id ?? null,
                             characterName: null,
+                            characterDisplayName: null,
+                            characterUncertain: null,
                             characterId: null,
                             characterContact: null,
                             nicknameLookup: null,
@@ -839,7 +845,7 @@ const getWrpLive = async (
                             } else {
                                 // If we have one, use the most-streamed character as the guess
                                 let foundLongest = false;
-                                const longestCharacters = longestCharactersLookup[wrpServer.id][helixStream.userId];
+                                const longestCharacters = longestCharactersLookup[wrpServer.id]?.[helixStream.userId];
                                 if (longestCharacters) {
                                     for (const longest of longestCharacters) {
                                         const char = characters.find(c => c.id === longest.characterId);
@@ -911,14 +917,18 @@ const getWrpLive = async (
 
                         if (newCharFactionSpotted) activeFactions.push('guessed');
 
+                        characterId = possibleCharacter?.id ?? null;
+                        characterUncertain = possibleCharacter !== undefined && nowCharacter === undefined;
                         stream = {
                             id: nextId,
                             ...baseStream,
                             rpServer: serverName,
                             serverId: wrpServer.id,
                             characterName: possibleCharacter?.name ?? null,
+                            characterDisplayName: possibleCharacter?.displayFullName ?? null,
+                            characterUncertain,
                             characterContact: possibleCharacter?.telegram ?? null,
-                            characterId: possibleCharacter?.id ?? null,
+                            characterId,
                             nicknameLookup: possibleCharacter?.nicknames ? possibleCharacter.nicknames.map(nick => parseLookup(nick)).join(' _-_ ') : null,
                             faction: activeFactions[0],
                             factions: activeFactions,
@@ -929,8 +939,6 @@ const getWrpLive = async (
                             startDate: helixStream.startDate.toISOString(),
                             isHidden: mostRecentStreamSegment?.isHidden ?? false,
                         };
-                        characterId = possibleCharacter?.id ?? null;
-                        characterUncertain = possibleCharacter !== undefined && nowCharacter === undefined;
 
                         console.log(JSON.stringify({
                             level: 'info',
