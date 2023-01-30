@@ -97,6 +97,11 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
   }, [segment]);
 
   const { failed: thumbnailLoadFailed } = useLoadStateImageUrl(thumbnailUrl);
+
+  const factionsByKey = React.useMemo(() => (
+    Object.fromEntries(segment.character?.factions.map(f => [f.key, f]) ?? [])
+  ), [segment]);
+
   return (
     <OverlayTrigger
       placement='top-mouse'
@@ -112,6 +117,7 @@ const TimelineSegment: React.FC<TimelineSegmentProps> = ({
             pastStreamStyle={'vivid'}
             canShowLiveBadge
             embed
+            factionsByKey={factionsByKey}
           />
         </div>
       )}

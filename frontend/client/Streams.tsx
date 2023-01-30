@@ -157,6 +157,10 @@ const Streams: React.FC<StreamsProps> = ({
       : []
   ), [factionLoadState]);
 
+  const factionsByKey = React.useMemo(() => (
+    Object.fromEntries(factionInfos.map(f => [f.key, f]))
+  ), [factionInfos])
+
   const filterFactions = React.useMemo(() => (
     [...factionInfos]
       .filter(f => f.hasCharacters === true)
@@ -204,6 +208,7 @@ const Streams: React.FC<StreamsProps> = ({
             : undefined
         }
         noInset
+        factionsByKey={factionsByKey}
       />
     </div>
   );

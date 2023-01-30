@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntersection, useHoverDirty } from 'react-use';
 import { Link } from 'react-router-dom';
 import { EyeSlashFill } from 'react-bootstrap-icons';
-import { Stream } from '@twrpo/types';
+import { Stream, FactionInfo } from '@twrpo/types';
 
 import styles from './StreamCard.module.css';
 import { channelInfo } from './types';
@@ -16,12 +16,12 @@ import {
 import { useAuthorization } from './auth';
 import { useFactionCss } from './FactionStyleProvider';
 import { useNow } from './Data';
-import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 import TwitchEmbed from './TwitchEmbed';
 import Crossfade from './Crossfade';
 import OverrideSegmentButton from './OverrideSegmentButton'
+import StreamTagOverlay, { usePrimaryTagsForStream } from './StreamTagOverlay';
 
 const cardStyles = {
   inline: styles.inline,
@@ -40,6 +40,8 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   showLiveBadge?: boolean;
   noEdit?: boolean;
   handleRefresh: () => void;
+  factionsByKey: Record<string, FactionInfo>;
+  onSelectFaction?: (faction: FactionInfo) => void;
 }
 
 interface StreamLinkProps {
@@ -80,6 +82,8 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     showLiveBadge = false,
     noEdit = false,
     handleRefresh,
+    factionsByKey,
+    onSelectFaction,
     ...rest
   }, ref
 ) => {
@@ -126,6 +130,12 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     twitchId: stream.channelName.toLowerCase(),
   });
 
+  const factions = React.useMemo(() => (
+    stream.factions.map(f => factionsByKey[f]).filter(f => f)
+  ), [stream.factions, factionsByKey]);
+
+  const nameTags = usePrimaryTagsForStream(stream, factions, onSelectFaction);
+
   return (
     <div
       className={classes(styles.container, className, cardStyles[cardStyle])}
@@ -159,22 +169,16 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
               onPlaying={setEmbedPlaying}
             />}
         </StreamLink>
-        <div className={styles.topTags}>
-          <Tag className={classes(styles.tag, styles.name)}>
-            <p>{stream.tagText}</p>
-          </Tag>
-          {showLiveBadge &&
-            <Tag className={classes(styles.tag, styles.live)}>
-              <p>Live</p>
-            </Tag>
-          }
-        </div>
-        <Tag className={classes(styles.tag, styles.viewers)}>
-          <p>{formatViewers(stream.viewers)}</p>
-        </Tag>
-        <Tag className={classes(styles.tag, styles.runtime)}>
-          <p>{formatInterval(startDate, now)}</p>
-        </Tag>
+        <StreamTagOverlay
+          className={styles.tagOverlay}
+          topLeft={nameTags}
+          bottomLeft={[
+            { type: 'secondary', key: 'viewers', text: formatViewers(stream.viewers) },
+          ]}
+          bottomRight={[
+            { type: 'secondary', key: 'duration', text: formatInterval(startDate, now) },
+          ]}
+        />
         {stream.isHidden &&
           <div className={styles.hiddenOverlay}>
             <EyeSlashFill />

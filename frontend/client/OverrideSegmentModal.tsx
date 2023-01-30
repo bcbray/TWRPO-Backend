@@ -274,6 +274,7 @@ const FormContent: React.FC<LoadedProps> = ({
           noEdit
           pastStreamStyle={'vivid'}
           handleRefresh={() => {}}
+          factionsByKey={{}}
         />
       </div>
       <div>

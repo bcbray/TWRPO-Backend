@@ -112,6 +112,7 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
             stream={fakeStream}
             loadTick={tick}
             handleRefresh={() => {}}
+            factionsByKey={{}}
           />
         )}
       </Crossfade>

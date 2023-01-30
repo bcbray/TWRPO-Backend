@@ -70,7 +70,7 @@ const FactionCard: React.FC<{faction: FactionInfo, style?: React.CSSProperties}>
       </div>
       <div>
         <div>
-          <StreamCard stream={fakeStream} handleRefresh={() => {}} />
+          <StreamCard stream={fakeStream} handleRefresh={() => {}} factionsByKey={{}} />
         </div>
       </div>
     </div>
