@@ -59,6 +59,7 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
     rpServer: 'WRP',
     serverId: 1,
     characterName: 'Sam Baas',
+    characterDisplayName: 'Sam Baas',
     characterId: 1,
     characterContact: null,
     nicknameLookup: null,
