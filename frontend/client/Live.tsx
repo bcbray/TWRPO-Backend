@@ -94,6 +94,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
         : streams.filter(stream =>
           filterRegex.test(stream.tagText)
           || (stream.characterName && filterRegex.test(stream.characterName))
+          || (stream.characterDisplayName && filterRegex.test(stream.characterDisplayName))
           || (stream.nicknameLookup && stream.nicknameLookup.includes(filterTextLookup))
           || (stream.characterContact && filterRegex.test(stream.characterContact))
           || filterRegex.test(stream.channelName)
