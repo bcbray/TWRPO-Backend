@@ -130,7 +130,9 @@ export const usePrimaryTagsForSegment = (segment: VideoSegment, onSelectFaction?
       tags.push({
         type: 'plain',
         key: 'real-name',
-        text: segment.character.displayInfo.realNames.join(' '),
+        text: segment.characterUncertain
+          ? `Maybe: ${segment.character.displayInfo.realNames.join(' ')}`
+          : segment.character.displayInfo.realNames.join(' '),
       });
     }
     tags = tags.concat(segment.character?.factions.map(f => ({
