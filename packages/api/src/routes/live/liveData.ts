@@ -721,6 +721,7 @@ const getWrpLive = async (
                             serverId: matchedServer?.id ?? null,
                             characterName: null,
                             characterDisplayName: null,
+                            characterUncertain: null,
                             characterId: null,
                             characterContact: null,
                             nicknameLookup: null,
@@ -916,6 +917,8 @@ const getWrpLive = async (
 
                         if (newCharFactionSpotted) activeFactions.push('guessed');
 
+                        characterId = possibleCharacter?.id ?? null;
+                        characterUncertain = possibleCharacter !== undefined && nowCharacter === undefined;
                         stream = {
                             id: nextId,
                             ...baseStream,
@@ -923,8 +926,9 @@ const getWrpLive = async (
                             serverId: wrpServer.id,
                             characterName: possibleCharacter?.name ?? null,
                             characterDisplayName: possibleCharacter?.displayFullName ?? null,
+                            characterUncertain,
                             characterContact: possibleCharacter?.telegram ?? null,
-                            characterId: possibleCharacter?.id ?? null,
+                            characterId,
                             nicknameLookup: possibleCharacter?.nicknames ? possibleCharacter.nicknames.map(nick => parseLookup(nick)).join(' _-_ ') : null,
                             faction: activeFactions[0],
                             factions: activeFactions,
@@ -935,8 +939,6 @@ const getWrpLive = async (
                             startDate: helixStream.startDate.toISOString(),
                             isHidden: mostRecentStreamSegment?.isHidden ?? false,
                         };
-                        characterId = possibleCharacter?.id ?? null;
-                        characterUncertain = possibleCharacter !== undefined && nowCharacter === undefined;
 
                         console.log(JSON.stringify({
                             level: 'info',

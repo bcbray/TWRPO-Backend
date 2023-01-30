@@ -11,6 +11,7 @@ export default interface Stream {
   rpServer: string | null;
   serverId: number | null;
   characterName: string | null;
+  characterUncertain: boolean | null;
   characterDisplayName: string | null;
   characterId: number | null;
   characterContact: string | null;
