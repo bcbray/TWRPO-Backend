@@ -122,7 +122,7 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, option
     const trackedChannels = await dataSource
         .getRepository(TwitchChannel)
         .findBy({
-            id: ignoredChannelTwitchIds.length > 0 ? Not(In(ignoredChannelTwitchIds)) : undefined,
+            twitchId: ignoredChannelTwitchIds.length > 0 ? Not(In(ignoredChannelTwitchIds)) : undefined,
             isTracked: true,
         });
 
