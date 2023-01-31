@@ -49,59 +49,13 @@
   cursor: pointer;
 }
 
-.tag {
-  position: absolute;
-  margin: 0.5rem;
-}
-
-.topTags {
+.tagOverlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   margin: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.topTags .tag {
-  position: unset;
-  margin: 0;
-}
-
-.tag.name {
-  font-weight: 500;
-  top: 0;
-  left: 0;
-  text-transform: uppercase;
-  color: var(--const-theme-black);
-  background-color: var(--faction-color-dark);
-}
-
-.tag.live {
-  font-weight: 500;
-  top: 0;
-  left: 0;
-  text-transform: uppercase;
-  color: var(--const-theme-white);
-  background-color: var(--theme-red);
-}
-
-.tag.viewers {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  bottom: 0;
-  left: 0;
-}
-
-.tag.runtime {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  bottom: 0;
-  right: 0;
 }
 
 .hiddenOverlay {
@@ -170,6 +124,10 @@
   color: var(--faction-color-light-hover);
 }
 
+.channel a:active {
+  color: var(--faction-color-light-active);
+}
+
 .editButton {
   display: none;
 }
@@ -203,6 +161,10 @@
   :root:not(:global(.light)):not(:global(.dark)) .channel a:hover {
     color: var(--faction-color-dark-hover);
   }
+
+  :root:not(:global(.light)):not(:global(.dark)) .channel a:active {
+    color: var(--faction-color-dark-active);
+  }
 }
 
 :root:global(.dark) .card.container {
@@ -228,4 +190,8 @@
 
 :root:global(.dark) .channel a:hover {
   color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .channel a:active {
+  color: var(--faction-color-dark-active);
 }

@@ -38,13 +38,13 @@
 }
 
 .container:not(.vivid) .thumbnail img,
-.container:not(.vivid) .thumbnail .tag {
+.container:not(.vivid) .thumbnail .tagOverlay {
   transition: filter ease-in-out .2s;
   filter: grayscale(0.7);
 }
 
 .dimmed .thumbnail:hover img,
-.container:not(.vivid) .thumbnail:hover .tag {
+.container:not(.vivid) .thumbnail:hover .tagOverlay {
   filter: none;
 }
 
@@ -145,43 +145,13 @@
   cursor: pointer;
 }
 
-.tag {
-  position: absolute;
-  margin: 0.5rem;
-}
-
-.tag .icon {
-  margin-right: 0.275em;
-}
-
-.tag .icon svg {
-  height: 1em;
-  width: 1em;
-}
-
-.topTags {
+.tagOverlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   margin: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.topTags .tag {
-  position: unset;
-  margin: 0;
-}
-
-.tag.live {
-  font-weight: 500;
-  text-transform: uppercase;
-  color: var(--const-theme-white);
-  background-color: var(--theme-red);
 }
 
 .hiddenOverlay {
@@ -202,24 +172,6 @@
   width: auto;
   height: 50%;
   aspect-ratio: 1;
-}
-
-.tag.viewers {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  bottom: 0;
-  left: 0;
-}
-
-.tag.runtime {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  bottom: 0;
-  right: 0;
-}
-
-.tag.runtime.tooShort {
-  background-color: rgba(95, 0, 0, 0.8);
 }
 
 .info {
@@ -282,6 +234,10 @@
   color: var(--faction-color-light-hover);
 }
 
+.channel a:active {
+  color: var(--faction-color-light-active);
+}
+
 .editButton {
   display: none;
 }
@@ -319,6 +275,10 @@
   :root:not(:global(.light)):not(:global(.dark)) .channel a:hover {
     color: var(--faction-color-dark-hover);
   }
+
+  :root:not(:global(.light)):not(:global(.dark)) .channel a:active {
+    color: var(--faction-color-dark-active);
+  }
 }
 
 :root:global(.dark) .card.container {
@@ -348,4 +308,8 @@
 
 :root:global(.dark) .channel a:hover {
   color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .channel a:active {
+  color: var(--faction-color-dark-active);
 }

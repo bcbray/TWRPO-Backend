@@ -129,26 +129,19 @@
   cursor: pointer;
 }
 
-.tag {
+.tagOverlay {
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   margin: 0.5rem;
+  transition: filter ease-in-out .2s;
   filter: grayscale(0.7);
 }
 
-.tag.name {
-  font-weight: 500;
-  color: var(--const-theme-black);
-  background-color: var(--faction-color-dark);
-  top: 0;
-  left: 0;
-  text-transform: uppercase;
-}
-
-.tag.viewers {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  bottom: 0;
-  left: 0;
+.thumbnail:hover .tagOverlay {
+  filter: none;
 }
 
 .info {
@@ -195,6 +188,10 @@
   color: var(--faction-color-light-hover);
 }
 
+.channel a:active {
+  color: var(--faction-color-light-active);
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not(:global(.light)):not(:global(.dark)) .thumbnail.hasThumbnail:hover {
     box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -210,6 +207,10 @@
 
   :root:not(:global(.light)):not(:global(.dark)) .channel a:hover {
     color: var(--faction-color-dark-hover);
+  }
+
+  :root:not(:global(.light)):not(:global(.dark)) .channel a:active {
+    color: var(--faction-color-dark-active);
   }
 
   :root:not(:global(.light)):not(:global(.dark)) .thumbnail .offline .lastSeen {
@@ -231,6 +232,10 @@
 
 :root:global(.dark) .channel a:hover {
   color: var(--faction-color-dark-hover);
+}
+
+:root:global(.dark) .channel a:active {
+  color: var(--faction-color-dark-active);
 }
 
 :root:global(.dark) .thumbnail .offline .lastSeen {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import isMobile from 'is-mobile';
-import { Stream, CharacterInfo, Streamer, VideoSegment, SegmentAndStreamer } from '@twrpo/types';
+import { Stream, CharacterInfo, Streamer, VideoSegment, SegmentAndStreamer, FactionInfo } from '@twrpo/types';
 
 import styles from './StreamList.module.css';
 import StreamCard from './StreamCard';
@@ -32,6 +32,8 @@ interface Props {
   pastStreamStyle?: 'vivid' | 'blurred' | 'dimmed';
   pastStreamTimeDisplay?: 'start' | 'end';
   handleRefresh: () => void;
+  factionsByKey: Record<string, FactionInfo>;
+  onSelectFaction?: (faction: FactionInfo) => void;
 }
 
 interface LiveItem {
@@ -71,6 +73,8 @@ const StreamList: React.FC<Props> = ({
   pastStreamStyle = 'dimmed',
   pastStreamTimeDisplay = 'start',
   handleRefresh,
+  factionsByKey,
+  onSelectFaction,
 }) => {
   const sorted = React.useMemo(() => {
     return streams
@@ -128,6 +132,8 @@ const StreamList: React.FC<Props> = ({
                       wrapTitle={wrapTitle}
                       showLiveBadge={showLiveBadge}
                       handleRefresh={handleRefresh}
+                      factionsByKey={factionsByKey}
+                      onSelectFaction={onSelectFaction}
                     />
                   </Crossfade>
                 </Flipped>
@@ -151,6 +157,7 @@ const StreamList: React.FC<Props> = ({
                       pastStreamTimeDisplay={pastStreamTimeDisplay}
                       canShowLiveBadge={showLiveBadge}
                       handleRefresh={handleRefresh}
+                      factionsByKey={factionsByKey}
                     />
                   </Crossfade>
                 </Flipped>
@@ -176,6 +183,7 @@ const StreamList: React.FC<Props> = ({
                       character={character}
                       hideStreamer={hideStreamer}
                       wrapTitle={wrapTitle}
+                      onSelectFaction={onSelectFaction}
                     />
                   </Crossfade>
                 </Flipped>

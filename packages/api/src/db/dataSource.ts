@@ -8,6 +8,7 @@ import { User } from './entity/User';
 import { Server } from './entity/Server';
 import { ServerRegex } from './entity/ServerRegex';
 import { Game } from './entity/Game';
+import { StreamChunkStat } from './entity/StreamChunkStat';
 
 export default function dataSource(postgresUrl: string): DataSource {
     return new DataSource({
@@ -23,6 +24,7 @@ export default function dataSource(postgresUrl: string): DataSource {
             Server,
             ServerRegex,
             Game,
+            StreamChunkStat,
         ],
     });
 }

@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1762
+// Next ID: 1774
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -67,6 +67,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1455, name: 'Adan Jimenez', factions: ['Del Lobos'], telegram: 'XK186' },
         { id: 1470, name: 'Mo Zhaohui' },
         { id: 1741, name: 'Orazio Riina' },
+        { id: 1768, name: 'Henry Fisher' },
     ],
     AaronBlack_: [
         { id: 1514, name: 'Michael Sullivan', telegram: 'DB279' },
@@ -421,7 +422,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 109, name: 'Ronan "Tar" McCarthy', nicknames: ['Tar Sullivan'] },
     ],
     BrambleLeaf: [
-        { id: 1755, name: 'Judith "Fiver" Thompson', factions: ['Fuller House'] },
+        { id: 1755, name: 'Judith "Fiver" ?', factions: ['Fuller House'] },
+        { id: 1773, name: '[Cadet] Rue Roussan', factions: ['Law'] },
     ],
     Bringus: [
         { id: 1468, name: 'Linus Lievesley' },
@@ -627,6 +629,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     CuddlyJays: [
         { id: 1659, name: 'Sebastian Livingstone' },
+        { id: 1769, name: 'Franco Mancini', telegram: 'YP169' },
+    ],
+    cush00: [
+        { id: 620, name: 'Walter Bridges' },
     ],
     CyboargTV: [
         { id: 178, name: 'Porter ONeill' },
@@ -685,9 +691,9 @@ export const wrpCharacters: WrpCharacters = {
     DatVoiceGuy: [
         { id: 197, name: 'Alejandro Ariez' },
         { id: 198, name: 'Luther Van Dam' },
-        { id: 1559, name: 'Blake Dollah' },
+        { id: 1559, name: 'Blake Dollahan' },
         { id: 1631, name: 'Chester Brown' },
-        { id: 1699, name: 'Blake Dollahan' },
+        { id: 1763, name: 'Aleister Moon' },
     ],
     Daveybe: [
         { id: 199, name: 'Pip Delahan', factions: ['Kettleman Gang'], telegram: 'TR637' },
@@ -858,6 +864,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Durtydoesit: [
         { id: 1479, name: 'Ricky Shay' },
+        { id: 1772, name: 'Levi Watcher' },
     ],
     DustMonkey: [
         { id: 253, name: '[Deputy] Charles Slaughter', factions: ['Law'] },
@@ -887,6 +894,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 263, name: '[Deputy] Eleonor Parker', factions: ['Law'], telegram: 'VQ924' },
         { id: 1543, name: 'Martha Dugmore' },
         { id: 1690, name: 'Ingrid Goldman', telegram: 'CV320' },
+        { id: 1770, name: 'Rosalinda Williams', telegram: 'DB411' },
+        { id: 1771, name: 'Olivia Puppet' },
     ],
     Eatindatcereal: [
         { id: 264, name: '[Sr. Deputy] Jax Sanctum', factions: ['Law'], telegram: 'OO930' },
@@ -999,7 +1008,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 298, name: 'Steven Hayes' },
     ],
     fayebles: [
-        { id: 299, name: 'Clementine "Clem" Fisher', factions: ['Bluestone'], telegram: 'IF890' },
+        { id: 299, name: '[Recruit] Clementine "Clem" Fisher', factions: ['Rangers', 'Bluestone'], telegram: 'IF890' },
         { id: 300, name: 'Nessa Evans' },
         { id: 1069, name: 'Ruby Warner' },
         { id: 1325, name: 'Rana Marsh', telegram: 'DX713' },
@@ -1221,6 +1230,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1435, name: 'Merry Slobbins' },
         { id: 1633, name: 'Edgar Lopez', telegram: 'KG025' },
     ],
+    GrumpyChunkyMonkey: [
+        { id: 1767, name: 'Arthur Lockwood' },
+    ],
     gtplays: [
         { id: 374, name: 'Gene Tiffin' },
         { id: 375, name: 'Granville Turner' },
@@ -1373,7 +1385,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     im_unruly: [
         { id: 1425, name: 'Marquise "MF" Fraiser', telegram: 'TN764' },
-        { id: 1685, name: 'Rudy ?', nicknames: ['Rudeboy Rudy'] },
+        { id: 1685, name: 'Rudy "Rudeboy Rudy" ?', telegram: 'DF337' },
     ],
     inkyblackdreams: [
         { id: 410, name: 'Vera Addley', nicknames: ['Vera Dragavei'], factions: ['Little Gang'] },
@@ -1553,7 +1565,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 458, name: '[Sr. Deputy] Jaime Ruth', factions: ['Law'], telegram: 'SX271' },
         { id: 1010, name: 'Erik "Nose" Drugov', nicknames: ['Vladimir', 'Ivan'] },
         { id: 1279, name: 'Ceaser Falls' },
-        { id: 1355, name: 'Gary Gallow', factions: ['Sisika Guard'] },
+        { id: 1355, name: '[Guard] Gary Gallow', factions: ['Sisika Guard'] },
         { id: 1356, name: 'Tomasso Changretta' },
         { id: 1418, name: 'Rocky Jackson', nicknames: ['Jeremiah', 'Jeremiah Silverspoon'], displayName: 3, telegram: 'DS821' },
         { id: 1711, name: 'Rudolph "Ralphie" Gold', nicknames: ['Ralph'], telegram: 'ZT342' },
@@ -1922,7 +1934,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 565, name: 'Gladys Berry' },
     ],
     MickeyyyTV: [
-        { id: 52, name: 'Mickey Toolin' },
+        { id: 52, name: 'Mickey Toolin', nicknames: ['Mick'] },
     ],
     MightyMoonBear: [
         { id: 1028, name: 'Russell Woods', factions: ['The Ring'] },
@@ -1949,6 +1961,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1073, name: 'Lavender Jones' },
         { id: 1074, name: 'Oksana Reznikov' },
         { id: 1487, name: 'Dixie Jacobs', nicknames: ['DJ'], telegram: 'DJ998' },
+        { id: 1765, name: 'Sasha Ivanova' },
     ],
     MissMangoJuice: [
         { id: 1294, name: 'Diana Bennet' },
@@ -2128,9 +2141,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 974, name: 'Lois Miles', factions: ['Miles Gang'] },
         { id: 1281, name: 'Sprout ?', factions: ['Hagen'] },
     ],
-    og_cush00: [
-        { id: 620, name: 'Walter Bridges' },
-    ],
     OhHeyItsFunk: [
         { id: 621, name: 'Lucius Tubbs' },
     ],
@@ -2279,6 +2289,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     PukingFerrets: [
         { id: 660, name: 'Alice Fuller', nicknames: ['Alice Quinn'], factions: ['Fuller House'], telegram: 'QN172' }, // Former Kettleman Gang
+        { id: 1764, name: '[Guard] Gwendoline Clarke', factions: ['Sisika Guard'] },
     ],
     Pumpkinberry: [
         { id: 661, name: 'Cara "Sparks" Murphy', nicknames: ['Honey Sparks', 'Murph'], telegram: 'WD223' },
@@ -2595,6 +2606,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 752, name: 'Isabella Vautour', factions: ['Red Water'], telegram: 'GA464' },
         { id: 753, name: '[Deputy] Jackie Lockwood', factions: ['Law'] },
         { id: 754, name: 'Raven Bennett' },
+        { id: 1766, name: '[Cadet] Arya Clark', factions: ['Law'], telegram: 'OY760' },
     ],
     SocialTortoise: [
         { id: 755, name: 'Billy Jackson' },
@@ -2949,6 +2961,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheHairyCelt: [
         { id: 863, name: 'Ronnie Hurbert', factions: ['The Firm'], telegram: 'EW576' },
+        { id: 1762, name: 'James Gunn' },
     ],
     TheHardcorian: [
         { id: 864, name: 'Edgar Buckle' },
@@ -3040,7 +3053,7 @@ export const wrpCharacters: WrpCharacters = {
     TilLuxx: [
         { id: 1179, name: '[Medic] Mara Gloom', factions: ['Medical'], telegram: 'GB639' },
         { id: 1237, name: '[Cadet] Til Lux', factions: ['Law'], telegram: 'GW137' },
-        { id: 1500, name: 'Celeste Demeter' },
+        // { id: 1500, name: 'Celeste Demeter' }, // Is this a WildRP Character? Or Saints & Sinners?
     ],
     TiltedSun: [
         { id: 889, name: 'Madison "Maddy" Windward', factions: ['Bluestone'], telegram: 'RT946' },

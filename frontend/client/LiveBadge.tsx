@@ -30,6 +30,7 @@ const LiveBadge: React.FC<LiveBadgeProps> = ({ stream, className }) => (
           embed
           noEdit
           handleRefresh={() => {}}
+          factionsByKey={{}}
         />
       </div>
     )}

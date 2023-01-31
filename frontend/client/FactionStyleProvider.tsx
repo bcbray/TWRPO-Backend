@@ -12,11 +12,15 @@ const rootFactionStyles = (factions: FactionInfo[]) => {
     '--faction-color-fallback-light': '#12af7e',
     '--faction-color-fallback-dark': '#32ff7e',
     '--faction-color-fallback-light-hover': tinycolor('#12af7e').darken().toString(),
-    '--faction-color-fallback-dark-hover': tinycolor('#32ff7e').darken().toString(),
+    '--faction-color-fallback-dark-hover': tinycolor('#32ff7e').brighten(20).toString(),
+    '--faction-color-fallback-light-active': tinycolor('#12af7e').darken(20).toString(),
+    '--faction-color-fallback-dark-active': tinycolor('#32ff7e').brighten(40).toString(),
     '--faction-color-light-otherwrp': '#000',
     '--faction-color-dark-otherwrp': '#fff',
     '--faction-color-light-otherwrp-hover': 'var(--faction-color-otherwrp-light)',
     '--faction-color-dark-otherwrp-hover': 'var(--faction-color-fallback-dark-hover)',
+    '--faction-color-light-otherwrp-active': 'var(--faction-color-otherwrp-light)',
+    '--faction-color-dark-otherwrp-active': 'var(--faction-color-fallback-dark-active)',
     ...Object.fromEntries(factions.flatMap(faction => [
       [
         `--faction-color-light-${faction.key}`,
@@ -27,12 +31,20 @@ const rootFactionStyles = (factions: FactionInfo[]) => {
         tinycolor(faction.colorLight).darken().toString(),
       ],
       [
+        `--faction-color-light-${faction.key}-active`,
+        tinycolor(faction.colorLight).darken(20).toString(),
+      ],
+      [
         `--faction-color-dark-${faction.key}`,
         faction.colorDark,
       ],
       [
         `--faction-color-dark-${faction.key}-hover`,
-        tinycolor(faction.colorDark).darken().toString(),
+        tinycolor(faction.colorDark).brighten(20).toString(),
+      ],
+      [
+        `--faction-color-dark-${faction.key}-active`,
+        tinycolor(faction.colorDark).brighten(40).toString(),
       ],
     ]))
   }
@@ -88,6 +100,8 @@ const factionStylesForKey = (key?: string): React.CSSProperties => {
       '--faction-color-dark': `var(--faction-color-dark-${key}, var(--faction-color-fallback-dark))`,
       '--faction-color-light-hover': `var(--faction-color-light-${key}-hover, var(--faction-color-fallback-light-hover))`,
       '--faction-color-dark-hover': `var(--faction-color-dark-${key}-hover, var(--faction-color-fallback-dark-hover))`,
+      '--faction-color-light-active': `var(--faction-color-light-${key}-active, var(--faction-color-fallback-light-active))`,
+      '--faction-color-dark-active': `var(--faction-color-dark-${key}-active, var(--faction-color-fallback-dark-active))`,
     } as React.CSSProperties;
   } else {
     return {
@@ -95,6 +109,8 @@ const factionStylesForKey = (key?: string): React.CSSProperties => {
       '--faction-color-dark': `var(--faction-color-fallback-dark)`,
       '--faction-color-light-hover': `var(--faction-color-fallback-light-hover)`,
       '--faction-color-dark-hover': `var(--faction-color-fallback-dark-hover)`,
+      '--faction-color-light-active': `var(--faction-color-fallback-light-active)`,
+      '--faction-color-dark-active': `var(--faction-color-fallback-dark-active)`,
     } as React.CSSProperties;
   }
 

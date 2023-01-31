@@ -327,7 +327,14 @@ class Api {
             if (estimateResults.length === 0) {
                 continue;
             }
+            const sizeResults: { size: string }[] = await this.dataSource.query(`
+                SELECT pg_total_relation_size('${metadata.tableName}') AS size
+            `);
+            if (sizeResults.length === 0) {
+                continue;
+            }
             const { estimate } = estimateResults[0];
+            const { size } = sizeResults[0];
             if (estimate === null) {
                 const exactResults: { exact: string }[] = await this.dataSource.query(`
                     SELECT count(*) AS exact FROM "${metadata.tableName}";
@@ -346,14 +353,19 @@ class Api {
                 tableStats: {
                     table: metadata.tableName,
                     count: counts[metadata.tableName],
+                    size
                 },
             }));
         }
+        const totalSizeResults: { size: string }[] = await this.dataSource.query(`
+            SELECT pg_database_size(current_database()) AS size
+        `);
         console.log(JSON.stringify({
             level: 'info',
             event: 'database-stats',
             tableCounts: counts,
             totalCount: Object.values(counts).reduce((sum, count) => sum + count),
+            totalSize: totalSizeResults.length > 0 ? totalSizeResults[0].size : undefined,
         }));
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { EyeSlashFill } from 'react-bootstrap-icons';
-import { VideoSegment, Streamer } from '@twrpo/types';
+import { VideoSegment, Streamer, FactionInfo } from '@twrpo/types';
 
 import styles from './PastStreamCard.module.css';
 
@@ -9,11 +9,10 @@ import { formatInterval, classes } from './utils';
 import { useLoadStateImageUrl, useRelativeDate } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
 import { useAuthorization } from './auth';
-import Tag from './Tag';
 import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 import OverrideSegmentButton from './OverrideSegmentButton';
-import SegmentTitleTag from './SegmentTitleTag';
+import StreamTagOverlay, { usePrimaryTagsForSegment } from './StreamTagOverlay';
 
 const cardStyles = {
   inline: styles.inline,
@@ -30,6 +29,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   timeDisplay?: 'end' | 'start';
   handleRefresh: () => void;
   cardStyle?: 'card' | 'inline';
+  onSelectFaction?: (faction: FactionInfo) => void;
 }
 
 interface StreamLinkProps {
@@ -72,6 +72,7 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     timeDisplay = 'start',
     handleRefresh,
     cardStyle = 'inline',
+    onSelectFaction,
     ...rest
   }, ref
 ) => {
@@ -99,6 +100,8 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
   }, [segment.thumbnailUrl]);
 
   const { failed: thumbnailLoadFailed } = useLoadStateImageUrl(thumbnailUrl);
+
+  const primaryTags = usePrimaryTagsForSegment(segment, onSelectFaction);
 
   return (
     <div
@@ -154,37 +157,32 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
             <EyeSlashFill title='Segment is hidden' />
           </div>
         }
-        <div className={styles.topTags}>
-          <SegmentTitleTag
-            className={classes(styles.tag, styles.name)}
-            segment={segment}
-          />
-          {segment.liveInfo &&
-            <Tag className={classes(styles.tag, styles.live)}>
-              <p>Live</p>
-            </Tag>
+        <StreamTagOverlay
+          className={styles.tagOverlay}
+          topLeft={primaryTags}
+          topRight={segment.liveInfo
+            ? [{ type: 'live', key: 'live' }]
+            : undefined
           }
-        </div>
-        <Tag className={classes(styles.tag, styles.viewers)}>
-          <p title={fullDate}>{relativeDate}</p>
-        </Tag>
-        <Tag
-          className={classes(
-            styles.tag,
-            styles.runtime,
-            segment.isTooShort && styles.tooShort
-          )}
-          title={segment.isTooShort ? 'Segment is excluded due to being too short' : undefined}
-        >
-          <p>
-            {segment.isTooShort &&
-              <span className={styles.icon}>
-                <EyeSlashFill />
-              </span>
-            }
-            {formatInterval(startDate, endDate)}
-          </p>
-        </Tag>
+          bottomLeft={[
+            {
+              type: 'secondary',
+              key: 'viewers',
+              title: fullDate,
+              text: relativeDate,
+            },
+          ]}
+          bottomRight={[
+            {
+              type: 'secondary',
+              key: 'duration',
+              subtype: segment.isTooShort ? 'error' : undefined,
+              title: segment.isTooShort ? 'Segment is hidden due to being too short' : undefined,
+              icon: segment.isTooShort ? <EyeSlashFill /> : undefined,
+              text: formatInterval(startDate, endDate),
+            },
+          ]}
+        />
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
         {!hideStreamer &&

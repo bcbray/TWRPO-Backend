@@ -1,3 +1,4 @@
+import React from 'react';
 import { LiveResponse, FactionInfo } from '@twrpo/types';
 
 export const ignoredFactions = ['other', 'alltwitch'];
@@ -73,6 +74,27 @@ export const classes = (...parts: ClassPart[]): string | undefined => {
     return undefined;
   }
   return names.join(' ');
+}
+
+type StylePart = React.CSSProperties | false | null | undefined | StylePart[];
+
+export const style = (...parts: StylePart[]): React.CSSProperties | undefined => {
+  let styles: React.CSSProperties = {};
+  parts.forEach((part) => {
+    if (!part) return;
+    if (typeof part == 'object') {
+      styles = { ...styles, ...(part as React.CSSProperties) };
+    } else if (Array.isArray(part)) {
+      styles = { ...styles, ...(style(part) ?? {}) };
+    } else {
+      // At this point, `part` is `never` type, but in case we somehow fall in here
+      console.warn('Unknown style part:', part);
+    }
+  });
+  if (Object.keys(styles).length === 0) {
+    return undefined;
+  }
+  return styles;
 }
 
 export function createChainedFunction<Args extends any[], This>(

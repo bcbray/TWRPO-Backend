@@ -59,6 +59,8 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
     rpServer: 'WRP',
     serverId: 1,
     characterName: 'Sam Baas',
+    characterDisplayName: 'Sam Baas',
+    characterUncertain: false,
     characterId: 1,
     characterContact: null,
     nicknameLookup: null,
@@ -111,6 +113,7 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
             stream={fakeStream}
             loadTick={tick}
             handleRefresh={() => {}}
+            factionsByKey={{}}
           />
         )}
       </Crossfade>

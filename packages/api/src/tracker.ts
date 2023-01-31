@@ -3,6 +3,7 @@ import { DataSource, Not, In } from 'typeorm';
 
 import { TwitchChannel } from './db/entity/TwitchChannel';
 import { StreamChunk } from './db/entity/StreamChunk';
+import { StreamChunkStat } from './db/entity/StreamChunkStat';
 import { Game } from './db/entity/Game';
 import { wrpCharacters } from './data/characters';
 
@@ -107,16 +108,23 @@ export interface MiniSegment {
     segmentId?: number;
 }
 
-export const track = async (apiClient: ApiClient, dataSource: DataSource, alreadyFetchedSegments: MiniSegment[]): Promise<void> => {
+export interface TrackOptions {
+    alreadyFetchedSegments?: MiniSegment[];
+    now?: Date;
+}
+
+export const track = async (apiClient: ApiClient, dataSource: DataSource, options: TrackOptions): Promise<void> => {
+    const {
+        alreadyFetchedSegments = [],
+        now = new Date(),
+    } = options;
     const ignoredChannelTwitchIds = alreadyFetchedSegments.map(s => s.channelTwitchId);
     const trackedChannels = await dataSource
         .getRepository(TwitchChannel)
         .findBy({
-            id: ignoredChannelTwitchIds.length > 0 ? Not(In(ignoredChannelTwitchIds)) : undefined,
+            twitchId: ignoredChannelTwitchIds.length > 0 ? Not(In(ignoredChannelTwitchIds)) : undefined,
             isTracked: true,
         });
-
-    const now = new Date();
 
     const streams = await fetchStreams(apiClient, trackedChannels);
     if (streams === null) {
@@ -217,6 +225,23 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, alread
             },
             { isLive: false }
         );
+
+    if (!process.env.DISABLE_VIEWER_STATS) {
+        const insertedStats = await dataSource
+            .getRepository(StreamChunkStat)
+            .insert(allChunks.map(c => ({
+                streamChunkId: c.id,
+                time: now,
+                viewerCount: c.lastViewerCount,
+            })));
+
+        console.log(JSON.stringify({
+            level: 'info',
+            event: 'user-segment-stat-insert',
+            message: `Stored ${insertedStats.identifiers.length} user stream chunk stats to database`,
+            count: insertedStats.identifiers.length,
+        }));
+    }
 
     console.log(JSON.stringify({
         level: 'info',

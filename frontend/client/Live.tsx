@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { LiveResponse, FactionsResponse, CharacterInfo } from '@twrpo/types';
+import { LiveResponse, FactionsResponse, CharacterInfo, FactionInfo } from '@twrpo/types';
 
 import styles from './Live.module.css';
 
@@ -65,6 +65,10 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
     }))
   ), [factions.factions, live]);
 
+  const factionsByKey = React.useMemo(() => (
+    Object.fromEntries(factionInfos.map(f => [f.key, f]))
+  ), [factionInfos]);
+
   const selectedFaction = React.useMemo(() => (
     factionKey ? factionInfos.find(f => f.key === factionKey) : undefined
   ), [factionKey, factionInfos]);
@@ -94,6 +98,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
         : streams.filter(stream =>
           filterRegex.test(stream.tagText)
           || (stream.characterName && filterRegex.test(stream.characterName))
+          || (stream.characterDisplayName && filterRegex.test(stream.characterDisplayName))
           || (stream.nicknameLookup && stream.nicknameLookup.includes(filterTextLookup))
           || (stream.characterContact && filterRegex.test(stream.characterContact))
           || filterRegex.test(stream.channelName)
@@ -147,6 +152,10 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
   const matchCount = filteredStreams.length + offlineCharacters.length;
   const otherFactionMatchCount = otherFilteredStreams.length + otherOfflineCharacters.length;
 
+  const onSelectFaction = React.useCallback((faction: FactionInfo | null) => (
+    navigate(`/${faction ? `streams/faction/${faction.key}` : ''}${location.search}`)
+  ), [navigate, location.search]);
+
   if (factionKey && !selectedFaction) {
     return <NotFound alreadyContent />;
   }
@@ -166,7 +175,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
         <FilterBar
           factions={filterFactions}
           selectedFaction={selectedFaction}
-          onSelectFaction={f => navigate(`/${f ? `streams/faction/${f.key}` : ''}${location.search}`) }
+          onSelectFaction={onSelectFaction}
           factionItemContent={f => f.isLive ? f.name : <span className={styles.notLive}>{f.name} (not live)</span>}
           searchText={filterText}
           onChangeSearchText={text => setFilterText(text, { replace: true })}
@@ -182,6 +191,8 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
               paginationKey={factionKey ?? '_no-faction_'}
               loadTick={loadTick}
               handleRefresh={handleRefresh}
+              factionsByKey={factionsByKey}
+              onSelectFaction={onSelectFaction}
             />
           :
             <div className={classes('inset', styles.noMatches)}>
@@ -197,6 +208,8 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
               paginationKey={`${factionKey}__other` ?? '_no-faction__other_'}
               loadTick={loadTick}
               handleRefresh={handleRefresh}
+              factionsByKey={factionsByKey}
+              onSelectFaction={onSelectFaction}
             />
           </>
         }

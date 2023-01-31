@@ -95,6 +95,10 @@ const Streamer: React.FC<StreamerProps> = ({
   const { server } = useCurrentServer();
   const [viewAllSegments, setViewAllSegments] = React.useState(false);
 
+  const factionsByKey = React.useMemo(() => (
+    Object.fromEntries(characters.flatMap(c => c.factions.map(f => [f.key, f])))
+  ), [characters]);
+
   const {
     streams,
     hasMore,
@@ -226,6 +230,7 @@ const Streamer: React.FC<StreamerProps> = ({
                 wrapTitle
                 showLiveBadge
                 handleRefresh={reload}
+                factionsByKey={factionsByKey}
               />
             )
           ) : (

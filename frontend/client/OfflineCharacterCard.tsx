@@ -1,19 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CharacterInfo } from '@twrpo/types';
+import { CharacterInfo, FactionInfo } from '@twrpo/types';
 
 import styles from './OfflineCharacterCard.module.css';
 import { classes } from './utils';
 import { useRelativeDateMaybe, useLoadStateImageUrl } from './hooks';
 import { useFactionCss } from './FactionStyleProvider';
-import Tag from './Tag';
 import ProfilePhoto from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
+import StreamTagOverlay, { usePrimaryTagsForCharacter } from './StreamTagOverlay';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   character: CharacterInfo;
   hideStreamer?: boolean;
   wrapTitle?: boolean;
+  onSelectFaction?: (faction: FactionInfo) => void;
 }
 
 interface CharacterLinkProps {
@@ -41,7 +42,15 @@ const CharacterLink: React.FC<CharacterLinkProps> = ({character, style, children
 );
 
 const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
-  { character, className, style, hideStreamer = false, wrapTitle = false, ...rest }, ref
+  {
+    character,
+    className,
+    style,
+    hideStreamer = false,
+    wrapTitle = false,
+    onSelectFaction,
+    ...rest
+  }, ref
 ) => {
   const { factionStylesForKey } = useFactionCss();
   const lastSeenLiveDate = React.useMemo(() => {
@@ -65,6 +74,8 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
   }, [character.lastSeenVideoThumbnailUrl]);
 
   const { failed: thumbnailLoadFailed } = useLoadStateImageUrl(lastSeenVideoThumbnailUrl);
+
+  const primaryTags = usePrimaryTagsForCharacter(character, onSelectFaction)
 
   return (
     <div
@@ -115,9 +126,10 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
             }
           </div>
         </CharacterLink>
-        <Tag className={classes(styles.tag, styles.name)}>
-          <p>{character.displayInfo.displayName}</p>
-        </Tag>
+        <StreamTagOverlay
+          className={styles.tagOverlay}
+          topLeft={primaryTags}
+        />
       </div>
       <div className={classes(styles.info, 'stream-card-info')}>
         {!hideStreamer &&

@@ -12,6 +12,12 @@ interface UnknownProps {
 }
 
 const Unknown: React.FC<UnknownProps> = ({ data, handleRefresh }) => {
+  const factionsByKey = React.useMemo(() => (
+    Object.fromEntries([
+      ...data.unknown.flatMap(s => s.segment.character?.factions.map(f => [f.key, f]) ?? []),
+      ...data.uncertain.flatMap(s => s.segment.character?.factions.map(f => [f.key, f]) ?? []),
+    ])
+  ), [data]);
   return (
     <div className={classes('inset', styles.container)}>
       <div>
@@ -25,6 +31,7 @@ const Unknown: React.FC<UnknownProps> = ({ data, handleRefresh }) => {
           pastStreamStyle={'vivid'}
           showLiveBadge
           handleRefresh={handleRefresh}
+          factionsByKey={factionsByKey}
         />
       </div>
       <div>
@@ -38,6 +45,7 @@ const Unknown: React.FC<UnknownProps> = ({ data, handleRefresh }) => {
           pastStreamStyle={'vivid'}
           showLiveBadge
           handleRefresh={handleRefresh}
+          factionsByKey={factionsByKey}
         />
       </div>
     </div>
