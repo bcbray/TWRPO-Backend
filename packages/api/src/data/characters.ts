@@ -84,7 +84,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 11, name: 'Gertrude Goose', nicknames: ['Mrs. Goose'], displayName: 3, telegram: 'RJ718' },
     ],
     Acetrope: [
-        { id: 1519, name: '[Deputy] Dan Lin', factions: ['Law'] },
+        { id: 1519, name: '[Deputy] Dan Lin', factions: ['Law'], telegram: 'BQ109' },
     ],
     AChanceOfCosplay: [
         { id: 12, name: 'Bart Bancroft' },
@@ -203,7 +203,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ArtByRue: [
         { id: 1464, name: 'Daniela "Dani" Fantoni', factions: ['Fantoni Crew'] },
-        { id: 1565, name: 'Charlie Slack', telegram: 'BU895' },
+        { id: 1565, name: 'Charlie Slack', telegram: 'BU895' }, // Telegram might be BU985
     ],
     ARTISNACK: [
         { id: 1417, name: 'Carolina King' },
@@ -422,7 +422,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 109, name: 'Ronan "Tar" McCarthy', nicknames: ['Tar Sullivan'] },
     ],
     BrambleLeaf: [
-        { id: 1755, name: 'Judith "Fiver" ?', factions: ['Fuller House'] },
+        { id: 1755, name: 'Judith "Fiver" Thompson', factions: ['Fuller House'] },
         { id: 1773, name: '[Cadet] Rue Roussan', factions: ['Law'] },
     ],
     Bringus: [
@@ -1937,7 +1937,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 52, name: 'Mickey Toolin', nicknames: ['Mick'] },
     ],
     MightyMoonBear: [
-        { id: 1028, name: 'Russell Woods', factions: ['The Ring'] },
+        { id: 1028, name: 'Russell Woods', factions: ['The Ring'], telegram: 'BG616' },
         { id: 1253, name: 'Nvdo Kali Yona' },
     ],
     MinksOfMars: [
@@ -2523,7 +2523,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'], telegram: 'GI916' },
         { id: 1566, name: 'Mary-Jane "MJ" Macfarlane', telegram: 'YJ981' },
         { id: 1599, name: 'Itukala Cook', nicknames: ['Itukala Wasicu', 'Wash'] },
-        { id: 1600, name: 'Morgan "Dr. Morgan" Smith' },
+        { id: 1600, name: 'Morgan "Dr. Morgan" Smith', telegram: 'AF906' },
         { id: 1601, name: 'Todd A. Treacle' },
         { id: 1602, name: 'Juliet Duncan' },
     ],
@@ -2960,7 +2960,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1318, name: 'Hmee Noi' },
     ],
     TheHairyCelt: [
-        { id: 863, name: 'Ronnie Hurbert', factions: ['The Firm'], telegram: 'EW576' },
+        { id: 863, name: 'Ronnie Hurbert', factions: ['The Firm'], telegram: 'EW576', deceased: true  },
         { id: 1762, name: 'James Gunn' },
     ],
     TheHardcorian: [
