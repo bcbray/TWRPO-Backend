@@ -172,6 +172,7 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
         <StreamTagOverlay
           className={styles.tagOverlay}
           topLeft={nameTags}
+          topRight={showLiveBadge ? [{ type: 'live', key: 'live' }] : [] }
           bottomLeft={[
             { type: 'secondary', key: 'viewers', text: formatViewers(stream.viewers) },
           ]}
