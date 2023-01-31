@@ -226,13 +226,22 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, option
             { isLive: false }
         );
 
-    const insertedStats = await dataSource
-        .getRepository(StreamChunkStat)
-        .insert(allChunks.map(c => ({
-            streamChunkId: c.id,
-            time: now,
-            viewerCount: c.lastViewerCount,
-        })));
+    if (!process.env.DISABLE_VIEWER_STATS) {
+        const insertedStats = await dataSource
+            .getRepository(StreamChunkStat)
+            .insert(allChunks.map(c => ({
+                streamChunkId: c.id,
+                time: now,
+                viewerCount: c.lastViewerCount,
+            })));
+
+        console.log(JSON.stringify({
+            level: 'info',
+            event: 'user-segment-stat-insert',
+            message: `Stored ${insertedStats.identifiers.length} user stream chunk stats to database`,
+            count: insertedStats.identifiers.length,
+        }));
+    }
 
     console.log(JSON.stringify({
         level: 'info',
@@ -253,13 +262,6 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, option
         event: 'user-segment-update-not-live',
         message: `Updated ${noLongerLiveResult.affected ?? 0} user streams to no longer be live`,
         count: noLongerLiveResult.affected ?? 0,
-    }));
-
-    console.log(JSON.stringify({
-        level: 'info',
-        event: 'user-segment-stat-insert',
-        message: `Stored ${insertedStats.identifiers.length} user stream chunk stats to database`,
-        count: insertedStats.identifiers.length,
     }));
 
     const gameIds = [...new Set(streams.map(s => s.gameId))];

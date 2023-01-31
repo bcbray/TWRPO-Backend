@@ -1063,13 +1063,22 @@ const getWrpLive = async (
                             { isLive: false }
                         );
 
-                    const insertedStats = await dataSource
-                        .getRepository(StreamChunkStat)
-                        .insert(allChunks.map(c => ({
-                            streamChunkId: c.id,
-                            time: now,
-                            viewerCount: c.lastViewerCount,
-                        })));
+                    if (!process.env.DISABLE_VIEWER_STATS) {
+                        const insertedStats = await dataSource
+                            .getRepository(StreamChunkStat)
+                            .insert(allChunks.map(c => ({
+                                streamChunkId: c.id,
+                                time: now,
+                                viewerCount: c.lastViewerCount,
+                            })));
+
+                        console.log(JSON.stringify({
+                            level: 'info',
+                            event: 'segment-stat-insert',
+                            message: `Stored ${insertedStats.identifiers.length} stream chunk stats to database`,
+                            count: insertedStats.identifiers.length,
+                        }));
+                    }
 
                     console.log(JSON.stringify({
                         level: 'info',
@@ -1090,13 +1099,6 @@ const getWrpLive = async (
                         event: 'segment-update-not-live',
                         message: `Updated ${noLongerLiveResult.affected ?? 0} streams to no longer be live`,
                         count: noLongerLiveResult.affected ?? 0,
-                    }));
-
-                    console.log(JSON.stringify({
-                        level: 'info',
-                        event: 'segment-stat-insert',
-                        message: `Stored ${insertedStats.identifiers.length} stream chunk stats to database`,
-                        count: insertedStats.identifiers.length,
                     }));
 
                     if (newChannels.length) {
