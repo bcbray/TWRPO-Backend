@@ -41,6 +41,7 @@ import { StreamChunk } from '../../db/entity/StreamChunk';
 import { Video } from '../../db/entity/Video';
 import { TwitchChannel } from '../../db/entity/TwitchChannel';
 import { Server } from '../../db/entity/Server';
+import { StreamChunkStat } from '../../db/entity/StreamChunkStat';
 
 const includedData = Object.assign(
     {},
@@ -359,9 +360,13 @@ type BaseStream = Pick<Stream, 'channelName' | 'channelTwitchId' | 'title' | 'vi
 
 type FactionCount = { [key in FactionMini]: number };
 
-let cachedResults: LiveResponse | undefined;
+interface InternalLiveResponse extends LiveResponse {
+    fetchDate: Date;
+}
 
-let wrpStreamsPromise: Promise<LiveResponse> | undefined;
+let cachedResults: InternalLiveResponse | undefined;
+
+let wrpStreamsPromise: Promise<InternalLiveResponse> | undefined;
 
 const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podcast) => {
     const nameAll = [podcast.name];
@@ -386,7 +391,7 @@ const getWrpLive = async (
     apiClient: ApiClient,
     dataSource: DataSource,
     override = false
-): Promise<LiveResponse> => {
+): Promise<InternalLiveResponse> => {
     if (!override && cachedResults !== undefined) {
         log('Returning cached results.');
         return cachedResults;
@@ -397,7 +402,7 @@ const getWrpLive = async (
     console.log(JSON.stringify({ traceID: fetchID, event: 'start' }));
 
     if (wrpStreamsPromise === undefined || override) {
-        wrpStreamsPromise = new Promise<LiveResponse>(async (resolve, reject) => {
+        wrpStreamsPromise = new Promise<InternalLiveResponse>(async (resolve, reject) => {
             try {
                 log('Fetching streams data...');
 
@@ -1058,6 +1063,14 @@ const getWrpLive = async (
                             { isLive: false }
                         );
 
+                    const insertedStats = await dataSource
+                        .getRepository(StreamChunkStat)
+                        .insert(allChunks.map(c => ({
+                            streamChunkId: c.id,
+                            time: now,
+                            viewerCount: c.lastViewerCount,
+                        })));
+
                     console.log(JSON.stringify({
                         level: 'info',
                         event: 'segment-update',
@@ -1077,6 +1090,13 @@ const getWrpLive = async (
                         event: 'segment-update-not-live',
                         message: `Updated ${noLongerLiveResult.affected ?? 0} streams to no longer be live`,
                         count: noLongerLiveResult.affected ?? 0,
+                    }));
+
+                    console.log(JSON.stringify({
+                        level: 'info',
+                        event: 'segment-stat-insert',
+                        message: `Stored ${insertedStats.identifiers.length} stream chunk stats to database`,
+                        count: insertedStats.identifiers.length,
                     }));
 
                     if (newChannels.length) {
@@ -1332,12 +1352,13 @@ const getWrpLive = async (
 
                 // log(filterFactions);
 
-                const result: LiveResponse = {
+                const result: InternalLiveResponse = {
                     ...includedData,
                     factionCount,
                     filterFactions,
                     streams: wrpStreams,
                     tick: nowTime,
+                    fetchDate: now,
                     recentOfflineCharacters: recentlyOnlineCharacters.length
                         ? recentlyOnlineCharacters
                         : undefined,
@@ -1419,8 +1440,11 @@ const logAPIStats = (apiClient: ApiClient) =>
     }));
 
 const refresh = async (apiClient: ApiClient, dataSource: DataSource, override = false): Promise<void> => {
-    const liveData = await getWrpLive(apiClient, dataSource, override);
-    await track(apiClient, dataSource, liveData.streams);
+    const { streams, fetchDate } = await getWrpLive(apiClient, dataSource, override);
+    await track(apiClient, dataSource, {
+        alreadyFetchedSegments: streams,
+        now: fetchDate,
+    });
     logAPIStats(apiClient);
 };
 
