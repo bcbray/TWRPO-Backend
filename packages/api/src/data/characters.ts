@@ -2385,7 +2385,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1695, name: 'Faye Belofte', telegram: 'ZX382' },
     ],
     roooliz: [
-        { id: 1121, name: '[Ranger] Kiono Kolichiyaw', factions: ['Rangers'], telegram: 'IH929' },
+        { id: 1121, name: 'Kiono Kolichiyaw', telegram: 'IH929' }, // Former Ranger
     ],
     rossthehsauce: [
         { id: 682, name: 'Murrietta Walton', nicknames: ['Forest', 'Forest Fish'], displayName: 3, factions: ['The Baastards', 'Guppy Gang'], telegram: 'IF559' },
