@@ -2036,7 +2036,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1287, name: 'Dante Drummer' },
     ],
     Myrtle_The_Imp: [
-        { id: 1391, name: 'Ishkode Asin' },
+        { id: 1391, name: 'Ishkode Asin', nicknames: ['Fire Rock'] },
     ],
     Mythematic: [
         { id: 592, name: 'Ben Bealz' },
