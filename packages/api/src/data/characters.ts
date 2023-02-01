@@ -852,7 +852,7 @@ export const wrpCharacters: WrpCharacters = {
     DukeOfFlukes: [
         { id: 249, name: '[Cadet] Alexander Poe', factions: ['Law'], telegram: 'YH781' }, // Former Doctor
         { id: 250, name: 'Duke Colt', nicknames: ['Handsome Colt'] },
-        { id: 251, name: 'Charles Morgan', factions: ['Dead End Gang'], telegram: 'ES892' },
+        { id: 251, name: 'Charles Morgan', telegram: 'ES892' },
         { id: 1052, name: 'Jimmy Billiam' },
         { id: 1181, name: '[Guard] Darren Hobbs', factions: ['Sisika Guard'] },
     ],
