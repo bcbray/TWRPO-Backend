@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1775
+// Next ID: 1777
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -260,7 +260,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AwaBeats: [
         { id: 58, name: 'Ali Mason' }, // Red Water? Did a bank job with them
-        { id: 59, name: 'Nokosi Ahanu' },
+        { id: 59, name: 'Nokosi Ahanu', factions: ['Sun Warriors'] },
         { id: 60, name: '[Deputy] Cleveland Brown', nicknames: ['C-Lo'], displayName: 3, factions: ['Law'], telegram: 'ZM161' },
         { id: 61, name: 'Yorrik Morales' },
     ],
@@ -456,7 +456,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 122, name: 'Fyodor' },
     ],
     BunglingNormal2: [
-        { id: 123, name: 'Henry Gearhardt' },
+        { id: 123, name: 'Henry Gearhardt', factions: ['Sun Warriors'] },
     ],
     Burn: [
         { id: 124, name: 'Lloyd "The Ghost" Chambers', nicknames: ['Ghost'] },
@@ -852,7 +852,7 @@ export const wrpCharacters: WrpCharacters = {
     DukeOfFlukes: [
         { id: 249, name: '[Cadet] Alexander Poe', factions: ['Law'], telegram: 'YH781' }, // Former Doctor
         { id: 250, name: 'Duke Colt', nicknames: ['Handsome Colt'] },
-        { id: 251, name: 'Charles Morgan', factions: ['Dead End Gang'], telegram: 'ES892' },
+        { id: 251, name: 'Charles Morgan', telegram: 'ES892' },
         { id: 1052, name: 'Jimmy Billiam' },
         { id: 1181, name: '[Guard] Darren Hobbs', factions: ['Sisika Guard'] },
     ],
@@ -944,7 +944,7 @@ export const wrpCharacters: WrpCharacters = {
     endangeredfinley: [
         { id: 276, name: 'Amelia Riddle', nicknames: ['Eiwaz', 'Kenaz'], factions: ['Daughters of Fenrir'], telegram: 'JY369' },
         { id: 277, name: '[Trainee] Bonnie Gray', factions: ['Medical'], telegram: 'SE096' },
-        { id: 278, name: 'Kit "Hummingbird" ?', telegram: 'KX331' },
+        { id: 278, name: 'Tanagila Kinya Isakib Hanhepi Wi', nicknames: ['Hummingbird', 'Hummingbird Flies By Moon', 'Kit'], displayName: 6, factions: ['Sun Warriors'], telegram: 'KX331' },
         { id: 279, name: 'Paul Güttman' },
         { id: 1199, name: 'Persephone "Bones" Bonesman' },
         { id: 1611, name: 'Jolene Davenport' },
@@ -1190,7 +1190,7 @@ export const wrpCharacters: WrpCharacters = {
     GooseyOfficial: [
         { id: 358, name: 'Jaimie Quinn' },
         { id: 359, name: 'MaN Sauers' },
-        { id: 360, name: 'Joseph "Speedy" McGillagully', factions: ['Dead End Gang'] },
+        { id: 360, name: 'Joseph "Speedy" McGillagully' },
         { id: 1015, name: 'Harold Roach' },
     ],
     GrammTheGibbon: [
@@ -1723,6 +1723,9 @@ export const wrpCharacters: WrpCharacters = {
     Lawlman: [
         { id: 981, name: 'Jim Walker' },
     ],
+    Lazy_Flamingo: [
+        { id: 1774, name: 'Jairo "River Warrior" Cook', nicknames: ['Wolven Warrior Who Splits the River'], factions: ['Sun Warriors'] },
+    ],
     LEAH: [
         { id: 503, name: '[Sr. Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190' },
         { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256', deceased: true }, // Former Summers Gang
@@ -1946,7 +1949,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 568, name: 'Willow Wisp' },
         { id: 1126, name: 'Isabela Elena Montoya Cabrera de Isla de Flores III' },
         { id: 1277, name: 'Maia Bailey', telegram: 'MB430' },
-        { id: 1774, name: 'Charlotte ?', telegram: 'FE155'} //I'm only like 95% sure this is Minks
+        { id: 1776, name: 'Charlotte ?', telegram: 'FE155'} //I'm only like 95% sure this is Minks
     ],
     Mini_MoonFox: [
         { id: 1040, name: 'Angelica Schuyler' },
@@ -2034,7 +2037,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1287, name: 'Dante Drummer' },
     ],
     Myrtle_The_Imp: [
-        { id: 1391, name: 'Ishkode Asin' },
+        { id: 1391, name: 'Ishkode Asin', nicknames: ['Fire Rock'], factions: ['Sun Warriors'] },
     ],
     Mythematic: [
         { id: 592, name: 'Ben Bealz' },
@@ -2386,7 +2389,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1695, name: 'Faye Belofte', telegram: 'ZX382' },
     ],
     roooliz: [
-        { id: 1121, name: '[Ranger] Kiono Kolichiyaw', factions: ['Rangers'], telegram: 'IH929' },
+        { id: 1121, name: 'Kiono Kolichiyaw', telegram: 'IH929', factions: ['Sun Warriors'] }, // Former Ranger
     ],
     rossthehsauce: [
         { id: 682, name: 'Murrietta Walton', nicknames: ['Forest', 'Forest Fish'], displayName: 3, factions: ['The Baastards', 'Guppy Gang'], telegram: 'IF559' },
@@ -2523,7 +2526,7 @@ export const wrpCharacters: WrpCharacters = {
     Shmooj: [
         { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'], telegram: 'GI916' },
         { id: 1566, name: 'Mary-Jane "MJ" Macfarlane', telegram: 'YJ981' },
-        { id: 1599, name: 'Itukala Cook', nicknames: ['Itukala Wasicu', 'Wash'] },
+        { id: 1599, name: 'Itukala Cook', nicknames: ['Itukala Wasicu', 'Wash'], factions: ['Sun Warriors'] },
         { id: 1600, name: 'Morgan "Dr. Morgan" Smith', telegram: 'AF906' },
         { id: 1601, name: 'Todd A. Treacle' },
         { id: 1602, name: 'Juliet Duncan' },
@@ -3151,6 +3154,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1136, name: 'Theodore Hammond' },
         { id: 1250, name: '[Deputy] Robert Herrera', factions: ['Law'] },
         { id: 1442, name: '[Deputy] Wyatt Schaffer', factions: ['Law'], telegram: 'FU564' },
+        { id: 1775, name: 'Pierre Rodgers' },
     ],
     unstoppableLARN: [
         { id: 910, name: 'Gertrude Cockburn' },
@@ -3199,7 +3203,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1401, name: '? Rudd', nicknames: ['Rev. Rudd'], displayName: 3 }, // Clergy
     ],
     VinnieThatsMe: [
-        { id: 1511, name: 'Ahnah Adjuk' },
+        { id: 1511, name: 'Ahnah Adjuk', factions: ['Sun Warriors'] },
         { id: 1642, name: 'Indigo "Indy" Riley', telegram: 'XM689' },
         { id: 1643, name: 'Mirai Lee' },
         { id: 1644, name: 'Delilah Tucker' },
