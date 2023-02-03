@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1784
+// Next ID: 1787
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -519,6 +519,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Carlos_Spicyw3iner: [
         { id: 145, name: 'Larry Brown' },
+    ],
+    carvabowl: [
+        { id: 1784, name: 'Cal Reinhardt' },
     ],
     CaseFace5: [
         { id: 146, name: 'Willie "Gramps" Walker' },
@@ -2363,6 +2366,9 @@ export const wrpCharacters: WrpCharacters = {
     REKKRPRO: [
         { id: 674, name: 'Rekks Tanner' },
     ],
+    Rezo24: [
+        { id: 1785, name: 'Roy Woods' },
+    ],
     RickMongoLIVE: [
         { id: 675, name: 'Cole Dalton' },
         { id: 676, name: 'Furio Bonanno', factions: ['DiCenzo Famiglia'], telegram: 'FB622' }, // Inactive DiCenzo
@@ -2497,6 +2503,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 719, name: 'Nick Carver' },
         { id: 720, name: 'Loup Farrow', telegram: 'LT705' },
         { id: 1733, name: 'Philip Ines', telegram: 'RW729' },
+        { id: 1786, name: 'Norman "Wendigo" Crow' },
     ],
     Seithrius: [
         { id: 1399, name: 'Yang Kai', displayName: 2, telegram: 'RK551' },
