@@ -42,6 +42,7 @@ export interface PlainTag extends BaseTag {
 export interface FactionPill extends BaseTag {
   type: 'faction-pill';
   faction: FactionInfo;
+  guessed?: boolean;
 }
 
 /** A bright red tag with the text “LIVE” */
@@ -79,11 +80,18 @@ export const usePrimaryTagsForStream = (stream: Stream, factions: FactionInfo[],
         key: 'real-name',
         text: stream.characterUncertain ? `Maybe: ${stream.characterDisplayName}` : stream.characterDisplayName,
       });
+    } else {
+      tags.push({
+        type: 'plain',
+        key: 'real-name',
+        text: 'Unknown character',
+      });
     }
     tags = tags.concat(factions.map(f => ({
       type: 'faction-pill',
       key: f.key,
       faction: f,
+      guessed: stream.characterId === null,
       onClick: onSelectFaction ? () => onSelectFaction(f) : undefined,
     })));
     return tags;
@@ -134,11 +142,18 @@ export const usePrimaryTagsForSegment = (segment: VideoSegment, onSelectFaction?
           ? `Maybe: ${segment.character.displayInfo.realNames.join(' ')}`
           : segment.character.displayInfo.realNames.join(' '),
       });
+    } else {
+      tags.push({
+        type: 'plain',
+        key: 'real-name',
+        text: 'Unknown character',
+      });
     }
     tags = tags.concat(segment.character?.factions.map(f => ({
       type: 'faction-pill',
       key: f.key,
       faction: f,
+      guessed: segment.character === null,
       onClick: onSelectFaction ? () => onSelectFaction(f) : undefined,
     })) ?? []);
     return tags;
@@ -175,7 +190,9 @@ const SingleTag = <T extends React.ElementType = 'div'>(
       break;
     case 'faction-pill':
       className = styles.factionPill;
-      text = tag.faction.name;
+      text = tag.guessed
+        ? `Maybe: ${tag.faction.name}`
+        : tag.faction.name;
       break;
     case 'live':
       className = styles.live;
