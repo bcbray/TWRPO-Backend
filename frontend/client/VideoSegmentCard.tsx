@@ -38,6 +38,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
     canShowLiveBadge,
     handleRefresh,
     cardStyle,
+    factionsByKey,
   }, ref
 ) => {
   if (segment.liveInfo) {
@@ -54,7 +55,7 @@ const VideoSegmentCard = React.forwardRef<HTMLDivElement, VideoSegmentCardProps>
         showLiveBadge={canShowLiveBadge}
         handleRefresh={handleRefresh}
         cardStyle={cardStyle}
-        factionsByKey={{}}
+        factionsByKey={factionsByKey}
       />
     );
   } else {
