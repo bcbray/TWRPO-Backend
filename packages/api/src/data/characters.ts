@@ -3086,7 +3086,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 892, name: 'Enzo Valentino' },
     ],
     TimtimarooTX: [
-        { id: 1382, name: 'Lloyd ?', telegram: 'PP379' },
+        { id: 1382, name: 'Lloyd Pierce', telegram: 'PP379' },
     ],
     tmcrane: [
         { id: 893, name: 'Lucius Bickmore' },
