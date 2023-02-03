@@ -1101,7 +1101,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     friendly_chick: [
         { id: 326, name: 'Angelica "Angel" Ward-Jones', nicknames: ['Angle'], factions: ['Conductors'], telegram: 'DE662' },
-        { id: 327, name: 'Charlotte "Lottie" Davis', factions: ['The Firm'], telegram: 'SM304' },
+        { id: 327, name: 'Charlotte "Lottie" Davis', factions: ['The Firm'], telegram: 'SM304', deceased: true },
         { id: 328, name: 'Haven Rivers' },
         { id: 329, name: 'Lillian Frost' },
         { id: 1488, name: 'Addison Winters' },
