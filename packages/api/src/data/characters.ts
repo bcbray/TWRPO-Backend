@@ -1949,7 +1949,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 568, name: 'Willow Wisp' },
         { id: 1126, name: 'Isabela Elena Montoya Cabrera de Isla de Flores III' },
         { id: 1277, name: 'Maia Bailey', telegram: 'MB430' },
-        { id: 1776, name: 'Charlotte ?', telegram: 'FE155'} //I'm only like 95% sure this is Minks
+        // Probably Minks, but not 100% sure: { id: 1776, name: 'Charlotte ?', telegram: 'FE155'}
     ],
     Mini_MoonFox: [
         { id: 1040, name: 'Angelica Schuyler' },
