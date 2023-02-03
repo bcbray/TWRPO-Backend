@@ -1319,7 +1319,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1424, name: 'Richard Gold', factions: ['Fuller House'], telegram: 'AH036' },
     ],
     hopdowg: [
-        { id: 1681, name: 'Abramo "Abe" ?' },
+        { id: 1681, name: 'Abramo "Abe" Gignte' },
     ],
     Hoss: [
         { id: 395, name: 'Buck Cherry' },
