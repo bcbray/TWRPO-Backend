@@ -2039,7 +2039,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 584, name: 'Herman Wilbur' },
         { id: 585, name: 'Leon Taylor' },
         { id: 586, name: 'Conny Cage' },
-        { id: 1697, name: 'Enoch "Big Chomp" Holt', nicknames: ['Chomp', 'Chompy'], telegram: 'JN479' },
+        { id: 1697, name: 'Enoch "Chompy" Holt', nicknames: ['Big Chomp', 'Chomp'], telegram: 'JN479' },
         { id: 1783, name: 'Fletcher Lee' },
     ],
     Myre: [
