@@ -1319,7 +1319,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 394, name: 'Miles Gyles' }, // Former Deputy
         { id: 1063, name: '[Deputy] Thomas Hooper', factions: ['Law'] },
         { id: 1102, name: '[Guard] Mickey Doyle', factions: ['Sisika Guard'] },
-        { id: 1424, name: 'Richard Gold', factions: ['Fuller House'], telegram: 'AH036' },
+        { id: 1424, name: 'Richard Gold', nicknames: ['Richie'], factions: ['Fuller House'], telegram: 'AH036' },
     ],
     hopdowg: [
         { id: 1681, name: 'Abramo "Abe" Gignte' },
