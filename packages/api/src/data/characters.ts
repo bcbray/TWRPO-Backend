@@ -1848,7 +1848,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 535, name: 'Abigale Hart' },
     ],
     Lyndi: [
-        { id: 536, name: 'Delilah Deveaux' },
+        { id: 536, name: 'Delilah Deveaux', nicknames: ['Daffodil'] },
     ],
     Maceymclovin: [
         { id: 537, name: 'Jackson Slater' },
