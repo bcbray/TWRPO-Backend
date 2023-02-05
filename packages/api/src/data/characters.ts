@@ -243,7 +243,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     aviceration: [
         { id: 53, name: 'Ella Mason' },
-        { id: 54, name: 'Vincencia "Vinnie" Romeo' },
+        { id: 54, name: 'Vincencia "Vinnie" Romeo', deceased: true },
         { id: 55, name: 'Kitty LaRoux' },
     ],
     Avioto_: [
