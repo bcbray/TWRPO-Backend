@@ -2552,7 +2552,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Shmooj: [
         { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'], telegram: 'GI916' },
-        { id: 1566, name: 'Mary-Jane "MJ" Macfarlane', telegram: 'YJ981' },
+        { id: 1566, name: 'Mary-Jane "MJ" Macfarlane', factions: ['Conductors'], telegram: 'YJ981' },
         { id: 1599, name: 'Itukala Cook', nicknames: ['Itukala Wasicu', 'Wash'], factions: ['Sun Warriors'] },
         { id: 1600, name: 'Morgan "Dr. Morgan" Smith', telegram: 'AF906' },
         { id: 1601, name: 'Todd A. Treacle' },
