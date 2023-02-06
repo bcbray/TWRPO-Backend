@@ -2420,7 +2420,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1121, name: 'Kiono Kolichiyaw', telegram: 'IH929', factions: ['Sun Warriors'] }, // Former Ranger
     ],
     RossThehSauce: [
-        { id: 682, name: 'Murrietta Walton', nicknames: ['Forest', 'Forest Fish', 'Murry'], displayName: 3, factions: ['The Baastards', 'Guppy Gang'], telegram: 'IF559' },
+        { id: 682, name: 'Murrietta Walton', nicknames: ['Forest', 'Forest Fish', 'Murry'], displayName: 5, factions: ['The Baastards', 'Guppy Gang'], telegram: 'IF559' },
         { id: 683, name: 'Dominic "Dom" Disouza', factions: ['DiCenzo Famiglia'], telegram: 'HJ726', deceased: true }, // Inactive DiCenzo
         { id: 684, name: 'Lionel Miles', factions: ['Miles Gang'], leader: true },
         { id: 1261, name: 'Jericho Gunne' },
