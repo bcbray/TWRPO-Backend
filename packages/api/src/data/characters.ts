@@ -2996,7 +2996,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheHairyCelt: [
         { id: 863, name: 'Ronnie Hurbert', factions: ['The Firm'], telegram: 'EW576', deceased: true },
-        { id: 1762, name: 'James Gunn' },
+        { id: 1762, name: 'Joseph Gunn', nicknames: ['James'] },
         { id: 1787, name: 'Rab Connor' },
     ],
     TheHardcorian: [
