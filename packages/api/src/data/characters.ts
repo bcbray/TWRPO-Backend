@@ -233,7 +233,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 45, name: 'Devoghn Lowery Brown', nicknames: ['D-Lo', reg(/d(?:\-|\s*)lo/)], displayName: 4 },
         { id: 46, name: 'Red Stag', displayName: 0 },
         { id: 47, name: 'Walter Cross' },
-        { id: 48, name: 'Wechugue', factions: ['ToPa Ota'] }, // To’Pa Ota Elder
+        { id: 48, name: '[Elder] Wechugue', factions: ['ToPa Ota'] }, // To’Pa Ota Elder
         { id: 49, name: 'Zhang Wei', displayName: 0, factions: ['Taipan'], telegram: 'HE892' },
         { id: 1300, name: 'Archibald Stevenson' },
     ],
