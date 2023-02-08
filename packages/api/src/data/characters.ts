@@ -1769,7 +1769,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 509, name: 'Tantallia Tippins' },
     ],
     leodotmae: [
-        { id: 510, name: 'Eleanor Cain', factions: ['Independent', 'Guarma'], telegram: 'UW695' }, // Former Law
+        { id: 510, name: 'Eleanor Cain', telegram: 'UW695' }, // Former Law
         { id: 1316, name: '[Deputy] Johannah Briggs', factions: ['Law'], telegram: 'FR003' },
     ],
     LetterJaye: [
