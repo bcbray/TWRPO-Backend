@@ -2228,7 +2228,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1256, name: 'Tex Smith' },
     ],
     PandemoniumRPG: [
-        { id: 1018, name: 'Alfie Jacobsmith' },
+        { id: 1018, name: 'Alfie Jacobsmith', telegram: 'QX382' },
         { id: 1480, name: 'Garath "Mitch" Mitchell', telegram: 'WB743' },
         { id: 1556, name: 'Billybob Roberts' },
     ],
