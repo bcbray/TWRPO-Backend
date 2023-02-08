@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1804
+// Next ID: 1806
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -203,7 +203,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ArtByRue: [
         { id: 1464, name: 'Daniela "Dani" Fantoni', factions: ['Fantoni Crew'] },
-        { id: 1565, name: 'Charlie Slack', telegram: 'BU895' }, // Telegram might be BU985
+        { id: 1565, name: 'Charlie Slack', factions: ['ToPa Ota'], telegram: 'BU895' }, // Telegram might be BU985
     ],
     ARTISNACK: [
         { id: 1417, name: 'Carolina King' },
@@ -233,7 +233,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 45, name: 'Devoghn Lowery Brown', nicknames: ['D-Lo', reg(/d(?:\-|\s*)lo/)], displayName: 4 },
         { id: 46, name: 'Red Stag', displayName: 0 },
         { id: 47, name: 'Walter Cross' },
-        { id: 48, name: 'Wechugue Wechugue' },
+        { id: 48, name: 'Wechugue', factions: ['ToPa Ota'] }, // To’Pa Ota Elder
         { id: 49, name: 'Zhang Wei', displayName: 0, factions: ['Taipan'], telegram: 'HE892' },
         { id: 1300, name: 'Archibald Stevenson' },
     ],
@@ -260,7 +260,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AwaBeats: [
         { id: 58, name: 'Ali Mason' }, // Red Water? Did a bank job with them
-        { id: 59, name: 'Nokosi Ahanu', factions: ['Sun Warriors'] },
+        { id: 59, name: 'Nokosi Ahanu', factions: ['ToPa Ota', 'Sun Warriors'] },
         { id: 60, name: '[Deputy] Cleveland Brown', nicknames: ['C-Lo'], displayName: 3, factions: ['Law'], telegram: 'ZM161' },
         { id: 61, name: 'Yorrik Morales' },
     ],
@@ -957,7 +957,7 @@ export const wrpCharacters: WrpCharacters = {
     endangeredfinley: [
         { id: 276, name: 'Amelia Riddle', nicknames: ['Eiwaz', 'Kenaz'], factions: ['Daughters of Fenrir'], telegram: 'JY369' },
         { id: 277, name: '[Trainee] Bonnie Gray', factions: ['Medical'], telegram: 'SE096' },
-        { id: 278, name: 'Tanagila Kinya Isakib Hanhepi Wi', nicknames: ['Hummingbird', 'Hummingbird Flies By Moon', 'Kit'], displayName: 6, factions: ['Sun Warriors'], telegram: 'KX331' },
+        { id: 278, name: '[Chief] Tanagila Kinya Isakib Hanhepi Wi', nicknames: ['Hummingbird', 'Hummingbird Flies By Moon', 'Kit'], displayName: 6, factions: ['Wapiti', 'Sun Warriors'], leader: true, telegram: 'KX331' },
         { id: 279, name: 'Paul Güttman' },
         { id: 1199, name: 'Persephone "Bones" Bonesman' },
         { id: 1611, name: 'Jolene Davenport' },
@@ -1107,6 +1107,7 @@ export const wrpCharacters: WrpCharacters = {
     Freumont: [
         { id: 324, name: 'Edward Shaw' },
         { id: 325, name: 'Leonardo E. "Leo" Fantoni', factions: ['Fantoni Crew'], leader: true, telegram: 'JN223' },
+        { id: 1804, name: 'Ciqala', factions: ['ToPa Ota'] },
     ],
     friendly_chick: [
         { id: 326, name: 'Angelica "Angel" Ward-Jones', nicknames: ['Angle'], factions: ['Conductors'], telegram: 'DE662' },
@@ -1308,7 +1309,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Highpriest999: [
         { id: 389, name: 'Athos Lepida' },
-        { id: 1550, name: 'Igmuṫaƞka', nicknames: ['Igmutaka'] },
+        { id: 1550, name: 'Igmuṫaƞka', nicknames: ['Igmutaka', 'Winter Oak'], factions: ['Wapiti'] },
     ],
     HulzyRP: [
         { id: 1269, name: 'Ciccio "Cheech" ?' },
@@ -1745,7 +1746,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 981, name: 'Jim Walker' },
     ],
     Lazy_Flamingo: [
-        { id: 1774, name: 'Jairo "River Warrior" Cook', nicknames: ['Wolven Warrior Who Splits the River'], factions: ['Sun Warriors'] },
+        { id: 1774, name: '[Chief] Jairo "River Warrior" Cook', nicknames: ['Wolven Warrior Who Splits the River'], factions: ['ToPa Ota', 'Sun Warriors'], leader: true },
     ],
     LEAH: [
         { id: 503, name: '[Sr. Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190' },
@@ -2348,6 +2349,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 667, name: '[Deputy] Dove Hopkins', factions: ['Law'] },
         { id: 668, name: 'Sally Higgins', nicknames: ['Shotgun'] },
         { id: 669, name: 'Sofia Sherman', factions: ['Moretti Crew'], telegram: 'HV857' },
+        { id: 1805, name: 'Nayeli Ba’Cho' },
     ],
     RaddRema: [
         { id: 670, name: 'Bonnie Sunn' },
@@ -2563,7 +2565,7 @@ export const wrpCharacters: WrpCharacters = {
     Shmooj: [
         { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'], telegram: 'GI916' },
         { id: 1566, name: 'Mary-Jane "MJ" Macfarlane', factions: ['Conductors'], telegram: 'YJ981' },
-        { id: 1599, name: 'Itukala Cook', nicknames: ['Itukala Wasicu', 'Wash'], factions: ['Sun Warriors'] },
+        { id: 1599, name: 'Itukala Cook', nicknames: ['Itukala Wasicu', 'Wash'], factions: ['Wapiti', 'Sun Warriors'] },
         { id: 1600, name: 'Morgan "Dr. Morgan" Smith', telegram: 'AF906' },
         { id: 1601, name: 'Todd A. Treacle' },
         { id: 1602, name: 'Juliet Duncan' },
@@ -3356,7 +3358,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 958, name: '[Sheriff] Kai Ming', factions: ['Law'], displayName: 1, telegram: 'IR145' },
     ],
     YouKnowItsJuno: [
-        { id: 959, name: 'Kima Abrams' },
+        { id: 959, name: 'Sumanitu Taka Cante Gearhardt', nicknames: ['Kima Abrams'] },
     ],
     Yuet: [
         { id: 960, name: 'Woodrow Hale' },

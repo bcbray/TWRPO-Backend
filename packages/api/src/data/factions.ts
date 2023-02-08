@@ -197,6 +197,7 @@ export const filterRename: { [key in FactionMini]?: string } = {
     boonsboys: 'Boon’s Boys',
     redwater: 'Red Water Co.',
     bluestone: 'Bluestone Security',
+    topaota: 'To’Pa Ota',
     news: 'Saint’s Daily Newspaper',
     onelife: 'One Life Characters',
     otherwrp: 'Unknown RPers',
