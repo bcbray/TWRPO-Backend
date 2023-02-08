@@ -3120,7 +3120,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1580, name: '[Deputy] Rubin Wiley', factions: ['Law'], telegram: 'SW311' },
     ],
     TnFD: [
-        { id: 895, name: 'Julian Charleston' },
+        { id: 895, name: 'Julian Charleston', telegram: 'NM481' },
     ],
     ToneeChoppa: [
         { id: 896, name: 'Antonio Borges' },
