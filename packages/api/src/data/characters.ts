@@ -1608,7 +1608,7 @@ export const wrpCharacters: WrpCharacters = {
     JustSam42: [
         { id: 462, name: '[Game Warden] Nathan Thompson', factions: ['Rangers'], telegram: 'EY079' }, // “Suspended indefinitely” from Rangers, but not yet fired
         { id: 1710, name: 'Angel Roberts', telegram: 'GX691' },
-        { id: 1758, name: 'Jameson "Bear" Farthing' },
+        { id: 1758, name: 'Jameson "Bear" Farthing', telegram: 'WB970' },
     ],
     JxdiTV: [
         { id: 463, name: 'Minnie Mines' },
