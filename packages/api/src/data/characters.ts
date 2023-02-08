@@ -522,7 +522,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 145, name: 'Larry Brown' },
     ],
     carvabowl: [
-        { id: 1784, name: 'Cal Reinhardt' },
+        { id: 1784, name: 'Cal Reinhardt', telegram: 'PG069' },
     ],
     CaseFace5: [
         { id: 146, name: 'Willie "Gramps" Walker' },
