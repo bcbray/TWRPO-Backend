@@ -2373,7 +2373,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 671, name: 'Adelaide Henry' },
     ],
     RayforRachel: [
-        { id: 672, name: 'Winifred "Dot" Barlow' },
+        { id: 672, name: 'Winifred "Dot" Barlow', telegram: 'ZI419' },
         { id: 673, name: 'Shirley Lemons', nicknames: ['Cowgirl'] },
     ],
     RayTwoPlay: [
