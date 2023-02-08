@@ -1081,7 +1081,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1796, name: 'Tawny ?' },
     ],
     Fluffalumpalump: [
-        { id: 1669, name: '[Trainee] Ellie Rose', factions: ['Medical'] },
+        { id: 1669, name: 'Ellie Rose', telegram: 'BL512' }, // On leave from Medical
     ],
     ForeheadSkin: [
         { id: 316, name: 'Edmund "Eddy" Reddington', factions: ['The Baastards'], deceased: true }, // Former Sam's Club
