@@ -956,7 +956,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     endangeredfinley: [
         { id: 276, name: 'Amelia Riddle', nicknames: ['Eiwaz', 'Kenaz'], factions: ['Daughters of Fenrir'], telegram: 'JY369' },
-        { id: 277, name: '[Trainee] Bonnie Gray', factions: ['Medical'], telegram: 'SE096' },
+        { id: 277, name: '[Doctor] Bonnie Gray', factions: ['Medical'], telegram: 'SE096' },
         { id: 278, name: '[Chief] Tanagila Kinya Isakib Hanhepi Wi', nicknames: ['Hummingbird', 'Hummingbird Flies By Moon', 'Kit'], displayName: 6, factions: ['Wapiti', 'Sun Warriors'], leader: true, telegram: 'KX331' },
         { id: 279, name: 'Paul Güttman' },
         { id: 1199, name: 'Persephone "Bones" Bonesman' },
