@@ -3020,7 +3020,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 871, name: '[Deputy] John Claymore', factions: ['Law'] },
     ],
     theLGX: [
-        { id: 872, name: 'Abner Ace' },
+        { id: 872, name: 'Abner Ace', telegram: 'ZO730' },
     ],
     TheMightyCaveman: [
         { id: 1047, name: 'Franklin Jones' },
