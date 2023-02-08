@@ -16,17 +16,21 @@ import {
 import { useNow } from './Data';
 import { FancyDropdown, LineItem } from './FancyDropdown'
 import DropdownItem from './DropdownItem';
+import { useAuthorization } from './auth';
+
+type Metric = 'streamers' | 'viewers';
 
 interface TimeseriesParams {
+    metric?: Metric;
     start?: Date;
     end?: Date;
     serverKey?: string;
     serverId?: number;
 }
 
-
 const queryStringForTimeseriesParams = (params: TimeseriesParams): string => {
   const {
+    metric,
     start,
     end,
     serverKey,
@@ -34,6 +38,9 @@ const queryStringForTimeseriesParams = (params: TimeseriesParams): string => {
   } = params;
 
   const searchParams = new URLSearchParams();
+  if (metric !== undefined) {
+    searchParams.set('metric', metric);
+  }
   if (start !== undefined) {
     searchParams.set('start', start.toISOString());
   }
@@ -56,6 +63,7 @@ interface TimeseriesProps {
   width: number;
   height: number;
   margin: { top: number, right: number, bottom: number, left: number };
+  metric: Metric;
   span: TimeSpan;
 }
 
@@ -73,6 +81,7 @@ const Timeseries: React.FC<TimeseriesProps> = ({
   width,
   height,
   margin,
+  metric,
   span,
 }) => {
   const svgRef = React.useRef(null);
@@ -231,7 +240,7 @@ const Timeseries: React.FC<TimeseriesProps> = ({
                 .join("text")
                   .call(text => text
                     .selectAll("tspan")
-                    .data([`${count} streamers`])
+                    .data([`${count} ${metric === 'viewers' ? 'viewers' : 'streamers'}`])
                     .join("tspan")
                       .attr("x", 0)
                       .attr("y", (_, i) => `${i * 1.1}em`)
@@ -304,7 +313,7 @@ const Timeseries: React.FC<TimeseriesProps> = ({
       })
       .on("touchstart", event => event.preventDefault());
 
-  }, [parsedData, width, height, margin.bottom, margin.top, margin.left, margin.right, span, svgWidth, svgHeight]);
+  }, [parsedData, width, height, margin.bottom, margin.top, margin.left, margin.right, metric, span, svgWidth, svgHeight]);
 
   return <svg ref={svgRef} width={svgWidth} height={svgHeight} />;
 };
@@ -327,13 +336,30 @@ interface TimeSpanLineItem extends LineItem {
   span: TimeSpan;
 }
 
+const metrics: Metric[] = ['streamers', 'viewers'];
+
+const metricName = (metric: Metric) => {
+  if (metric === 'streamers') {
+    return 'Streamers';
+  } else {
+    return 'Viewers'
+  }
+}
+
+interface MetricLineItem extends LineItem {
+  metric: Metric;
+}
+
 const TimeseriesContainer: React.FC<{}> = () => {
   const { server } = useCurrentServer();
   const now = useNow(1000 * 60 * 60 * 24);
+  const canUseViewerMetric = useAuthorization('view-viewer-timeseries');
 
+  const [metric, setMetric] = React.useState<Metric>('streamers');
   const [timeSpan, setTimeSpan] = React.useState<TimeSpan>('7d');
 
   const query = queryStringForTimeseriesParams({
+    metric,
     serverId: server.id,
     start: timeSpan === '1d'
       ? subDays(now, 1)
@@ -347,7 +373,7 @@ const TimeseriesContainer: React.FC<{}> = () => {
   const [loadState] = useLoading<TimeseriesResponse>(`/api/v2/timeseries${query ? `?${query}` : ''}`);
   const [ref, { width }] = useMeasure<HTMLDivElement>();
 
-  const lineItems: TimeSpanLineItem[] = timeSpans.map(ts => ({
+  const timeSpanLineItems: TimeSpanLineItem[] = timeSpans.map(ts => ({
     id: ts,
     span: ts,
     name: timeSpanName(ts),
@@ -359,14 +385,34 @@ const TimeseriesContainer: React.FC<{}> = () => {
     >
       {timeSpanName(ts)}
     </DropdownItem>
+  }));
+
+  const metricLineItems: MetricLineItem[] = metrics.map(m => ({
+    id: m,
+    metric: m,
+    name: metricName(m),
+    element: <DropdownItem
+      key={m}
+      onClick={e => e.preventDefault()}
+      eventKey={m}
+      active={m === metric}
+    >
+      {metricName(m)}
+    </DropdownItem>
   }))
 
   return <>
     <FancyDropdown
       title={timeSpanName(timeSpan)}
-      items={lineItems}
+      items={timeSpanLineItems}
       onSelect={item => item && setTimeSpan(item.span)}
     />
+    {canUseViewerMetric &&
+    <FancyDropdown
+      title={metricName(metric)}
+      items={metricLineItems}
+      onSelect={item => item && setMetric(item.metric)}
+    />}
     <div ref={ref}>
       {isSuccess(loadState) &&
         <Timeseries
@@ -374,6 +420,7 @@ const TimeseriesContainer: React.FC<{}> = () => {
           width={width - 50}
           height={300}
           margin={{ top: 3, right: 20, bottom: 30, left: 30 }}
+          metric={metric}
           span={timeSpan}
         />
       }
