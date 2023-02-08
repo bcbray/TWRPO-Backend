@@ -116,6 +116,16 @@ export const fetchTimeseries = async (
         `;
     } else { // metric === 'viewers'
         query = `
+            WITH relevant_stat AS (
+              SELECT
+                "time",
+                "streamerId",
+                "viewerCount"
+                FROM stream_chunk
+                INNER JOIN stream_chunk_stat ON stream_chunk.id = stream_chunk_stat."streamChunkId"
+                WHERE "serverId" = ${serverQueryParam}
+                AND tsrange("firstSeenDate", "lastSeenDate") && tsrange(${startDateQueryPart}, ${endDateQueryPart})
+            )
             SELECT
               d AS date,
               SUM(c.n)::int AS count
@@ -127,12 +137,10 @@ export const fetchTimeseries = async (
               CROSS JOIN LATERAL (
                 SELECT
                   MAX("viewerCount") AS n
-                  FROM stream_chunk_stat
-                  JOIN stream_chunk ON stream_chunk.id = stream_chunk_stat."streamChunkId"
+                  FROM relevant_stat
                   WHERE "time" > d
                   AND "time" < (d + '${stepQueryPart}'::INTERVAL)
-                  AND "serverId" = ${serverQueryParam}
-                  GROUP BY stream_chunk."streamerId"
+                  GROUP BY "streamerId"
                 UNION ALL (SELECT 0 as n)
               ) c
               GROUP BY d.d
