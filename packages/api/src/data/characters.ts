@@ -2391,7 +2391,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 674, name: 'Rekks Tanner' },
     ],
     Rezo24: [
-        { id: 1785, name: 'Roy Woods' },
+        { id: 1785, name: 'Roy Woods', telegram: 'AG587' },
     ],
     RickMongoLIVE: [
         { id: 675, name: 'Cole Dalton' },
