@@ -3339,7 +3339,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     xoVESPER: [
         { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Famiglia'], deceased: true, telegram: 'FE371' }, // Former DiCenzo
-        { id: 1233, name: 'Josephine "Josie" Adders', telegram: 'FO336', factions: ['The Baastards'] },
+        { id: 1233, name: 'Josephine "Josie" Adders', telegram: 'FO336' }, // Formerly Baastards
     ],
     YatoTheMad: [
         { id: 953, name: 'Cassius Evans' },
