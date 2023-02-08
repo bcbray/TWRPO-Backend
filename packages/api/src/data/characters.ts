@@ -1711,7 +1711,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 485, name: 'Emerson Cain' },
         { id: 486, name: 'Montgomery Flynn' },
         { id: 487, name: 'Tommaso Scaglietti' },
-        { id: 1715, name: 'Remington "Remy" Elias Flynn' },
+        { id: 1715, name: 'Remington "Remy" Elias Flynn', telegram: 'FB578' },
     ],
     Kyle: [
         { id: 488, name: 'Ren Solo' },
