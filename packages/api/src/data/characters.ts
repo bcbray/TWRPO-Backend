@@ -3244,7 +3244,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1401, name: '? Rudd', nicknames: ['Rev. Rudd'], displayName: 3 }, // Clergy
     ],
     VinnieThatsMe: [
-        { id: 1511, name: 'Ahnah Adjuk', factions: ['Sun Warriors'] },
+        { id: 1511, name: 'Ahnah Adjuk', factions: ['Wapiti', 'Sun Warriors'] },
         { id: 1642, name: 'Indigo "Indy" Riley', telegram: 'XM689' },
         { id: 1643, name: 'Mirai Lee' },
         { id: 1644, name: 'Delilah Tucker' },
