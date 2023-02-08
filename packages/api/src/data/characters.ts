@@ -260,7 +260,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AwaBeats: [
         { id: 58, name: 'Ali Mason' }, // Red Water? Did a bank job with them
-        { id: 59, name: 'Nokosi Ahanu', factions: ['ToPa Ota', 'Sun Warriors'] },
+        { id: 59, name: '[Elder] Nokosi Ahanu', factions: ['ToPa Ota', 'Sun Warriors'] },
         { id: 60, name: '[Deputy] Cleveland Brown', nicknames: ['C-Lo'], displayName: 3, factions: ['Law'], telegram: 'ZM161' },
         { id: 61, name: 'Yorrik Morales' },
     ],
