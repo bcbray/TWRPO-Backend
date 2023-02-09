@@ -2663,7 +2663,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     SolidSinn: [
         { id: 757, name: 'Carl Lawsen' },
-        { id: 758, name: 'Jed Wicker', factions: ['Kettleman Gang'] },
+        { id: 758, name: 'Jed Wicker', factions: ['Kettleman Gang'], deceased: true },
         { id: 759, name: 'Roger Thyne', telegram: 'GP238' },
     ],
     SomethingBees: [
