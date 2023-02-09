@@ -237,7 +237,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 49, name: 'Zhang Wei', displayName: 0, factions: ['Taipan'], telegram: 'HE892' },
         { id: 1300, name: 'Archibald Stevenson' },
     ],
-    aureliawrites: [
+    aureliarwrites: [
         { id: 50, name: 'Lena Phipps' },
         { id: 51, name: 'Scarlet ?' }, // TODO: Last name?
     ],
