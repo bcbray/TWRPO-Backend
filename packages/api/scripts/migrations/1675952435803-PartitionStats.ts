@@ -13,7 +13,8 @@ export class PartitionStats1675952435803 implements MigrationInterface {
         await queryRunner.query(`CREATE INDEX "IDX_b829b50be53c209b695536de15" ON "stream_chunk_stat" ("streamChunkId")`);
         await queryRunner.query(`CREATE INDEX "IDX_40dc6325fff47659ffc2b138ba" ON "stream_chunk_stat" USING BRIN ("time") WITH (pages_per_range = 70 )`);
         await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS pg_partman`);
-        await queryRunner.query(`SELECT create_parent('public.stream_chunk_stat', 'time', 'native', 'daily', p_start_partition := '2023-01-29')`);
+        await queryRunner.query(`CREATE TABLE public.stream_chunk_stat_template (LIKE stream_chunk_stat)`);
+        await queryRunner.query(`SELECT create_parent('public.stream_chunk_stat', 'time', 'native', 'daily', p_start_partition := '2023-01-29', p_template_table := 'public.stream_chunk_stat_template')`);
         await queryRunner.query(`INSERT INTO stream_chunk_stat SELECT * FROM stream_chunk_stat_unpartitioned`);
         await queryRunner.query(`SELECT setval('stream_chunk_stat_id_seq', (SELECT MAX(id) FROM stream_chunk_stat))`);
         await queryRunner.query(`DROP TABLE stream_chunk_stat_unpartitioned`);
