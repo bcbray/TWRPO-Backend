@@ -321,62 +321,70 @@ class Api {
     }
 
     async logDatabaseCounts(): Promise<void> {
-        const counts: Record<string, number> = {};
-        const tables: { tableName: string }[] = await this.dataSource.query(`SELECT table_name as "tableName" FROM information_schema.tables WHERE table_schema = 'public'`);
-        for (const { tableName } of tables) {
-            const estimateResults: { estimate: string | null }[] = await this.dataSource.query(`
-                SELECT (CASE WHEN c.reltuples < 0 THEN NULL       -- never vacuumed
-                             WHEN c.relpages = 0 THEN float8 '0'  -- empty table
-                             ELSE c.reltuples / c.relpages END
-                     * (pg_catalog.pg_relation_size(c.oid)
-                      / pg_catalog.current_setting('block_size')::int)
-                       )::bigint as estimate
-                FROM   pg_catalog.pg_class c
-                WHERE  c.oid = '${tableName}'::regclass;      -- schema-qualified table here
-            `);
-            if (estimateResults.length === 0) {
-                continue;
-            }
-            const sizeResults: { size: string }[] = await this.dataSource.query(`
-                SELECT pg_total_relation_size('${tableName}') AS size
-            `);
-            if (sizeResults.length === 0) {
-                continue;
-            }
-            const { estimate } = estimateResults[0];
-            const { size } = sizeResults[0];
-            if (estimate === null) {
-                const exactResults: { exact: string }[] = await this.dataSource.query(`
-                    SELECT count(*) AS exact FROM "${tableName}";
+        try {
+            const counts: Record<string, number> = {};
+            const tables: { tableName: string }[] = await this.dataSource.query(`SELECT table_name as "tableName" FROM information_schema.tables WHERE table_schema = 'public'`);
+            for (const { tableName } of tables) {
+                const estimateResults: { estimate: string | null }[] = await this.dataSource.query(`
+                    SELECT (CASE WHEN c.reltuples < 0 THEN NULL       -- never vacuumed
+                                 WHEN c.relpages = 0 THEN float8 '0'  -- empty table
+                                 ELSE c.reltuples / c.relpages END
+                         * (pg_catalog.pg_relation_size(c.oid)
+                          / pg_catalog.current_setting('block_size')::int)
+                           )::bigint as estimate
+                    FROM   pg_catalog.pg_class c
+                    WHERE  c.oid = '${tableName}'::regclass;      -- schema-qualified table here
                 `);
-                if (exactResults.length === 0) {
+                if (estimateResults.length === 0) {
                     continue;
                 }
-                const { exact } = exactResults[0];
-                counts[tableName] = Number.parseInt(exact, 10);
-            } else {
-                counts[tableName] = Number.parseInt(estimate, 10);
+                const sizeResults: { size: string }[] = await this.dataSource.query(`
+                    SELECT pg_total_relation_size('${tableName}') AS size
+                `);
+                if (sizeResults.length === 0) {
+                    continue;
+                }
+                const { estimate } = estimateResults[0];
+                const { size } = sizeResults[0];
+                if (estimate === null) {
+                    const exactResults: { exact: string }[] = await this.dataSource.query(`
+                        SELECT count(*) AS exact FROM "${tableName}";
+                    `);
+                    if (exactResults.length === 0) {
+                        continue;
+                    }
+                    const { exact } = exactResults[0];
+                    counts[tableName] = Number.parseInt(exact, 10);
+                } else {
+                    counts[tableName] = Number.parseInt(estimate, 10);
+                }
+                console.log(JSON.stringify({
+                    level: 'info',
+                    event: 'database-table-stats',
+                    tableStats: {
+                        table: tableName,
+                        count: counts[tableName],
+                        size
+                    },
+                }));
             }
+            const totalSizeResults: { size: string }[] = await this.dataSource.query(`
+                SELECT pg_database_size(current_database()) AS size
+            `);
             console.log(JSON.stringify({
                 level: 'info',
-                event: 'database-table-stats',
-                tableStats: {
-                    table: tableName,
-                    count: counts[tableName],
-                    size
-                },
+                event: 'database-stats',
+                tableCounts: counts,
+                totalCount: Object.values(counts).reduce((sum, count) => sum + count),
+                totalSize: totalSizeResults.length > 0 ? totalSizeResults[0].size : undefined,
+            }));
+        } catch (error) {
+            console.error(JSON.stringify({
+                level: 'error',
+                message: 'Failed to log database stats',
+                error,
             }));
         }
-        const totalSizeResults: { size: string }[] = await this.dataSource.query(`
-            SELECT pg_database_size(current_database()) AS size
-        `);
-        console.log(JSON.stringify({
-            level: 'info',
-            event: 'database-stats',
-            tableCounts: counts,
-            totalCount: Object.values(counts).reduce((sum, count) => sum + count),
-            totalSize: totalSizeResults.length > 0 ? totalSizeResults[0].size : undefined,
-        }));
     }
 
     startDatabasePartitionMaintenance(): void {
