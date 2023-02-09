@@ -47,7 +47,8 @@ interface ApiOptions {
     postgresUrl: string;
     liveRefreshInterval?: number;
     videoRefreshInterval?: number;
-    databaseStatsLogInterval?: number
+    databaseStatsLogInterval?: number;
+    databasePartitionMaintenanceInterval?: number;
 }
 
 const twurpleLogRemap: Record<LogLevel, string> = {
@@ -79,6 +80,10 @@ class Api {
     private databaseStatsLogInterval: number;
 
     private databaseStatsLogTimeout: IntervalTimeout | null;
+
+    private databasePartitionMaintenanceInterval: number;
+
+    private databasePartitionMaintenanceTimeout: IntervalTimeout | null;
 
     constructor(options: ApiOptions) {
         this.twitchClient = new ApiClient({
@@ -123,11 +128,15 @@ class Api {
 
         const { databaseStatsLogInterval = 1000 * 60 * 20 } = options;
         this.databaseStatsLogInterval = databaseStatsLogInterval;
+
+        const { databasePartitionMaintenanceInterval = 1000 * 60 * 60 * 24 } = options;
+        this.databasePartitionMaintenanceInterval = databasePartitionMaintenanceInterval;
     }
 
     public async initialize(): Promise<void> {
         await this.dataSource.initialize();
         this.startLoggingDatabaseCounts();
+        this.startDatabasePartitionMaintenance();
     }
 
     public async fetchLive(currentUser: UserResponse): Promise<LiveResponse> {
@@ -367,6 +376,40 @@ class Api {
             totalCount: Object.values(counts).reduce((sum, count) => sum + count),
             totalSize: totalSizeResults.length > 0 ? totalSizeResults[0].size : undefined,
         }));
+    }
+
+    startDatabasePartitionMaintenance(): void {
+        if (this.databasePartitionMaintenanceTimeout) {
+            this.stopDatabasePartitionMaintenance();
+        }
+        this.runDatabasePartitionMaintenance();
+        this.databasePartitionMaintenanceTimeout = setInterval(() => {
+            this.runDatabasePartitionMaintenance();
+        }, this.databasePartitionMaintenanceInterval);
+    }
+
+    stopDatabasePartitionMaintenance(): void {
+        if (this.databasePartitionMaintenanceTimeout) {
+            clearInterval(this.databasePartitionMaintenanceTimeout);
+            this.databasePartitionMaintenanceTimeout = null;
+        }
+    }
+
+    async runDatabasePartitionMaintenance(): Promise<void> {
+        try {
+            const results = await this.dataSource.query('SELECT run_maintenance()');
+            console.log(JSON.stringify({
+                level: 'info',
+                event: 'database-partition-maintenance',
+                results,
+            }));
+        } catch (error) {
+            console.error(JSON.stringify({
+                level: 'error',
+                message: 'Failed to perform database partition maintenance',
+                error,
+            }));
+        }
     }
 }
 
