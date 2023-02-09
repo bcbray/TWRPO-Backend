@@ -322,7 +322,8 @@ class Api {
 
     async logDatabaseCounts(): Promise<void> {
         const counts: Record<string, number> = {};
-        for (const metadata of this.dataSource.entityMetadatas) {
+        const tables: { tableName: string }[] = await this.dataSource.query(`SELECT table_name as "tableName" FROM information_schema.tables WHERE table_schema = 'public'`);
+        for (const { tableName } of tables) {
             const estimateResults: { estimate: string | null }[] = await this.dataSource.query(`
                 SELECT (CASE WHEN c.reltuples < 0 THEN NULL       -- never vacuumed
                              WHEN c.relpages = 0 THEN float8 '0'  -- empty table
@@ -331,13 +332,13 @@ class Api {
                       / pg_catalog.current_setting('block_size')::int)
                        )::bigint as estimate
                 FROM   pg_catalog.pg_class c
-                WHERE  c.oid = '${metadata.tableName}'::regclass;      -- schema-qualified table here
+                WHERE  c.oid = '${tableName}'::regclass;      -- schema-qualified table here
             `);
             if (estimateResults.length === 0) {
                 continue;
             }
             const sizeResults: { size: string }[] = await this.dataSource.query(`
-                SELECT pg_total_relation_size('${metadata.tableName}') AS size
+                SELECT pg_total_relation_size('${tableName}') AS size
             `);
             if (sizeResults.length === 0) {
                 continue;
@@ -346,22 +347,22 @@ class Api {
             const { size } = sizeResults[0];
             if (estimate === null) {
                 const exactResults: { exact: string }[] = await this.dataSource.query(`
-                    SELECT count(*) AS exact FROM "${metadata.tableName}";
+                    SELECT count(*) AS exact FROM "${tableName}";
                 `);
                 if (exactResults.length === 0) {
                     continue;
                 }
                 const { exact } = exactResults[0];
-                counts[metadata.tableName] = Number.parseInt(exact, 10);
+                counts[tableName] = Number.parseInt(exact, 10);
             } else {
-                counts[metadata.tableName] = Number.parseInt(estimate, 10);
+                counts[tableName] = Number.parseInt(estimate, 10);
             }
             console.log(JSON.stringify({
                 level: 'info',
                 event: 'database-table-stats',
                 tableStats: {
-                    table: metadata.tableName,
-                    count: counts[metadata.tableName],
+                    table: tableName,
+                    count: counts[tableName],
                     size
                 },
             }));
