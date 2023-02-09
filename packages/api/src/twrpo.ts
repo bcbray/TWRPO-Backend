@@ -323,8 +323,26 @@ class Api {
     async logDatabaseCounts(): Promise<void> {
         try {
             const counts: Record<string, number> = {};
-            const tables: { tableName: string }[] = await this.dataSource.query(`SELECT table_name as "tableName" FROM information_schema.tables WHERE table_schema = 'public'`);
-            for (const { tableName } of tables) {
+            const tables: {
+                name: string;
+                kind: string;
+            }[] = await this.dataSource.query(`
+                SELECT
+                    c.relname AS "name",
+                    CASE
+                        WHEN c.relkind = 'm' THEN 'materialized-view'
+                        WHEN c.relkind = 'p' THEN 'partition-parent-table'
+                        WHEN c.relkind = 'r' AND c.relispartition = true THEN 'partition-table'
+                        WHEN c.relkind = 'r' THEN 'table'
+                        ELSE 'unknown'
+                    END AS "kind"
+                FROM pg_catalog.pg_class c
+                JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+                WHERE c.relkind = ANY ('{p,r,m,""}')
+                AND n.nspname = 'public'
+                ORDER BY 1, 2;
+            `);
+            for (const { name, kind } of tables) {
                 const estimateResults: { estimate: string | null }[] = await this.dataSource.query(`
                     SELECT (CASE WHEN c.reltuples < 0 THEN NULL       -- never vacuumed
                                  WHEN c.relpages = 0 THEN float8 '0'  -- empty table
@@ -333,13 +351,13 @@ class Api {
                           / pg_catalog.current_setting('block_size')::int)
                            )::bigint as estimate
                     FROM   pg_catalog.pg_class c
-                    WHERE  c.oid = '${tableName}'::regclass;      -- schema-qualified table here
+                    WHERE  c.oid = '${name}'::regclass;      -- schema-qualified table here
                 `);
                 if (estimateResults.length === 0) {
                     continue;
                 }
                 const sizeResults: { size: string }[] = await this.dataSource.query(`
-                    SELECT pg_total_relation_size('${tableName}') AS size
+                    SELECT pg_total_relation_size('${name}') AS size
                 `);
                 if (sizeResults.length === 0) {
                     continue;
@@ -348,22 +366,23 @@ class Api {
                 const { size } = sizeResults[0];
                 if (estimate === null) {
                     const exactResults: { exact: string }[] = await this.dataSource.query(`
-                        SELECT count(*) AS exact FROM "${tableName}";
+                        SELECT count(*) AS exact FROM "${name}";
                     `);
                     if (exactResults.length === 0) {
                         continue;
                     }
                     const { exact } = exactResults[0];
-                    counts[tableName] = Number.parseInt(exact, 10);
+                    counts[name] = Number.parseInt(exact, 10);
                 } else {
-                    counts[tableName] = Number.parseInt(estimate, 10);
+                    counts[name] = Number.parseInt(estimate, 10);
                 }
                 console.log(JSON.stringify({
                     level: 'info',
                     event: 'database-table-stats',
                     tableStats: {
-                        table: tableName,
-                        count: counts[tableName],
+                        table: name,
+                        kind,
+                        count: counts[name],
                         size
                     },
                 }));
