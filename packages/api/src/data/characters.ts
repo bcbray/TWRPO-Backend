@@ -2035,6 +2035,10 @@ export const wrpCharacters: WrpCharacters = {
     MrPandaaBear: [
         { id: 580, name: 'Cathal McCarthy' },
     ],
+    MrSpacyTV: [
+        { id: 1585, name: '[Deputy] Mason Mcree', factions: ['Law'], telegram: 'TZ944' },
+        { id: 1731, name: 'Oscar Mcaren', telegram: 'LL405' },
+    ],
     mrwobblestwitch: [
         { id: 1507, name: 'Nickolai Klauss' },
         { id: 1508, name: 'Willie Jelqson' },
@@ -2618,10 +2622,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     SirSaltyBacon: [
         { id: 1249, name: 'Ducky Lloyd' },
-    ],
-    SirSpacyEsquire: [
-        { id: 1585, name: '[Deputy] Mason Mcree', factions: ['Law'], telegram: 'TZ944' },
-        { id: 1731, name: 'Oscar Mcaren', telegram: 'LL405' },
     ],
     Skids_N_Cones: [
         { id: 742, name: '"Old Greg" Boone', nicknames: ['Old Greg'], displayName: 3 },
