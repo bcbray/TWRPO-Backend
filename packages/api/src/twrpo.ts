@@ -20,7 +20,7 @@ import {
 
 import { getFilteredWrpLive, startRefreshing as startRefreshingLive, IntervalTimeout } from './routes/live/liveData';
 import { fetchCharacters, parseCharactersQuery, CharactersParams } from './routes/v2/characters';
-import { fetchFactions } from './routes/v2/factions';
+import { fetchFactions, parseFactionsQuery, FactionsParams } from './routes/v2/factions';
 import { fetchStreamer, fetchStreamers } from './routes/v2/streamers';
 import { fetchUnknown } from './routes/v2/unknown';
 import { fetchSegment } from './routes/v2/segments';
@@ -143,8 +143,17 @@ class Api {
         return getFilteredWrpLive(this.twitchClient, this.dataSource, currentUser);
     }
 
-    public async fetchFactions(currentUser: UserResponse): Promise<FactionsResponse> {
-        return fetchFactions(this.twitchClient, this.dataSource, currentUser);
+    public async fetchFactionsWithQuery(query: string | undefined, currentUser: UserResponse): Promise<FactionsResponse> {
+        const params = parseFactionsQuery(new URLSearchParams(query));
+        if ('error' in params) {
+            console.error('Invalid query');
+            return { factions: [] };
+        }
+        return this.fetchFactions(params, currentUser);
+    }
+
+    public async fetchFactions(params: FactionsParams, currentUser: UserResponse): Promise<FactionsResponse> {
+        return fetchFactions(this.twitchClient, this.dataSource, params, currentUser);
     }
 
     public async fetchCharactersWithQuery(query: string | undefined, currentUser: UserResponse): Promise<CharactersResponse> {

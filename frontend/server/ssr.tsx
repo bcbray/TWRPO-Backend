@@ -102,15 +102,19 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           preloadedData.live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
         }
 
-        if (used.usedFactions || used.usedFactionCss) {
-          needsFactionCss = needsFactionCss || used.usedFactionCss === true;
-          if (used.usedFactions) {
-            needsAnotherLoad = true;
+        needsFactionCss = needsFactionCss || used.usedFactionCss === true;
+
+        if (used.usedFactionsQueries && used.usedFactionsQueries.length) {
+          needsAnotherLoad = true;
+          if (!preloadedData.factions) {
+            preloadedData.factions = {};
           }
-          const factionsResponse = await api.fetchFactions(userResponse);
-          // Hacky round-trip through JSON to make sure our types are converted the same
-          // TODO: Maybe we should just make an API call?
-          preloadedData.factions = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
+          for (const query of used.usedFactionsQueries) {
+            const factionsResponse = await api.fetchFactionsWithQuery(query, userResponse);
+            // Hacky round-trip through JSON to make sure our types are converted the same
+            // TODO: Maybe we should just make an API call?
+            preloadedData.factions[query] = JSON.parse(JSON.stringify(factionsResponse)) as FactionsResponse;
+          }
         }
 
         if (used.usedCharactersQueries && used.usedCharactersQueries.length) {
@@ -120,7 +124,6 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           }
           for (const query of used.usedCharactersQueries) {
             const charactersResponse = await api.fetchCharactersWithQuery(query, userResponse);
-            // const streamsResponse = await api.fetchRecentStreams(cursor === '' ? undefined : cursor, userResponse);
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?
             preloadedData.characters[query] = JSON.parse(JSON.stringify(charactersResponse)) as CharactersResponse;
@@ -271,8 +274,9 @@ window.${environmentKey} = ${JSON.stringify(environment).replace(/</g,'\\u003c')
     );
 
 
-    if (preloadedData.factions && needsFactionCss) {
-      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(preloadedData.factions.factions)
+    if (needsFactionCss) {
+      const factionsResponse = await api.fetchFactions({ serverKey: 'wrp' }, userResponse);
+      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(factionsResponse.factions)
       indexHTML = indexHTML.replace(
         '<style id="root-faction-styles"></style>',
         `<style id="root-faction-styles" data-style-hash="${factionStylesHash}">${factionStyles}</style>`

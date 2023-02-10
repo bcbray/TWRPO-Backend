@@ -124,7 +124,8 @@ const FactionStyleProviderContext = React.createContext<{ hasProvided: boolean; 
 
 export const FactionStyleContextProvider: React.FC<FactionStyleProviderProps> = ({ children }) => {
   const [hasProvided, setHasProvided] = React.useState(false);
-  const [loadState] = useFactions({ needsLoad: hasProvided });
+  // TODO: Support other servers in FactionStyleProvider
+  const [loadState] = useFactions({ serverKey: 'wrp' }, { needsLoad: hasProvided });
   useInstallFactionCss(loadState);
 
   return (

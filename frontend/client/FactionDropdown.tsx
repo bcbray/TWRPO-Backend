@@ -6,6 +6,7 @@ import { classes } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
 import { FancyDropdown, LineItem } from './FancyDropdown';
 import DropdownItem from  './DropdownItem';
+import { useCurrentServer } from './CurrentServer';
 
 interface Props {
   factions: FactionInfo[];
@@ -30,12 +31,13 @@ const FactionDropdown: React.FC<Props> = ({
   allHref,
   itemHref,
 }) => {
+  const { server } = useCurrentServer();
   const { factionStyles, factionStylesForKey } = useFactionCss();
 
   const allItems: FactionLineItem[] = [
     {
       id: 'meta-all',
-      name: 'All WildRP',
+      name: `All ${server.name}`,
       element: (
         <DropdownItem
           key='meta-all'
@@ -79,7 +81,7 @@ const FactionDropdown: React.FC<Props> = ({
 
   return <FancyDropdown
     items={allItems}
-    title={selectedFaction?.name ?? 'All Wild RP'}
+    title={selectedFaction?.name ?? `All ${server.name}`}
     onSelect={item => onSelect(item?.faction || null)}
     className={outerClassName}
     buttonClassName={styles.factionDropdownButton}

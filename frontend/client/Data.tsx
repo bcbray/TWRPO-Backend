@@ -28,7 +28,7 @@ import {
 export interface PreloadedData {
   now?: string;
   live?: LiveResponse;
-  factions?: FactionsResponse;
+  factions?: Record<string, FactionsResponse>;
   characters?: Record<string, CharactersResponse>;
   streamers?: Record<string, StreamerResponse | null>;
   unknown?: UnknownResponse;
@@ -47,7 +47,7 @@ export interface PreloadedData {
 export interface PreloadedUsed {
   usedNow?: boolean;
   usedLive?: boolean;
-  usedFactions?: boolean;
+  usedFactionsQueries?: string[];
   usedCharactersQueries?: string[];
   usedStreamerNames?: string[];
   usedFactionCss?: boolean;
@@ -126,13 +126,13 @@ export const useNow = (intervalMs: number = 1000): Date => {
   return now;
 };
 
-export interface PreLoadingProps<T> extends LoadingProps<T> {
+interface PreLoading {
   skipsPreload?: boolean;
 }
 
-export interface PreAutoReloadingProps<T> extends AutoReloadingProps<T> {
-  skipsPreload?: boolean;
-}
+export type PreLoadingProps<T> = LoadingProps<T> & PreLoading;
+
+export type PreAutoReloadingProps<T> = AutoReloadingProps<T> & PreLoading;
 
 export interface CharactersParams {
   live?: boolean;
@@ -192,45 +192,68 @@ export const useCharacters = (params: CharactersParams = {}, { skipsPreload = fa
   return [loadState, outerOnReload, lastLoad];
 }
 
-export const useFactions = ({ skipsPreload = false, ...props }: PreLoadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> => {
+export interface FactionsParams {
+  serverKey?: string;
+  serverId?: number;
+  tempAllowNoServer?: boolean;
+}
+
+const queryStringForFactionsParams = (params: FactionsParams): string => {
+  const {
+    serverKey,
+    serverId,
+    tempAllowNoServer,
+  } = params;
+
+  const searchParams = new URLSearchParams();
+  if (serverKey !== undefined) {
+    searchParams.set('serverKey', serverKey);
+  }
+  if (serverId !== undefined) {
+    searchParams.set('serverId', `${serverId|0}`);
+  }
+  if (tempAllowNoServer !== undefined) {
+    searchParams.set('tempAllowNoServer', tempAllowNoServer ? 'true' : 'false');
+  }
+  return searchParams.toString();
+};
+
+function useFactionsBase(
+  loader: (info: RequestInfo, props: LoadingProps<FactionsResponse>) => LoadingResult<FactionsResponse>,
+  params: FactionsParams = {},
+  { skipsPreload = false, ...props }: LoadingProps<FactionsResponse> & PreLoading
+): LoadingResult<FactionsResponse> {
   const preloadedData = React.useContext(PreloadedDataContext);
   const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.factions === undefined) {
-    preloadedUsed.usedFactions = true;
+  const query = queryStringForFactionsParams(params);
+  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.factions?.[query] === undefined) {
+    if (preloadedUsed.usedFactionsQueries === undefined) {
+      preloadedUsed.usedFactionsQueries = [];
+    }
+    preloadedUsed.usedFactionsQueries.push(query);
   }
 
-  const [loadState, outerOnReload, lastLoad] = useLoading('/api/v2/factions', {
-    preloaded: skipsPreload ? undefined : preloadedData.factions,
+  const [loadState, outerOnReload, lastLoad] = loader(`/api/v2/factions${query ? `?${query}` : ''}`, {
+    preloaded: skipsPreload ? undefined : preloadedData.factions?.[query],
     ...props,
   });
 
   // Update the context so we don't get stuck with stale data later
   if (isSuccess(loadState)) {
-    preloadedData.factions = loadState.data;
+    if (preloadedData.factions === undefined) {
+      preloadedData.factions = {};
+    }
+    preloadedData.factions[query] = loadState.data;
   }
 
   return [loadState, outerOnReload, lastLoad];
 }
 
-export const useAutoreloadFactions = ({ skipsPreload = false, ...props }: PreAutoReloadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> => {
-  const preloadedData = React.useContext(PreloadedDataContext);
-  const preloadedUsed = React.useContext(PreloadedUsedContext);
-  if (skipsPreload !== true && props.needsLoad !== false && props.preloaded === undefined && preloadedData.factions === undefined) {
-    preloadedUsed.usedFactions = true;
-  }
+export const useFactions = (params: FactionsParams = {}, props: PreLoadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> =>
+  useFactionsBase(useLoading, params, props);
 
-  const [loadState, outerOnReload, lastLoad] = useAutoReloading('/api/v2/factions', {
-    preloaded: skipsPreload ? undefined :  preloadedData.factions,
-    ...props,
-  });
-
-  // Update the context so we don't get stuck with stale data later
-  if (isSuccess(loadState)) {
-    preloadedData.factions = loadState.data;
-  }
-
-  return [loadState, outerOnReload, lastLoad];
-}
+export const useAutoreloadFactions = (params: FactionsParams = {}, props: PreAutoReloadingProps<FactionsResponse> = {}): LoadingResult<FactionsResponse> =>
+  useFactionsBase(useAutoReloading, params, props);
 
 export const useLive = ({ skipsPreload = false, ...props }: PreLoadingProps<LiveResponse> = {}): LoadingResult<LiveResponse> => {
   const preloadedData = React.useContext(PreloadedDataContext);

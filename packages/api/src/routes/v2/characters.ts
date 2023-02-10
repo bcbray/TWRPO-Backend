@@ -40,7 +40,8 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
 
     const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
 
-    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, currentUser);
+    // TODO: server in CharactersParams
+    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, { serverKey: 'wrp' } , currentUser);
 
     const includeHiddenSegments = isGlobalEditor(currentUser);
 

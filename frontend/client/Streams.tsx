@@ -149,7 +149,9 @@ const Streams: React.FC<StreamsProps> = ({
 
 
   // TODO: Update with live count somehow (auto-reload or pull from streams response)
-  const [factionLoadState] = useFactions();
+  const [factionLoadState] = useFactions({
+    serverId: server.id,
+  });
 
   const factionInfos = React.useMemo(() => (
     isSuccess(factionLoadState)

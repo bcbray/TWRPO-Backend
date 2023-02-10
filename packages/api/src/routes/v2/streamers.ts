@@ -302,7 +302,8 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
     const liveInfo = liveData.streams.find(s =>
         s.channelName === channel.displayName);
 
-    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, currentUser);
+    // TODO: Build a way to fetch all factions for the servers this streamer has characters on
+    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, { serverKey: 'wrp' }, currentUser);
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
 
     const channelInfo: TwitchUser = {

@@ -8,6 +8,7 @@ import { isSuccess, isFailure } from './LoadingState';
 import Live from './Live';
 import Error from './Error';
 import Loading from './Loading';
+import { useCurrentServer } from './CurrentServer';
 
 interface ToastProps {
   paused: boolean;
@@ -74,7 +75,9 @@ const LiveContainer: React.FC = () => {
     onReloadSuccess: dismissToastIfVisible,
   });
 
-  const [factionsLoadingState] = useFactions();
+  const { server } = useCurrentServer();
+
+  const [factionsLoadingState] = useFactions({ serverId: server.id });
 
   return (
     <>
