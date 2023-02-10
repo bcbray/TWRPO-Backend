@@ -116,7 +116,9 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
         }
 
         if (factionQueries.size) {
-          needsAnotherLoad = true;
+          if (used.usedFactionsQueries?.length) {
+            needsAnotherLoad = true;
+          }
           if (!preloadedData.factions) {
             preloadedData.factions = {};
           }
