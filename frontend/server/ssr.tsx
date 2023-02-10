@@ -247,12 +247,20 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
         }
 
         if (!needsAnotherLoad) {
+          console.warn(JSON.stringify({
+              level: 'info',
+              event: 'ssr-load',
+              message: `Required ${i} iterations to render ${req.url}`,
+              iterations: i,
+              path: req.url,
+          }));
           break;
         } else if (i === MAX_LOADS) {
           console.warn(JSON.stringify({
-              level: 'warning',
-              event: 'too-many-ssr-loads',
+              level: 'error',
+              event: 'ssr-load',
               message: `Required more than ${MAX_LOADS} to render ${req.url}`,
+              iterations: i,
               path: req.url,
           }));
         }
