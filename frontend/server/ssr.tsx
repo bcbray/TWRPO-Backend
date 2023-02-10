@@ -28,6 +28,7 @@ import {
   PreloadedUsed,
   ServerPreloadedDataProvider,
   preloadedDataKey,
+  queryStringForFactionsParams,
 } from '../client/Data';
 import { rootFactionStylesheetContents } from '../client/FactionStyleProvider';
 import { ServerHookDataProvider, ServerHookData } from '../client/hooks'
@@ -103,20 +104,23 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           preloadedData.live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
         }
 
+        const factionQueries = new Set(used.usedFactionsQueries ?? []);
+
         if (used.usedFactionCssServers && used.usedFactionCssServers.length) {
           for (const server of used.usedFactionCssServers) {
+            factionQueries.add(queryStringForFactionsParams({ serverId: server.id }));
             if (!factionCssServers.some(s => s.id === server.id)) {
               factionCssServers.push(server);
             }
           }
         }
 
-        if (used.usedFactionsQueries && used.usedFactionsQueries.length) {
+        if (factionQueries.size) {
           needsAnotherLoad = true;
           if (!preloadedData.factions) {
             preloadedData.factions = {};
           }
-          for (const query of used.usedFactionsQueries) {
+          for (const query of factionQueries.values()) {
             const factionsResponse = await api.fetchFactionsWithQuery(query, userResponse);
             // Hacky round-trip through JSON to make sure our types are converted the same
             // TODO: Maybe we should just make an API call?

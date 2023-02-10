@@ -199,7 +199,7 @@ export interface FactionsParams {
   tempAllowNoServer?: boolean;
 }
 
-const queryStringForFactionsParams = (params: FactionsParams): string => {
+export const queryStringForFactionsParams = (params: FactionsParams): string => {
   const {
     serverKey,
     serverId,
