@@ -119,10 +119,10 @@ export const useNow = (intervalMs: number = 1000): Date => {
   if (preloadedUsed && !preloadedData.now) {
     preloadedUsed.usedNow = true;
   }
-  const [now, setNow] = React.useState(preloadedData.now
+  const isFirstRenderFromSSR = useIsFirstRenderFromSSR();
+  const [now, setNow] = React.useState(preloadedData.now && isFirstRenderFromSSR
     ? new Date(JSON.parse(preloadedData.now))
     : new Date());
-  React.useEffect(() => setNow(new Date()), []);
   useHarmonicIntervalFn(() => setNow(new Date()), intervalMs);
   return now;
 };
