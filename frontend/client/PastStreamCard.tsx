@@ -13,6 +13,7 @@ import ProfilePhotos from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 import OverrideSegmentButton from './OverrideSegmentButton';
 import StreamTagOverlay, { usePrimaryTagsForSegment } from './StreamTagOverlay';
+import { useCurrentServer } from './CurrentServer';
 
 const cardStyles = {
   inline: styles.inline,
@@ -76,7 +77,8 @@ const PastStreamCard = React.forwardRef<HTMLDivElement, Props>((
     ...rest
   }, ref
 ) => {
-  const { factionStylesForKey } = useFactionCss();
+  const { server } = useCurrentServer();
+  const { factionStylesForKey } = useFactionCss(server);
 
   const canEdit = useAuthorization({
     type: 'overide-segment',

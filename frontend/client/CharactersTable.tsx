@@ -9,6 +9,7 @@ import ProfilePhoto from './ProfilePhoto';
 import { classes, formatDuration } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
 import { useRelativeDateMaybe } from './hooks';
+import { useCurrentServer } from './CurrentServer';
 
 type Sort = 'streamer' | 'title' | 'name' | 'nickname' | 'faction' | 'contact' | 'lastSeen' | 'duration';
 type Order = 'asc' | 'desc';
@@ -41,8 +42,9 @@ const CharacterRow: React.FC<RowProps> = ({
   noStreamerLink,
   factionDestination,
 }) => {
+  const { server } = useCurrentServer();
   const location = useLocation();
-  const { factionStyles } = useFactionCss();
+  const { factionStyles } = useFactionCss(server);
   const factionsToShow = React.useMemo(() => visibleFactions(character.factions), [character.factions]);
   const lastSeenLiveDate = React.useMemo(() => {
       if (!character.lastSeenLive) return undefined;

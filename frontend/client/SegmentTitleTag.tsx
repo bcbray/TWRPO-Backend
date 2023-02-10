@@ -1,5 +1,5 @@
 import React from 'react';
-import { VideoSegment } from '@twrpo/types';
+import { VideoSegment, ServerBase } from '@twrpo/types';
 
 import styles from './SegmentTitleTag.module.css';
 
@@ -12,8 +12,8 @@ interface UseSegmentTagTextOptions {
   ignoreLiveInfo?: boolean;
 }
 
-export const useSegmentTagText = (segment: VideoSegment, options: UseSegmentTagTextOptions = {}): string => {
-  const { server, game } = useCurrentServer();
+export const useSegmentTagText = (segment: VideoSegment, server: ServerBase, options: UseSegmentTagTextOptions = {}): string => {
+  const { game } = useCurrentServer();
   const {
     ignoreLiveInfo = false,
   } = options;
@@ -50,8 +50,9 @@ interface SegmentTitleTagProps {
 }
 
 const SegmentTitleTag: React.FC<SegmentTitleTagProps> = ({ className, segment }) => {
-  const { factionStylesForKey } = useFactionCss();
-  const tagText = useSegmentTagText(segment);
+  const { server } = useCurrentServer();
+  const { factionStylesForKey } = useFactionCss(server);
+  const tagText = useSegmentTagText(segment, server);
 
   return (
     <Tag

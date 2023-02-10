@@ -9,13 +9,15 @@ import { classes } from './utils';
 import Crossfade from './Crossfade';
 import StreamCard from './StreamCard';
 import OfflineCharacterCard from './OfflineCharacterCard';
+import { useCurrentServer } from './CurrentServer';
 
 interface CrossfadeHelperProps {
 
 }
 
 const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
-  useFactionCss();
+  const { server } = useCurrentServer();
+  useFactionCss(server);
 
   const [offline, setOffline] = React.useState(false);
   const [tick, setTick] = React.useState(0);

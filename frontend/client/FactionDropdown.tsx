@@ -32,7 +32,7 @@ const FactionDropdown: React.FC<Props> = ({
   itemHref,
 }) => {
   const { server } = useCurrentServer();
-  const { factionStyles, factionStylesForKey } = useFactionCss();
+  const { factionStyles, factionStylesForKey } = useFactionCss(server);
 
   const allItems: FactionLineItem[] = [
     {

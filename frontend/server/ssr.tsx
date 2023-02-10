@@ -18,6 +18,7 @@ import {
   StreamsResponse,
   ServersResponse,
   ServerResponse,
+  ServerBase,
 } from '@twrpo/types';
 
 import App from '../client/App';
@@ -56,7 +57,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
       preloadedData,
       routingContext,
       helmetContext,
-      needsFactionCss,
+      factionCssServers,
     } = await (async () => {
       const preloadedData: PreloadedData = {
         now: JSON.stringify(now),
@@ -65,7 +66,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
 
       let routingContext: SSRRouting = {};
       let helmetContext = {};
-      let needsFactionCss = false;
+      const factionCssServers: ServerBase[] = [];
 
       let appHtml = '';
       const MAX_LOADS = 5;
@@ -102,7 +103,13 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           preloadedData.live = JSON.parse(JSON.stringify(liveResponse)) as LiveResponse;
         }
 
-        needsFactionCss = needsFactionCss || used.usedFactionCss === true;
+        if (used.usedFactionCssServers && used.usedFactionCssServers.length) {
+          for (const server of used.usedFactionCssServers) {
+            if (!factionCssServers.some(s => s.id === server.id)) {
+              factionCssServers.push(server);
+            }
+          }
+        }
 
         if (used.usedFactionsQueries && used.usedFactionsQueries.length) {
           needsAnotherLoad = true;
@@ -226,10 +233,6 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           preloadedData.servers = JSON.parse(JSON.stringify(serversResponse)) as ServersResponse;
         }
 
-        if (!needsAnotherLoad) {
-          break;
-        }
-
         if (used.usedServerIdentifiers && used.usedServerIdentifiers.length) {
           needsAnotherLoad = true;
           if (!preloadedData.server) {
@@ -243,7 +246,9 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
           }
         }
 
-        if (needsAnotherLoad && i === MAX_LOADS) {
+        if (!needsAnotherLoad) {
+          break;
+        } else if (i === MAX_LOADS) {
           console.warn(JSON.stringify({
               level: 'warning',
               event: 'too-many-ssr-loads',
@@ -257,7 +262,7 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
         preloadedData,
         routingContext,
         helmetContext,
-        needsFactionCss,
+        factionCssServers,
       };
     })();
 
@@ -273,15 +278,16 @@ window.${environmentKey} = ${JSON.stringify(environment).replace(/</g,'\\u003c')
 </script>`
     );
 
+    const styleTags = await Promise.all(factionCssServers.map(async (server: ServerBase): Promise<string> => {
+      const factionsResponse = await api.fetchFactions({ serverId: server.id }, userResponse);
+      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(server, factionsResponse.factions)
+      return `<style id="root-faction-styles-${server.id}" data-style-hash="${factionStylesHash}">${factionStyles}</style>`;
+    }))
 
-    if (needsFactionCss) {
-      const factionsResponse = await api.fetchFactions({ serverKey: 'wrp' }, userResponse);
-      const [factionStyles, factionStylesHash] = rootFactionStylesheetContents(factionsResponse.factions)
-      indexHTML = indexHTML.replace(
-        '<style id="root-faction-styles"></style>',
-        `<style id="root-faction-styles" data-style-hash="${factionStylesHash}">${factionStyles}</style>`
-      )
-    }
+    indexHTML = indexHTML.replace(
+      '<style id="root-faction-styles"></style>',
+      styleTags.join('')
+    )
 
     indexHTML = indexHTML.replace(
       '<div id="root"></div>',

@@ -22,6 +22,7 @@ import TwitchEmbed from './TwitchEmbed';
 import Crossfade from './Crossfade';
 import OverrideSegmentButton from './OverrideSegmentButton'
 import StreamTagOverlay, { usePrimaryTagsForStream } from './StreamTagOverlay';
+import { useCurrentServer } from './CurrentServer';
 
 const cardStyles = {
   inline: styles.inline,
@@ -87,7 +88,8 @@ const StreamCard = React.forwardRef<HTMLDivElement, Props>((
     ...rest
   }, ref
 ) => {
-  const { factionStylesForKey } = useFactionCss();
+  const { server } = useCurrentServer();
+  const { factionStylesForKey } = useFactionCss(server);
   const thumbnailRef = React.useRef(null);
   const intersection = useIntersection(thumbnailRef, {});
 

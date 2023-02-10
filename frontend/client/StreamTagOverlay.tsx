@@ -10,6 +10,7 @@ import { classes, style } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
 import { useDelayed } from './hooks';
 import { useSegmentTagText } from './SegmentTitleTag';
+import { useCurrentServer } from './CurrentServer';
 
 export interface BaseTag {
   /** A key used to differentiate a tag amongst its siblings */
@@ -122,7 +123,8 @@ export const usePrimaryTagsForCharacter = (character: CharacterInfo, onSelectFac
 
 
 export const usePrimaryTagsForSegment = (segment: VideoSegment, onSelectFaction?: (faction: FactionInfo) => void): Tag[] => {
-  const text = useSegmentTagText(segment);
+  const { server } = useCurrentServer();
+  const text = useSegmentTagText(segment, server);
   return React.useMemo(() => {
     let tags: Tag[] = [
       {
@@ -168,7 +170,8 @@ const SingleTag = <T extends React.ElementType = 'div'>(
     ...props
   }: { tag: Tag } & TagProps<T>
 ) => {
-  const { factionStyles, factionStylesForKey } = useFactionCss();
+  const { server } = useCurrentServer();
+  const { factionStyles, factionStylesForKey } = useFactionCss(server);
 
   const {
     onClick,

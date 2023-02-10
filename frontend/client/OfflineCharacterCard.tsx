@@ -9,6 +9,7 @@ import { useFactionCss } from './FactionStyleProvider';
 import ProfilePhoto from './ProfilePhoto';
 import OutboundLink from './OutboundLink';
 import StreamTagOverlay, { usePrimaryTagsForCharacter } from './StreamTagOverlay';
+import { useCurrentServer } from './CurrentServer';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   character: CharacterInfo;
@@ -52,7 +53,8 @@ const OfflineCharacterCard = React.forwardRef<HTMLDivElement, Props>((
     ...rest
   }, ref
 ) => {
-  const { factionStylesForKey } = useFactionCss();
+  const { server } = useCurrentServer();
+  const { factionStylesForKey } = useFactionCss(server);
   const lastSeenLiveDate = React.useMemo(() => {
     if (!character.lastSeenLive) return undefined;
     const date = new Date(character.lastSeenLive);

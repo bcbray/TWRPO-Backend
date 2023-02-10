@@ -107,7 +107,8 @@ const StreamTimeline: React.FC<StreamTimelineProps> = () => {
   const isFirstRender = useIsFirstRenderFromSSR();
   const isToday = React.useMemo(() => !isFirstRender && isWithinInterval(now, day), [isFirstRender, now, day]);
   const [isCompact, setIsCompact] = useLocalStorage('timeline-compact', false);
-  const { factionStylesForKey } = useFactionCss();
+  const { server } = useCurrentServer();
+  const { factionStylesForKey } = useFactionCss(server);
 
   const previous = React.useCallback(() => {
     setOffset(o => o - 1);

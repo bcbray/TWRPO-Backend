@@ -21,7 +21,7 @@ import DropdownItem from './DropdownItem';
 import VideoSegmentCard from './VideoSegmentCard'
 import Tag from './Tag'
 import { useFactionCss } from './FactionStyleProvider';
-import { useCurrentServer } from './CurrentServer';
+import { useCurrentServer, CurrentServerProvider } from './CurrentServer';
 import { useSegmentTagText } from './SegmentTitleTag';
 
 interface OverrideSegmentModalProps {
@@ -54,18 +54,20 @@ const FormContent: React.FC<LoadedProps> = ({
     servers,
     onHide,
 }) => {
-  const { factionStylesForKey } = useFactionCss();
+  const { server: primaryServer } = useCurrentServer();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [hasSubmitted, setHasSubmitted] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
-
-  const { server: primaryServer } = useCurrentServer();
 
   const [overriddenCharacter, setOverriddenCharacter] = React.useState<CharacterInfo | null | undefined>(undefined);
   const [overriddenCharacterUncertain, setOverriddenCharacterUncertain] = React.useState<boolean | undefined>(undefined);
   const [overriddenServer, setOverriddenServer] = React.useState<Server | null | undefined>(undefined);
   const [overriddenServerUncertain, setOverriddenServerUncertain] = React.useState<boolean | undefined>(undefined);
   const [overriddenIsHidden, setOverriddenIsHidden] = React.useState<boolean | undefined>(undefined);
+
+  const serverForStyles = overriddenServer ?? segment.server ?? primaryServer;
+
+  const { factionStylesForKey } = useFactionCss(serverForStyles);
 
   const displayedSelectedServer = overriddenServer === undefined
     ? segment.server
@@ -236,7 +238,7 @@ const FormContent: React.FC<LoadedProps> = ({
     }
   }, [segment, displayedSelectedCharacter, displayedCharacterUncertain, displayedSelectedServer, displayedServerUncertain]);
 
-  const editedTagText = useSegmentTagText(partialEditedSegment, { ignoreLiveInfo: true });
+  const editedTagText = useSegmentTagText(partialEditedSegment, serverForStyles, { ignoreLiveInfo: true });
 
   const editedSegment: VideoSegment = React.useMemo(() => {
     const {
@@ -260,7 +262,7 @@ const FormContent: React.FC<LoadedProps> = ({
     }
   }, [partialEditedSegment, editedTagText]);
 
-  return <>
+  return <CurrentServerProvider identifier={serverForStyles.id}>
     <div className={styles.header}>
       Edit segment
     </div>
@@ -362,7 +364,7 @@ const FormContent: React.FC<LoadedProps> = ({
         }
       </Button>
     </div>
-  </>;
+  </CurrentServerProvider>;
 }
 
 const ModalContent: React.FC<OverrideSegmentModalProps> = ({
