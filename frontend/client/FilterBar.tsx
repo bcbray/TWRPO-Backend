@@ -63,15 +63,17 @@ const FilterBar: React.FC<Props> = ({
   return (
     <>
       <div className={classes(styles.container, !noInset && 'inset')}>
-        <FactionDropdown
-          className={styles.factionsDropdown}
-          factions={factions}
-          selectedFaction={selectedFaction}
-          itemContent={factionItemContent}
-          onSelect={onSelectFaction}
-          allHref={allHref}
-          itemHref={factionHref}
-        />
+        {factions.length > 0 &&
+          <FactionDropdown
+            className={styles.factionsDropdown}
+            factions={factions}
+            selectedFaction={selectedFaction}
+            itemContent={factionItemContent}
+            onSelect={onSelectFaction}
+            allHref={allHref}
+            itemHref={factionHref}
+          />
+        }
         <input
           className={styles.search}
           type='search'
