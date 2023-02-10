@@ -17,6 +17,7 @@ import { useNow } from './Data';
 import { FancyDropdown, LineItem } from './FancyDropdown'
 import DropdownItem from './DropdownItem';
 import { useAuthorization } from './auth';
+import { formatViewers } from './utils';
 
 type Metric = 'streamers' | 'viewers';
 
@@ -137,7 +138,7 @@ const Timeseries: React.FC<TimeseriesProps> = ({
    const yAxis = d3.axisLeft(yScale)
      .ticks(5)
      .tickSize(-width)
-     .tickFormat((val) => `${val}`);
+     .tickFormat(d3.format('~s'));
    const yAxisGroup = svg.append("g").call(yAxis);
    yAxisGroup.select(".domain").remove();
    yAxisGroup.selectAll("line").attr("stroke", "var(--theme-gray-200)");
@@ -240,7 +241,9 @@ const Timeseries: React.FC<TimeseriesProps> = ({
                 .join("text")
                   .call(text => text
                     .selectAll("tspan")
-                    .data([`${count} ${metric === 'viewers' ? 'viewers' : 'streamers'}`])
+                    .data([metric === 'viewers'
+                      ? formatViewers(count)
+                      : `${count} streamers`])
                     .join("tspan")
                       .attr("x", 0)
                       .attr("y", (_, i) => `${i * 1.1}em`)
@@ -372,6 +375,7 @@ const TimeseriesContainer: React.FC<{}> = () => {
 
   const [loadState] = useLoading<TimeseriesResponse>(`/api/v2/timeseries${query ? `?${query}` : ''}`);
   const [ref, { width }] = useMeasure<HTMLDivElement>();
+  const margin = { top: 8, right: 8, bottom: 30, left: 30 };
 
   const timeSpanLineItems: TimeSpanLineItem[] = timeSpans.map(ts => ({
     id: ts,
@@ -417,9 +421,9 @@ const TimeseriesContainer: React.FC<{}> = () => {
       {isSuccess(loadState) &&
         <Timeseries
           data={loadState.data}
-          width={width - 50}
+          width={width - margin.left - margin.right}
           height={300}
-          margin={{ top: 3, right: 20, bottom: 30, left: 30 }}
+          margin={margin}
           metric={metric}
           span={timeSpan}
         />
