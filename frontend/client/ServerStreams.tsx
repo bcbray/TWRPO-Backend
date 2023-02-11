@@ -66,12 +66,12 @@ const ServerStreams: React.FC<ServerStreamsProps> = () => {
       {selectedServer ? (
         <CurrentServerProvider identifier={selectedServer?.id}>
           <Timeseries />
-          <Streams noInset />
+          <Streams noInset distinctCharacters={false} />
         </CurrentServerProvider>
       ) : (
         <>
           <Timeseries />
-          <Streams noInset />
+          <Streams noInset distinctCharacters={false} />
         </>
       )}
     </div>

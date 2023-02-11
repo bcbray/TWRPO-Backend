@@ -19,6 +19,7 @@ import { classes } from './utils';
 interface StreamsProps {
   type?: 'live' | 'unknown'
   noInset?: boolean;
+  distinctCharacters?: boolean; // default: true
 }
 
 export const usePaginatedStreams = (
@@ -112,6 +113,7 @@ export const usePaginatedStreams = (
 const Streams: React.FC<StreamsProps> = ({
   noInset = false,
   type = 'live',
+  distinctCharacters = true,
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -136,6 +138,7 @@ const Streams: React.FC<StreamsProps> = ({
       search: debouncedFilterText.length > 0 ? debouncedFilterText : undefined,
       factionKey,
       serverId: server.id,
+      distinctCharacters,
     }
   );
 
