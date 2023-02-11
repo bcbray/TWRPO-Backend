@@ -140,6 +140,9 @@ export interface CharactersParams {
   search?: string;
   factionKey?: string;
   channelTwitchId?: string;
+  serverKey?: string;
+  serverId?: number;
+  tempAllowNoServer?: boolean;
 }
 
 const queryStringForCharactersParams = (params: CharactersParams): string => {
@@ -148,6 +151,9 @@ const queryStringForCharactersParams = (params: CharactersParams): string => {
     search,
     factionKey,
     channelTwitchId,
+    serverKey,
+    serverId,
+    tempAllowNoServer,
   } = params;
 
   const searchParams = new URLSearchParams();
@@ -162,6 +168,15 @@ const queryStringForCharactersParams = (params: CharactersParams): string => {
   }
   if (channelTwitchId !== undefined) {
     searchParams.set('channelTwitchId', channelTwitchId);
+  }
+  if (serverKey !== undefined) {
+    searchParams.set('serverKey', serverKey);
+  }
+  if (serverId !== undefined) {
+    searchParams.set('serverId', `${serverId|0}`);
+  }
+  if (tempAllowNoServer !== undefined) {
+    searchParams.set('tempAllowNoServer', tempAllowNoServer ? 'true' : 'false');
   }
   return searchParams.toString();
 };

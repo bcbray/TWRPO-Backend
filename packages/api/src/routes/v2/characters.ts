@@ -17,6 +17,7 @@ import { isGlobalEditor } from '../../userUtils';
 import {
     queryParamBoolean,
     queryParamString,
+    queryParamInteger,
     ParamError,
 } from '../../queryParams';
 
@@ -25,6 +26,11 @@ export interface CharactersParams {
     search?: string;
     factionKey?: string;
     channelTwitchId?: string;
+
+    serverKey?: string;
+    serverId?: number;
+    /** Temporary flag to opt new clients out of compatibility mode */
+    tempAllowNoServer?: boolean;
 }
 
 export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource, params: CharactersParams = {}, currentUser: UserResponse): Promise<CharactersResponse> => {
@@ -33,15 +39,33 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         search,
         factionKey,
         channelTwitchId,
+        serverKey: propsServerKey,
+        serverId,
+        tempAllowNoServer,
     } = params;
-    console.log(params);
+
+    // TODO: Temporary fallback values until we’re confident old clients are longer out in the wild
+    const hasServerParam = (tempAllowNoServer === true || propsServerKey !== undefined || serverId !== undefined);
+    const serverKey = hasServerParam ? propsServerKey : 'wrp';
+
+    const server = await dataSource.getRepository(Server)
+        .findOne({ where: { id: serverId, key: serverKey } });
+
+    if (!server) {
+        // TODO: Send a 404
+        return { factions: [], characters: [] };
+    }
+
+    if (server.key !== 'wrp') {
+        // We don’t have characters for other servers
+        return { factions: [], characters: [] };
+    }
 
     const knownUsers = await getKnownTwitchUsers(apiClient, dataSource);
 
     const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
 
-    // TODO: server in CharactersParams
-    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, { serverKey: 'wrp' } , currentUser);
+    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, { serverId: server.id } , currentUser);
 
     const includeHiddenSegments = isGlobalEditor(currentUser);
 
@@ -219,6 +243,9 @@ export const parseCharactersQuery = (query: Request['query'] | URLSearchParams):
         params.factionKey = queryParamString(query, 'factionKey');
         params.channelTwitchId = queryParamString(query, 'channelTwitchId');
         params.search = queryParamString(query, 'search');
+        params.serverKey = queryParamString(query, 'serverKey');
+        params.serverId = queryParamInteger(query, 'serverId');
+        params.tempAllowNoServer = queryParamBoolean(query, 'tempAllowNoServer');
     } catch (error) {
         if (error instanceof ParamError) {
             return { error: '`cursor` parameter must be a string' };
