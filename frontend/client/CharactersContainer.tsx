@@ -5,9 +5,11 @@ import { isSuccess, isFailure } from './LoadingState';
 import { useCharacters } from './Data';
 import Error from './Error';
 import Loading from './Loading';
+import { useCurrentServer } from './CurrentServer';
 
 const CharactersContainer: React.FunctionComponent<{}> = () => {
-  const [loadingState, reload] = useCharacters();
+  const { server } = useCurrentServer();
+  const [loadingState, reload] = useCharacters({ serverId: server.id });
   return (
     <>
       <Helmet>

@@ -9,6 +9,7 @@ import { ignoredFactions, classes } from './utils'
 import { useSingleSearchParam, useDebouncedValue, useFilterRegex } from './hooks';
 import { isSuccess, isLoading } from './LoadingState';
 import { useCharacters } from './Data';
+import { useCurrentServer } from './CurrentServer';
 
 import StreamList from './StreamList';
 import FilterBar from './FilterBar';
@@ -42,11 +43,14 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
   const [filterText, setFilterText] = useSingleSearchParam('search');
   const debouncedFilterText = useDebouncedValue(filterText.trim(), 200);
   const filterRegex = useFilterRegex(debouncedFilterText);
+  const { server } = useCurrentServer();
 
   const showOlderOfflineCharacters = filterRegex !== undefined
     || (factionKey !== undefined && factionKey !== 'independent');
 
-  const [charactersLoadingState] = useCharacters({}, {
+  const [charactersLoadingState] = useCharacters({
+    serverId: server.id,
+  }, {
     needsLoad: showOlderOfflineCharacters,
     skipsPreload: true,
   });
