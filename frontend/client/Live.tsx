@@ -200,7 +200,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
             />
           :
             <div className={classes('inset', styles.noMatches)}>
-              <p>{`No characters${debouncedFilterText ? ` matching “${debouncedFilterText}”` : ''}${selectedFaction ? ` from ${selectedFaction.name}` : ''}.`}</p>
+              <p>{`No streams${debouncedFilterText ? ` matching “${debouncedFilterText}”` : ''}${selectedFaction ? ` from ${selectedFaction.name}` : ''}.`}</p>
             </div>
         }
         {!isLoadingMore && otherFactionMatchCount > 0 && matchCount < 10 &&
