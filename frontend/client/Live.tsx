@@ -90,7 +90,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
 
   const [filteredStreams, otherFilteredStreams] = React.useMemo(() => {
       const streams = live.streams
-        .filter(stream => !ignoredFactions.includes(stream.tagFaction))
+        .filter(stream => stream.serverId === server.id)
         .filter(stream => !(stream.tagFactionSecondary && ignoredFactions.includes(stream.tagFactionSecondary)))
       const filterTextLookup = debouncedFilterText
         .replace(/^\W+|\W+$|[^\w\s]+/g, ' ')
@@ -118,12 +118,15 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
       const sorted = filtered.sort((lhs, rhs) => rhs.viewers - lhs.viewers)
       const otherSorted = otherFiltered.sort((lhs, rhs) => rhs.viewers - lhs.viewers)
       return [sorted, otherSorted];
-    }, [debouncedFilterText, factionKey, filterRegex, live.streams])
+    }, [debouncedFilterText, factionKey, filterRegex, live.streams, server.id])
 
   const [offlineCharacters, otherOfflineCharacters] = React.useMemo(() => {
     const liveCharacterIds = new Set(live.streams.map(s => s.characterId));
 
-    const recentOfflineCharacters = live.recentOfflineCharacters ?? [];
+    // TODO: Support other servers
+    const recentOfflineCharacters = server.key === 'wrp' && live.recentOfflineCharacters
+      ? live.recentOfflineCharacters
+      : [];
     const recentOfflineCharacerIds = new Set(recentOfflineCharacters.map(c => c.id));
     const olderOfflineCharacter = showOlderOfflineCharacters
       ? characters.filter(c => !recentOfflineCharacerIds.has(c.id) && !liveCharacterIds.has(c.id))
@@ -150,7 +153,7 @@ const Live: React.FC<Props> = ({ live, factions, loadTick, handleRefresh }) => {
     const sorted = filtered.sort(offlineSort);
     const otherSorted = otherFiltered.sort(offlineSort);
     return [sorted, otherSorted];
-  }, [characters, factionKey, filterRegex, live.streams, live.recentOfflineCharacters, showOlderOfflineCharacters]);
+  }, [characters, factionKey, filterRegex, live.streams, live.recentOfflineCharacters, showOlderOfflineCharacters, server.key]);
 
   const isLoadingMore = showOlderOfflineCharacters && isLoading(charactersLoadingState);
   const matchCount = filteredStreams.length + offlineCharacters.length;
