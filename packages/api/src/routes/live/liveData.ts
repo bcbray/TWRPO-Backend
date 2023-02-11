@@ -1123,7 +1123,6 @@ const getWrpLive = async (
                             knownTwitchUsers,
                             Object.fromEntries(newChannels.map(c => [c.twitchId, c]))
                         );
-                        unknownTwitchUsers = {};
                     }
 
                     const liveStreamIds = allChunks.map(c => c.streamId);
