@@ -16,7 +16,6 @@ import {
 import { useNow } from './Data';
 import { FancyDropdown, LineItem } from './FancyDropdown'
 import DropdownItem from './DropdownItem';
-import { useAuthorization } from './auth';
 import { formatViewers } from './utils';
 
 type Metric = 'streamers' | 'viewers';
@@ -356,7 +355,6 @@ interface MetricLineItem extends LineItem {
 const TimeseriesContainer: React.FC<{}> = () => {
   const { server } = useCurrentServer();
   const now = useNow(1000 * 60 * 60 * 24);
-  const canUseViewerMetric = useAuthorization('view-viewer-timeseries');
 
   const [metric, setMetric] = React.useState<Metric>('streamers');
   const [timeSpan, setTimeSpan] = React.useState<TimeSpan>('7d');
@@ -411,12 +409,11 @@ const TimeseriesContainer: React.FC<{}> = () => {
       items={timeSpanLineItems}
       onSelect={item => item && setTimeSpan(item.span)}
     />
-    {canUseViewerMetric &&
     <FancyDropdown
       title={metricName(metric)}
       items={metricLineItems}
       onSelect={item => item && setMetric(item.metric)}
-    />}
+    />
     <div ref={ref}>
       {isSuccess(loadState) &&
         <Timeseries

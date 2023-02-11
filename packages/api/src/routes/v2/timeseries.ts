@@ -11,7 +11,6 @@ import {
     queryParamInteger,
     ParamError,
 } from '../../queryParams';
-import { isGlobalEditor } from '../../userUtils';
 
 export interface TimeseriesParams {
     metric?: 'streamers' | 'viewers';
@@ -40,12 +39,6 @@ export const fetchTimeseries = async (
     }
 
     if (metric !== 'streamers' && metric !== 'viewers') {
-        // TODO: Error?
-        return { data: [] };
-    }
-
-    // Temporarily restrict 'viewers' metric to editors
-    if (metric === 'viewers' && !isGlobalEditor(currentUser)) {
         // TODO: Error?
         return { data: [] };
     }
