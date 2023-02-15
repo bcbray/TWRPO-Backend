@@ -40,7 +40,7 @@ if (!process.env.SESSION_SECRET) {
 }
 const sessionSecret = process.env.SESSION_SECRET;
 
-const rootUrl = process.env.ROOT_URL;
+const rootUrl = process.env.ROOT_URL ?? 'https://twrponly.tv';
 
 const postgresInsecure = (new URL(postgresUrl)).hostname === 'localhost';
 
@@ -60,6 +60,14 @@ const twrpo = new TWRPOApi({
 
 twrpo.initialize()
   .then(() => {
+    const insecureSessions = rootUrl.startsWith('http://');
+    if (insecureSessions) {
+      console.warn(JSON.stringify({
+        level: 'warning',
+        message: 'Using insecure sessions',
+        rootUrl,
+      }));
+    }
     const app = express();
     app.enable('trust proxy');
     app.use(compression());
@@ -70,6 +78,7 @@ twrpo.initialize()
       twitchClientSecret,
       sessionSecret,
       rootUrl,
+      insecureSessions,
     }));
 
     // Auto-refresh Twitch data

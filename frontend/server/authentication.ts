@@ -16,6 +16,7 @@ export interface AuthenticationOptions {
   twitchClientSecret: string;
   sessionSecret: string;
   callbackUrlBase: string;
+  insecure?: boolean;
 }
 
 export function authentication({
@@ -24,6 +25,7 @@ export function authentication({
     twitchClientSecret,
     sessionSecret,
     callbackUrlBase,
+    insecure = false,
 }: AuthenticationOptions) {
   const passport = new Passport();
 
@@ -74,7 +76,7 @@ export function authentication({
     session({
       name: 'session',
       cookie: {
-        secure: true,
+        secure: !insecure,
         httpOnly: true,
       },
       secret: sessionSecret,

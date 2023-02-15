@@ -12,7 +12,8 @@ interface ServerOptions {
   twitchClientId: string;
   twitchClientSecret: string;
   sessionSecret: string;
-  rootUrl?: string;
+  rootUrl: string;
+  insecureSessions?: boolean;
 }
 
 const server = ({
@@ -21,6 +22,7 @@ const server = ({
   twitchClientSecret,
   sessionSecret,
   rootUrl,
+  insecureSessions = false,
 }: ServerOptions) => {
   const router = Router();
 
@@ -29,7 +31,8 @@ const server = ({
     twitchClientId,
     twitchClientSecret,
     sessionSecret,
-    callbackUrlBase: rootUrl ?? 'https://twrponly.tv'
+    callbackUrlBase: rootUrl,
+    insecure: insecureSessions,
   }));
 
   // Index is SSR
