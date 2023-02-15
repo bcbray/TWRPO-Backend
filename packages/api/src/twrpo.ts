@@ -45,6 +45,7 @@ import { startRefreshing as startRefreshingVideos } from './fetchVideos';
 interface ApiOptions {
     twitchAuthProvider: AuthProvider;
     postgresUrl: string;
+    postgresInsecure?: boolean;
     liveRefreshInterval?: number;
     videoRefreshInterval?: number;
     databaseStatsLogInterval?: number;
@@ -99,7 +100,10 @@ class Api {
             },
             authProvider: options.twitchAuthProvider,
         });
-        this.dataSource = dataSource(options.postgresUrl);
+        this.dataSource = dataSource({
+            postgresUrl: options.postgresUrl,
+            insecure: options.postgresInsecure,
+        });
 
         this.apiRouter = Router();
         this.apiRouter.use(cors());

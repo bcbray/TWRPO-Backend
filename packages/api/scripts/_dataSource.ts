@@ -7,7 +7,10 @@ export async function initializeDataStore(): Promise<DataSource> {
         console.log('Missing DATABASE_URL');
         process.exit(1);
     }
-    let ds = dataSource(process.env.DATABASE_URL).setOptions({
+    let ds = dataSource({
+        postgresUrl: process.env.DATABASE_URL,
+        insecure: process.env.ENV === 'dev',
+    }).setOptions({
         logging: true,
         migrations,
     });

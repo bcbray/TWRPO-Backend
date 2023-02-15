@@ -10,11 +10,19 @@ import { ServerRegex } from './entity/ServerRegex';
 import { Game } from './entity/Game';
 import { StreamChunkStat } from './entity/StreamChunkStat';
 
-export default function dataSource(postgresUrl: string): DataSource {
+interface Options {
+    postgresUrl: string;
+    insecure?: boolean;
+}
+
+export default function dataSource({
+    postgresUrl,
+    insecure = false,
+}: Options): DataSource {
     return new DataSource({
         type: 'postgres',
         url: postgresUrl,
-        ssl: { rejectUnauthorized: false },
+        ssl: insecure ? undefined : { rejectUnauthorized: false },
         entities: [
             StreamChunk,
             TwitchChannel,

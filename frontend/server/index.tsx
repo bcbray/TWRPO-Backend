@@ -42,7 +42,21 @@ const sessionSecret = process.env.SESSION_SECRET;
 
 const rootUrl = process.env.ROOT_URL;
 
-const twrpo = new TWRPOApi({ twitchAuthProvider, postgresUrl });
+const postgresInsecure = (new URL(postgresUrl)).hostname === 'localhost';
+
+if (postgresInsecure) {
+  console.warn(JSON.stringify({
+    level: 'warning',
+    message: 'Using insecure postgres connection',
+    postgresHostname: (new URL(postgresUrl)).hostname,
+  }));
+}
+
+const twrpo = new TWRPOApi({
+  twitchAuthProvider,
+  postgresUrl,
+  postgresInsecure,
+});
 
 twrpo.initialize()
   .then(() => {
