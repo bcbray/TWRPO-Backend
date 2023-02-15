@@ -182,7 +182,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1194, name: 'Dylan Dunning' },
         { id: 1226, name: '[Deputy] Christian Sawyer', factions: ['Law'], telegram: 'DV709' },
         { id: 1466, name: 'Halcón Cardoza', factions: ['Del Lobos'], telegram: 'EQ437' },
-        { id: 1739, name: '[Cadet] Nika Mercer', factions: ['Law'], telegram: 'WU074' },
+        { id: 1739, name: '[Deputy] Nika Mercer', factions: ['Law'], telegram: 'WU074' },
     ],
     AnthonyZ: [
         { id: 36, name: 'Antonio Corleone', nicknames: ['Tony'], factions: ['DiCenzo Famiglia'], telegram: 'SE317' }, // Inactive DiCenzo
