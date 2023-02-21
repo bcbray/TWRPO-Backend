@@ -132,7 +132,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     aleks: [
         { id: 1828, name: 'Eli Smith', telegram: 'UW856' },
-        ],
+    ],
     Altrah: [
         { id: 22, name: 'Victor Morteza' },
         { id: 1162, name: 'Kit Saxton' },
