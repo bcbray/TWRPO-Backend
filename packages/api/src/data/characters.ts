@@ -1441,7 +1441,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1138, name: 'Jackson Diggles' },
     ],
     im_unruly: [
-        { id: 1425, name: 'Marquise "MF" Fraiser', telegram: 'TN764' },
+        { id: 1425, name: 'Marquise "MF" Fraizer', telegram: 'TN764' },
         { id: 1685, name: 'Rudy "Rudeboy Rudy" Smalls', telegram: 'DF337' },
     ],
     inkyblackdreams: [
