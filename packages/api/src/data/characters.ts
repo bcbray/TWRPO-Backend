@@ -290,9 +290,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 913, name: 'Roman Blanco' },
         { id: 914, name: 'Teddy Graves' },
     ],
-    b3erni: [
-        { id: 84, name: 'Noah Little' },
-    ],
     B3UDown: [
         { id: 68, name: 'Zip Quil', factions: ['Quil Gang'], telegram: 'RK699' }, // Former Kettleman Gang
         { id: 1542, name: 'Braxton Joyner' },
@@ -358,6 +355,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BennayTee: [
         { id: 1112, name: 'Otto Orleans', assume: 'assumeOther' },
+    ],
+    berniehehe: [
+        { id: 84, name: 'Noah Little' },
     ],
     BigBadMomma: [
         { id: 1588, name: 'Gladys Pettibone', nicknames: ['Gladys Blanchard', 'Blanchard'] },
