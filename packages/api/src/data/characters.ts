@@ -622,6 +622,14 @@ export const wrpCharacters: WrpCharacters = {
     CopernicusTheDesertWizard: [
         { id: 1478, name: 'Copernicus Desert Wizard', nicknames: ['Perni', 'Copernicus the Desert Wizard'] },
     ],
+    Cord: [
+        { id: 592, name: 'Ben Bealz' },
+        { id: 593, name: 'Chauncy "The Barman" Charles' },
+        { id: 594, name: 'Cooper Garret', nicknames: ['Coop'], displayName: 3, telegram: 'FH427' },
+        { id: 595, name: 'Jack Woulfe' },
+        { id: 596, name: 'Pikup Dropov' },
+        { id: 1176, name: 'Ira Claymore' },
+    ],
     CptCheeto: [
         { id: 1214, name: 'Charlie VanDyne' },
     ],
@@ -2109,14 +2117,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Myrtle_The_Imp: [
         { id: 1391, name: 'Ishkode Asin', nicknames: ['Fire Rock'], factions: ['Sun Warriors'] },
-    ],
-    Mythematic: [
-        { id: 592, name: 'Ben Bealz' },
-        { id: 593, name: 'Chauncy "The Barman" Charles' },
-        { id: 594, name: 'Cooper Garret', nicknames: ['Coop'], displayName: 3, telegram: 'FH427' },
-        { id: 595, name: 'Jack Woulfe' },
-        { id: 596, name: 'Pikup Dropov' },
-        { id: 1176, name: 'Ira Claymore' },
     ],
     Nakkida: [
         { id: 597, name: 'Lyra Woods' },
