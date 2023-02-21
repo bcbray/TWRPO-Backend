@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1840
+// Next ID: 1841
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -2870,6 +2870,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1326, name: 'Kip Smith' },
         { id: 1584, name: 'Marshall Lee' },
         { id: 1635, name: '[Deputy] Ollie Cooper', factions: ['Law'], telegram: 'CL140' },
+        { id: 1840, name: 'Gilbert Kriger' },
     ],
     Swordofpower1: [
         { id: 1244, name: 'Jim "Lockjaw Jim" Munson', factions: ['Independent', 'Guarma'], telegram: 'OT144', deceased: true },
