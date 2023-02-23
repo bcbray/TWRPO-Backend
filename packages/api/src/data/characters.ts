@@ -2281,7 +2281,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1030, name: 'William Maine' },
     ],
     OwenSeven: [
-        { id: 1005, name: 'Alfred "Lips" Hoover' },
+        { id: 1005, name: 'Alfred Hoover', nicknames: ['Lips'] },
         { id: 1833, name: 'Malcom Owens' },
     ],
     p3t3_ttv: [
