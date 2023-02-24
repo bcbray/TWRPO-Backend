@@ -2032,7 +2032,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 568, name: 'Willow Wisp' },
         { id: 1126, name: 'Isabela Elena Montoya Cabrera de Isla de Flores III' },
         { id: 1277, name: 'Maia Bailey', telegram: 'MB430' },
-        { id: 1776, name: 'Charlotte Mae', telegram: 'FE155' }, // Law hopeful
+        { id: 1776, name: '[Cadet] Charlotte Mae', factions: ['Law'], telegram: 'FE155' },
     ],
     Mini_MoonFox: [
         { id: 1040, name: 'Angelica Schuyler' },
