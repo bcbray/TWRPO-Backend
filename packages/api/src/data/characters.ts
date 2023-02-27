@@ -1085,7 +1085,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1641, name: 'Joe Timerson' },
         { id: 1679, name: 'Tony Spumoni' },
     ],
-    Flames_Yue: [
+    flamesyue: [
         { id: 1748, name: 'Michael Winslow' },
     ],
     FlawlessWhale: [
