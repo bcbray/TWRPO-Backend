@@ -1575,9 +1575,9 @@ export const wrpCharacters: WrpCharacters = {
     jdot: [
         { id: 441, name: 'James McAfee' },
     ],
-    // Jennifer: [
-    //     { id: 1531, name: 'Lucille Montgummery' },
-    // ],
+    Jennifer: [
+        { id: 1531, name: 'Lucille Montgummery' },
+    ],
     Jennybeartv: [
         { id: 442, name: 'Gemma Middleton' },
     ],
