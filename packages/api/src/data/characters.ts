@@ -532,7 +532,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 137, name: 'Casey Jones' },
     ],
     CaptRubble: [
-        { id: 138, name: 'Joseph Stone', telegram: 'IU230' }, // Former Senior Deputy
+        { id: 138, name: 'Joseph Stone', factions: ['Independent', 'Guarma'], telegram: 'IU230' }, // Former Senior Deputy
         { id: 139, name: 'Percy Peanut' },
     ],
     CarbonitePlays: [
