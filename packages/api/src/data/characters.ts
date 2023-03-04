@@ -3501,7 +3501,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 962, name: 'Everett Silver' },
     ],
     ZambiGames: [
-        { id: 1094, name: 'Hank Hanson', nicknames: ['Handsome Hank'], displayName: 3 },
+        { id: 1094, name: 'Hank Hanson', nicknames: ['Handsome Hank'], displayName: 3, factions: ['10 Tonne Gang'] },
         { id: 1667, name: 'Marty Fatts', telegram: 'EH280' },
     ],
     zandohr: [
