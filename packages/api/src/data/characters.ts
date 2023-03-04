@@ -3418,7 +3418,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 936, name: 'Amadeus Abraham' },
     ],
     WhiskeyTheRedd: [
-        { id: 937, name: 'Devyn "Dakota" Dunning' },
+        { id: 937, name: 'Devyn Dunning', nicknames: ['Dakota'] },
     ],
     WickedPhoenixRP: [
         { id: 1440, name: 'Jeremiah Watson', factions: ['Quil Gang'], deceased: true },
