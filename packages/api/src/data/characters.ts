@@ -2853,7 +2853,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 979, name: 'Moe McQueen', telegram: 'SV286' },
         { id: 983, name: 'Malaha Mage' },
         { id: 1185, name: 'Monica McMonigal' },
-        { id: 1416, name: 'Paddy Doyle', telegram: 'DS872' },
+        { id: 1416, name: 'Paddy Doyle', telegram: 'DS872', deceased: true },
         { id: 1687, name: 'Dolly Donald' },
         { id: 1688, name: 'Zara Fernandez' },
         { id: 1831, name: 'Angus Fraser' },
