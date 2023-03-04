@@ -72,7 +72,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1874, name: 'Ichiro Yoshida', telegram: 'CX905' },
     ],
     AaronBlack_: [
-        { id: 1514, name: 'Michael Sullivan', telegram: 'DB279' },
+        { id: 1514, name: 'Michael Sullivan', factions: ['Conductors'], telegram: 'DB279' }, // Just boats in SCTA
     ],
     AaronOnAir: [
         { id: 8, name: 'Dylan Texler' },
