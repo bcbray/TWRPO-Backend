@@ -1149,7 +1149,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     FoxryGaming: [
         { id: 1265, name: 'William Teer', nicknames: ['Bluecoat', 'Blue Coat'], displayName: 3, telegram: 'VU248' },
-        { id: 1346, name: 'Nathanael Greene', telegram: 'NL215' },
+        { id: 1346, name: 'Nathanael Greene', telegram: 'NL215', deceased: true },
         { id: 1750, name: 'Whitley Lawrence', telegram: 'EY278' },
         { id: 1818, name: 'Jalen Joyce' },
     ],
