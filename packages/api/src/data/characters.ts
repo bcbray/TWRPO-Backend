@@ -1677,7 +1677,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 461, name: 'Billy Blood' },
     ],
     JustSam42: [
-        { id: 462, name: '[Game Warden] Nathan Thompson', factions: ['Rangers'], telegram: 'EY079' }, // “Suspended indefinitely” from Rangers, but not yet fired
+        { id: 462, name: 'Nathan Thompson', telegram: 'EY079' }, // Former Game Warden
         { id: 1710, name: 'Angel Roberts', telegram: 'GX691' },
         { id: 1758, name: 'Jameson "Bear" Farthing', nicknames: ['Mitchel'], telegram: 'WB970' },
         { id: 1841, name: 'Cecily "CC" Matthews' },
