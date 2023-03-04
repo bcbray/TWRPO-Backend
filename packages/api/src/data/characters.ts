@@ -487,7 +487,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 124, name: 'Lloyd "The Ghost" Chambers', nicknames: ['Ghost'] },
     ],
     BurtLington: [
-        { id: 125, name: '[Sheriff] Marty Malone', factions: ['Law'], telegram: 'PF150' },
+        { id: 125, name: 'Marty Malone', telegram: 'PF150' }, // Former Sheriff
         { id: 126, name: 'Paddy Connelly', nicknames: ['The Sweeper'], factions: ['Dead End Gang'] },
         { id: 1797, name: 'Mort ?', factions: ['Sisika Guard'] },
     ],
