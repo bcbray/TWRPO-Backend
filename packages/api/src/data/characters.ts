@@ -113,7 +113,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 20, name: 'Holt MacMillan' },
     ],
     AgrippaMaxentius: [
-        { id: 1497, name: 'Buster Dalton', factions: ['Quil Gang'] },
+        { id: 1497, name: 'Buster Dalton' }, // Former Quil Gang
         { id: 1499, name: 'Vinny Lombardi' },
         { id: 1836, name: 'Maurice Chevalier' },
         { id: 1837, name: 'Alfonse Declan' },
