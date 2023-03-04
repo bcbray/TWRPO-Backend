@@ -281,7 +281,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 61, name: 'Yorrik Morales' },
     ],
     ayebizzi: [
-        { id: 1081, name: 'Ariel Madison', factions: ['Quil Gang'], telegram: 'GQ613' }, // Former Little Gang
+        { id: 1081, name: 'Ariel Madison', telegram: 'GQ613' }, // Former Little Gang. Former Quil Gang
         { id: 1521, name: '[Deputy] Maisie Love', factions: ['Law'], telegram: 'DI869' },
     ],
     ayekayy47_: [
