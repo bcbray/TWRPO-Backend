@@ -1388,7 +1388,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 392, name: 'Clyde Davis', nicknames: ['Dusty Danger'], deceased: true }, // Leader of the Danger Gang
         { id: 393, name: 'Jonathan Redding', nicknames: ['Redshirt'], displayName: 3, factions: ['Half Wits'], telegram: 'CH801' },
         { id: 394, name: 'Miles Gyles' }, // Former Deputy
-        { id: 1063, name: '[Deputy] Thomas Hooper', factions: ['Law'] },
+        { id: 1063, name: '[Deputy] Thomas Hooper', nicknames: ['Tom'], factions: ['Law'] },
         { id: 1102, name: '[Guard] Mickey Doyle', factions: ['Sisika Guard'] },
         { id: 1424, name: 'Richard Gold', nicknames: ['Richie'], factions: ['Fuller House'], telegram: 'AH036' },
         { id: 1807, name: 'William Chillson' },
