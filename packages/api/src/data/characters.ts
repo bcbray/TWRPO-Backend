@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1885
+// Next ID: 1886
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -1977,11 +1977,14 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MadsKadie: [
         { id: 1361, name: 'Alessandra Moretti', telegram: 'EY243' },
-        { id: 1421, name: 'Scarlett Winters', telegram: 'CN670' },
+        { id: 1421, name: 'Scarlett Winters', factions: ['Kelly Gang'], telegram: 'CN670' },
         { id: 1700, name: 'Raven Hill', telegram: 'OP170' },
     ],
     MafiaDrew: [
         { id: 550, name: 'Donatello Jameson', nicknames: ['Don'], displayName: 2, telegram: 'TQ717' },
+    ],
+    maigly722: [
+        { id: 1885, name: 'Mason James', deceased: true },
     ],
     ManiLive: [
         { id: 1275, name: 'Ting Wu' },
