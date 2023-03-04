@@ -3481,7 +3481,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1726, name: 'Bray Cooper' },
     ],
     YawnyJ: [
-        { id: 1856, name: 'Clara Carter' },
+        { id: 1856, name: '[Reporter] Clara Carter', factions: ['News'] },
     ],
     yeka221: [
         { id: 957, name: '[Ranger] Tabitha "Tibbit" Birch', factions: ['Rangers'], telegram: 'RQ940' },
