@@ -2532,7 +2532,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     RookGoose: [
         { id: 681, name: 'Leto McMorris', telegram: 'RT085' },
-        { id: 1034, name: '[Deputy] Cleo Haelfort', factions: ['Law'], displayName: 1, telegram: 'VL642' },
+        { id: 1034, name: 'Cleo Haelfort', telegram: 'VL642' }, // Former Deputy
         { id: 1695, name: 'Faye Belofte', telegram: 'ZX382' },
     ],
     roooliz: [
