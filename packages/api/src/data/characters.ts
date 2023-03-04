@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1882
+// Next ID: 1883
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -3515,6 +3515,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Zetark: [
         { id: 964, name: 'Cesare DiCenzo', factions: ['DiCenzo Famiglia'], leader: true, telegram: 'GC730' },
+        { id: 1882, name: 'Benny Wells', factions: ['One Life'] },
     ],
     ZeusLair: [
         { id: 965, name: 'Robbie Gold', deceased: true }, // Former Lang Gang.
