@@ -1887,7 +1887,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1859, name: 'Ducky Buckshank' },
     ],
     liviatwo: [
-        { id: 1820, name: 'Lydia Spade' },
+        { id: 1820, name: 'Lydia Spade', factions: ['Independent', 'Guarma'], telegram: 'AB336' },
         { id: 1866, name: 'Amber Goldberg', telegram: 'MN755' },
         { id: 1867, name: 'Aria Monroe', telegram: 'UK772' },
     ],
