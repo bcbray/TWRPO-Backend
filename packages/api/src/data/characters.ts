@@ -1752,7 +1752,7 @@ export const wrpCharacters: WrpCharacters = {
     kono5alive: [
         { id: 1177, name: '[Warden] Lawrence "Big L" ?', factions: ['Sisika Guard'] },
         { id: 1178, name: '[Deputy] Andrew Weaver', factions: ['Law'], deceased: true },
-        { id: 1292, name: '[Deputy] Benjamin "Benny" Thatcher', factions: ['Law'], telegram: 'LR040' },
+        { id: 1292, name: 'Benjamin "Benny" Thatcher', telegram: 'LR040' }, // Former Deputy
     ],
     korean_jesus11: [
         { id: 1647, name: '[Deputy] Leon Buckley', factions: ['Law'] },
