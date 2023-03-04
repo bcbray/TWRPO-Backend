@@ -1469,7 +1469,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1138, name: 'Jackson Diggles' },
     ],
     im_unruly: [
-        { id: 1425, name: 'Marquise "MF" Frazier', telegram: 'TN764' },
+        { id: 1425, name: 'Marquise "MF" Frazier', factions: ['Frazier Gang'], leader: true, telegram: 'TN764' },
         { id: 1685, name: 'Rudy "Rudeboy Rudy" Smalls', factions: ['Kelly Gang'], telegram: 'DF337' },
     ],
     inkyblackdreams: [
@@ -2684,7 +2684,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'], telegram: 'GI916' },
         { id: 1566, name: 'Mary-Jane "MJ" Macfarlane', factions: ['Conductors'], telegram: 'YJ981' },
         { id: 1599, name: '[Chief] Itukala Cook', nicknames: ['Itukala Wasicu', 'Wash'], factions: ['Wapiti', 'Sun Warriors'], leader: true },
-        { id: 1600, name: 'Morgan "Dr. Morgan" Smith', telegram: 'AF906' },
+        { id: 1600, name: 'Morgan "Dr. Morgan" Frazier', nicknames: ['Morgan Frazier'], factions: ['Frazier Gang'], telegram: 'AF906' },
         { id: 1601, name: 'Todd A. Treacle' },
         { id: 1602, name: 'Juliet Duncan' },
     ],
@@ -3148,7 +3148,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1047, name: 'Franklin Jones' },
     ],
     TheObsidianTravelersCo: [
-        { id: 873, name: 'Cornileus Moon Frazier', displayName: 2, nicknames: ['Seth'], telegram: 'YD718' }, // "Cornileus Moon" "Cornileus Moon-Frazier" "Moon Frazier" "Moon “Seth” Frazier"
+        { id: 873, name: 'Cornileus Moon Frazier', nicknames: ['Seth'], displayName: 2, factions: ['Frazier Gang'], telegram: 'YD718' }, // "Cornileus Moon" "Cornileus Moon-Frazier" "Moon Frazier" "Moon “Seth” Frazier"
         { id: 874, name: 'Amadeus "Adonis" Silver' },
         { id: 1504, name: 'Vega Escudero' },
         { id: 1868, name: 'Kaseem X' },
