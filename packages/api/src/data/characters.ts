@@ -3231,7 +3231,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 889, name: 'Madison "Maddy" Windward', factions: ['Bluestone'], telegram: 'RT946' },
         { id: 890, name: 'Clem Griffiths', nicknames: ['Isa'], factions: ['Daughters of Fenrir'], telegram: 'MK095' },
         { id: 1207, name: 'Tessa Zachariah', factions: ['Miles Gang'] },
-        { id: 1723, name: 'Eli Vasiliev', telegram: 'LG843' },
+        { id: 1723, name: '[Cadet] Eli Vasiliev', factions: ['Law'], telegram: 'LG843' },
     ],
     Timmac: [
         { id: 891, name: 'Gomer Colton', factions: ['Coltons'] },
