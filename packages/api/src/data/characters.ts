@@ -1072,7 +1072,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 299, name: '[Recruit] Clementine "Clem" Fisher', factions: ['Rangers', 'Bluestone'], telegram: 'IF890' },
         { id: 300, name: 'Nessa Evans' },
         { id: 1069, name: 'Ruby Warner' },
-        { id: 1325, name: 'Rana Marsh', telegram: 'DX713' },
+        { id: 1325, name: '[Medic] Rana Marsh', factions: ['Medical'], telegram: 'DX713' },
     ],
     feardeer: [
         { id: 301, name: 'Bryn "Sloan" Keith', factions: ['DiCenzo Famiglia'], telegram: 'JH764' }, // Former Kettleman. She would disagree, but she was definitely a Kettleman.
