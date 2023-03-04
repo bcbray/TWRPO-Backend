@@ -3159,7 +3159,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1868, name: 'Kaseem X' },
     ],
     ThePatrician69: [
-        { id: 875, name: 'Nate Casey', factions: ['Bluestone'], telegram: 'AV925' }, // Former Kelly Gang
+        { id: 875, name: '[Cadet] Nate Casey', factions: ['Law', 'Bluestone'], telegram: 'AV925' }, // Former Kelly Gang
         { id: 1680, name: 'Jesse Clay' },
     ],
     TheRandomChick: [
