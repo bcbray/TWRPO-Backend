@@ -2003,7 +2003,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 553, name: 'Dmitri Crenshaw' },
         { id: 554, name: 'Marty Hanes' },
         { id: 555, name: 'Ernie Crabgrass' },
-        { id: 1839, name: '[Cadet] Arthur Quinn', factions: ['Law'] },
+        { id: 1839, name: '[Deputy] Arthur Quinn', factions: ['Law'] },
     ],
     MattBreckly: [
         { id: 556, name: 'Dan Gerous' },
