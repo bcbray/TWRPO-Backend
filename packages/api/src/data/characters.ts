@@ -2442,7 +2442,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 665, name: 'Lydia Lewis' }, // Former Sheriff
         { id: 666, name: 'Blaire Turner' },
         { id: 993, name: '[Deputy] Opal Davis', factions: ['Law'], telegram: 'ZV744' },
-        { id: 1793, name: '[Cadet] Cordilia Clark', factions: ['Law'], telegram: 'LT761' },
+        { id: 1793, name: '[Cadet] Cordelia Clark', factions: ['Law'], telegram: 'LT761' },
     ],
     Quip_TV: [
         { id: 667, name: '[Deputy] Dove Hopkins', factions: ['Law'] },
