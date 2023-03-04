@@ -61,7 +61,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 7, name: 'Mitsuhide Nagahama', nicknames: ['Mitsu'], deceased: true, telegram: 'OT815' },
         { id: 1200, name: 'Qurun Alghul' },
         { id: 1201, name: 'Thorkel Olafson' },
-        { id: 1209, name: 'Otomo Kitano' },
+        { id: 1209, name: 'Otomo Kitano', nicknames: ['Cobweb'] }, // Agustus. Cobweb?
         { id: 1248, name: 'Giuseppe "Pepe" De Marco', nicknames: ['il Pepe'], deceased: true },
         { id: 1255, name: 'William Stagley' },
         { id: 1341, name: 'Shiro Yoshida' }, // Medical, Newspaper, Bluestone. Faction jumping. Leaving as independent
@@ -78,7 +78,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 8, name: 'Dylan Texler' },
     ],
     AarynRollsDice: [
-        { id: 1671, name: '[Deputy] Elianna Rivers', factions: ['Law'], telegram: 'AA883' },
+        { id: 1671, name: '[Deputy] Elianna Carver', nicknames: ['Elianna Rivers'], factions: ['Law'], telegram: 'AA883' },
     ],
     abbbz: [
         { id: 9, name: '[Deputy] Francesca Romano', factions: ['Law'] },
