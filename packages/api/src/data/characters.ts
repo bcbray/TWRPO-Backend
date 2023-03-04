@@ -2969,7 +2969,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 810, name: 'Jeremiah Rent' },
     ],
     talon03: [
-        { id: 1077, name: '[Doctor] Eoghan McConnell', factions: ['Medical'], telegram: 'MI070' },
+        { id: 1077, name: '[Sr. Doctor] Eoghan McConnell', factions: ['Medical'], telegram: 'MI070' },
         { id: 1095, name: 'Casey Banks' },
         { id: 1283, name: '[Deputy] Richard Pointer', factions: ['Law'], telegram: 'OQ417' },
     ],
