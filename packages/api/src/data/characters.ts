@@ -1228,6 +1228,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1384, name: 'Michelangelo "Mikey" Scarpatti', factions: ['DiCenzo Famiglia'], telegram: 'ZU162' },
         { id: 1446, name: 'Seamus Bell', factions: ['Bell Gang'] },
     ],
+    GILLTHEGATMAN: [
+        { id: 887, name: 'Balwinder Singh' },
+    ],
     GiveMeUhMinute: [
         { id: 345, name: 'James Willow', telegram: 'RQ954', factions: ['Freeman Family'] },
         { id: 1848, name: 'Vicente Delgado' },
@@ -3214,9 +3217,6 @@ export const wrpCharacters: WrpCharacters = {
     thirdradius3: [
         { id: 1587, name: '[Ranger] Nathan Yang', factions: ['Rangers'], telegram: 'QL554' },
         { id: 1594, name: 'Georgie Conlin' },
-    ],
-    thisisgillie: [
-        { id: 887, name: 'Balwinder Singh' },
     ],
     ThrallJo: [
         { id: 888, name: 'Corvus Clements' },
