@@ -1648,7 +1648,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 454, name: 'Logan Miller' },
         { id: 455, name: 'Avery Woods' },
         { id: 456, name: 'Peggy Brown' },
-        { id: 1535, name: 'Terry Flannigan' },
+        { id: 1535, name: 'Terry Flannigan', deceased: true },
         { id: 1639, name: 'Huxley Palmer', telegram: 'DH771' },
         { id: 1838, name: 'Seth South' },
     ],
