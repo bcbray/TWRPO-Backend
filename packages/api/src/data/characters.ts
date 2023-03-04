@@ -122,7 +122,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1842, name: 'Cassius McClure' },
     ],
     aJimmy: [
-        { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], displayName: 0, factions: ['Kettleman Gang'], telegram: 'NB240' }, // Briefly led Kelly Gang
+        { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], displayName: 0, factions: ['Kelly Gang'], leader: true, telegram: 'NB240' }, // Formerly Kettleman Gang
         { id: 1029, name: 'Kenny Kingston' },
         { id: 1206, name: 'Sunny Falls' },
         { id: 1718, name: 'Theodore Gold' },
@@ -1424,7 +1424,7 @@ export const wrpCharacters: WrpCharacters = {
     IboonI: [
         { id: 403, name: 'Elias Boon', factions: ['Boons Boys'], deceased: true }, // Emerald Ranch
         { id: 1595, name: 'Dewy ?' },
-        { id: 1606, name: 'Bear John', factions: ['Boons Boys'] },
+        { id: 1606, name: 'Bear John', factions: ['Kelly Gang'] }, // Former Boons Boys
     ],
     Iceshredder_: [
         { id: 1630, name: 'Rockford McGillicuddy', nicknames: ['Rock'], telegram: 'PD449' },
@@ -1470,7 +1470,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     im_unruly: [
         { id: 1425, name: 'Marquise "MF" Fraizer', telegram: 'TN764' },
-        { id: 1685, name: 'Rudy "Rudeboy Rudy" Smalls', telegram: 'DF337' },
+        { id: 1685, name: 'Rudy "Rudeboy Rudy" Smalls', factions: ['Kelly Gang'], telegram: 'DF337' },
     ],
     inkyblackdreams: [
         { id: 410, name: 'Vera Addley', nicknames: ['Vera Dragavei'], factions: ['Little Gang'] },
@@ -1783,7 +1783,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 485, name: 'Emerson Cain' },
         { id: 486, name: 'Montgomery Flynn' },
         { id: 487, name: 'Tommaso Scaglietti' },
-        { id: 1715, name: 'Remington "Remy" Elias Flynn', telegram: 'FB578' },
+        { id: 1715, name: 'Remington "Remy" Elias Flynn', factions: ['Kelly Gang'], telegram: 'FB578' },
     ],
     Kyle: [
         { id: 488, name: 'Ren Solo' },
@@ -2826,7 +2826,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Spoofey: [
         { id: 1354, name: 'Enola Quil', telegram: 'IX263', factions: ['Quil Gang'], deceased: true },
-        { id: 1716, name: 'June Joy Foxx', nicknames: ['Niece of the West'] }, // Birthname is June Joy Foxx, but has been going by June Joy Divine-Lang recently
+        { id: 1716, name: 'June Joy Foxx', nicknames: ['Niece of the West'], factions: ['Kelly Gang'] }, // Birthname is June Joy Foxx, but has been going by June Joy Divine-Lang recently
         { id: 1727, name: 'Opal Foxx' },
         { id: 1728, name: 'Elizabeth "Lizzy" O’Hara', factions: ['Guarma'], telegram: 'AJ333' },// Guarma Guarda
     ],
@@ -3470,7 +3470,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     xoVESPER: [
         { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Famiglia'], deceased: true, telegram: 'FE371' }, // Former DiCenzo
-        { id: 1233, name: 'Josephine "Josie" Adders', telegram: 'FO336' }, // Formerly Baastards
+        { id: 1233, name: 'Josephine "Josie" Adders', factions: ['Kelly Gang'], telegram: 'FO336' }, // Formerly Baastards
     ],
     YatoTheMad: [
         { id: 953, name: 'Cassius Evans' },
