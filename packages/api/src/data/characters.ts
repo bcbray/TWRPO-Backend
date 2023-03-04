@@ -1512,7 +1512,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 422, name: 'Patch "Patches" Twine' },
         { id: 1061, name: 'Phineas "Fin" Faith', factions: ['The Firm'], telegram: 'BJ540' },
         { id: 1089, name: 'Rupert Romano', telegram: 'CB130' },
-        { id: 1124, name: 'Dynamo Barbarosa', nicknames: ['The Doctor'] }, // Character last name Dolton but goes by Barbarosa
+        { id: 1124, name: 'Dynamo Barbarosa', nicknames: ['The Doctor', 'Doc', 'Dynamo Dolton'], telegram: 'GH698' }, // Character last name Dolton but goes by Barbarosa
         { id: 1429, name: 'Edward Masters' },
         { id: 1430, name: 'Cuthbert Berry', telegram: 'BQ121' },
         { id: 1492, name: 'Dale Dugmore' },
