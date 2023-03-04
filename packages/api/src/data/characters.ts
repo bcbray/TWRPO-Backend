@@ -232,7 +232,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Ashen_Rabbit: [
         { id: 42, name: '[Sr. Doctor] Dovie Parker', factions: ['Medical'] },
-        { id: 1465, name: 'Vivian Smith' },
+        { id: 1465, name: '[Nurse] Vivian Smith', factions: ['Medical'] },
         { id: 1880, name: 'Tyene "Ty" Catell' },
     ],
     AstroSC: [
