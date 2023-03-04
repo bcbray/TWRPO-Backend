@@ -2849,7 +2849,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 980, name: 'Biwwy Baker' },
     ],
     squareiz: [
-        { id: 783, name: 'Eddy Doyle', nicknames: ['Ed'] },
+        { id: 783, name: 'Eddy Doyle', nicknames: ['Ed'], deceased: true },
         { id: 979, name: 'Moe McQueen', telegram: 'SV286' },
         { id: 983, name: 'Malaha Mage' },
         { id: 1185, name: 'Monica McMonigal' },
