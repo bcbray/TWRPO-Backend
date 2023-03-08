@@ -442,7 +442,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BrambleLeaf: [
         { id: 1755, name: 'Judith "Fiver" Thompson', factions: ['Fuller House'] },
-        { id: 1773, name: '[Cadet] Rue Roussan', factions: ['Law'] },
+        { id: 1773, name: '[Deputy] Rue Roussan', factions: ['Law'] },
     ],
     Bringus: [
         { id: 1468, name: 'Linus Lievesley' },
