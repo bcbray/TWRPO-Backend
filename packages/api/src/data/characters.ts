@@ -3493,7 +3493,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 954, name: 'Charles Campbell' },
         { id: 955, name: 'Liam Reilly', telegram: 'HB537' },
         { id: 956, name: 'Alexander Williams' },
-        { id: 1696, name: '[Cadet] Dorian Kelshaw', factions: ['Law'], telegram: 'FH017' },
+        { id: 1696, name: '[Deputy] Dorian Kelshaw', factions: ['Law'], telegram: 'FH017' },
         { id: 1726, name: 'Bray Cooper' },
     ],
     YawnyJ: [
