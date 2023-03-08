@@ -1834,7 +1834,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1774, name: '[Chief] Jairo "River Warrior" Cook', nicknames: ['Wolven Warrior Who Splits the River'], factions: ['ToPa Ota', 'Sun Warriors'], leader: true },
     ],
     LEAH: [
-        { id: 503, name: '[Sr. Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190' },
+        { id: 503, name: '[Sr. Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190', deceased: true },
         { id: 504, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256', deceased: true }, // Former Summers Gang
         { id: 505, name: 'Brie Haviour' },
         { id: 506, name: 'Ruthie Samuels' },
