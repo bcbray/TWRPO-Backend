@@ -637,7 +637,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 172, name: 'Cash Colton', factions: ['Coltons'] },
     ],
     CoolRanchOfficial: [
-        { id: 1469, name: 'Jules Preston', telegram: 'LA938' },
+        { id: 1469, name: 'Jules Preston', telegram: 'LA938', deceased: true },
         { id: 1777, name: '[Deputy] Sadie Parker', factions: ['Law'], telegram: 'ED325' },
     ],
     CopernicusTheDesertWizard: [
