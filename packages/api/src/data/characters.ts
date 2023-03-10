@@ -1318,7 +1318,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1337, name: 'Jon Grace' },
         { id: 1405, name: 'Bobby Ratheon', telegram: 'RJ094' },
         { id: 1593, name: '? "Badger" ?' },
-        { id: 1761, name: 'Castor ?', nicknames: ['Cass']},
+        { id: 1761, name: 'Castor Fray', nicknames: ['Cass'], factions: ['Kelly Gang'] },
     ],
     grigoriypeppo: [
         { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2, telegram: 'MT027' },
