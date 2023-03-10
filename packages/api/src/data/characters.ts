@@ -1614,7 +1614,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 440, name: 'Scooter Brown' },
     ],
     JayDRated: [
-        { id: 1331, name: 'Jay Walker' },
+        { id: 1331, name: 'Jay Walker', assume: 'assumeOther' },
     ],
     jdot: [
         { id: 441, name: 'James McAfee' },
