@@ -937,7 +937,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 258, name: 'Cullen Vane', displayName: 2, factions: ['Independent', 'Guarma'] },
     ],
     DutchKroket: [
-        { id: 1875, name: '? Bjornson', nicknames: ['North', 'White Axe'], displayName: 3 },
+        { id: 1875, name: '? Bjornson', nicknames: ['North', 'White Axe'], displayName: 3, factions: ['Kelly Gang'] },
         { id: 1887, name: '[Deputy] Antoine Monet', factions: ['Law'] },
     ],
     Dwoalin: [
