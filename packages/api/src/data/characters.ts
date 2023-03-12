@@ -1733,7 +1733,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 469, name: 'Ellie Whitmoore' },
         { id: 470, name: 'Scarlett' },
     ],
-    kazmasco: [
+    kazumasco: [
         { id: 1387, name: 'Jonesy Stewart', telegram: 'VY875' },
         { id: 1420, name: 'Glenn Ferguson', telegram: 'EX324' },
     ],
