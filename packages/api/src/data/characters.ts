@@ -1585,7 +1585,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1486, name: 'Jaiyu "Lucky" Gustaffson' },
     ],
     JackofHeartsodb: [
-        { id: 1915, name: '[Recruit] Alfred Walsh', factions: ['Rangers'] },
+        { id: 1915, name: '[Ranger] Alfred Walsh', factions: ['Rangers'] },
     ],
     JackTFD: [
         { id: 1447, name: 'Max Bell', factions: ['Bell Gang'] },
