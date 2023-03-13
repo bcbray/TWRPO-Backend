@@ -785,7 +785,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 204, name: 'Hank Boon' },
     ],
     demolitiondan_: [
-        { id: 1553, name: '[Cadet] Wallace Wilson', factions: ['Law'], telegram: 'CP350' },
+        { id: 1553, name: '[Deputy] Wallace Wilson', factions: ['Law'], telegram: 'CP350' },
     ],
     DemonMungo98: [
         { id: 1899, name: 'No Knobbs' },
