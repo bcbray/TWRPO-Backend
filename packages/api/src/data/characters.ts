@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1930
+// Next ID: 1931
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -2562,6 +2562,9 @@ export const wrpCharacters: WrpCharacters = {
     RiftImpy: [
         { id: 1247, name: 'Bartholomew "Barty" Brue', factions: ['The Ring'], telegram: 'RY254' },
         { id: 1624, name: 'Cole Duncan', nicknames: ['Dusty'], factions: ['The Strays'], telegram: 'US762' },
+    ],
+    rlly: [
+        { id: 1930, name: 'Delilah Calhoun' },
     ],
     Roach_tm: [
         { id: 677, name: 'Tony Moretti', factions: ['DiCenzo Famiglia'], telegram: 'GW121' }, // Inactive DiCenzo
