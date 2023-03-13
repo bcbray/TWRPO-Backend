@@ -1672,7 +1672,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 451, name: 'Jackie Laguna' },
     ],
     joemorf: [
-        { id: 1814, name: 'Gordon Northrup' },
+        { id: 1814, name: 'Gordon Northrup', nicknames: ['Gordo'] },
     ],
     johnnyblamz: [
         { id: 452, name: 'Gavin Summers', telegram: 'WQ958', deceased: true }, // Former Summers Gang. Leader of Summers Gang
