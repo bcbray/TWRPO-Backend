@@ -1966,6 +1966,9 @@ export const wrpCharacters: WrpCharacters = {
     LockTheRaven: [
         { id: 1366, name: 'Ezekiel Proctor' },
     ],
+    LordSentient: [
+        { id: 1297, name: 'Jason Caliga' },
+    ],
     Lovebot44: [
         { id: 525, name: 'Annie Applebee' },
         { id: 526, name: 'Charlotte Blackwood' },
@@ -2746,9 +2749,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     senpaipugsy: [
         { id: 1816, name: 'Nathan Shaw' },
-    ],
-    SentientChronicles: [
-        { id: 1297, name: 'Jason Caliga' },
     ],
     sgttyn: [
         { id: 723, name: 'Jacob Dubois' },
