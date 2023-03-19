@@ -1471,7 +1471,7 @@ export const wrpCharacters: WrpCharacters = {
     Iceshredder_: [
         { id: 1630, name: 'Rockford McGillicuddy', nicknames: ['Rock'], telegram: 'PD449' },
     ],
-    ICoolioM: [
+    iCoolioM: [
         { id: 404, name: 'Arie ?' },
     ],
     iDarkGunz: [
