@@ -1435,9 +1435,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1424, name: 'Richard Gold', nicknames: ['Richie'], factions: ['Fuller House'], telegram: 'AH036' },
         { id: 1807, name: 'William Chillson' },
     ],
-    hopdowg: [
-        { id: 1681, name: 'Abramo "Abe" Gignte' },
-    ],
     Hoss: [
         { id: 395, name: 'Buck Cherry' },
         { id: 1586, name: 'Buster Rivers' },
@@ -2117,6 +2114,9 @@ export const wrpCharacters: WrpCharacters = {
     MightyMoonBear: [
         { id: 1028, name: 'Russell Woods', factions: ['The Ring'], telegram: 'BG616' },
         { id: 1253, name: 'Nvdo Kali Yona' },
+    ],
+    Mike6s: [
+        { id: 1681, name: 'Abramo "Abe" Gignte' },
     ],
     MinksOfMars: [
         { id: 566, name: 'Irene "Peaches" Corvus', nicknames: ['Forbidden Fruit'], factions: ['Dead End Gang'], telegram: 'YV009' }, // Former Sam's Club. Former Hagen.
