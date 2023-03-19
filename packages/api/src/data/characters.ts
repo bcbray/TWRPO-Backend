@@ -2203,7 +2203,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 584, name: 'Herman Wilbur' },
         { id: 585, name: 'Leon Taylor' },
         { id: 586, name: 'Conny Cage' },
-        { id: 1697, name: 'Enoch "Chompy" Holt', nicknames: ['Big Chomp', 'Chomp'], telegram: 'JN479' },
+        { id: 1697, name: 'Enoch "Chompy" Holt', nicknames: ['Big Chomp', 'Chomp'], factions: ['10 Tonne Gang'], telegram: 'JN479' },
         { id: 1783, name: 'Fletcher Lee' },
         { id: 1794, name: 'Lyle McCoy' },
         { id: 1916, name: 'Howdie Gerkin' },
