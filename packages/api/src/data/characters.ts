@@ -2956,7 +2956,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     squeakinghiccups: [
         { id: 1524, name: 'Sheila O’Kelly', factions: ['Independent', 'Guarma'] },
-        { id: 1724, name: '[Cadet] Penny Wallace', factions: ['Law'], telegram: 'VN087' },
+        { id: 1724, name: '[Deputy] Penny Wallace', factions: ['Law'], telegram: 'VN087' },
         { id: 1725, name: 'Dwight "Dodge" Hayes' },
     ],
     Ssaab: [
