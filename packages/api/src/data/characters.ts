@@ -76,7 +76,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1514, name: 'Michael Sullivan', factions: ['Conductors'], telegram: 'DB279' }, // Just boats in SCTA
     ],
     AaronOnAir: [
-        { id: 8, name: '[Deputy] Dylan Texler', factions: ['Law'] },
+        { id: 8, name: '[Deputy] Dylan "Tex" Texler', factions: ['Law'] },
     ],
     AarynRollsDice: [
         { id: 1671, name: '[Sr. Deputy] Elianna Carver', nicknames: ['Elianna Rivers'], factions: ['Law'], telegram: 'AA883' },
