@@ -2470,6 +2470,9 @@ export const wrpCharacters: WrpCharacters = {
     PissyAtTheDisco: [
         { id: 658, name: 'Oscar Caraballo' },
     ],
+    pixidolll: [
+        { id: 1472, name: 'Jane Evans' },
+    ],
     Point1985: [
         { id: 652, name: 'Joe Jackson', nicknames: ['JJ'] },
     ],
@@ -2574,9 +2577,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Really_Russ: [
         { id: 1009, name: 'Emerson Newly' },
-    ],
-    rebeccaculp: [
-        { id: 1472, name: 'Jane Evans' },
     ],
     RecallReminisce: [
         { id: 1270, name: 'Victoria Foster' },
