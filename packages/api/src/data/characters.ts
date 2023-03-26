@@ -3016,7 +3016,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 801, name: 'Mason Memphis' },
         { id: 1693, name: 'Vittoria Vitale' },
     ],
-    sulley_cs: [
+    sulleyc: [
         { id: 1164, name: 'Raylan "Ray-Ray" Goggins', nicknames: [reg(/\bray(?:\-|\s*)ray\b/)], factions: ['Conductors'] },
         { id: 1169, name: '[Deputy] Black Sky', displayName: 0, factions: ['Law'], telegram: 'OT409' },
         { id: 1392, name: 'John-Michael Douglas' },
