@@ -323,6 +323,15 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1149, name: 'Vee Ornitier' },
         { id: 1154, name: 'Bardivan Jeeves' },
     ],
+    BarlowOfficial: [
+        { id: 833, name: 'Logan Callaway', deceased: true },
+        { id: 834, name: '[Deputy] Jonathan Robertson', factions: ['Law'] },
+        { id: 835, name: 'Alexander Rose' },
+        { id: 1067, name: 'Jesse Ambrose' },
+        { id: 1444, name: '[Deputy] Lewis Camden', factions: ['Law'], telegram: 'ED726' },
+        { id: 1491, name: 'Jason Haynes' },
+        { id: 1929, name: 'Cassidy Gray' },
+    ],
     barrybogan: [
         { id: 72, name: 'Bernard "Bernie" Bogan', nicknames: ['Bernie the Butcher'] }, // Former Bloody Hood. Bloody Hoods disbanded
         { id: 73, name: 'Jack Doolan' },
@@ -3128,15 +3137,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ThatStickyTickle: [
         { id: 975, name: 'Dustin Barlowe' },
-    ],
-    ThatTrollsomeGuy: [
-        { id: 833, name: 'Logan Callaway', deceased: true },
-        { id: 834, name: '[Deputy] Jonathan Robertson', factions: ['Law'] },
-        { id: 835, name: 'Alexander Rose' },
-        { id: 1067, name: 'Jesse Ambrose' },
-        { id: 1444, name: '[Deputy] Lewis Camden', factions: ['Law'], telegram: 'ED726' },
-        { id: 1491, name: 'Jason Haynes' },
-        { id: 1929, name: 'Cassidy Gray' },
     ],
     The_Beautiful_Void: [
         { id: 836, name: '[Medic] Katherine "Kate" Byrne', factions: ['Medical'], telegram: 'HY310' },
