@@ -2784,7 +2784,7 @@ export const wrpCharacters: WrpCharacters = {
     Shyirasky: [
         { id: 730, name: 'Twitch Cooper', factions: ['The Ward'] },
         { id: 1581, name: '[Deputy] ? Wallace', factions: ['Law'], deceased: true },
-        { id: 1886, name: '[Cadet] Harvey Chubs', factions: ['Law'] },
+        { id: 1886, name: '[Deputy] Harvey Chubs', factions: ['Law'] },
     ],
     SideshowSniper: [
         { id: 1864, name: 'Erick Riggs' },
