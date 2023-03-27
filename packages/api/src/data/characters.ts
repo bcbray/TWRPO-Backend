@@ -155,7 +155,7 @@ export const wrpCharacters: WrpCharacters = {
     AM_Raid: [
         { id: 25, name: 'Cain Lockhart', nicknames: ['Loverboy'], factions: ['Red Water'] },
         { id: 26, name: 'Clifford Buck' },
-        { id: 27, name: 'Giorgio "Gio" Santorelli' }, // Former law?
+        { id: 27, name: 'Giorgio "Gio" Santorelli', nicknames: ['Wolf of Justice'] }, // Former law? Aspiring Law
         { id: 28, name: 'Raul Sanchez' },
     ],
     AmeliaTyler: [
@@ -864,7 +864,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1056, name: 'Caleb Milton' },
     ],
     DollarstoreBucc: [
-        { id: 1861, name: 'Jack Sproule' },
+        { id: 1861, name: 'Jack "Preacher" Sproule' },
     ],
     DomoBee2020: [
         { id: 1398, name: 'Ro McClane', telegram: 'HV226' },
