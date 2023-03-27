@@ -864,7 +864,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1056, name: 'Caleb Milton' },
     ],
     DollarstoreBucc: [
-        { id: 1861, name: 'Jack "Preacher" Sproule' },
+        { id: 1861, name: 'Jack "Preacher" Sproule', factions: ['Kelly Gang'] },
     ],
     DomoBee2020: [
         { id: 1398, name: 'Ro McClane', telegram: 'HV226' },
