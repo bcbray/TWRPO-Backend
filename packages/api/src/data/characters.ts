@@ -263,7 +263,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 57, name: 'Mo Tengfei' },
     ],
     aviyah: [
-        { id: 1955, name: 'Julius Grimes' },
+        { id: 1955, name: 'Julius Grimes', factions: ['Pruitt Gang'] },
     ],
     avocadotoasty83: [
         { id: 1371, name: 'Naomi Angeli', nicknames: [reg(/𝒩𝒶𝑜𝓂𝒾|𝒜𝓃𝑔𝑒𝓁𝒾|𝓝𝓪𝓸𝓶𝓲|𝓐𝓷𝓰𝓮𝓵𝓲/)], telegram: 'BP413' }, // 𝒩𝒶𝑜𝓂𝒾 𝒜𝓃𝑔𝑒𝓁𝒾, 𝓝𝓪𝓸𝓶𝓲 𝓐𝓷𝓰𝓮𝓵𝓲
@@ -1608,7 +1608,7 @@ export const wrpCharacters: WrpCharacters = {
     JackTFD: [
         { id: 1447, name: 'Max Bell', factions: ['Bell Gang'] },
         { id: 1798, name: 'Charlie Branch', deceased: true },
-        { id: 1957, name: 'Cody ?' },
+        { id: 1957, name: 'Cody ?', factions: ['Pruitt Gang'] },
     ],
     jakeyp0o: [
         { id: 432, name: 'Danner Wynn' },
@@ -1703,7 +1703,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1639, name: 'Huxley Palmer', telegram: 'DH771' },
         { id: 1838, name: 'Seth South' },
         { id: 1896, name: 'Lee Gardner' },
-        { id: 1952, name: 'Luke Barrett' },
+        { id: 1952, name: 'Luke Barrett', factions: ['Pruitt Gang'] },
     ],
     Jonthebroski: [
         { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J’Baas', 'J Baas'], displayName: 5, factions: ['The Baastards'], leader: true, telegram: 'EJ572' }, // Former Sam's Club
@@ -1887,7 +1887,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1330, name: 'Ally Ramsey' },
         { id: 1454, name: 'Sierra "Sisi" Castillo', factions: ['Del Lobos'], telegram: 'LS438' },
         { id: 1664, name: 'Margo Rush', telegram: 'ZW004' },
-        { id: 1953, name: 'Aoibh O’Connor' },
+        { id: 1953, name: 'Aoibh O’Connor', factions: ['Pruitt Gang'] },
     ],
     learntoswim: [
         { id: 1658, name: 'Cornelius T Fop' },
@@ -3036,7 +3036,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1169, name: '[Deputy] Black Sky', displayName: 0, factions: ['Law'], telegram: 'OT409' },
         { id: 1392, name: 'John-Michael Douglas' },
         { id: 1410, name: 'Santiago "Santi" Velasquez', factions: ['Del Lobos'], telegram: 'KY343' },
-        { id: 1954, name: 'Dee O’Hara' },
+        { id: 1954, name: 'Dee O’Hara', factions: ['Pruitt Gang'] },
     ],
     Sveo0: [
         { id: 1133, name: 'Miguel Garcia', factions: ['Del Lobos'] },
@@ -3527,7 +3527,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 930, name: 'Taylor Hicks', factions: ['Red Water'], deceased: true }, // Former Summers Gang
         { id: 931, name: 'William "Bill" Carver' },
         { id: 932, name: 'Benji Bell', factions: ['Bell Gang'], leader: true, telegram: 'VE811' },
-        { id: 1956, name: 'David "Dave" Vandyne' },
+        { id: 1956, name: 'David "Dave" Vandyne', factions: ['Pruitt Gang'] },
     ],
     WeeJimcent: [
         { id: 933, name: 'Sergio ?' },

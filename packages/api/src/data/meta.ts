@@ -36,6 +36,7 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     topaota: 'ToPa Ota',
     kellygang: 'Kelly Gang',
     fraziergang: 'Frazier Gang',
+    pruittgang: 'Pruitt Gang',
     news: 'News',
     development: 'Development',
     law: 'Law',
