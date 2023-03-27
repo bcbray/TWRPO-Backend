@@ -118,7 +118,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1497, name: 'Buster Dalton' }, // Former Quil Gang
         { id: 1499, name: 'Vinny Lombardi' },
         { id: 1836, name: 'Maurice Chevalier' },
-        { id: 1837, name: 'Alfonse Declan' },
+        { id: 1837, name: 'Alfonse "Al" Declan' },
         { id: 1968, name: 'Zeca Barbosa' },
     ],
     aintitadam: [
