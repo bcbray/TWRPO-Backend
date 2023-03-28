@@ -353,7 +353,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1632, name: 'Theodosia "Theo" Ripley', telegram: 'DX020' },
     ],
     Beanblanket: [
-        { id: 75, name: 'Clifford Dawes', factions: ['Bluestone'] },
+        { id: 75, name: '[Ranger] Clifford Dawes', factions: ['Rangers', 'Bluestone'] },
         { id: 76, name: 'Emilio Peralta' },
     ],
     BeardofOz: [
