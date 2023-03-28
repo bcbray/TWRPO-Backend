@@ -1744,7 +1744,7 @@ export const wrpCharacters: WrpCharacters = {
     JustSam42: [
         { id: 462, name: 'Nathan Thompson', telegram: 'EY079' }, // Former Game Warden
         { id: 1710, name: 'Angel Roberts', telegram: 'GX691' },
-        { id: 1758, name: 'Jameson "Bear" Farthing', nicknames: ['Mitchel'], telegram: 'WB970' },
+        { id: 1758, name: 'Jameson "Bear" Farthing', nicknames: ['Mitchel', 'Hourglass', 'HG'], telegram: 'WB970' },
         { id: 1841, name: 'Cecily "CC" Matthews' },
     ],
     JxdiTV: [
