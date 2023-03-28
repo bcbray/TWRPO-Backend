@@ -1397,7 +1397,7 @@ export const wrpCharacters: WrpCharacters = {
     Heikima: [
         { id: 989, name: 'Kaifeng Mi', factions: ['Independent', 'Guarma'], deceased: true },
         { id: 1054, name: 'Pocky Ma' },
-        { id: 1173, name: 'Koxinga Zheng', nicknames: ['Mr. Ko', reg(/\bmr\.?\s+ko\b/)], displayName: 3, factions: ['Taipan'], telegram: 'XN961' },
+        { id: 1173, name: 'Koxinga Zheng', nicknames: ['Mr. Ko', reg(/\bmr\.?\s+ko\b/)], displayName: 3, telegram: 'XN961' }, // Former Taipan
         { id: 1223, name: 'Pretty Boy Stagley', displayName: 0 },
         { id: 1324, name: 'Big Bear', nicknames: ['BigBear'], displayName: 0 },
         { id: 1972, name: 'Tiedan "Iron Egg" Sun' },
