@@ -2262,7 +2262,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 588, name: '[Sr. Reporter] Crispin Cantabile', telegram: 'AX263', factions: ['News'] },
         { id: 589, name: 'Dallas Wolf', nicknames: ['Saul South'], displayName: 1, telegram: 'DV817' }, // Former Senior Ranger
         { id: 590, name: 'Phineas Fentworth' },
-        { id: 591, name: 'Saul South' },
         { id: 1285, name: 'Felix Stanton' },
         { id: 1287, name: 'Dante Drummer' },
         { id: 1779, name: 'Kip ?' },
