@@ -3538,7 +3538,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     voytheboi: [
         { id: 1579, name: 'Red ?', factions: ['Del Lobos'] }, // Del Lobos associate
-        { id: 1582, name: 'Noah Shaw' }, // Former Senior Deputy
+        { id: 1582, name: '[Sr. Deputy] Noah Shaw', factions: ['Law'] },
         { id: 1924, name: 'July Gray' },
     ],
     VTM___: [
