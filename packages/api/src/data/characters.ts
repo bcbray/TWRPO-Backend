@@ -3645,7 +3645,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1790, name: 'Bonnie Jenkins' },
     ],
     Yorkoh: [
-        { id: 958, name: '[Sheriff] Kai Ming', factions: ['Law'], displayName: 1, telegram: 'IR145' },
+        { id: 958, name: 'Kai Ming', telegram: 'IR145' }, // Former Sheriff
     ],
     YouKnowItsJuno: [
         { id: 959, name: 'Sumanitu Taka Cante Gearhardt', nicknames: ['Kima Abrams'] },
