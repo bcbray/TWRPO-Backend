@@ -1556,7 +1556,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 414, name: 'Calvin Oakes' },
         { id: 415, name: 'Eli Ryckman' },
         { id: 416, name: 'Shaine Calhoun' },
-        { id: 417, name: 'Wayne Kavanaugh', telegram: 'PS241' },
+        { id: 417, name: 'Wayne Kavanaugh', telegram: 'LQ460' }, // Previously had "PS241" as telegram by mistake?
         { id: 418, name: 'Dandy Smells' },
     ],
     ItsGrumpyGramps: [
