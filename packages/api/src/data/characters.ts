@@ -1908,7 +1908,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1286, name: 'Gabrielle Reyes' },
     ],
     Lendermations: [
-        { id: 507, name: 'Inessa "Miss Match" Bornlof' },
+        { id: 507, name: 'Inessa "Miss Match" Bornlof', telegram: 'XI953' },
         { id: 508, name: 'Riley Rivens', nicknames: ['Slim'], telegram: 'RI031' },
         { id: 509, name: 'Tantallia Tippins' },
     ],
