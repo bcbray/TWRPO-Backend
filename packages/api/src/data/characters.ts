@@ -1914,7 +1914,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     leodotmae: [
         { id: 510, name: 'Eleanor Cain', telegram: 'UW695' }, // Former Law
-        { id: 1316, name: '[Deputy] Johannah Briggs', factions: ['Law'], telegram: 'FR003' },
+        { id: 1316, name: '[Deputy] Johannah Briggs', nicknames: ['Johannah Briggs-McAlister'], factions: ['Law'], telegram: 'FR003' },
         { id: 1922, name: 'Judas Taylor' },
     ],
     LetterJaye: [
