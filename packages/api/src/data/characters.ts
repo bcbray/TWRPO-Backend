@@ -596,7 +596,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1241, name: '[Sr. Deputy] Maya Brooks', factions: ['Law'], telegram: 'KJ562' },
     ],
     ChickPenguin: [
-        { id: 150, name: 'Lily Linwood', nicknames: ['Lily Fish', 'Lilly', 'Lilly Fish'], factions: ['Independent', 'Guppy Gang'] },
+        { id: 150, name: 'Lily Linwood', nicknames: ['Lily Fish', 'Lilly', 'Lilly Fish'] }, // Former Guppy Gang
     ],
     Chief: [
         { id: 151, name: 'Caesar Coal' },
