@@ -401,7 +401,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 90, name: 'Sam Caldwell' },
     ],
     Bizcotto: [
-        { id: 1564, name: 'Colin Carver', telegram: 'VT462' },
+        { id: 1564, name: 'Colin Carver', factions: ['Independent', 'Guarma'], telegram: 'VT462' },
     ],
     blackhawkgamiing: [
         { id: 91, name: 'Chris Edwoods' },
