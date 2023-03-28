@@ -3484,7 +3484,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     valenam: [
         { id: 915, name: 'Laura Flores' },
-        { id: 1751, name: 'Yuri ?', factions: ['Taipan'], telegram: 'OW714' },
+        { id: 1751, name: 'Yuri Park', factions: ['Taipan'], telegram: 'OW714' },
     ],
     ValenVain: [
         { id: 916, name: 'Salazar Fisk' },
