@@ -2193,9 +2193,6 @@ export const wrpCharacters: WrpCharacters = {
     MissMangoJuice: [
         { id: 1294, name: 'Diana Bennet' },
     ],
-    MistorThio: [
-        { id: 1898, name: 'Rusty Rankstank' },
-    ],
     Mo1taz: [
         { id: 1327, name: 'Lennart Hellström', telegram: 'RM829' },
     ],
@@ -3372,6 +3369,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 884, name: 'Cian Malloy' },
         { id: 885, name: 'Hymnal Smed' },
         { id: 886, name: 'Elliot Teller' },
+    ],
+    Thio: [
+        { id: 1898, name: 'Rusty Rankstank' },
     ],
     thirdradius3: [
         { id: 1587, name: '[Ranger] Nathan Yang', factions: ['Rangers'], telegram: 'QL554' },
