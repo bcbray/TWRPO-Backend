@@ -950,9 +950,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1052, name: 'Jimmy Billiam' },
         { id: 1181, name: '[Guard] Darren Hobbs', factions: ['Sisika Guard'] },
     ],
-    Dunrunnin12: [
-        { id: 252, name: 'Clay' },
-    ],
     Duntless_: [
         { id: 1070, name: 'Dun Lessozzo' },
     ],
@@ -1521,6 +1518,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1114, name: '[Medic] Cailin "Petal" O’Connor', nicknames: ['Petal Stonewall'], factions: ['Medical'], telegram: 'XB519' },
         { id: 1436, name: 'Gabby Cavalli' },
         { id: 1661, name: 'Audrey Harrington' },
+    ],
+    ImDun_: [
+        { id: 252, name: 'Clay' },
     ],
     IMeMine30: [
         { id: 408, name: 'Angelo Clemente', telegram: 'SN784' }, // Former Fantoni Crew
