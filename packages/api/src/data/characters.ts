@@ -382,7 +382,7 @@ export const wrpCharacters: WrpCharacters = {
     BennayTee: [
         { id: 1112, name: 'Otto Orleans', assume: 'assumeOther' },
     ],
-    berniehehe: [
+    Berniehehe: [
         { id: 84, name: 'Noah Little' },
     ],
     BigBadMomma: [
