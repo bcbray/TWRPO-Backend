@@ -150,7 +150,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1101, name: 'Caveman' },
     ],
     alyssajeanaf: [
-        { id: 24, name: 'Dahlia Malone', nicknames: ['Songbird'], factions: ['Fantoni Crew'], telegram: 'WS289' }, // Former Sam's Club
+        { id: 24, name: 'Dahlia Malone', nicknames: ['Songbird'], telegram: 'WS289' }, // Former Sam's Club. Former Fantoni Crew
         { id: 1099, name: 'Evelyn Salvatore', telegram: 'XR135' },
     ],
     AM_Raid: [
@@ -212,7 +212,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 41, name: 'Alexei "Moose" Mostokovich' },
     ],
     ArtByRue: [
-        { id: 1464, name: 'Daniela "Dani" Fantoni', factions: ['Fantoni Crew'] },
+        { id: 1464, name: 'Daniela "Dani" Fantoni', factions: ['Moretti Crew'] }, // Former Fantoni Crew
         { id: 1565, name: 'Charlie Slack', factions: ['ToPa Ota'], telegram: 'BU895' }, // Telegram might be BU985
     ],
     ARTISNACK: [
@@ -1201,7 +1201,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Freumont: [
         { id: 324, name: 'Edward Shaw' },
-        { id: 325, name: 'Leonardo E. "Leo" Fantoni', factions: ['Fantoni Crew'], leader: true, telegram: 'JN223' },
+        { id: 325, name: 'Leonardo E. "Leo" Fantoni', factions: ['Moretti Crew'], telegram: 'JN223' }, // Former Fantoni Crew leader
         { id: 1804, name: 'Ciqala', factions: ['ToPa Ota'] },
     ],
     friendly_chick: [
@@ -1516,7 +1516,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1661, name: 'Audrey Harrington' },
     ],
     IMeMine30: [
-        { id: 408, name: 'Angelo Clemente', factions: ['Fantoni Crew'], telegram: 'SN784' },
+        { id: 408, name: 'Angelo Clemente', telegram: 'SN784' }, // Former Fantoni Crew
         { id: 563, name: 'Walt McGrath', telegram: 'PS469' },
         { id: 1280, name: 'Jesse Price' },
     ],
@@ -1686,7 +1686,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1274, name: 'Callie ?' },
     ],
     JillardSZN: [
-        { id: 1139, name: 'Jilly Rizzo', factions: ['Fantoni Crew'], telegram: 'QF261' },
+        { id: 1139, name: 'Jilly Rizzo', telegram: 'QF261' }, // Former Fantoni Crew
     ],
     jobyonekanobi: [
         { id: 446, name: 'Clint Gunther' },
@@ -3514,7 +3514,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1456, name: 'Alice Lungsford', factions: ['The Firm'] }, // Same character as Alice Jinks? Old stream titles use “Jinks,” but unclear
     ],
     VersaLK: [
-        { id: 918, name: 'Carlo Marciano', factions: ['Fantoni Crew'], telegram: 'XX125' },
+        { id: 918, name: 'Carlo Marciano', telegram: 'XX125' }, // Former Fantoni Crew
     ],
     VERTiiGOGAMING: [
         { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'], telegram: 'KY857', deceased: true }, // Former Kerrigan Ranch
