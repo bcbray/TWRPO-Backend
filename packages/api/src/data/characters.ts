@@ -1597,7 +1597,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1124, name: 'Dynamo Barbarosa', nicknames: ['The Doctor', 'Doc', 'Dynamo Dolton'], telegram: 'GH698' }, // Character last name Dolton but goes by Barbarosa
         { id: 1429, name: 'Edward Masters' },
         { id: 1430, name: 'Cuthbert Berry', telegram: 'BQ121' },
-        { id: 1492, name: 'Dale Dugmore' },
+        { id: 1492, name: 'Dale Dugmore', deceased: true },
         { id: 1990, name: 'Westley Hogarth' },
     ],
     IzzaBugg: [
