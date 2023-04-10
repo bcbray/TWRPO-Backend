@@ -2663,7 +2663,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 679, name: 'Frank Church' },
         { id: 680, name: 'John Hell' },
         { id: 1146, name: 'Maurice Cheeks', factions: ['Lifer'] },
-        { id: 1190, name: 'Andy Cabbage', nicknames: ['c'], telegram: 'DR608' },
+        { id: 1190, name: 'Andy Cabbage', telegram: 'DR608' },
         { id: 1538, name: 'Rockhard Johnson' },
         // Mary Goodfellow [possibly one lifer? was streamed once or twice IIRC]
         { id: 1539, name: 'Sandy Peters', factions: ['One Life'], deceased: true },
