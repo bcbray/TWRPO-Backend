@@ -2644,7 +2644,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     RiftImpy: [
         { id: 1247, name: 'Bartholomew "Barty" Brue', telegram: 'RY254' }, // Former The Ring
-        { id: 1624, name: 'Cole Duncan', nicknames: ['Dusty'], factions: ['The Strays'], telegram: 'US762' },
+        { id: 1624, name: 'Cole Duncan', nicknames: ['Dusty'], factions: ['The Strays'], telegram: 'US762', deceased: true },
     ],
     rlly: [
         { id: 1930, name: 'Delilah Calhoun' },
