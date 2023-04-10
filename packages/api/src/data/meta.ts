@@ -14,7 +14,6 @@ export const wrpFactionsReal = { // map: removed spaces + converted to lower cas
     taipan: 'Taipan',
     boonsboys: 'Boons Boys',
     redwater: 'Red Water',
-    thering: 'The Ring',
     themaskedmen: 'The Masked Men',
     freemanfamily: 'Freeman Family',
     quilgang: 'Quil Gang',

@@ -193,7 +193,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 33, name: 'Sissilina "Sissi" Marie', factions: ['DiCenzo Famiglia'], telegram: 'BD695' },
     ],
     AngerMike: [
-        { id: 1231, name: 'Virgil Fox', factions: ['The Ring'], telegram: 'BA975' },
+        { id: 1231, name: 'Virgil Fox', telegram: 'BA975' }, // Former The Ring
     ],
     AnthonyZ: [
         { id: 36, name: 'Antonio Corleone', nicknames: ['Tony'], factions: ['DiCenzo Famiglia'], telegram: 'SE317' }, // Inactive DiCenzo
@@ -2154,7 +2154,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1959, name: 'Elizabeth Haynes' },
     ],
     MightyMoonBear: [
-        { id: 1028, name: 'Russell Woods', factions: ['The Ring'], telegram: 'BG616' },
+        { id: 1028, name: 'Russell Woods', telegram: 'BG616' }, // Former The Ring
         { id: 1253, name: 'Nvdo Kali Yona' },
     ],
     Mike6s: [
@@ -2643,7 +2643,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 676, name: 'Furio Bonanno', factions: ['DiCenzo Famiglia'], telegram: 'FB622' }, // Inactive DiCenzo
     ],
     RiftImpy: [
-        { id: 1247, name: 'Bartholomew "Barty" Brue', factions: ['The Ring'], telegram: 'RY254' },
+        { id: 1247, name: 'Bartholomew "Barty" Brue', telegram: 'RY254' }, // Former The Ring
         { id: 1624, name: 'Cole Duncan', nicknames: ['Dusty'], factions: ['The Strays'], telegram: 'US762' },
     ],
     rlly: [
@@ -2759,7 +2759,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 710, name: '[Deputy] Zoe Winters', factions: ['Law'], telegram: 'LD969' },
         { id: 1062, name: 'Myrna Meadows' },
         { id: 1157, name: 'Posie Hart', nicknames: ['Kimberly', 'Kimberly Taylor'], displayName: 3 },
-        { id: 1228, name: 'Ashley Sky', factions: ['The Ring'], telegram: 'GR775' },
+        { id: 1228, name: 'Ashley Sky', telegram: 'GR775' }, // Former The Ring
         { id: 1408, name: 'Holly Harper', telegram: 'FQ588', deceased: true },
         { id: 1409, name: '[Guard] Liliana Braytenbach', factions: ['Sisika Guard'] },
         { id: 1537, name: 'Kyla Lane' },
@@ -2905,7 +2905,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 745, name: 'Billy Joe Barber', nicknames: ['Billy Joe', 'BJB'], displayName: 4, factions: ['The Nameless'], telegram: 'JC921' },
         { id: 746, name: 'Lefty Lone' },
         { id: 747, name: 'Reidar Hagen' },
-        { id: 1172, name: 'Frank Gilbani', factions: ['The Ring'], telegram: 'KE425' },
+        { id: 1172, name: 'Frank Gilbani', telegram: 'KE425' }, // Former The Ring
     ],
     SLiMt: [
         { id: 748, name: 'Jimmy "Slim Jim" Slimper' },
@@ -3047,7 +3047,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1462, name: 'Rook Pierce', factions: ['Red Water'], telegram: 'SM528' },
     ],
     start_vx: [
-        { id: 1238, name: 'Garneesh Tandoori', factions: ['The Ring'], telegram: 'LL642' },
+        { id: 1238, name: 'Garneesh Tandoori', telegram: 'LL642' }, // Former The Ring
     ],
     SteelRain27: [
         { id: 790, name: 'Moses Maddox' },
