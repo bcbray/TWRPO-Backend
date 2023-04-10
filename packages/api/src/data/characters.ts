@@ -485,6 +485,9 @@ export const wrpCharacters: WrpCharacters = {
     Bryce_Reid: [
         { id: 1457, name: 'Melchior "Milk Man" Tarsovich', factions: ['Dead End Gang'] },
     ],
+    Buck_Blaze: [
+        { id: 1098, name: 'Bruce Blaze' },
+    ],
     buddha: [
         { id: 118, name: 'Wu Buddha', factions: ['DiCenzo Famiglia'], telegram: 'EI571' }, // Inactive DiCenzo
     ],
@@ -2966,9 +2969,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Spaceboy: [
         { id: 769, name: 'James Randal', nicknames: ['Jim Beef'] },
-    ],
-    SpartaHC: [
-        { id: 1098, name: 'Bruce Blaze' },
     ],
     Speckie_: [
         { id: 770, name: '[Deputy] Andrew Hamilton', factions: ['Law'] },
