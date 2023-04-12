@@ -2733,7 +2733,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 697, name: 'Bitt McGee' },
     ],
     Salsinator: [
-        { id: 1995, name: 'Arden Remington' },
+        { id: 1995, name: 'Arden "Ardie" Remington' },
     ],
     Sammyyyyyyy: [
         { id: 698, name: 'Lizzie Clarke' },
