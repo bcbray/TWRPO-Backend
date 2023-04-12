@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 1999
+// Next ID: 2004
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -1876,6 +1876,12 @@ export const wrpCharacters: WrpCharacters = {
         { id: 486, name: 'Montgomery Flynn' },
         { id: 487, name: 'Tommaso Scaglietti' },
         { id: 1715, name: 'Remington "Remy" Elias Flynn', telegram: 'FB578' },
+    ],
+    KYCaffiend_: [ // Moved from using KYCaffiend to using KYCaffiend_
+        { id: 1999, name: 'Emerson Cain' },
+        { id: 2000, name: 'Montgomery Flynn' },
+        { id: 2001, name: 'Tommaso Scaglietti' },
+        { id: 2003, name: 'Remington "Remy" Elias Flynn', telegram: 'FB578' },
     ],
     Kyle: [
         { id: 488, name: 'Ren Solo' },
