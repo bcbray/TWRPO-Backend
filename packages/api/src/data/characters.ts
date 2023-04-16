@@ -2378,7 +2378,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1395, name: 'Victoria ?', telegram: 'ZG829' },
     ],
     Nicklbean: [
-        { id: 1314, name: 'Arther Prince', factions: ['The Firm'], telegram: 'YW855' },
+        { id: 1314, name: 'Arther Prince', factions: ['The Firm'], telegram: 'YW855', deceased: true },
         { id: 1357, name: 'Buddy Roland' },
         { id: 1389, name: 'Richard Ironheart' },
         { id: 2012, name: 'Levi Lawson' },
