@@ -2172,9 +2172,6 @@ export const wrpCharacters: WrpCharacters = {
     Mhaple_: [
         { id: 564, name: 'Morgan Lee', factions: ['Red Water'], telegram: 'UP111' }, // Former Summers Gang
     ],
-    MichaelKrown: [
-        { id: 1651, name: 'Michael Krown' },
-    ],
     Mick: [
         { id: 565, name: 'Gladys Berry' },
     ],
@@ -2755,6 +2752,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     SaberTV: [
         { id: 692, name: 'Constance Miles' },
+    ],
+    Saeynt: [
+        { id: 1651, name: 'Michael Krown' },
     ],
     SaffyPie: [
         { id: 693, name: 'Cassidy Reynolds' },
