@@ -3154,7 +3154,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1133, name: 'Miguel Garcia', factions: ['Del Lobos'] },
     ],
     sweetcraw: [
-        { id: 802, name: 'Joey Crawford', telegram: 'UQ998' },
+        { id: 802, name: 'Joey Crawford', telegram: 'UQ998', deceased: true },
         { id: 803, name: 'Ephraim Teller' },
         { id: 1096, name: 'Robert "Rob" Banks' },
         { id: 1326, name: 'Kip Smith' },
