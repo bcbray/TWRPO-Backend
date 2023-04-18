@@ -2185,7 +2185,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Middleditch: [
         { id: 1802, name: 'Scrump Toggins' },
-        { id: 1997, name: 'Ronny McMalligan' }, // Law hopeful
+        { id: 1997, name: '[Cadet] Ronny McMalligan', factions: ['Law'] },
     ],
     MidnightDoveonTwitch: [
         { id: 34, name: '[Deputy] Jamie Marlow', factions: ['Law'], deceased: true },
