@@ -2158,7 +2158,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MDMums: [
         { id: 559, name: 'Edward Moore' },
-        { id: 560, name: '[Deputy] Matthew McAllister', factions: ['Law'] },
+        { id: 560, name: '[Deputy] Matthew "Sevens" McAllister', factions: ['Law'] },
     ],
     meechy_hendrix: [
         { id: 1211, name: 'Bobby Johnson', assume: 'assumeOther' },
