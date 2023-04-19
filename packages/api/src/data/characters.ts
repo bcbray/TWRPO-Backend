@@ -265,6 +265,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 50, name: 'Lena Phipps' },
         { id: 51, name: 'Scarlet ?' }, // TODO: Last name?
     ],
+    AvaThompson_: [
+        { id: 285, name: 'Kora Vane', telegram: 'JH385' }, // Former Sam's Club
+        { id: 1264, name: '[Sr. Ranger] Rayne Farley', factions: ['Rangers'], telegram: 'GZ075' },
+    ],
     aviceration: [
         { id: 53, name: 'Ella Mason' },
         { id: 54, name: 'Vincencia "Vinnie" Romeo', deceased: true },
@@ -1093,10 +1097,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1871, name: 'Peter Whistler' },
         { id: 1894, name: 'Brick Thompson' },
         { id: 2011, name: 'Bethany "Silver" Lassik', factions: ['Independent', 'Guarma'] },
-    ],
-    eternalsong: [
-        { id: 285, name: 'Kora Vane', telegram: 'JH385' }, // Former Sam's Club
-        { id: 1264, name: '[Sr. Ranger] Rayne Farley', factions: ['Rangers'], telegram: 'GZ075' },
     ],
     EthanSchriver: [
         { id: 286, name: 'Leanord Scout', displayName: 2, factions: ['Dead End Gang'] },
