@@ -2688,7 +2688,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Really_Russ: [
         { id: 1009, name: 'Emerson Newly' },
-        { id: 1993, name: '[Cadet] Colton Fisher', factions: ['Law'] },
+        { id: 1993, name: '[Deputy] Colton Fisher', factions: ['Law'] },
     ],
     RecallReminisce: [
         { id: 1270, name: 'Victoria Foster' },
