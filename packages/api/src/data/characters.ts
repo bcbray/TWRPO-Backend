@@ -3399,7 +3399,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1680, name: 'Jesse Clay' },
     ],
     TheRandomChick: [
-        { id: 876, name: '[Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'], telegram: 'OA974' },
+        { id: 876, name: '[Sr. Doctor] Bella Trix', nicknames: ['Bellatrix'], displayName: 3, factions: ['Medical'], telegram: 'OA974' },
         { id: 877, name: '[Sr. Reporter] Poppet Deveaux', nicknames: ['Caroline'], factions: ['News'], telegram: 'QQ766' },
         { id: 1182, name: '[Guard] Mae Daye', factions: ['Sisika Guard'] },
     ],
