@@ -3283,7 +3283,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 837, name: 'Fredrick Smythe' },
     ],
     The_Hug_Dealer: [
-        { id: 1276, name: 'Obediah Greye' }, // Preacher
+        { id: 1276, name: 'Obediah Greye', assume: 'assumeOther' }, // Preacher
     ],
     The_Jadles: [
         { id: 1947, name: 'Benjin Maples' },
