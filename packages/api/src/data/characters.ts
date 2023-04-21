@@ -2831,7 +2831,7 @@ export const wrpCharacters: WrpCharacters = {
     ScarletRosePlays: [
         { id: 708, name: 'Allison "Ally" Chase', deceased: true },
         { id: 709, name: 'Bella Baker' },
-        { id: 710, name: '[Deputy] Zoe Winters', factions: ['Law'], telegram: 'LD969' },
+        { id: 710, name: '[Sr. Deputy] Zoe Winters', factions: ['Law'], telegram: 'LD969' },
         { id: 1062, name: 'Myrna Meadows' },
         { id: 1157, name: 'Posie Hart', nicknames: ['Kimberly', 'Kimberly Taylor'], displayName: 3 },
         { id: 1228, name: 'Ashley Sky', telegram: 'GR775' }, // Former The Ring
