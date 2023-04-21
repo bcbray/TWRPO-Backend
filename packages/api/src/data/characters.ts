@@ -1830,7 +1830,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Khandur_: [
         { id: 472, name: 'Tommy Cooper' },
-        { id: 1012, name: '[Deputy] Dan O’Grady', factions: ['Law'], telegram: 'SM014' },
+        { id: 1012, name: '[Sr. Deputy] Dan O’Grady', factions: ['Law'], telegram: 'SM014' },
         { id: 1476, name: 'Kelton Jennings' },
     ],
     KillrBeauty: [
