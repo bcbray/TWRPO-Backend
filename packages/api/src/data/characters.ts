@@ -3089,13 +3089,13 @@ export const wrpCharacters: WrpCharacters = {
     SprayNprayErik: [
         { id: 777, name: 'Butch Marlow', factions: ['Hagen'] },
     ],
-    spriteleah: [
-        { id: 778, name: '[Sr. Deputy] Francesca "Frankie" Bright', nicknames: ['Checkers'], factions: ['Law'], telegram: 'GG190' },
-        { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256', deceased: true }, // Former Summers Gang
-        { id: 780, name: 'Brie Haviour' },
-        { id: 781, name: 'Ruthie Samuels' },
-        { id: 1665, name: 'Margo Rush', telegram: 'ZW004' },
-    ],
+    // spriteleah: [ // LEAH alt, inactive
+    //     { id: 778, name: '[Sr. Deputy] Francesca "Frankie" Bright', nicknames: ['Checkers'], factions: ['Law'], telegram: 'GG190' },
+    //     { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256', deceased: true }, // Former Summers Gang
+    //     { id: 780, name: 'Brie Haviour' },
+    //     { id: 781, name: 'Ruthie Samuels' },
+    //     { id: 1665, name: 'Margo Rush', telegram: 'ZW004' },
+    // ],
     Sput: [
         { id: 782, name: 'Marvin Mayflower' },
         { id: 980, name: 'Biwwy Baker' },
