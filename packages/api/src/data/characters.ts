@@ -1877,7 +1877,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     korean_jesus11: [
         { id: 1647, name: '[Deputy] Leon Buckley', factions: ['Law'] },
-        { id: 1648, name: 'Alexio Gotti', factions: ['Quil Gang'] },
+        { id: 1648, name: 'Alexio Gotti' }, // Former Quil Gang
     ],
     Kouts3: [
         { id: 479, name: 'Felix Colt' },
