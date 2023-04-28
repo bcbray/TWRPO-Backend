@@ -2616,7 +2616,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 655, name: 'Kathryn ?' },
         { id: 656, name: 'Minerva Ackerman' },
         { id: 1187, name: 'Jenna Pearl', factions: ['Lifer'] },
-        { id: 1309, name: 'Abigail Notaro', nicknames: ['Abigail Quil'], telegram: 'EN744' }, // Former Quil Gang
+        { id: 1309, name: 'Abigail Notaro', nicknames: ['Abigail Quil', 'Mama Quil'], telegram: 'EN744' }, // Former Quil Gang
         { id: 1359, name: '[Cadet] Mildred Rose', factions: ['Law'], telegram: 'NC017' },
         { id: 1850, name: 'Roxie Harlow' },
     ],
