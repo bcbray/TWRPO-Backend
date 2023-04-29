@@ -3742,7 +3742,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1459, name: 'Bob ?', factions: ['Dead End Gang'], deceased: true },
         { id: 1549, name: 'James Mustang' },
         { id: 1569, name: '[Guard] Benrique West', factions: ['Sisika Guard'] },
-        { id: 1889, name: '[Sheriff] Harrison Holt', factions: ['Law'] },
+        { id: 1889, name: '[Sheriff] Harrison Holt', factions: ['Law'], nicknames: ['Heriff Sholt'] },
         { id: 1978, name: 'Chester Brown', factions: ['Conductors'] },
     ],
     WTFGameNation: [
