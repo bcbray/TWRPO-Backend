@@ -762,9 +762,6 @@ export const wrpCharacters: WrpCharacters = {
     dannyf1orida: [
         { id: 190, name: 'Cliff Westwood' },
     ],
-    Danzenken: [
-        { id: 191, name: 'Aadi G. Boom' },
-    ],
     DapperDame: [
         { id: 1666, name: 'Mae Miller', telegram: 'FJ304' },
     ],
@@ -2414,6 +2411,9 @@ export const wrpCharacters: WrpCharacters = {
     NoahsDay: [
         { id: 606, name: '[Deputy] Cliff Otis', factions: ['Law'] },
         { id: 1719, name: 'Ace Davis' },
+    ],
+    NomadDee: [
+        { id: 191, name: 'Aadi G. Boom' },
     ],
     Nopheros: [
         { id: 607, name: '[Deputy] Robert Fisher', factions: ['Law'] },
