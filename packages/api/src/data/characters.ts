@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2053
+// Next ID: 2057
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -3093,13 +3093,17 @@ export const wrpCharacters: WrpCharacters = {
     SprayNprayErik: [
         { id: 777, name: 'Butch Marlow', factions: ['Hagen'] },
     ],
-    // spriteleah: [ // LEAH alt, inactive
-    //     { id: 778, name: '[Sr. Deputy] Francesca "Frankie" Bright', nicknames: ['Checkers'], factions: ['Law'], telegram: 'GG190' },
-    //     { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256', deceased: true }, // Former Summers Gang
-    //     { id: 780, name: 'Brie Haviour' },
-    //     { id: 781, name: 'Ruthie Samuels' },
-    //     { id: 1665, name: 'Margo Rush', telegram: 'ZW004' },
-    // ],
+    spriteleah: [ // LEAH alt
+        { id: 778, name: '[Sr. Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190', deceased: true },
+        { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256', deceased: true }, // Former Summers Gang
+        { id: 780, name: 'Brie Haviour' },
+        { id: 506, name: 'Ruthie Samuels' },
+        { id: 2053, name: 'Ally Ramsey' },
+        { id: 2054, name: 'Sierra "Sisi" Castillo', factions: ['Del Lobos'], telegram: 'LS438' },
+        { id: 1665, name: 'Margo Rush', telegram: 'ZW004' },
+        { id: 2055, name: 'Aoibh O’Connor', factions: ['Pruitt Gang'] },
+        { id: 2056, name: '[Deputy] Guinevere Wilde', factions: ['Law'] },
+    ],
     Sput: [
         { id: 782, name: 'Marvin Mayflower' },
         { id: 980, name: 'Biwwy Baker' },
