@@ -425,7 +425,7 @@ export const wrpCharacters: WrpCharacters = {
     blackhawkgamiing: [
         { id: 91, name: 'Chris Edwoods' },
     ],
-    Blaustoise: [
+    blau: [
         { id: 92, name: 'Jesse Flint' },
     ],
     bldrs: [
