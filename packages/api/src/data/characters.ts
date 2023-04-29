@@ -2060,7 +2060,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 526, name: 'Charlotte Blackwood' },
         { id: 527, name: 'Eustice Dixon' },
         { id: 528, name: 'Lillian Church' },
-        { id: 1163, name: 'Endora Fey' },
+        { id: 1163, name: 'Endora "The Spit Witch" Fey' },
         { id: 1536, name: 'Bonnie May' },
         { id: 2044, name: 'MaryAnn Maxwell' },
     ],
