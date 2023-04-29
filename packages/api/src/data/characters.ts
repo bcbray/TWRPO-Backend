@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2059
+// Next ID: 2060
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -353,6 +353,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1444, name: '[Deputy] Lewis Camden', factions: ['Law'], telegram: 'ED726' },
         { id: 1491, name: 'Jason Haynes' },
         { id: 1929, name: 'Cassidy Gray' },
+        { id: 2059, name: 'Aoife Byrne' },
     ],
     barrybogan: [
         { id: 72, name: 'Bernard "Bernie" Bogan', nicknames: ['Bernie the Butcher'] }, // Former Bloody Hood. Bloody Hoods disbanded
