@@ -2139,7 +2139,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     MadsKadie: [
         { id: 1361, name: 'Alessandra Moretti', telegram: 'EY243' },
-        { id: 1421, name: 'Scarlett Winters', factions: ['Kelly Gang'], telegram: 'CN670' },
+        { id: 1421, name: 'Scarlett Winters', factions: ['Kelly Gang'], telegram: 'CN670', deceased: true },
         { id: 1700, name: '[Ranger] Raven Hill', factions: ['Rangers'], telegram: 'OP170' },
     ],
     MafiaDrew: [
