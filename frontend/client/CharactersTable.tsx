@@ -55,18 +55,18 @@ const CharacterRow: React.FC<RowProps> = ({
   const { factionStyles } = useFactionCss(server);
   const factionsToShow = React.useMemo(() => visibleFactions(character.factions), [character.factions]);
   const lastSeenLiveDate = React.useMemo(() => {
-      if (!character.lastSeenLive) return undefined;
-      const date = new Date(character.lastSeenLive);
-      if (isNaN(date.getTime())) return undefined;
-      return date;
-    }, [character.lastSeenLive]);
+    if (!character.lastSeenLive) return undefined;
+    const date = new Date(character.lastSeenLive);
+    if (isNaN(date.getTime())) return undefined;
+    return date;
+  }, [character.lastSeenLive]);
 
   const firstSeenLiveDate = React.useMemo(() => {
-      if (!character.firstSeenLive) return undefined;
-      const date = new Date(character.firstSeenLive);
-      if (isNaN(date.getTime())) return undefined;
-      return date;
-    }, [character.firstSeenLive]);
+    if (!character.firstSeenLive) return undefined;
+    const date = new Date(character.firstSeenLive);
+    if (isNaN(date.getTime())) return undefined;
+    return date;
+  }, [character.firstSeenLive]);
 
   const lastSeenLive = useRelativeDateMaybe(lastSeenLiveDate);
   const firstSeenLive = useRelativeDateMaybe(firstSeenLiveDate);
