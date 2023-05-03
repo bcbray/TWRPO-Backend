@@ -1,12 +1,31 @@
 import React from 'react';
-import Datadog from 'react-datadog';
+import Datadog, { useDatadogRum } from 'react-datadog';
 
 import { Plausible } from './Plausible'
 import { useEnvironment } from './Environment';
+import { useAuthentication } from './auth';
 
 interface Props {
   children?: React.ReactNode;
 }
+
+const RumUserProvider: React.FC = () => {
+  const rum = useDatadogRum();
+  const { user } = useAuthentication();
+  React.useEffect(() => {
+    if (user) {
+      const { id, twitchId, displayName } = user;
+      rum.setUser({
+        id: `${id}`,
+        name: displayName,
+        twitchId
+      });
+    } else {
+      rum.removeUser();
+    }
+  }, [rum, user]);
+  return null;
+};
 
 const TrackerProvider: React.FC<Props> = ({ children }) => {
   const {
@@ -32,6 +51,7 @@ const TrackerProvider: React.FC<Props> = ({ children }) => {
       allowedTracingOrigins={[rootUrl]}
     >
       <Plausible>
+        <RumUserProvider />
         {children}
       </Plausible>
     </Datadog>
