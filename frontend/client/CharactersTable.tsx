@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDatadogRum } from 'react-datadog';
+import { Button } from '@restart/ui';
+import { useLocalStorage } from 'react-use';
 import { CharacterInfo, FactionInfo } from '@twrpo/types';
 
 import styles from './CharactersTable.module.css';
@@ -10,6 +12,7 @@ import { classes, formatDuration } from './utils';
 import { useFactionCss } from './FactionStyleProvider';
 import { useRelativeDateMaybe } from './hooks';
 import { useCurrentServer } from './CurrentServer';
+import MetaAlert, { MetaAlertDecision } from './MetaAlert';
 
 type Sort = 'streamer' | 'title' | 'name' | 'nickname' | 'faction' | 'contact' | 'lastSeen' | 'duration';
 type Order = 'asc' | 'desc';
@@ -29,6 +32,8 @@ interface RowProps {
   hideStreamer: boolean;
   noStreamerLink: boolean;
   factionDestination: 'characters' | 'streams';
+  canShowContacts: boolean;
+  requestContactVisibility: (onApprove: () => void) => void;
 }
 
 const visibleFactions = (factions: FactionInfo[]) =>
@@ -41,24 +46,27 @@ const CharacterRow: React.FC<RowProps> = ({
   hideStreamer,
   noStreamerLink,
   factionDestination,
+  canShowContacts,
+  requestContactVisibility,
 }) => {
   const { server } = useCurrentServer();
   const location = useLocation();
+  const rum = useDatadogRum();
   const { factionStyles } = useFactionCss(server);
   const factionsToShow = React.useMemo(() => visibleFactions(character.factions), [character.factions]);
   const lastSeenLiveDate = React.useMemo(() => {
-      if (!character.lastSeenLive) return undefined;
-      const date = new Date(character.lastSeenLive);
-      if (isNaN(date.getTime())) return undefined;
-      return date;
-    }, [character.lastSeenLive]);
+    if (!character.lastSeenLive) return undefined;
+    const date = new Date(character.lastSeenLive);
+    if (isNaN(date.getTime())) return undefined;
+    return date;
+  }, [character.lastSeenLive]);
 
   const firstSeenLiveDate = React.useMemo(() => {
-      if (!character.firstSeenLive) return undefined;
-      const date = new Date(character.firstSeenLive);
-      if (isNaN(date.getTime())) return undefined;
-      return date;
-    }, [character.firstSeenLive]);
+    if (!character.firstSeenLive) return undefined;
+    const date = new Date(character.firstSeenLive);
+    if (isNaN(date.getTime())) return undefined;
+    return date;
+  }, [character.firstSeenLive]);
 
   const lastSeenLive = useRelativeDateMaybe(lastSeenLiveDate);
   const firstSeenLive = useRelativeDateMaybe(firstSeenLiveDate);
@@ -69,6 +77,22 @@ const CharacterRow: React.FC<RowProps> = ({
     }
     return formatDuration(character.totalSeenDuration);
   }, [character.totalSeenDuration]);
+
+  const [contactObscured, setContactObscured] = React.useState(true);
+
+  const handleShowContact = React.useCallback(() => {
+    rum.addAction(`Contact info show`, {
+      type: 'show-contact-info',
+      streamer: character.channelName,
+      character: character.displayInfo.realNames.join(' '),
+    });
+
+    if (canShowContacts) {
+      setContactObscured(false);
+    } else {
+      requestContactVisibility(() => setContactObscured(false));
+    }
+  }, [canShowContacts, requestContactVisibility, rum, character]);
 
   return React.useMemo(() => (
     <tr className={styles.characterRow}>
@@ -141,7 +165,19 @@ const CharacterRow: React.FC<RowProps> = ({
       }
       </td>
       <td className={styles.contact}>
-        {character.contact}
+        {contactObscured && character.contact !== undefined ? (
+          <span className={styles.obscured}>
+            <span className={styles.value}>{character.contact}</span>
+            <Button
+              as='span'
+              className={classes(styles.showButton)}
+              onClick={handleShowContact}
+              title='Show telegram number'
+            >
+              Show
+            </Button>
+          </span>
+        ) : character.contact}
       </td>
       <td className={styles.lastSeen}>
         {character.liveInfo ? (
@@ -169,6 +205,8 @@ const CharacterRow: React.FC<RowProps> = ({
     location.search,
     noStreamerLink,
     totalDuration,
+    contactObscured,
+    handleShowContact,
   ]);
 }
 
@@ -421,7 +459,43 @@ const CharactersTable: React.FunctionComponent<Props> = ({
       : <>{children}</>
   ), [sort, order, handleSort, sortedCharacters]);
 
-  return (
+  const [canShowContacts, setCanShowContacts] = React.useState(false);
+  const [showingMetaAlert, setShowingMetaAlert] = React.useState(false);
+  const [onMetaAlertApproval, setOnMetaAlertApproval] = React.useState<(() => void) | null>(null);
+  const [suppressContactMetaAlert, setSuppressContactMetaAlert] = useLocalStorage('suppress-contact-meta-alert', false);
+
+  const showMetaAlert = React.useCallback((onApprove: () => void) => {
+    // Set using the updater function style to prevent `onApprove` from being called _as_ the updater function
+    setOnMetaAlertApproval(() => onApprove);
+    setShowingMetaAlert(true);
+    rum.addAction(`Meta alert show`, {
+      type: 'meta-alert-show',
+      subtype: 'contact',
+    });
+  }, [rum]);
+
+  const handleMetaDialogDismiss = React.useCallback((decision: MetaAlertDecision) => {
+    if (decision === 'agree' || decision === 'agree-and-dont-show-again') {
+      setCanShowContacts(true);
+      onMetaAlertApproval?.();
+      if (decision === 'agree-and-dont-show-again') {
+        setSuppressContactMetaAlert(true);
+      }
+      rum.addAction(`Meta alert agree`, {
+        type: 'meta-alert-agree',
+        subtype: 'contact',
+        remember: decision === 'agree-and-dont-show-again',
+      });
+    } else {
+      rum.addAction(`Meta alert cancel`, {
+        type: 'meta-alert-cancel',
+        subtype: 'contact',
+      });
+    }
+    setShowingMetaAlert(false);
+  }, [onMetaAlertApproval, setSuppressContactMetaAlert, rum]);
+
+  return <>
     <div
       className={classes(
         styles.tableContainer,
@@ -497,12 +571,15 @@ const CharactersTable: React.FunctionComponent<Props> = ({
               hideStreamer={hideStreamer}
               noStreamerLink={noStreamerLink}
               factionDestination={factionDestination}
+              canShowContacts={canShowContacts || (suppressContactMetaAlert ?? false)}
+              requestContactVisibility={showMetaAlert}
             />
           )}
         </tbody>
       </table>
     </div>
-  );
+    <MetaAlert show={showingMetaAlert} onHide={handleMetaDialogDismiss} />
+  </>;
 };
 
 export default CharactersTable;
