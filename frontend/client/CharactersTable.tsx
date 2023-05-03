@@ -51,6 +51,7 @@ const CharacterRow: React.FC<RowProps> = ({
 }) => {
   const { server } = useCurrentServer();
   const location = useLocation();
+  const rum = useDatadogRum();
   const { factionStyles } = useFactionCss(server);
   const factionsToShow = React.useMemo(() => visibleFactions(character.factions), [character.factions]);
   const lastSeenLiveDate = React.useMemo(() => {
@@ -80,12 +81,18 @@ const CharacterRow: React.FC<RowProps> = ({
   const [contactObscured, setContactObscured] = React.useState(true);
 
   const handleShowContact = React.useCallback(() => {
+    rum.addAction(`Contact info show`, {
+      type: 'show-contact-info',
+      streamer: character.channelName,
+      character: character.displayInfo.realNames.join(' '),
+    });
+
     if (canShowContacts) {
       setContactObscured(false);
     } else {
       requestContactVisibility(() => setContactObscured(false));
     }
-  }, [canShowContacts, requestContactVisibility]);
+  }, [canShowContacts, requestContactVisibility, rum, character]);
 
   return React.useMemo(() => (
     <tr className={styles.characterRow}>
@@ -461,7 +468,11 @@ const CharactersTable: React.FunctionComponent<Props> = ({
     // Set using the updater function style to prevent `onApprove` from being called _as_ the updater function
     setOnMetaAlertApproval(() => onApprove);
     setShowingMetaAlert(true);
-  }, []);
+    rum.addAction(`Meta alert show`, {
+      type: 'meta-alert-show',
+      subtype: 'contact',
+    });
+  }, [rum]);
 
   const handleMetaDialogDismiss = React.useCallback((decision: MetaAlertDecision) => {
     if (decision === 'agree' || decision === 'agree-and-dont-show-again') {
@@ -470,9 +481,19 @@ const CharactersTable: React.FunctionComponent<Props> = ({
       if (decision === 'agree-and-dont-show-again') {
         setSuppressContactMetaAlert(true);
       }
-    };
+      rum.addAction(`Meta alert agree`, {
+        type: 'meta-alert-agree',
+        subtype: 'contact',
+        remember: decision === 'agree-and-dont-show-again',
+      });
+    } else {
+      rum.addAction(`Meta alert cancel`, {
+        type: 'meta-alert-cancel',
+        subtype: 'contact',
+      });
+    }
     setShowingMetaAlert(false);
-  }, [onMetaAlertApproval, setSuppressContactMetaAlert]);
+  }, [onMetaAlertApproval, setSuppressContactMetaAlert, rum]);
 
   return <>
     <div
