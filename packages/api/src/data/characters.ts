@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2089
+// Next ID: 2090
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -1389,6 +1389,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 364, name: 'Clayton Orwell', nicknames: ['Clay Tone', 'Clay Tony Tone'], factions: ['Kettleman Gang'], deceased: true }, // Considered to be the one and only leader of the Kettleman Gang
         { id: 1323, name: '[Deputy] Pop Sullivan', factions: ['Law'], telegram: 'EX817' },
         { id: 1684, name: 'Sebasian "Sebas" Rudeo', nicknames: ['Sebastian Rudea', 'Vaquero'], telegram: 'MU856' }, // “Rudea” is the character name, but he seems to use “Rudeo”
+        { id: 2089, name: 'G.W. Rapidly', nicknames: ['GW', 'Carnival'] },
     ],
     GraveGamerTV: [
         { id: 365, name: 'Paulson Greer' },
