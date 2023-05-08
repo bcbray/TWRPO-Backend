@@ -2280,9 +2280,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1487, name: 'Dixie Jacobs', nicknames: ['DJ'], telegram: 'DJ998' },
         { id: 1765, name: 'Sasha Ivanova' },
     ],
-    MissMangoJuice: [
-        { id: 1294, name: 'Diana Bennet' },
-    ],
     Mo1taz: [
         { id: 1327, name: 'Lennart Hellström', telegram: 'RM829' },
     ],
@@ -2798,6 +2795,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Rowdywhale: [
         { id: 1863, name: 'Clooter ?' },
+    ],
+    royalryerye: [
+        { id: 1294, name: 'Diana Bennet' },
     ],
     RY4N: [
         { id: 685, name: 'Christine "Momma" Thomas', telegram: 'VA278' }, // Former Momma's Boys? Maybe leader of Momma's Boys?
