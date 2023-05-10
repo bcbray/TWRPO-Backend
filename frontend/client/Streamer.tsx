@@ -23,6 +23,7 @@ import { LoadTrigger, useIsMobile } from './hooks';
 import StreamerTimeline from './StreamerTimeline';
 import { useCurrentServer } from './CurrentServer';
 import { useAuthorization } from './auth'
+import Timeseries from './Timeseries';
 
 interface StreamerProps {
   data: StreamerResponse;
@@ -92,6 +93,7 @@ const Streamer: React.FC<StreamerProps> = ({
     });
   }, [setStreamsView, rum, streamer]);
   const canViewAllSegments = useAuthorization('view-all-segments');
+  const canViewTimeseries = useAuthorization('view-streamer-timeseries');
   const { server } = useCurrentServer();
   const [viewAllSegments, setViewAllSegments] = React.useState(false);
 
@@ -165,6 +167,15 @@ const Streamer: React.FC<StreamerProps> = ({
             </p>
           )}
         </div>
+        {canViewTimeseries &&
+          <div className={styles.timeseries}>
+            <Timeseries
+              constrainToServer={!viewAllSegments}
+              channelTwitchId={streamer.twitchId}
+              availableMetrics={['viewers']}
+            />
+          </div>
+        }
         <div className={styles.recentStreams}>
           <div className={styles.streamsHeader}>
             <div className={styles.title}>

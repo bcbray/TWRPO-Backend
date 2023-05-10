@@ -109,14 +109,16 @@ type EditUsersAuthorization = 'edit-users';
 
 type ViewRootServerPicker = 'view-root-server-picker';
 
-type AuthorizationType = OverrideSegmentAuthorization | ServerEditAuthorization | ViewOtherSegmentsAuthorization | EditUsersAuthorization | ViewRootServerPicker;
+type ViewStreamerTimeseries = 'view-streamer-timeseries';
+
+type AuthorizationType = OverrideSegmentAuthorization | ServerEditAuthorization | ViewOtherSegmentsAuthorization | EditUsersAuthorization | ViewRootServerPicker | ViewStreamerTimeseries;
 
 export const useAuthorization = (type: AuthorizationType): boolean => {
   const { user } = useAuthentication();
   if (!user) {
     return false;
   }
-  if (type === 'server-edit' || type === 'view-all-segments' || type === 'edit-users' || type === 'view-root-server-picker') {
+  if (type === 'server-edit' || type === 'view-all-segments' || type === 'edit-users' || type === 'view-root-server-picker' || type === 'view-streamer-timeseries') {
     return user.globalRole === 'admin';
   } else if (type.type === 'overide-segment') {
     return user.globalRole === 'admin' || user.globalRole === 'editor';

@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import { TimeseriesResponse, UserResponse } from '@twrpo/types';
 
 import { Server } from '../../db/entity/Server';
+import { TwitchChannel } from '../../db/entity/TwitchChannel';
 import { SessionUser } from '../../SessionUser';
 import { fetchSessionUser } from './whoami';
 import {
@@ -18,6 +19,7 @@ export interface TimeseriesParams {
     end?: Date;
     serverKey?: string;
     serverId?: number;
+    channelTwitchId?: string;
 }
 
 export const fetchTimeseries = async (
@@ -31,9 +33,10 @@ export const fetchTimeseries = async (
         end,
         serverKey,
         serverId,
+        channelTwitchId,
     } = params;
 
-    if (serverKey === undefined && serverId === undefined) {
+    if (serverKey === undefined && serverId === undefined && channelTwitchId === undefined) {
         // TODO: Error?
         return { data: [] };
     }
@@ -43,26 +46,53 @@ export const fetchTimeseries = async (
         return { data: [] };
     }
 
-    const server = await dataSource.getRepository(Server)
-        .findOne({ where: { id: serverId, key: serverKey } });
-
-    if (!server) {
-        // TODO: Error?
-        return { data: [] };
-    }
-
     const queryParams: any[] = [];
 
-    queryParams.push(server.id);
-    const serverQueryParam = `$${queryParams.length}`;
+    let primaryFilterPart: string;
+
+    if ((serverKey !== undefined || serverId !== undefined) && channelTwitchId !== undefined) {
+        const server = await dataSource.getRepository(Server)
+            .findOne({ where: { id: serverId, key: serverKey } });
+        const twitchChannel = await dataSource.getRepository(TwitchChannel)
+            .findOne({ where: { twitchId: channelTwitchId } });
+        if (!twitchChannel || !server) {
+            // TODO: Error?
+            return { data: [] };
+        }
+        queryParams.push(server.id);
+        const serverQueryParam = `$${queryParams.length}`;
+        queryParams.push(twitchChannel.twitchId);
+        const channelQueryParam = `$${queryParams.length}`;
+        primaryFilterPart = `stream_chunk."serverId" = ${serverQueryParam} AND stream_chunk."streamerId" = ${channelQueryParam}`;
+    } else if (serverKey !== undefined || serverId !== undefined) {
+        const server = await dataSource.getRepository(Server)
+            .findOne({ where: { id: serverId, key: serverKey } });
+        if (!server) {
+            // TODO: Error?
+            return { data: [] };
+        }
+        queryParams.push(server.id);
+        const serverQueryParam = `$${queryParams.length}`;
+        primaryFilterPart = `stream_chunk."serverId" = ${serverQueryParam}`;
+    } else {
+        const twitchChannel = await dataSource.getRepository(TwitchChannel)
+            .findOne({ where: { twitchId: channelTwitchId } });
+        if (!twitchChannel) {
+            // TODO: Error?
+            return { data: [] };
+        }
+        queryParams.push(twitchChannel.twitchId);
+        const channelQueryParam = `$${queryParams.length}`;
+        primaryFilterPart = `stream_chunk."streamerId" = ${channelQueryParam}`;
+    }
 
     let startDateQueryPart: string;
     if (start) {
         startDateQueryPart = `('${start.toISOString()}'::timestamp with time zone at time zone 'utc')::timestamp`;
     } else if (metric === 'viewers') {
-        startDateQueryPart = `(SELECT "time" FROM stream_chunk_stat JOIN stream_chunk ON stream_chunk.id = stream_chunk_stat."streamChunkId" WHERE stream_chunk."serverId" = ${serverQueryParam} ORDER BY "time" ASC LIMIT 1)`;
+        startDateQueryPart = `(SELECT "time" FROM stream_chunk_stat JOIN stream_chunk ON stream_chunk.id = stream_chunk_stat."streamChunkId" WHERE ${primaryFilterPart} ORDER BY "time" ASC LIMIT 1)`;
     } else {
-        startDateQueryPart = `(SELECT "firstSeenDate" FROM stream_chunk WHERE  "serverId" = ${serverQueryParam} ORDER BY "firstSeenDate" ASC LIMIT 1)`;
+        startDateQueryPart = `(SELECT "firstSeenDate" FROM stream_chunk WHERE ${primaryFilterPart} ORDER BY "firstSeenDate" ASC LIMIT 1)`;
     }
 
     let endDateQueryPart: string;
@@ -102,7 +132,7 @@ export const fetchTimeseries = async (
                 CROSS  JOIN LATERAL (
                    SELECT count(DISTINCT "streamerId")::int AS n
                    FROM   stream_chunk
-                   WHERE  "serverId" = ${serverQueryParam}
+                   WHERE  ${primaryFilterPart}
                    AND    tsrange("firstSeenDate", "lastSeenDate") && tsrange(d, d + '${stepQueryPart}'::INTERVAL)
                 ) c
                 ORDER  BY date ASC;
@@ -116,7 +146,7 @@ export const fetchTimeseries = async (
                 "viewerCount"
                 FROM stream_chunk
                 INNER JOIN stream_chunk_stat ON stream_chunk.id = stream_chunk_stat."streamChunkId"
-                WHERE "serverId" = ${serverQueryParam}
+                WHERE ${primaryFilterPart}
                 AND tsrange("firstSeenDate", "lastSeenDate") && tsrange(${startDateQueryPart}, ${endDateQueryPart})
             )
             SELECT
@@ -158,6 +188,7 @@ export const parseTimeseriesQuery = (query: Request['query'] | URLSearchParams):
         params.end = queryParamDate(query, 'end');
         params.serverKey = queryParamString(query, 'serverKey');
         params.serverId = queryParamInteger(query, 'serverId');
+        params.channelTwitchId = queryParamString(query, 'channelTwitchId');
     } catch (error) {
         if (error instanceof ParamError) {
             return { error: '`cursor` parameter must be a string' };

@@ -26,6 +26,7 @@ interface TimeseriesParams {
     end?: Date;
     serverKey?: string;
     serverId?: number;
+    channelTwitchId?: string;
 }
 
 const queryStringForTimeseriesParams = (params: TimeseriesParams): string => {
@@ -35,6 +36,7 @@ const queryStringForTimeseriesParams = (params: TimeseriesParams): string => {
     end,
     serverKey,
     serverId,
+    channelTwitchId,
   } = params;
 
   const searchParams = new URLSearchParams();
@@ -52,6 +54,9 @@ const queryStringForTimeseriesParams = (params: TimeseriesParams): string => {
   }
   if (serverId !== undefined) {
     searchParams.set('serverId', `${serverId|0}`);
+  }
+  if (channelTwitchId !== undefined) {
+    searchParams.set('channelTwitchId', channelTwitchId);
   }
   return searchParams.toString();
 };
@@ -352,16 +357,27 @@ interface MetricLineItem extends LineItem {
   metric: Metric;
 }
 
-const TimeseriesContainer: React.FC<{}> = () => {
+export interface TimeseriesContainerProps {
+  channelTwitchId?: string;
+  constrainToServer?: boolean;
+  availableMetrics?: Metric[];
+}
+
+const TimeseriesContainer: React.FC<TimeseriesContainerProps> = ({
+  channelTwitchId,
+  constrainToServer = true,
+  availableMetrics = metrics,
+}) => {
   const { server } = useCurrentServer();
   const now = useNow(1000 * 60 * 60 * 24);
 
-  const [metric, setMetric] = React.useState<Metric>('streamers');
+  const [metric, setMetric] = React.useState<Metric>(availableMetrics.at(0) ?? 'streamers');
   const [timeSpan, setTimeSpan] = React.useState<TimeSpan>('7d');
 
   const query = queryStringForTimeseriesParams({
     metric,
-    serverId: server.id,
+    serverId: constrainToServer ? server.id : undefined,
+    channelTwitchId,
     start: timeSpan === '1d'
       ? subDays(now, 1)
       : timeSpan === '7d'
@@ -389,7 +405,7 @@ const TimeseriesContainer: React.FC<{}> = () => {
     </DropdownItem>
   }));
 
-  const metricLineItems: MetricLineItem[] = metrics.map(m => ({
+  const metricLineItems: MetricLineItem[] = availableMetrics.map(m => ({
     id: m,
     metric: m,
     name: metricName(m),
@@ -409,11 +425,13 @@ const TimeseriesContainer: React.FC<{}> = () => {
       items={timeSpanLineItems}
       onSelect={item => item && setTimeSpan(item.span)}
     />
-    <FancyDropdown
-      title={metricName(metric)}
-      items={metricLineItems}
-      onSelect={item => item && setMetric(item.metric)}
-    />
+    {availableMetrics.length > 1 &&
+      <FancyDropdown
+        title={metricName(metric)}
+        items={metricLineItems}
+        onSelect={item => item && setMetric(item.metric)}
+      />
+    }
     <div ref={ref}>
       {isSuccess(loadState) &&
         <Timeseries
