@@ -3171,7 +3171,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 784, name: 'Sam Baas', factions: ['The Baastards'], leader: true, nicknames: ['Dank Outlaw', 'Sam Christ'], deceased: true, telegram: 'YB638' }, // Former Sam's Club. leader of Sam's Club
         { id: 785, name: 'Ali Baba', displayName: 0 },
         { id: 786, name: '[Deputy] Leo Slacks', nicknames: ['Golden Boy'], factions: ['Law'], telegram: 'EO787' },
-        { id: 1295, name: 'Charles "CD" Divine', telegram: 'FA344', factions: ['The Baastards'] },
+        { id: 1295, name: 'Charles "CD" Divine', telegram: 'FA344', factions: ['The Baastards'], deceased: true },
     ],
     Ssmacky: [
         { id: 787, name: 'Jackson Marsh' },
