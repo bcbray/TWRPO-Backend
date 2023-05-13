@@ -3480,7 +3480,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheSaucePacket: [
         { id: 2046, name: 'Burt Bolton' },
-        { id: 2052, name: 'Charlie "Cactus Charlie" Walker' },
+        { id: 2052, name: 'Charlie "Cactus" Walker' },
     ],
     TheSlappyOne: [
         { id: 878, name: '[Deputy] Marcus Hutchinson', factions: ['Law'], telegram: 'GJ659' },
