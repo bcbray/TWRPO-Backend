@@ -2972,7 +2972,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1886, name: '[Deputy] Harvey Chubs', factions: ['Law'] },
     ],
     SideshowSniper: [
-        { id: 1864, name: 'Erick Riggs' },
+        { id: 1864, name: 'Erick Riggs', assume: 'assumeOther' },
     ],
     Sidkriken: [
         { id: 731, name: 'Dane Swan', displayName: 2, factions: ['Independent', 'Guarma'], telegram: 'TT295' }, // Former Law
