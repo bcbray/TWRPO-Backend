@@ -2930,7 +2930,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1496, name: 'Issac Rivers' },
     ],
     Selvek: [
-        { id: 721, name: 'Clayton Colton', factions: ['Coltons'] },
+        { id: 721, name: 'Clayton Colton', factions: ['Coltons'], deceased: true },
     ],
     SencneS: [
         { id: 722, name: 'Desmond Potts' },
