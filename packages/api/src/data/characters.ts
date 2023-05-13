@@ -1166,7 +1166,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 298, name: 'Steven Hayes' },
     ],
     fayebles: [
-        { id: 299, name: '[Ranger] Clementine "Clem" Fisher', factions: ['Rangers', 'Bluestone'], telegram: 'IF890' },
+        { id: 299, name: '[Cadet] Clementine "Clem" Fisher', factions: ['Law', 'Bluestone'], telegram: 'IF890' }, // Former Ranger
         { id: 300, name: 'Nessa Evans' },
         { id: 1069, name: 'Ruby Warner' },
         { id: 1325, name: '[Medic] Rana Marsh', factions: ['Medical'], telegram: 'DX713' },
