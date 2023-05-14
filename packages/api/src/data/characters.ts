@@ -1603,7 +1603,7 @@ export const wrpCharacters: WrpCharacters = {
     im_unruly: [
         { id: 1425, name: 'Marquise "MF" Frazier', factions: ['Frazier Gang'], leader: true, telegram: 'TN764' },
         { id: 1685, name: 'Rudy "Rudeboy Rudy" Smalls', telegram: 'DF337' },
-        { id: 2074, name: 'Abraham Carter' }, // Aspiring Law
+        { id: 2074, name: '[Cadet] Abraham Carter', factions: ['Law'] },
     ],
     inkyblackdreams: [
         { id: 410, name: 'Vera Addley', nicknames: ['Vera Dragavei'], factions: ['Little Gang'] },
