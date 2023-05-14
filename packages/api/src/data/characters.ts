@@ -191,7 +191,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1339, name: 'Imogen Clarke' }, // News
         { id: 1940, name: '[Guard] Philippa Melker', factions: ['Sisika Guard'] },
         { id: 2019, name: 'Edith Tillman' },
-        { id: 2051, name: 'Caroline Kepple' },
+        { id: 2051, name: '[Cadet] Caroline Kepple', factions: ['Law'] },
     ],
     andromedastarry: [
         { id: 29, name: 'Andi Walker', assume: 'assumeOther', telegram: 'DI612' },
