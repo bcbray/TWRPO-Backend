@@ -2086,9 +2086,6 @@ export const wrpCharacters: WrpCharacters = {
     LockTheRaven: [
         { id: 1366, name: 'Ezekiel Proctor' },
     ],
-    LordSentient: [
-        { id: 1297, name: 'Jason Caliga' },
-    ],
     Lovebot44: [
         { id: 525, name: 'Annie Applebee' },
         { id: 526, name: 'Charlotte Blackwood' },
@@ -3490,6 +3487,9 @@ export const wrpCharacters: WrpCharacters = {
     TheSaucePacket: [
         { id: 2046, name: 'Burt Bolton' },
         { id: 2052, name: 'Charlie "Cactus" Walker' },
+    ],
+    TheSentientGaming: [
+        { id: 1297, name: 'Jason Caliga' },
     ],
     TheSlappyOne: [
         { id: 878, name: '[Deputy] Marcus Hutchinson', factions: ['Law'], telegram: 'GJ659' },
