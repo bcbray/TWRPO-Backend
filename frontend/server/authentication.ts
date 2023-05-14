@@ -56,7 +56,27 @@ export function authentication({
   router.get('/auth/twitch', passport.authenticate('twitch'));
   router.get('/auth/twitch/callback', passport.authenticate('twitch', {
     failureRedirect: '/auth/failure',
-  }), (_req, res) => {
+  }), (req, res) => {
+    const user = req.user as SessionUser | undefined;
+    if (user) {
+      console.log(JSON.stringify({
+        level: 'info',
+        event: 'login-success',
+        message: `Successfully logged in ${user.twitchLogin}`,
+        user: {
+          twitchLogin: user.twitchLogin,
+          id: user.id,
+        },
+        ip: req.header('X-Forwarded-For') ?? req.socket.remoteAddress,
+      }));
+    } else {
+      console.warn(JSON.stringify({
+        level: 'warning',
+        event: 'login-success-without-user',
+        message: `Got a successful login without a user`,
+        ip: req.header('X-Forwarded-For') ?? req.socket.remoteAddress,
+      }));
+    }
     res.redirect('/auth/success');
   });
 
