@@ -1564,9 +1564,6 @@ export const wrpCharacters: WrpCharacters = {
     iCoolioM: [
         { id: 404, name: 'Arie ?' },
     ],
-    iDarkGunz: [
-        { id: 1027, name: 'Jock O’Donell' },
-    ],
     IEDeadly: [
         { id: 1220, name: 'Jax Houston' },
     ],
@@ -2488,6 +2485,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2081, name: 'Selene Smith' },
         { id: 2082, name: 'Talulah Branch' },
         { id: 2083, name: 'Yalena Volkov' },
+    ],
+    nubbyftwx: [
+        { id: 1027, name: 'Jock O’Donell' },
     ],
     nziech: [
         { id: 618, name: 'Kuniklo', factions: ['Kettleman Gang'], telegram: 'ZW545' },
