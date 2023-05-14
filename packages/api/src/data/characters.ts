@@ -1915,7 +1915,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1178, name: '[Deputy] Andrew Weaver', factions: ['Law'], deceased: true },
         { id: 1292, name: 'Benjamin "Benny" Thatcher', telegram: 'LR040' }, // Former Deputy
     ],
-    korean_jesus11: [
+    korean_jukebox: [
         { id: 1647, name: '[Deputy] Leon Buckley', factions: ['Law'] },
         { id: 1648, name: 'Alexio Gotti' }, // Former Quil Gang
     ],
