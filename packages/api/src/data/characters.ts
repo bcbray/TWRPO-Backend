@@ -1512,7 +1512,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1603, name: 'Erin McLyre', telegram: 'IA571' },
     ],
     holo12_: [
-        { id: 1938, name: '[Cadet] Mari Vallen', factions: ['Law'] },
+        { id: 1938, name: '[Deputy] Mari Vallen', factions: ['Law'] },
     ],
     Hoop: [
         { id: 391, name: 'Barry Bjornson' }, // Former Sam's Club
