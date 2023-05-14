@@ -1647,7 +1647,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ItsMoppet: [
         { id: 1653, name: 'James O’Blythe' },
-        { id: 1935, name: 'Willie Pugsley' },
+        { id: 1935, name: '[Ranger] Willie Pugsley', factions: ['Rangers'] },
     ],
     itsSANDR: [
         { id: 419, name: 'Deacon Walker' },
