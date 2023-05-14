@@ -16,6 +16,7 @@ import { isEditorForTwitchId } from '../../userUtils';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
 import { chunkIsShorterThanMinimum, chunkIsRecent } from '../../segmentUtils';
+import { Logger } from '../../logger';
 
 const charactersLookup = Object.fromEntries(
     Object.entries(wrpCharacters).map(([s, c]) => [s.toLowerCase(), c])
@@ -209,8 +210,13 @@ const bestStartTimeOffset = (chunks: StreamChunk[]): number | undefined => {
     return Math.round(normalizedEnd * secondsInDay);
 };
 
-export const fetchStreamers = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<StreamersResponse> => {
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+export const fetchStreamers = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    logger: Logger,
+    currentUser: UserResponse
+): Promise<StreamersResponse> => {
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, currentUser);
 
     const liveDataLookup = Object.fromEntries(liveData.streams
         .map(s => [s.channelName.toLowerCase(), s]));
@@ -238,7 +244,13 @@ export const fetchStreamers = async (apiClient: ApiClient, dataSource: DataSourc
     };
 };
 
-export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource, login: string, currentUser: UserResponse): Promise<StreamerResponse | null> => {
+export const fetchStreamer = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    logger: Logger,
+    login: string,
+    currentUser: UserResponse
+): Promise<StreamerResponse | null> => {
     const channel = await dataSource
         .getRepository(TwitchChannel)
         .findOne({ where: { twitchLogin: login.toLowerCase() } });
@@ -297,13 +309,13 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
         return null;
     }
 
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, currentUser);
 
     const liveInfo = liveData.streams.find(s =>
         s.channelName === channel.displayName);
 
     // TODO: Build a way to fetch all factions for the servers this streamer has characters on
-    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, { serverKey: 'wrp' }, currentUser);
+    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, logger, { serverKey: 'wrp' }, currentUser);
     const factionMap = Object.fromEntries(factionInfos.map(f => [f.key, f]));
 
     const channelInfo: TwitchUser = {
@@ -470,19 +482,19 @@ export const fetchStreamer = async (apiClient: ApiClient, dataSource: DataSource
     };
 };
 
-const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchStreamers(apiClient, dataSource, userResponse);
+        const response = await fetchStreamers(apiClient, dataSource, logger, userResponse);
         return res.send(response);
     });
 
     router.get('/:login', async (req, res) => {
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
         const { login } = req.params;
-        const response = await fetchStreamer(apiClient, dataSource, login, userResponse);
+        const response = await fetchStreamer(apiClient, dataSource, logger, login, userResponse);
         if (!response) {
             return res
                 .status(404)

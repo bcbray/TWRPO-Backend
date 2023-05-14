@@ -4,6 +4,7 @@ import OAuth2Strategy from 'passport-oauth2';
 import { TypeormStore, ISession } from 'connect-typeorm';
 import { Repository } from 'typeorm';
 import { Router } from 'express';
+import { Logger } from 'winston';
 
 import { TWRPOApi, SessionUser } from '@twrpo/api';
 
@@ -16,6 +17,7 @@ export interface AuthenticationOptions {
   twitchClientSecret: string;
   sessionSecret: string;
   callbackUrlBase: string;
+  logger: Logger;
   insecure?: boolean;
 }
 
@@ -25,6 +27,7 @@ export function authentication({
     twitchClientSecret,
     sessionSecret,
     callbackUrlBase,
+    logger,
     insecure = false,
 }: AuthenticationOptions) {
   const passport = new Passport();
@@ -59,23 +62,19 @@ export function authentication({
   }), (req, res) => {
     const user = req.user as SessionUser | undefined;
     if (user) {
-      console.log(JSON.stringify({
-        level: 'info',
+      logger.info(`Successfully logged in ${user.twitchLogin}`, {
         event: 'login-success',
-        message: `Successfully logged in ${user.twitchLogin}`,
         user: {
           twitchLogin: user.twitchLogin,
           id: user.id,
         },
         ip: req.header('X-Forwarded-For') ?? req.socket.remoteAddress,
-      }));
+      });
     } else {
-      console.warn(JSON.stringify({
-        level: 'warning',
+      logger.warning('Got a successful login without a user', {
         event: 'login-success-without-user',
-        message: `Got a successful login without a user`,
         ip: req.header('X-Forwarded-For') ?? req.socket.remoteAddress,
-      }));
+      });
     }
     res.redirect('/auth/success');
   });

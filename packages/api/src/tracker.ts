@@ -6,6 +6,7 @@ import { StreamChunk } from './db/entity/StreamChunk';
 import { StreamChunkStat } from './db/entity/StreamChunkStat';
 import { Game } from './db/entity/Game';
 import { wrpCharacters } from './data/characters';
+import type { Logger } from './logger';
 
 const fetchLimit = 100 as const;
 
@@ -21,84 +22,68 @@ export const syncTracked = async (dataSource: DataSource): Promise<void> => {
         .execute();
 };
 
-const fetchStreams = async (apiClient: ApiClient, channels: TwitchChannel[]): Promise<HelixStream[] | null> => {
+const fetchStreams = async (apiClient: ApiClient, logger: Logger, channels: TwitchChannel[]): Promise<HelixStream[] | null> => {
     const toSearch = [...channels];
     const allStreams: HelixStream[] = [];
     try {
         while (toSearch.length > 0) {
             const thisSearch = toSearch.splice(0, fetchLimit);
-            console.log(JSON.stringify({
-                level: 'info',
-                message: `Fetching user streams for ${thisSearch.length} users`,
+            logger.info(`Fetching user streams for ${thisSearch.length} users`, {
                 event: 'user-streams-fetch',
                 count: thisSearch.length,
-            }));
+            });
             const foundStreams = await apiClient.streams.getStreamsByUserIds(thisSearch.map(u => u.twitchId));
-            console.log(JSON.stringify({
-                level: 'info',
-                message: `Found ${foundStreams.length} user streams`,
+            logger.info(`Found ${foundStreams.length} user streams`, {
                 event: 'user-streams-fetch-found',
                 count: foundStreams.length,
-            }));
+            });
             allStreams.push(...foundStreams);
         }
-        console.log(JSON.stringify({
-            level: 'info',
-            message: `Found ${allStreams.length} total user streams`,
+        logger.info(`Found ${allStreams.length} total user streams`, {
             event: 'user-streams-fetch-total',
             count: allStreams.length,
-        }));
+        });
         return allStreams;
     } catch (err) {
-        console.log(JSON.stringify({
-            level: 'warning',
-            message: 'Failed to fetch streams for users',
+        logger.warning('Failed to fetch streams for users', {
             event: 'twitch-user-streams-fetch-failed',
             fetchedCount: allStreams.length,
             toFetchCount: toSearch.length,
             error: err,
-        }));
+        });
         return null;
     }
 };
 
-const fetchGames = async (apiClient: ApiClient, gameIds: string[]): Promise<HelixGame[] | null> => {
+const fetchGames = async (apiClient: ApiClient, logger: Logger, gameIds: string[]): Promise<HelixGame[] | null> => {
     const toSearch = [...gameIds];
     const allGames: HelixGame[] = [];
     try {
         while (toSearch.length > 0) {
             const thisSearch = toSearch.splice(0, fetchLimit);
-            console.log(JSON.stringify({
-                level: 'info',
-                message: `Fetching ${thisSearch.length} games`,
+            logger.info(`Fetching ${thisSearch.length} games`, {
                 event: 'games-fetch',
                 count: thisSearch.length,
-            }));
+            });
             const foundGames = await apiClient.games.getGamesByIds(gameIds);
-            console.log(JSON.stringify({
-                level: 'info',
-                message: `Found ${foundGames.length} games`,
+            logger.info(`Found ${foundGames.length} games`, {
                 event: 'games-found',
                 count: foundGames.length,
-            }));
+            });
             allGames.push(...foundGames);
         }
-        console.log(JSON.stringify({
-            level: 'info',
-            message: `Found ${allGames.length} total games`,
+        logger.info(`Found ${allGames.length} total games`, {
             event: 'games-fetch-total',
             count: allGames.length,
-        }));
+        });
         return allGames;
     } catch (err) {
-        console.log(JSON.stringify({
-            level: 'warning',
-            message: 'Failed to fetch streams for users',
+        logger.warning('Failed to fetch streams for users', {
             event: 'games-fetch-failed',
             fetchedCount: allGames.length,
             toFetchCount: toSearch.length,
             error: err,
-        }));
+        });
         return null;
     }
 };
@@ -113,7 +98,7 @@ export interface TrackOptions {
     now?: Date;
 }
 
-export const track = async (apiClient: ApiClient, dataSource: DataSource, options: TrackOptions): Promise<void> => {
+export const track = async (apiClient: ApiClient, dataSource: DataSource, logger: Logger, options: TrackOptions): Promise<void> => {
     const {
         alreadyFetchedSegments = [],
         now = new Date(),
@@ -126,7 +111,7 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, option
             isTracked: true,
         });
 
-    const streams = await fetchStreams(apiClient, trackedChannels);
+    const streams = await fetchStreams(apiClient, logger, trackedChannels);
     if (streams === null) {
         return;
     }
@@ -183,12 +168,10 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, option
                     ...appliedUpdate,
                 });
             } catch (error) {
-                console.error(JSON.stringify({
-                    level: 'error',
-                    message: 'Failed to update chunk',
+                logger.error('Failed to update chunk', {
                     chunkUpdate,
                     error,
-                }));
+                });
                 continue;
             }
         } else {
@@ -198,12 +181,10 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, option
                     .save(chunk);
                 newChunks.push(newChunk);
             } catch (error) {
-                console.error(JSON.stringify({
-                    level: 'error',
-                    message: 'Failed to insert chunk',
+                logger.error('Failed to insert chunk', {
                     chunk,
                     error,
-                }));
+                });
             }
         }
     }
@@ -235,34 +216,26 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, option
                 viewerCount: c.lastViewerCount,
             })));
 
-        console.log(JSON.stringify({
-            level: 'info',
+        logger.info(`Stored ${insertedStats.identifiers.length} user stream chunk stats to database`, {
             event: 'user-segment-stat-insert',
-            message: `Stored ${insertedStats.identifiers.length} user stream chunk stats to database`,
             count: insertedStats.identifiers.length,
-        }));
+        });
     }
 
-    console.log(JSON.stringify({
-        level: 'info',
+    logger.info(`Updated ${updatedChunks.length} user streams in database`, {
         event: 'user-segment-update',
-        message: `Updated ${updatedChunks.length} user streams in database`,
         count: updatedChunks.length,
-    }));
+    });
 
-    console.log(JSON.stringify({
-        level: 'info',
+    logger.info(`Stored ${newChunks.length} new user streams to database`, {
         event: 'user-segment-insert',
-        message: `Stored ${newChunks.length} new user streams to database`,
         count: newChunks.length,
-    }));
+    });
 
-    console.log(JSON.stringify({
-        level: 'info',
+    logger.info(`Updated ${noLongerLiveResult.affected ?? 0} user streams to no longer be live`, {
         event: 'user-segment-update-not-live',
-        message: `Updated ${noLongerLiveResult.affected ?? 0} user streams to no longer be live`,
         count: noLongerLiveResult.affected ?? 0,
-    }));
+    });
 
     const gameIds = [...new Set(streams.map(s => s.gameId))];
     if (gameIds.length === 0) {
@@ -279,7 +252,7 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, option
     if (newGameIds.length === 0) {
         return;
     }
-    const newGames = await fetchGames(apiClient, newGameIds);
+    const newGames = await fetchGames(apiClient, logger, newGameIds);
 
     if (newGames === null || newGames.length === 0) {
         return;
@@ -292,18 +265,14 @@ export const track = async (apiClient: ApiClient, dataSource: DataSource, option
     }));
     try {
         await dataSource.getRepository(Game).insert(gamesToInsert);
-        console.log(JSON.stringify({
-            level: 'info',
+        logger.info(`Stored ${gamesToInsert.length} new games to database`, {
             event: 'game-insert',
-            message: `Stored ${gamesToInsert.length} new games to database`,
             count: gamesToInsert.length,
-        }));
+        });
     } catch (error) {
-        console.error(JSON.stringify({
-            level: 'error',
-            message: 'Failed to insert chunk',
+        logger.error('Failed to insert chunk', {
             games: gamesToInsert,
             error,
-        }));
+        });
     }
 };

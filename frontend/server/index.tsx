@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import 'reflect-metadata';
+import { createLogger, transports, format, config } from 'winston';
 
 import './tracer';
 
@@ -12,14 +13,29 @@ import { TWRPOApi } from '@twrpo/api';
 import server from './server';
 import requireHttps from './requireHttps';
 
-console.log('Creating new client credentials...');
+const logger = createLogger({
+  levels: config.syslog.levels,
+  transports: [new transports.Console()],
+  level: process.env.LOGGER_LEVEL ?? 'info',
+  format: process.env.LOGGER_FORMAT === 'human'
+    ? format.combine(
+        format.colorize(),
+        format.timestamp(),
+        format.printf(({ timestamp, level, message }) => {
+          return `[${timestamp}] ${level}: ${message}`;
+        })
+      )
+    : format.json(),
+});
+
+logger.info('Creating new client credentials...')
 if (!process.env.TWITCH_CLIENT_ID) {
-    console.log('Missing TWITCH_CLIENT_ID');
+    logger.error('Missing TWITCH_CLIENT_ID');
     process.exit(1);
 }
 const twitchClientId = process.env.TWITCH_CLIENT_ID;
 if (!process.env.TWITCH_CLIENT_SECRET) {
-    console.log('Missing TWITCH_CLIENT_SECRET');
+    logger.error('Missing TWITCH_CLIENT_SECRET');
     process.exit(1);
 }
 const twitchClientSecret = process.env.TWITCH_CLIENT_SECRET;
@@ -29,13 +45,13 @@ const twitchAuthProvider = new ClientCredentialsAuthProvider(
 );
 
 if (!process.env.DATABASE_URL) {
-    console.log('Missing DATABASE_URL');
+    logger.error('Missing DATABASE_URL');
     process.exit(1);
 }
 const postgresUrl = process.env.DATABASE_URL;
 
 if (!process.env.SESSION_SECRET) {
-    console.log('Missing SESSION_SECRET');
+    logger.error('Missing SESSION_SECRET');
     process.exit(1);
 }
 const sessionSecret = process.env.SESSION_SECRET;
@@ -45,28 +61,25 @@ const rootUrl = process.env.ROOT_URL ?? 'https://twrponly.tv';
 const postgresInsecure = (new URL(postgresUrl)).hostname === 'localhost';
 
 if (postgresInsecure) {
-  console.warn(JSON.stringify({
-    level: 'warning',
-    message: 'Using insecure postgres connection',
+  logger.warning('Using insecure postgres connection', {
     postgresHostname: (new URL(postgresUrl)).hostname,
-  }));
+  });
 }
 
 const twrpo = new TWRPOApi({
   twitchAuthProvider,
   postgresUrl,
   postgresInsecure,
+  logger,
 });
 
 twrpo.initialize()
   .then(() => {
     const insecureSessions = rootUrl.startsWith('http://');
     if (insecureSessions) {
-      console.warn(JSON.stringify({
-        level: 'warning',
-        message: 'Using insecure sessions',
+      logger.warning('Using insecure sessions', {
         rootUrl,
-      }));
+      });
     }
     const app = express();
     app.enable('trust proxy');
@@ -79,6 +92,7 @@ twrpo.initialize()
       sessionSecret,
       rootUrl,
       insecureSessions,
+      logger,
     }));
 
     // Auto-refresh Twitch data
@@ -88,6 +102,6 @@ twrpo.initialize()
 
     const httpServer = http.createServer(app);
     httpServer.listen(port, () => {
-        console.log(`HTTP server running on port ${port}!`);
+        logger.info(`HTTP server running on port ${port}!`);
     });
   })

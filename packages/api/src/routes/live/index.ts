@@ -5,10 +5,10 @@ import { ApiClient } from '@twurple/api';
 import { LiveResponse } from '@twrpo/types';
 import { DataSource } from 'typeorm';
 
-import { log } from '../../utils';
 import { getFilteredWrpLive } from './liveData';
 import { fetchSessionUser } from '../v2/whoami';
 import { SessionUser } from '../../SessionUser';
+import { Logger } from '../../logger';
 
 interface InjectionConfiguration {
     targetElementSelector: string;
@@ -31,12 +31,12 @@ interface ExtensionLiveResponse extends LiveResponse {
     injectionConfiguration: InjectionConfiguration;
 }
 
-const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
         const currentUser = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const live = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+        const live = await getFilteredWrpLive(apiClient, dataSource, logger, currentUser);
         return res.send(live);
     });
 
@@ -45,6 +45,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
         const live = await getFilteredWrpLive(
             apiClient,
             dataSource,
+            logger,
             currentUser
         );
 
@@ -52,7 +53,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
         // eslint-disable-next-line max-len
         let baseHtml = '<div class="tno-stream" id="tno-stream-_TNOID_" data-target="" style="order: _ORDER_;"><div class="Layout-sc-1xcs6mc-0 kJTxkr"><div><div class="Layout-sc-1xcs6mc-0"><article data-a-target="card-2" data-a-id="card-_CHANNEL1_" class="Layout-sc-1xcs6mc-0 guHXLE"><div class="Layout-sc-1xcs6mc-0 gUnRUD"><div class="Layout-sc-1xcs6mc-0 ilDsKw"><div class="ScTextWrapper-sc-10mto54-1 fwZpSK"><div class="ScTextMargin-sc-10mto54-2 bcdHdk"><a data-test-selector="TitleAndChannel" data-a-target="preview-card-channel-link" aria-label="_CHANNEL1_ streaming _TITLE_" class="ScCoreLink-sc-16kq0mq-0 jKBAWW tw-link" href="/_CHANNEL1_"><h3 title="_TITLE_" class="CoreText-sc-1txzju1-0 eJuFGD">_TITLE_</h3><p data-a-target="preview-card-channel-link" tabindex="-1" title="_CHANNEL2_" class="CoreText-sc-1txzju1-0 jiepBC">_CHANNEL2_</p></a></div><div class="Layout-sc-1xcs6mc-0 BcKcx"><div class="InjectLayout-sc-1i43xsx-0 hVPOSx"><div class="InjectLayout-sc-1i43xsx-0 koJRns"><button class="ScTag-sc-14s7ciu-0 bOVWlO tw-tag" aria-describedby="wmRiRyrV9rhadV6q7AGAwoHCcFGCRowG" aria-label="English" data-a-target="English"><div class="ScTagContent-sc-14s7ciu-1 fUclzK"><div class="ScTagText-sc-14s7ciu-2 bPzjwR"><span>English</span></div></div></button></div></div></div></div><div class="ScImageWrapper-sc-10mto54-0 jrfBpi"><a data-a-target="card-2" data-a-id="card-_CHANNEL1_" data-test-selector="preview-card-avatar" tabindex="-1" class="ScCoreLink-sc-16kq0mq-0 jSrrlW tw-link" href="/_CHANNEL1_/videos"><div class="ScAspectRatio-sc-18km980-1 gxJZAm tw-aspect"><div class="ScAspectSpacer-sc-18km980-0 kiiGFY"></div><figure aria-label="_CHANNEL1_" class="ScAvatar-sc-144b42z-0 jBfrnP tw-avatar"><img class="InjectLayout-sc-1i43xsx-0 bEwPpb tw-image tw-image-avatar" alt="_CHANNEL1_" src="_PFP_"></figure></div></a></div></div></div><div class="ScWrapper-sc-1wvuch4-0 dSyPJh tw-hover-accent-effect"><div class="ScTransformWrapper-sc-1wvuch4-1 ScCornerTop-sc-1wvuch4-2 gEBqEV hPOElK"></div><div class="ScTransformWrapper-sc-1wvuch4-1 ScCornerBottom-sc-1wvuch4-3 fNwmtl dTxLuP"></div><div class="ScTransformWrapper-sc-1wvuch4-1 ScEdgeLeft-sc-1wvuch4-4 jhgGdR blwnUh"></div><div class="ScTransformWrapper-sc-1wvuch4-1 ScEdgeBottom-sc-1wvuch4-5 dJYDVl dWkueR"></div><div class="ScTransformWrapper-sc-1wvuch4-1 gMwbGx"><a data-a-target="preview-card-image-link" tabindex="-1" class="ScCoreLink-sc-16kq0mq-0 jSrrlW preview-card-image-link tw-link" href="/_CHANNEL1_"><div class="Layout-sc-1xcs6mc-0 hkwQCo"><div class="ScAspectRatio-sc-18km980-1 hTTohL tw-aspect"><div class="ScAspectSpacer-sc-18km980-0 ftHEOL"></div><img alt="_TITLE_ - _CHANNEL1_" class="tw-image" src="https://static-cdn.jtvnw.net/previews-ttv/live_user__CHANNEL1_-440x248.jpg_TIMEID_"></div><div class="ScPositionCorner-sc-1shjvnv-1 hoKYhE"><div class="ScChannelStatusTextIndicator-sc-qtgrnb-0 ivjxmt tw-channel-status-text-indicator" font-size="font-size-6"><p class="CoreText-sc-1txzju1-0 ecTWUv">LIVE</p></div></div><div class="ScPositionCorner-sc-1shjvnv-1 gUtzBI"><div class="ScMediaCardStatWrapper-sc-anph5i-0 bEHknf tw-media-card-stat">_VIEWERS_ viewers</div></div></div></a></div></div></article></div></div></div></div>';
         if (!req.header('TWRPO-Extension-Version')) {
-            log('Sending old baseHtml');
+            logger.info('Sending old baseHtml');
             // If there's no extension version, assume we're <= 1.13.4
             // and send the old baseHtml (as it's slightly less broken
             // than the new baseHtml with the old extension)

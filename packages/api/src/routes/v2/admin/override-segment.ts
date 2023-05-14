@@ -10,8 +10,9 @@ import { wrpCharacters } from '../../../data/characters';
 import { getFilteredWrpLive, forceWrpLiveRefresh } from '../../live/liveData';
 import { fetchSessionUser } from '../whoami';
 import { isEditorForTwitchId } from '../../../userUtils';
+import { Logger } from '../../../logger';
 
-const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.post('/', async (req: Request<any, any, OverrideSegmentRequest>, res) => {
@@ -24,7 +25,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
         }
 
         if (req.body.segmentId === undefined) {
-            console.error('Missing `segmentId`');
+            logger.error('Missing `segmentId`');
             return res.status(400).send({ success: false, errors: [{ message: 'Missing `segmentId` field' }] });
         }
 
@@ -103,19 +104,17 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 ...update,
             });
 
-            const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+            const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, currentUser);
             if (req.body.isHidden === false || liveData.streams.some(s => s.segmentId === req.body.segmentId)) {
                 // If the segment is live (or if we've just unhidden a segment), force a fetch to use the new data
-                await forceWrpLiveRefresh(apiClient, dataSource);
+                await forceWrpLiveRefresh(apiClient, dataSource, logger);
             }
         } catch (error) {
-            console.error(JSON.stringify({
-                level: 'error',
-                message: 'Failed to override segment',
+            logger.error('Failed to override segment', {
                 path: parseurl.original(req)?.pathname,
                 request: req.body,
                 error,
-            }));
+            });
             return res.status(500).send({ success: false, errors: [{ message: 'Unable to update segment' }] });
         }
 

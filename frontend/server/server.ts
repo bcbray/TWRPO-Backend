@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import path from 'path';
 import cors from 'cors';
+import { Logger } from 'winston';
 import { TWRPOApi } from '@twrpo/api';
 
 import ssr from './ssr';
@@ -13,6 +14,7 @@ interface ServerOptions {
   twitchClientSecret: string;
   sessionSecret: string;
   rootUrl: string;
+  logger: Logger,
   insecureSessions?: boolean;
 }
 
@@ -22,6 +24,7 @@ const server = ({
   twitchClientSecret,
   sessionSecret,
   rootUrl,
+  logger,
   insecureSessions = false,
 }: ServerOptions) => {
   const router = Router();
@@ -31,12 +34,13 @@ const server = ({
     twitchClientId,
     twitchClientSecret,
     sessionSecret,
+    logger,
     callbackUrlBase: rootUrl,
     insecure: insecureSessions,
   }));
 
   // Index is SSR
-  router.get('/', ssr(twrpo));
+  router.get('/', ssr(twrpo, logger));
 
   // Redirect /live to /api/v1/live
   const redirectRouter = Router();
@@ -63,7 +67,7 @@ const server = ({
   router.use(express.static(path.resolve('build')));
 
   // And finally, back to SSR for catch-all to handle routing
-  router.get('*', ssr(twrpo));
+  router.get('*', ssr(twrpo, logger));
 
   return router;
 };

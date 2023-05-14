@@ -6,12 +6,13 @@ import { Server } from '../../../db/entity/Server';
 import { SessionUser } from '../../../SessionUser';
 import { fetchSessionUser } from '../whoami';
 import { isGlobalAdmin } from '../../../userUtils';
+import { Logger } from '../../../logger';
 
 interface ReorderRequest {
     ids: number[];
 }
 
-const buildRouter = (dataSource: DataSource): Router => {
+const buildRouter = (dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.post('/', async (req: Request<any, any, ReorderRequest>, res) => {
@@ -57,13 +58,11 @@ const buildRouter = (dataSource: DataSource): Router => {
                 }
             });
         } catch (error) {
-            console.error(JSON.stringify({
-                level: 'error',
-                message: 'Failed to reorder servers',
+            logger.error('Failed to reorder servers', {
                 path: parseurl.original(req)?.pathname,
                 request: req.body,
                 error,
-            }));
+            });
             return res.status(500).send({ success: false, errors: [{ message: 'Unable to reorder servers' }] });
         }
 

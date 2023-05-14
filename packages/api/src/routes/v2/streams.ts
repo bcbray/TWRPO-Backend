@@ -22,10 +22,12 @@ import {
     queryParamInteger,
     ParamError,
 } from '../../queryParams';
+import { Logger } from '../../logger';
 
 export const fetchLiveStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
+    logger: Logger,
     params: Pick<StreamsParams, 'search' | 'factionKey' | 'channelTwitchId' | 'serverKey' | 'serverId' | 'gameKey' | 'tempAllowNoServer'> = {},
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
@@ -60,7 +62,7 @@ export const fetchLiveStreams = async (
             .trim()
         : undefined;
 
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, userResponse);
 
     const streams = searchRegex || factionKey || channelTwitchId
         ? liveData.streams.filter(stream =>
@@ -90,7 +92,7 @@ export const fetchLiveStreams = async (
     const liveDataTwitchUserIdLookup = Object.fromEntries(streams
         .map(s => [s.channelTwitchId, s]));
 
-    const characters = await fetchCharacters(apiClient, dataSource, {}, userResponse);
+    const characters = await fetchCharacters(apiClient, dataSource, logger, {}, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
@@ -237,6 +239,7 @@ const DEFAULT_LIMIT = 24;
 export const fetchRecentStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
+    logger: Logger,
     params: StreamsParams = {},
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
@@ -261,14 +264,14 @@ export const fetchRecentStreams = async (
     const serverKey = hasServerOrGameParam ? propsServerKey : 'wrp';
     const gameKey = hasServerOrGameParam ? propsGameKey : 'rdr2';
 
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, userResponse);
     const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
     const liveCharacterIds = liveData.streams.flatMap(s => (s.characterId ? [s.characterId] : []));
     const liveDataTwitchUserIdLookup = Object.fromEntries(liveData.streams
         .map(s => [s.channelTwitchId, s]));
     const lastRefreshTime = new Date(liveData.tick).toISOString();
 
-    const characters = await fetchCharacters(apiClient, dataSource, {}, userResponse);
+    const characters = await fetchCharacters(apiClient, dataSource, logger, {}, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
@@ -531,6 +534,7 @@ export const fetchRecentStreams = async (
 export const fetchStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
+    logger: Logger,
     params: StreamsParams = {},
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
@@ -547,7 +551,7 @@ export const fetchStreams = async (
 
     const streams: SegmentAndStreamer[] = [];
 
-    const { streams: liveStreams, lastRefreshTime } = await fetchLiveStreams(apiClient, dataSource, params, userResponse);
+    const { streams: liveStreams, lastRefreshTime } = await fetchLiveStreams(apiClient, dataSource, logger, params, userResponse);
 
     const includeLive = cursor === undefined
         && live
@@ -570,7 +574,7 @@ export const fetchStreams = async (
         const {
             streams: recentStreams,
             nextCursor: recentNextCursor,
-        } = await fetchRecentStreams(apiClient, dataSource, { ...params, limit: limit - streams.length }, userResponse);
+        } = await fetchRecentStreams(apiClient, dataSource, logger, { ...params, limit: limit - streams.length }, userResponse);
         streams.push(...recentStreams);
         nextCursor = recentNextCursor;
     } else {
@@ -583,6 +587,7 @@ export const fetchStreams = async (
 export const fetchUnknownStreams = async (
     apiClient: ApiClient,
     dataSource: DataSource,
+    logger: Logger,
     params: StreamsParams = {},
     userResponse: UserResponse
 ): Promise<StreamsResponse> => {
@@ -607,14 +612,14 @@ export const fetchUnknownStreams = async (
     const serverKey = hasServerOrGameParam ? propsServerKey : 'wrp';
     const gameKey = hasServerOrGameParam ? propsGameKey : 'rdr2';
 
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, userResponse);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, userResponse);
     const liveSegmentIds = liveData.streams.flatMap(s => (s.segmentId ? [s.segmentId] : []));
     const liveDataLookup = Object.fromEntries(liveData.streams
         .filter(s => s.segmentId)
         .map(s => [s.segmentId!, s]));
     const lastRefreshTime = new Date(liveData.tick).toISOString();
 
-    const characters = await fetchCharacters(apiClient, dataSource, {}, userResponse);
+    const characters = await fetchCharacters(apiClient, dataSource, logger, {}, userResponse);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
@@ -915,7 +920,7 @@ export const parseStreamsQuery = (query: Request['query'] | URLSearchParams): St
     return params;
 };
 
-const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
@@ -925,7 +930,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
             return res.status(400).send({ success: false, error });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchStreams(apiClient, dataSource, params, userResponse);
+        const response = await fetchStreams(apiClient, dataSource, logger, params, userResponse);
         return res.send(response);
     });
 
@@ -936,7 +941,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
             return res.status(400).send({ success: false, error });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchLiveStreams(apiClient, dataSource, params, userResponse);
+        const response = await fetchLiveStreams(apiClient, dataSource, logger, params, userResponse);
         return res.send(response);
     });
 
@@ -947,7 +952,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
             return res.status(400).send({ success: false, error });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchRecentStreams(apiClient, dataSource, params, userResponse);
+        const response = await fetchRecentStreams(apiClient, dataSource, logger, params, userResponse);
         return res.send(response);
     });
 
@@ -958,7 +963,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
             return res.status(400).send({ success: false, error });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchUnknownStreams(apiClient, dataSource, params, userResponse);
+        const response = await fetchUnknownStreams(apiClient, dataSource, logger, params, userResponse);
         return res.send(response);
     });
 

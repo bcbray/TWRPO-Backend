@@ -10,8 +10,15 @@ import { fetchCharacters } from './characters';
 import { fetchSessionUser } from './whoami';
 import { SessionUser } from '../../SessionUser';
 import { chunkIsShorterThanMinimum } from '../../segmentUtils';
+import { Logger } from '../../logger';
 
-export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource, id: number, currentUser: UserResponse): Promise<VideoSegment | null> => {
+export const fetchSegment = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    logger: Logger,
+    id: number,
+    currentUser: UserResponse
+): Promise<VideoSegment | null> => {
     const segment = await dataSource
         .getRepository(StreamChunk)
         .findOne({
@@ -28,10 +35,10 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
         return null;
     }
 
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, currentUser);
     const liveInfo = liveData.streams.find(s => s.segmentId === segment.id);
 
-    const characters = await fetchCharacters(apiClient, dataSource, {}, currentUser);
+    const characters = await fetchCharacters(apiClient, dataSource, logger, {}, currentUser);
     const characterLookup = Object.fromEntries(
         characters.characters.map(c => [c.id, c])
     );
@@ -70,7 +77,7 @@ export const fetchSegment = async (apiClient: ApiClient, dataSource: DataSource,
     };
 };
 
-const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.get('/:id', async (req, res) => {
@@ -82,7 +89,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
                 .send({ success: false, errors: [{ message: `'${idString}' is not a valid id` }] });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchSegment(apiClient, dataSource, id, userResponse);
+        const response = await fetchSegment(apiClient, dataSource, logger, id, userResponse);
         if (!response) {
             return res
                 .status(404)

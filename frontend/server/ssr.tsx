@@ -5,6 +5,7 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from "react-router-dom/server";
 import { SSRProvider } from "@restart/ui/ssr";
 import { HelmetProvider, FilledContext } from 'react-helmet-async';
+import { Logger } from 'winston';
 
 import { TWRPOApi, SessionUser } from '@twrpo/api';
 import {
@@ -34,7 +35,7 @@ import { rootFactionStylesheetContents } from '../client/FactionStyleProvider';
 import { ServerHookDataProvider, ServerHookData } from '../client/hooks'
 import { Environment, ServerEnvironmentProvider, environmentKey } from '../client/Environment';
 
-const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
+const ssrHandler = (api: TWRPOApi, logger: Logger): RequestHandler => async (req, res) => {
   try {
     let indexHTML = fs.readFileSync(path.resolve('build/index.html'), {
       encoding: 'utf8',
@@ -253,22 +254,18 @@ const ssrHandler = (api: TWRPOApi): RequestHandler => async (req, res) => {
         }
 
         if (!needsAnotherLoad) {
-          console.warn(JSON.stringify({
-              level: 'info',
+          logger.info(`Required ${i} iterations to render ${req.url}`, {
               event: 'ssr-load',
-              message: `Required ${i} iterations to render ${req.url}`,
               iterations: i,
               path: req.url,
-          }));
+          });
           break;
         } else if (i === MAX_LOADS) {
-          console.warn(JSON.stringify({
-              level: 'error',
+          logger.error(`Required more than ${MAX_LOADS} to render ${req.url}`, {
               event: 'ssr-load',
-              message: `Required more than ${MAX_LOADS} to render ${req.url}`,
               iterations: i,
               path: req.url,
-          }));
+          });
         }
       }
       return {
@@ -324,7 +321,7 @@ window.${environmentKey} = ${JSON.stringify(environment).replace(/</g,'\\u003c')
       .contentType('text/html')
       .send(indexHTML);
   } catch (err) {
-    console.error(err);
+    logger.error('Failed to SSR', { error: err });
 
     // Send a real basic 500 screen
     return res

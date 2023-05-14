@@ -8,6 +8,7 @@ import {
     ParamError,
 } from '../../../queryParams';
 import { parseServer, matchServer } from '../../../matcher/server';
+import { Logger } from '../../../logger';
 
 interface TestMatcherParams {
     channel?: string;
@@ -26,7 +27,7 @@ export const parseTestMatcherQuery = (query: Request['query'] | URLSearchParams)
     return params;
 };
 
-const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
@@ -72,7 +73,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
         console.dir(stream);
         console.dir(servers);
 
-        const parsedServers = servers.map(parseServer);
+        const parsedServers = servers.map(parseServer(logger));
 
         const matchedServer = matchServer(stream.title, parsedServers);
 

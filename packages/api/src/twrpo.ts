@@ -41,6 +41,7 @@ import { Session } from './db/entity/Session';
 import { User } from './db/entity/User';
 import { TwitchChannel } from './db/entity/TwitchChannel';
 import { startRefreshing as startRefreshingVideos } from './fetchVideos';
+import { Logger, LogMethod } from './logger';
 
 interface ApiOptions {
     twitchAuthProvider: AuthProvider;
@@ -50,21 +51,15 @@ interface ApiOptions {
     videoRefreshInterval?: number;
     databaseStatsLogInterval?: number;
     databasePartitionMaintenanceInterval?: number;
+    logger?: Logger;
 }
-
-const twurpleLogRemap: Record<LogLevel, string> = {
-    [LogLevel.CRITICAL]: 'critical',
-    [LogLevel.ERROR]: 'error',
-    [LogLevel.WARNING]: 'warning',
-    [LogLevel.INFO]: 'info',
-    [LogLevel.DEBUG]: 'debug',
-    [LogLevel.TRACE]: 'debug',
-};
 
 class Api {
     twitchClient: ApiClient;
 
     apiRouter: Router;
+
+    logger: Logger;
 
     private dataSource: DataSource;
 
@@ -87,15 +82,35 @@ class Api {
     private databasePartitionMaintenanceTimeout: IntervalTimeout | null;
 
     constructor(options: ApiOptions) {
+        this.logger = options.logger ?? {
+            emerg: console.error,
+            alert: console.error,
+            crit: console.error,
+            error: console.error,
+            warning: console.warn,
+            notice: console.warn,
+            info: console.info,
+            debug: console.debug,
+        };
         this.twitchClient = new ApiClient({
             logger: {
                 minLevel: LogLevel.WARNING,
                 custom: (level, message) => {
-                    console.log(JSON.stringify({
-                        level: twurpleLogRemap[level],
-                        event: 'twitch-api-log',
-                        message,
-                    }));
+                    let method: LogMethod = this.logger.info;
+                    if (level === LogLevel.CRITICAL) {
+                        method = this.logger.error;
+                    } else if (level === LogLevel.ERROR) {
+                        method = this.logger.error;
+                    } else if (level === LogLevel.WARNING) {
+                        method = this.logger.warning;
+                    } else if (level === LogLevel.INFO) {
+                        method = this.logger.info;
+                    } else if (level === LogLevel.DEBUG) {
+                        method = this.logger.debug;
+                    } else if (level === LogLevel.TRACE) {
+                        method = this.logger.debug;
+                    }
+                    method(message, { event: 'twitch-api-log' });
                 },
             },
             authProvider: options.twitchAuthProvider,
@@ -108,21 +123,21 @@ class Api {
         this.apiRouter = Router();
         this.apiRouter.use(cors());
         this.apiRouter.use(express.json());
-        this.apiRouter.use('/v1/live', routes.liveRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/characters', routes.v2CharactersRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/factions', routes.v2FactionsRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/streamers', routes.v2StreamersRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/unknown', routes.v2UnknownRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/segments', routes.v2SegmentsRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/streams', routes.v2StreamsRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/servers', routes.v2ServersRouter(this.twitchClient, this.dataSource));
+        this.apiRouter.use('/v1/live', routes.liveRouter(this.twitchClient, this.dataSource, this.logger));
+        this.apiRouter.use('/v2/characters', routes.v2CharactersRouter(this.twitchClient, this.dataSource, this.logger));
+        this.apiRouter.use('/v2/factions', routes.v2FactionsRouter(this.twitchClient, this.dataSource, this.logger));
+        this.apiRouter.use('/v2/streamers', routes.v2StreamersRouter(this.twitchClient, this.dataSource, this.logger));
+        this.apiRouter.use('/v2/unknown', routes.v2UnknownRouter(this.twitchClient, this.dataSource, this.logger));
+        this.apiRouter.use('/v2/segments', routes.v2SegmentsRouter(this.twitchClient, this.dataSource, this.logger));
+        this.apiRouter.use('/v2/streams', routes.v2StreamsRouter(this.twitchClient, this.dataSource, this.logger));
+        this.apiRouter.use('/v2/servers', routes.v2ServersRouter(this.twitchClient, this.dataSource, this.logger));
         this.apiRouter.use('/v2/whoami', routes.v2WhoamiRouter(this.dataSource));
-        this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter(this.dataSource));
+        this.apiRouter.use('/v2/submit-feedback', routes.v2FeedbackRouter(this.dataSource, this.logger));
         this.apiRouter.use('/v2/users', routes.v2UsersRouter(this.dataSource));
         this.apiRouter.use('/v2/timeseries', routes.v2TimeseriesRouter(this.dataSource));
-        this.apiRouter.use('/v2/admin/override-segment', routes.v2AdminOverrideSegmentRouter(this.twitchClient, this.dataSource));
-        this.apiRouter.use('/v2/admin/reorder-servers', routes.v2AdminReorderServersRouter(this.dataSource));
-        this.apiRouter.use('/v2/admin/test-matcher', routes.v2AdminTestMatcherRouter(this.twitchClient, this.dataSource));
+        this.apiRouter.use('/v2/admin/override-segment', routes.v2AdminOverrideSegmentRouter(this.twitchClient, this.dataSource, this.logger));
+        this.apiRouter.use('/v2/admin/reorder-servers', routes.v2AdminReorderServersRouter(this.dataSource, this.logger));
+        this.apiRouter.use('/v2/admin/test-matcher', routes.v2AdminTestMatcherRouter(this.twitchClient, this.dataSource, this.logger));
 
         const { liveRefreshInterval = 1000 * 60 } = options;
         this.liveRefreshInterval = liveRefreshInterval;
@@ -144,59 +159,59 @@ class Api {
     }
 
     public async fetchLive(currentUser: UserResponse): Promise<LiveResponse> {
-        return getFilteredWrpLive(this.twitchClient, this.dataSource, currentUser);
+        return getFilteredWrpLive(this.twitchClient, this.dataSource, this.logger, currentUser);
     }
 
     public async fetchFactionsWithQuery(query: string | undefined, currentUser: UserResponse): Promise<FactionsResponse> {
         const params = parseFactionsQuery(new URLSearchParams(query));
         if ('error' in params) {
-            console.error('Invalid query');
+            this.logger.error('Invalid query', { params });
             return { factions: [] };
         }
         return this.fetchFactions(params, currentUser);
     }
 
     public async fetchFactions(params: FactionsParams, currentUser: UserResponse): Promise<FactionsResponse> {
-        return fetchFactions(this.twitchClient, this.dataSource, params, currentUser);
+        return fetchFactions(this.twitchClient, this.dataSource, this.logger, params, currentUser);
     }
 
     public async fetchCharactersWithQuery(query: string | undefined, currentUser: UserResponse): Promise<CharactersResponse> {
         const params = parseCharactersQuery(new URLSearchParams(query));
         if ('error' in params) {
-            console.error('Invalid query');
+            this.logger.error('Invalid query', { params });
             return { characters: [], factions: [] };
         }
         return this.fetchCharacters(params, currentUser);
     }
 
     public async fetchCharacters(params: CharactersParams | undefined, currentUser: UserResponse): Promise<CharactersResponse> {
-        return fetchCharacters(this.twitchClient, this.dataSource, params, currentUser);
+        return fetchCharacters(this.twitchClient, this.dataSource, this.logger, params, currentUser);
     }
 
     public async fetchStreamer(name: string, currentUser: UserResponse): Promise<StreamerResponse | null> {
-        return fetchStreamer(this.twitchClient, this.dataSource, name, currentUser);
+        return fetchStreamer(this.twitchClient, this.dataSource, this.logger, name, currentUser);
     }
 
     public async fetchStreamers(currentUser: UserResponse): Promise<StreamersResponse> {
-        return fetchStreamers(this.twitchClient, this.dataSource, currentUser);
+        return fetchStreamers(this.twitchClient, this.dataSource, this.logger, currentUser);
     }
 
     public async fetchUnknown(currentUser: UserResponse): Promise<UnknownResponse> {
-        return fetchUnknown(this.twitchClient, this.dataSource, currentUser);
+        return fetchUnknown(this.twitchClient, this.dataSource, this.logger, currentUser);
     }
 
     public async fetchSegment(id: number, currentUser: UserResponse): Promise<VideoSegment | null> {
-        return fetchSegment(this.twitchClient, this.dataSource, id, currentUser);
+        return fetchSegment(this.twitchClient, this.dataSource, this.logger, id, currentUser);
     }
 
     public async fetchLiveStreams(currentUser: UserResponse): Promise<StreamsResponse> {
-        return fetchLiveStreams(this.twitchClient, this.dataSource, {}, currentUser);
+        return fetchLiveStreams(this.twitchClient, this.dataSource, this.logger, {}, currentUser);
     }
 
     public async fetchRecentStreamsWithQuery(query: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
         const params = parseStreamsQuery(new URLSearchParams(query));
         if ('error' in params) {
-            console.error('Invalid query');
+            this.logger.error('Invalid query', { params });
             return { streams: [], lastRefreshTime: new Date().toISOString() };
         }
         const result = this.fetchRecentStreams(params, currentUser);
@@ -204,13 +219,13 @@ class Api {
     }
 
     public async fetchRecentStreams(params: StreamsParams | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
-        return fetchRecentStreams(this.twitchClient, this.dataSource, params, currentUser);
+        return fetchRecentStreams(this.twitchClient, this.dataSource, this.logger, params, currentUser);
     }
 
     public async fetchStreamsWithQuery(query: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
         const params = parseStreamsQuery(new URLSearchParams(query));
         if ('error' in params) {
-            console.error('Invalid query');
+            this.logger.error('Invalid query', { params });
             return { streams: [], lastRefreshTime: new Date().toISOString() };
         }
         const result = this.fetchStreams(params, currentUser);
@@ -218,28 +233,28 @@ class Api {
     }
 
     public async fetchStreams(params: StreamsParams | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
-        return fetchStreams(this.twitchClient, this.dataSource, params, currentUser);
+        return fetchStreams(this.twitchClient, this.dataSource, this.logger, params, currentUser);
     }
 
     public async fetchUnknownStreamsWithQuery(query: string | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
         const params = parseStreamsQuery(new URLSearchParams(query));
         if ('error' in params) {
-            console.error('Invalid query');
+            this.logger.error('Invalid query', { params });
             return { streams: [], lastRefreshTime: new Date().toISOString() };
         }
         return this.fetchUnknownStreams(params, currentUser);
     }
 
     public async fetchUnknownStreams(params: StreamsParams | undefined, currentUser: UserResponse): Promise<StreamsResponse> {
-        return fetchUnknownStreams(this.twitchClient, this.dataSource, params, currentUser);
+        return fetchUnknownStreams(this.twitchClient, this.dataSource, this.logger, params, currentUser);
     }
 
     public async fetchServer(key: string, currentUser: UserResponse): Promise<ServerResponse | null> {
-        return fetchServer(this.twitchClient, this.dataSource, key, currentUser);
+        return fetchServer(this.twitchClient, this.dataSource, this.logger, key, currentUser);
     }
 
     public async fetchServers(currentUser: UserResponse): Promise<ServersResponse> {
-        return fetchServers(this.twitchClient, this.dataSource, currentUser);
+        return fetchServers(this.twitchClient, this.dataSource, this.logger, currentUser);
     }
 
     public async fetchSessionUser(sessionUser: SessionUser | undefined): Promise<UserResponse> {
@@ -293,11 +308,11 @@ class Api {
         if (this.liveRefreshTimeout || this.videoRefreshTimeout || this.videoRefreshInitialTimeout) {
             this.stopRefreshing();
         }
-        this.liveRefreshTimeout = startRefreshingLive(this.twitchClient, this.dataSource, this.liveRefreshInterval);
+        this.liveRefreshTimeout = startRefreshingLive(this.twitchClient, this.dataSource, this.logger, this.liveRefreshInterval);
         // Wait half the live interval to start the video refresh to stagger them
         this.videoRefreshInitialTimeout = setTimeout(() => {
             this.videoRefreshInitialTimeout = null;
-            this.videoRefreshTimeout = startRefreshingVideos(this.twitchClient, this.dataSource, this.videoRefreshInterval);
+            this.videoRefreshTimeout = startRefreshingVideos(this.twitchClient, this.dataSource, this.logger, this.videoRefreshInterval);
         }, this.liveRefreshInterval / 2);
     }
 
@@ -391,33 +406,27 @@ class Api {
                     count = Number.parseInt(estimate, 10);
                 }
                 counts[table] = { kind, count };
-                console.log(JSON.stringify({
-                    level: 'info',
+                this.logger.info(`Stats for ${table}`, {
                     event: 'database-table-stats',
                     tableStats: {
                         table,
                         kind,
                         count,
-                        size
+                        size,
                     },
-                }));
+                });
             }
             const totalSizeResults: { size: string }[] = await this.dataSource.query(`
                 SELECT pg_database_size(current_database()) AS size
             `);
-            console.log(JSON.stringify({
-                level: 'info',
+            this.logger.info('Total database stats', {
                 event: 'database-stats',
                 tableCounts: Object.fromEntries(Object.entries(counts).map(([table, d]) => [table, d.count])),
                 totalCount: Object.values(counts).filter(d => d.kind !== 'partition-parent-table').reduce((sum, d) => sum + d.count, 0),
                 totalSize: totalSizeResults.length > 0 ? totalSizeResults[0].size : undefined,
-            }));
+            });
         } catch (error) {
-            console.error(JSON.stringify({
-                level: 'error',
-                message: 'Failed to log database stats',
-                error,
-            }));
+            this.logger.error('Failed to log database stats', { error });
         }
     }
 
@@ -441,17 +450,14 @@ class Api {
     async runDatabasePartitionMaintenance(): Promise<void> {
         try {
             const results = await this.dataSource.query('SELECT run_maintenance()');
-            console.log(JSON.stringify({
-                level: 'info',
+            this.logger.info('Running database partition maintenance', {
                 event: 'database-partition-maintenance',
                 results,
-            }));
+            });
         } catch (error) {
-            console.error(JSON.stringify({
-                level: 'error',
-                message: 'Failed to perform database partition maintenance',
+            this.logger.error('Failed to perform database partition maintenance', {
                 error,
-            }));
+            });
         }
     }
 }

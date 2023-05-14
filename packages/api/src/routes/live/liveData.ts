@@ -4,7 +4,7 @@ import { DataSource, Not, In } from 'typeorm';
 import { LiveResponse, Stream, CharacterInfo, UserResponse } from '@twrpo/types';
 
 import {
-    log, cloneDeepJson, mapObj,
+    cloneDeepJson, mapObj,
     parseLookup, videoUrlOffset,
 } from '../../utils';
 
@@ -36,6 +36,7 @@ import type { WrpFactionsRegexMini, FactionColorsMini, FactionColorsRealMini } f
 import type { Podcast } from '../../data/podcasts';
 import type { TwitchUser } from '../../pfps';
 import type { ParsedServer } from '../../matcher/server';
+import type { Logger } from '../../logger';
 
 import { StreamChunk } from '../../db/entity/StreamChunk';
 import { Video } from '../../db/entity/Video';
@@ -265,10 +266,10 @@ const wrpFactionsRegexEntries = Object.entries(wrpFactionsRegex) as [WrpFactions
 
 const knownPfps: { [key: string]: string } = {};
 const knownTwitchUsers: { [key: string]: TwitchUser } = {};
-let unknownTwitchUsers: { [key: string]: TwitchUser } = {};
+const unknownTwitchUsers: { [key: string]: TwitchUser } = {};
 
-const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise<HelixStream[] | null> => {
-    const knownUsers = await getKnownTwitchUsers(apiClient, dataSource);
+const getStreams = async (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Promise<HelixStream[] | null> => {
+    const knownUsers = await getKnownTwitchUsers(apiClient, dataSource, logger);
     knownUsers.forEach((user) => {
         knownPfps[user.id] = user.profilePictureUrl.replace('-300x300.', '-50x50.');
         knownTwitchUsers[user.id] = user;
@@ -292,7 +293,7 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise
             });
 
             if (gtaStreamsNow.data.length === 0) {
-                log(`Search ended (limit: ${limitNow})`, gtaStreamsNow);
+                logger.info(`Search ended (limit: ${limitNow})`, gtaStreamsNow);
                 break;
             }
 
@@ -306,16 +307,14 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise
                     title,
                 } = helixStream;
                 if (gameId !== game) {
-                    console.log(JSON.stringify({
-                        level: 'notice',
-                        message: `Got stream for incorrect game for  ${userDisplayName}`,
+                    logger.notice(`Got stream for incorrect game for  ${userDisplayName}`, {
                         event: 'twitch-stream-fetch-wrong-game',
                         channel: userDisplayName,
                         title,
                         gameName,
                         gameId,
                         userId,
-                    }));
+                    });
                     continue;
                 }
                 if (gtaStreamsObj[userId]) continue;
@@ -327,7 +326,7 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise
             }
 
             if (lookupStreams.length > 0) {
-                log(`Looking up pfp for ${lookupStreams.length} users after...`);
+                logger.info(`Looking up pfp for ${lookupStreams.length} users after...`);
                 const foundUsers = await apiClient.users.getUsersByIds(lookupStreams);
                 for (const helixUser of foundUsers) {
                     knownPfps[helixUser.id] = helixUser.profilePictureUrl.replace('-300x300.', '-50x50.');
@@ -344,12 +343,10 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource): Promise
             after = gtaStreamsNow.cursor;
         }
     } catch (error) {
-        console.log(JSON.stringify({
-            level: 'warning',
-            message: 'Failed to fetch streams',
+        logger.warning('Failed to fetch streams', {
             event: 'twitch-stream-fetch-failed',
             error,
-        }));
+        });
         return null;
     }
 
@@ -390,46 +387,43 @@ const wrpPodcastReg: { podcast: Podcast, reg: RegExp }[] = wrpPodcasts.map((podc
 const getWrpLive = async (
     apiClient: ApiClient,
     dataSource: DataSource,
+    logger: Logger,
     override = false
 ): Promise<InternalLiveResponse> => {
     if (!override && cachedResults !== undefined) {
-        log('Returning cached results.');
+        logger.info('Returning cached results.');
         return cachedResults;
     }
 
     const fetchID = randomUUID();
     const fetchStart = process.hrtime.bigint();
-    console.log(JSON.stringify({ traceID: fetchID, event: 'start' }));
+    logger.info('Started fetching live', { traceID: fetchID, event: 'start' });
 
     if (wrpStreamsPromise === undefined || override) {
         wrpStreamsPromise = new Promise<InternalLiveResponse>(async (resolve, reject) => {
             try {
-                log('Fetching streams data...');
+                logger.info('Fetching streams data...');
 
                 const now = new Date();
                 const nowTime = +now;
 
-                let gtaStreams: HelixStream[] | null = await getStreams(apiClient, dataSource);
+                let gtaStreams: HelixStream[] | null = await getStreams(apiClient, dataSource, logger);
                 if (gtaStreams === null) {
                     if (cachedResults) {
-                        console.warn(JSON.stringify({
-                            level: 'notice',
-                            message: 'Failed to fetch streams, using previously-cached results',
-                        }));
+                        logger.warning('Failed to fetch streams, using previously-cached results');
                         resolve(cachedResults);
                         return;
                     }
-                    console.warn(JSON.stringify({
-                        level: 'warning',
-                        message: 'Failed to fetch streams and had no cached results',
-                    }));
+                    logger.warning('Failed to fetch streams and had no cached results');
                     gtaStreams = [];
                 }
 
                 const fetchEnd = process.hrtime.bigint();
-                console.log(JSON.stringify({ traceID: fetchID, event: 'fetched', fetchTime: Number((fetchEnd - fetchStart) / BigInt(1e+6)) }));
-
-                log('Fetched streams! Now processing data...');
+                logger.info(`Fetched ${gtaStreams.length} streams! Now processing data...`, {
+                    traceID: fetchID,
+                    event: 'fetched',
+                    fetchTime: Number((fetchEnd - fetchStart) / BigInt(1e+6)),
+                });
 
                 let nextId = 0;
                 const wrpStreams: Stream[] = [];
@@ -437,9 +431,9 @@ const getWrpLive = async (
 
                 const newChunks: StreamChunk[] = [];
                 const updatedChunks: StreamChunk[] = [];
-                const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck' | 'isTracked'>[] = [];
+                const newChannels: Omit<TwitchChannel, 'id' | 'createdAt' | 'lastVideoCheck' | 'isTracked' | 'isHidden'>[] = [];
 
-                const wrpServer = parseServer(await dataSource.getRepository(Server).findOneOrFail({
+                const wrpServer = parseServer(logger)(await dataSource.getRepository(Server).findOneOrFail({
                     where: {
                         key: 'wrp',
                         game: { twitchId: game },
@@ -455,7 +449,7 @@ const getWrpLive = async (
                     .leftJoinAndSelect('server.regexes', 'regex')
                     .where('server.key IS NULL OR server.key != :key', { key: 'wrp' })
                     .andWhere('game.twitchId = :game', { game })
-                    .getMany()).map(parseServer);
+                    .getMany()).map(parseServer(logger));
 
                 interface CharacterDuration {
                     streamerId: string,
@@ -560,13 +554,11 @@ const getWrpLive = async (
                                     onOtherGeneric = true;
                                 }
                             } else {
-                                console.warn(JSON.stringify({
-                                    level: 'error',
-                                    message: 'Found overriden server but unable to find matching server in databse',
+                                logger.error('Found overriden server but unable to find matching server in databse', {
                                     segment: mostRecentStreamSegment,
                                     wrpServer,
                                     otherServers,
-                                }));
+                                });
                                 continue;
                             }
                         }
@@ -591,13 +583,11 @@ const getWrpLive = async (
                                     }
                                 } catch (error) {
                                     if (error instanceof SyntaxError) {
-                                        console.error(JSON.stringify({
-                                            level: 'error',
-                                            message: 'Failed construct regex for server match',
+                                        logger.error('Failed construct regex for server match', {
                                             server: otherServer,
                                             regex: otherRegex,
                                             error,
-                                        }));
+                                        });
                                     } else {
                                         throw error;
                                     }
@@ -617,13 +607,11 @@ const getWrpLive = async (
                                 }
                             } catch (error) {
                                 if (error instanceof SyntaxError) {
-                                    console.error(JSON.stringify({
-                                        level: 'error',
-                                        message: 'Failed construct regex for server match',
+                                    logger.error('Failed construct regex for server match', {
                                         server: wrpServer,
                                         regex: wrpRegex,
                                         error,
-                                    }));
+                                    });
                                 } else {
                                     throw error;
                                 }
@@ -648,11 +636,9 @@ const getWrpLive = async (
                                 || testServerName !== serverName
                                 || testOnNp !== onNp
                             ) {
-                                console.warn(JSON.stringify({
-                                    level: 'warning',
+                                logger.warning('Mismatch in new server matcher', {
                                     event: 'matcher-mismatch',
                                     subevent: 'server-matcher-mismatch',
-                                    message: 'Mismatch in new server matcher',
                                     channelName,
                                     title,
 
@@ -673,7 +659,7 @@ const getWrpLive = async (
 
                                     testOnNp,
                                     onNp,
-                                }));
+                                });
                             }
                         })();
                     }
@@ -681,7 +667,7 @@ const getWrpLive = async (
                     const characters = wrpCharacters[channelNameLower] as WrpCharacter | undefined;
 
                     if (characters && characters.assumeOther === ASTATES.neverNp) {
-                        console.log(`Excluded ${channelName} because of "neverNp"`);
+                        logger.info(`Excluded ${channelName} because of "neverNp"`);
                         continue;
                     }
 
@@ -751,14 +737,12 @@ const getWrpLive = async (
                                 if (mostRecentStreamSegment?.characterId) {
                                     nowCharacter = characters.find(c => c.id === mostRecentStreamSegment?.characterId);
                                 }
-                                console.log(JSON.stringify({
-                                    level: 'info',
+                                logger.info(`Found override for ${channelName} to character ${nowCharacter ? `"${nowCharacter.name}"` : '(NULL)'}`, {
                                     event: 'stream-override',
-                                    message: `Found override for ${channelName} to character ${nowCharacter ? `"${nowCharacter.name}"` : '(NULL)'}`,
                                     channel: channelName,
                                     title,
                                     character: nowCharacter?.name ?? null,
-                                }));
+                                });
                             } else {
                                 let lowestPos = Infinity;
                                 let maxResults = -1;
@@ -858,15 +842,13 @@ const getWrpLive = async (
                                             possibleCharacter = char;
                                             foundLongest = true;
                                             if (char.id !== characters[0].id) {
-                                                console.log(JSON.stringify({
-                                                    level: 'info',
+                                                // eslint-disable-next-line max-len
+                                                logger.info(`Guessing character "${char.name}" (${char.id}) instead of "${characters[0].name}" (${characters[0].id}) based on previous stream duration`, {
                                                     event: 'longest-character-guess',
-                                                    // eslint-disable-next-line max-len
-                                                    message: `Guessing character "${char.name}" (${char.id}) instead of "${characters[0].name}" (${characters[0].id}) based on previous stream duration`,
                                                     channel: channelName,
                                                     title,
                                                     longestCharacters,
-                                                }));
+                                                });
                                             }
                                             break;
                                         }
@@ -945,14 +927,12 @@ const getWrpLive = async (
                             isHidden: mostRecentStreamSegment?.isHidden ?? false,
                         };
 
-                        console.log(JSON.stringify({
-                            level: 'info',
+                        logger.info(`Found stream for ${channelName} with tag "${stream.tagText}"`, {
                             event: 'stream',
                             traceID: fetchID,
-                            message: `Found stream for ${channelName} with tag "${stream.tagText}"`,
                             channel: channelName,
                             stream,
-                        }));
+                        });
 
                         for (const faction of activeFactions) factionCount[faction]++;
                         factionCount.allwildrp++;
@@ -1005,12 +985,10 @@ const getWrpLive = async (
                             });
                             segmentId = mostRecentStreamSegment.id;
                         } catch (error) {
-                            console.error(JSON.stringify({
-                                level: 'error',
-                                message: 'Failed to update chunk',
+                            logger.error('Failed to update chunk', {
                                 chunkUpdate,
                                 error,
-                            }));
+                            });
                             continue;
                         }
                     } else {
@@ -1021,12 +999,10 @@ const getWrpLive = async (
                             newChunks.push(newChunk);
                             segmentId = newChunk.id;
                         } catch (error) {
-                            console.error(JSON.stringify({
-                                level: 'error',
-                                message: 'Failed to insert chunk',
+                            logger.error('Failed to insert chunk', {
                                 chunk,
                                 error,
-                            }));
+                            });
                             continue;
                         }
                     }
@@ -1072,34 +1048,26 @@ const getWrpLive = async (
                                 viewerCount: c.lastViewerCount,
                             })));
 
-                        console.log(JSON.stringify({
-                            level: 'info',
+                        logger.info(`Stored ${insertedStats.identifiers.length} stream chunk stats to database`, {
                             event: 'segment-stat-insert',
-                            message: `Stored ${insertedStats.identifiers.length} stream chunk stats to database`,
                             count: insertedStats.identifiers.length,
-                        }));
+                        });
                     }
 
-                    console.log(JSON.stringify({
-                        level: 'info',
+                    logger.info(`Updated ${updatedChunks.length} streams in database`, {
                         event: 'segment-update',
-                        message: `Updated ${updatedChunks.length} streams in database`,
                         count: updatedChunks.length,
-                    }));
+                    });
 
-                    console.log(JSON.stringify({
-                        level: 'info',
+                    logger.info(`Stored ${newChunks.length} new streams to database`, {
                         event: 'segment-insert',
-                        message: `Stored ${newChunks.length} new streams to database`,
                         count: newChunks.length,
-                    }));
+                    });
 
-                    console.log(JSON.stringify({
-                        level: 'info',
+                    logger.info(`Updated ${noLongerLiveResult.affected ?? 0} streams to no longer be live`, {
                         event: 'segment-update-not-live',
-                        message: `Updated ${noLongerLiveResult.affected ?? 0} streams to no longer be live`,
                         count: noLongerLiveResult.affected ?? 0,
-                    }));
+                    });
 
                     if (newChannels.length) {
                         const result = await dataSource
@@ -1112,12 +1080,10 @@ const getWrpLive = async (
                             id ? count + 1 : count
                         ), 0);
                         if (updateCount) {
-                            console.log(JSON.stringify({
-                                level: 'info',
+                            logger.info(`Updated ${updateCount} twitch channels in database`, {
                                 event: 'channel-update',
-                                message: `Updated ${updateCount} twitch channels in database`,
                                 count: updateCount,
-                            }));
+                            });
                         }
                         Object.assign(
                             knownTwitchUsers,
@@ -1144,13 +1110,11 @@ const getWrpLive = async (
                     const recentVideosMissingThumbnails = await recentVideosMissingThumbnailsQueryBuilder.getMany();
 
                     if (recentVideosMissingThumbnails.length) {
-                        await fetchMissingThumbnailsForVideoIds(apiClient, dataSource, recentVideosMissingThumbnails.map(v => v.videoId));
+                        await fetchMissingThumbnailsForVideoIds(apiClient, dataSource, logger, recentVideosMissingThumbnails.map(v => v.videoId));
                     } else {
-                        console.log(JSON.stringify({
-                            level: 'info',
-                            message: 'No recent videos missing thumbnails',
+                        logger.info('No recent videos missing thumbnails', {
                             event: 'video-thumbnail-skip',
-                        }));
+                        });
                     }
 
                     // Fetch videos for users who just went offline
@@ -1179,32 +1143,26 @@ const getWrpLive = async (
                         let foundVideos = 0;
                         for (const streamerId of streamerIds) {
                             try {
-                                foundVideos += await fetchVideosForUser(apiClient, dataSource, streamerId, streamIds);
+                                foundVideos += await fetchVideosForUser(apiClient, dataSource, logger, streamerId, streamIds);
                             } catch (error) {
-                                console.error(JSON.stringify({
-                                    level: 'warning',
-                                    message: `Failed to fetch videos for user ${streamerId}`,
+                                logger.warning(`Failed to fetch videos for user ${streamerId}`, {
                                     event: 'twitch-user-video-fetch',
                                     error,
-                                }));
+                                });
                             }
                         }
-                        console.log(JSON.stringify({
-                            level: 'info',
-                            message: `Fetched videos for ${streamerIds.length} users, found ${foundVideos} videos`,
+                        logger.info(`Fetched videos for ${streamerIds.length} users, found ${foundVideos} videos`, {
                             event: 'video-end',
                             userCount: streamerIds.length,
                             foundVideos,
-                        }));
+                        });
                     } else {
-                        console.log(JSON.stringify({
-                            level: 'info',
-                            message: 'No recent stream segments to fetch videos for',
+                        logger.info('No recent stream segments to fetch videos for', {
                             event: 'video-skip',
-                        }));
+                        });
                     }
                 } catch (error) {
-                    console.error(JSON.stringify({ level: 'error', message: 'Failed to store streams to db', error }));
+                    logger.error('Failed to store streams to db', { error });
                 }
 
                 factionCount.alltwitch = gtaStreams.length;
@@ -1312,11 +1270,9 @@ const getWrpLive = async (
                     recentChunks.forEach((chunk) => {
                         let { videoUrl } = chunk;
                         if (!chunk.streamerId || !chunk.characterId || !chunk.lastSeenDate) {
-                            console.warn(JSON.stringify({
-                                level: 'warning',
-                                message: 'Missing required properties on recent stream segment',
+                            logger.warning('Missing required properties on recent stream segment', {
                                 segment: chunk,
-                            }));
+                            });
                             return;
                         }
                         const knownUser = knownTwitchUsers[chunk.streamerId];
@@ -1348,10 +1304,10 @@ const getWrpLive = async (
                         });
                     });
                 } catch (error) {
-                    console.error(JSON.stringify({ level: 'error', message: 'Failed to load recent characters', error }));
+                    logger.error('Failed to load recent characters', { error });
                 }
 
-                // log(filterFactions);
+                // logger.info(filterFactions);
 
                 const result: InternalLiveResponse = {
                     ...includedData,
@@ -1365,12 +1321,11 @@ const getWrpLive = async (
                         : undefined,
                 };
 
-                // console.log('npStreamsFb', npStreamsFb);
+                // logger.debug('npStreamsFb', npStreamsFb);
 
                 cachedResults = result;
-                log('Done fetching streams data!');
                 const parseEnd = process.hrtime.bigint();
-                console.log(JSON.stringify({
+                logger.info('Done fetching streams data!', {
                     traceID: fetchID,
                     event: 'done',
                     factionCount,
@@ -1388,28 +1343,32 @@ const getWrpLive = async (
                         }
                         return viewers;
                     }, {}),
-                }));
+                });
                 resolve(result);
             } catch (err) {
                 const parseEnd = process.hrtime.bigint();
-                console.log(JSON.stringify({ traceID: fetchID, event: 'failed', error: err, totalTime: Number((parseEnd - fetchStart) / BigInt(1e+6)) }));
-                log('Failed to fetch streams data:', err);
+                logger.error('Failed to fetch streams data', {
+                    traceID: fetchID,
+                    event: 'failed',
+                    error: err,
+                    totalTime: Number((parseEnd - fetchStart) / BigInt(1e+6)),
+                });
                 reject(err);
             }
         });
     } else {
-        log('Waiting for wrpStreamsPromise...');
+        logger.info('Waiting for wrpStreamsPromise...');
     }
 
     await wrpStreamsPromise;
 
-    log('Got data!');
+    logger.info('Got data!');
 
     return cachedResults!;
 };
 
-export const getFilteredWrpLive = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<LiveResponse> => {
-    const { streams, ...rest } = await getWrpLive(apiClient, dataSource);
+export const getFilteredWrpLive = async (apiClient: ApiClient, dataSource: DataSource, logger: Logger, currentUser: UserResponse): Promise<LiveResponse> => {
+    const { streams, ...rest } = await getWrpLive(apiClient, dataSource, logger);
     const isEditor = isGlobalEditor(currentUser);
     return {
         streams: streams
@@ -1418,47 +1377,45 @@ export const getFilteredWrpLive = async (apiClient: ApiClient, dataSource: DataS
     };
 };
 
-export const forceWrpLiveRefresh = async (apiClient: ApiClient, dataSource: DataSource): Promise<void> => {
-    await getWrpLive(apiClient, dataSource, true);
+export const forceWrpLiveRefresh = async (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Promise<void> => {
+    await getWrpLive(apiClient, dataSource, logger, true);
 };
 
-export const getWrpStreams = async (apiClient: ApiClient, dataSource: DataSource, override = false): Promise<Stream[]> => {
-    const live = await getWrpLive(apiClient, dataSource, override);
+export const getWrpStreams = async (apiClient: ApiClient, dataSource: DataSource, logger: Logger, override = false): Promise<Stream[]> => {
+    const live = await getWrpLive(apiClient, dataSource, logger, override);
     return live.streams;
 };
 
 export type IntervalTimeout = ReturnType<typeof setInterval>;
 
-const logAPIStats = (apiClient: ApiClient) =>
-    console.log(JSON.stringify({
-        level: 'info',
+const logAPIStats = (apiClient: ApiClient, logger: Logger) =>
+    logger.info(`${apiClient.lastKnownRemainingRequests} remaining requests until ${apiClient.lastKnownResetDate} with a limit of ${apiClient.lastKnownLimit}`, {
         event: 'twitch-api-stats',
-        message: `${apiClient.lastKnownRemainingRequests} remaining requests until ${apiClient.lastKnownResetDate} with a limit of ${apiClient.lastKnownLimit}`,
         now: new Date(),
         limit: apiClient.lastKnownLimit,
         requests: apiClient.lastKnownRemainingRequests,
         resetDate: apiClient.lastKnownResetDate,
-    }));
+    });
 
-const refresh = async (apiClient: ApiClient, dataSource: DataSource, override = false): Promise<void> => {
-    const { streams, fetchDate } = await getWrpLive(apiClient, dataSource, override);
-    await track(apiClient, dataSource, {
+const refresh = async (apiClient: ApiClient, dataSource: DataSource, logger: Logger, override = false): Promise<void> => {
+    const { streams, fetchDate } = await getWrpLive(apiClient, dataSource, logger, override);
+    await track(apiClient, dataSource, logger, {
         alreadyFetchedSegments: streams,
         now: fetchDate,
     });
-    logAPIStats(apiClient);
+    logAPIStats(apiClient, logger);
 };
 
-export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, intervalMs: number): IntervalTimeout => {
+export const startRefreshing = (apiClient: ApiClient, dataSource: DataSource, logger: Logger, intervalMs: number): IntervalTimeout => {
     syncTracked(dataSource)
-        .then(() => refresh(apiClient, dataSource));
+        .then(() => refresh(apiClient, dataSource, logger));
 
     return setInterval(async () => {
         if (cachedResults === undefined) {
-            log('Not refreshing cache...');
+            logger.info('Not refreshing cache...');
             return;
         }
-        log('Refreshing cache...');
-        await refresh(apiClient, dataSource, true);
+        logger.info('Refreshing cache...');
+        await refresh(apiClient, dataSource, logger, true);
     }, intervalMs);
 };

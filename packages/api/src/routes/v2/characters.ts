@@ -20,6 +20,7 @@ import {
     queryParamInteger,
     ParamError,
 } from '../../queryParams';
+import { Logger } from '../../logger';
 
 export interface CharactersParams {
     live?: boolean;
@@ -33,7 +34,13 @@ export interface CharactersParams {
     tempAllowNoServer?: boolean;
 }
 
-export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSource, params: CharactersParams = {}, currentUser: UserResponse): Promise<CharactersResponse> => {
+export const fetchCharacters = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    logger: Logger,
+    params: CharactersParams = {},
+    currentUser: UserResponse
+): Promise<CharactersResponse> => {
     const {
         live,
         search,
@@ -61,11 +68,11 @@ export const fetchCharacters = async (apiClient: ApiClient, dataSource: DataSour
         return { factions: [], characters: [] };
     }
 
-    const knownUsers = await getKnownTwitchUsers(apiClient, dataSource);
+    const knownUsers = await getKnownTwitchUsers(apiClient, dataSource, logger);
 
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, currentUser);
 
-    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, { serverId: server.id } , currentUser);
+    const { factions: factionInfos } = await fetchFactions(apiClient, dataSource, logger, { serverId: server.id }, currentUser);
 
     const includeHiddenSegments = isGlobalEditor(currentUser);
 
@@ -255,7 +262,7 @@ export const parseCharactersQuery = (query: Request['query'] | URLSearchParams):
     return params;
 };
 
-const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
@@ -265,7 +272,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
             return res.status(400).send({ success: false, error });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchCharacters(apiClient, dataSource, params, userResponse);
+        const response = await fetchCharacters(apiClient, dataSource, logger, params, userResponse);
         return res.send(response);
     });
 

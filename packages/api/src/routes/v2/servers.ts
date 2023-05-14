@@ -9,9 +9,15 @@ import { SessionUser } from '../../SessionUser';
 import { fetchSessionUser } from './whoami';
 import { isGlobalAdmin } from '../../userUtils';
 import { intValue } from '../../utils';
+import { Logger } from '../../logger';
 
-export const fetchServers = async (apiClient: ApiClient, dataSource: DataSource, currentUser: UserResponse): Promise<ServersResponse> => {
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+export const fetchServers = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    logger: Logger,
+    currentUser: UserResponse
+): Promise<ServersResponse> => {
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, currentUser);
     const liveDataLookup = liveData.streams.reduce((lookup, stream) => {
         if (stream.serverId === null) {
             return lookup;
@@ -81,7 +87,13 @@ const findServer = async (dataSource: DataSource, identifier: string): Promise<S
         });
 };
 
-export const fetchServer = async (apiClient: ApiClient, dataSource: DataSource, identifier: string, currentUser: UserResponse): Promise<ServerResponse | null> => {
+export const fetchServer = async (
+    apiClient: ApiClient,
+    dataSource: DataSource,
+    logger: Logger,
+    identifier: string,
+    currentUser: UserResponse
+): Promise<ServerResponse | null> => {
     const server = await findServer(dataSource, identifier);
 
     if (!server) {
@@ -96,7 +108,7 @@ export const fetchServer = async (apiClient: ApiClient, dataSource: DataSource, 
         return null;
     }
 
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, currentUser);
     const liveCount = liveData.streams.reduce((total, stream) => (
         stream.serverId === server.id ? total + 1 : total
     ), 0);
@@ -121,19 +133,19 @@ export const fetchServer = async (apiClient: ApiClient, dataSource: DataSource, 
     };
 };
 
-const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
         const currentUser = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const result = await fetchServers(apiClient, dataSource, currentUser);
+        const result = await fetchServers(apiClient, dataSource, logger, currentUser);
         return res.send(result);
     });
 
     router.get('/:identifier', async (req, res) => {
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
         const { identifier } = req.params;
-        const response = await fetchServer(apiClient, dataSource, identifier, userResponse);
+        const response = await fetchServer(apiClient, dataSource, logger, identifier, userResponse);
         if (!response) {
             return res
                 .status(404)

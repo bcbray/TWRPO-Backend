@@ -14,6 +14,7 @@ import {
     queryParamInteger,
     ParamError,
 } from '../../queryParams';
+import { Logger } from '../../logger';
 
 export interface FactionsParams {
     serverKey?: string;
@@ -25,6 +26,7 @@ export interface FactionsParams {
 export const fetchFactions = async (
     apiClient: ApiClient,
     dataSource: DataSource,
+    logger: Logger,
     params: FactionsParams = {},
     currentUser: UserResponse
 ): Promise<FactionsResponse> => {
@@ -51,7 +53,7 @@ export const fetchFactions = async (
         return { factions: [] };
     }
 
-    const liveData = await getFilteredWrpLive(apiClient, dataSource, currentUser);
+    const liveData = await getFilteredWrpLive(apiClient, dataSource, logger, currentUser);
 
     return {
         factions: getFactionInfos(liveData.factionCount),
@@ -73,7 +75,7 @@ export const parseFactionsQuery = (query: Request['query'] | URLSearchParams): F
     return params;
 };
 
-const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
+const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logger): Router => {
     const router = Router();
 
     router.get('/', async (req, res) => {
@@ -83,7 +85,7 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource): Router => {
             return res.status(400).send({ success: false, error });
         }
         const userResponse = await fetchSessionUser(dataSource, req.user as SessionUser | undefined);
-        const response = await fetchFactions(apiClient, dataSource, params, userResponse);
+        const response = await fetchFactions(apiClient, dataSource, logger, params, userResponse);
         return res.send(response);
     });
 
