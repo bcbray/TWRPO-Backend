@@ -2064,7 +2064,7 @@ export const wrpCharacters: WrpCharacters = {
     Little_Lulah: [
         { id: 1859, name: 'Ducky Buckshank' },
         { id: 1920, name: 'Nana Yetta' },
-        { id: 2032, name: 'Maria Dimitriou' }, // Law hopeful
+        { id: 2032, name: '[Cadet] Maria Dimitriou', factions: ['Law'] },
     ],
     liviatwo: [
         { id: 1820, name: 'Lydia Spade', factions: ['Independent', 'Guarma'], telegram: 'AB336' },
