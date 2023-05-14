@@ -78,6 +78,7 @@ export function authentication({
       cookie: {
         secure: !insecure,
         httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 14, // 2 weeks
       },
       secret: sessionSecret,
       resave: false,
