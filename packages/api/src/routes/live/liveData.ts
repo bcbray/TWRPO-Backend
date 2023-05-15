@@ -310,7 +310,7 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, logger: 
                     logger.notice(`Got stream for incorrect game for  ${userDisplayName}`, {
                         event: 'twitch-stream-fetch-wrong-game',
                         channel: userDisplayName,
-                        title,
+                        streamTitle: title,
                         gameName,
                         gameId,
                         userId,
@@ -640,7 +640,7 @@ const getWrpLive = async (
                                     event: 'matcher-mismatch',
                                     subevent: 'server-matcher-mismatch',
                                     channelName,
-                                    title,
+                                    streamTitle: title,
 
                                     testMatchedServer,
                                     matchedServer,
@@ -740,7 +740,7 @@ const getWrpLive = async (
                                 logger.info(`Found override for ${channelName} to character ${nowCharacter ? `"${nowCharacter.name}"` : '(NULL)'}`, {
                                     event: 'stream-override',
                                     channel: channelName,
-                                    title,
+                                    streamTitle: title,
                                     character: nowCharacter?.name ?? null,
                                 });
                             } else {
@@ -846,7 +846,7 @@ const getWrpLive = async (
                                                 logger.info(`Guessing character "${char.name}" (${char.id}) instead of "${characters[0].name}" (${characters[0].id}) based on previous stream duration`, {
                                                     event: 'longest-character-guess',
                                                     channel: channelName,
-                                                    title,
+                                                    streamTitle: title,
                                                     longestCharacters,
                                                 });
                                             }

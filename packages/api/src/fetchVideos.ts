@@ -46,7 +46,7 @@ export const fetchVideosForUser = async (
                     logger.info(`Found video “${video.title}” for ${video.userDisplayName}`, {
                         event: 'video-found',
                         channel: video.userDisplayName,
-                        title: video.title,
+                        streamTitle: video.title,
                     });
                     foundVideos += 1;
                 }
@@ -98,7 +98,7 @@ export const fetchMissingThumbnailsForVideoIds = async (
                         logger.info(`Found thumbnail for “${video.title}” for ${video.userDisplayName}`, {
                             event: 'video-thumbnail-found',
                             channel: video.userDisplayName,
-                            title: video.title,
+                            streamTitle: video.title,
                         });
                         foundThumbnails += 1;
                     }
