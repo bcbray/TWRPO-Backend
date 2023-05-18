@@ -2462,7 +2462,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1830, name: 'Arnold Dean Taylor' },
         { id: 1851, name: 'Randall Starkey' },
     ],
-    NOTmackfrew: [
+    NOTmack_: [
         { id: 608, name: 'Seymour Humphries' },
     ],
     NotoriousBuddhaa: [
