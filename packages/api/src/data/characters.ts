@@ -2356,7 +2356,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 582, name: 'Dr. Cloth', displayName: 0 },
         { id: 583, name: 'Grim' },
         { id: 584, name: 'Herman Wilbur' },
-        { id: 585, name: 'Leon Taylor' },
+        { id: 585, name: '[Cadet] Leon Taylor', factions: ['Law'] },
         { id: 586, name: 'Conny Cage' },
         { id: 1697, name: 'Enoch "Chompy" Holt', nicknames: ['Big Chomp', 'Chomp'], factions: ['10 Tonne Gang'], telegram: 'JN479' },
         { id: 1783, name: 'Fletcher Lee' },
