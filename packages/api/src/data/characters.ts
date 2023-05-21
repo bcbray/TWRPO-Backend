@@ -3266,7 +3266,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 804, name: 'Atty Windward' },
         { id: 805, name: 'Franklin Czepanski' },
         { id: 806, name: 'Bartleby Sinclair' },
-        { id: 1131, name: 'Sue Stout' },
+        { id: 1131, name: '[Ranger] Sue Stout', factions: ['Rangers'] },
     ],
     SyneDax: [
         { id: 1152, name: 'Claire MacCabe' },
