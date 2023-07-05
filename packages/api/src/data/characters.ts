@@ -850,9 +850,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2022, name: 'Emily Calloway' },
         { id: 2094, name: 'Barry French' },
     ],
-    DemonMungo98: [
-        { id: 1899, name: 'No Knobbs' },
-    ],
     Demorga_: [
         { id: 1043, name: 'Avery Hobbs', displayName: 2, factions: ['The Black Company'] },
         { id: 1120, name: '[Guard] Cassius Renata', factions: ['Sisika Guard'] },
@@ -2367,6 +2364,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1783, name: 'Fletcher Lee' },
         { id: 1794, name: 'Lyle McCoy' },
         { id: 1916, name: 'Howdie Gerkin' },
+    ],
+    Mungo: [
+        { id: 1899, name: 'No Knobbs' },
     ],
     my_unexpected_pleasure: [
         { id: 1992, name: 'Devedander "Mud" Abercrombie' },
