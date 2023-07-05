@@ -2712,7 +2712,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 993, name: '[Deputy] Opal Davis', factions: ['Law'], telegram: 'ZV744' },
         { id: 1793, name: '[Cadet] Cordelia Clark', factions: ['Law'], telegram: 'LT761' },
     ],
-    Quip_TV: [
+    QuipRP: [
         { id: 667, name: '[Deputy] Dove Hopkins', factions: ['Law'] },
         { id: 668, name: 'Sally Higgins', nicknames: ['Shotgun'] },
         { id: 669, name: 'Sofia Sherman', factions: ['Moretti Crew'], telegram: 'HV857' },
