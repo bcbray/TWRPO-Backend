@@ -1890,6 +1890,9 @@ export const wrpCharacters: WrpCharacters = {
     KittyLeigh: [
         { id: 476, name: 'Delilah' },
     ],
+    Kirikuwaa: [
+        { id: 1427, name: '[Recruit] Matthew Morrow', factions: ['Rangers'], telegram: 'VZ031' },
+    ],
     Kirimae: [
         { id: 1156, name: 'Evelynn Walker', nicknames: ['Evie'], telegram: 'DI612' },
     ],
@@ -3279,9 +3282,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 808, name: '[Ranger] Beaux Carter', factions: ['Rangers'], telegram: 'EU031' },
         { id: 1210, name: 'Odell Simmons', factions: ['Lifer'] },
         { id: 1267, name: 'Germain Cyr', displayName: 2, telegram: 'PF391', factions: ['Freeman Family'] },
-    ],
-    Tagita_K: [
-        { id: 1427, name: '[Recruit] Matthew Morrow', factions: ['Rangers'], telegram: 'VZ031' },
     ],
     TaintedRUMBLER: [
         { id: 809, name: 'Drew Peters', telegram: 'MT042', assume: 'assumeOther' },
