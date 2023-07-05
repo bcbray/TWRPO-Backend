@@ -793,10 +793,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 195, name: 'Barry Smith' },
         { id: 196, name: 'Cassel bottom' },
     ],
-    DatRageGuy: [
-        { id: 1352, name: '[Sr. Deputy] Elliot Pruitt', factions: ['Law'], telegram: 'PK525' },
-        { id: 1736, name: 'Austin Grant', deceased: true },
-    ],
     DatVoiceGuy: [
         { id: 197, name: 'Alejandro Ariez' },
         { id: 198, name: 'Luther Van Dam' },
@@ -1637,6 +1633,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ItsGrumpyGramps: [
         { id: 1368, name: '[Deputy] Profit Quil', factions: ['Law', 'Bluestone'], telegram: 'OI576' },
+    ],
+    itsjotsy: [
+        { id: 1352, name: '[Sr. Deputy] Elliot Pruitt', factions: ['Law'], telegram: 'PK525' },
+        { id: 1736, name: 'Austin Grant', deceased: true },
     ],
     itsjustasummerjob: [
         { id: 1219, name: 'Elisabeth Darling' },
