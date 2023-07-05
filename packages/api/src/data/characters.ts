@@ -1336,7 +1336,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1384, name: 'Michelangelo "Mikey" Scarpatti', factions: ['DiCenzo Famiglia'], telegram: 'ZU162' },
         { id: 1446, name: 'Seamus Bell', factions: ['Bell Gang'] },
     ],
-    GILLTHEGATMAN: [
+    GilliePG: [
         { id: 887, name: 'Balwinder Singh' },
     ],
     girth_lmao: [
