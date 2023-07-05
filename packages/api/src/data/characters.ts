@@ -710,9 +710,6 @@ export const wrpCharacters: WrpCharacters = {
     Coxybaws: [
         { id: 1923, name: '[Deputy] Fionn O’Malley', factions: ['Law'] },
     ],
-    CptCheeto: [
-        { id: 1214, name: 'Charlie VanDyne' },
-    ],
     CptCutlassSD: [
         { id: 1143, name: 'Beck ?' },
         { id: 1144, name: 'Alexander Alistair' },
@@ -3333,6 +3330,9 @@ export const wrpCharacters: WrpCharacters = {
     Tech_Otter: [
         { id: 826, name: 'Chester McGuckin' },
         { id: 827, name: 'Nathan Riggs' },
+    ],
+    TechnicWasTaken: [
+        { id: 1214, name: 'Charlie VanDyne' },
     ],
     TehJamJar: [
         { id: 828, name: 'Alvin Biggs' },
