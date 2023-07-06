@@ -89,7 +89,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 9, name: '[Deputy] Francesca Romano', factions: ['Law'] },
         { id: 10, name: 'Sanjay Patel' },
         { id: 11, name: 'Gertrude Goose', nicknames: ['Mrs. Goose'], displayName: 3, telegram: 'RJ718', deceased: true },
-        { id: 1928, name: '? Braithwaite', nicknames: ['Auntie', 'Auntie Braithwaite'], displayName: 3 },
+        { id: 1928, name: 'Eloise Braithwaite', nicknames: ['Auntie', 'Auntie Braithwaite'], displayName: 3 },
     ],
     Acetrope: [
         { id: 1519, name: '[Sr. Deputy] Dan Lin', factions: ['Law'], telegram: 'BQ109' },
