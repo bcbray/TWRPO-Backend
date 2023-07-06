@@ -272,10 +272,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 50, name: 'Lena Phipps' },
         { id: 51, name: 'Scarlet ?' }, // TODO: Last name?
     ],
-    AvaThompson_: [
-        { id: 285, name: 'Kora Vane', telegram: 'JH385' }, // Former Sam's Club
-        { id: 1264, name: '[Sr. Ranger] Rayne Farley', factions: ['Rangers'], telegram: 'GZ075' },
-    ],
     aviceration: [
         { id: 53, name: 'Ella Mason' },
         { id: 54, name: 'Vincencia "Vinnie" Romeo', deceased: true },
@@ -1073,6 +1069,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1198, name: 'Harmony Bell', nicknames: ['Bellish'], factions: ['Bell Gang'], deceased: true },
         { id: 1423, name: 'Lea Loup' },
         { id: 2078, name: 'Ruby Thread' },
+    ],
+    EMBVRMusic: [
+        { id: 285, name: 'Kora Vane', telegram: 'JH385' }, // Former Sam's Club
+        { id: 1264, name: '[Sr. Ranger] Rayne Farley', factions: ['Rangers'], telegram: 'GZ075' },
     ],
     EmeraldElephant_: [
         { id: 1091, name: 'Jackson Connor' }, // Former Ranger
