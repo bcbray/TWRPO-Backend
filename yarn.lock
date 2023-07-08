@@ -1269,25 +1269,25 @@
     enabled "2.0.x"
     kuler "^2.0.0"
 
-"@datadog/browser-core@4.16.1":
-  version "4.16.1"
-  resolved "https://registry.npmjs.org/@datadog/browser-core/-/browser-core-4.16.1.tgz"
-  integrity sha512-VrJDNUHlCkp2ABqTBui7M1gwZ+UNu0+dpJSIydWVCX7ch4fSE7anEplvrr1y4Y3aC0GYp5KShJQxlxx91YPcHQ==
+"@datadog/browser-core@4.44.0":
+  version "4.44.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-core/-/browser-core-4.44.0.tgz#2445395b7ddf687d68a04e631644c4ed8604f6f4"
+  integrity sha512-o5ApIBP2xgXyDOuYwaX5Gz4w1Wa1lRvG8j55+CTrB1t5JkCymNemTAx+GMQUfbs9Eyyd0MUVjTIk+I9FTMAjrA==
 
-"@datadog/browser-rum-core@4.16.1":
-  version "4.16.1"
-  resolved "https://registry.npmjs.org/@datadog/browser-rum-core/-/browser-rum-core-4.16.1.tgz"
-  integrity sha512-HFw9/TYfieNbaTpLr1oZhrwOIX0xGvE2l0vQrwcMA42//vLHJ3OYgnBCQmYpycWxVrvWHspyG9aK9MBE3FgA/Q==
+"@datadog/browser-rum-core@4.44.0":
+  version "4.44.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum-core/-/browser-rum-core-4.44.0.tgz#a451f23c70db902b73c35fa85d6a595dbd7cf236"
+  integrity sha512-Kicw7vHGYGgN+tmVS/gk77+vk5DncsP9b4129RusOejx1YATVP2/K2tHOGL44kpEi2v2SbJYb6ix286+molRIw==
   dependencies:
-    "@datadog/browser-core" "4.16.1"
+    "@datadog/browser-core" "4.44.0"
 
-"@datadog/browser-rum@^4.15.0":
-  version "4.16.1"
-  resolved "https://registry.npmjs.org/@datadog/browser-rum/-/browser-rum-4.16.1.tgz"
-  integrity sha512-XxDfTv6KDr/dK6OTjRUmihym3ZhxV+FlcGbGNk9bwCLJCczgNo3yRLrWGpfxqdoiacOVZhn4BB8oUI+OD/2DAQ==
+"@datadog/browser-rum@^4.44.0":
+  version "4.44.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum/-/browser-rum-4.44.0.tgz#db03a7ef63f279757f7ca14efa60a4f3b2958321"
+  integrity sha512-uTY420AKOn9xh9wqxRvS93pk/n2mvZQSZ/E7wkzK2zBj+OBlCf4AqPrtKgn8aZ0rjVZb9+7fGLx3hsvTcFDdWA==
   dependencies:
-    "@datadog/browser-core" "4.16.1"
-    "@datadog/browser-rum-core" "4.16.1"
+    "@datadog/browser-core" "4.44.0"
+    "@datadog/browser-rum-core" "4.44.0"
 
 "@datadog/native-appsec@^1.2.1":
   version "1.2.1"
@@ -9334,9 +9334,9 @@ react-color@^2.19.3:
     tinycolor2 "^1.4.1"
 
 react-datadog@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/react-datadog/-/react-datadog-1.1.0.tgz"
-  integrity sha512-hZJwaf6b6zwI+CBPXX3o1QteaytR4sSWtS5p8teA+r+u4ZegCuwy8+i7JjA4sCk6KzCYSGVJowqTBq9OdGnnJA==
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-datadog/-/react-datadog-1.2.2.tgz#b31702b0093bcdf2404004140459a67a46a5b6f2"
+  integrity sha512-mRZrwS2OAl/PKzJG5flq+5M3CD/81p5Apy3xevI+LvigBJ5FKSwghkbePIDH9YB59k+vVy0H8WZzVa4G3V8XKQ==
 
 react-dev-utils@^12.0.1:
   version "12.0.1"
