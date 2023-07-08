@@ -2506,7 +2506,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1281, name: 'Sprout ?', factions: ['Hagen'] },
     ],
     oh_nopes: [
-        { id: 1918, name: 'Hannah ?' },
+        { id: 1918, name: 'Hannah Malone', factions: ['Quil Gang'] },
     ],
     OhHeyItsFunk: [
         { id: 621, name: 'Lucius Tubbs' },
