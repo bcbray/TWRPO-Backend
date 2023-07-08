@@ -24,7 +24,7 @@ interface Props {
 const schema = Yup.object({
   suggestion: Yup.string().required('cannot be empty'),
   email: Yup.string().email('must be valid email'),
-  discord: Yup.string().matches(/^(?!(discordtag|here|everyone)#)(((?!@|!|:|```|discord)[\s\S]){2,32}#)\d{4}$/, { message: 'must be valid Discord username' }),
+  discord: Yup.string().matches(/^(?!(discordtag|here|everyone)(?:#|$))((?!@|!|#|:|```|discord)[\s\S]){2,32}(#\d{4})?$/, { message: 'must be valid Discord username' }),
 });
 
 type FormData = Yup.InferType<typeof schema>;
@@ -193,7 +193,7 @@ const FeedbackModal: React.FC<Props> = ({ show, onHide }) => {
                   className={classes(touched.discord && errors.discord && styles.invalid)}
                   name='discord'
                   type='text'
-                  placeholder='You#1234'
+                  placeholder='You or You#1234'
                   id='FeedbackForm.Discord'
                   disabled={isSubmitting}
                 />
