@@ -2118,7 +2118,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 535, name: 'Abigale Hart' },
     ],
     lunarpetunia: [
-        { id: 2005, name: 'Danya "Danny" Fetherly' },
+        { id: 2005, name: 'Danya Fetherly', nicknames: ['Dany'], factions: ['Quil Gang'] },
     ],
     Lyndi: [
         { id: 536, name: 'Delilah Deveaux', nicknames: ['Daffodil'] },
