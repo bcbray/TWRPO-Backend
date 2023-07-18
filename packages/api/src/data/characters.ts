@@ -2960,7 +2960,7 @@ export const wrpCharacters: WrpCharacters = {
     sgttyn: [
         { id: 723, name: 'Jacob Dubois' },
         { id: 724, name: 'Norris Olson' },
-        { id: 725, name: '[Sheriff] Sam Winters', factions: ['Law'], telegram: 'DT600' },
+        { id: 725, name: '[Sheriff] Sam Winters', factions: ['Law'], telegram: 'DT600', deceased: true },
     ],
     shadowsINsilence: [
         { id: 726, name: 'Emily Marie Kenward' },
