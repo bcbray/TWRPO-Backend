@@ -3516,7 +3516,7 @@ export const wrpCharacters: WrpCharacters = {
     theLGX: [
         { id: 872, name: 'Abner Ace', telegram: 'ZO730' },
     ],
-    TheMightyCaveman: [
+    themightycaveman: [
         { id: 1047, name: 'Franklin Jones' },
         { id: 2126, name: 'Venezio Gatto' },
     ],
