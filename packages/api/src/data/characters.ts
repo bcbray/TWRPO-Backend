@@ -182,9 +182,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1626, name: 'Soriya Grimm', telegram: 'RV828' },
         { id: 1821, name: 'Ginnie Darby', nicknames: ['Broccoli'], telegram: 'FJ125' },
     ],
-    AmosBEARMoses: [
-        { id: 1672, name: '[Deputy] Ehret Dalton', factions: ['Law'] },
-    ],
     AmRainbowBee: [
         { id: 1246, name: 'Mildred "Millie" Price' },
     ],
@@ -402,6 +399,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BernieHeHe: [
         { id: 84, name: 'Noah Little' },
+    ],
+    big_bear731: [
+        { id: 1672, name: '[Deputy] Ehret Dalton', factions: ['Law'] },
     ],
     BigBadMomma: [
         { id: 1588, name: 'Gladys Pettibone', nicknames: ['Gladys Blanchard', 'Blanchard'] },
