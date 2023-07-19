@@ -1781,6 +1781,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1229, name: 'Felicity "Flick" Turner', telegram: 'RZ870' },
         { id: 1274, name: 'Callie ?' },
     ],
+    Jigglin4Justice: [
+        { id: 1830, name: 'Arnold Dean Taylor' },
+        { id: 1851, name: 'Randall Starkey' },
+    ],
     JillardSZN: [
         { id: 1139, name: 'Jilly Rizzo', telegram: 'QF261' }, // Former Fantoni Crew
     ],
@@ -2485,10 +2489,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 607, name: '[Deputy] Robert Fisher', factions: ['Law'] },
         { id: 1050, name: 'Brick Bagwell' },
         { id: 1373, name: '? ?', nicknames: ['Gold'], displayName: 3, factions: ['The Masked Men'] },
-    ],
-    NorseNetwork: [
-        { id: 1830, name: 'Arnold Dean Taylor' },
-        { id: 1851, name: 'Randall Starkey' },
     ],
     NOTmack_: [
         { id: 608, name: 'Seymour Humphries' },
