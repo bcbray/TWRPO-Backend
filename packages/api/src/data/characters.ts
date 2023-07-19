@@ -2355,7 +2355,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 578, name: 'Tommy Roach', nicknames: ['Two Snakes', 'Tommy Two Snakes', 'Tommy 2 Snakes'], displayName: 5, assumeChar: true, telegram: 'LH415' }, // Former Momma's Boys, but I'm not sure if they still exist or not. May have been the leader?
         { id: 579, name: 'Kang Colton', factions: ['Coltons'], deceased: true },
         { id: 1002, name: 'Waylon Puckett', factions: ['One Life'] },
-        { id: 2092, name: 'Moon Dance', displayName: 0, factions: ['One Life'] },
+        // { id: 2092, name: 'Moon Dance', displayName: 0, factions: ['One Life'] }, // Removed because matching always matched “Mr. Moon” at the start of titles
     ],
     MrPandaaBear: [
         { id: 580, name: 'Cathal McCarthy' },
