@@ -939,6 +939,10 @@ export const wrpCharacters: WrpCharacters = {
     Doodlebag: [
         { id: 237, name: 'Damian Castle' },
     ],
+    DoomGuyGhost: [
+        { id: 1384, name: 'Michelangelo "Mikey" Scarpatti', factions: ['DiCenzo Famiglia'], telegram: 'ZU162' },
+        { id: 1446, name: 'Seamus Bell', factions: ['Bell Gang'] },
+    ],
     DravenTAK: [
         { id: 1084, name: 'Draven Woodson' },
         { id: 1188, name: 'Damien ?' }, // Undertaker
@@ -1329,10 +1333,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     getfarked: [
         { id: 1812, name: 'Douglas Barletti' },
-    ],
-    GhostsTV: [
-        { id: 1384, name: 'Michelangelo "Mikey" Scarpatti', factions: ['DiCenzo Famiglia'], telegram: 'ZU162' },
-        { id: 1446, name: 'Seamus Bell', factions: ['Bell Gang'] },
     ],
     GilliePG: [
         { id: 887, name: 'Balwinder Singh' },
