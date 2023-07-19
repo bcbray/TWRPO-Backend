@@ -2645,7 +2645,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 644, name: 'Mischa Crane' },
     ],
     pettiemane: [
-        { id: 2134, name: 'Freddy Freedom' },
+        { id: 2134, name: 'Freddy Morrison', nicknames: ['Freddy Freedom'] },
     ],
     Pezz: [
         { id: 645, name: 'Cid Speedwagon', nicknames: ['Highwayman'], telegram: 'OR367' },
