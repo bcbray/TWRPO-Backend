@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2126
+// Next ID: 2127
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -3506,6 +3506,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheMightyCaveman: [
         { id: 1047, name: 'Franklin Jones' },
+        { id: 2126, name: 'Venezio Gatto' },
     ],
     TheObsidianTravelersCo: [
         { id: 873, name: 'Cornileus Moon Frazier', nicknames: ['Seth'], displayName: 2, factions: ['Frazier Gang'], telegram: 'YD718' }, // "Cornileus Moon" "Cornileus Moon-Frazier" "Moon Frazier" "Moon “Seth” Frazier"
