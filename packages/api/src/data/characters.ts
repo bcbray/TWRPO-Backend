@@ -1819,7 +1819,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1952, name: 'Luke Barrett', factions: ['Pruitt Gang'] },
     ],
     Jonthebroski: [
-        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J’Baas', 'J Baas'], displayName: 5, factions: ['The Baastards'], leader: true, telegram: 'EJ572' }, // Former Sam's Club
+        { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J’Baas', 'J Baas'], displayName: 5, factions: ['The Baastards'], leader: true, telegram: 'EJ572', deceased: true }, // Former Sam's Club
         { id: 458, name: '[Sr. Deputy] Jaime Ruth', factions: ['Law'], telegram: 'SX271' },
         { id: 1010, name: 'Erik "Ivan" Drugov', nicknames: ['Vladimir', 'Nose'] },
         { id: 1279, name: 'Ceaser Falls' },
