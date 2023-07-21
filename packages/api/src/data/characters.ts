@@ -3863,7 +3863,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2049, name: 'Hazel Marena' },
     ],
     Xiceman: [
-        { id: 947, name: 'Michael Bayo', factions: ['The Baastards'], telegram: 'NA016' },
+        { id: 947, name: 'Michael Bayo', factions: ['The Baastards'], telegram: 'NA016', deceased: true },
         { id: 948, name: '[Deputy] Andrew Kennedy', factions: ['Law'], telegram: 'VZ460' },
     ],
     xkatalayax: [
