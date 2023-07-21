@@ -435,7 +435,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 92, name: 'Jesse Flint' },
     ],
     bldrs: [
-        { id: 93, name: 'Casey Rigsby', factions: ['The Baastards', 'Guppy Gang'] }, // Former Sam's Club
+        { id: 93, name: 'Casey Rigsby', factions: ['The Baastards', 'Guppy Gang'], deceased: true }, // Former Sam's Club
     ],
     BlitzyNation: [
         { id: 94, name: 'Charlie Walker', telegram: 'WF946' },
