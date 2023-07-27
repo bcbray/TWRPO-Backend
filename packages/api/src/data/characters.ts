@@ -324,7 +324,7 @@ export const wrpCharacters: WrpCharacters = {
     Baaaadgoat: [
         { id: 1433, name: 'Early Ballard', telegram: 'BP229' },
         { id: 1640, name: 'Tal "Ox" Mohrant', telegram: 'QE884' },
-        { id: 2086, name: '[Cadet] James Alley', factions: ['Law'] },
+        { id: 2086, name: '[Deputy] James Alley', factions: ['Law'] },
     ],
     badnewsbryan: [
         { id: 115, name: 'Blue Vanderweit' },
