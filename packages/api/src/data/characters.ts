@@ -1118,9 +1118,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 280, name: 'Faolain McDiarmid' },
         { id: 281, name: 'Bran Speaksy' },
     ],
-    eNufph: [
-        { id: 1708, name: 'El Sali', telegram: 'LR159' },
-    ],
     EquinoxRP: [
         { id: 282, name: 'Brendyn Cormac' },
         { id: 1113, name: 'Ashe Vanderbuilt' },
@@ -1830,6 +1827,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     JordeeKai: [
         { id: 2029, name: 'Stevie Scarlett', nicknames: ['Snow White'] },
+    ],
+    jovainex: [
+        { id: 1708, name: 'El Sali', telegram: 'LR159' },
     ],
     JRockofBerg: [
         { id: 2123, name: 'Lyle Clambiscuit' },
