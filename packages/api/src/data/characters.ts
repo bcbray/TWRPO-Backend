@@ -1992,7 +1992,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1925, name: 'Victor Braithwaite' },
     ],
     KShorts: [
-        { id: 2110, name: 'Thomas Myles' },
+        { id: 2110, name: '[Cadet] Thomas Myles', factions: ['Law'] },
         { id: 2136, name: 'Desmond O’Connell' },
     ],
     KuraiCry: [
