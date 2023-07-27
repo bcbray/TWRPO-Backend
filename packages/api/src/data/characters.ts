@@ -2618,7 +2618,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 636, name: 'Erasmus South', assume: 'assumeOther' },
     ],
     PBandJLee: [
-        { id: 637, name: '[Sr. Doctor] Elsie Fletcher', factions: ['Medical'], telegram: 'VR174' },
+        { id: 637, name: '[Sr. Doctor] Elsie Fletcher', factions: ['Medical'], telegram: 'VR174', deceased: true },
         { id: 1311, name: 'Amelia Evans', telegram: 'VG322' },
         { id: 2023, name: 'Kenneth Benton' },
         { id: 2065, name: 'Caoimhe Quinn' },
