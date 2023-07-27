@@ -2541,7 +2541,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 617, name: 'Trix' },
         { id: 2081, name: 'Selene Smith' },
         { id: 2082, name: 'Talulah Branch' },
-        { id: 2083, name: 'Yalena Volkov' },
+        { id: 2083, name: '[Deputy] Yalena Volkov', factions: ['Law'] },
     ],
     nubbyftwx: [
         { id: 1027, name: 'Jock O’Donell' },
