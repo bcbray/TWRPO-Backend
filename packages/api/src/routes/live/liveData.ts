@@ -99,6 +99,9 @@ const searchNumDefault = 2000;
 
 const toFactionMini = (faction: string) => faction.toLowerCase().replaceAll(' ', '');
 
+// Key: streamId + title;
+const loggedServerMatcherMismatches: Set<string> = new Set();
+
 /*
 
 *****************************************************************************
@@ -636,30 +639,34 @@ const getWrpLive = async (
                                 || testServerName !== serverName
                                 || testOnNp !== onNp
                             ) {
-                                logger.warning('Mismatch in new server matcher', {
-                                    event: 'matcher-mismatch',
-                                    subevent: 'server-matcher-mismatch',
-                                    channelName,
-                                    streamTitle: title,
+                                const logKey = helixStream.id + title;
+                                if (!loggedServerMatcherMismatches.has(logKey)) {
+                                    logger.warning('Mismatch in new server matcher', {
+                                        event: 'matcher-mismatch',
+                                        subevent: 'server-matcher-mismatch',
+                                        channelName,
+                                        streamTitle: title,
 
-                                    testMatchedServer,
-                                    matchedServer,
+                                        testMatchedServer,
+                                        matchedServer,
 
-                                    testOnOther,
-                                    onOther,
+                                        testOnOther,
+                                        onOther,
 
-                                    testOnOtherIncluded,
-                                    onOtherIncluded,
+                                        testOnOtherIncluded,
+                                        onOtherIncluded,
 
-                                    testOnOtherGeneric,
-                                    onOtherGeneric,
+                                        testOnOtherGeneric,
+                                        onOtherGeneric,
 
-                                    testServerName,
-                                    serverName,
+                                        testServerName,
+                                        serverName,
 
-                                    testOnNp,
-                                    onNp,
-                                });
+                                        testOnNp,
+                                        onNp,
+                                    });
+                                    loggedServerMatcherMismatches.add(logKey);
+                                }
                             }
                         })();
                     }
