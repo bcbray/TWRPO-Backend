@@ -136,7 +136,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     aintitadam: [
         { id: 1842, name: 'Cassius McClure' },
-        { id: 2182, name: 'Brock Cactus' },
+        { id: 2182, name: 'Brock Cactus', factions: ['Perma Trail'] },
     ],
     aJimmy: [
         { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], displayName: 0, factions: ['Kelly Gang'], leader: true, telegram: 'NB240' }, // Formerly Kettleman Gang
@@ -186,7 +186,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     AmRainbowBee: [
         { id: 1246, name: 'Mildred "Millie" Price' },
-        { id: 2165, name: 'Dora Smithers' },
+        { id: 2165, name: 'Dora Smithers', factions: ['Perma Trail'] },
     ],
     AndiiCraft: [
         { id: 1068, name: 'Allison Gator', nicknames: ['Swamp Witch'], telegram: 'ZV440' },
@@ -719,7 +719,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1144, name: 'Alexander Alistair' },
     ],
     Criken: [
-        { id: 173, name: 'Festus Asbestus' },
+        { id: 173, name: 'Festus Asbestus', factions: ['Perma Trail'] },
         { id: 982, name: 'Barry Beaver' },
         { id: 2142, name: 'Monty Penny' },
     ],
@@ -904,7 +904,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1852, name: 'Darla Dimple', factions: ['One Life'] },
         { id: 2028, name: 'Jin Saito' },
         { id: 2060, name: 'Mama "Kat" Colton', factions: ['Coltons'] },
-        { id: 2175, name: 'Jane Carnahan' },
+        { id: 2175, name: 'Jane Carnahan', factions: ['Perma Trail'] },
     ],
     DJADIP: [
         { id: 225, name: 'Juan Pablo', telegram: 'DY911' },
@@ -1051,7 +1051,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Dyoti: [
         { id: 1854, name: 'Thomas Nash' },
-        { id: 2170, name: 'Herman Chiwa' },
+        { id: 2170, name: 'Herman Chiwa', factions: ['Perma Trail'] },
     ],
     DzarekK: [
         { id: 263, name: '[Deputy] Eleonor Parker', factions: ['Law'], telegram: 'VQ924' },
@@ -2094,7 +2094,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1161, name: 'Myrtle Sherman', factions: ['Lifer'] },
         { id: 1374, name: '? ?', nicknames: ['Blue'], displayName: 3, factions: ['The Masked Men'] },
         { id: 1905, name: 'Judas Taylor' },
-        { id: 2164, name: 'Coral Bells' },
+        { id: 2164, name: 'Coral Bells', factions: ['Perma Trail'] },
     ],
     Lewdicon: [
         { id: 950, name: 'Rayven Hope', nicknames: ['Rayvn'] },
@@ -2308,7 +2308,7 @@ export const wrpCharacters: WrpCharacters = {
     Middleditch: [
         { id: 1802, name: 'Scrump Toggins' },
         { id: 1997, name: '[Cadet] Ronny McMalligan', factions: ['Law'] },
-        { id: 2181, name: 'Darnold DeWitt' },
+        { id: 2181, name: 'Darnold DeWitt', factions: ['Perma Trail'] },
     ],
     MidnightDoveonTwitch: [
         { id: 34, name: '[Deputy] Jamie Marlow', factions: ['Law'], deceased: true },
@@ -2363,7 +2363,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1327, name: 'Lennart Hellström', telegram: 'RM829' },
     ],
     mollyruu: [
-        { id: 2167, name: 'Martha Burnett' },
+        { id: 2167, name: 'Martha Burnett', factions: ['Perma Trail'] },
     ],
     Mooftress: [
         { id: 1044, name: 'Erie Waters' },
@@ -2440,7 +2440,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Mungo: [
         { id: 1899, name: 'No Knobbs' },
-        { id: 2166, name: 'Jensen Jentles' },
+        { id: 2166, name: 'Jensen Jentles', factions: ['Perma Trail'] },
     ],
     my_unexpected_pleasure: [
         { id: 1992, name: 'Devedander "Mud" Abercrombie' },
@@ -2459,7 +2459,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Nakkida: [
         { id: 597, name: 'Lyra Woods' },
-        { id: 2168, name: 'N. Threadwell', displayName: 2 },
+        { id: 2168, name: 'N. Threadwell', displayName: 2, factions: ['Perma Trail'] },
     ],
     nathankb_: [
         { id: 598, name: 'Dug Dug', nicknames: ['Dug Money'] },
@@ -2819,7 +2819,7 @@ export const wrpCharacters: WrpCharacters = {
     RayforRachel: [
         { id: 672, name: 'Winifred "Dot" Barlow', telegram: 'ZI419' },
         { id: 673, name: 'Shirley Lemons', nicknames: ['Cowgirl'] },
-        { id: 2173, name: 'Annie Taylor' },
+        { id: 2173, name: 'Annie Taylor', factions: ['Perma Trail'] },
     ],
     RayTwoPlay: [
         { id: 1439, name: 'Freddie Hunt', factions: ['Taipan'], telegram: 'KP895' },
@@ -2893,7 +2893,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 684, name: 'Lionel Miles', factions: ['Miles Gang'], leader: true },
         { id: 1261, name: 'Jericho Gunne' },
         { id: 1914, name: 'Holden Gold' },
-        { id: 2180, name: 'Gene Erik' }, // Unsure of spelling of last name
+        { id: 2180, name: 'Gene Erik', factions: ['Perma Trail'] }, // Unsure of spelling of last name
     ],
     Rowdywhale: [
         { id: 1863, name: 'Clooter ?' },
@@ -2968,7 +2968,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     saturneighteen: [
         { id: 1822, name: 'Henrietta "Henri" Graves', telegram: 'HA761' },
-        { id: 2174, name: 'Oksana Petrova' },
+        { id: 2174, name: 'Oksana Petrova', factions: ['Perma Trail'] },
     ],
     satyr_queen: [
         { id: 701, name: 'Cornelius Tias' },
@@ -3491,7 +3491,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1088, name: 'Donna ?' },
         { id: 1100, name: 'Bob Roberts' },
         { id: 1853, name: '[Deputy] Winston Spats', factions: ['Law'] },
-        { id: 2176, name: 'Gordon Lurch', nicknames: ['Uncle Gordon'], displayName: 3 },
+        { id: 2176, name: 'Gordon Lurch', nicknames: ['Uncle Gordon'], displayName: 3, factions: ['Perma Trail'] },
     ],
     TheAmelina: [
         { id: 845, name: 'Elisabeth "Ellie" Beauregard' },
@@ -3578,7 +3578,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     theLGX: [
         { id: 872, name: 'Abner Ace', telegram: 'ZO730' },
-        { id: 2172, name: 'Theodore "Teddy" Ambrose' },
+        { id: 2172, name: 'Theodore "Teddy" Ambrose', factions: ['Perma Trail'] },
     ],
     themightycaveman: [
         { id: 1047, name: 'Franklin Jones' },
@@ -3652,7 +3652,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Thio: [
         { id: 1898, name: 'Rusty Rankstank' },
-        { id: 2183, name: 'Rock Cactus' },
+        { id: 2183, name: 'Rock Cactus', factions: ['Perma Trail'] },
     ],
     thirdradius3: [
         { id: 1587, name: '[Ranger] Nathan Yang', factions: ['Rangers'], telegram: 'QL554' },
