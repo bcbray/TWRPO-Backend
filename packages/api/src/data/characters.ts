@@ -4008,7 +4008,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 966, name: 'Norman Bones' },
         { id: 967, name: 'Marly Clifton' },
         { id: 2156, name: 'Edward Devereaux' },
-        { id: 2185, name: 'Clayton Monroe' },
+        { id: 2185, name: 'Clayton Monroe', factions: ['Perma Trail'] },
     ],
     ZoltanTheDestroyer: [
         { id: 968, name: 'Emmett Fitz' },
