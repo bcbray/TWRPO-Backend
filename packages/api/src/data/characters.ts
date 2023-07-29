@@ -3765,7 +3765,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 907, name: 'Rooporian Roo', factions: ['Independent', 'Guppy Gang'], displayName: 2 },
     ],
     UberJazer: [
-        { id: 908, name: 'Nahmala "Wolf" Wolfe', telegram: 'ZM109' }, // Wapiti?
+        { id: 908, name: 'Nahmala "Wolf" Wolfe', telegram: 'ZM109', assume: 'assumeOther' }, // Wapiti?
         { id: 1315, name: 'Tamar Truner' },
         { id: 1411, name: 'Yandago\'a\' Yates' },
     ],
