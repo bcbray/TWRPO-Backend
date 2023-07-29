@@ -2668,7 +2668,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 642, name: 'Staniel Wilkerson' },
     ],
     PENTA: [
-        { id: 997, name: 'Walter Thomas', nicknames: ['Big Walter Buldge'] },
+        { id: 997, name: 'Walter Thomas', nicknames: ['Big Walter Buldge', 'Big Walter Bulge'] },
     ],
     Pers: [
         { id: 643, name: 'Dr. Carrie Williams' },
