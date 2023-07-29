@@ -3504,7 +3504,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 850, name: 'Jonas Steel' },
     ],
     TheBigMeech: [
-        { id: 2169, name: 'Casey Simmons' },
+        { id: 2169, name: 'Casey Simmons', factions: ['Perma Trail'] },
     ],
     TheBuffett: [
         { id: 1713, name: '[Deputy] Rose Smith', factions: ['Law'] },
