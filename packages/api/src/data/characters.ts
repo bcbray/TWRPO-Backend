@@ -3654,7 +3654,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Thio: [
         { id: 1898, name: 'Rusty Rankstank' },
-        { id: 2183, name: 'Rock Cactus', factions: ['Perma Trail'] },
+        { id: 2183, name: 'Rock Cactus', factions: ['Perma Trail'], deceased: true },
     ],
     thirdradius3: [
         { id: 1587, name: '[Ranger] Nathan Yang', factions: ['Rangers'], telegram: 'QL554' },
