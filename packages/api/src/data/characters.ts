@@ -136,7 +136,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     aintitadam: [
         { id: 1842, name: 'Cassius McClure' },
-        { id: 2182, name: 'Brock Cactus', factions: ['Perma Trail'] },
+        { id: 2182, name: 'Brock Cactus', factions: ['Perma Trail'], deceased: true },
     ],
     aJimmy: [
         { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], displayName: 0, factions: ['Kelly Gang'], leader: true, telegram: 'NB240' }, // Formerly Kettleman Gang
