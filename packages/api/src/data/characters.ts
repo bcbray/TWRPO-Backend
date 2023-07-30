@@ -720,7 +720,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1144, name: 'Alexander Alistair' },
     ],
     Criken: [
-        { id: 173, name: 'Festus Asbestus', factions: ['Perma Trail'] },
+        { id: 173, name: 'Festus Asbestus', factions: ['Perma Trail'], deceased: true },
         { id: 982, name: 'Barry Beaver' },
         { id: 2142, name: 'Monty Penny' },
     ],
