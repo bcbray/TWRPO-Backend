@@ -3493,7 +3493,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1088, name: 'Donna ?' },
         { id: 1100, name: 'Bob Roberts' },
         { id: 1853, name: '[Deputy] Winston Spats', factions: ['Law'] },
-        { id: 2176, name: 'Gordon Lurch', nicknames: ['Uncle Gordon'], displayName: 3, factions: ['Perma Trail'] },
+        { id: 2176, name: 'Gordon Lurch', nicknames: ['Uncle Gordon'], displayName: 3, factions: ['Perma Trail'], deceased: true },
     ],
     TheAmelina: [
         { id: 845, name: 'Elisabeth "Ellie" Beauregard' },
