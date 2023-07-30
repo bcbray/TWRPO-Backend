@@ -1051,7 +1051,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Dyoti: [
         { id: 1854, name: 'Thomas Nash' },
-        { id: 2170, name: 'Herman Chiwa', factions: ['Perma Trail'] },
+        { id: 2170, name: 'Herman Chiwa', factions: ['Perma Trail'], deceased: true },
     ],
     DzarekK: [
         { id: 263, name: '[Deputy] Eleonor Parker', factions: ['Law'], telegram: 'VQ924' },
