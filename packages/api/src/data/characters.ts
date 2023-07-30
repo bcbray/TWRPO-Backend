@@ -905,7 +905,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1852, name: 'Darla Dimple', factions: ['One Life'] },
         { id: 2028, name: 'Jin Saito' },
         { id: 2060, name: 'Mama "Kat" Colton', factions: ['Coltons'] },
-        { id: 2175, name: 'Jane Carnahan', factions: ['Perma Trail'] },
+        { id: 2175, name: 'Jane Carnahan', factions: ['Perma Trail'], deceased: true },
     ],
     DJADIP: [
         { id: 225, name: 'Juan Pablo', telegram: 'DY911' },
