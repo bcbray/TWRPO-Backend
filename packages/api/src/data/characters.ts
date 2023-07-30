@@ -3580,7 +3580,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     theLGX: [
         { id: 872, name: 'Abner Ace', telegram: 'ZO730' },
-        { id: 2172, name: 'Theodore "Teddy" Ambrose', factions: ['Perma Trail'] },
+        { id: 2172, name: 'Theodore "Teddy" Ambrose', factions: ['Perma Trail'], deceased: true },
     ],
     themightycaveman: [
         { id: 1047, name: 'Franklin Jones' },
