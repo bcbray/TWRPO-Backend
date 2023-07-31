@@ -3731,7 +3731,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2102, name: 'Lem Bodean' },
     ],
     TotallyAFanTAF: [
-        { id: 1912, name: 'Mario Rojas' },
+        { id: 1912, name: 'Mario Rojas', assume: 'assumeOther' },
     ],
     Trader_Nicky: [
         { id: 1694, name: 'Thomas Callahan' },
