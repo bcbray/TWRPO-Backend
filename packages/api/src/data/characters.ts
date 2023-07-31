@@ -1753,7 +1753,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Jamiie99: [
         { id: 1251, name: 'Muskrat Pete', displayName: 0 },
-        { id: 1705, name: 'Lou ?', telegram: 'LM092' },
+        { id: 1705, name: 'Lou Cicero', telegram: 'LM092' },
     ],
     JaneDizzle: [
         { id: 435, name: 'Jane Pebbleswood' },
