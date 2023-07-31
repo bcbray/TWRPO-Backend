@@ -275,6 +275,17 @@ export const wrpCharacters: WrpCharacters = {
         { id: 50, name: 'Lena Phipps' },
         { id: 51, name: 'Scarlet ?' }, // TODO: Last name?
     ],
+    Autumn__Raven: [
+        { id: 34, name: '[Deputy] Jamie Marlow', factions: ['Law'], deceased: true },
+        { id: 35, name: 'Isiah Trebuchet' },
+        { id: 1174, name: '[Guard] Johannes Wolfe', factions: ['Sisika Guard'] },
+        { id: 1194, name: 'Dylan Dunning' },
+        { id: 1226, name: '[Deputy] Christian Sawyer', factions: ['Law'], telegram: 'DV709' },
+        { id: 1466, name: 'Halcón Cardoza', factions: ['Del Lobos'], telegram: 'EQ437', deceased: true },
+        { id: 1739, name: '[Deputy] Nika Mercer', factions: ['Law'], telegram: 'WU074' },
+        { id: 1959, name: 'Elizabeth Haynes' },
+        { id: 2025, name: 'Lex Lockhart' },
+    ],
     aviceration: [
         { id: 53, name: 'Ella Mason' },
         { id: 54, name: 'Vincencia "Vinnie" Romeo', deceased: true },
@@ -2312,17 +2323,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1802, name: 'Scrump Toggins' },
         { id: 1997, name: '[Cadet] Ronny McMalligan', factions: ['Law'] },
         { id: 2181, name: 'Darnold DeWitt', factions: ['Perma Trail'] },
-    ],
-    MidnightDoveonTwitch: [
-        { id: 34, name: '[Deputy] Jamie Marlow', factions: ['Law'], deceased: true },
-        { id: 35, name: 'Isiah Trebuchet' },
-        { id: 1174, name: '[Guard] Johannes Wolfe', factions: ['Sisika Guard'] },
-        { id: 1194, name: 'Dylan Dunning' },
-        { id: 1226, name: '[Deputy] Christian Sawyer', factions: ['Law'], telegram: 'DV709' },
-        { id: 1466, name: 'Halcón Cardoza', factions: ['Del Lobos'], telegram: 'EQ437', deceased: true },
-        { id: 1739, name: '[Deputy] Nika Mercer', factions: ['Law'], telegram: 'WU074' },
-        { id: 1959, name: 'Elizabeth Haynes' },
-        { id: 2025, name: 'Lex Lockhart' },
     ],
     MightyMoonBear: [
         { id: 1028, name: 'Russell Woods', telegram: 'BG616' }, // Former The Ring
