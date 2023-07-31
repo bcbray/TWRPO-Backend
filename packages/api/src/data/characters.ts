@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2188
+// Next ID: 2189
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -375,7 +375,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1637, name: 'Johnathan "John" Butcher' },
     ],
     BCold_TTV: [
-        { id: 1632, name: 'Theodosia "Theo" Ripley', telegram: 'DX020' }, // Victory Street
+        { id: 1632, name: 'Theodosia "Theo" Ripley', telegram: 'DX020' }, // Victory Street?
     ],
     Beanblanket: [
         { id: 75, name: '[Ranger] Clifford Dawes', factions: ['Rangers', 'Bluestone'] },
@@ -1753,7 +1753,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Jamiie99: [
         { id: 1251, name: 'Muskrat Pete', displayName: 0 },
-        { id: 1705, name: 'Lou Cicero', telegram: 'LM092' }, // Victory Street
+        { id: 1705, name: 'Lou Cicero', telegram: 'LM092' }, // Victory Street?
     ],
     JaneDizzle: [
         { id: 435, name: 'Jane Pebbleswood' },
@@ -2470,7 +2470,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 599, name: 'Ivy Hill', telegram: 'TL605' },
     ],
     napoleonslive: [
-        { id: 1747, name: 'Buddy LaFleur' }, // Victory Street
+        { id: 1747, name: 'Buddy LaFleur' }, // Victory Street?
     ],
     NavyWarVet: [
         { id: 1607, name: '[Ranger] Chase Reeves', factions: ['Rangers'], telegram: 'AY334' },
@@ -3110,6 +3110,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 737, name: 'Leopold Von Schitzen' },
         { id: 1051, name: 'Ronnie Rivers', factions: ['The Baastards'], telegram: 'YB719', deceased: true },
         { id: 1754, name: 'Ban Krobber', displayName: 0 },
+        { id: 2188, name: 'Jimmy Whales', nicknames: ['Jimmy Milk'] },
     ],
     SilentSentry: [
         { id: 738, name: 'Emmet "Stripes" Wagner' },
