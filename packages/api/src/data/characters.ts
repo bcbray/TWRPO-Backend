@@ -1033,9 +1033,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1479, name: 'Ricky Shay' },
         { id: 1772, name: 'Levi Watcher' },
     ],
-    DuskChild: [
-        { id: 2075, name: 'Silas Crow' },
-    ],
     DustMonkey: [
         { id: 253, name: '[Deputy] Charles Slaughter', factions: ['Law'] },
         { id: 254, name: 'Solomon Walker', deceased: true }, // Leader of The Cut
@@ -3305,6 +3302,9 @@ export const wrpCharacters: WrpCharacters = {
     StarBarf: [
         { id: 788, name: 'Elich Doherty' },
         { id: 1610, name: 'Nicki Bastogne' },
+    ],
+    starboydusk: [
+        { id: 2075, name: 'Silas Crow' },
     ],
     stardaze: [
         { id: 789, name: 'Edie Barlowe', telegram: 'KW564' },
