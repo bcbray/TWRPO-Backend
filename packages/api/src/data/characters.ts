@@ -1156,7 +1156,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 283, name: 'Briget Thorson', telegram: 'QS852', deceased: true },
         { id: 284, name: 'Vera Helvig' },
         { id: 1013, name: 'Annabelle Martin', deceased: true },
-        { id: 1240, name: '[Ranger] Olya Ivanavia', factions: ['Rangers'], telegram: 'UB094' },
+        { id: 1240, name: '[Deputy] Olya Ivanavia', factions: ['Law'], telegram: 'UB094' }, // Former Ranger
         { id: 1477, name: 'Revenant Wright', telegram: 'YB671' },
         { id: 1778, name: '[Doctor] Kenzington Downey', factions: ['Medical'] },
         { id: 1871, name: 'Peter Whistler' },
