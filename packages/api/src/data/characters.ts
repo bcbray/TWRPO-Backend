@@ -888,7 +888,7 @@ export const wrpCharacters: WrpCharacters = {
     deviliac: [
         { id: 210, name: 'Rafael "Rafa" Ramirez', nicknames: ['SnakeFace'] },
     ],
-    dinosrawrs: [
+    DinoNotDeeno: [
         { id: 1970, name: 'Sam Colt' },
         { id: 2162, name: 'Blanche Martin' },
     ],
