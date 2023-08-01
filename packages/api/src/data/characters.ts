@@ -1799,7 +1799,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 442, name: 'Gemma Middleton' },
     ],
     JennyHell: [
-        { id: 1224, name: 'Rebecca Lang', factions: ['The Baastards'], telegram: 'GL629' },
+        { id: 1224, name: 'Rebecca Lang', factions: ['The Baastards'], telegram: 'GL629', deceased: true },
         { id: 1225, name: '[Deputy] Molly Mills', factions: ['Law'], deceased: true, telegram: 'AU029' },
         { id: 1303, name: '[Deputy] Mia Bailey', factions: ['Law'], telegram: 'CQ648' },
         { id: 1304, name: 'Missy Mee', factions: ['Dead End Gang'], deceased: true, telegram: 'EP452' },
