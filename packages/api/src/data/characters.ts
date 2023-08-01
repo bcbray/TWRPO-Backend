@@ -3367,7 +3367,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1326, name: 'Kip Smith' },
         { id: 1584, name: 'Marshall Lee' },
         { id: 1635, name: '[Deputy] Ollie Cooper', factions: ['Law'], telegram: 'CL140' },
-        { id: 1840, name: 'Gilbert Kriger' },
+        { id: 1840, name: 'Gilbert Kriger', deceased: true },
         { id: 2131, name: 'Mickey McGee' },
     ],
     Swordofpower1: [
