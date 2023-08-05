@@ -3570,7 +3570,7 @@ export const wrpCharacters: WrpCharacters = {
     TheGeneralSmokey: [
         { id: 861, name: 'Edwin Braithwaite', nicknames: ['Eddie', 'Eddie Braithwaite', 'Prisoner 462503', '462503'], factions: ['Dead End Gang'], telegram: 'WZ827' }, // Former Kettleman
         { id: 1737, name: 'Emmett Braithwaite', deceased: true },
-        { id: 2101, name: '[Recruit] Gerry Murphy', factions: ['Rangers'] },
+        { id: 2101, name: '[Recruit] Gerry Murphy', factions: ['Rangers'], deceased: true },
     ],
     TheGoldenDunsparce: [
         { id: 1317, name: 'Ngu Daeng', telegram: 'KG865' },
