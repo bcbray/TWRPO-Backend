@@ -1052,7 +1052,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1082, name: 'Bruce ?' },
     ],
     dynadivine: [
-        { id: 260, name: '[Deputy] Lucille Davis', nicknames: ['Lucille Walker'], factions: ['Law'] }, // Former The Cut
+        { id: 260, name: 'Lucille Davis', nicknames: ['Lucille Walker'] }, // Former The Cut. Former Deputy
         { id: 262, name: 'Danielle ?', factions: ['The Ward'] },
         { id: 1006, name: '[Deputy] Lillian Taylor', factions: ['Law'], telegram: 'MH115' },
         { id: 1107, name: 'Stella Callahan' },
