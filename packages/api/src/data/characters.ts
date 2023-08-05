@@ -3416,7 +3416,7 @@ export const wrpCharacters: WrpCharacters = {
     TankGirl: [
         { id: 811, name: 'Effie Mae Braithwaite', deceased: true },
         { id: 812, name: 'Gloria Bonanno' },
-        { id: 1165, name: '[Guard] Hattie Booker', factions: ['Sisika Guard'], displayName: 2 },
+        { id: 1165, name: '[Warden] Hattie Booker', factions: ['Sisika Guard'], displayName: 2 },
         { id: 1911, name: 'Seraphina Braithwaite' },
         { id: 2050, name: 'Harry ?' },
     ],
