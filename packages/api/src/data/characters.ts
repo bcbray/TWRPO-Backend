@@ -1860,7 +1860,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 456, name: 'Peggy Brown', deceased: true },
         { id: 1535, name: 'Terry Flannigan', deceased: true },
         { id: 1639, name: 'Huxley Palmer', telegram: 'DH771' },
-        { id: 1838, name: 'Seth South' },
+        { id: 1838, name: 'Seth South', deceased: true },
         { id: 1896, name: 'Lee Gardner' },
         { id: 1952, name: 'Luke Barrett', factions: ['Pruitt Gang'] },
         { id: 2200, name: '[Deputy] Hanz Wagner', factions: ['Law'] },
