@@ -3300,7 +3300,7 @@ export const wrpCharacters: WrpCharacters = {
     Ssaab: [
         { id: 784, name: 'Sam Baas', factions: ['The Baastards'], leader: true, nicknames: ['Dank Outlaw', 'Sam Christ'], deceased: true, telegram: 'YB638' }, // Former Sam's Club. leader of Sam's Club
         { id: 785, name: 'Ali Baba', displayName: 0 },
-        { id: 786, name: '[Deputy] Leo Slacks', nicknames: ['Golden Boy'], factions: ['Law'], telegram: 'EO787' },
+        { id: 786, name: '[Deputy] Leo Slacks', nicknames: ['Golden Boy'], factions: ['Law'], telegram: 'EO787', deceased: true },
         { id: 1295, name: 'Charles "CD" Divine', telegram: 'FA344', factions: ['The Baastards'], deceased: true },
     ],
     Ssmacky: [
@@ -3548,7 +3548,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 857, name: 'Antonio "Tony" Salerno', factions: ['DiCenzo Famiglia'], telegram: 'RR471' },
     ],
     thedopemaster93: [ // Ssaab alt
-        { id: 1501, name: '[Deputy] Leo Slacks', nicknames: ['Golden Boy'], factions: ['Law'], telegram: 'EO787' },
+        { id: 1501, name: '[Deputy] Leo Slacks', nicknames: ['Golden Boy'], factions: ['Law'], telegram: 'EO787', deceased: true },
         { id: 1502, name: 'Charles "CD" Divine', telegram: 'FA344', factions: ['The Baastards'] },
         { id: 1734, name: 'Sam Baas', factions: ['The Baastards'], leader: true, nicknames: ['Dank Outlaw'], deceased: true, telegram: 'YB638' }, // Former Sam's Club. leader of Sam's Club
         { id: 1735, name: 'Ali Baba', displayName: 0 },
