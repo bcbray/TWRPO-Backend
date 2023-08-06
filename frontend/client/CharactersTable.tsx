@@ -13,6 +13,7 @@ import { useFactionCss } from './FactionStyleProvider';
 import { useRelativeDateMaybe } from './hooks';
 import { useCurrentServer } from './CurrentServer';
 import MetaAlert, { MetaAlertDecision } from './MetaAlert';
+import { useAuthorization } from './auth';
 
 type Sort = 'streamer' | 'title' | 'name' | 'nickname' | 'faction' | 'contact' | 'lastSeen' | 'duration';
 type Order = 'asc' | 'desc';
@@ -32,6 +33,7 @@ interface RowProps {
   hideStreamer: boolean;
   noStreamerLink: boolean;
   factionDestination: 'characters' | 'streams';
+  hasContactsColumn: boolean;
   canShowContacts: boolean;
   requestContactVisibility: (onApprove: () => void) => void;
 }
@@ -46,6 +48,7 @@ const CharacterRow: React.FC<RowProps> = ({
   hideStreamer,
   noStreamerLink,
   factionDestination,
+  hasContactsColumn,
   canShowContacts,
   requestContactVisibility,
 }) => {
@@ -164,21 +167,23 @@ const CharacterRow: React.FC<RowProps> = ({
         )
       }
       </td>
-      <td className={styles.contact}>
-        {contactObscured && character.contact !== undefined ? (
-          <span className={styles.obscured}>
-            <span className={styles.value}>{character.contact}</span>
-            <Button
-              as='span'
-              className={classes(styles.showButton)}
-              onClick={handleShowContact}
-              title='Show telegram number'
-            >
-              Show
-            </Button>
-          </span>
-        ) : character.contact}
-      </td>
+      {hasContactsColumn && (
+        <td className={styles.contact}>
+          {contactObscured && character.contact !== undefined ? (
+            <span className={styles.obscured}>
+              <span className={styles.value}>{character.contact}</span>
+              <Button
+                as='span'
+                className={classes(styles.showButton)}
+                onClick={handleShowContact}
+                title='Show telegram number'
+              >
+                Show
+              </Button>
+            </span>
+          ) : character.contact}
+        </td>
+      )}
       <td className={styles.lastSeen}>
         {character.liveInfo ? (
           'live now'
@@ -205,6 +210,7 @@ const CharacterRow: React.FC<RowProps> = ({
     location.search,
     noStreamerLink,
     totalDuration,
+    hasContactsColumn,
     contactObscured,
     handleShowContact,
   ]);
@@ -459,6 +465,8 @@ const CharactersTable: React.FunctionComponent<Props> = ({
       : <>{children}</>
   ), [sort, order, handleSort, sortedCharacters]);
 
+  const showContactsColumn = useAuthorization('view-all-contacts');
+
   const [canShowContacts, setCanShowContacts] = React.useState(false);
   const [showingMetaAlert, setShowingMetaAlert] = React.useState(false);
   const [onMetaAlertApproval, setOnMetaAlertApproval] = React.useState<(() => void) | null>(null);
@@ -539,11 +547,13 @@ const CharactersTable: React.FunctionComponent<Props> = ({
               Factions
             </SortableHeader>
           </th>
-          <th style={{ width: '10%' }}>
-            <SortableHeader sort='contact'>
-              Telegram
-            </SortableHeader>
-          </th>
+          {showContactsColumn && (
+            <th style={{ width: '10%' }}>
+              <SortableHeader sort='contact'>
+                Telegram
+              </SortableHeader>
+            </th>
+          )}
           <th style={{ width: '10%' }}>
             <SortableHeader sort='lastSeen'>
               Last Seen
@@ -571,6 +581,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
               hideStreamer={hideStreamer}
               noStreamerLink={noStreamerLink}
               factionDestination={factionDestination}
+              hasContactsColumn={showContactsColumn}
               canShowContacts={canShowContacts || (suppressContactMetaAlert ?? false)}
               requestContactVisibility={showMetaAlert}
             />
