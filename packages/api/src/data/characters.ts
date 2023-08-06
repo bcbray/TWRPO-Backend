@@ -2396,7 +2396,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1686, name: 'John Coleman', telegram: 'LW920' },
     ],
     mr_baker99: [
-        { id: 1986, name: 'Charlie Baker' },
+        { id: 1986, name: 'Charlie Baker', assume: 'assumeOther' },
     ],
     MrArkay: [
         { id: 570, name: 'Casper Hems' },
