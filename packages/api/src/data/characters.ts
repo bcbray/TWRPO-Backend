@@ -1128,16 +1128,16 @@ export const wrpCharacters: WrpCharacters = {
     emy99712: [
         { id: 1803, name: 'Ellie West' },
     ],
-    endangeredfinley: [
-        { id: 276, name: 'Amelia Riddle', nicknames: ['Eiwaz', 'Kenaz'], factions: ['Daughters of Fenrir'], telegram: 'JY369' },
-        { id: 277, name: '[Doctor] Bonnifer "Bonnie" Gray', factions: ['Medical'], telegram: 'SE096' },
-        { id: 278, name: '[Chief] Tanagila Kinya Isakib Hanhepi Wi', nicknames: ['Hummingbird', 'Hummingbird Flies By Moon', 'Kit'], displayName: 6, factions: ['Wapiti', 'Sun Warriors'], leader: true, telegram: 'KX331' },
-        { id: 279, name: 'Paul Güttman' },
-        { id: 1199, name: 'Persephone "Bones" Bonesman' },
-        { id: 1611, name: 'Jolene Davenport' },
-        { id: 1873, name: 'Cody Curtis' },
-        { id: 2099, name: 'Ken Oath' }, // Law hopeful
-    ],
+    // endangeredfinley: [ // Requested removal
+    //     { id: 276, name: 'Amelia Riddle', nicknames: ['Eiwaz', 'Kenaz'], factions: ['Daughters of Fenrir'], telegram: 'JY369' },
+    //     { id: 277, name: '[Doctor] Bonnifer "Bonnie" Gray', factions: ['Medical'], telegram: 'SE096' },
+    //     { id: 278, name: '[Chief] Tanagila Kinya Isakib Hanhepi Wi', nicknames: ['Hummingbird', 'Hummingbird Flies By Moon', 'Kit'], displayName: 6, factions: ['Wapiti', 'Sun Warriors'], leader: true, telegram: 'KX331' },
+    //     { id: 279, name: 'Paul Güttman' },
+    //     { id: 1199, name: 'Persephone "Bones" Bonesman' },
+    //     { id: 1611, name: 'Jolene Davenport' },
+    //     { id: 1873, name: 'Cody Curtis' },
+    //     { id: 2099, name: 'Ken Oath' }, // Law hopeful
+    // ],
     ENiGMAorigin: [
         { id: 1258, name: 'Theodore Paul' },
     ],
