@@ -1902,14 +1902,14 @@ export const wrpCharacters: WrpCharacters = {
     JustAnotherBro: [
         { id: 461, name: 'Billy Blood' },
     ],
-    JustSam42: [
-        { id: 462, name: '[Ranger] Nathan Thompson', factions: ['Rangers'], telegram: 'EY079', deceased: true }, // Former Game Warden
-        { id: 1710, name: 'Angel Roberts', telegram: 'GX691' },
-        { id: 1758, name: 'Jameson "Bear" Farthing', nicknames: ['Mitchel', 'Hourglass', 'HG'], telegram: 'WB970' },
+    JustSam42: [ // Doesn’t like telegrams visible
+        { id: 462, name: '[Ranger] Nathan Thompson', factions: ['Rangers'], deceased: true }, // Former Game Warden. Telegram: EY079
+        { id: 1710, name: 'Angel Roberts' }, // Telegram: GX691
+        { id: 1758, name: 'Jameson "Bear" Farthing', nicknames: ['Mitchel', 'Hourglass', 'HG'] }, // Telegram: WB970
         { id: 1841, name: 'Cecily "CC" Matthews' },
         { id: 2192, name: 'Keith Oath' },
         { id: 2193, name: 'Virgil "Gil" Johnson' },
-        { id: 2194, name: 'Dylan "Dot" Fletcher' },
+        { id: 2194, name: 'Dot Fletcher' }, // First name Dylan. Streamer doesn’t want it known.
     ],
     JVI_Gaming: [
         { id: 2096, name: '[Ranger] Owen Bradley', factions: ['Rangers'] },
