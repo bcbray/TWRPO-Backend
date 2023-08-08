@@ -1872,9 +1872,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1952, name: 'Luke Barrett', factions: ['Pruitt Gang'] },
         { id: 2200, name: '[Deputy] Hanz Wagner', factions: ['Law'] },
     ],
-    Jonn_Memphis: [
-        { id: 2145, name: 'Marcus Monroe' },
-    ],
     Jonthebroski: [
         { id: 457, name: 'Jonathan Divine', nicknames: ['Johnny', 'JBaas', 'J’Baas', 'J Baas'], displayName: 5, factions: ['The Baastards'], leader: true, telegram: 'EJ572', deceased: true }, // Former Sam's Club
         { id: 458, name: '[Sr. Deputy] Jaime Ruth', factions: ['Law'], telegram: 'SX271' },
@@ -2106,6 +2103,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Leg0s: [
         { id: 1286, name: 'Gabrielle Reyes' },
+    ],
+    Lemon_Dwarf: [
+        { id: 2145, name: 'Marcus Monroe' },
     ],
     Lendermations: [
         { id: 507, name: 'Inessa "Miss Match" Bornlof', telegram: 'XI953' },
