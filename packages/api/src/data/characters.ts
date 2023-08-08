@@ -3318,7 +3318,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 788, name: 'Elich Doherty' },
         { id: 1610, name: 'Nicki Bastogne' },
     ],
-    starboydusk: [
+    StarBoyDusk: [
         { id: 2075, name: 'Silas Crow' },
     ],
     stardaze: [
