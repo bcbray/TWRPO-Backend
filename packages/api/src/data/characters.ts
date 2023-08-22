@@ -2253,7 +2253,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1613, name: 'Evie Jones' },
         { id: 1614, name: 'Gracie Wagoner' },
     ],
-    madhare23: [
+    MadHare_23: [
         { id: 1377, name: 'Edward Bretton', telegram: 'IN643' },
         { id: 1378, name: 'Jugg Washburn', factions: ['The Strays'], telegram: 'TF573' },
         { id: 1608, name: 'Edmund Rivett', telegram: 'ZP509' },
