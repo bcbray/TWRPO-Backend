@@ -424,6 +424,10 @@ export const wrpCharacters: WrpCharacters = {
     big_bear731: [
         { id: 1672, name: '[Deputy] Ehret Dalton', factions: ['Law'] },
     ],
+    BIG_BURGER_GUY: [
+        { id: 2033, name: 'Hoss Huntley' },
+        { id: 2063, name: 'Bodie LaCroix' },
+    ],
     BigBadMomma: [
         { id: 1588, name: 'Gladys Pettibone', nicknames: ['Gladys Blanchard', 'Blanchard'] },
         { id: 1967, name: 'Zelda Garfinkel' },
@@ -542,10 +546,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Buffalo995: [
         { id: 120, name: 'Clayton Woods' },
-    ],
-    BuhBuhBurguh: [
-        { id: 2033, name: 'Hoss Huntley' },
-        { id: 2063, name: 'Bodie LaCroix' },
     ],
     BumbBard: [
         { id: 121, name: 'Fewis Oxhandler' },
