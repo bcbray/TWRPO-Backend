@@ -730,6 +730,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 596, name: 'Pikup Dropov' },
         { id: 1176, name: 'Ira Claymore' },
     ],
+    counter_snpc: [
+        { id: 2009, name: 'Kyle Row' },
+    ],
     Coxybaws: [
         { id: 1923, name: '[Deputy] Fionn O’Malley', factions: ['Law'] },
     ],
@@ -2779,9 +2782,6 @@ export const wrpCharacters: WrpCharacters = {
     psyrinity: [
         { id: 69, name: 'Laura Dunn' },
         { id: 1707, name: 'Amalia H. Delray', factions: ['Freeman Family'] },
-    ],
-    psychop4thic_savage: [
-        { id: 2009, name: 'Kyle Row' },
     ],
     PuckNatorGaming: [
         { id: 659, name: 'Ernest Thorton' },
