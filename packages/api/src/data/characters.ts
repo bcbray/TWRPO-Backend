@@ -2291,7 +2291,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1608, name: 'Edmund Rivett', telegram: 'ZP509' },
         { id: 1609, name: 'Kurtis "Big Swell" Swell' },
         { id: 1965, name: 'Zeno Fuda' },
-        { id: 2004, name: 'Raphold Gneer' },
+        { id: 2004, name: 'Ralphold "Ralph" Gneer' },
     ],
     Madmoiselle: [
         { id: 548, name: 'Lily Landry' },
