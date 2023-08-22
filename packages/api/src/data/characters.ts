@@ -353,7 +353,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1415, name: '[Deputy] Clifford Castle', factions: ['Law'], telegram: 'PX411', deceased: true },
         { id: 1673, name: '[Deputy] Floyd Smith', factions: ['Law'], deceased: true },
         { id: 1714, name: 'Tobasco Tom' },
-        { id: 1732, name: 'Bill Williamson', nicknames: ['Marigold Williamson'], displayName: 1 }, // Former Deputy
+        { id: 1732, name: 'Marigold "Bill" Williamson', nicknames: ['Big Balls Bill'] }, // Former Deputy
         { id: 2080, name: 'Heath Horton' },
     ],
     Balmer: [
