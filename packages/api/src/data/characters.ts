@@ -3464,7 +3464,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 826, name: 'Chester McGuckin' },
         { id: 827, name: 'Nathan Riggs' },
     ],
-    TechnicWasTaken: [
+    technic_btw: [
         { id: 1214, name: 'Charlie VanDyne' },
     ],
     TehJamJar: [
