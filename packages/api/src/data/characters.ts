@@ -1560,7 +1560,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1550, name: 'Igmuṫaƞka', nicknames: ['Igmutaka', 'Winter Oak'], factions: ['Wapiti'] },
     ],
     hiturshotskheed: [
-        { id: 2221, name: 'Leroy Henderson' },
+        // Not WildRP. Also, toxic.
+        { id: 2221, name: '- -', assume: 'neverNp' },
     ],
     HulzyRP: [
         { id: 1269, name: 'Ciccio "Cheech" ?' },
