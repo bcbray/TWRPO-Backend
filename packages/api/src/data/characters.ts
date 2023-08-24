@@ -534,7 +534,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1080, name: 'Teddy Payne' },
     ],
     broxh_: [
-        { id: 1809, name: 'Toa Cassidy' },
+        { id: 1809, name: 'Toa Cassidy', assume: 'assumeOther' },
     ],
     BrutalBri: [
         { id: 112, name: 'Cooter O’Doole' },
