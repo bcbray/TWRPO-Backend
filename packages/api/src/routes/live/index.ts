@@ -51,7 +51,88 @@ const buildRouter = (apiClient: ApiClient, dataSource: DataSource, logger: Logge
 
         // Includes _TNOID_, npManual, _ORDER_, _TITLE_, _VIEWERS_, _PFP_, _CHANNEL1_, _CHANNEL2_
         // eslint-disable-next-line max-len
-        let baseHtml = '<div class="tno-stream" id="tno-stream-_TNOID_" data-target="" style="order: _ORDER_;"><div class="Layout-sc-1xcs6mc-0 kJTxkr"><div><div class="Layout-sc-1xcs6mc-0"><article data-a-target="card-2" data-a-id="card-_CHANNEL1_" class="Layout-sc-1xcs6mc-0 guHXLE"><div class="Layout-sc-1xcs6mc-0 gUnRUD"><div class="Layout-sc-1xcs6mc-0 ilDsKw"><div class="ScTextWrapper-sc-10mto54-1 fwZpSK"><div class="ScTextMargin-sc-10mto54-2 bcdHdk"><a data-test-selector="TitleAndChannel" data-a-target="preview-card-channel-link" aria-label="_CHANNEL1_ streaming _TITLE_" class="ScCoreLink-sc-16kq0mq-0 jKBAWW tw-link" href="/_CHANNEL1_"><h3 title="_TITLE_" class="CoreText-sc-1txzju1-0 eJuFGD">_TITLE_</h3><p data-a-target="preview-card-channel-link" tabindex="-1" title="_CHANNEL2_" class="CoreText-sc-1txzju1-0 jiepBC">_CHANNEL2_</p></a></div><div class="Layout-sc-1xcs6mc-0 BcKcx"><div class="InjectLayout-sc-1i43xsx-0 hVPOSx"><div class="InjectLayout-sc-1i43xsx-0 koJRns"><button class="ScTag-sc-14s7ciu-0 bOVWlO tw-tag" aria-describedby="wmRiRyrV9rhadV6q7AGAwoHCcFGCRowG" aria-label="English" data-a-target="English"><div class="ScTagContent-sc-14s7ciu-1 fUclzK"><div class="ScTagText-sc-14s7ciu-2 bPzjwR"><span>English</span></div></div></button></div></div></div></div><div class="ScImageWrapper-sc-10mto54-0 jrfBpi"><a data-a-target="card-2" data-a-id="card-_CHANNEL1_" data-test-selector="preview-card-avatar" tabindex="-1" class="ScCoreLink-sc-16kq0mq-0 jSrrlW tw-link" href="/_CHANNEL1_/videos"><div class="ScAspectRatio-sc-18km980-1 gxJZAm tw-aspect"><div class="ScAspectSpacer-sc-18km980-0 kiiGFY"></div><figure aria-label="_CHANNEL1_" class="ScAvatar-sc-144b42z-0 jBfrnP tw-avatar"><img class="InjectLayout-sc-1i43xsx-0 bEwPpb tw-image tw-image-avatar" alt="_CHANNEL1_" src="_PFP_"></figure></div></a></div></div></div><div class="ScWrapper-sc-1wvuch4-0 dSyPJh tw-hover-accent-effect"><div class="ScTransformWrapper-sc-1wvuch4-1 ScCornerTop-sc-1wvuch4-2 gEBqEV hPOElK"></div><div class="ScTransformWrapper-sc-1wvuch4-1 ScCornerBottom-sc-1wvuch4-3 fNwmtl dTxLuP"></div><div class="ScTransformWrapper-sc-1wvuch4-1 ScEdgeLeft-sc-1wvuch4-4 jhgGdR blwnUh"></div><div class="ScTransformWrapper-sc-1wvuch4-1 ScEdgeBottom-sc-1wvuch4-5 dJYDVl dWkueR"></div><div class="ScTransformWrapper-sc-1wvuch4-1 gMwbGx"><a data-a-target="preview-card-image-link" tabindex="-1" class="ScCoreLink-sc-16kq0mq-0 jSrrlW preview-card-image-link tw-link" href="/_CHANNEL1_"><div class="Layout-sc-1xcs6mc-0 hkwQCo"><div class="ScAspectRatio-sc-18km980-1 hTTohL tw-aspect"><div class="ScAspectSpacer-sc-18km980-0 ftHEOL"></div><img alt="_TITLE_ - _CHANNEL1_" class="tw-image" src="https://static-cdn.jtvnw.net/previews-ttv/live_user__CHANNEL1_-440x248.jpg_TIMEID_"></div><div class="ScPositionCorner-sc-1shjvnv-1 hoKYhE"><div class="ScChannelStatusTextIndicator-sc-qtgrnb-0 ivjxmt tw-channel-status-text-indicator" font-size="font-size-6"><p class="CoreText-sc-1txzju1-0 ecTWUv">LIVE</p></div></div><div class="ScPositionCorner-sc-1shjvnv-1 gUtzBI"><div class="ScMediaCardStatWrapper-sc-anph5i-0 bEHknf tw-media-card-stat">_VIEWERS_ viewers</div></div></div></a></div></div></article></div></div></div></div>';
+        let baseHtml = `
+        <div class="tno-stream" id="tno-stream-_TNOID_" data-target="" style="order: 1=_ORDER_;">
+            <div class="Layout-sc-1xcs6mc-0 cLVpKC">
+                <div>
+                    <div class="Layout-sc-1xcs6mc-0">
+                        <article data-a-target="card-1" data-a-id="card-_CHANNEL1_" class="Layout-sc-1xcs6mc-0 fAprix">
+                            <div class="Layout-sc-1xcs6mc-0 gIALbm">
+                                <div class="Layout-sc-1xcs6mc-0 fSCWTp">
+                                    <div class="ScTextWrapper-sc-10mto54-1 CSRpv">
+                                        <div class="ScTextMargin-sc-10mto54-2 lkOZnV">
+                                            <a
+                                                data-focusable="true"
+                                                data-test-selector="TitleAndChannel"
+                                                data-a-target="preview-card-channel-link"
+                                                aria-label="_CHANNEL2_ streaming _TITLE_"
+                                                class="ScCoreLink-sc-16kq0mq-0 bMtPpj tw-link"
+                                                href="/_CHANNEL1_"
+                                            >
+                                                <h3 title="_TITLE_" class="CoreText-sc-1txzju1-0 jpNucq">_TITLE_</h3>
+                                                <p data-a-target="preview-card-channel-link" tabindex="-1" title="_CHANNEL2_" class="CoreText-sc-1txzju1-0 eZjVb">_CHANNEL2_</p>
+                                            </a>
+                                        </div>
+                                        <div class="Layout-sc-1xcs6mc-0 czEOvg">
+                                            <div class="InjectLayout-sc-1i43xsx-0 cerOzE">
+                                                <div class="InjectLayout-sc-1i43xsx-0 hmETe">
+                                                    <button aria-label="Tag, English" data-a-target="English" tabindex="0" class="ScTag-sc-14s7ciu-0 bupdaH tw-tag">
+                                                        <div class="ScTagContent-sc-14s7ciu-1 bOnUXP">
+                                                            <div class="ScTruncateText-sc-i3kjgq-0 iXYIJp"><span>English</span></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ScImageWrapper-sc-10mto54-0 fyZLSX">
+                                        <a
+                                            data-a-target="card-1"
+                                            data-a-id="card-_CHANNEL1_"
+                                            data-test-selector="preview-card-avatar"
+                                            tabindex="-1" class="ScCoreLink-sc-16kq0mq-0 ebZBYr tw-link"
+                                            href="/_CHANNEL1_/videos"
+                                        >
+                                            <div class="ScAspectRatio-sc-18km980-1 nvuLn tw-aspect">
+                                                <div class="ScAspectSpacer-sc-18km980-0 dMlEgZ"></div>
+                                                <div class="ScAvatar-sc-144b42z-0 dddgvK tw-avatar">
+                                                    <img class="InjectLayout-sc-1i43xsx-0 gljEcG tw-image tw-image-avatar" alt="_CHANNEL2_" src="_PFP_">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ScWrapper-sc-1wvuch4-0 gRwZsF tw-hover-accent-effect">
+                                <div class="ScTransformWrapper-sc-1wvuch4-1 ScCornerTop-sc-1wvuch4-2 dUXffE cOgLZP"></div>
+                                <div class="ScTransformWrapper-sc-1wvuch4-1 ScCornerBottom-sc-1wvuch4-3 fwcrNw ePncOC"></div>
+                                <div class="ScTransformWrapper-sc-1wvuch4-1 ScEdgeLeft-sc-1wvuch4-4 kOCzPo fUpopo"></div>
+                                <div class="ScTransformWrapper-sc-1wvuch4-1 ScEdgeBottom-sc-1wvuch4-5 hxhSlw djJjFs"></div>
+                                <div class="ScTransformWrapper-sc-1wvuch4-1 hTMUmc">
+                                    <a data-a-target="preview-card-image-link" tabindex="-1" class="ScCoreLink-sc-16kq0mq-0 ebZBYr preview-card-image-link tw-link" href="/_CHANNEL1_">
+                                        <div class="Layout-sc-1xcs6mc-0 cCEKFF">
+                                            <div class="ScAspectRatio-sc-18km980-1 jMbAyK tw-aspect">
+                                                <div class="ScAspectSpacer-sc-18km980-0 laApky"></div>
+                                                <img alt="_TITLE_ - _CHANNEL2_" class="tw-image" src="https://static-cdn.jtvnw.net/previews-ttv/live_user__CHANNEL1_-440x248.jpg_TIMEID_">
+                                            </div>
+                                            <div class="ScPositionCorner-sc-1shjvnv-1 hyKylJ">
+                                                <div class="ScChannelStatusTextIndicator-sc-qtgrnb-0 bLhnSM tw-channel-status-text-indicator" font-size="font-size-6">
+                                                    <p class="CoreText-sc-1txzju1-0 gvsscq">LIVE</p>
+                                                </div>
+                                            </div>
+                                            <div class="ScPositionCorner-sc-1shjvnv-1 eoUNUZ">
+                                                <div class="ScMediaCardStatWrapper-sc-anph5i-0 kTpKoW tw-media-card-stat">_VIEWERS_ viewers</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
         if (!req.header('TWRPO-Extension-Version')) {
             logger.info('Sending old baseHtml');
             // If there's no extension version, assume we're <= 1.13.4
