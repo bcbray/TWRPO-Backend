@@ -1783,7 +1783,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2207, name: 'Beth Murdock' },
     ],
     JackofHeartsodb: [
-        { id: 1915, name: '[Sr. Ranger] Alfred Walsh', factions: ['Rangers'] },
+        { id: 1915, name: 'Alfred Walsh', factions: ['Bluestone'] }, // Former Sr. Ranger
     ],
     JackTFD: [
         { id: 1447, name: 'Max Bell', factions: ['Bell Gang'] },
