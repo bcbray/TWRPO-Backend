@@ -3015,7 +3015,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     SailorpiXel: [
         { id: 2106, name: 'Rowan McLeod', factions: ['Quil Gang'] },
-        { id: 2107, name: '[Ranger] Clarabelle Kelly', displayName: 2, factions: ['Rangers'] },
+        { id: 2107, name: '[Deputy] Clarabelle Kelly', displayName: 2, factions: ['Law'] }, // Former Ranger
     ],
     SalsaRage: [
         { id: 696, name: 'Norman McCain', factions: ['Moretti Crew'], telegram: 'WM372' },
