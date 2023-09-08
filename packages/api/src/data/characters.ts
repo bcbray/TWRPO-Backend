@@ -261,7 +261,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1465, name: '[Nurse] Vivian Smith', factions: ['Medical'] },
         { id: 1880, name: 'Tyene "Ty" Catell' },
         { id: 1888, name: '[Deputy] Audrey Sandh', factions: ['Law'], telegram: 'JE785' },
-        { id: 1908, name: 'Roxanna Fairdeigh' },
+        { id: 1908, name: 'Roxanna "Roxy" Fairdeigh' },
     ],
     AstroSC: [
         { id: 1450, name: 'Wayne Lovell', factions: ['The Black Company'] },
