@@ -2337,9 +2337,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 555, name: 'Ernie Crabgrass' },
         { id: 1839, name: '[Deputy] Arthur Quinn', factions: ['Law'] },
     ],
-    MattBreckly: [
-        { id: 556, name: 'Dan Gerous' },
-    ],
     MattRP: [
         { id: 1085, name: 'Guy Newman', displayName: 0 },
         { id: 1310, name: '[Deputy] Jebediah Ripley', factions: ['Law'], telegram: 'AL699' },
@@ -3543,6 +3540,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ThatGuyMyers: [
         { id: 2212, name: 'Santiago De La Cruz' },
+    ],
+    thatmattlive: [
+        { id: 556, name: 'Dan Gerous' },
     ],
     thatrouge: [
         { id: 1075, name: 'Warren Clunes' },
