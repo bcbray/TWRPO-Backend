@@ -2071,7 +2071,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1333, name: '[Deputy] Jessie Valentine', telegram: 'XF491', factions: ['Law'], deceased: true },
         { id: 1925, name: 'Victor Braithwaite' },
         { id: 2163, name: 'Oatis McQuakerson' },
-        { id: 2258, name: 'Calvin Gray' },
+        { id: 2258, name: '[Deputy] Calvin Gray', factions: ['Law'] },
     ],
     KShorts: [
         { id: 2110, name: '[Cadet] Thomas Myles', factions: ['Law'] },
