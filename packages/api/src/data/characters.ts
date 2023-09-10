@@ -1608,9 +1608,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1215, name: 'Michael Melon', nicknames: ['Mr. Melon'], displayName: 3 },
         { id: 1222, name: 'Wes Givens' },
     ],
-    Hyydroplayz: [
-        { id: 1958, name: 'Connor Olson' },
-    ],
     IAmSharkriot: [
         { id: 1721, name: 'Toma Tato' },
     ],
@@ -2233,6 +2230,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     LLumiya: [
         { id: 524, name: 'Elizabeth Black' },
+    ],
+    llvhydr0vll: [
+        { id: 1958, name: 'Connor Olson' },
     ],
     LockTheRaven: [
         { id: 1366, name: 'Ezekiel Proctor' },
