@@ -1376,7 +1376,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 341, name: 'Kennway Mallory', assume: 'assumeOther' },
     ],
     GeekyMeepy: [
-        { id: 1402, name: 'Olive Myers', telegram: 'JG133' },
+        { id: 1402, name: 'Olive Myers', telegram: 'JG133', assume: 'assumeOther' },
     ],
     Gelesas: [
         { id: 1663, name: 'Dolly Dyer', nicknames: ['D.D.', 'DD', 'Dede', 'Dee Dee', 'DeeDee'], displayName: 3, factions: ['10 Tonne Gang'], telegram: 'US641' },
