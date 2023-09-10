@@ -778,7 +778,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 620, name: 'Walter Bridges' },
     ],
     CyboargTV: [
-        { id: 178, name: 'Porter ONeill' },
+        { id: 178, name: '[Cadet] Porter O’Neill', factions: ['Law'] },
     ],
     DabbsGaming: [
         { id: 1791, name: '[Deputy] Jonathan Forester', factions: ['Law'] },
