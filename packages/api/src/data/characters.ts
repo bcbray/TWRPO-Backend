@@ -510,7 +510,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1533, name: 'Rusty ?' },
     ],
     BoredFloridian: [
-        { id: 2255, name: 'John Bell' },
+        { id: 1897, name: '[Deputy] John Bell', factions: ['Law'] }, // Lee Holt
+        { id: 2008, name: 'Roland Margrave' },
+        { id: 2147, name: 'Dima Zhukov' },
     ],
     Boxeryedig: [
         { id: 104, name: 'Timothy Johnson' },
@@ -1349,11 +1351,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     FurianBlade: [
         { id: 2151, name: 'Clint Cassidy' },
-    ],
-    FusilAutomatiqueLeger: [
-        { id: 1897, name: '[Deputy] John Bell', factions: ['Law'] },
-        { id: 2008, name: 'Roland Margrave' },
-        { id: 2147, name: 'Dima Zhukov' },
     ],
     Gallethril: [
         { id: 332, name: 'Annabel Barnes', assume: 'assumeOther' },
