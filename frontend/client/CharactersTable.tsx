@@ -266,7 +266,7 @@ const characterFactionComparator: OrderedComparator<CharacterInfo> = (order: Ord
 
 const characterContactComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) => {
   if (lhs.contact && rhs.contact) {
-    return lhs.contact.localeCompare(rhs.contact);
+    return lhs.contact.localeCompare(rhs.contact) * orderMultiplier(order);
   } else if (lhs.contact) {
     return -1;
   } else if (rhs.contact) {
