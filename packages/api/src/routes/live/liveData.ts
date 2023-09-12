@@ -452,6 +452,8 @@ const getWrpLive = async (
                     .leftJoinAndSelect('server.regexes', 'regex')
                     .where('server.key IS NULL OR server.key != :key', { key: 'wrp' })
                     .andWhere('game.twitchId = :game', { game })
+                    .orderBy('server.sortOrder', 'ASC')
+                    .addOrderBy('server.name', 'ASC')
                     .getMany()).map(parseServer(logger));
 
                 interface CharacterDuration {
