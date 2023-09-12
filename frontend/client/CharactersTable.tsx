@@ -26,6 +26,7 @@ interface Props {
   noHover?: boolean;
   factionDestination?: 'characters' | 'streams';
   defaultSort?: [Sort, Order];
+  truncationLimit?: number;
 };
 
 interface RowProps {
@@ -410,6 +411,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
   noHover = false,
   factionDestination = 'characters',
   defaultSort: [defaultSort, defaultOrder] = ['streamer', 'asc'],
+  truncationLimit,
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -425,6 +427,10 @@ const CharactersTable: React.FunctionComponent<Props> = ({
     [...characters]
       .sort(characterComparator(sort, order))
   ), [characters, sort, order]);
+
+  const visibleCharacters = React.useMemo(() => (
+    sortedCharacters.slice(0, truncationLimit)
+  ), [truncationLimit, sortedCharacters]);
 
   const handleSort = React.useCallback((newSort: Sort) => () => {
     const newOrder = sort === newSort
