@@ -25,7 +25,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2259
+// Next ID: 2260
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -3344,7 +3344,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 778, name: '[Sr. Deputy] Francesca "Frankie" Bright', factions: ['Law'], telegram: 'GG190', deceased: true },
         { id: 779, name: 'Harriet "Hawk" Hawkins', factions: ['Red Water'], telegram: 'JV256', deceased: true }, // Former Summers Gang
         { id: 780, name: 'Brie Haviour' },
-        { id: 506, name: 'Ruthie Samuels' },
+        { id: 2259, name: 'Ruthie Samuels' },
         { id: 2053, name: 'Ally Ramsey' },
         { id: 2054, name: 'Sierra "Sisi" Castillo', factions: ['Del Lobos'], telegram: 'LS438' },
         { id: 1665, name: 'Margo Rush', telegram: 'ZW004' },
