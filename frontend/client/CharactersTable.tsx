@@ -15,7 +15,7 @@ import { useCurrentServer } from './CurrentServer';
 import MetaAlert, { MetaAlertDecision } from './MetaAlert';
 import { useAuthorization } from './auth';
 
-type Sort = 'streamer' | 'title' | 'name' | 'nickname' | 'faction' | 'contact' | 'lastSeen' | 'duration';
+type Column = 'streamer' | 'title' | 'name' | 'nickname' | 'faction' | 'formerFaction' | 'contact' | 'lastSeen' | 'duration';
 type Order = 'asc' | 'desc';
 
 interface Props {
@@ -25,7 +25,7 @@ interface Props {
   noStreamerLink?: boolean;
   noHover?: boolean;
   factionDestination?: 'characters' | 'streams';
-  defaultSort?: [Sort, Order];
+  defaultSort?: [Column, Order];
   truncationLimit?: number;
 };
 
@@ -302,7 +302,7 @@ const combinedComparator = (comparators: Comparator<CharacterInfo>[]): Comparato
     combined(lhs, rhs) || comparator(lhs, rhs)
   )
 
-const characterComparator = (sort: Sort, order: Order): Comparator<CharacterInfo> => {
+const characterComparator = (sort: Column, order: Order): Comparator<CharacterInfo> => {
   if (sort === 'streamer') {
     return combinedComparator([
       characterStreamerComparator(order),
@@ -362,7 +362,7 @@ const characterComparator = (sort: Sort, order: Order): Comparator<CharacterInfo
   return characterStreamerComparator(order);
 }
 
-const sortFromState = (state: any): Sort | undefined => {
+const sortFromState = (state: any): Column | undefined => {
   if (
     state
     && typeof state === 'object'
@@ -400,7 +400,7 @@ const orderFromState = (state: any): Order | undefined => {
   return undefined;
 };
 
-const defaultOrderForSort = (sort: Sort) => sort === 'duration' ? 'desc' : 'asc';
+const defaultOrderForSort = (sort: Column) => sort === 'duration' ? 'desc' : 'asc';
 const swapOrder = (order: Order) => order === 'asc' ? 'desc' : 'asc';
 
 const CharactersTable: React.FunctionComponent<Props> = ({
@@ -432,7 +432,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
     sortedCharacters.slice(0, truncationLimit)
   ), [truncationLimit, sortedCharacters]);
 
-  const handleSort = React.useCallback((newSort: Sort) => () => {
+  const handleSort = React.useCallback((newSort: Column) => () => {
     const newOrder = sort === newSort
       ? order === 'desc' ? 'asc' : 'desc'
       : defaultOrderForSort(newSort);
@@ -449,7 +449,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
     });
   }, [sort, order, rum, navigate, location]);
 
-  const SortableHeader: React.FC<{ sort: Sort, children: React.ReactNode }> = React.useCallback(({ sort: thisSort, children }) => (
+  const SortableHeader: React.FC<{ sort: Column, children: React.ReactNode }> = React.useCallback(({ sort: thisSort, children }) => (
     sortedCharacters.length > 1
       ? (
         <span
