@@ -580,7 +580,7 @@ const CharactersTable: React.FunctionComponent<Props> = ({
           </tr>
         </thead>
         <tbody>
-          {sortedCharacters && sortedCharacters.map(character =>
+          {visibleCharacters && visibleCharacters.map(character =>
             <CharacterRow
               key={`${character.id}`}
               character={character}
