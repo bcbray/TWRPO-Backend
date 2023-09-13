@@ -21,6 +21,7 @@ type Order = 'asc' | 'desc';
 interface Props {
   characters: CharacterInfo[];
   columns?: Column[];
+  collapsibleColumns?: Column[];
   noInset?: boolean;
   noStreamerLink?: boolean;
   noHover?: boolean;
@@ -449,6 +450,7 @@ const swapOrder = (order: Order) => order === 'asc' ? 'desc' : 'asc';
 const CharactersTable: React.FunctionComponent<Props> = ({
   characters,
   columns = ['streamer', 'title', 'name', 'nickname', 'faction', 'contact', 'lastSeen', 'duration'],
+  collapsibleColumns = [],
   noInset = false,
   noStreamerLink = false,
   noHover = false,
@@ -552,15 +554,42 @@ const CharactersTable: React.FunctionComponent<Props> = ({
     setShowingMetaAlert(false);
   }, [onMetaAlertApproval, setSuppressContactMetaAlert, rum]);
 
+  const collapsedColumns = React.useMemo(() => {
+    return collapsibleColumns.filter((column) => {
+      if (column === 'streamer') {
+        return false;
+      } else if (column === 'title') {
+        return !visibleCharacters.some(c => c.displayInfo.titles.length > 0);
+      } else if (column === 'name') {
+        return false;
+      } else if (column === 'nickname') {
+        return !visibleCharacters.some(c => c.displayInfo.nicknames.length > 0);
+      } else if (column === 'faction') {
+        return !visibleCharacters.some(c => visibleFactions(c.factions).length > 0);
+      } else if (column === 'formerFaction') {
+        return !visibleCharacters.some(c => c.formerFactions.length > 0);
+      } else if (column === 'contact') {
+        return !visibleCharacters.some(c => c.contact !== undefined);
+      } else if (column === 'lastSeen') {
+        return !visibleCharacters.some(c => c.lastSeenLive !== undefined);
+      } else if (column === 'duration') {
+        return !visibleCharacters.some(c => c.totalSeenDuration !== undefined);
+      } else {
+        // Should never get here.
+        return false;
+      }
+    });
+  }, [collapsibleColumns, visibleCharacters]);
+
   const finalColumns = React.useMemo(() => {
     return columns
       .filter((column) => {
         if (column === 'contact' && !showContactsColumn) {
           return false;
         }
-        return true;
+        return !collapsedColumns.includes(column);
       });
-  }, [columns, showContactsColumn]);
+  }, [columns, showContactsColumn, collapsedColumns]);
 
   return <>
     <div

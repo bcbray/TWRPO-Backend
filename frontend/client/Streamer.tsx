@@ -154,6 +154,7 @@ const Streamer: React.FC<StreamerProps> = ({
             <CharactersTable
               characters={characters}
               columns={['title', 'name', 'nickname', 'faction', 'formerFaction', 'contact', 'lastSeen', 'duration']}
+              collapsibleColumns={['title', 'nickname', 'formerFaction']}
               defaultSort={['duration', 'desc']}
               factionDestination='streams'
               noInset
