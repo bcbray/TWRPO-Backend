@@ -174,6 +174,28 @@ const CharacterRow: React.FC<RowProps> = ({
         }
         </td>
       }
+      {columns.includes('formerFaction') &&
+        <td className={styles.factions}>
+        {
+          character.formerFactions.map((faction) =>
+          <Link
+            key={faction.key}
+            className={styles.factionPill}
+            to={
+              factionDestination === 'characters'
+                ? `/characters/faction/${faction.key}${location.search}`
+                : `/streams/faction/${faction.key}`
+            }
+            style={factionStyles(faction)}
+          >
+            <span>
+              {faction.name}
+            </span>
+          </Link>
+          )
+        }
+        </td>
+      }
       {columns.includes('contact') &&
         <td className={styles.contact}>
           {contactObscured && character.contact !== undefined ? (
@@ -260,18 +282,22 @@ const characterNicknameComparator: OrderedComparator<CharacterInfo> = (order: Or
   return 0;
 }
 
-const characterFactionComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) => {
-  const lhsVisible = visibleFactions(lhs.factions);
-  const rhsVisible = visibleFactions(rhs.factions);
-  if (lhsVisible.length > 0 && rhsVisible.length > 0) {
-    return lhsVisible.map(f => f.name).join(',').localeCompare(rhsVisible.map(f => f.name).join(',')) * orderMultiplier(order)
-  } else if (lhsVisible.length > 0) {
+const factionComparator: OrderedComparator<FactionInfo[]> = (order: Order) => (lhs: FactionInfo[], rhs: FactionInfo[]) => {
+  if (lhs.length > 0 && rhs.length > 0) {
+    return lhs.map(f => f.name).join(',').localeCompare(rhs.map(f => f.name).join(',')) * orderMultiplier(order)
+  } else if (lhs.length > 0) {
     return -1;
-  } else if (rhsVisible.length > 0) {
+  } else if (rhs.length > 0) {
     return 1;
   }
   return 0;
 }
+
+const characterFactionComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) =>
+  factionComparator(order)(visibleFactions(lhs.factions), visibleFactions(rhs.factions));
+
+const characterFormerFactionComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) =>
+  factionComparator(order)(lhs.formerFactions, rhs.formerFactions);
 
 const characterContactComparator: OrderedComparator<CharacterInfo> = (order: Order) => (lhs: CharacterInfo, rhs: CharacterInfo) => {
   if (lhs.contact && rhs.contact) {
@@ -345,6 +371,13 @@ const characterComparator = (sort: Column, order: Order): Comparator<CharacterIn
       characterStreamerComparator(order),
     ]);
   }
+  if (sort === 'formerFaction') {
+    return combinedComparator([
+      characterFormerFactionComparator(order),
+      characterNameComparator(order),
+      characterStreamerComparator(order),
+    ]);
+  }
   if (sort === 'contact') {
     return combinedComparator([
       characterContactComparator(order),
@@ -383,6 +416,7 @@ const sortFromState = (state: any): Column | undefined => {
       || state.sort === 'name'
       || state.sort === 'nickname'
       || state.sort === 'faction'
+      || state.sort === 'formerFaction'
       || state.sort === 'contact'
       || state.sort === 'lastSeen'
       || state.sort === 'duration'
@@ -577,6 +611,13 @@ const CharactersTable: React.FunctionComponent<Props> = ({
             <th style={{ width: '10%' }}>
               <SortableHeader sort='faction'>
                 Factions
+              </SortableHeader>
+            </th>
+          }
+          {finalColumns.includes('formerFaction') &&
+            <th style={{ width: '10%' }}>
+              <SortableHeader sort='formerFaction'>
+                Former factions
               </SortableHeader>
             </th>
           }

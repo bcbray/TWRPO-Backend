@@ -42,6 +42,7 @@ const CrossfadeHelper: React.FC<CrossfadeHelperProps> = () => {
       displayName: 'Sam',
     },
     factions: [fakeFaction],
+    formerFactions: [],
     channelInfo: {
       id: '1234',
       login: 'ssaab',

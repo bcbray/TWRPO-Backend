@@ -9,6 +9,7 @@ export default interface CharacterInfo {
   name: string;
   displayInfo: DisplayInfo;
   factions: FactionInfo[];
+  formerFactions: FactionInfo[];
   contact?: string;
   isDeceased?: boolean;
   liveInfo?: Stream;

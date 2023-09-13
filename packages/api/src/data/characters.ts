@@ -8,6 +8,7 @@ export interface Character {
     id: number;
     name: string;
     factions?: FactionRealFull[];
+    formerFactions?: FactionRealFull[];
     displayName?: number;
     nicknames?: string[];
     leader?: boolean;
