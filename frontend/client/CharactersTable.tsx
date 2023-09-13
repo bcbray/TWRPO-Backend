@@ -20,7 +20,7 @@ type Order = 'asc' | 'desc';
 
 interface Props {
   characters: CharacterInfo[];
-  hideStreamer?: boolean;
+  columns?: Column[];
   noInset?: boolean;
   noStreamerLink?: boolean;
   noHover?: boolean;
@@ -31,10 +31,9 @@ interface Props {
 
 interface RowProps {
   character: CharacterInfo;
-  hideStreamer: boolean;
+  columns: Column[];
   noStreamerLink: boolean;
   factionDestination: 'characters' | 'streams';
-  hasContactsColumn: boolean;
   canShowContacts: boolean;
   requestContactVisibility: (onApprove: () => void) => void;
 }
@@ -46,10 +45,9 @@ const visibleFactions = (factions: FactionInfo[]) =>
 
 const CharacterRow: React.FC<RowProps> = ({
   character,
-  hideStreamer,
+  columns,
   noStreamerLink,
   factionDestination,
-  hasContactsColumn,
   canShowContacts,
   requestContactVisibility,
 }) => {
@@ -100,7 +98,7 @@ const CharacterRow: React.FC<RowProps> = ({
 
   return React.useMemo(() => (
     <tr className={styles.characterRow}>
-      {!hideStreamer &&
+      {columns.includes('streamer') &&
         <td className={styles.channelName}>
           {noStreamerLink ? (
             <>
@@ -135,40 +133,48 @@ const CharacterRow: React.FC<RowProps> = ({
           )}
         </td>
       }
-      <td className={styles.titles}>{character.displayInfo.titles.join(', ')}</td>
-      <td className={styles.name}>
-        {noStreamerLink ? (
-          character.displayInfo.realNames.join(' ')
-        ) : (
-          <Link to={`/streamer/${character.channelName.toLowerCase()}`}>
-            {character.displayInfo.realNames.join(' ')}
-          </Link>
-        )}
-        {character.isDeceased && <> <span className={styles.deceased}>(deceased)</span></>}
-        {hideStreamer && character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
-      </td>
-      <td className={styles.nicknames}>{character.displayInfo.nicknames.join(', ')}</td>
-      <td className={styles.factions}>
-      {
-        factionsToShow.map((faction) =>
-        <Link
-          key={faction.key}
-          className={styles.factionPill}
-          to={
-            factionDestination === 'characters'
-              ? `/characters/faction/${faction.key}${location.search}`
-              : `/streams/faction/${faction.key}`
-          }
-          style={factionStyles(faction)}
-        >
-          <span>
-            {faction.name}
-          </span>
-        </Link>
-        )
+      {columns.includes('title') &&
+        <td className={styles.titles}>{character.displayInfo.titles.join(', ')}</td>
       }
-      </td>
-      {hasContactsColumn && (
+      {columns.includes('name') &&
+        <td className={styles.name}>
+          {noStreamerLink ? (
+            character.displayInfo.realNames.join(' ')
+          ) : (
+            <Link to={`/streamer/${character.channelName.toLowerCase()}`}>
+              {character.displayInfo.realNames.join(' ')}
+            </Link>
+          )}
+          {character.isDeceased && <> <span className={styles.deceased}>(deceased)</span></>}
+          {!columns.includes('streamer') && character.liveInfo && <LiveBadge className={styles.liveTag} stream={character.liveInfo} />}
+        </td>
+      }
+      {columns.includes('nickname') &&
+        <td className={styles.nicknames}>{character.displayInfo.nicknames.join(', ')}</td>
+      }
+      {columns.includes('faction') &&
+        <td className={styles.factions}>
+        {
+          factionsToShow.map((faction) =>
+          <Link
+            key={faction.key}
+            className={styles.factionPill}
+            to={
+              factionDestination === 'characters'
+                ? `/characters/faction/${faction.key}${location.search}`
+                : `/streams/faction/${faction.key}`
+            }
+            style={factionStyles(faction)}
+          >
+            <span>
+              {faction.name}
+            </span>
+          </Link>
+          )
+        }
+        </td>
+      }
+      {columns.includes('contact') &&
         <td className={styles.contact}>
           {contactObscured && character.contact !== undefined ? (
             <span className={styles.obscured}>
@@ -184,34 +190,37 @@ const CharacterRow: React.FC<RowProps> = ({
             </span>
           ) : character.contact}
         </td>
-      )}
-      <td className={styles.lastSeen}>
-        {character.liveInfo ? (
-          'live now'
-        ) : (
-          lastSeenLive?.full && lastSeenLive?.relative &&
-            <span title={lastSeenLive.full}>{lastSeenLive.relative}</span>
-        )}
-      </td>
-      <td className={styles.totalSeen}>
-        {totalDuration && firstSeenLive?.relative &&
-          <span title={`This character has been streamed for ${totalDuration} since we first saw them ${firstSeenLive.relative}`}>{totalDuration}</span>
-        }
-      </td>
+      }
+      {columns.includes('lastSeen') &&
+        <td className={styles.lastSeen}>
+          {character.liveInfo ? (
+            'live now'
+          ) : (
+            lastSeenLive?.full && lastSeenLive?.relative &&
+              <span title={lastSeenLive.full}>{lastSeenLive.relative}</span>
+          )}
+        </td>
+      }
+      {columns.includes('duration') &&
+        <td className={styles.totalSeen}>
+          {totalDuration && firstSeenLive?.relative &&
+            <span title={`This character has been streamed for ${totalDuration} since we first saw them ${firstSeenLive.relative}`}>{totalDuration}</span>
+          }
+        </td>
+      }
     </tr>
   ), [
     character,
+    columns,
     factionDestination,
     factionStyles,
     factionsToShow,
-    hideStreamer,
     firstSeenLive?.relative,
     lastSeenLive?.full,
     lastSeenLive?.relative,
     location.search,
     noStreamerLink,
     totalDuration,
-    hasContactsColumn,
     contactObscured,
     handleShowContact,
   ]);
@@ -405,7 +414,7 @@ const swapOrder = (order: Order) => order === 'asc' ? 'desc' : 'asc';
 
 const CharactersTable: React.FunctionComponent<Props> = ({
   characters,
-  hideStreamer = false,
+  columns = ['streamer', 'title', 'name', 'nickname', 'faction', 'contact', 'lastSeen', 'duration'],
   noInset = false,
   noStreamerLink = false,
   noHover = false,
@@ -509,6 +518,16 @@ const CharactersTable: React.FunctionComponent<Props> = ({
     setShowingMetaAlert(false);
   }, [onMetaAlertApproval, setSuppressContactMetaAlert, rum]);
 
+  const finalColumns = React.useMemo(() => {
+    return columns
+      .filter((column) => {
+        if (column === 'contact' && !showContactsColumn) {
+          return false;
+        }
+        return true;
+      });
+  }, [columns, showContactsColumn]);
+
   return <>
     <div
       className={classes(
@@ -519,64 +538,76 @@ const CharactersTable: React.FunctionComponent<Props> = ({
       <table className={classes(styles.table, noHover && styles.noHover)}>
         <thead>
           <tr>
-          {!hideStreamer &&
+          {finalColumns.includes('streamer') &&
             <th style={{ width: '20%' }}>
               <SortableHeader sort='streamer'>
                 Streamer
               </SortableHeader>
             </th>
           }
-          <th style={{ width: '10%' }}>
-            <SortableHeader sort='title'>
-              Titles
-            </SortableHeader>
-          </th>
-          <th style={{ width: '20%' }}>
-            <SortableHeader sort='name'>
-              Name
-            </SortableHeader>
-          </th>
-          <th style={{ width: '20%' }}>
-            <SortableHeader sort='nickname'>
-              <span
-                style={{
-                  textDecoration: 'underline dotted',
-                }}
-                title="Nicknames are not only names that characters go by, but also names used in stream titles to identify which character is being played."
-              >
-                Nicknames
-              </span>
-            </SortableHeader>
-          </th>
-          <th style={{ width: '10%' }}>
-            <SortableHeader sort='faction'>
-              Factions
-            </SortableHeader>
-          </th>
-          {showContactsColumn && (
+          {finalColumns.includes('title') &&
+            <th style={{ width: '10%' }}>
+              <SortableHeader sort='title'>
+                Titles
+              </SortableHeader>
+            </th>
+          }
+          {finalColumns.includes('name') &&
+            <th style={{ width: '20%' }}>
+              <SortableHeader sort='name'>
+                Name
+              </SortableHeader>
+            </th>
+          }
+          {finalColumns.includes('nickname') &&
+            <th style={{ width: '20%' }}>
+              <SortableHeader sort='nickname'>
+                <span
+                  style={{
+                    textDecoration: 'underline dotted',
+                  }}
+                  title="Nicknames are not only names that characters go by, but also names used in stream titles to identify which character is being played."
+                >
+                  Nicknames
+                </span>
+              </SortableHeader>
+            </th>
+          }
+          {finalColumns.includes('faction') &&
+            <th style={{ width: '10%' }}>
+              <SortableHeader sort='faction'>
+                Factions
+              </SortableHeader>
+            </th>
+          }
+          {finalColumns.includes('contact') &&
             <th style={{ width: '10%' }}>
               <SortableHeader sort='contact'>
                 Telegram
               </SortableHeader>
             </th>
-          )}
-          <th style={{ width: '10%' }}>
-            <SortableHeader sort='lastSeen'>
-              Last Seen
-            </SortableHeader>
-          </th>
-          <th style={{ width: '10%' }}>
-            <SortableHeader sort='duration'>
-              <span
-                style={{
-                  textDecoration: 'underline dotted',
-                }}
-                title="The total amount of time we’ve seen this character streamed. Hover over a duration to see when we started tracking this character."
-              >
-                Time streamed
-              </span>
-            </SortableHeader>
-          </th>
+          }
+          {finalColumns.includes('lastSeen') &&
+            <th style={{ width: '10%' }}>
+              <SortableHeader sort='lastSeen'>
+                Last Seen
+              </SortableHeader>
+            </th>
+          }
+          {finalColumns.includes('duration') &&
+            <th style={{ width: '10%' }}>
+              <SortableHeader sort='duration'>
+                <span
+                  style={{
+                    textDecoration: 'underline dotted',
+                  }}
+                  title="The total amount of time we’ve seen this character streamed. Hover over a duration to see when we started tracking this character."
+                >
+                  Time streamed
+                </span>
+              </SortableHeader>
+            </th>
+          }
           </tr>
         </thead>
         <tbody>
@@ -584,10 +615,9 @@ const CharactersTable: React.FunctionComponent<Props> = ({
             <CharacterRow
               key={`${character.id}`}
               character={character}
-              hideStreamer={hideStreamer}
+              columns={finalColumns}
               noStreamerLink={noStreamerLink}
               factionDestination={factionDestination}
-              hasContactsColumn={showContactsColumn}
               canShowContacts={canShowContacts || (suppressContactMetaAlert ?? false)}
               requestContactVisibility={showMetaAlert}
             />

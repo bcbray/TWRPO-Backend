@@ -153,9 +153,9 @@ const Streamer: React.FC<StreamerProps> = ({
           {characters.length > 0 ? (
             <CharactersTable
               characters={characters}
+              columns={['title', 'name', 'nickname', 'faction', 'formerFaction', 'contact', 'lastSeen', 'duration']}
               defaultSort={['duration', 'desc']}
               factionDestination='streams'
-              hideStreamer
               noInset
               noStreamerLink
               noHover
