@@ -2892,7 +2892,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     raulsi: [
         { id: 1682, name: 'Leslie Oak' }, // Seems to try and hide character name on stream. Might be the '????' in stream titles. Not sure if there’s lore around that.
-        { id: 1683, name: '‪Battuvshin Lkhagvasuren' },
+        { id: 1683, name: 'Battuvshin Lkhagvasuren' },
     ],
     Rayormy: [
         { id: 671, name: 'Adelaide Henry' },
