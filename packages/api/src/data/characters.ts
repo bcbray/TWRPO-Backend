@@ -3926,7 +3926,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1284, name: 'Alice Jinks' },
         { id: 1456, name: 'Alice Lungsford', factions: ['The Firm'] }, // Same character as Alice Jinks? Old stream titles use “Jinks,” but unclear
     ],
-    VersaLK: [
+    Versa: [
         { id: 918, name: 'Carlo Marciano', factions: ['DiCenzo Famiglia'], telegram: 'XX125' }, // Former Fantoni Crew
     ],
     VERTiiGOGAMING: [
