@@ -622,56 +622,60 @@ const getWrpLive = async (
                                 }
                             }
                         }
-
-                        // Perform a match with the new server matcher and compare
-                        // results. If they differ, log a warning.
-                        (() => {
-                            const testMatchedServer = matchServer(title, [wrpServer, ...otherServers]);
-                            const testOnOther = testMatchedServer !== null && testMatchedServer.id !== wrpServer.id;
-                            const testOnOtherIncluded = testOnOther && testMatchedServer.isVisible;
-                            const testOnOtherGeneric = testOnOther && !testOnOtherIncluded && testMatchedServer.isRoleplay;
-                            const testServerName = testOnOther ? testMatchedServer.name : '';
-                            const testOnNp = testMatchedServer !== null && testMatchedServer.id === wrpServer.id;
-
-                            if (
-                                testMatchedServer?.id !== matchedServer?.id
-                                || testOnOther !== onOther
-                                || testOnOtherIncluded !== onOtherIncluded
-                                || testOnOtherGeneric !== onOtherGeneric
-                                || testServerName !== serverName
-                                || testOnNp !== onNp
-                            ) {
-                                const logKey = helixStream.id + title;
-                                if (!loggedServerMatcherMismatches.has(logKey)) {
-                                    logger.warning('Mismatch in new server matcher', {
-                                        event: 'matcher-mismatch',
-                                        subevent: 'server-matcher-mismatch',
-                                        channelName,
-                                        streamTitle: title,
-
-                                        testMatchedServer,
-                                        matchedServer,
-
-                                        testOnOther,
-                                        onOther,
-
-                                        testOnOtherIncluded,
-                                        onOtherIncluded,
-
-                                        testOnOtherGeneric,
-                                        onOtherGeneric,
-
-                                        testServerName,
-                                        serverName,
-
-                                        testOnNp,
-                                        onNp,
-                                    });
-                                    loggedServerMatcherMismatches.add(logKey);
-                                }
-                            }
-                        })();
                     }
+
+                    // Perform a match with the new server matcher and compare
+                    // results. If they differ, log a warning.
+                    (() => {
+                        const testOverriddenServer = mostRecentStreamSegment && isOverridden
+                            && otherServers.find(server => server.id === mostRecentStreamSegment!.serverId)
+                            || null;
+
+                        const testMatchedServer = testOverriddenServer || matchServer(title, [wrpServer, ...otherServers]);
+                        const testOnOther = testMatchedServer !== null && testMatchedServer.id !== wrpServer.id;
+                        const testOnOtherIncluded = testOnOther && testMatchedServer.isVisible;
+                        const testOnOtherGeneric = testOnOther && !testOnOtherIncluded && testMatchedServer.isRoleplay;
+                        const testServerName = testOnOther ? testMatchedServer.name : '';
+                        const testOnNp = testMatchedServer !== null && testMatchedServer.id === wrpServer.id;
+
+                        if (
+                            testMatchedServer?.id !== matchedServer?.id
+                            || testOnOther !== onOther
+                            || testOnOtherIncluded !== onOtherIncluded
+                            || testOnOtherGeneric !== onOtherGeneric
+                            || testServerName !== serverName
+                            || testOnNp !== onNp
+                        ) {
+                            const logKey = helixStream.id + title;
+                            if (!loggedServerMatcherMismatches.has(logKey)) {
+                                logger.warning('Mismatch in new server matcher', {
+                                    event: 'matcher-mismatch',
+                                    subevent: 'server-matcher-mismatch',
+                                    channelName,
+                                    streamTitle: title,
+
+                                    testMatchedServer,
+                                    matchedServer,
+
+                                    testOnOther,
+                                    onOther,
+
+                                    testOnOtherIncluded,
+                                    onOtherIncluded,
+
+                                    testOnOtherGeneric,
+                                    onOtherGeneric,
+
+                                    testServerName,
+                                    serverName,
+
+                                    testOnNp,
+                                    onNp,
+                                });
+                                loggedServerMatcherMismatches.add(logKey);
+                            }
+                        }
+                    })();
 
                     const characters = wrpCharacters[channelNameLower] as WrpCharacter | undefined;
 
