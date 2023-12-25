@@ -1366,6 +1366,16 @@ export const wrpCharacters: WrpCharacters = {
         { id: 337, name: 'Doug Chipper' },
         { id: 338, name: 'Mike McCoy' },
     ],
+    garyglitch: [
+        { id: 351, name: 'Max Brady', formerFactions: ['Law'], telegram: 'GH469' }, // Former Sam's Club. Former Deputy
+        { id: 352, name: 'Gianni Peccati', telegram: 'KS955' },
+        { id: 353, name: 'Mordecai Butterbee' },
+        { id: 354, name: 'Giano Greywolf' },
+        { id: 355, name: 'Rudy Allaway', telegram: 'PX832' },
+        { id: 1192, name: 'Roy Martin', factions: ['Lifer'] },
+        { id: 1305, name: 'Jessie McCarthy' },
+        { id: 1620, name: 'Harold Murray' },
+    ],
     GauchoEscobar: [
         { id: 339, name: 'Gaucho Escobar' },
         { id: 340, name: 'Juana Soto' },
@@ -1424,16 +1434,6 @@ export const wrpCharacters: WrpCharacters = {
     glitchy: [
         { id: 349, name: '[Deputy] James Faraday', factions: ['Law'] },
         { id: 350, name: 'Raymond "Rayray" Willis' },
-    ],
-    GmanRBI: [
-        { id: 351, name: 'Max Brady', formerFactions: ['Law'], telegram: 'GH469' }, // Former Sam's Club. Former Deputy
-        { id: 352, name: 'Gianni Peccati', telegram: 'KS955' },
-        { id: 353, name: 'Mordecai Butterbee' },
-        { id: 354, name: 'Giano Greywolf' },
-        { id: 355, name: 'Rudy Allaway', telegram: 'PX832' },
-        { id: 1192, name: 'Roy Martin', factions: ['Lifer'] },
-        { id: 1305, name: 'Jessie McCarthy' },
-        { id: 1620, name: 'Harold Murray' },
     ],
     GnarIyDavidson: [
         { id: 356, name: 'Lluka Darkwood', telegram: 'NP135' },
