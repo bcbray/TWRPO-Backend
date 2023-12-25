@@ -738,6 +738,9 @@ export const wrpCharacters: WrpCharacters = {
     CopernicusTheDesertWizard: [
         { id: 1478, name: 'Copernicus Desert Wizard', nicknames: ['Perni', 'Copernicus the Desert Wizard'] },
     ],
+    corcidzx: [
+        { id: 1858, name: 'Kyra Milly' },
+    ],
     Cord: [
         { id: 592, name: 'Ben Bealz' },
         { id: 593, name: 'Chauncy "The Barman" Charles' },
@@ -4047,9 +4050,6 @@ export const wrpCharacters: WrpCharacters = {
     Xiceman: [
         { id: 947, name: 'Michael Bayo', factions: ['The Baastards'], telegram: 'NA016', deceased: true },
         { id: 948, name: '[Deputy] Andrew Kennedy', factions: ['Law'], telegram: 'VZ460' },
-    ],
-    xkatalayax: [
-        { id: 1858, name: 'Kyra Milly' },
     ],
     xlt588gaming: [
         { id: 949, name: 'Adam Garica' },
