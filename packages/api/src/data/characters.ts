@@ -2805,7 +2805,7 @@ export const wrpCharacters: WrpCharacters = {
     Possum_Playz: [
         { id: 1742, name: 'Taras Volkov' },
     ],
-    potsie30: [
+    potsieboi: [
         { id: 653, name: 'Doug Landers' },
     ],
     Pr3pared: [
