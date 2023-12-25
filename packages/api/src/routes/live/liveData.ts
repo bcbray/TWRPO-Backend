@@ -92,7 +92,6 @@ const ASTATES = {
 } as const;
 
 const game = '493959' as const;
-const languages: string[] = ['en', 'hi', 'no', 'pt']; // https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 const streamType: HelixStreamType = 'live';
 const bigLimit = 100 as const;
 const searchNumDefault = 2000;
@@ -289,7 +288,6 @@ const getStreams = async (apiClient: ApiClient, dataSource: DataSource, logger: 
             searchNum -= limitNow;
             const gtaStreamsNow: HelixPaginatedResult<HelixStream> = await apiClient.streams.getStreams({
                 game,
-                language: languages,
                 limit: limitNow,
                 type: streamType,
                 after,
