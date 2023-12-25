@@ -1971,11 +1971,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 469, name: 'Ellie Whitmoore' },
         { id: 470, name: 'Scarlett' },
     ],
-    kazumasco: [
-        { id: 1387, name: 'Jonesy Stewart', factions: ['Quil Gang'], telegram: 'VY875' },
-        { id: 1420, name: 'Glenn Ferguson', telegram: 'EX324' },
-        { id: 2244, name: 'Edward Tennent' },
-    ],
     keelanAU: [
         { id: 1266, name: 'Jack Adams' },
     ],
@@ -3094,6 +3089,11 @@ export const wrpCharacters: WrpCharacters = {
     ],
     ScottAndTheFullEffect: [
         { id: 1471, name: 'Burt Daniels', nicknames: ['Burt Kurt'], factions: ['The Strays'], telegram: 'JY160' },
+    ],
+    ScottishNapoleon: [
+        { id: 1387, name: 'Jonesy Stewart', factions: ['Quil Gang'], telegram: 'VY875' },
+        { id: 1420, name: 'Glenn Ferguson', telegram: 'EX324' },
+        { id: 2244, name: 'Edward Tennent' },
     ],
     ScottJitsu: [
         { id: 711, name: 'Reno Cash' },
