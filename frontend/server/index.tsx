@@ -2,8 +2,6 @@ import 'dotenv/config'
 import 'reflect-metadata';
 import { createLogger, transports, format, config } from 'winston';
 
-import './tracer';
-
 import express from 'express';
 import http from 'http';
 import compression from 'compression';
