@@ -1043,7 +1043,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 247, name: 'Pancho "El Cucuy" Zapata' },
     ],
     DuhBuhHuh: [
-        { id: 1660, name: 'Blake Harlow' },
+        { id: 1660, name: 'Blake Harlow', assume: 'assumeOther' },
         { id: 1752, name: 'Naim Pyles' },
     ],
     duhDonniee: [
