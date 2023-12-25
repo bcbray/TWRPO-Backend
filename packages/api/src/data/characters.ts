@@ -499,7 +499,7 @@ export const wrpCharacters: WrpCharacters = {
     BobIronthighs: [
         { id: 1907, name: 'Jawn Pain' },
     ],
-    bookiesghost: [
+    BookieBlack: [
         { id: 2064, name: 'John Truesdale' },
     ],
     BooksBlanketsandTea: [
