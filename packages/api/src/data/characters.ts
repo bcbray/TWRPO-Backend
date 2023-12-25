@@ -1489,15 +1489,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1761, name: 'Castor Fray', nicknames: ['Cass'], factions: ['Kelly Gang'] },
         { id: 1948, name: '[Deputy] August Gray', factions: ['Law'] },
     ],
-    grigoriypeppo: [
-        { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2, telegram: 'MT027' },
-        { id: 372, name: 'Robert Dixon' },
-        { id: 373, name: '[Deputy] Manuel Diaz', nicknames: ['El Coyote', 'Coyote'], displayName: 3, factions: ['Law'], telegram: 'NG146', deceased: true },
-        { id: 1170, name: 'Richard Ross' },
-        { id: 1435, name: 'Merry Slobbins' },
-        { id: 1633, name: 'Edgar Lopez', telegram: 'KG025' },
-        { id: 2010, name: 'Tee Stavbar' },
-    ],
     GrumpyChunkyMonkey: [
         { id: 1767, name: 'Arthur Lockwood' },
     ],
@@ -2771,6 +2762,15 @@ export const wrpCharacters: WrpCharacters = {
     ],
     PENTA: [
         { id: 997, name: 'Walter Thomas', nicknames: ['Big Walter Bulge', 'Walter Bulge', 'Bulge', 'Whorehay Bulge'], displayName: 4, telegram: 'DG939' },
+    ],
+    Peppo: [
+        { id: 371, name: 'Jack Kettleman', factions: ['Kettleman Gang'], leader: true, displayName: 2, telegram: 'MT027' },
+        { id: 372, name: 'Robert Dixon' },
+        { id: 373, name: '[Deputy] Manuel Diaz', nicknames: ['El Coyote', 'Coyote'], displayName: 3, factions: ['Law'], telegram: 'NG146', deceased: true },
+        { id: 1170, name: 'Richard Ross' },
+        { id: 1435, name: 'Merry Slobbins' },
+        { id: 1633, name: 'Edgar Lopez', telegram: 'KG025' },
+        { id: 2010, name: 'Tee Stavbar' },
     ],
     Pers: [
         { id: 643, name: 'Dr. Carrie Williams' },
