@@ -760,7 +760,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 982, name: 'Barry Beaver' },
         { id: 2142, name: 'Monty Penny' },
     ],
-    crocc_: [
+    crocc: [
         { id: 174, name: 'Santino "Sonny" DiCenzo', factions: ['DiCenzo Famiglia'], leader: true, telegram: 'KV974' },
     ],
     Crom: [
