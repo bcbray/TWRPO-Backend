@@ -26,7 +26,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2266
+// Next ID: 2267
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -1796,6 +1796,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     JackofHeartsodb: [
         { id: 1915, name: 'Alfred Walsh', factions: ['Bluestone'], formerFactions: ['Rangers'] }, // Former Sr. Ranger
+        { id: 2266, name: 'Jude "Omen" Wright' }, // Church of Lost Souls
     ],
     JackTFD: [
         { id: 1447, name: 'Max Bell', factions: ['Bell Gang'] },
