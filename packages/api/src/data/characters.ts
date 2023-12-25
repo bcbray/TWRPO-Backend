@@ -3165,6 +3165,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1601, name: 'Todd A. Treacle' },
         { id: 1602, name: 'Juliet Duncan' },
     ],
+    ShugrVT: [
+        { id: 801, name: 'Mason Memphis' },
+        { id: 1693, name: 'Vittoria Vitale' },
+    ],
     Shyirasky: [
         { id: 730, name: 'Twitch Cooper', factions: ['The Ward'] },
         { id: 1581, name: '[Deputy] ? Wallace', factions: ['Law'], deceased: true },
@@ -3424,10 +3428,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 798, name: 'Kevin Higgins' },
         { id: 799, name: 'Mackenzie Kale' },
         { id: 800, name: 'Boyd Banks', deceased: true },
-    ],
-    Sugarsockz: [
-        { id: 801, name: 'Mason Memphis' },
-        { id: 1693, name: 'Vittoria Vitale' },
     ],
     sulleyc: [
         { id: 1164, name: 'Raylan "Ray-Ray" Goggins', nicknames: [reg(/\bray(?:\-|\s*)ray\b/)], factions: ['Conductors'] },
