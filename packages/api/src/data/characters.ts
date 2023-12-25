@@ -1049,6 +1049,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1052, name: 'Jimmy Billiam' },
         { id: 1181, name: '[Guard] Darren Hobbs', factions: ['Sisika Guard'] },
     ],
+    dumbwaystokai: [
+        { id: 2018, name: 'Clayton ?' },
+        { id: 2058, name: 'Arthur Bishop' },
+    ],
     DungeonRP: [
         { id: 2146, name: 'Boris BlackBush' },
         { id: 2217, name: 'Gideon Graves', telegram: 'HJ683' },
@@ -1957,10 +1961,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     kadxon: [
         { id: 465, name: 'Vivian Lashea' },
-    ],
-    KaiWiinter: [
-        { id: 2018, name: 'Clayton ?' },
-        { id: 2058, name: 'Arthur Bishop' },
     ],
     Kanny1887: [
         { id: 466, name: 'Enrico Rodriguez' },
