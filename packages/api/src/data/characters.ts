@@ -2872,7 +2872,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 669, name: 'Sofia Sherman', factions: ['Moretti Crew'], telegram: 'HV857' },
         { id: 1805, name: 'Nayeli Ba’Cho' },
     ],
-    radd_tv: [
+    raaadd_: [
         { id: 670, name: 'Bonnie Sunn' },
         { id: 1108, name: 'Riley Fitzgerald' },
         { id: 1343, name: 'Florence "Flo" Grant', telegram: 'MZ214' },
