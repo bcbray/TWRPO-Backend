@@ -3,14 +3,6 @@
   "website": "https://twrponly.tv/",
   "scripts": {},
   "env": {
-    "DD_AGENT_MAJOR_VERSION": "7",
-    "DD_API_KEY": {
-      "required": true
-    },
-    "DD_DYNO_HOST": "true",
-    "DD_SITE": {
-      "required": true
-    },
     "SUGGESTION_DISCORD_WEBHOOK_ID": {
       "required": true
     },
@@ -36,9 +28,6 @@
     "heroku-postgresql"
   ],
   "buildpacks": [
-    {
-      "url": "https://github.com/DataDog/heroku-buildpack-datadog.git"
-    },
     {
       "url": "heroku/nodejs"
     }
