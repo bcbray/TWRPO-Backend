@@ -1596,6 +1596,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2072, name: 'Steven Gaines' },
         { id: 2111, name: 'Matthew Klein' },
     ],
+    hopdowg: [
+        { id: 1681, name: 'Abramo "Abe" Gignte' },
+    ],
     Hoss: [
         { id: 395, name: 'Buck Cherry' },
         { id: 1586, name: 'Buster Rivers' },
@@ -2380,9 +2383,6 @@ export const wrpCharacters: WrpCharacters = {
     MightyMoonBear: [
         { id: 1028, name: 'Russell Woods', telegram: 'BG616' }, // Former The Ring
         { id: 1253, name: 'Nvdo Kali Yona' },
-    ],
-    Mike6s: [
-        { id: 1681, name: 'Abramo "Abe" Gignte' },
     ],
     MinksOfMars: [
         { id: 566, name: 'Irene "Peaches" Corvus', nicknames: ['Forbidden Fruit', 'Nelly'], factions: ['Dead End Gang'], formerFactions: ['Hagen'], telegram: 'YV009' }, // Former Sam's Club
