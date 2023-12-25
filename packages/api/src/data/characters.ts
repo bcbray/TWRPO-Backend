@@ -2530,7 +2530,7 @@ export const wrpCharacters: WrpCharacters = {
     NaniNerd: [
         { id: 599, name: 'Ivy Hill', telegram: 'TL605' },
     ],
-    napoleonslive: [
+    NapoleonsLive: [
         { id: 1747, name: 'Buddy LaFleur' }, // Victory Street?
     ],
     NavyWarVet: [
