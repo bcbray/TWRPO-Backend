@@ -3139,6 +3139,9 @@ export const wrpCharacters: WrpCharacters = {
     senpaipugsy: [
         { id: 1816, name: 'Nathan Shaw' },
     ],
+    SentientChronicles: [
+        { id: 1297, name: 'Jason Caliga' },
+    ],
     sgttyn: [
         { id: 723, name: 'Jacob Dubois' },
         { id: 724, name: 'Norris Olson' },
@@ -3708,9 +3711,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2046, name: 'Burt Bolton' },
         { id: 2052, name: 'Charlie "Cactus" Walker' },
         { id: 2220, name: 'Quin Meriweather' },
-    ],
-    TheSentientGaming: [
-        { id: 1297, name: 'Jason Caliga' },
     ],
     TheSlappyOne: [
         { id: 878, name: '[Deputy] Marcus Hutchinson', factions: ['Law'], telegram: 'GJ659' },
