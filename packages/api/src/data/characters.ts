@@ -1564,7 +1564,7 @@ export const wrpCharacters: WrpCharacters = {
     HulzyRP: [
         { id: 1269, name: 'Ciccio "Cheech" ?' },
     ],
-    Hunty: [
+    Huntag: [
         { id: 1827, name: 'Felix Mackwell' },
     ],
     Hurnani: [
