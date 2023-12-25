@@ -428,7 +428,7 @@ export const wrpCharacters: WrpCharacters = {
     BernieHeHe: [
         { id: 84, name: 'Noah Little' },
     ],
-    big_bear731: [
+    Big_Bear731: [
         { id: 1672, name: '[Deputy] Ehret Dalton', factions: ['Law'] },
     ],
     BIG_BURGER_GUY: [
