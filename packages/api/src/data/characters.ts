@@ -603,7 +603,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 130, name: 'Henry Baptiste', telegram: 'QZ333' },
         { id: 131, name: '[Deputy] Joseph Parrish', factions: ['Law'], telegram: 'UF111' },
     ],
-    calliecakes: [
+    calliecakez: [
         { id: 132, name: 'Amelie Coiner', nicknames: ['Amelie Ashton'], telegram: 'WL938' },
     ],
     CallisTV: [
