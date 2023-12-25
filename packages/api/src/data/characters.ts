@@ -2388,7 +2388,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 52, name: '[Recruit] Mickey Toolin', nicknames: ['Mick'], factions: ['Rangers'] },
     ],
     Middleditch: [
-        { id: 1802, name: 'Scrump Toggins' },
+        { id: 1802, name: '[Deputy] Scrump Toggins', factions: ['Law'] },
         { id: 1997, name: '[Cadet] Ronny McMalligan', factions: ['Law'] },
         { id: 2181, name: 'Darnold DeWitt', factions: ['Perma Trail'] },
     ],
