@@ -1460,6 +1460,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 360, name: 'Joseph "Speedy" McGillagully' },
         { id: 1015, name: 'Harold Roach' },
     ],
+    gothybee: [
+        { id: 882, name: 'Alawa "Ali" Meota' },
+    ],
     GR8N8RP: [
         { id: 2253, name: 'Marlo Mercer' },
     ],
@@ -3730,9 +3733,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1011, name: 'James Roush', formerFactions: ['Law'], telegram: 'NE915' }, // Former Deputy
         { id: 1386, name: 'Randy Beaver' },
         { id: 1692, name: 'Hector Suarez', factions: ['Del Lobos'], telegram: 'CZ571' },
-    ],
-    theweyu: [
-        { id: 882, name: 'Alawa "Ali" Meota' },
     ],
     theWhimsicalWizard: [
         { id: 2250, name: 'Charlotte "Lottie" Ellsworth' },
