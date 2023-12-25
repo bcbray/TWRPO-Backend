@@ -2334,9 +2334,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1085, name: 'Guy Newman', displayName: 0 },
         { id: 1310, name: '[Deputy] Jebediah Ripley', factions: ['Law'], telegram: 'AL699' },
     ],
-    MatttyP92: [
-        { id: 1046, name: 'Benito "Beni" Salvatore' },
-    ],
     MaverickHavoc: [
         { id: 557, name: 'Cornellius Orvid', telegram: 'IS013' },
     ],
@@ -2417,6 +2414,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1074, name: 'Oksana Reznikov' },
         { id: 1487, name: 'Dixie Jacobs', nicknames: ['DJ'], telegram: 'DJ998' },
         { id: 1765, name: 'Sasha Ivanova' },
+    ],
+    mMattyP: [
+        { id: 1046, name: 'Benito "Beni" Salvatore' },
     ],
     Mo1taz: [
         { id: 1327, name: 'Lennart Hellström', telegram: 'RM829' },
