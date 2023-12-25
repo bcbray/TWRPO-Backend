@@ -2000,6 +2000,12 @@ export const wrpCharacters: WrpCharacters = {
     KittyLeigh: [
         { id: 476, name: 'Delilah' },
     ],
+    Kirah_Hellrose: [
+        { id: 873, name: 'Cornileus Moon Frazier', nicknames: ['Seth'], displayName: 2, factions: ['Frazier Gang'], telegram: 'YD718' }, // "Cornileus Moon" "Cornileus Moon-Frazier" "Moon Frazier" "Moon “Seth” Frazier"
+        { id: 874, name: 'Amadeus "Adonis" Silver' },
+        { id: 1504, name: 'Vega Escudero' },
+        { id: 1868, name: 'Kaseem X' },
+    ],
     Kirikuwaa: [
         { id: 1427, name: '[Recruit] Matthew Morrow', factions: ['Rangers'], telegram: 'VZ031' },
     ],
@@ -3683,12 +3689,6 @@ export const wrpCharacters: WrpCharacters = {
     themightycaveman: [
         { id: 1047, name: 'Franklin Jones' },
         { id: 2126, name: 'Venezio Gatto' },
-    ],
-    TheObsidianTravelersCo: [
-        { id: 873, name: 'Cornileus Moon Frazier', nicknames: ['Seth'], displayName: 2, factions: ['Frazier Gang'], telegram: 'YD718' }, // "Cornileus Moon" "Cornileus Moon-Frazier" "Moon Frazier" "Moon “Seth” Frazier"
-        { id: 874, name: 'Amadeus "Adonis" Silver' },
-        { id: 1504, name: 'Vega Escudero' },
-        { id: 1868, name: 'Kaseem X' },
     ],
     ThePatrician69: [
         { id: 875, name: '[Deputy] Nate Casey', factions: ['Law', 'Bluestone'], formerFactions: ['Kelly Gang'], telegram: 'AV925' },
