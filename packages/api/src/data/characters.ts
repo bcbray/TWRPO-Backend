@@ -2277,7 +2277,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 542, name: 'William White' },
         { id: 1097, name: 'Abe Cooper' },
     ],
-    Mackieltd: [
+    Mackie_nx: [
         { id: 543, name: '[Sheriff] Jack Cameron', factions: ['Law'], telegram: 'KA482' },
         { id: 544, name: 'Scott Samuel' },
         { id: 545, name: 'Nathanial ?', nicknames: ['Smoke'] },
