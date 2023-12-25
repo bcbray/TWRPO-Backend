@@ -3220,7 +3220,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1338, name: 'Daultin Curlay' },
         { id: 1577, name: 'Connor Acree' }, // Old character? Current streams seem to be VODs
     ],
-    SirisLuv: [
+    SirisVT: [
         { id: 741, name: 'Denise Neve' },
     ],
     SirSaltyBacon: [
