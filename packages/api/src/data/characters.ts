@@ -2397,7 +2397,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1253, name: 'Nvdo Kali Yona' },
     ],
     MinksOfMars: [
-        { id: 566, name: 'Irene "Peaches" Corvus', nicknames: ['Forbidden Fruit', 'Nelly'], factions: ['Dead End Gang'], formerFactions: ['Hagen'], telegram: 'YV009' }, // Former Sam's Club
+        { id: 566, name: 'Irene "Peaches" Corvus', nicknames: ['Forbidden Fruit', 'Nelly'], factions: ['Dead End Gang'], formerFactions: ['Hagen'], telegram: 'YV009', deceased: true }, // Former Sam's Club
         { id: 567, name: 'Ana Stravinski' },
         { id: 568, name: 'Willow Wisp' },
         { id: 1126, name: 'Isabela Elena Montoya Cabrera de Isla de Flores III' },
