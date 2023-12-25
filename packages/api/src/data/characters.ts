@@ -3180,7 +3180,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 734, name: 'Mr. White', displayName: 0, telegram: 'JJ244' }, // TODO: Don't know first name
         { id: 1334, name: 'Buck Curlay' },
     ],
-    Sigynvina: [
+    sigynvina: [
         { id: 1933, name: 'Rhea Williams' },
         { id: 2057, name: 'Julia Thomas' },
     ],
