@@ -2832,6 +2832,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Possum_Playz: [
         { id: 1742, name: 'Taras Volkov' },
+        { id: 2275, name: '[Deputy] Lazarus Star', factions: ['Law'] },
     ],
     potsieboi: [
         { id: 653, name: 'Doug Landers' },
