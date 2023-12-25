@@ -3370,7 +3370,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2054, name: 'Sierra "Sisi" Castillo', factions: ['Del Lobos'], telegram: 'LS438' },
         { id: 1665, name: 'Margo Rush', telegram: 'ZW004' },
         { id: 2055, name: 'Aoibh O’Connor', factions: ['Pruitt Gang'] },
-        { id: 2056, name: '[Deputy] Guinevere Wilde', factions: ['Law'] },
+        { id: 2056, name: '[Undersheriff] Guinevere Wilde', nicknames: ['Gwen'], factions: ['Law'] },
     ],
     Sput: [
         { id: 782, name: 'Marvin Mayflower' },
