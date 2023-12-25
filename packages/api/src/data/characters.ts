@@ -2067,17 +2067,17 @@ export const wrpCharacters: WrpCharacters = {
     KuraiCry: [
         { id: 1473, name: 'River Saxton' },
     ],
+    KYC151: [ // Moved from using KYCaffiend to using KYCaffiend_ (since renamed to KYC151)
+        { id: 1999, name: 'Emerson Cain' },
+        { id: 2000, name: 'Montgomery Flynn' },
+        { id: 2001, name: 'Tommaso Scaglietti' },
+        { id: 2003, name: 'Remington "Remy" Elias Flynn', telegram: 'FB578' },
+    ],
     KYCaffiend: [
         { id: 485, name: 'Emerson Cain' },
         { id: 486, name: 'Montgomery Flynn' },
         { id: 487, name: 'Tommaso Scaglietti' },
         { id: 1715, name: 'Remington "Remy" Elias Flynn', telegram: 'FB578' },
-    ],
-    KYCaffiend_: [ // Moved from using KYCaffiend to using KYCaffiend_
-        { id: 1999, name: 'Emerson Cain' },
-        { id: 2000, name: 'Montgomery Flynn' },
-        { id: 2001, name: 'Tommaso Scaglietti' },
-        { id: 2003, name: 'Remington "Remy" Elias Flynn', telegram: 'FB578' },
     ],
     Kyle: [
         { id: 488, name: 'Ren Solo' },
