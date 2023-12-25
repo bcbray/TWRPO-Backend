@@ -1008,7 +1008,7 @@ export const wrpCharacters: WrpCharacters = {
     DreadfullyDespized: [
         { id: 238, name: 'Byong Ho' },
     ],
-    DrensWorld: [
+    drendebt: [
         { id: 239, name: 'Danny Kerrigan', deceased: true }, // Kerrigan Ranch
         { id: 240, name: 'Duncan Ladle' },
         { id: 241, name: '[Sr. Deputy] Duncan Weller', factions: ['Law', 'Bluestone'], telegram: 'EY733' }, // Leader of Bluestone
