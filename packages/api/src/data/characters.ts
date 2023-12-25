@@ -3547,9 +3547,6 @@ export const wrpCharacters: WrpCharacters = {
     Thadrius: [
         { id: 832, name: 'Jimmy Frick' },
     ],
-    ThatGuyMyers: [
-        { id: 2212, name: 'Santiago De La Cruz' },
-    ],
     thatmattlive: [
         { id: 556, name: 'Dan Gerous' },
     ],
@@ -4043,6 +4040,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     WynterWyllowWolfe: [
         { id: 2049, name: 'Hazel Marena' },
+    ],
+    XanderMyze: [
+        { id: 2212, name: 'Santiago De La Cruz' },
     ],
     Xiceman: [
         { id: 947, name: 'Michael Bayo', factions: ['The Baastards'], telegram: 'NA016', deceased: true },
