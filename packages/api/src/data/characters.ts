@@ -3177,7 +3177,7 @@ export const wrpCharacters: WrpCharacters = {
     senpaipugsy: [
         { id: 1816, name: 'Nathan Shaw' },
     ],
-    SentientChronicles: [
+    SentientDNA: [
         { id: 1297, name: 'Jason Caliga' },
     ],
     sgttyn: [
