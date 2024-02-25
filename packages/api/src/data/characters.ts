@@ -864,9 +864,6 @@ export const wrpCharacters: WrpCharacters = {
     DDPeter: [
         { id: 1245, name: 'Pete "Mudbutt" Rotunda' },
     ],
-    deadbeat_shaman: [
-        { id: 1093, name: 'Malcom Irvine' }, // Former Sr Ranger? No longer on ranger roster.
-    ],
     Deadly179: [
         { id: 2116, name: 'Perseus "Pippy" Delony', nicknames: ['Pippy D.'], telegram: 'EB313' },
         { id: 2117, name: 'Damian Rayson' },
@@ -3636,6 +3633,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     the_sea_four: [
         { id: 1393, name: 'Ellie Gator', assume: 'assumeOther' },
+    ],
+    the_spaceshaman: [
+        { id: 1093, name: 'Malcom Irvine' }, // Former Sr Ranger? No longer on ranger roster.
     ],
     TheAaronShaq: [
         { id: 843, name: 'Kenneth "Ricky" Randall' },
