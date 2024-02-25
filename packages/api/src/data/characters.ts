@@ -1385,7 +1385,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 337, name: 'Doug Chipper' },
         { id: 338, name: 'Mike McCoy' },
     ],
-    garyglitch: [
+    GaryGLITCHx: [
         { id: 351, name: 'Max Brady', formerFactions: ['Law'], telegram: 'GH469' }, // Former Sam's Club. Former Deputy
         { id: 352, name: 'Gianni Peccati', telegram: 'KS955' },
         { id: 353, name: 'Mordecai Butterbee' },
