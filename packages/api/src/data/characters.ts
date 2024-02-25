@@ -1219,11 +1219,6 @@ export const wrpCharacters: WrpCharacters = {
     ewanruss: [
         { id: 287, name: 'Alfonso Bonucci', nicknames: ['Coach Al', 'Al'], displayName: 4, factions: ['DiCenzo Famiglia'], telegram: 'MO798' }, // Inactive DiCenzo
     ],
-    extralivia: [
-        { id: 288, name: 'Lydia Spade' },
-        { id: 289, name: 'Aria Monroe' },
-        { id: 2196, name: '[Deputy] Tori Kalahan', displayName: 1, factions: ['Law'] },
-    ],
     Eyebyte: [
         { id: 290, name: 'Amarillo Marnen' },
         { id: 291, name: 'Edbert Trunk' },
@@ -2247,6 +2242,11 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1920, name: 'Nana Yetta' },
         { id: 2032, name: '[Cadet] Maria Dimitriou', factions: ['Law'] },
         { id: 2148, name: 'Antoinette Applebottom' },
+    ],
+    livia: [
+        { id: 288, name: 'Lydia Spade' },
+        { id: 289, name: 'Aria Monroe' },
+        { id: 2196, name: '[Deputy] Tori Kalahan', displayName: 1, factions: ['Law'] },
     ],
     liviatwo: [
         { id: 1820, name: 'Lydia Spade', factions: ['Independent', 'Guarma'], telegram: 'AB336' },
