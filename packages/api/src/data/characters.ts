@@ -1773,7 +1773,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2282, name: '[Deputy] Clementine "C.J." Dollars', factions: ['Law'] },
     ],
     ivorysnowplays: [
-        { id: 2275, name: 'Hattie Mae Jenkins' },
+        { id: 2275, name: 'Hattie Mae "Hattie Mae" Jenkins' },
     ],
     Iwhuttt: [
         { id: 420, name: 'Archibald Welch' },
