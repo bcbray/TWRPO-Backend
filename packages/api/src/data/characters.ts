@@ -387,7 +387,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1929, name: 'Cassidy Gray' },
         { id: 2059, name: 'Aoife Byrne' },
     ],
-    barrybogan: [
+    BarryBogan: [
         { id: 72, name: 'Bernard "Bernie" Bogan', nicknames: ['Bernie the Butcher'] }, // Former Bloody Hood. Bloody Hoods disbanded
         { id: 73, name: 'Jack Doolan' },
     ],
