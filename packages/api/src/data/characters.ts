@@ -940,7 +940,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 215, name: 'Matthias Helvar' },
         { id: 216, name: 'Ramsley Gracey' },
     ],
-    Dirty_10: [
+    dirty_10_jusclowning: [
         { id: 217, name: 'Richard Long', assume: 'assumeOther' },
         { id: 218, name: 'Wesley Long' },
         { id: 219, name: 'Vincent La Guardia' },
