@@ -856,7 +856,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 200, name: 'Edge Lamburg' },
         { id: 1204, name: 'Peter "Squeaky Pete" Conrad', nicknames: ['Pete'], factions: ['Dead End Gang'], telegram: 'CA349' },
     ],
-    davidearl: [
+    DavidEarl: [
         { id: 2263, name: 'Anthony Relish-Lewis' },
         { id: 2264, name: 'Alfred Bradford' },
         { id: 2265, name: 'Daddy Piper' },
