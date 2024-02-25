@@ -2282,9 +2282,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2044, name: 'MaryAnn Maxwell' },
         { id: 2129, name: 'Eloise Chapman' },
     ],
-    Luckcue: [
-        { id: 529, name: 'Alex Mystic' },
-    ],
     Lt_Custard: [
         { id: 530, name: 'Kian McNulty' },
     ],
@@ -2807,6 +2804,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1435, name: 'Merry Slobbins' },
         { id: 1633, name: 'Edgar Lopez', telegram: 'KG025' },
         { id: 2010, name: 'Tee Stavbar' },
+    ],
+    PepsiSlush: [
+        { id: 529, name: 'Alex Mystic' },
     ],
     Pers: [
         { id: 643, name: 'Dr. Carrie Williams' },
