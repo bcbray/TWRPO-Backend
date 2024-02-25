@@ -2312,7 +2312,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 537, name: 'Jackson Slater' },
         { id: 1132, name: 'Sirus Castermen' },
     ],
-    mackaelroni: [
+    Mackaelroni: [
         { id: 538, name: 'Bobby-Sue Fredrickson' },
         { id: 539, name: 'Everett Bondurant' },
         { id: 540, name: 'Jarvis Jones' },
