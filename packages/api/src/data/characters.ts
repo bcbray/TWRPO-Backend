@@ -1790,7 +1790,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1990, name: 'Westley Hogarth' },
         { id: 2087, name: 'Sebastian Henberry' },
     ],
-    IzzaBugg: [
+    izza_bug: [
         { id: 1184, name: '[Sheriff] Maisie Briar', factions: ['Law'], telegram: 'ZE633', deceased: true },
         { id: 1213, name: '[Nurse] Arlie Everett', factions: ['Medical'], telegram: 'MV473' },
         { id: 1375, name: '[Deputy] Elena Henley', factions: ['Law'], telegram: 'QJ017' },
