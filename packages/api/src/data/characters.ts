@@ -370,6 +370,9 @@ export const wrpCharacters: WrpCharacters = {
     bananabrea: [
         { id: 71, name: 'Josephine Gold' },
     ],
+    BandiiitTV: [
+        { id: 52, name: '[Recruit] Mickey Toolin', nicknames: ['Mick'], factions: ['Rangers'] },
+    ],
     Bardivan: [
         { id: 1149, name: 'Vee Ornitier' },
         { id: 1154, name: 'Bardivan Jeeves' },
@@ -2407,9 +2410,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Mick: [
         { id: 565, name: 'Gladys Berry' },
-    ],
-    MickeyyyTV: [
-        { id: 52, name: '[Recruit] Mickey Toolin', nicknames: ['Mick'], factions: ['Rangers'] },
     ],
     Middleditch: [
         { id: 1802, name: '[Deputy] Scrump Toggins', factions: ['Law'] },
