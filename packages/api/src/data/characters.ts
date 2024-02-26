@@ -739,7 +739,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     CoolRanchOfficial: [
         { id: 1469, name: 'Jules Preston', telegram: 'LA938', deceased: true },
-        { id: 1777, name: '[Deputy] Sadie Cooper', nicknames: ['Sadie Parker'], factions: ['Law'], telegram: 'ED325' },
+        { id: 1777, name: '[Sr. Deputy] Sadie Cooper', nicknames: ['Sadie Parker'], factions: ['Law'], telegram: 'ED325' },
         { id: 1937, name: 'Avery Jones' },
     ],
     CopernicusTheDesertWizard: [
