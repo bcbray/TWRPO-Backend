@@ -3772,7 +3772,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2126, name: 'Venezio Gatto' },
     ],
     TheOrchid_: [
-        { id: 2289, name: 'Crosby Neil' },
+        { id: 2289, name: 'Crosby O’Neil' },
     ],
     ThePatrician69: [
         { id: 875, name: '[Deputy] Nate Casey', factions: ['Law', 'Bluestone'], formerFactions: ['Kelly Gang'], telegram: 'AV925' },
