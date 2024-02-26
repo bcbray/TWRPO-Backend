@@ -3965,7 +3965,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1055, name: 'Rhett Sawyer', telegram: 'VP405' },
         { id: 1136, name: 'Theodore Hammond' },
         { id: 1250, name: '[Deputy] Robert Herrera', factions: ['Law'] },
-        { id: 1442, name: '[Sr. Deputy] Wyatt Schaffer', factions: ['Law'], telegram: 'FU564' },
+        { id: 1442, name: '[Undersheriff] Wyatt Schaffer', factions: ['Law'], telegram: 'FU564' },
         { id: 1775, name: 'Pierre Rodgers' },
         { id: 1806, name: 'Amarok' },
     ],
