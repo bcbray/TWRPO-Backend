@@ -2317,7 +2317,7 @@ export const wrpCharacters: WrpCharacters = {
     luka_aus: [
         { id: 533, name: 'Lukeas Winsmore', displayName: 2, factions: ['The Baastards'], formerFactions: ['Boons Boys'], telegram: 'YU594' },
         { id: 534, name: 'Louis O’Neil' },
-        { id: 1363, name: '[Deputy] Cain Maloo', factions: ['Law'], telegram: 'QA880' },
+        { id: 1363, name: 'Cain Maloo', telegram: 'QA880', formerFactions: ['Law'] }, // Former Deputy
         { id: 1717, name: 'Frederick Gold' },
         { id: 1720, name: 'Andre Flocko', telegram: 'BG445' },
     ],
