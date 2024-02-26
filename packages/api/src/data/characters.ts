@@ -1009,7 +1009,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1446, name: 'Seamus Bell', factions: ['Bell Gang'] },
     ],
     DravenTAK: [
-        { id: 1084, name: 'Draven Woodson' },
+        { id: 1084, name: 'Draven Woodson', assume: 'assumeOther' },
         { id: 1188, name: 'Damien ?' }, // Undertaker
         { id: 1189, name: 'Winter Frost', factions: ['Lifer'] }, // Unsure of faction
     ],
