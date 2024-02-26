@@ -3897,7 +3897,7 @@ export const wrpCharacters: WrpCharacters = {
     topspin17: [
         { id: 1008, name: 'Archie Stonewall', telegram: 'BB139' },
         { id: 1060, name: 'Alvin Caster', factions: ['Dead End Gang'], telegram: 'GG577' },
-        { id: 1360, name: '[Cadet] Don Deters', telegram: 'AM073', factions: ['Law'] },
+        { id: 1360, name: '[Deputy] Don Deters', telegram: 'AM073', factions: ['Law'] },
         { id: 1561, name: 'Hershall Herbstreet' },
         { id: 1729, name: 'Chev Silver' },
         { id: 1795, name: 'Bryce Wilkins' },
