@@ -4040,7 +4040,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1924, name: 'July Gray' },
     ],
     VTM___: [
-        { id: 925, name: 'Boone Morales', factions: ['Guarma'], telegram: 'JG239' }, // Guarma Guarda
+        { id: 925, name: 'Boone Morales', factions: ['Guarma'], telegram: 'JG239', assume: 'assumeOther' }, // Guarma Guarda
         { id: 926, name: 'Guy Hyneman' },
     ],
     vtrich: [
