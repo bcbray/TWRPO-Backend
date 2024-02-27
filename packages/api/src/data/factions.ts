@@ -24,7 +24,7 @@ export const wrpFactionsRegex = {
     podcast: noLater(noFormer(/\b(?:(?<!!)podcast|rp\s+theory)\b/i)),
     watchparty: noLater(noFormer(/\b(?<!!)watch[\s\-_.]*part/i)),
     development: /\bdevelop|\bdev\b|\bcoding|devathon/i,
-    law: noLater(noFormer(/\b(?:deputy|cadet|detective|sheriff|scsd)\b/i)),
+    law: noLater(noFormer(/\b(?:deputy|cadet|detective|sheriff|scsd|lawman)\b/i)),
     rangers: noFormer(/\brangers?\b/i),
     dicenzofamiglia: noFormer(/\bdicenzos?\b/i),
     taipan: noFormer(/\btai[\s|-]*pan\b/i),
