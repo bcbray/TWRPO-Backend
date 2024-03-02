@@ -1575,7 +1575,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 382, name: 'Danny Ford' },
     ],
     hapue: [
-        { id: 1520, name: '[Deputy] Frederick Manius', factions: ['Law'] },
+        { id: 1520, name: '[Undersheriff] Frederick Manius', factions: ['Law'] }, // Undersheriff, I think?
     ],
     Haxi_: [
         { id: 383, name: 'Matt Dursk', factions: ['Little Gang'], telegram: 'IF340' },
