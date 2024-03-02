@@ -101,7 +101,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2230, name: 'Gus Guthrie' },
     ],
     Acetrope: [
-        { id: 1519, name: '[Sr. Deputy] Dan Lin', factions: ['Law'], telegram: 'BQ109' },
+        { id: 1519, name: '[Undersheriff] Dan Lin', factions: ['Law'], telegram: 'BQ109' },
     ],
     AChanceOfCosplay: [
         { id: 12, name: 'Bart Bancroft' },
