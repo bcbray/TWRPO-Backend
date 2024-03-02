@@ -3648,7 +3648,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 822, name: 'Monica Peach', deceased: true }, // Unsure deceased or just inactive
         { id: 823, name: 'Oneida Zonta', deceased: true }, // Unsure deceased or just inactive
         { id: 824, name: 'Precious Cargo', factions: ['10 Tonne Gang'], deceased: true },
-        { id: 825, name: 'Gertrude Nelson', deceased: true }, // Unsure deceased or just inactive
+        { id: 825, name: 'Gertrude Nelson', formerFactions: ['Law'], deceased: true }, // Former Sheriff, Unsure deceased or just inactive
         { id: 1092, name: 'Mercy Porter', deceased: true }, // Unsure deceased or just inactive
         { id: 1111, name: '[Guard] Angela Payne', factions: ['Sisika Guard'], deceased: true }, // Unsure deceased or just inactive
         { id: 1129, name: 'Jasmine Baro', factions: ['Independent', 'Guarma'] },
