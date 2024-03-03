@@ -4232,7 +4232,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1726, name: 'Bray Cooper' },
     ],
     YawnyJ: [
-        { id: 1856, name: '[Reporter] Clara Carter', factions: ['News'] },
+        { id: 1856, name: 'Clara Carter', formerFactions: ['News'] }, // Former Reporter
         { id: 1891, name: 'Imogene Foster' },
     ],
     yeka221: [
