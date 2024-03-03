@@ -26,7 +26,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2349
+// Next ID: 2351
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -3920,9 +3920,10 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1526, name: 'Jeb Longwater' },
         { id: 1527, name: 'Willard Carmine' },
     ],
-    // TilkyMits (unsure of real twitch name)
-    // Margaret Delongpre ("Mags", "Maggie"), Woods Gang
-    // Hope, Church of Lost Souls
+    Tilkymits: [
+        { id: 2349, name: 'Margaret Delongpre', nicknames: ['Mags', 'Maggie'], factions: ['Woods Gang'] },
+        { id: 2350, name: 'Hope ?', factions: ['Lost Souls'] },
+    ],
     TilLuxx: [
         { id: 1179, name: '[Medic] Mara Gloom', factions: ['Medical'], telegram: 'GB639' },
         { id: 1237, name: '[Cadet] Til Lux', factions: ['Law'], telegram: 'GW137' },
