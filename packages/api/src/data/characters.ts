@@ -87,7 +87,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 8, name: '[Deputy] Dylan "Tex" Texler', factions: ['Law'] },
     ],
     AarynRollsDice: [
-        { id: 1671, name: '[Trainee] Elianna Rivers', nicknames: ['Elianna Carver'], factions: ['Medical'], formerFactions: ['Law'], telegram: 'AA883' },
+        { id: 1671, name: '[Doctor] Elianna Rivers', nicknames: ['Elianna Carver'], factions: ['Medical'], formerFactions: ['Law'], telegram: 'AA883' },
         { id: 2115, name: '[Ranger] Marion Dillard', factions: ['Rangers'] },
     ],
     abbbz: [
