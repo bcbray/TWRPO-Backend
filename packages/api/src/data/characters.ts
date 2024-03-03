@@ -1920,7 +1920,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1531, name: 'Lucille Montgummery' },
     ],
     Jenny_Bean: [
-        { id: 2273, name: '[Medic] Anneliese Becker', factions: ['Medical'] },
+        { id: 2273, name: 'Anneliese Becker', formerFactions: ['Medical'] }, // Former Medic
     ],
     Jennybeartv: [
         { id: 442, name: 'Gemma Middleton' },
