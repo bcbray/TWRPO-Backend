@@ -26,7 +26,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2348
+// Next ID: 2349
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -1867,7 +1867,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     JackofHeartsodb: [
         { id: 1915, name: 'Alfred Walsh', factions: ['Conductors'], formerFactions: ['Rangers', 'Bluestone'] }, // Former Sr. Ranger
-        { id: 2266, name: 'Jude "Omen" Wright' }, // Church of Lost Souls
+        { id: 2266, name: 'Jude "Omen" Wright', factions: ['Lost Souls'] }, // Church of Lost Souls
         { id: 2290, name: 'Shepherd "Vulture" Collins', factions: ['Woods Gang'] },
     ],
     JackTFD: [
@@ -3425,6 +3425,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 763, name: 'Amarok' },
         { id: 2097, name: 'Robin Banks' },
         { id: 2224, name: 'Cian Mahony' },
+        { id: 2348, name: 'Adelaide Finch', nicknames: ['Amarok', 'Lilith'], factions: ['Lost Souls'] },
     ],
     Sonneflower: [
         { id: 764, name: 'Eliana Diaz' },
@@ -3919,8 +3920,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1526, name: 'Jeb Longwater' },
         { id: 1527, name: 'Willard Carmine' },
     ],
-    // Tiklymits (unsure of real twitch name)
+    // TilkyMits (unsure of real twitch name)
     // Margaret Delongpre ("Mags", "Maggie"), Woods Gang
+    // Hope, Church of Lost Souls
     TilLuxx: [
         { id: 1179, name: '[Medic] Mara Gloom', factions: ['Medical'], telegram: 'GB639' },
         { id: 1237, name: '[Cadet] Til Lux', factions: ['Law'], telegram: 'GW137' },

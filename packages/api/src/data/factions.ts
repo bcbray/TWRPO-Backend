@@ -200,6 +200,7 @@ export const filterRename: { [key in FactionMini]?: string } = {
     topaota: 'To’Pa Ota',
     permatrail: 'The Perma Trail',
     news: 'Saint’s Daily Newspaper',
+    lostsouls: 'Church of Lost Souls',
     onelife: 'One Life Characters',
     otherwrp: 'Unknown RPers',
     other: 'Other Servers',
