@@ -26,7 +26,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2347
+// Next ID: 2348
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -453,6 +453,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BigRed2243: [
         { id: 2039, name: 'Billy Boston' },
+        { id: 2347, name: 'Roger Kennedy', factions: ['Woods Gang'] },
     ],
     BigTimmuh: [
         { id: 1039, name: 'Luke McCoy' },
@@ -1867,7 +1868,7 @@ export const wrpCharacters: WrpCharacters = {
     JackofHeartsodb: [
         { id: 1915, name: 'Alfred Walsh', factions: ['Conductors'], formerFactions: ['Rangers', 'Bluestone'] }, // Former Sr. Ranger
         { id: 2266, name: 'Jude "Omen" Wright' }, // Church of Lost Souls
-        { id: 2290, name: 'Shepherd "Vulture" Collins' },
+        { id: 2290, name: 'Shepherd "Vulture" Collins', factions: ['Woods Gang'] },
     ],
     JackTFD: [
         { id: 1447, name: 'Max Bell', factions: ['Bell Gang'] },
@@ -1933,7 +1934,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1701, name: 'Tess Tempest', telegram: 'LI044' },
     ],
     JernyStreams: [
-        { id: 2006, name: 'Thomas Woods' },
+        { id: 2006, name: 'Thomas Woods', factions: ['Woods Gang'] },
     ],
     JesterTheRyda: [
         { id: 443, name: 'Jordin Bradley' },
@@ -3918,6 +3919,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1526, name: 'Jeb Longwater' },
         { id: 1527, name: 'Willard Carmine' },
     ],
+    // Tiklymits (unsure of real twitch name)
+    // Margaret Delongpre ("Mags", "Maggie"), Woods Gang
     TilLuxx: [
         { id: 1179, name: '[Medic] Mara Gloom', factions: ['Medical'], telegram: 'GB639' },
         { id: 1237, name: '[Cadet] Til Lux', factions: ['Law'], telegram: 'GW137' },
