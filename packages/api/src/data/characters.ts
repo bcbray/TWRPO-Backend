@@ -1824,7 +1824,7 @@ export const wrpCharacters: WrpCharacters = {
     ittybittybritt: [
         { id: 2282, name: '[Deputy] Clementine "C.J." Dollars', factions: ['Law'] },
     ],
-    ivorysnowplays: [
+    IvorySnowPlays: [
         { id: 2275, name: 'Hattie Mae "Hattie Mae" Jenkins' },
     ],
     Iwhuttt: [
