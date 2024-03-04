@@ -4232,9 +4232,6 @@ export const wrpCharacters: WrpCharacters = {
     WynterWyllowWolfe: [
         { id: 2049, name: 'Hazel Marena' },
     ],
-    XanderMyze: [
-        { id: 2212, name: 'Santiago De La Cruz' },
-    ],
     Xiceman: [
         { id: 947, name: 'Michael Bayo', factions: ['The Baastards'], telegram: 'NA016', deceased: true },
         { id: 948, name: '[Deputy] Andrew Kennedy', factions: ['Law'], telegram: 'VZ460' },
@@ -4324,5 +4321,8 @@ export const wrpCharacters: WrpCharacters = {
         { id: 969, name: '[Ranger] Hal Dreen', factions: ['Rangers'], telegram: 'LH984' },
         { id: 970, name: 'Alexander McCoy' },
         { id: 971, name: '[Deputy] Langston Bolo', factions: ['Law'], telegram: 'VC705' },
+    ],
+    ZyberFox: [
+        { id: 2212, name: 'Santiago De La Cruz' },
     ],
 };
