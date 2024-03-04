@@ -782,7 +782,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1143, name: 'Beck ?' },
         { id: 1144, name: 'Alexander Alistair' },
     ],
-    crazy__eagle: [
+    Crazy__Eagle: [
         { id: 2313, name: 'Red Lance', displayName: 0 },
     ],
     Criken: [
