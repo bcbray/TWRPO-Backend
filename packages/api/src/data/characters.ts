@@ -1478,7 +1478,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 347, name: '[Doctor] Mya Ennis', factions: ['Medical'] },
         { id: 348, name: 'Rubella Davies' },
     ],
-    GLITCHY: [
+    GLiTCHY: [
         { id: 349, name: '[Deputy] James Faraday', factions: ['Law'] },
         { id: 350, name: 'Raymond "Rayray" Willis' },
     ],
