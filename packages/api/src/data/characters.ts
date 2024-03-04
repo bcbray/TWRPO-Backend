@@ -2967,6 +2967,9 @@ export const wrpCharacters: WrpCharacters = {
     PuckNatorGaming: [
         { id: 659, name: 'Ernest Thorton' },
     ],
+    pugsyx3: [
+        { id: 1816, name: 'Nathan Shaw' },
+    ],
     PukingFerrets: [
         { id: 660, name: 'Alice Fuller', nicknames: ['Alice Quinn'], factions: ['Fuller House'], formerFactions: ['Kettleman Gang'], telegram: 'QN172' },
         { id: 1764, name: '[Guard] Gwendoline Clarke', factions: ['Sisika Guard'] },
@@ -3270,9 +3273,6 @@ export const wrpCharacters: WrpCharacters = {
     ],
     SencneS: [
         { id: 722, name: 'Desmond Potts' },
-    ],
-    senpaipugsy: [
-        { id: 1816, name: 'Nathan Shaw' },
     ],
     SentientDNA: [
         { id: 1297, name: 'Jason Caliga' },
