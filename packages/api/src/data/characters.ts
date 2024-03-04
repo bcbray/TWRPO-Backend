@@ -2922,7 +2922,7 @@ export const wrpCharacters: WrpCharacters = {
     PissyAtTheDisco: [
         { id: 658, name: 'Oscar Caraballo' },
     ],
-    pixidolll: [
+    PixiDolll: [
         { id: 1472, name: 'Jane Evans' },
     ],
     Point1985: [
