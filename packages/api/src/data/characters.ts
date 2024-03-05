@@ -1522,7 +1522,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Grangelz: [
         { id: 2325, name: 'Martin Jaeger' },
-        { id: 2327, name: 'Jack Fuchs' },
+        { id: 2327, name: 'Jack Fuchs', deceased: true },
     ],
     GraveGamerTV: [
         { id: 365, name: 'Paulson Greer' },
