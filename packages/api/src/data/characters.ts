@@ -3160,7 +3160,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2284, name: 'Ash ?' },
     ],
     SaltyRockGaming: [
-        { id: 2030, name: 'Billy McGavin' },
+        { id: 2030, name: 'Billy McGavin', displayName: 2 },
         { id: 2287, name: 'Donald "Big Bo" Jackson' },
     ],
     Sammyyyyyyy: [
