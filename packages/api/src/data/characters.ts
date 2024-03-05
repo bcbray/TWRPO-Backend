@@ -3384,7 +3384,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1083, name: 'William "Bill" Bennett', nicknames: ['Bill The Baker'] },
     ],
     SkoogFFS: [
-        { id: 745, name: 'Billy Joe Barber', nicknames: ['Billy Joe', 'BJB'], displayName: 4, factions: ['The Nameless'], telegram: 'JC921' },
+        { id: 745, name: 'Billy Joe Barber', nicknames: ['Billy Joe', 'BJB'], displayName: 5, factions: ['The Nameless'], telegram: 'JC921' },
         { id: 746, name: 'Lefty Lone' },
         { id: 747, name: 'Reidar Hagen' },
         { id: 1172, name: 'Frank Gilbani', telegram: 'KE425' }, // Former The Ring
