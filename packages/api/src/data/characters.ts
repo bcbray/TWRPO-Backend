@@ -681,7 +681,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1932, name: 'Wyatt Stream' },
     ],
     ChaoticCreative: [
-        { id: 2283, name: 'Pat Riley' },
+        { id: 2283, name: '[Recruit] Pat Riley', factions: ['Rangers'] },
     ],
     charlieblossom: [
         { id: 147, name: 'Katarina Lovette' },
