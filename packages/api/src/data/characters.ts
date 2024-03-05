@@ -2305,7 +2305,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1712, name: '[Deputy] Cain Taylor', factions: ['Law'], telegram: 'QE630' },
     ],
     Little_Lulah: [
-        { id: 1859, name: 'Ducky Buckshank' },
+        { id: 1859, name: 'Ducky Buckshank', deceased: true },
         { id: 1920, name: 'Nana Yetta' },
         { id: 2032, name: '[Cadet] Maria Dimitriou', factions: ['Law'] },
         { id: 2148, name: 'Antoinette Applebottom' },
