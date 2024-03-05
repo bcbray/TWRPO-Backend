@@ -2212,7 +2212,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1560, name: 'Bessie Blessing' },
     ],
     L00seyG005ey: [
-        { id: 500, name: 'Elijah "Eli" Grayson', factions: ['Little Gang'], telegram: 'HP707' }, // Former Boons Boys? Or maybe I just mistagged?
+        { id: 500, name: 'Elijah "Eli" Grayson', factions: ['Little Gang'], telegram: 'HP707', deceased: true }, // Former Boons Boys? Or maybe I just mistagged?
         { id: 1388, name: '[Deputy] Jonathan Grey', nicknames: ['Jonathan Greycastle', 'Greycastle'], displayName: 4, factions: ['Law'], telegram: 'DE408' },
     ],
     lakuuuna: [
