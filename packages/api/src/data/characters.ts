@@ -1151,7 +1151,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 265, name: 'Al Lombardo', factions: ['DiCenzo Famiglia'], telegram: 'PQ997' }, // Inactive DiCenzo
     ],
     econoben: [
-        { id: 2291, name: '[Recruit] Emerson Thoreau', factions: ['Rangers'] },
+        { id: 2291, name: '[Ranger] Emerson Thoreau', factions: ['Rangers'] },
     ],
     EctoSpectrum: [
         { id: 1150, name: 'Ginette "Netty" Margreit' },
