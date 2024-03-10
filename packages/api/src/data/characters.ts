@@ -776,7 +776,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2009, name: 'Kyle Row' },
     ],
     Coxybaws: [
-        { id: 1923, name: '[Deputy] Fionn O’Malley', factions: ['Law'] },
+        { id: 1923, name: '[Deputy] Fionn O’Malley', factions: ['Law'], assume: 'assumeOther' },
     ],
     CptCutlassSD: [
         { id: 1143, name: 'Beck ?' },
