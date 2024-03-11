@@ -1436,7 +1436,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Gelesas: [
         { id: 1663, name: 'Dolly Dyer', nicknames: ['D.D.', 'DD', 'Dede', 'Dee Dee', 'DeeDee'], displayName: 3, factions: ['10 Tonne Gang'], telegram: 'US641' },
-        { id: 2280, name: 'Gwen Harper' },
+        { id: 2280, name: 'Gwendolyn "Gwen" Harper' },
         { id: 2281, name: 'Viola Olsen' },
         { id: 2362, name: '[Deputy] Cody Likly', factions: ['Law'] },
     ],
