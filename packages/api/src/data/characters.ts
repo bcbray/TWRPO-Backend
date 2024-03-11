@@ -3450,7 +3450,6 @@ export const wrpCharacters: WrpCharacters = {
             id: 762,
             name: '[Undersheriff] Caitlyn Briggs',
             nicknames: ['McAlister', 'Cait', 'Cait McAlister', 'Cait Briggs', 'Briggs-McAlister'],
-            displayName: 3,
             factions: ['Law'],
             telegram: 'XP728',
         },
