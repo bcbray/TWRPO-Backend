@@ -1281,7 +1281,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     fenrirsgaming: [
         { id: 2271, name: 'Julio Barbarcia' },
-        { id: 2375, name: '[Recruit] Shane Cormac', factions: ['Rangers'] },
+        { id: 2375, name: '[Renger] Shane Cormac', factions: ['Rangers'] },
     ],
     FhaeLin: [
         { id: 302, name: '[Sheriff] Tabitha Thorne', factions: ['Law'], telegram: 'BR226' },
