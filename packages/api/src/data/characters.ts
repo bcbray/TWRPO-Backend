@@ -65,7 +65,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1917, name: 'Ruth Baby', factions: ['Independent', 'Guarma'] },
     ],
     '893SHIRO': [
-        { id: 7, name: 'Mitsuhide Nagahama', nicknames: ['Mitsu'], deceased: true, telegram: 'OT815' },
+        { id: 7, name: 'Mitsuhide Nagahama', nicknames: ['Mitsu'], deceased: true, telegram: 'OT815', assume: 'assumeOther' },
         { id: 1200, name: 'Qurun Alghul' },
         { id: 1201, name: 'Thorkel Olafson' },
         { id: 1209, name: 'Otomo Kitano', nicknames: ['Cobweb'] }, // Agustus. Cobweb?
