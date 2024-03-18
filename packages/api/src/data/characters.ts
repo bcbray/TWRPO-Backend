@@ -892,7 +892,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1245, name: 'Pete "Mudbutt" Rotunda' },
     ],
     Deadly179: [
-        { id: 2116, name: 'Perseus "Pippy" Delony', nicknames: ['Pippy D.'], telegram: 'EB313' },
+        { id: 2116, name: 'Perseus "Pippy" Delony', nicknames: ['Pippy D.'], telegram: 'EB313', assume: 'assumeOther' },
         { id: 2117, name: 'Damian Rayson' },
     ],
     DeadRoses21: [
