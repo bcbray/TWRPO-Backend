@@ -1526,9 +1526,6 @@ export const wrpCharacters: WrpCharacters = {
     gothybee: [
         { id: 882, name: 'Alawa "Ali" Meota' },
     ],
-    GR8N8RP: [
-        { id: 2253, name: 'Marlo Mercer' },
-    ],
     GrammTheGibbon: [
         { id: 363, name: 'Jimothy Little', nicknames: ['Little Jimothy', 'LJ', 'Kid'], displayName: 3, factions: ['Little Gang'], leader: true, formerFactions: ['Dead End Gang'], telegram: 'SI011' },
         { id: 361, name: 'Herbert Parker', nicknames: ['Herb'], telegram: 'QL725' }, // Kettleman hangaround
@@ -2691,6 +2688,9 @@ export const wrpCharacters: WrpCharacters = {
     ],
     nawtyeagle: [
         { id: 1302, name: 'Ronnie White' },
+    ],
+    Nay8RP: [
+        { id: 2253, name: 'Marlo Mercer' },
     ],
     Nbodo: [
         { id: 600, name: '[Game Warden] Peter Rockwell', factions: ['Rangers'], telegram: 'PI343' },
