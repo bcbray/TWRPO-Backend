@@ -2334,11 +2334,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 289, name: 'Aria Monroe' },
         { id: 2196, name: '[Deputy] Tori Kalahan', displayName: 1, factions: ['Law'] },
     ],
-    liviatwo: [
-        { id: 1820, name: 'Lydia Spade', factions: ['Independent', 'Guarma'], telegram: 'AB336' },
-        { id: 1866, name: 'Amber Goldberg', telegram: 'MN755' },
-        { id: 1867, name: 'Aria Monroe', telegram: 'UK772' },
-    ],
     Livraan: [
         { id: 520, name: 'Hanna Eriksson' },
     ],
@@ -4307,6 +4302,11 @@ export const wrpCharacters: WrpCharacters = {
     Xiceman: [
         { id: 947, name: 'Michael Bayo', factions: ['The Baastards'], telegram: 'NA016', deceased: true },
         { id: 948, name: '[Deputy] Andrew Kennedy', factions: ['Law'], telegram: 'VZ460' },
+    ],
+    xiviathan: [
+        { id: 1820, name: 'Lydia Spade', factions: ['Independent', 'Guarma'], telegram: 'AB336' },
+        { id: 1866, name: 'Amber Goldberg', telegram: 'MN755' },
+        { id: 1867, name: 'Aria Monroe', telegram: 'UK772' },
     ],
     xlt588gaming: [
         { id: 949, name: 'Adam Garica' },
