@@ -2837,7 +2837,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1862, name: 'Nash Hale' },
     ],
     OldManHowler: [
-        { id: 1212, name: 'Marco Armando Dantez De La Copa' },
+        { id: 1212, name: 'Marco Armando Dantez De La Copa', assume: 'assumeOther' },
     ],
     One_True_Roadie: [
         { id: 1252, name: '[Sr. Ranger] Cole Cade', factions: ['Rangers'], telegram: 'PK751' },
