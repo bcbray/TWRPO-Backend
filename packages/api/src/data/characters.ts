@@ -4385,7 +4385,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 968, name: 'Emmett Fitz' },
     ],
     Zombiefun: [
-        { id: 969, name: '[Ranger] Hal Dreen', factions: ['Rangers'], telegram: 'LH984' },
+        { id: 969, name: '[Game Warden] Henry "Hal" Dreen', factions: ['Rangers'], telegram: 'LH984' },
         { id: 970, name: 'Alexander McCoy' },
         { id: 971, name: '[Deputy] Langston Bolo', factions: ['Law'], telegram: 'VC705' },
         { id: 2396, name: 'Lucas Malone' },
