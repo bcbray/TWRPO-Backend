@@ -4400,3 +4400,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2212, name: 'Santiago De La Cruz' },
     ],
 };
+
+export const requestedRemovedCharacters: string[] = [
+    'endangeredfinley',
+];

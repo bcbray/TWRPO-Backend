@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm';
 import { startOfDay, differenceInSeconds, secondsInDay } from 'date-fns';
 import { StreamersResponse, StreamerResponse, UserResponse } from '@twrpo/types';
 
-import { wrpCharacters } from '../../data/characters';
+import { wrpCharacters, requestedRemovedCharacters } from '../../data/characters';
 import { getFilteredWrpLive } from '../live/liveData';
 import { getCharacterInfo } from '../../characterUtils';
 import { fetchFactions } from './factions';
@@ -262,6 +262,9 @@ export const fetchStreamer = async (
     const entry = Object.entries(wrpCharacters)
         .find(([streamer]) => streamer.toLowerCase() === channel.twitchLogin.toLowerCase());
 
+    const requestedRemoval = requestedRemovedCharacters
+        .some(streamer => streamer.toLowerCase() == channel.twitchLogin.toLowerCase());
+
     const ignoredCharacters = entry
         ? entry[1].filter(character => character.assume === 'neverNp')
         : [];
@@ -439,6 +442,7 @@ export const fetchStreamer = async (
             liveInfo,
             averageStreamStartTimeOffset,
         },
+        requestedRemoval,
         characters: characterInfos,
         recentSegments: validSegments
             .map((segment, idx) => [segment, idx] as [StreamChunk & { isTooShort: boolean }, number])
