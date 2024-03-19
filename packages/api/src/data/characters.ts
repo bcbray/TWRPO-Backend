@@ -3522,7 +3522,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 775, name: 'Tormund Kray' },
     ],
     spiffiness: [
-        { id: 1977, name: '[Ranger] Justine Leroux', factions: ['Rangers'] },
+        { id: 1977, name: '[Sr. Ranger] Justine Leroux', factions: ['Rangers'] },
     ],
     split_uni: [
         { id: 1007, name: 'Koho ?', nicknames: ['Fox'], factions: ['Red Water'], telegram: 'JE142' }, // Former Summers Gang
