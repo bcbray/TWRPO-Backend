@@ -57,6 +57,7 @@ const StreamerLink: React.FC<StreamerLinkProps> = ({ streamer, className, style,
 const Streamer: React.FC<StreamerProps> = ({
   data: {
     streamer,
+    requestedRemoval,
     characters,
   },
 }) => {
@@ -150,7 +151,11 @@ const Streamer: React.FC<StreamerProps> = ({
           <h3>
             Characters
           </h3>
-          {characters.length > 0 ? (
+          {requestedRemoval ? (
+            <p>
+              <em>{`Character information has been removed at the request of ${streamer.displayName}.`}</em>
+            </p>
+          ) : characters.length > 0 ? (
             <CharactersTable
               characters={characters}
               columns={['title', 'name', 'nickname', 'faction', 'formerFaction', 'contact', 'lastSeen', 'duration']}
