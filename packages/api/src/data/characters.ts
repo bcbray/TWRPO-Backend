@@ -579,9 +579,6 @@ export const wrpCharacters: WrpCharacters = {
     Bryce_Reid: [
         { id: 1457, name: 'Melchior "Milk Man" Tarsovich', factions: ['Dead End Gang'] },
     ],
-    Buck_Blaze: [
-        { id: 1098, name: 'Bruce Blaze' },
-    ],
     buddha: [
         { id: 118, name: 'Wu Buddha', factions: ['DiCenzo Famiglia'], telegram: 'EI571' }, // Inactive DiCenzo
     ],
@@ -3902,6 +3899,9 @@ export const wrpCharacters: WrpCharacters = {
         { id: 867, name: 'Pope Langer' },
         { id: 868, name: 'Ron Bryer' },
         { id: 869, name: '[Deputy] William Campbell', factions: ['Law'], telegram: 'JW452' },
+    ],
+    TheHomeBreweryTV: [
+        { id: 1098, name: 'Bruce Blaze' },
     ],
     TheJasonPhoenix: [
         { id: 870, name: 'Fenix Hayston' },
