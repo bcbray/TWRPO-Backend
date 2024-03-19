@@ -2681,7 +2681,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1747, name: 'Buddy LaFleur' }, // Victory Street?
     ],
     NavyWarVet: [
-        { id: 1607, name: '[Ranger] Chase Reeves', factions: ['Rangers'], telegram: 'AY334' },
+        { id: 1607, name: '[Sr. Ranger] Chase Reeves', factions: ['Rangers'], telegram: 'AY334' },
     ],
     nawori: [
         { id: 1364, name: 'Jack Bones', telegram: 'OL590' },
