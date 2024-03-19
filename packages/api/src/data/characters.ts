@@ -2424,7 +2424,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1614, name: 'Gracie Wagoner' },
     ],
     MadHare_23: [
-        { id: 1377, name: 'Edward Bretton', telegram: 'IN643' },
+        { id: 1377, name: 'Edward Bretton', telegram: 'IN643', assume: 'assumeOther' },
         { id: 1378, name: 'Jugg Washburn', factions: ['The Strays'], telegram: 'TF573' },
         { id: 1608, name: 'Edmund Rivett', telegram: 'ZP509' },
         { id: 1609, name: 'Kurtis "Big Swell" Swell' },
