@@ -3855,8 +3855,8 @@ export const wrpCharacters: WrpCharacters = {
     ],
     thedopemaster93: [ // Ssaab alt
         { id: 1501, name: '[Deputy] Leo Slacks', nicknames: ['Golden Boy'], factions: ['Law'], telegram: 'EO787', deceased: true },
-        { id: 1502, name: 'Charles "CD" Divine', telegram: 'FA344', factions: ['The Baastards'] },
-        { id: 1734, name: 'Sam Baas', factions: ['The Baastards'], leader: true, nicknames: ['Dank Outlaw'], deceased: true, telegram: 'YB638' }, // Former Sam's Club. leader of Sam's Club
+        { id: 1502, name: 'Charles "CD" Divine', telegram: 'FA344', factions: ['The Baastards'], deceased: true },
+        { id: 1734, name: 'Sam Baas', factions: ['The Baastards'], leader: true, nicknames: ['Dank Outlaw', 'Sam Christ'], deceased: true, telegram: 'YB638' }, // Former Sam's Club. leader of Sam's Club
         { id: 1735, name: 'Ali Baba', displayName: 0 },
     ],
     TheFlipFlopKing: [
