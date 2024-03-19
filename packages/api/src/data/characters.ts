@@ -4035,7 +4035,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 897, name: 'Howard Purdnar', assume: 'assumeOther' },
         { id: 898, name: 'Samson Graves' },
         { id: 2215, name: 'Julius Roth' },
-        { id: 2397, name: '[Guard] ? Aldrich', displayName: 2, factions: ['Sisika Guard'] },
+        { id: 2397, name: '[Guard] Leonardo Aldrich', displayName: 2, factions: ['Sisika Guard'] },
     ],
     toodlehausn: [
         { id: 899, name: 'Adelae "Ada" Wright' },
