@@ -1230,6 +1230,7 @@ export const wrpCharacters: WrpCharacters = {
     //     { id: 1611, name: 'Jolene Davenport' },
     //     { id: 1873, name: 'Cody Curtis' },
     //     { id: 2099, name: 'Ken Oath' }, // Law hopeful
+    //     { id: , name: 'Joan Jagger' },
     // ],
     ENiGMAorigin: [
         { id: 1258, name: 'Theodore Paul' },
