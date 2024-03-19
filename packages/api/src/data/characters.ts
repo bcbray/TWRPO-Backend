@@ -818,6 +818,10 @@ export const wrpCharacters: WrpCharacters = {
     CyanideX: [
         { id: 2394, name: 'Jay Lewis' },
     ],
+    CyberGoosey: [
+        { id: 500, name: 'Elijah "Eli" Grayson', factions: ['Little Gang'], telegram: 'HP707', deceased: true }, // Former Boons Boys? Or maybe I just mistagged?
+        { id: 1388, name: '[Deputy] Jonathan Grey', nicknames: ['Jonathan Greycastle', 'Greycastle'], displayName: 4, factions: ['Law'], telegram: 'DE408' },
+    ],
     CyboargTV: [
         { id: 178, name: '[Deputy] Porter O’Neill', factions: ['Law'] },
     ],
@@ -2227,10 +2231,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 498, name: 'Trixie Davenport' },
         { id: 499, name: 'Jade Turner', telegram: 'DD964' },
         { id: 1560, name: 'Bessie Blessing' },
-    ],
-    L00seyG005ey: [
-        { id: 500, name: 'Elijah "Eli" Grayson', factions: ['Little Gang'], telegram: 'HP707', deceased: true }, // Former Boons Boys? Or maybe I just mistagged?
-        { id: 1388, name: '[Deputy] Jonathan Grey', nicknames: ['Jonathan Greycastle', 'Greycastle'], displayName: 4, factions: ['Law'], telegram: 'DE408' },
     ],
     lakuuuna: [
         { id: 501, name: 'Tavish Black' },
