@@ -3393,7 +3393,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1051, name: 'Ronnie Rivers', factions: ['The Baastards'], telegram: 'YB719', deceased: true },
         { id: 1754, name: 'Ban Krobber', displayName: 0 },
         { id: 2188, name: 'Jimmy Whales', nicknames: ['Jimmy Milk'] },
-        { id: 2410, name: 'Hans Dickens' },
+        { id: 2410, name: 'Heinz Dickens', displayName: 2 },
     ],
     SilentSentry: [
         { id: 738, name: 'Emmet "Stripes" Wagner' },
