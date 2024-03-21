@@ -2069,7 +2069,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1710, name: 'Angel Roberts' }, // Telegram: GX691
         { id: 1758, name: 'Jameson "Bear" Farthing', nicknames: ['Mitchel', 'Hourglass', 'HG'] }, // Telegram: WB970
         { id: 1841, name: 'Cecily "CC" Matthews' },
-        { id: 2192, name: '[Deputy] Keith Oath', displayName: 1, factions: ['Law'] },
+        { id: 2192, name: '[Deputy] Keith Oath', factions: ['Law'] },
         { id: 2193, name: 'Virgil "Gil" Johnson' },
         { id: 2194, name: 'Dot Fletcher' }, // First name Dylan. Streamer doesn’t want it known.
     ],
