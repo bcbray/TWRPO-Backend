@@ -4334,7 +4334,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 956, name: 'Alexander Williams' },
         { id: 1696, name: '[Deputy] Dorian Kelshaw', factions: ['Law'], telegram: 'FH017' },
         { id: 1726, name: 'Bray Cooper' },
-        { id: 2400, name: 'Joseph Wilson' },
+        { id: 2400, name: 'Joseph "Billabong Joe" Wilson' },
     ],
     YawnyJ: [
         { id: 1856, name: 'Clara Carter', formerFactions: ['News'] }, // Former Reporter
