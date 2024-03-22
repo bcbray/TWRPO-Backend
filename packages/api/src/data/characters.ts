@@ -64,7 +64,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1709, name: 'Rigby Mordikai' },
     ],
     '615time': [
-        { id: 1218, name: '[Deputy] Doug Darrell Dan', factions: ['Law'] },
+        { id: 1218, name: '[Deputy] Doug Darrell Dan', factions: ['Law'], assume: 'assumeOther' },
         { id: 1917, name: 'Ruth Baby', factions: ['Independent', 'Guarma'] },
     ],
     '893SHIRO': [
