@@ -2996,7 +2996,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     provenelk: [
         { id: 1883, name: 'Flyspeck Floyd', factions: ['10 Tonne Gang'] },
-        { id: 2414, name: 'Noah ?', deceased: true },
+        { id: 2414, name: 'Noah Sykes', deceased: true },
         { id: 2415, name: 'Mingo ?' },
     ],
     psyrinity: [
