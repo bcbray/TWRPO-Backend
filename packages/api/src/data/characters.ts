@@ -4365,7 +4365,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     xoVESPER: [
         { id: 1021, name: 'Olivia McDurn', factions: ['DiCenzo Famiglia'], deceased: true, telegram: 'FE371' }, // Former DiCenzo
-        { id: 1233, name: 'Josephine "Josie" Adders', factions: ['Kelly Gang'], formerFactions: ['The Baastards'], telegram: 'FO336' },
+        { id: 1233, name: 'Josephine "Josie" Adders', factions: ['Kelly Gang'], formerFactions: ['The Baastards'], telegram: 'FO336', deceased: true },
     ],
     XxSammyisGamingxX: [
         { id: 2334, name: 'Sammy Clark' },
