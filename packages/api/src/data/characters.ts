@@ -3198,7 +3198,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2418, name: 'Eli Lockhart' },
     ],
     RY4N: [
-        { id: 685, name: 'Christine "Momma" Thomas', telegram: 'VA278' }, // Former Momma's Boys? Maybe leader of Momma's Boys?
+        { id: 685, name: 'Christine "Momma" Thomas', telegram: 'VA278', assume: 'assumeOther' }, // Former Momma's Boys? Maybe leader of Momma's Boys?
         { id: 686, name: 'Joe "Moonshine Joe" Burns' },
         { id: 687, name: 'Randy Randy' },
         { id: 688, name: 'Thomas Church' },
