@@ -1523,7 +1523,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 348, name: 'Rubella Davies' },
     ],
     GLiTCHY: [
-        { id: 349, name: '[Deputy] James Faraday', factions: ['Law'] },
+        { id: 349, name: '[Deputy] James Faraday', factions: ['Law'], assume: 'assumeOther' },
         { id: 350, name: 'Raymond "Rayray" Willis' },
     ],
     GnarIyDavidson: [
