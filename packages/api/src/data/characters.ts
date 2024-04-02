@@ -151,7 +151,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2182, name: 'Brock Cactus', factions: ['Perma Trail'], deceased: true },
     ],
     aJimmy: [
-        { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], displayName: 0, factions: ['Kelly Gang'], leader: true, formerFactions: ['Kettleman Gang'], telegram: 'NB240' },
+        { id: 21, name: 'James Kelly', nicknames: ['Kame Jelly', 'Kelbert'], displayName: 0, factions: ['Kelly Gang'], leader: true, formerFactions: ['Kettleman Gang'], telegram: 'NB240', deceased: true },
         { id: 1029, name: 'Kenny Kingston' },
         { id: 1206, name: 'Sunny Falls' },
         { id: 1718, name: 'Theodore Gold' },
