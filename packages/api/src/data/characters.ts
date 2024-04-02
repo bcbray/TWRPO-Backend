@@ -4294,7 +4294,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 930, name: 'Taylor Hicks', factions: ['Red Water'], deceased: true }, // Former Summers Gang
         { id: 931, name: 'William "Bill" Carver' },
         { id: 932, name: 'Benji Bell', factions: ['Bell Gang'], leader: true, telegram: 'VE811' },
-        { id: 1956, name: 'David "Dave" Vandyne', factions: ['Pruitt Gang'] },
+        { id: 1956, name: 'David "Dave" Vandyne', factions: ['Pruitt Gang'], deceased: true },
         { id: 2373, name: 'Lindsey Michaels' },
     ],
     WeeJimcent: [
