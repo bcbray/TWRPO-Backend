@@ -316,7 +316,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1739, name: '[Deputy] Nika Mercer', factions: ['Law'], telegram: 'WU074' },
         { id: 1959, name: 'Elizabeth Haynes' },
         { id: 2025, name: 'Lex Lockhart' },
-        { id: 2295, name: 'Alexander Krause' },
+        { id: 2295, name: 'Alexander Krause', deceased: true },
     ],
     aviceration: [
         { id: 53, name: 'Ella Mason' },
