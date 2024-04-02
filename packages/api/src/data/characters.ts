@@ -2389,7 +2389,7 @@ export const wrpCharacters: WrpCharacters = {
     lizzyyyy: [
         { id: 1290, name: 'Olive Cotter', factions: ['The Black Company'], telegram: 'WX925' },
         { id: 1652, name: 'Margery Linden', telegram: 'EL717' },
-        { id: 2118, name: '[Ranger] Cayenne Strong', factions: ['Rangers'] },
+        { id: 2118, name: '[Sr. Ranger] Cayenne Strong', factions: ['Rangers'] },
     ],
     ll_Marziano_ll: [
         { id: 521, name: 'James Lawson' },
