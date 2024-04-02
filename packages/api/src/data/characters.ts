@@ -2934,7 +2934,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2023, name: 'Kenneth Benton' },
         { id: 2065, name: 'Caoimhe Quinn' },
         { id: 2079, name: 'Serena Chen' },
-        { id: 2132, name: 'Mollie McGee' },
+        { id: 2132, name: 'Mollie McGee', deceased: true },
         { id: 2292, name: 'Eleanor Clark' },
     ],
     PeachTreeMcGee: [
