@@ -2107,7 +2107,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1841, name: 'Cecily "CC" Matthews' },
         { id: 2192, name: '[Sr. Deputy] Keith Oath', factions: ['Law'] },
         { id: 2193, name: 'Virgil "Gil" Johnson' },
-        { id: 2194, name: 'Dot Fletcher' }, // First name Dylan. Streamer doesn’t want it known.
+        { id: 2194, name: 'Dylan "Dot" Fletcher', deceased: true }, // First name Dylan. Streamer doesn’t want it known.
     ],
     JVI_Gaming: [
         { id: 2096, name: '[Ranger] Owen Bradley', factions: ['Rangers'] },
