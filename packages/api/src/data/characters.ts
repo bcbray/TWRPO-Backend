@@ -1925,7 +1925,7 @@ export const wrpCharacters: WrpCharacters = {
     JackTFD: [
         { id: 1447, name: 'Max Bell', factions: ['Bell Gang'] },
         { id: 1798, name: 'Charlie Branch', deceased: true },
-        { id: 1957, name: 'Cody ?', factions: ['Pruitt Gang'] },
+        { id: 1957, name: 'Cody ?', factions: ['Pruitt Gang'], deceased: true },
     ],
     jaelymawi: [
         { id: 2112, name: 'Barney Butcher' },
