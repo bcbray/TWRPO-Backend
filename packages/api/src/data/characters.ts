@@ -3091,7 +3091,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 668, name: 'Sally Higgins', nicknames: ['Shotgun'] },
         { id: 669, name: 'Sofia Sherman', factions: ['Moretti Crew'], telegram: 'HV857' },
         { id: 1805, name: 'Nayeli Ba’Cho' },
-        { id: 2371, name: '[Medic] Birdie White', factions: ['Medical'] },
+        { id: 2371, name: '[Sr. Medic] Birdie White', factions: ['Medical'] },
     ],
     raaadd_: [
         { id: 670, name: 'Bonnie Sunn' },
