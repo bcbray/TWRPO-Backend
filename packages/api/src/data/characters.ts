@@ -4113,7 +4113,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1561, name: 'Hershall Herbstreet' },
         { id: 1729, name: 'Chev Silver' },
         { id: 1795, name: 'Bryce Wilkins' },
-        { id: 2242, name: 'Bo Hawkins' },
+        { id: 2242, name: 'Bo Hawkins', deceased: true },
         { id: 2254, name: 'Janet Victoria' },
     ],
     TorradPlays: [
