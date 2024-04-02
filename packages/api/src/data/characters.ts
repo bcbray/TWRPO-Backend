@@ -3404,7 +3404,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1780, name: 'Haystacks Calhoun' }, // Uncertain if that’s their real name
     ],
     Shmooj: [
-        { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'], telegram: 'GI916' },
+        { id: 1452, name: 'JoJo Henderson', factions: ['Little Gang'], telegram: 'GI916', deceased: true},
         { id: 1566, name: 'Mary-Jane "MJ" Macfarlane', factions: ['Conductors'], telegram: 'YJ981' },
         { id: 1599, name: '[Chief] Itukala Cook', nicknames: ['Itukala Wasicu', 'Wash'], factions: ['Wapiti', 'Sun Warriors'], leader: true },
         { id: 1600, name: 'Morgan "Dr. Morgan" Frazier', nicknames: ['Morgan Smith'], factions: ['Frazier Gang'], telegram: 'AF906' },
