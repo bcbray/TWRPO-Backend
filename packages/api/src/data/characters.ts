@@ -4010,7 +4010,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 978, name: 'Charles Haberdash' },
     ],
     theValiance: [
-        { id: 1011, name: 'James Roush', formerFactions: ['Law'], telegram: 'NE915' }, // Former Deputy
+        { id: 1011, name: 'James Roush', formerFactions: ['Law'], telegram: 'NE915', deceased: true }, // Former Deputy
         { id: 1386, name: 'Randy Beaver' },
         { id: 1692, name: 'Hector Suarez', factions: ['Del Lobos'], telegram: 'CZ571' },
     ],
