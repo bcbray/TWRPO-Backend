@@ -409,7 +409,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1067, name: 'Jesse Ambrose' },
         { id: 1444, name: '[Deputy] Lewis Camden', factions: ['Law'], telegram: 'ED726', deceased: true },
         { id: 1491, name: 'Jason Haynes' },
-        { id: 1929, name: 'Cassidy Gray' },
+        { id: 1929, name: 'Cassidy Gray', deceased: true },
         { id: 2059, name: 'Aoife Byrne' },
         { id: 2385, name: 'Lucas "Hush" Riley' },
     ],
