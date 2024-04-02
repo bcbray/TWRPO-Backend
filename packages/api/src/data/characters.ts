@@ -2189,7 +2189,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1438, name: 'Roger Mayberry' },
     ],
     kono5alive: [
-        { id: 1177, name: '[Warden] Lawrence "Big L" ?', factions: ['Sisika Guard'], deceased: true },
+        { id: 1177, name: '[Warden] Lawrence "Big L" Thatcher', factions: ['Sisika Guard'], deceased: true },
         { id: 1178, name: '[Deputy] Andrew Weaver', factions: ['Law'], deceased: true },
         { id: 1292, name: 'Benjamin "Benny" Thatcher', formerFactions: ['Law'], telegram: 'LR040', deceased: true }, // Former Deputy
         { id: 2186, name: 'Colson Steele' },
