@@ -2136,7 +2136,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Keldrithh: [
         { id: 1902, name: 'Alexander Drake', nicknames: ['Captain Drake'], displayName: 3 }, // “Captain Alexander Drake”
-        { id: 1903, name: 'Seiya Orochi' },
+        { id: 1903, name: 'Seiya Orochi', deceased: true },
     ],
     Kelsenpai: [
         { id: 471, name: 'Edward Bolton' },
