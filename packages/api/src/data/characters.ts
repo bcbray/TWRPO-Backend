@@ -3910,7 +3910,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 853, name: 'Javier Moreno' },
         { id: 854, name: 'Thomas Schneider', nicknames: ['Butcher Of Berlin'] },
         { id: 855, name: 'W. J. Patterson' },
-        { id: 1397, name: 'Reuben Roberts', factions: ['10 Tonne Gang'], telegram: 'OW044' },
+        { id: 1397, name: 'Reuben Roberts', factions: ['10 Tonne Gang'], telegram: 'OW044', deceased: true },
     ],
     TheCourtJester: [
         { id: 856, name: 'Dr. Nikolai' },
