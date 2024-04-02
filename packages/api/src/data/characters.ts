@@ -278,7 +278,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 42, name: '[Deputy] Dovie Parker', factions: ['Law'], formerFactions: ['Medical'] }, // Former Sr. Doctor
         { id: 1465, name: '[Nurse] Vivian Smith', factions: ['Medical'] },
         { id: 1880, name: 'Tyene "Ty" Catell' },
-        { id: 1888, name: '[Deputy] Audrey Sandh', factions: ['Law'], telegram: 'JE785', deceased: true },
+        { id: 1888, name: '[Deputy] Audrey Sandh', nicknames: ['Audrey Wiley'], factions: ['Law'], telegram: 'JE785', deceased: true },
         { id: 1908, name: 'Roxanna "Roxy" Fairdeigh' },
     ],
     Ashio_exe: [
