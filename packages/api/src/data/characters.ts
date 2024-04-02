@@ -321,7 +321,7 @@ export const wrpCharacters: WrpCharacters = {
     aviceration: [
         { id: 53, name: 'Ella Mason' },
         { id: 54, name: 'Vincencia "Vinnie" Romeo', deceased: true },
-        { id: 55, name: 'Kitty LaRoux' },
+        { id: 55, name: 'Kitty LaRoux', deceased: true },
     ],
     Avioto_: [
         { id: 56, name: 'Amadeo Moretti', factions: ['Moretti Crew'], leader: true, telegram: 'RI209' },
