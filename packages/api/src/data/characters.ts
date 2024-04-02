@@ -3680,7 +3680,7 @@ export const wrpCharacters: WrpCharacters = {
     suddenly_pandas: [
         { id: 795, name: 'Flamboise Chambord' },
         { id: 796, name: 'Harry Chapman' },
-        { id: 797, name: '[Sheriff] Hudson Hart', factions: ['Law'], telegram: 'XH213' },
+        { id: 797, name: '[Sheriff] Hudson Hart', factions: ['Law'], telegram: 'XH213', deceased: true },
         { id: 798, name: 'Kevin Higgins' },
         { id: 799, name: 'Mackenzie Kale' },
         { id: 800, name: 'Boyd Banks', deceased: true },
