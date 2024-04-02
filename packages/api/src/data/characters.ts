@@ -1040,7 +1040,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1056, name: 'Caleb Milton' },
     ],
     DollarstoreBucc: [
-        { id: 1861, name: 'Jack "Preacher" Sproule', factions: ['Kelly Gang'] },
+        { id: 1861, name: 'Jack "Preacher" Sproule', factions: ['Kelly Gang'], deceased: true },
         { id: 2068, name: 'Kennick Douglas' },
         { id: 2077, name: 'Edward Balthcat' },
         { id: 2238, name: 'Judah Boyer' },
