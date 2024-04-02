@@ -3383,7 +3383,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 727, name: 'Buzz Bleu' }, // Former Sam's Club.
     ],
     SharpCh3d: [
-        { id: 2125, name: 'Alexei Volodsky', nicknames: ['The Butcher'] },
+        { id: 2125, name: 'Alexei Volodsky', nicknames: ['The Butcher'], deceased: true },
         { id: 2232, name: 'Donnie Barton' },
     ],
     ShaunOffShotgun: [
