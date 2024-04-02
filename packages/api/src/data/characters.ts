@@ -1274,7 +1274,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1013, name: 'Annabelle Martin', deceased: true },
         { id: 1240, name: '[Deputy] Olya Ivanavia', factions: ['Law'], formerFactions: ['Rangers'], telegram: 'UB094', deceased: true }, // Former Ranger
         { id: 1477, name: 'Revenant Wright', telegram: 'YB671' },
-        { id: 1778, name: '[Doctor] Kenzington Downey', factions: ['Medical'] },
+        { id: 1778, name: '[Doctor] Kenzington Downey', factions: ['Medical'], deceased: true },
         { id: 1871, name: 'Peter Whistler' },
         { id: 1894, name: 'Brick Thompson' },
         { id: 2011, name: 'Bethany "Silver" Lassik', factions: ['Independent', 'Guarma'] },
