@@ -2326,7 +2326,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1161, name: 'Myrtle Sherman', factions: ['Lifer'] },
         { id: 1374, name: '? ?', nicknames: ['Blue'], displayName: 3, factions: ['The Masked Men'] },
         { id: 1905, name: 'Judas Taylor' },
-        { id: 2164, name: 'Coral Bells', factions: ['Perma Trail'] },
+        { id: 2164, name: 'Coral Bells', factions: ['Perma Trail'], deceased: true },
     ],
     Lewdicon: [
         { id: 950, name: 'Rayven Hope', nicknames: ['Rayvn'] },
