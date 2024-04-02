@@ -3277,7 +3277,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     saturneighteen: [
         { id: 1822, name: 'Henrietta "Henri" Graves', telegram: 'HA761' },
-        { id: 2174, name: 'Oksana Petrova', factions: ['Perma Trail'] },
+        { id: 2174, name: 'Oksana Petrova', factions: ['Perma Trail'], deceased: true },
     ],
     satyr_queen: [
         { id: 701, name: 'Cornelius Tias' },
