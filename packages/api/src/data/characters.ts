@@ -3321,7 +3321,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1471, name: 'Burt Daniels', nicknames: ['Burt Kurt'], factions: ['The Strays'], telegram: 'JY160' },
     ],
     ScottishNapoleon: [
-        { id: 1387, name: 'Jonesy Stewart', factions: ['Quil Gang'], telegram: 'VY875' },
+        { id: 1387, name: 'Jonesy Stewart', factions: ['Quil Gang'], telegram: 'VY875', deceased: true },
         { id: 1420, name: 'Glenn Ferguson', telegram: 'EX324' },
         { id: 2244, name: 'Edward Tennent' },
     ],
