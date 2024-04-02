@@ -3134,7 +3134,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     Rezo24: [
         { id: 1785, name: 'Roy Woods', telegram: 'AG587' },
-        { id: 1817, name: 'Zachary Frost', nicknames: ['Ice'], factions: ['Kelly Gang'] },
+        { id: 1817, name: 'Zachary Frost', nicknames: ['Ice'], factions: ['Kelly Gang'], deceased: true },
         { id: 2248, name: 'Mac Bones' },
         { id: 2256, name: 'Eli Dixon' },
     ],
