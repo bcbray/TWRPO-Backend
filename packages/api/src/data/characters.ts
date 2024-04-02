@@ -3871,7 +3871,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1093, name: 'Malcom Irvine' }, // Former Sr Ranger? No longer on ranger roster.
     ],
     TheAaronShaq: [
-        { id: 843, name: 'Kenneth "Ricky" Randall' },
+        { id: 843, name: 'Kenneth "Ricky" Randall', nicknames: ['Ricky Longfinger'], deceased: true },
         { id: 844, name: 'Wesley Spats' },
         { id: 1088, name: 'Donna ?' },
         { id: 1100, name: 'Bob Roberts' },
