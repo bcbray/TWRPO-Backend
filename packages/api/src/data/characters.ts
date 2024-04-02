@@ -4369,7 +4369,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1569, name: '[Guard] Benrique West', factions: ['Sisika Guard'] },
         { id: 1889, name: '[Sheriff] Harrison Holt', factions: ['Law'], nicknames: ['Heriff Sholt'] },
         { id: 1978, name: 'Chester Brown', factions: ['Conductors'] },
-        { id: 2231, name: 'Archie Burns' },
+        { id: 2231, name: 'Archie Burns', factions: ['Dead End Gang'] },
         { id: 2272, name: 'Jeremiah "Swifty" Swift', deceased: true },
     ],
     WTFGameNation: [
