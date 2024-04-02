@@ -214,7 +214,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1940, name: '[Guard] Philippa Melker', factions: ['Sisika Guard'] },
         { id: 2019, name: 'Edith Tillman' },
         { id: 2051, name: '[Deputy] Caroline Kepple', factions: ['Law'] },
-        { id: 2157, name: 'Sasha Reznikov' },
+        { id: 2157, name: 'Sasha Reznikov', deceased: true },
         { id: 2179, name: 'Tekla Eriksdotter' },
         { id: 2413, name: 'Lucifer Port', displayName: 0 },
         { id: 2449, name: 'Theodosia Poole' },
