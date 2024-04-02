@@ -1384,7 +1384,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2443, name: '[Cadet] Chloe Slaughter', factions: ['Law'] },
     ],
     Fluffalumpalump: [
-        { id: 1669, name: 'Ellie Rose', telegram: 'BL512' }, // On leave from Medical
+        { id: 1669, name: '[Ranger] Ellie Rose', telegram: 'BL512', factions: ['Rangers'], formerFactions: ['Medical'] },
         { id: 2444, name: 'Clara "Magpie" Corbin' },
     ],
     ForeheadSkin: [
