@@ -2027,7 +2027,7 @@ export const wrpCharacters: WrpCharacters = {
     jobyonekanobi: [
         { id: 446, name: 'Clint Gunther' },
         { id: 1857, name: 'Dexter ?', nicknames: ['Dex'] },
-        { id: 1961, name: 'Elijah Mays' },
+        { id: 1961, name: 'Elijah Mays', deceased: true },
         { id: 2088, name: 'Bartholomew Henberry' },
         { id: 2419, name: 'Everett "Evie" Cooper' },
     ],
