@@ -3690,7 +3690,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1169, name: '[Deputy] Black Sky', displayName: 0, factions: ['Law'], telegram: 'OT409' },
         { id: 1392, name: 'John-Michael Douglas' },
         { id: 1410, name: 'Santiago "Santi" Velasquez', factions: ['Del Lobos'], telegram: 'KY343' },
-        { id: 1954, name: 'Dee O’Hara', factions: ['Pruitt Gang'] },
+        { id: 1954, name: 'Dee O’Hara', factions: ['Pruitt Gang'], deceased: true },
         { id: 2261, name: '[Deputy] Hank Hammer', factions: ['Law'] },
         { id: 2409, name: 'Domingo "El Domingo" Ruiz' },
     ],
