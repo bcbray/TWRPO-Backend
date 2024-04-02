@@ -3352,7 +3352,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 717, name: 'William Stone' },
     ],
     SeanVertigo: [
-        { id: 2358, name: '[Deputy] Wade Glass', factions: ['Law'] },
+        { id: 2358, name: '[Sr. Deputy] Wade Glass', factions: ['Law'] },
         { id: 2359, name: '[Medic] Matthew Vannevar', factions: ['Medical'] },
         { id: 2360, name: 'Rene ?' },
     ],
