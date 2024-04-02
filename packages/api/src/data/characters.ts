@@ -2115,7 +2115,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2096, name: '[Ranger] Owen Bradley', factions: ['Rangers'] },
     ],
     JxdiTV: [
-        { id: 463, name: 'Minnie Mines' },
+        { id: 463, name: 'Minnie Mines', deceased: true },
         { id: 1847, name: 'Winnie Jones' },
     ],
     KADOsLIVE: [
