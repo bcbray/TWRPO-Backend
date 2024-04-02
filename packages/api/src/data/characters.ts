@@ -324,7 +324,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 55, name: 'Kitty LaRoux', deceased: true },
     ],
     Avioto_: [
-        { id: 56, name: 'Amadeo Moretti', factions: ['Moretti Crew'], leader: true, telegram: 'RI209' },
+        { id: 56, name: 'Amadeo Moretti', factions: ['Moretti Crew'], leader: true, telegram: 'RI209', deceased: true },
         { id: 57, name: 'Mo Tengfei' },
     ],
     aviyah: [
