@@ -4253,7 +4253,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1619, name: 'Theodore Tubwiggle' },
     ],
     vishnyaxx: [
-        { id: 2297, name: 'Harriette Lovett' },
+        { id: 2297, name: 'Harriette Lovett', deceased: true },
         { id: 2317, name: 'Esther Reaves', deceased: true },
     ],
     Viviana: [
