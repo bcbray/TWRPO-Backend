@@ -2295,7 +2295,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1330, name: 'Ally Ramsey' },
         { id: 1454, name: 'Sierra "Sisi" Castillo', factions: ['Del Lobos'], telegram: 'LS438' },
         { id: 1664, name: 'Margo Rush', telegram: 'ZW004' },
-        { id: 1953, name: 'Aoibh O’Connor', factions: ['Pruitt Gang'] },
+        { id: 1953, name: 'Aoibh O’Connor', factions: ['Pruitt Gang'], deceased: true },
         { id: 1974, name: '[Sheriff] Guinevere Wilde', factions: ['Law'] },
     ],
     learntoswim: [
