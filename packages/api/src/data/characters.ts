@@ -1596,7 +1596,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1405, name: 'Bobby Ratheon', telegram: 'RJ094' },
         { id: 1593, name: '? "Badger" ?' },
         { id: 1761, name: 'Castor Fray', nicknames: ['Cass'], factions: ['Kelly Gang'] },
-        { id: 1948, name: '[Deputy] August Gray', factions: ['Law'] },
+        { id: 1948, name: '[Sr. Deputy] August Gray', factions: ['Law'] },
     ],
     GrumpyChunkyMonkey: [
         { id: 1767, name: 'Arthur Lockwood' },
