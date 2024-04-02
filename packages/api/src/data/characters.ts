@@ -2034,7 +2034,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 451, name: 'Jackie Laguna' },
     ],
     JoeGarbage_: [
-        { id: 2209, name: 'Deckie Rolnik' },
+        { id: 2209, name: 'Deckie Rolnik', deceased: true },
         { id: 2246, name: 'Dallas Longhorn' },
         { id: 2447, name: 'Desmond Boron' },
     ],
