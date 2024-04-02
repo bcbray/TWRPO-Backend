@@ -4369,7 +4369,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1889, name: '[Sheriff] Harrison Holt', factions: ['Law'], nicknames: ['Heriff Sholt'] },
         { id: 1978, name: 'Chester Brown', factions: ['Conductors'] },
         { id: 2231, name: 'Archie Burns' },
-        { id: 2272, name: 'Jeremiah "Swifty" Swift' },
+        { id: 2272, name: 'Jeremiah "Swifty" Swift', deceased: true },
     ],
     WTFGameNation: [
         { id: 946, name: 'Morgan Calloway' },
