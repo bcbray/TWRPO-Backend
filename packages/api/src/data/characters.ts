@@ -4321,7 +4321,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     WickedPhoenixRP: [
         { id: 1440, name: 'Jeremiah Watson', factions: ['Quil Gang'], deceased: true },
-        { id: 1591, name: 'Isaac Quil', factions: ['Quil Gang'], telegram: 'BS485' },
+        { id: 1591, name: 'Isaac Quil', factions: ['Quil Gang'], telegram: 'BS485', deceased: true },
     ],
     WildJing: [
         { id: 2437, name: 'Wilmer Guzman' },
