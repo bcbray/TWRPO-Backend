@@ -1848,7 +1848,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2197, name: 'Willie Boyle', nicknames: ['Rudeboy Willie'] },
     ],
     ItsGrumpyGramps: [
-        { id: 1368, name: '[Deputy] Profit Quil', factions: ['Law', 'Bluestone'], telegram: 'OI576' },
+        { id: 1368, name: '[Deputy] Profit Quil', factions: ['Law', 'Bluestone'], telegram: 'OI576', deceased: true },
     ],
     itsjotsy: [
         { id: 1352, name: '[Sr. Deputy] Elliot Pruitt', factions: ['Law'], telegram: 'PK525' },
