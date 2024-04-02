@@ -2542,7 +2542,7 @@ export const wrpCharacters: WrpCharacters = {
     Middleditch: [
         { id: 1802, name: '[Deputy] Scrump Toggins', factions: ['Law'] },
         { id: 1997, name: '[Cadet] Ronny McMalligan', factions: ['Law'] },
-        { id: 2181, name: 'Darnold DeWitt', factions: ['Perma Trail'] },
+        { id: 2181, name: 'Darnold DeWitt', factions: ['Perma Trail'], deceased: true },
     ],
     MightyMoonBear: [
         { id: 1028, name: 'Russell Woods', telegram: 'BG616' }, // Former The Ring
