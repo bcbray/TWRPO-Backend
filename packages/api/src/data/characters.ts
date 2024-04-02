@@ -3662,7 +3662,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1616, name: 'Ember Shaw' },
     ],
     stenchserpow: [
-        { id: 1426, name: 'Joseph "Hobo Joe" Quinn', factions: ['The Strays'], telegram: 'MV078' },
+        { id: 1426, name: 'Joseph "Hobo Joe" Quinn', factions: ['The Strays'], telegram: 'MV078', deceased: true},
     ],
     Stichboy: [
         { id: 791, name: 'Jeremiah Smoak' },
