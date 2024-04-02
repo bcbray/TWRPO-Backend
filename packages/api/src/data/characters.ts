@@ -328,7 +328,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 57, name: 'Mo Tengfei' },
     ],
     aviyah: [
-        { id: 1955, name: 'Julius Grimes', factions: ['Pruitt Gang'] },
+        { id: 1955, name: 'Julius Grimes', factions: ['Pruitt Gang'], deceased: true },
         { id: 2440, name: '[Deputy] Hugh Hammer', factions: ['Law'] },
         { id: 2452, name: 'Pete Littleman', deceased: true },
     ],
