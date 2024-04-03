@@ -1767,9 +1767,6 @@ export const wrpCharacters: WrpCharacters = {
     HolliverFist: [
         { id: 1603, name: 'Erin McLyre', telegram: 'IA571' },
     ],
-    holo12_: [
-        { id: 1938, name: '[Deputy] Mari Vallen', factions: ['Law'] },
-    ],
     Holoserica: [
         { id: 2319, name: '[Sr. Deputy] Marigold Vallen', factions: ['Law'] },
         { id: 2328, name: 'Calliope Crane' },
