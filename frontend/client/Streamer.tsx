@@ -135,6 +135,7 @@ const Streamer: React.FC<StreamerProps> = ({
   }, [setStreamsView, rum, streamer]);
   const canViewAllSegments = useAuthorization('view-all-segments');
   const canViewTimeseries = useAuthorization('view-streamer-timeseries');
+  const [viewTimeseries, setViewTimeseries] = React.useState(false);
   const canEdit = useAuthorization({
     type: 'overide-segment',
     twitchId: streamer.twitchLogin,
@@ -217,7 +218,7 @@ const Streamer: React.FC<StreamerProps> = ({
             </p>
           )}
         </div>
-        {canViewTimeseries &&
+        {canViewTimeseries && viewTimeseries &&
           <div className={styles.timeseries}>
             <Timeseries
               constrainToServer={!viewAllSegments}
@@ -236,6 +237,14 @@ const Streamer: React.FC<StreamerProps> = ({
                   onClick={() => setViewAllSegments(v => !v)}
                 >
                   {viewAllSegments ? 'View WildRP only' : 'View all streams'}
+                </Button>
+              }
+              {canViewTimeseries &&
+                <Button
+                  as='a'
+                  onClick={() => setViewTimeseries(v => !v)}
+                >
+                  {viewTimeseries ? 'Hide chart' : 'View chart'}
                 </Button>
               }
               {canEdit &&
