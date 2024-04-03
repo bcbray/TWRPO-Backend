@@ -404,7 +404,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     BarlowOfficial: [
         { id: 833, name: 'Logan Callaway', deceased: true },
-        { id: 834, name: '[Deputy] Jonathan Robertson', factions: ['Law'] },
+        { id: 834, name: '[Deputy] Jonathan Robertson', factions: ['Law'], deceased: true }, // Presumed dead? Never streamed, multiple newer deputies
         { id: 835, name: 'Alexander Rose' },
         { id: 1067, name: 'Jesse Ambrose' },
         { id: 1444, name: '[Deputy] Lewis Camden', factions: ['Law'], telegram: 'ED726', deceased: true },
