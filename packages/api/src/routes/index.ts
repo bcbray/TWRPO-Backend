@@ -14,6 +14,7 @@ import v2TimeseriesRouter from './v2/timeseries';
 import v2AdminOverrideSegmentRouter from './v2/admin/override-segment';
 import v2AdminReorderServersRouter from './v2/admin/reorder-servers';
 import v2AdminTestMatcherRouter from './v2/admin/test-matcher';
+import v2AdminOverrideMultipleSegmentsRouter from './v2/admin/override-multiple-segments';
 
 export default {
     liveRouter,
@@ -31,4 +32,5 @@ export default {
     v2AdminOverrideSegmentRouter,
     v2AdminReorderServersRouter,
     v2AdminTestMatcherRouter,
+    v2AdminOverrideMultipleSegmentsRouter,
 };
