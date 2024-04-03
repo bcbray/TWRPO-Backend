@@ -1556,7 +1556,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     GemZo23: [
         { id: 1042, name: 'Doc Ringo' },
-        { id: 2024, name: 'Tommy Couso' },
+        { id: 2024, name: '[Ranger] Tommy Couso', factions: ['Rangers'] },
     ],
     GeneralEmu: [
         { id: 342, name: 'Lance Divine', factions: ['The Baastards'] },
