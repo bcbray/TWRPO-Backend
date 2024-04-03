@@ -1047,7 +1047,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2068, name: 'Kennick Douglas' },
         { id: 2077, name: 'Edward Balthcat' },
         { id: 2238, name: 'Judah Boyer' },
-        { id: 2249, name: 'Leonidas Adamos' },
+        { id: 2249, name: '[Trainee] Leonidas Adamos', factions: ['Conductors'] },
         { id: 2300, name: 'Pavel Borys' },
         { id: 2366, name: 'Abe Lovett' },
     ],
