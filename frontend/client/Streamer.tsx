@@ -8,6 +8,7 @@ import { Twitch, Calendar2RangeFill, Grid3x3GapFill } from 'react-bootstrap-icon
 import { useLocalStorage } from 'react-use';
 import { useDatadogRum } from 'react-datadog';
 import { Button } from '@restart/ui';
+import { toast } from 'react-toastify';
 
 import styles from './Streamer.module.css';
 
@@ -24,6 +25,7 @@ import StreamerTimeline from './StreamerTimeline';
 import { useCurrentServer } from './CurrentServer';
 import { useAuthorization } from './auth'
 import Timeseries from './Timeseries';
+import OverrideMultipleSegmentsModal from './OverrideMultipleSegmentsModal';
 
 interface StreamerProps {
   data: StreamerResponse;
@@ -53,6 +55,44 @@ const StreamerLink: React.FC<StreamerLinkProps> = ({ streamer, className, style,
     {children}
   </OutboundLink>
 );
+
+const MultiEditButton: React.FC<{
+  className?: string,
+  streamerTwitchLogin: string,
+  handleRefresh: () => void,
+}> = ({
+  className,
+  streamerTwitchLogin,
+  handleRefresh,
+}) => {
+  const [showingModal, setShowingModal] = React.useState(false);
+  const showSavedToast = React.useCallback(() => (
+    toast.info('Streams updated!')
+  ), []);
+
+  return <>
+    <Button
+      className={classes(
+        className,
+      )}
+      as='a'
+      onClick={() => setShowingModal(true)}
+    >
+      Edit multiple
+    </Button>
+    <OverrideMultipleSegmentsModal
+      streamerTwitchLogin={streamerTwitchLogin}
+      show={showingModal}
+      onHide={(saved) => {
+        if (saved) {
+          showSavedToast();
+          handleRefresh();
+        }
+        setShowingModal(false);
+      }}
+    />
+  </>;
+};
 
 const Streamer: React.FC<StreamerProps> = ({
   data: {
@@ -95,6 +135,10 @@ const Streamer: React.FC<StreamerProps> = ({
   }, [setStreamsView, rum, streamer]);
   const canViewAllSegments = useAuthorization('view-all-segments');
   const canViewTimeseries = useAuthorization('view-streamer-timeseries');
+  const canEdit = useAuthorization({
+    type: 'overide-segment',
+    twitchId: streamer.twitchLogin,
+  });
   const { server } = useCurrentServer();
   const [viewAllSegments, setViewAllSegments] = React.useState(false);
 
@@ -193,6 +237,12 @@ const Streamer: React.FC<StreamerProps> = ({
                 >
                   {viewAllSegments ? 'View WildRP only' : 'View all streams'}
                 </Button>
+              }
+              {canEdit &&
+                <MultiEditButton
+                  streamerTwitchLogin={streamer.twitchLogin}
+                  handleRefresh={reload}
+                />
               }
             </div>
             <div className={styles.streamsStyleControl}>

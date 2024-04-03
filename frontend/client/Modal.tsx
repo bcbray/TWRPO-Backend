@@ -16,6 +16,8 @@ interface ModalProps
 {
   centered: boolean;
   dismissOnEscape: boolean;
+  dialogClassName?: string;
+  contentClassName?: string;
 }
 
 const transitionStatusStyle: Partial<Record<TransitionStatus, string>> = {
@@ -78,6 +80,8 @@ const Modal = React.forwardRef<ModalHandle, ModalProps>((
     onEntering,
     onExited,
     backdropClassName,
+    dialogClassName,
+    contentClassName,
     manager: propsManager,
     transition = Slide,
     backdropTransition = Fade,
@@ -130,8 +134,8 @@ const Modal = React.forwardRef<ModalHandle, ModalProps>((
       onClick={handleBackdropClick}
       {...props}
     >
-      <div className={styles.dialog}>
-        <div className={styles.content}>
+      <div className={classes(dialogClassName, styles.dialog)}>
+        <div className={classes(contentClassName, styles.content)}>
           {children}
         </div>
       </div>
