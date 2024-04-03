@@ -1797,7 +1797,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1138, name: 'Jackson Diggles' },
     ],
     imradmd: [
-        { id: 2310, name: '[Cadet] Rhett Cassidy', factions: ['Law'] },
+        { id: 2310, name: '[Deputy] Rhett Cassidy', factions: ['Law'] },
         { id: 2311, name: 'Ellis Fray' }, // Frey gang? Fray Gang
         { id: 2312, name: 'Ciaran "Ghost" Kelly' },
         { id: 2462, name: 'Riley Thomas Thomassen' },
