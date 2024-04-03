@@ -1696,7 +1696,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1321, name: 'Harry Dobbing', factions: ['Boons Boys'] },
     ],
     HanyClaps: [
-        { id: 379, name: 'Levi Sawyer' },
+        { id: 379, name: '[Deputy] Levi Sawyer', factions: ['Law'] },
         { id: 380, name: 'Stumpy McBride' },
         { id: 381, name: 'Virgil Sterling' },
     ],
