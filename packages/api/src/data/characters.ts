@@ -3809,7 +3809,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1621, name: 'Wendy Wallace' },
         { id: 1622, name: 'EmmaLee Strawberry' },
         { id: 1623, name: '[Guard] Katrina Moysov', factions: ['Sisika Guard'] },
-        { id: 1975, name: '[Deputy] Mary Dalloway', factions: ['Law'] },
+        { id: 1975, name: '[Sr. Deputy] Mary Dalloway', factions: ['Law'] },
         { id: 2100, name: 'Persephone Sacdecash', nicknames: ['Persephone Fising'] },
         { id: 2267, name: 'Delores "La Delfina" Pintado' },
         { id: 2268, name: '[Guard] Virginia Briscoe', factions: ['Sisika Guard'] },
