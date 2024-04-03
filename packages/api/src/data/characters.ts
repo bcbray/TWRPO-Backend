@@ -1932,7 +1932,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2207, name: 'Beth Murdock' },
     ],
     JackofHeartsodb: [
-        { id: 1915, name: 'Alfred Walsh', factions: ['Conductors'], formerFactions: ['Rangers', 'Bluestone'] }, // Former Sr. Ranger
+        { id: 1915, name: '[Sr. Officer] Alfred Walsh', factions: ['Conductors'], formerFactions: ['Rangers', 'Bluestone'] }, // Former Sr. Ranger
         { id: 2266, name: 'Jude "Omen" Wright', factions: ['Lost Souls'] }, // Church of Lost Souls
         { id: 2290, name: 'Shepherd "Vulture" Collins', factions: ['Woods Gang'] },
     ],
