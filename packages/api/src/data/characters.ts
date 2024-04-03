@@ -3815,7 +3815,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2268, name: '[Guard] Virginia Briscoe', factions: ['Sisika Guard'] },
         { id: 2420, name: 'Luella Huneke' },
         { id: 2269, name: 'Chilali "Storm Touched" ?' },
-        { id: 2340, name: 'Monika Strange' },
+        { id: 2340, name: 'Monika Strange', nicknames: ['Mesmer'] },
         { id: 2341, name: 'Ernestine "Smokey Erns" Farwell' },
         { id: 2342, name: '[Guard] Mirabelle Boudreaux', factions: ['Sisika Guard'] },
     ],
