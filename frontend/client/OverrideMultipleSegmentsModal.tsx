@@ -91,7 +91,7 @@ const StreamRow: React.FC<{
   const displayedCharacterUncertain = !canBeUncertain
     ? false
     : isSelected && overriddenCharacterUncertain !== undefined
-      ? overriddenCharacterUncertain
+      ? overriddenCharacterUncertain ?? false
       : segment.characterUncertain;
 
   const startDate = React.useMemo(() => new Date(segment.startDate), [segment.startDate])
@@ -147,7 +147,6 @@ const StreamRow: React.FC<{
           type='checkbox'
           checked={isSelected}
           onChange={() => {}}
-          // onChange={() => toggleSelection()}
         />
       </div>
       <Tag
@@ -356,7 +355,7 @@ const FormContent: React.FC<LoadedProps> = ({
     channelTwitchId: streamer.twitchId,
     distinctCharacters: false,
     serverId: primaryServer.id,
-  });
+  }, { skipsPreload: true });
 
   return <CurrentServerProvider identifier={serverForStyles.id}>
     <div className={styles.header}>
@@ -482,7 +481,6 @@ const ModalContent: React.FC<OverrideMultipleSegmentsModalProps> = ({
   onHide,
 }) => {
   const [streamerLoadState] = useStreamer(streamerTwitchLogin);
-  // const [segmentLoadState] = useSegment(segmentId, { skipsPreload: true });
   const [serverLoadState] = useServers();
   if (isSuccess(streamerLoadState) && isSuccess(serverLoadState)) {
     return <FormContent
