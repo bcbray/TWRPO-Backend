@@ -4266,7 +4266,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1401, name: '? Rudd', nicknames: ['Rev. Rudd'], displayName: 3 }, // Clergy
         { id: 2262, name: 'Terence "Terry" Kerrigan' },
     ],
-    vexion03: [
+    Vexion03: [
         { id: 2386, name: 'Vash Campbell' },
     ],
     VinnieThatsMe: [
