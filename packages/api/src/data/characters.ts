@@ -3285,7 +3285,7 @@ export const wrpCharacters: WrpCharacters = {
     SaltyRockGaming: [
         { id: 2030, name: 'Billy McGavin', displayName: 2 },
         { id: 2287, name: 'Donald "Big Bo" Jackson' },
-        { id: 2384, name: '[Recruit] Donte Malik', factions: ['Rangers'] },
+        { id: 2384, name: '[Ranger] Donte Malik', factions: ['Rangers'] },
     ],
     Sammyyyyyyy: [
         { id: 698, name: 'Lizzie Clarke' },
