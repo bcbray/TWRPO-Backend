@@ -1439,7 +1439,7 @@ export const wrpCharacters: WrpCharacters = {
     frodohardt: [
         { id: 2458, name: 'Thomas "Tommy" MacBean', deceased: true },
         { id: 2465, name: 'Houston Longhorn' },
-        { id: 2466, name: 'Fredrick Boomhower' },
+        { id: 2466, name: 'Fredrick Boomhower', factions: ['Conductors'] },
     ],
     FroisLost: [
         { id: 1872, name: 'Kieran Blythe' },
