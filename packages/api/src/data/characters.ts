@@ -1439,7 +1439,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     FroisLost: [
         { id: 1872, name: 'Kieran Blythe' },
-        { id: 1884, name: 'Lucia Wellmore', nicknames: ['Inya Nordskov'], factions: ['Conductors'], formerFactions: ['Medical'] }, // Former Medic
+        { id: 1884, name: '[Sr. Officer] Lucia Wellmore', nicknames: ['Inya Nordskov', 'Lucia Nordskov', 'Inya Wellmore', 'Charity'], factions: ['Conductors'], formerFactions: ['Medical'] }, // Former Medic
     ],
     FrontlineBanana: [
         { id: 2228, name: 'Benito Rosetti' },
