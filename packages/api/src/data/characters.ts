@@ -2668,7 +2668,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     mrwolfff98: [
         { id: 1369, name: 'Jesse Rivers' },
-        { id: 1493, name: '[Sr, Ranger] Ellis Wade', factions: ['Rangers'], telegram: 'SU750' },
+        { id: 1493, name: '[Sr. Ranger] Ellis Wade', factions: ['Rangers'], telegram: 'SU750' },
         { id: 1989, name: 'Albie Credence' },
         { id: 2294, name: '[Deputy] Buck Bohannon', factions: ['Law'] },
         { id: 2370, name: 'Charlie "Charming Charlie" Ernst' },
