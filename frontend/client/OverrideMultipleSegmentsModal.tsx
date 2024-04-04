@@ -24,7 +24,7 @@ import { useFactionCss } from './FactionStyleProvider';
 import { useCurrentServer, CurrentServerProvider } from './CurrentServer';
 import { useSegmentTagText } from './SegmentTitleTag';
 import { usePaginatedStreams } from './Streams';
-import { useStreams } from './Data';
+import { useStreams, useUnknownStreams } from './Data';
 import { LoadTrigger, useRelativeDate } from './hooks';
 
 interface OverrideMultipleSegmentsModalProps {
@@ -57,7 +57,6 @@ const StreamRow: React.FC<{
   overriddenCharacterUncertain: boolean | undefined,
   overriddenServer: Server | undefined | null,
   overriddenServerUncertain: boolean | undefined,
-  // overriddenIsHidden
 }> = ({
   segment,
   isSelected,
@@ -183,6 +182,8 @@ const FormContent: React.FC<LoadedProps> = ({
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [hasSubmitted, setHasSubmitted] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
+
+  const [onlyUnknown, setOnlyUnknown] = React.useState(false);
 
   const [overriddenCharacter, setOverriddenCharacter] = React.useState<CharacterInfo | null | undefined>(undefined);
   const [overriddenCharacterUncertain, setOverriddenCharacterUncertain] = React.useState<boolean | undefined>(undefined);
@@ -351,7 +352,8 @@ const FormContent: React.FC<LoadedProps> = ({
     hasMore,
     loadMore,
     loadKey,
-  } = usePaginatedStreams(useStreams, {
+    reload,
+  } = usePaginatedStreams(onlyUnknown ? useUnknownStreams : useStreams, {
     channelTwitchId: streamer.twitchId,
     distinctCharacters: false,
     serverId: primaryServer.id,
@@ -420,6 +422,18 @@ const FormContent: React.FC<LoadedProps> = ({
       </div>
 
       <div>
+        <label>
+          <input
+            type='checkbox'
+            checked={onlyUnknown}
+            onChange={e => {
+              setOnlyUnknown(e.target.checked);
+              reload();
+            }}
+          />
+          {' '}
+          Only unknown streams
+        </label>
         {streams.map(s => (
           <StreamRow
             key={s.segment.id}
