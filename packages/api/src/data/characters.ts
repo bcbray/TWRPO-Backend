@@ -17,6 +17,7 @@ export interface Character {
     assume?: AssumeOther;
     assumeChar?: boolean;
     deceased?: boolean;
+    inactive?: boolean;
     telegram?: string;
 }
 
@@ -803,7 +804,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1937, name: 'Avery Jones' },
         { id: 2338, name: 'Debora "Debs" James' },
         { id: 2486, name: 'Eliza Cain', nicknames: ['Liz'] },
-        { id: 2487, name: 'Millie McGee' },
+        { id: 2487, name: 'Millie McGee', inactive: true },
     ],
     CopernicusTheDesertWizard: [
         { id: 1478, name: 'Copernicus Desert Wizard', nicknames: ['Perni', 'Copernicus the Desert Wizard'] },
@@ -2011,7 +2012,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1915, name: '[Sr. Officer] Alfred Walsh', factions: ['Conductors'], formerFactions: ['Rangers', 'Bluestone'] }, // Former Sr. Ranger
         { id: 2266, name: 'Jude "Omen" Wright', factions: ['Lost Souls'] }, // Church of Lost Souls
         { id: 2290, name: 'Shepherd "Vulture" Collins', factions: ['Woods Gang'] },
-        { id: 2552, name: 'Milo McGee' },
+        { id: 2552, name: 'Milo McGee', inactive: true },
         { id: 2553, name: 'Emil Schmitz', deceased: true },
     ],
     JackTFD: [
@@ -3849,7 +3850,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1584, name: 'Marshall Lee' },
         { id: 1635, name: '[Deputy] Ollie Cooper', factions: ['Law'], telegram: 'CL140' },
         { id: 1840, name: 'Gilbert Kriger', deceased: true },
-        { id: 2131, name: 'Mickey McGee' },
+        { id: 2131, name: 'Mickey McGee', inactive: true },
     ],
     Swordofpower1: [
         { id: 1244, name: 'Jim "Lockjaw Jim" Munson', factions: ['Independent', 'Guarma'], telegram: 'OT144', deceased: true },
