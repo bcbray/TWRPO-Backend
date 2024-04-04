@@ -26,7 +26,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2545
+// Next ID: 2546
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -1898,6 +1898,7 @@ export const wrpCharacters: WrpCharacters = {
     ],
     iotaindigo: [
         { id: 1349, name: 'Andrew Erickson', telegram: 'IZ499' },
+        { id: 2545, name: 'John "Bradshaw" Layfield' },
     ],
     iPopoff: [
         { id: 2239, name: 'Blaze Rider' }, // Is this name correct?
