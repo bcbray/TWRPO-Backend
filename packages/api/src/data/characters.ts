@@ -2012,7 +2012,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2266, name: 'Jude "Omen" Wright', factions: ['Lost Souls'] }, // Church of Lost Souls
         { id: 2290, name: 'Shepherd "Vulture" Collins', factions: ['Woods Gang'] },
         { id: 2552, name: 'Milo McGee' },
-        { id: 2553, name: 'Emil Schmitz' },
+        { id: 2553, name: 'Emil Schmitz', deceased: true },
     ],
     JackTFD: [
         { id: 1447, name: 'Max Bell', factions: ['Bell Gang'] },
