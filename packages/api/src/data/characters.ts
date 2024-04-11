@@ -197,7 +197,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1879, name: 'Violet Alabaster' },
     ],
     AmiAymi: [
-        { id: 2406, name: 'Bailey Hanson-Holt' },
+        { id: 2406, name: 'Bailey Hanson-Holt', factions: ['10 Tonne Gang'] },
     ],
     Amora_xox: [
         { id: 1625, name: 'Nellie Cipriano', telegram: 'YU662' },
