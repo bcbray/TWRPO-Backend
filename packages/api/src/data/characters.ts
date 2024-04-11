@@ -2965,7 +2965,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2083, name: '[Deputy] Yalena Volkov', factions: ['Law'] },
     ],
     noz_101: [
-        { id: 2442, name: 'Benjamin Croft' },
+        { id: 2442, name: 'Benjamin "Benji" Croft', nicknames: ['Benji The Kid'] },
     ],
     nubbyftwx: [
         { id: 1027, name: 'Jock O’Donell' },
