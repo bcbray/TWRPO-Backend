@@ -4424,7 +4424,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 927, name: 'Fester Buckland' },
         { id: 1059, name: 'Jean Claude', assume: 'assumeOther' },
         { id: 2135, name: 'Marty McClaws' },
-        { id: 2288, name: '[Cadet] Jim Hollister', factions: ['Law'] },
+        { id: 2288, name: '[Deputy] Jim Hollister', factions: ['Law'] },
     ],
     WackyTally: [
         { id: 1931, name: 'Paxton Wagy' },
