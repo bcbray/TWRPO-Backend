@@ -491,7 +491,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2347, name: 'Roger Kennedy', factions: ['Woods Gang'] },
     ],
     BigTimmuh: [
-        { id: 1039, name: 'Luke McCoy' },
+        { id: 1039, name: 'Luke McCoy', assume: 'assumeOther' },
     ],
     BikeMan: [
         { id: 85, name: 'Thaddeus Wick' },
