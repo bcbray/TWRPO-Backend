@@ -1770,7 +1770,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1603, name: 'Erin McLyre', telegram: 'IA571' },
     ],
     Holoserica: [
-        { id: 2319, name: '[Sr. Deputy] Marigold Vallen', factions: ['Law'] },
+        { id: 2319, name: '[Undersheriff] Marigold Vallen', factions: ['Law'] },
         { id: 2328, name: 'Calliope Crane' },
     ],
     Hoop: [
