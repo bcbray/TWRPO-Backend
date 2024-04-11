@@ -27,7 +27,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2596
+// Next ID: 2597
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -4379,6 +4379,9 @@ export const wrpCharacters: WrpCharacters = {
     VellamoSwift: [
         { id: 1284, name: 'Alice Jinks' },
         { id: 1456, name: 'Alice Lungsford', factions: ['The Firm'] }, // Same character as Alice Jinks? Old stream titles use “Jinks,” but unclear
+    ],
+    verlic: [
+        { id: 2596, name: 'Colton Saunders' },
     ],
     Versa: [
         { id: 918, name: 'Carlo Marciano', factions: ['DiCenzo Famiglia'], telegram: 'XX125' }, // Former Fantoni Crew
