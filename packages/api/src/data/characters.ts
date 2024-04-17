@@ -1241,7 +1241,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 265, name: 'Al Lombardo', factions: ['DiCenzo Famiglia'], telegram: 'PQ997' }, // Inactive DiCenzo
     ],
     econoben: [
-        { id: 2291, name: '[Ranger] Emerson Thoreau', factions: ['Rangers'] },
+        { id: 2291, name: '[Cadet] Emerson Thoreau', factions: ['Law'], formerFactions: ['Rangers'] },
         { id: 2377, name: 'Rusty McDowell' },
         { id: 2607, name: 'Jesse Peanuts', nicknames: ['Lil’ Jesse Peanuts'], displayName: 3 },
     ],
