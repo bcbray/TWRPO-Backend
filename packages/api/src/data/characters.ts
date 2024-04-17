@@ -2682,7 +2682,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 565, name: 'Gladys Berry' },
     ],
     Middleditch: [
-        { id: 1802, name: '[Deputy] Scrump Toggins', factions: ['Law'] },
+        { id: 1802, name: '[Deputy] Scrump Toggins', factions: ['Law'], deceased: true },
         { id: 1997, name: '[Cadet] Ronny McMalligan', factions: ['Law'] },
         { id: 2181, name: 'Darnold DeWitt', factions: ['Perma Trail'], deceased: true },
         { id: 2467, name: 'Xavier Croom' }, // Doctor hopeful
