@@ -398,7 +398,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2308, name: 'Rubb St. James' },
     ],
     bananabrea: [
-        { id: 71, name: 'Josephine Gold' },
+        { id: 71, name: 'Josephine Gold', assume: 'assumeOther' },
     ],
     BandiiitTV: [
         { id: 52, name: '[Recruit] Mickey Toolin', nicknames: ['Mick'], factions: ['Rangers'] },
