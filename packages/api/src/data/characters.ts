@@ -27,7 +27,7 @@ const reg = (r: RegExp): string => `/${r.source}/`;
 
 // Make character map
 
-// Next ID: 2608
+// Next ID: 2609
 
 export const wrpCharacters: WrpCharacters = {
     '0porkchop0': [
@@ -4404,12 +4404,13 @@ export const wrpCharacters: WrpCharacters = {
     VERTiiGOGAMING: [
         { id: 919, name: '[Deputy] Boyd Kerrigan', factions: ['Law'], telegram: 'KY857', deceased: true }, // Former Kerrigan Ranch
         { id: 920, name: 'Richard "The Wallaby Kid" Eastwick', nicknames: ['Joey Johns'], factions: ['Dead End Gang'], telegram: 'NS591' },
-        { id: 921, name: '[Cadet] Les Darcy', factions: ['Law'] },
+        { id: 921, name: 'Les Darcy' },
         { id: 922, name: 'Bazz Kerrigan', factions: ['Kettleman Gang'], deceased: true }, // leader of Kerrigan Ranch
         { id: 923, name: 'Clarence McCloud' },
         { id: 1117, name: 'Steve "The Dude" McAnderson', deceased: true },
         { id: 1401, name: '? Rudd', nicknames: ['Rev. Rudd'], displayName: 3 }, // Clergy
         { id: 2262, name: 'Terence "Terry" Kerrigan' },
+        { id: 2608, name: '[Cadet] William Darcy', nicknames: ['Sleek'], factions: ['Law'] },
     ],
     Vexion03: [
         { id: 2386, name: 'Vash Campbell' },
