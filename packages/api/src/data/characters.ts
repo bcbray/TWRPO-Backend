@@ -2740,7 +2740,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 2167, name: 'Martha Burnett', factions: ['Perma Trail'] },
     ],
     Mooftress: [
-        { id: 1044, name: 'Erie Waters' },
+        { id: 1044, name: 'Erie Waters', assume: 'assumeOther' },
         { id: 1045, name: 'Dot Lungsford', factions: ['The Firm'], telegram: 'CE927' },
     ],
     MoogieCookies: [
