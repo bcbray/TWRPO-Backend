@@ -759,6 +759,9 @@ const getWrpLive = async (
                                 let maxResults = -1;
                                 let maxSize = -1;
                                 for (const char of characters) {
+                                    if (char.deceased === true) {
+                                        continue;
+                                    }
                                     const matchPositions = [...titleParsed.matchAll(char.nameReg)];
                                     const numResults = matchPositions.length;
                                     const resSize = numResults > 0 ? matchPositions[0][0].length : -1; // Could use all matches, but more expensive
