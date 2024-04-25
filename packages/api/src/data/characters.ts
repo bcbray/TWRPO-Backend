@@ -2200,7 +2200,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1708, name: 'El Sali', telegram: 'LR159' },
     ],
     JPinHD_: [
-        { id: 2332, name: 'Johnny Borsk' },
+        { id: 2332, name: '[Recruit] Johnny Borsk', factions: ['Rangers'] },
     ],
     JRockofBerg: [
         { id: 2123, name: 'Lyle Clambiscuit' },
