@@ -4425,7 +4425,7 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1117, name: 'Steve "The Dude" McAnderson', deceased: true },
         { id: 1401, name: '? Rudd', nicknames: ['Rev. Rudd'], displayName: 3 }, // Clergy
         { id: 2262, name: 'Terence "Terry" Kerrigan' },
-        { id: 2608, name: '[Cadet] William Darcy', nicknames: ['Sleek'], factions: ['Law'] },
+        { id: 2608, name: '[Cadet] William Darcy', nicknames: ['Bill', 'Sleek'], factions: ['Law'] },
     ],
     Vexion03: [
         { id: 2386, name: 'Vash Campbell' },
