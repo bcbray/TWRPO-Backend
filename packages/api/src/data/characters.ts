@@ -849,10 +849,6 @@ export const wrpCharacters: WrpCharacters = {
         { id: 1143, name: 'Beck ?' },
         { id: 1144, name: 'Alexander Alistair' },
     ],
-    Crazy__Eagle: [
-        { id: 2313, name: 'Red Lance', displayName: 0 },
-        { id: 2445, name: 'Bullsnake Bowie', displayName: 0 },
-    ],
     Criken: [
         { id: 173, name: 'Festus Asbestus', factions: ['Perma Trail'], deceased: true },
         { id: 982, name: 'Barry Beaver' },
@@ -4109,6 +4105,10 @@ export const wrpCharacters: WrpCharacters = {
     ],
     TheCourtJester: [
         { id: 856, name: 'Dr. Nikolai' },
+    ],
+    TheCrazyEagle: [
+        { id: 2313, name: 'Red Lance', displayName: 0 },
+        { id: 2445, name: 'Bullsnake Bowie', displayName: 0 },
     ],
     TheDasTony: [
         { id: 857, name: 'Antonio "Tony" Salerno', factions: ['DiCenzo Famiglia'], telegram: 'RR471' },
